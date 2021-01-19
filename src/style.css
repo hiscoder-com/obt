@@ -1,0 +1,13 @@
+body {
+  margin: 0;
+}
+
+html {
+  font-family: Roboto;
+  color: white;
+}
+
+input {
+  outline: none;
+  border: none;
+}
