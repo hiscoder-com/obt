@@ -2,7 +2,8 @@ import React from 'react';
 
 import { ResourcesContextProvider } from 'scripture-resources-rcl';
 
-import BookList from './BookList';
+import BookListOld from './BookListOld';
+import BookListNew from './BookListNew';
 import NavigationBar from './NavigationBar';
 import { Container } from './styled';
 import '../style.css';
@@ -33,7 +34,8 @@ function App() {
         onResources={setResources}
         config={config}
       >
-        <BookList onBookId={setBookId} />
+        <BookListOld />
+        <BookListNew />
       </ResourcesContextProvider>
     </Container>
   );
