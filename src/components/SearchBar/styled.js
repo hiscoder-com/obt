@@ -13,5 +13,5 @@ export const SearchInput = styled.input`
   height: 30px;
   border-radius: 18px;
   width: 190px;
-  padding: 0 10px
+  padding: 0 10px;
 `;
