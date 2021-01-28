@@ -13,7 +13,7 @@ export const Header = styled.div`
 
 export const NavigationLink = styled.a`
   text-decoration: none;
-  :visited  {
+  :visited {
     color: white;
   }
 `;
