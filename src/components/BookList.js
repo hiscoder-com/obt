@@ -11,7 +11,7 @@ function BookList({ onBookId }) {
   const bookList =
     state && state.resources && state.resources[0] && state.resources[0].projects
       ? state.resources[0].projects.map((b, index) => (
-          <p key={index} style={{ color: 'black' }}>
+          <p key={index}>
             <span onClick={() => onBookId(b.identifier)}>{b.title}</span>
           </p>
         ))
