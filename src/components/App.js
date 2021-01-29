@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ResourcesContextProvider } from 'scripture-resources-rcl';
+import { ResourcesContextProvider, ParallelScripture } from 'scripture-resources-rcl';
 
 import BookList from './BookList';
 import NavigationBar from './NavigationBar';
@@ -12,7 +12,7 @@ function App() {
 
   const _resourceLinks = [
     'ru_gl/ru/rlob/master',
-    //"unfoldingWord/en/ult/v5/3jn"
+    'ru_gl/ru/rsob/master',
   ];
 
   const [resourceLinks, setResourceLinks] = React.useState(_resourceLinks);
@@ -23,7 +23,6 @@ function App() {
   return (
     <Container>
       <NavigationBar />
-      <span style={{ color: 'black' }}>{bookId}</span>
       <ResourcesContextProvider
         reference={reference}
         resourceLinks={resourceLinks}
@@ -34,6 +33,12 @@ function App() {
         config={config}
       >
         <BookList onBookId={setBookId} />
+        <ParallelScripture
+              reference={reference}
+              quote=""
+              open
+              height='250px'
+            />
       </ResourcesContextProvider>
     </Container>
   );
