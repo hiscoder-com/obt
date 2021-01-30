@@ -1,10 +1,8 @@
 import React from 'react';
-
 import { ResourcesContextProvider } from 'scripture-resources-rcl';
-
 import BookList from './BookList';
-import NavigationBar from './NavigationBar';
 import { Container } from './styled';
+import MenuBar from './MenuBar';
 import '../style.css';
 
 function App() {
@@ -22,7 +20,7 @@ function App() {
 
   return (
     <Container>
-      <NavigationBar />
+      <MenuBar />
       <span style={{ color: 'black' }}>{bookId}</span>
       <ResourcesContextProvider
         reference={reference}
