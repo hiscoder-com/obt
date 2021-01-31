@@ -6,7 +6,6 @@ import InputBase from '@material-ui/core/InputBase';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
 
-console.log(AppBar);
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: '1',
@@ -71,9 +70,21 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
-const MenuItems = ['Bible', 'OBS', 'Bible in your language'];
+
+const MenuItems = [
+  { title: 'Bible' },
+  { title: 'OBS' },
+  { title: 'Bible in your language' },
+];
+
 export default function MenuBar() {
   const classes = useStyles();
+  const Menu = MenuItems.map((MenuItems, index) => (
+    <Typography className={classes.menuItem} variant="h6" noWrap key={index}>
+      {' '}
+      {MenuItems.title}
+    </Typography>
+  ));
 
   return (
     <div className={classes.root}>
@@ -88,17 +99,7 @@ export default function MenuBar() {
           <Typography className={classes.title} variant="h6" noWrap>
             ROB Resources
           </Typography>
-          <div className={classes.menu}>
-            <Typography className={classes.menuItem} variant="h6" noWrap>
-              {MenuItems[0]}
-            </Typography>
-            <Typography className={classes.menuItem} variant="h6" noWrap>
-              {MenuItems[1]}
-            </Typography>
-            <Typography className={classes.menuItem} variant="h6" noWrap>
-              {MenuItems[2]}
-            </Typography>
-          </div>
+          <div className={classes.menu}>{Menu}</div>
           <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />
