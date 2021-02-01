@@ -31,12 +31,12 @@ function BookList({ onBookId }) {
       : [];
 
   return (
-      <Projects>
-        <h2>New Testament</h2>
-        <div>{ntBookList}</div>
-        <h2>Old Testament</h2>
-        <div>{otBookList}</div>
-      </Projects>
+    <Projects>
+      <h2>New Testament</h2>
+      <div>{ntBookList}</div>
+      <h2>Old Testament</h2>
+      <div>{otBookList}</div>
+    </Projects>
   );
 }
 
