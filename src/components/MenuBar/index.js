@@ -10,6 +10,10 @@ const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: '1',
   },
+  appBar: {
+    backgroundColor: '#2c2c2c',
+    height: '60px',
+  },
   title: {
     [theme.breakpoints.up('sm')]: {
       display: 'block',
@@ -81,20 +85,13 @@ export default function MenuBar() {
   const classes = useStyles();
   const Menu = MenuItems.map((MenuItems, index) => (
     <Typography className={classes.menuItem} variant="h6" noWrap key={index}>
-      {' '}
       {MenuItems.title}
     </Typography>
   ));
 
   return (
     <div className={classes.root}>
-      <AppBar
-        position="static"
-        style={{
-          backgroundColor: '#2c2c2c',
-          height: '60px',
-        }}
-      >
+      <AppBar className={classes.appBar} position="static">
         <Toolbar>
           <Typography className={classes.title} variant="h6" noWrap>
             ROB Resources

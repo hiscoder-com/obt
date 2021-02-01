@@ -9,6 +9,14 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(1),
     minWidth: 120,
   },
+  nativeSelect: {
+    margin: theme.spacing(1),
+    minWidth: 120,
+    color: 'white',
+  },
+  optionStyle: {
+    color: 'black',
+  },
 }));
 
 export default function SelectLanguage() {
@@ -17,21 +25,14 @@ export default function SelectLanguage() {
   return (
     <div>
       <FormControl className={classes.formControl}>
-        <NativeSelect
-          style={{ color: 'white', background: '#2c2c2c' }}
-          defaultValue={10}
-          inputProps={{
-            name: '',
-            id: '',
-          }}
-        >
-          <option style={{ color: 'white', background: '#2c2c2c' }} value={10}>
+        <NativeSelect className={classes.nativeSelect} defaultValue={10}>
+          <option className={classes.optionStyle} value={10}>
             Eng
           </option>
-          <option style={{ color: 'white', background: '#2c2c2c' }} value={20}>
+          <option className={classes.optionStyle} value={20}>
             Rus
           </option>
-          <option style={{ color: 'white', background: '#2c2c2c' }} value={30}>
+          <option className={classes.optionStyle} value={30}>
             Kz
           </option>
         </NativeSelect>
