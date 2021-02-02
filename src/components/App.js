@@ -1,10 +1,9 @@
 import React from 'react';
-
 import { ResourcesContextProvider } from 'scripture-resources-rcl';
 import Book from './Book';
 import BookList from './BookList';
-import NavigationBar from './NavigationBar';
 import { Container } from './styled';
+import MenuBar from './MenuBar';
 import '../style.css';
 
 function App() {
@@ -22,7 +21,7 @@ function App() {
 
   return (
     <Container>
-      <NavigationBar />
+      <MenuBar />
       <ResourcesContextProvider
         reference={reference}
         resourceLinks={resourceLinks}
