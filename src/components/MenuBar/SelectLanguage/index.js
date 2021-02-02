@@ -3,7 +3,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import FormControl from '@material-ui/core/FormControl';
 import NativeSelect from '@material-ui/core/NativeSelect';
 
-console.log(makeStyles);
 const useStyles = makeStyles((theme) => ({
   formControl: {
     margin: theme.spacing(1),
