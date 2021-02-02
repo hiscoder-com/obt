@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { ParallelScripture } from 'scripture-resources-rcl';
 import { BookContainer } from './styled';
 
 function Book(props) {
-  const [bookId] = React.useState();
+  const [bookId] = useState();
   const reference = { bookId };
   return (
     <BookContainer>
