@@ -14,7 +14,9 @@ function BookList({ onBookId }) {
           .filter((project) => project.categories[0] === 'bible-ot')
           .map((project) => (
             <p key={project.sort}>
-              <a onClick={() => onBookId(project.identifier)}>{project.title}</a>
+              <button onClick={() => onBookId(project.identifier)}>
+                {project.title}
+              </button>
             </p>
           ))
       : [];
@@ -25,18 +27,20 @@ function BookList({ onBookId }) {
           .filter((project) => project.categories[0] === 'bible-nt')
           .map((project) => (
             <p key={project.sort}>
-              <a onClick={() => onBookId(project.identifier)}>{project.title}</a>
+              <button onClick={() => onBookId(project.identifier)}>
+                {project.title}
+              </button>
             </p>
           ))
       : [];
 
   return (
-      <Projects>
-        <h2>New Testament</h2>
-        <div>{ntBookList}</div>
-        <h2>Old Testament</h2>
-        <div>{otBookList}</div>
-      </Projects>
+    <Projects>
+      <h2>New Testament</h2>
+      <div>{ntBookList}</div>
+      <h2>Old Testament</h2>
+      <div>{otBookList}</div>
+    </Projects>
   );
 }
 

@@ -1,5 +1,6 @@
 import React from 'react';
 import { ResourcesContextProvider } from 'scripture-resources-rcl';
+import Book from './Book';
 import BookList from './BookList';
 import { Container } from './styled';
 import MenuBar from './MenuBar';
@@ -21,7 +22,6 @@ function App() {
   return (
     <Container>
       <MenuBar />
-      <span style={{ color: 'black' }}>{bookId}</span>
       <ResourcesContextProvider
         reference={reference}
         resourceLinks={resourceLinks}
@@ -31,7 +31,11 @@ function App() {
         onResources={setResources}
         config={config}
       >
-        <BookList onBookId={setBookId} />
+        {reference.bookId ? (
+          <Book setBookId={setBookId} />
+        ) : (
+          <BookList onBookId={setBookId} />
+        )}
       </ResourcesContextProvider>
     </Container>
   );
