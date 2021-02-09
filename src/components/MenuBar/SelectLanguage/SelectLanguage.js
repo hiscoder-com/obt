@@ -1,7 +1,6 @@
 import React from 'react';
 
-import FormControl from '@material-ui/core/FormControl';
-import NativeSelect from '@material-ui/core/NativeSelect';
+import { FormControl, NativeSelect } from '@material-ui/core';
 
 import useStyles from './style';
 
