@@ -1,18 +1,16 @@
 import React from 'react';
 import { ResourcesContextProvider } from 'scripture-resources-rcl';
-import Book from './Book';
-import BookList from './BookList';
-import { Container } from './styled';
-import MenuBar from './MenuBar';
-import '../style.css';
+
+import Book from './components/Book/Book';
+import BookList from './components/BookList/BookList';
+import MenuBar from './components/MenuBar/MenuBar';
+
+import './style.css';
 
 function App() {
   const config = { server: 'https://git.door43.org' };
 
-  const _resourceLinks = [
-    'ru_gl/ru/rlob/master',
-    //"unfoldingWord/en/ult/v5/3jn"
-  ];
+  const _resourceLinks = ['ru_gl/ru/rlob/master'];
 
   const [resourceLinks, setResourceLinks] = React.useState(_resourceLinks);
   const [resources, setResources] = React.useState([]);
@@ -20,7 +18,7 @@ function App() {
   const reference = { bookId };
 
   return (
-    <Container>
+    <>
       <MenuBar />
       <ResourcesContextProvider
         reference={reference}
@@ -37,7 +35,7 @@ function App() {
           <BookList onBookId={setBookId} />
         )}
       </ResourcesContextProvider>
-    </Container>
+    </>
   );
 }
 

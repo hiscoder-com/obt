@@ -1,6 +1,7 @@
 import React from 'react';
-import { Projects } from './styled';
 import { ResourcesContext } from 'scripture-resources-rcl';
+
+import { Projects } from './styled';
 
 function BookList({ onBookId }) {
   const { state } = React.useContext(ResourcesContext);
