@@ -1,22 +1,9 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+
 import FormControl from '@material-ui/core/FormControl';
 import NativeSelect from '@material-ui/core/NativeSelect';
 
-const useStyles = makeStyles((theme) => ({
-  formControl: {
-    margin: theme.spacing(1),
-    minWidth: 120,
-  },
-  nativeSelect: {
-    margin: theme.spacing(1),
-    minWidth: 120,
-    color: 'white',
-  },
-  optionStyle: {
-    color: 'black',
-  },
-}));
+import useStyles from './style';
 
 export default function SelectLanguage() {
   const classes = useStyles();

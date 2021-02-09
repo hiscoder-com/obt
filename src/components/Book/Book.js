@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { ParallelScripture } from 'scripture-resources-rcl';
+
 import { BookContainer } from './styled';
 
 function Book(props) {

@@ -1,7 +1,5 @@
 import styled from 'styled-components';
 
-export const Container = styled.div``;
-
 export const Projects = styled.div`
   width: 70%;
   margin: auto;
@@ -25,19 +23,5 @@ export const Projects = styled.div`
     font-weight: 600;
     font-size: 18px;
     cursor: pointer;
-  }
-`;
-
-export const BookContainer = styled.div`
-  button {
-    margin: 10px 0 0 15px;
-    text-decoration: none;
-    display: inline-block;
-    padding: 8px 16px;
-  }
-
-  button:hover {
-    background-color: #ddd;
-    color: black;
   }
 `;
