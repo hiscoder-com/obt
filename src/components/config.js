@@ -528,3 +528,9 @@ export const bibleList = [
     categories: 'bible-nt',
   },
 ];
+
+export const translationList = [
+  { lang: 'ru', id: 'rob', link: 'ru_gl_final/ru_rob/master' },
+  { lang: 'ru', id: 'rsob', link: 'ru_gl_final/ru_rsob/master' },
+  { lang: 'ru', id: 'rlob', link: 'ru_gl_final/ru_rob/master' },
+];
