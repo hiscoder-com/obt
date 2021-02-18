@@ -4,6 +4,7 @@ import Book from './Book';
 import BookList from './BookList';
 import { Container } from './styled';
 import MenuBar from './MenuBar';
+import TypoReport from './TypoReport';
 import '../style.css';
 
 function App() {
@@ -37,6 +38,7 @@ function App() {
           <BookList onBookId={setBookId} />
         )}
       </ResourcesContextProvider>
+      <TypoReport />
     </Container>
   );
 }
