@@ -3,11 +3,11 @@ import { ResourcesContext } from 'scripture-resources-rcl';
 
 import { Projects } from './styled';
 
-function BookList({ onBookId }) {
+function BookList({ onBook }) {
   const { state } = React.useContext(ResourcesContext);
-  if (state) {
-    debugger;
-  }
+  // if (state) {
+  //   debugger;
+  // }
 
   const otBookList =
     state && state.resources && state.resources[0] && state.resources[0].projects
@@ -15,9 +15,7 @@ function BookList({ onBookId }) {
           .filter((project) => project.categories[0] === 'bible-ot')
           .map((project) => (
             <p key={project.sort}>
-              <button onClick={() => onBookId(project.identifier)}>
-                {project.title}
-              </button>
+              <button onClick={() => onBook(project)}>{project.title}</button>
             </p>
           ))
       : [];
@@ -28,9 +26,7 @@ function BookList({ onBookId }) {
           .filter((project) => project.categories[0] === 'bible-nt')
           .map((project) => (
             <p key={project.sort}>
-              <button onClick={() => onBookId(project.identifier)}>
-                {project.title}
-              </button>
+              <button onClick={() => onBook(project)}>{project.title}</button>
             </p>
           ))
       : [];
