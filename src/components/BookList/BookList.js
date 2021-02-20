@@ -16,13 +16,13 @@ function BookList({ onBookId }) {
   const resourseList = bibleList;
 
   const [checkState, setCheckState] = React.useState({
-    checkedA: true,
+    checkedA: false,
   });
 
   const handleChange = (event) => {
     setCheckState({ ...checkState, [event.target.name]: event.target.checked });
   };
-
+  console.log(checkState);
   const stateResourse =
     state && state.resources && state.resources[0] && state.resources[0].projects
       ? state.resources[0].projects.map((project) => project.identifier)
@@ -34,7 +34,11 @@ function BookList({ onBookId }) {
 
   function renderBookList(mainResourse, categories) {
     return mainResourse
-      .filter((mainResourse) => mainResourse.categories === categories)
+      .filter((mainResourse) =>
+        checkState.checkedA
+          ? mainResourse.categories === categories && mainResourse.isset === true
+          : mainResourse.categories === categories
+      )
       .map((mainResourse) => (
         <p key={mainResourse.sort}>
           {mainResourse.isset ? (
@@ -56,9 +60,9 @@ function BookList({ onBookId }) {
       <FormControlLabel
         control={
           <Checkbox
-            checked={state.checkedB}
+            checked={state.checkedA}
             onChange={handleChange}
-            name="checkedC"
+            name="checkedA"
             color="primary"
           />
         }
