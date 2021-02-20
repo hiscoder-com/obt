@@ -24,4 +24,12 @@ export const Projects = styled.div`
     font-size: 18px;
     cursor: pointer;
   }
+  falsebutton {
+    background-color: transparent;
+    border: none;
+    font-family: arial, sant-serif;
+    color: #bbbbbb;
+    font-weight: 600;
+    font-size: 18px;
+  }
 `;
