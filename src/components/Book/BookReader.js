@@ -8,7 +8,6 @@ function BookReader(props) {
   const [parsedBook, setParsedBook] = useState(null);
 
   const parseBook = project ? project.parseUsfm() : null;
-
   const successCallback = (result) => setParsedBook(result);
   const errorCallback = (error) => console.log(error);
 
@@ -23,7 +22,7 @@ function BookReader(props) {
       >
         Back
       </button>
-      {parsedBook ? <Book book={parsedBook} /> : ''}
+      {parsedBook ? <Book book={parsedBook} disableWordPopover={true} /> : ''}
     </BookContainer>
   );
 }
