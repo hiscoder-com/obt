@@ -15,7 +15,13 @@ function App() {
   const [resourceLinks, setResourceLinks] = React.useState(_resourceLinks);
   const [resources, setResources] = React.useState([]);
   const [book, setBook] = React.useState();
-  const reference = { book };
+  const [bookId, setBookId] = React.useState();
+  const reference = { bookId };
+
+  const onBook = (project) => {
+    setBook(project);
+    setBookId(project ? project.identifier : null);
+  };
 
   return (
     <>
@@ -29,10 +35,10 @@ function App() {
         onResources={setResources}
         config={config}
       >
-        {reference.book ? (
-          <BookReader setBook={setBook} project={book} />
+        {reference.bookId ? (
+          <BookReader onBook={onBook} project={book} />
         ) : (
-          <BookList onBook={setBook} />
+          <BookList onBook={onBook} />
         )}
       </ResourcesContextProvider>
     </>
