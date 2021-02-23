@@ -10,9 +10,9 @@ import { Projects } from './styled';
 function BookList({ onBookId }) {
   let issetCheck = false;
   const { state } = React.useContext(ResourcesContext);
-  // if (state) {
-  //   debugger;
-  // }
+  if (state) {
+    debugger;
+  }
   const resourseList = bibleList;
 
   const [checkState, setCheckState] = React.useState({
@@ -22,7 +22,7 @@ function BookList({ onBookId }) {
   const handleChange = (event) => {
     setCheckState({ ...checkState, [event.target.name]: event.target.checked });
   };
-  console.log(checkState);
+
   const stateResourse =
     state && state.resources && state.resources[0] && state.resources[0].projects
       ? state.resources[0].projects.map((project) => project.identifier)
