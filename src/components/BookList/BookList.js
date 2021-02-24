@@ -13,9 +13,6 @@ function BookList({ onBookId }) {
   const classes = useStyles();  
   let issetCheck = false;
   const { state } = React.useContext(ResourcesContext);
-  if (state) {
-    debugger;
-  }
   const resourseList = bibleList;
 
   const [checkState, setCheckState] = React.useState({
