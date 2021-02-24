@@ -105,8 +105,8 @@ export const bibleList = [
   },
   {
     identifier: '2ch',
-    title: '2 Паралипоменон',
-    rutitle: 'Бытие',
+    title: '2 Chronicles',
+    rutitle: '2 Паралипоменон',
     isset: false,
     sort: 14,
     categories: 'bible-ot',

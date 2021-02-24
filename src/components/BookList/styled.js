@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 
+import { makeStyles } from '@material-ui/core/styles';
+
 export const Projects = styled.div`
   width: 70%;
   margin: auto;
@@ -24,12 +26,20 @@ export const Projects = styled.div`
     font-size: 18px;
     cursor: pointer;
   }
-  falsebutton {
-    background-color: transparent;
-    border: none;
-    font-family: arial, sant-serif;
-    color: #bbbbbb;
-    font-weight: 600;
-    font-size: 18px;
-  }
+  
 `;
+
+export const useStyles = makeStyles((theme) => ({
+  falseElement: {
+    backgroundColor: 'transparent',
+    border: 'none',
+    fontFamily: 'arial, sant-serif',
+    color: '#bbbbbb',
+    fontWeight: 600,
+    fontSize: 18
+  },
+  
+}));
+
+
+  

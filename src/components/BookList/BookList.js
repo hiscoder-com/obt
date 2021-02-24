@@ -1,13 +1,16 @@
 import React from 'react';
+
 import { ResourcesContext } from 'scripture-resources-rcl';
 
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
+
 import { bibleList } from '../config';
 
-import { Projects } from './styled';
+import { Projects, useStyles } from './styled';
 
 function BookList({ onBookId }) {
+  const classes = useStyles();  
   let issetCheck = false;
   const { state } = React.useContext(ResourcesContext);
   if (state) {
@@ -46,7 +49,7 @@ function BookList({ onBookId }) {
               {mainResourse.title}
             </button>
           ) : (
-            <falsebutton>{mainResourse.title}</falsebutton>
+            <span className={classes.falseElement} >{mainResourse.title}</span>
           )}
         </p>
       ));
