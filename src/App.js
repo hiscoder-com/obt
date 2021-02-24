@@ -1,7 +1,7 @@
 import React from 'react';
 import { ResourcesContextProvider } from 'scripture-resources-rcl';
 
-import Book from './components/Book/Book';
+import BookReader from './components/Book/BookReader';
 import BookList from './components/BookList/BookList';
 import MenuBar from './components/MenuBar/MenuBar';
 
@@ -14,8 +14,14 @@ function App() {
 
   const [resourceLinks, setResourceLinks] = React.useState(_resourceLinks);
   const [resources, setResources] = React.useState([]);
+  const [book, setBook] = React.useState();
   const [bookId, setBookId] = React.useState();
   const reference = { bookId };
+
+  const onBook = (project) => {
+    setBook(project);
+    setBookId(project ? project.identifier : null);
+  };
 
   return (
     <>
@@ -30,9 +36,9 @@ function App() {
         config={config}
       >
         {reference.bookId ? (
-          <Book setBookId={setBookId} />
+          <BookReader onBook={onBook} project={book} />
         ) : (
-          <BookList onBookId={setBookId} />
+          <BookList onBook={onBook} />
         )}
       </ResourcesContextProvider>
     </>
