@@ -7,12 +7,18 @@ function BookReader(props) {
   const { project, onBook } = props;
   const [parsedBook, setParsedBook] = useState(null);
   const [chapter, setChapter] = useState(1);
+  const [fault, setFault] = useState('');
 
   useEffect(() => {
     const parseBook = project ? project.parseUsfm() : null;
-    const successCallback = (result) => setParsedBook(result);
+    const successCallback = (result) => {
+      if (Object.keys(result.chapters).length > 0) {
+        setParsedBook(result);
+      } else {
+        setFault('Book not found or not translated');
+      }
+    };
     const errorCallback = (error) => console.log(error);
-
     parseBook.then(successCallback, errorCallback);
   }, [project]);
 
@@ -25,6 +31,7 @@ function BookReader(props) {
       >
         Back
       </button>
+      <h1>{fault}</h1>
       {project ? <h1>{project.title}</h1> : ''}
       {parsedBook && parsedBook.chapters
         ? Object.keys(parsedBook.chapters).map((key) => (

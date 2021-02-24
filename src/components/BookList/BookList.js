@@ -5,9 +5,6 @@ import { Projects } from './styled';
 
 function BookList({ onBook }) {
   const { state } = React.useContext(ResourcesContext);
-  // if (state) {
-  //   debugger;
-  // }
 
   const otBookList =
     state && state.resources && state.resources[0] && state.resources[0].projects
