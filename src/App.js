@@ -10,7 +10,7 @@ import './style.css';
 function App() {
   const config = { server: 'https://git.door43.org' };
 
-  const _resourceLinks = ['ru_gl/ru/rlob/master'];
+  const _resourceLinks = ['ru_gl_final/ru_rlob/master'];
 
   const [resourceLinks, setResourceLinks] = React.useState(_resourceLinks);
   const [resources, setResources] = React.useState([]);
