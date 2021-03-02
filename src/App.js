@@ -1,26 +1,30 @@
 import React from 'react';
 import { ResourcesContextProvider } from 'scripture-resources-rcl';
-import Book from './Book';
-import BookList from './BookList';
-import { Container } from './styled';
-import MenuBar from './MenuBar';
-import '../style.css';
+
+import BookReader from './components/Book/BookReader';
+import BookList from './components/BookList/BookList';
+import MenuBar from './components/MenuBar/MenuBar';
+
+import './style.css';
 
 function App() {
   const config = { server: 'https://git.door43.org' };
 
-  const _resourceLinks = [
-    'ru_gl/ru/rlob/master',
-    //"unfoldingWord/en/ult/v5/3jn"
-  ];
+  const _resourceLinks = ['ru_gl_final/ru_rlob/master'];
 
   const [resourceLinks, setResourceLinks] = React.useState(_resourceLinks);
   const [resources, setResources] = React.useState([]);
+  const [book, setBook] = React.useState();
   const [bookId, setBookId] = React.useState();
   const reference = { bookId };
 
+  const onBook = (project) => {
+    setBook(project);
+    setBookId(project ? project.identifier : null);
+  };
+
   return (
-    <Container>
+    <>
       <MenuBar />
       <ResourcesContextProvider
         reference={reference}
@@ -32,12 +36,12 @@ function App() {
         config={config}
       >
         {reference.bookId ? (
-          <Book setBookId={setBookId} />
+          <BookReader onBook={onBook} project={book} />
         ) : (
-          <BookList onBookId={setBookId} />
+          <BookList onBook={onBook} />
         )}
       </ResourcesContextProvider>
-    </Container>
+    </>
   );
 }
 
