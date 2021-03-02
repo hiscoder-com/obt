@@ -26,10 +26,6 @@ const useStyles = makeStyles((theme) => ({
 export default function BottomAppBar() {
   const [open, setOpen] = React.useState(false);
 
-  const selectionNode1 = window.getSelection();
-
-  console.log(selectionNode1);
-
   const selectionNode = window
     .getSelection()
     ?.anchorNode?.parentNode?.textContent?.toString();
@@ -87,8 +83,6 @@ export default function BottomAppBar() {
     </AppBar>
   );
 }
-
-/**/
 
 /*
     const url = `https://docs.google.com/forms/u/0/d/e/1FAIpQLSeoo8oL77CpI9Axy2uT6zTCVH9wvZNmvyDaOft6d_-ZOzlIpQ/formResponse?entry.2013941061=${window
