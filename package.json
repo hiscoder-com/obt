@@ -17,8 +17,10 @@
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
     "react-scripts": "3.0.1",
-    "scripture-resources-rcl": "2.1.1",
+    "resource-workspace-rcl": "^0.6.1",
+    "scripture-resources-rcl": "^4.x",
     "styled-components": "^5.2.1",
+    "translation-helps-rcl": "^1.7.1",
     "web-vitals": "^0.2.4",
     "yarn": "^1.22.10"
   },
