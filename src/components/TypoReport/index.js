@@ -12,7 +12,6 @@ import {
   DialogContentText,
 } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
-import axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -39,40 +38,23 @@ export default function BottomAppBar() {
     }
   }
 
-  async function handleClose() {
-    setOpen(false);
-
+  function handleClose() {
     const formData = new FormData();
     formData.append('pass', 'success');
     formData.append('ref', 'Mat1:1');
     formData.append('selected', 'текст');
     formData.append('comment', 'комментарий');
 
-    /*fetch('https://foxprogs.com/bsa.php', {
+    fetch('https://foxprogs.com/bsa.php', {
       method: 'POST',
       body: formData,
-      mode: 'no-cors',
-      header: 'access-control-allow-origin',
     })
       .then(function (response) {
-        if (!response.ok) throw Error(response.statusText);
-        return response.json();
+        console.log(response);
+        setOpen(false);
       })
       .then((data) => console.log(data))
       .catch((error) => console.log(error));
-  }*/
-    axios
-      .post('https://foxprogs.com/bsa.php', {
-        body: formData,
-        mode: 'no-cors',
-        header: 'Access-Control-Allow-Origin: http://localhost:3000/',
-      })
-      .then(function (response) {
-        console.log(response);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
   }
 
   const classes = useStyles();
@@ -86,7 +68,7 @@ export default function BottomAppBar() {
             Сообщить об ошибке
           </Button>
           &nbsp; Спасибо!
-          <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+          <Dialog open={open} aria-labelledby="form-dialog-title">
             <DialogTitle id="form-dialog-title">Сообщить об опечатке</DialogTitle>
             <DialogContent>
               <DialogContentText>
@@ -129,7 +111,7 @@ export default function BottomAppBar() {
       credentials: 'include',
     });
     setOpen(true);
-    
+
 
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
