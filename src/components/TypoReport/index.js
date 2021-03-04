@@ -12,6 +12,7 @@ import {
   DialogContentText,
 } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
+import axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -38,9 +39,41 @@ export default function BottomAppBar() {
     }
   }
 
-  const handleClose = () => {
+  async function handleClose() {
     setOpen(false);
-  };
+
+    const formData = new FormData();
+    formData.append('pass', 'success');
+    formData.append('ref', 'Mat1:1');
+    formData.append('selected', 'текст');
+    formData.append('comment', 'комментарий');
+
+    /*fetch('https://foxprogs.com/bsa.php', {
+      method: 'POST',
+      body: formData,
+      mode: 'no-cors',
+      header: 'access-control-allow-origin',
+    })
+      .then(function (response) {
+        if (!response.ok) throw Error(response.statusText);
+        return response.json();
+      })
+      .then((data) => console.log(data))
+      .catch((error) => console.log(error));
+  }*/
+    axios
+      .post('https://foxprogs.com/bsa.php', {
+        body: formData,
+        mode: 'no-cors',
+        header: 'Access-Control-Allow-Origin: http://localhost:3000/',
+      })
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
 
   const classes = useStyles();
 
