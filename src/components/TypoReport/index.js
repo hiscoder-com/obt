@@ -25,12 +25,17 @@ const useStyles = makeStyles((theme) => ({
 
 export default function BottomAppBar() {
   const [open, setOpen] = React.useState(false);
+  const [value, setValue] = React.useState('');
 
   const selectionNode = window
     .getSelection()
     ?.anchorNode?.parentNode?.textContent?.toString();
 
   const selection = window.getSelection().toString();
+
+  const handleChange = (e) => {
+    setValue(e.target.value);
+  };
 
   function handleClickOpen() {
     if (window.getSelection().toString()) {
@@ -43,9 +48,9 @@ export default function BottomAppBar() {
     formData.append('pass', 'success');
     formData.append('ref', `${selectionNode}`);
     formData.append('selected', `${selection}`);
-    formData.append('comment', 'комментарий');
+    formData.append('comment', `${value}`);
 
-    fetch('https://foxprogs.com/bsa.php', {
+    fetch('https://bsa.foxprogs.com/error.php', {
       method: 'POST',
       body: formData,
     })
@@ -55,6 +60,10 @@ export default function BottomAppBar() {
       })
       .then((data) => console.log(data))
       .catch((error) => console.log(error));
+
+    console.log(selectionNode);
+    console.log(selection);
+    console.log(value);
   }
 
   const classes = useStyles();
@@ -84,7 +93,8 @@ export default function BottomAppBar() {
                 id="comment"
                 label="Ваш комментарий (не обязательно):"
                 type="text"
-                value=""
+                value={value}
+                onChange={handleChange}
                 fullWidth
               />
             </DialogContent>
