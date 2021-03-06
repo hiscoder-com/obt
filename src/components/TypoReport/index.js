@@ -41,8 +41,8 @@ export default function BottomAppBar() {
   function handleClose() {
     const formData = new FormData();
     formData.append('pass', 'success');
-    formData.append('ref', 'Mat1:1');
-    formData.append('selected', 'текст');
+    formData.append('ref', `${selectionNode}`);
+    formData.append('selected', `${selection}`);
     formData.append('comment', 'комментарий');
 
     fetch('https://foxprogs.com/bsa.php', {
@@ -84,6 +84,7 @@ export default function BottomAppBar() {
                 id="comment"
                 label="Ваш комментарий (не обязательно):"
                 type="text"
+                value=""
                 fullWidth
               />
             </DialogContent>
