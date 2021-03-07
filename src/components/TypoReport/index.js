@@ -1,8 +1,8 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Typography from '@material-ui/core/Typography';
 import {
+  AppBar,
+  Typography,
   Button,
   Container,
   Dialog,
@@ -10,8 +10,8 @@ import {
   DialogActions,
   DialogContent,
   DialogContentText,
+  TextField,
 } from '@material-ui/core';
-import TextField from '@material-ui/core/TextField';
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -26,12 +26,8 @@ const useStyles = makeStyles((theme) => ({
 export default function BottomAppBar() {
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState('');
-
-  const selectionNode = window
-    .getSelection()
-    ?.anchorNode?.parentNode?.textContent?.toString();
-
-  const selection = window.getSelection().toString();
+  const [selectionNode, setSelectionNode] = React.useState('');
+  const [selection, setSelection] = React.useState('');
 
   const handleChange = (e) => {
     setValue(e.target.value);
@@ -39,31 +35,30 @@ export default function BottomAppBar() {
 
   function handleClickOpen() {
     if (window.getSelection().toString()) {
-      return setOpen(true);
+      setOpen(true);
+      setSelectionNode(
+        window.getSelection()?.anchorNode?.parentNode?.textContent?.toString()
+      );
+      setSelection(window.getSelection().toString());
     }
   }
 
   function handleClose() {
     const formData = new FormData();
     formData.append('pass', 'success');
-    formData.append('ref', `${selectionNode}`);
-    formData.append('selected', `${selection}`);
-    formData.append('comment', `${value}`);
+    formData.append('ref', selectionNode);
+    formData.append('selected', selection);
+    formData.append('comment', value);
 
     fetch('https://bsa.foxprogs.com/error.php', {
       method: 'POST',
       body: formData,
     })
       .then(function (response) {
-        console.log(response);
+        setValue('');
         setOpen(false);
       })
-      .then((data) => console.log(data))
       .catch((error) => console.log(error));
-
-    console.log(selectionNode);
-    console.log(selection);
-    console.log(value);
   }
 
   const classes = useStyles();
@@ -109,52 +104,3 @@ export default function BottomAppBar() {
     </AppBar>
   );
 }
-
-/*
-    const url = `https://docs.google.com/forms/u/0/d/e/1FAIpQLSeoo8oL77CpI9Axy2uT6zTCVH9wvZNmvyDaOft6d_-ZOzlIpQ/formResponse?entry.2013941061=${window
-      .getSelection()
-      .toString()}&entry.1397183109=${window.location}`;
-
-    fetch(url, {
-      mode: 'no-cors',
-      method: 'GET',
-      headers: { 'Access-Control-Allow-Origin': 'http://localhost:3000/' },
-      credentials: 'include',
-    });
-    setOpen(true);
-
-
-  const handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-
-    setOpen(false);
-  };*/
-
-/*<Snackbar
-            anchorOrigin={{
-              vertical: 'bottom',
-              horizontal: 'center',
-            }}
-            open={open}
-            autoHideDuration={10000}
-            onClose={handleClose}
-            message="Ваша заметка отправлена"
-            action={
-              <React.Fragment>
-                <IconButton
-                  size="small"
-                  aria-label="close"
-                  color="inherit"
-                  onClick={handleClose}
-                >
-                  <CloseIcon fontSize="small" />
-                </IconButton>
-              </React.Fragment>
-            }
-          />*/
-
-/*import Snackbar from '@material-ui/core/Snackbar';
-import IconButton from '@material-ui/core/IconButton';
-import CloseIcon from '@material-ui/icons/Close';*/
