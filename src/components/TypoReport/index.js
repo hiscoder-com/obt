@@ -1,5 +1,4 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import {
   AppBar,
   Typography,
@@ -12,16 +11,7 @@ import {
   DialogContentText,
   TextField,
 } from '@material-ui/core';
-
-const useStyles = makeStyles((theme) => ({
-  appBar: {
-    top: 'auto',
-    bottom: 0,
-  },
-  select: {
-    color: 'red',
-  },
-}));
+import useStyles from './style';
 
 export default function BottomAppBar() {
   const [open, setOpen] = React.useState(false);
@@ -66,18 +56,16 @@ export default function BottomAppBar() {
   return (
     <AppBar position="fixed" color="primary" className={classes.appBar}>
       <Container fixed>
-        <Typography variant="subtitle1">
-          Если вы нашли ошибку, то выделите этот фрагмент текста и нажмите &nbsp;
-          <Button color="inherit" variant="contained" onClick={handleClickOpen}>
-            Сообщить об ошибке
+        <Typography variant="subtitle2">
+          If you find an error, then select this piece of text and press &nbsp;
+          <Button size="small" variant="contained" onClick={handleClickOpen}>
+            Report a bug
           </Button>
-          &nbsp; Спасибо!
+          &nbsp; Thank!
           <Dialog open={open} aria-labelledby="form-dialog-title">
-            <DialogTitle id="form-dialog-title">Сообщить об опечатке</DialogTitle>
+            <DialogTitle id="form-dialog-title">Report a typo</DialogTitle>
             <DialogContent>
-              <DialogContentText>
-                Текст, который будет отправлен нашим редакторам:
-              </DialogContentText>
+              <DialogContentText>Text to be sent to our editors:</DialogContentText>
               <DialogContentText className={classes.select}>
                 {selection}
               </DialogContentText>
@@ -95,7 +83,7 @@ export default function BottomAppBar() {
             </DialogContent>
             <DialogActions>
               <Button onClick={handleClose} color="primary">
-                Отправить
+                Send message
               </Button>
             </DialogActions>
           </Dialog>
