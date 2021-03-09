@@ -9,9 +9,14 @@ import { Workspace } from 'resource-workspace-rcl';
 import Chapter from './Chapter';
 import SupportQuestion from './SupportQuestion';
 import SupportNotes from './SupportNotes';
+import BookList from './components/BookList/BookList';
+
+import { AppBar, Button, Toolbar, Dialog, DialogContent } from '@material-ui/core';
 
 import { makeStyles } from '@material-ui/core/styles';
 import './layout.css';
+
+import { bibleList } from './components/config';
 
 const config = { server: 'https://git.door43.org' };
 
@@ -42,9 +47,8 @@ const _resourceLinks = ['bsa/ru/rlob/master', 'bsa/ru/rsob/master', 'bsa/ru/rob/
 export default function Layout() {
   const [resourceLinks, setResourceLinks] = useState(_resourceLinks);
   const [resources, setResources] = useState([]);
-  const [bookId, setBookId] = useState('tit');
-  const [chapter, setChapter] = useState(1);
-  const reference = { bookId, chapter };
+  const [showBookSelect, setShowBookSelect] = React.useState(false);
+  const [reference, setReference] = useState({ bookId: 'tit', chapter: 1 });
 
   localStorage.setItem('layout', JSON.stringify(_absoluteLayout));
   const [absoluteLayout, setAbsoluteLayout] = useState(_absoluteLayout);
@@ -58,7 +62,7 @@ export default function Layout() {
   }
 
   const onClose = (index) => {
-    setAbsoluteLayout(layout.absolute.filter((el) => el.i != index));
+    setAbsoluteLayout(layout.absolute.filter((el) => el.i !== index));
   };
 
   const classes = useStyles();
@@ -67,9 +71,14 @@ export default function Layout() {
     ...reference,
   });
 
+  const onBook = (project) => {
+    setShowBookSelect(false);
+    setReference({ ...reference, bookId: project ? project.identifier : null });
+  };
+
   useEffect(() => {
     if (referenceSelected && referenceSelected.verse) {
-      //alert(JSON.stringify(referenceSelected));
+      console.log(referenceSelected);
     }
   }, [referenceSelected]);
 
@@ -87,6 +96,31 @@ export default function Layout() {
         referenceSelected={referenceSelected}
         onReferenceSelected={setReferenceSelected}
       >
+        <AppBar position="relative">
+          <Toolbar style={{ margin: '0 auto' }}>
+            <Button
+              variant="contained"
+              color="secondary"
+              onClick={() => setShowBookSelect(!showBookSelect)}
+            >
+              {
+                bibleList.filter((book) => book.identifier === reference.bookId)[0]
+                  .rutitle
+              }{' '}
+              {reference.chapter} гл.
+            </Button>
+          </Toolbar>
+        </AppBar>
+        <Dialog
+          fullWidth={true}
+          maxWidth={true}
+          open={showBookSelect}
+          onClose={() => setShowBookSelect(false)}
+        >
+          <DialogContent>
+            <BookList onBook={onBook} />
+          </DialogContent>
+        </Dialog>
         <Workspace
           gridMargin={[15, 15]}
           classes={classes}
