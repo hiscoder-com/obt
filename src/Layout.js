@@ -107,6 +107,13 @@ export default function Layout() {
                 bibleList.filter((book) => book.identifier === reference.bookId)[0]
                   .rutitle
               }{' '}
+            </Button>
+            <Button
+              style={{ marginLeft: '10px' }}
+              variant="contained"
+              color="secondary"
+              onClick={() => setShowBookSelect(!showBookSelect)}
+            >
               {reference.chapter} гл.
             </Button>
           </Toolbar>

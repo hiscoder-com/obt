@@ -24,12 +24,12 @@ function BookList({ onBook }) {
   };
 
   const stateResourseId =
-    state && state.resources && state.resources[0] && state.resources[0].projects
-      ? state.resources[0].projects.map((project) => project.identifier)
+    state && state.resources && state.resources[2] && state.resources[2].projects
+      ? state.resources[2].projects.map((project) => project.identifier)
       : [];
   const stateResourse =
-    state && state.resources && state.resources[0] && state.resources[0].projects
-      ? state.resources[0].projects.map((project) => project)
+    state && state.resources && state.resources[2] && state.resources[2].projects
+      ? state.resources[2].projects.map((project) => project)
       : [];
 
   resourseList.forEach(function (item) {
