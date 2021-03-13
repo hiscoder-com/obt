@@ -11,6 +11,8 @@ import {
   DialogContentText,
   TextField,
 } from '@material-ui/core';
+import Backdrop from '@material-ui/core/Backdrop';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import useStyles from './style';
 
 export default function BottomAppBar() {
@@ -18,6 +20,7 @@ export default function BottomAppBar() {
   const [value, setValue] = React.useState('');
   const [selectionNode, setSelectionNode] = React.useState('');
   const [selection, setSelection] = React.useState('');
+  const [openbackdrop, setOpenbackdrop] = React.useState(false);
 
   const handleChange = (e) => {
     setValue(e.target.value);
@@ -34,6 +37,8 @@ export default function BottomAppBar() {
   }
 
   function handleClose() {
+    setOpenbackdrop(!openbackdrop);
+
     const formData = new FormData();
     formData.append('pass', 'success');
     formData.append('ref', selectionNode);
@@ -47,6 +52,7 @@ export default function BottomAppBar() {
       .then(function (response) {
         setValue('');
         setOpen(false);
+        setOpenbackdrop(false);
       })
       .catch((error) => console.log(error));
   }
@@ -74,7 +80,7 @@ export default function BottomAppBar() {
                 autoFocus
                 margin="dense"
                 id="comment"
-                label="Ваш комментарий (не обязательно):"
+                label="Your comment (optional):"
                 type="text"
                 value={value}
                 onChange={handleChange}
@@ -85,6 +91,9 @@ export default function BottomAppBar() {
               <Button onClick={handleClose} color="primary">
                 Send message
               </Button>
+              <Backdrop className={classes.backdrop} open={openbackdrop}>
+                <CircularProgress color="inherit" />
+              </Backdrop>
             </DialogActions>
           </Dialog>
         </Typography>
