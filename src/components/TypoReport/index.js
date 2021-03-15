@@ -36,7 +36,7 @@ export default function TypoReport() {
     }
   }
 
-  function handleClose() {
+  function handleSend() {
     setOpenBackdrop(!openBackdrop);
 
     const formData = new FormData();
@@ -92,10 +92,10 @@ export default function TypoReport() {
               />
             </DialogContent>
             <DialogActions>
-              <Button onClick={handleCancel} color="primary">
+              <Button onClick={handleCancel} color="primary" className={classes.select}>
                 Cancel
               </Button>
-              <Button onClick={handleClose} color="primary">
+              <Button onClick={handleSend} color="primary">
                 Send message
               </Button>
               <Backdrop className={classes.backdrop} open={openBackdrop}>
