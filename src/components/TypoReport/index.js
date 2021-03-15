@@ -10,57 +10,61 @@ import {
   DialogContent,
   DialogContentText,
   TextField,
+  Backdrop,
+  CircularProgress,
 } from '@material-ui/core';
-import Backdrop from '@material-ui/core/Backdrop';
-import CircularProgress from '@material-ui/core/CircularProgress';
 import useStyles from './style';
 
-export default function BottomAppBar() {
-  const [open, setOpen] = React.useState(false);
-  const [value, setValue] = React.useState('');
+export default function TypoReport() {
+  const [openDialog, setOpenDialog] = React.useState(false);
+  const [valueComment, setValueComment] = React.useState('');
   const [selectionNode, setSelectionNode] = React.useState('');
-  const [selection, setSelection] = React.useState('');
-  const [openbackdrop, setOpenbackdrop] = React.useState(false);
+  const [selectionTypo, setSelectionTypo] = React.useState('');
+  const [openBackdrop, setOpenBackdrop] = React.useState(false);
 
   const handleChange = (e) => {
-    setValue(e.target.value);
+    setValueComment(e.target.value);
   };
 
   function handleClickOpen() {
     if (window.getSelection().toString()) {
-      setOpen(true);
+      setOpenDialog(true);
       setSelectionNode(
         window.getSelection()?.anchorNode?.parentNode?.textContent?.toString()
       );
-      setSelection(window.getSelection().toString());
+      setSelectionTypo(window.getSelection().toString());
     }
   }
 
   function handleClose() {
-    setOpenbackdrop(!openbackdrop);
+    setOpenBackdrop(!openBackdrop);
 
     const formData = new FormData();
     formData.append('pass', 'success');
     formData.append('ref', selectionNode);
-    formData.append('selected', selection);
-    formData.append('comment', value);
+    formData.append('selected', selectionTypo);
+    formData.append('comment', valueComment);
 
     fetch('https://bsa.foxprogs.com/error.php', {
       method: 'POST',
       body: formData,
     })
       .then(function (response) {
-        setValue('');
-        setOpen(false);
-        setOpenbackdrop(false);
+        setValueComment('');
+        setOpenDialog(false);
+        setOpenBackdrop(false);
       })
       .catch((error) => console.log(error));
+  }
+
+  function handleCancel() {
+    setOpenDialog(false);
   }
 
   const classes = useStyles();
 
   return (
-    <AppBar position="fixed" color="primary" className={classes.appBar}>
+    <AppBar color="primary" className={classes.appBar}>
       <Container fixed>
         <Typography variant="subtitle2">
           If you find an error, then select this piece of text and press &nbsp;
@@ -68,12 +72,12 @@ export default function BottomAppBar() {
             Report a bug
           </Button>
           &nbsp; Thank!
-          <Dialog open={open} aria-labelledby="form-dialog-title">
+          <Dialog open={openDialog} aria-labelledby="form-dialog-title">
             <DialogTitle id="form-dialog-title">Report a typo</DialogTitle>
             <DialogContent>
               <DialogContentText>Text to be sent to our editors:</DialogContentText>
               <DialogContentText className={classes.select}>
-                {selection}
+                {selectionTypo}
               </DialogContentText>
               <DialogContentText>{selectionNode}</DialogContentText>
               <TextField
@@ -82,16 +86,19 @@ export default function BottomAppBar() {
                 id="comment"
                 label="Your comment (optional):"
                 type="text"
-                value={value}
+                value={valueComment}
                 onChange={handleChange}
                 fullWidth
               />
             </DialogContent>
             <DialogActions>
+              <Button onClick={handleCancel} color="primary">
+                Cancel
+              </Button>
               <Button onClick={handleClose} color="primary">
                 Send message
               </Button>
-              <Backdrop className={classes.backdrop} open={openbackdrop}>
+              <Backdrop className={classes.backdrop} open={openBackdrop}>
                 <CircularProgress color="inherit" />
               </Backdrop>
             </DialogActions>
