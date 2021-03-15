@@ -1,14 +1,10 @@
 import React from 'react';
 import { ResourcesContextProvider } from 'scripture-resources-rcl';
 
-import BookList from './BookList';
-
-import MenuBar from './MenuBar';
-import TypoReport from './TypoReport';
-
-import '../style.css';
-
 import BookReader from './components/Book/BookReader';
+import BookList from './components/BookList/BookList';
+import MenuBar from './components/MenuBar/MenuBar';
+import TypoReport from './components/TypoReport';
 
 import './style.css';
 
