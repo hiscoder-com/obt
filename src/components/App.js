@@ -4,6 +4,8 @@ import Book from './Book';
 import BookList from './BookList';
 import { Container } from './styled';
 import MenuBar from './MenuBar';
+import TypoReport from './TypoReport';
+
 import '../style.css';
 
 function App() {
@@ -18,7 +20,6 @@ function App() {
   const [resources, setResources] = React.useState([]);
   const [bookId, setBookId] = React.useState();
   const reference = { bookId };
-
   return (
     <Container>
       <MenuBar />
@@ -37,6 +38,7 @@ function App() {
           <BookList onBookId={setBookId} />
         )}
       </ResourcesContextProvider>
+      <TypoReport />
     </Container>
   );
 }
