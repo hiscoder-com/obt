@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const Container = styled.div``;
+import { makeStyles } from '@material-ui/core/styles';
 
 export const Projects = styled.div`
   width: 70%;
@@ -26,18 +26,20 @@ export const Projects = styled.div`
     font-size: 18px;
     cursor: pointer;
   }
+  
 `;
 
-export const BookContainer = styled.div`
-  button {
-    margin: 10px 0 0 15px;
-    text-decoration: none;
-    display: inline-block;
-    padding: 8px 16px;
-  }
+export const useStyles = makeStyles((theme) => ({
+  falseElement: {
+    backgroundColor: 'transparent',
+    border: 'none',
+    fontFamily: 'arial, sant-serif',
+    color: '#bbbbbb',
+    fontWeight: 600,
+    fontSize: 18
+  },
+  
+}));
 
-  button:hover {
-    background-color: #ddd;
-    color: black;
-  }
-`;
+
+  

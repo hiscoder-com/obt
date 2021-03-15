@@ -1,70 +1,64 @@
-# Getting Started with Create React App
+# Правила организации кода проекта
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Форматирование кода
 
-## Available Scripts
+Для форматирования кода в проекте настроен eslint и prettier.
 
-In the project directory, you can run:
+## Деплой
 
-### `yarn start`
+Для деплоя настроены экшены.\
+Деплой делается в netlify.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Так же деплой есть для каждого PR, по этому перед тем как его делать,\
+убедитесь что в консоли нет предупреждений.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Структура папок и файлов
 
-### `yarn test`
+Разработка ведется по компонентам.\
+Минимальная структура:
+ - нужно создать папку внутри `src\components` с названием компонента с заглавной буквы
+ - внутри с таким же именем файл `.js` где и будет вестись основная работа
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Так как мы разделяем стили и логику, то для стилей можно создать файл `style.js`
 
-### `yarn build`
+Если внутри компонента мы будем использовать другой компонент, то мы создаем подпапку с такой же структурой.
+В дальнейшем, если вдруг этот компонент понадобится где-то еще, мы можем перенести его вверх в папку `components`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```
+- src
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+    - components
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+        - NewComponent
 
-### `yarn eject`
+            - SubComponent
+                SubComponent.js
+                style.css
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+          NewComponent.js
+          style.js
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Порядок импорта
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+Импорт стараемся группировать.
+ - реакт
+ - сторонние компоненты
+ - наши компоненты
+ - картинки/иконки
+ - стили
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+ Например
 
-## Learn More
+```javascript
+import React from 'react';
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+import { AppBar, Toolbar, Typography, InputBase } from '@material-ui/core';
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+import SelectLanguage from './SelectLanguage/SelectLanguage';
 
-### Code Splitting
+import SearchIcon from '@material-ui/icons/Search';
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+import useStyles from './style';
+```
 
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
