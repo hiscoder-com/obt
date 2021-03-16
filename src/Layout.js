@@ -9,6 +9,7 @@ import { Workspace } from 'resource-workspace-rcl';
 import Chapter from './Chapter';
 import SupportQuestion from './SupportQuestion';
 import SupportNotes from './SupportNotes';
+import TypoReport from './components/TypoReport';
 
 import { makeStyles } from '@material-ui/core/styles';
 import './layout.css';
@@ -111,6 +112,7 @@ export default function Layout() {
           <SupportQuestion title="TQ" classes={classes} onClose={onClose} index={'4'} />
           <SupportNotes title="TN TSV" classes={classes} onClose={onClose} index={'5'} />
         </Workspace>
+        <TypoReport />
       </ReferenceSelectedContextProvider>
     </ResourcesContextProvider>
   );
