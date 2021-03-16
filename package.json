@@ -21,6 +21,7 @@
     "scripture-resources-rcl": "^4.x",
     "styled-components": "^5.2.1",
     "translation-helps-rcl": "^1.7.1",
+    "use-deep-compare-effect": "^1.6.1",
     "web-vitals": "^0.2.4",
     "yarn": "^1.22.10"
   },

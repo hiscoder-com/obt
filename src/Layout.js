@@ -43,12 +43,14 @@ const _absoluteLayout =
       ];
 
 const _resourceLinks = ['bsa/ru/rlob/master', 'bsa/ru/rsob/master', 'bsa/ru/rob/master'];
+//const _resourceLinks = ['unfoldingWord/en/ult/master', 'unfoldingWord/en/ust/master', 'bsa/ru/rob/master'];
 
 export default function Layout() {
   const [resourceLinks, setResourceLinks] = useState(_resourceLinks);
   const [resources, setResources] = useState([]);
   const [showBookSelect, setShowBookSelect] = React.useState(false);
-  const [reference, setReference] = useState({ bookId: 'tit', chapter: 1 });
+
+  const [referenceSelected, setReferenceSelected] = useState({ bookId: 'tit', chapter: 1 });
 
   localStorage.setItem('layout', JSON.stringify(_absoluteLayout));
   const [absoluteLayout, setAbsoluteLayout] = useState(_absoluteLayout);
@@ -67,24 +69,23 @@ export default function Layout() {
 
   const classes = useStyles();
 
-  const [referenceSelected, setReferenceSelected] = React.useState({
-    ...reference,
-  });
-
   const onBook = (project) => {
     setShowBookSelect(false);
-    setReference({ ...reference, bookId: project ? project.identifier : null });
+    setReferenceSelected({ ...referenceSelected, bookId: project ? project.identifier : null });
   };
 
+  // useEffect(() => {
+  // });
+
   useEffect(() => {
-    if (referenceSelected && referenceSelected.verse) {
-      console.log(referenceSelected);
+    if (referenceSelected?.verse) {
+      console.log("Reference: " + referenceSelected?.chapter + ":" + referenceSelected?.verse);
     }
-  }, [referenceSelected]);
+  }, [referenceSelected?.chapter, referenceSelected?.verse]);
 
   return (
     <ResourcesContextProvider
-      reference={reference}
+      reference={referenceSelected}
       resourceLinks={resourceLinks}
       defaultResourceLinks={_resourceLinks}
       onResourceLinks={setResourceLinks}
@@ -104,8 +105,7 @@ export default function Layout() {
               onClick={() => setShowBookSelect(!showBookSelect)}
             >
               {
-                bibleList.filter((book) => book.identifier === reference.bookId)[0]
-                  .rutitle
+                bibleList.filter((book) => book.identifier === referenceSelected.bookId)[0]?.rutitle
               }{' '}
             </Button>
             <Button
@@ -114,7 +114,7 @@ export default function Layout() {
               color="secondary"
               onClick={() => setShowBookSelect(!showBookSelect)}
             >
-              {reference.chapter} гл.
+              {referenceSelected.chapter} гл.
             </Button>
           </Toolbar>
         </AppBar>
@@ -140,6 +140,8 @@ export default function Layout() {
             classes={classes}
             onClose={onClose}
             index={'1'}
+            reference={referenceSelected}
+            onReference={setReferenceSelected}
           />
           <Chapter
             type="1"
@@ -147,8 +149,18 @@ export default function Layout() {
             classes={classes}
             onClose={onClose}
             index={'2'}
+            reference={referenceSelected}
+            onReference={setReferenceSelected}
           />
-          <Chapter type="2" title="ROB" classes={classes} onClose={onClose} index={'3'} />
+          <Chapter 
+            type="2" 
+            title="ROB" 
+            classes={classes} 
+            onClose={onClose} 
+            index={'3'} 
+            reference={referenceSelected}
+            onReference={setReferenceSelected}
+          />
           <SupportQuestion title="TQ" classes={classes} onClose={onClose} index={'4'} />
           <SupportNotes title="TN TSV" classes={classes} onClose={onClose} index={'5'} />
         </Workspace>

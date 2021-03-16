@@ -20,8 +20,11 @@ function App() {
 
   const onBook = (project) => {
     setBook(project);
-    setBookId(project ? project.identifier : null);
   };
+
+  useEffect(() => {
+    setBookId(book ? book.identifier : null);
+  }, [book?.identifier]);
 
   return (
     <>
