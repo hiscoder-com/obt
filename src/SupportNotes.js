@@ -7,7 +7,7 @@ export default function SupportNotes(props) {
   const [verse, setVerse] = useState('1');
   const [chapter, setChapter] = useState('1');
   const [bookId, setBookId] = useState('tit');
-  const { state, actions } = React.useContext(ReferenceSelectedContext);
+  const { state } = React.useContext(ReferenceSelectedContext);
   useEffect(() => {
     if (state !== undefined && state.verse !== undefined) {
       setVerse(state.verse);
