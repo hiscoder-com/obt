@@ -43,8 +43,8 @@ const _resourceLinks = ['bsa/ru/rlob/master', 'bsa/ru/rsob/master', 'bsa/ru/rob/
 export default function Layout() {
   const [resourceLinks, setResourceLinks] = useState(_resourceLinks);
   const [resources, setResources] = useState([]);
-  const [bookId, setBookId] = useState('tit');
-  const [chapter, setChapter] = useState(1);
+  const [bookId] = useState('tit');
+  const [chapter] = useState(1);
   const reference = { bookId, chapter };
 
   localStorage.setItem('layout', JSON.stringify(_absoluteLayout));
@@ -59,7 +59,7 @@ export default function Layout() {
   }
 
   const onClose = (index) => {
-    setAbsoluteLayout(layout.absolute.filter((el) => el.i != index));
+    setAbsoluteLayout(layout.absolute.filter((el) => el.i !== index));
   };
 
   const classes = useStyles();

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import CircularProgress from '@material-ui/core/CircularProgress';
 import { Card, CardContent, useContent, useCardState } from 'translation-helps-rcl';
 import { ReferenceSelectedContext } from 'scripture-resources-rcl';
 
@@ -8,7 +7,7 @@ export default function SupportQuestion(props) {
   const [verse, setVerse] = useState('1');
   const [chapter, setChapter] = useState('1');
   const [bookId, setBookId] = useState('tit');
-  const { state, actions } = React.useContext(ReferenceSelectedContext);
+  const { state } = React.useContext(ReferenceSelectedContext);
   useEffect(() => {
     if (state !== undefined && state.verse !== undefined) {
       setVerse(state.verse);
