@@ -4,6 +4,7 @@ import { ResourcesContextProvider } from 'scripture-resources-rcl';
 import BookReader from './components/Book/BookReader';
 import BookList from './components/BookList/BookList';
 import MenuBar from './components/MenuBar/MenuBar';
+import TypoReport from './components/TypoReport';
 
 import './style.css';
 
@@ -41,6 +42,7 @@ function App() {
           <BookList onBook={onBook} />
         )}
       </ResourcesContextProvider>
+      <TypoReport />
     </>
   );
 }

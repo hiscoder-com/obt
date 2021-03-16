@@ -2,6 +2,7 @@
 
 # dependencies
 /node_modules
+/.yalc
 /.pnp
 .pnp.js
 
@@ -23,4 +24,5 @@ yarn-debug.log*
 yarn-error.log*
 .eslintcache
 yarn.lock
+yalc.lock
 package-lock.json
