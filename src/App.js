@@ -31,16 +31,13 @@ const useStyles = makeStyles(() => ({
   dragIndicator: {},
 }));
 
-const _absoluteLayout =
-  localStorage.getItem('layout') != null
-    ? JSON.parse(localStorage.getItem('layout'))
-    : [
-        { w: 4, h: 5, x: 0, y: 0, i: '1' },
-        { w: 4, h: 5, x: 4, y: 0, i: '2' },
-        { w: 4, h: 5, x: 8, y: 0, i: '3' },
-        { w: 6, h: 3, x: 0, y: 6, i: '4' },
-        { w: 6, h: 3, x: 6, y: 6, i: '5' },
-      ];
+const absoluteLayout = [
+  { w: 4, h: 5, x: 0, y: 0, i: '1' },
+  { w: 4, h: 5, x: 4, y: 0, i: '2' },
+  { w: 4, h: 5, x: 8, y: 0, i: '3' },
+  { w: 6, h: 3, x: 0, y: 6, i: '4' },
+  { w: 6, h: 3, x: 6, y: 6, i: '5' },
+];
 
 const _resourceLinks = ['bsa/ru/rlob/master', 'bsa/ru/rsob/master', 'bsa/ru/rob/master'];
 //const _resourceLinks = ['unfoldingWord/en/ult/master', 'unfoldingWord/en/ust/master', 'bsa/ru/rob/master'];
@@ -55,9 +52,6 @@ export default function App() {
     chapter: 1,
   });
 
-  localStorage.setItem('layout', JSON.stringify(_absoluteLayout));
-  const [absoluteLayout, setAbsoluteLayout] = useState(_absoluteLayout);
-
   const layout = {
     absolute: absoluteLayout,
   };
@@ -66,9 +60,7 @@ export default function App() {
     localStorage.setItem('layout', JSON.stringify(layout));
   }
 
-  const onClose = (index) => {
-    setAbsoluteLayout(layout.absolute.filter((el) => el.i !== index));
-  };
+  const onClose = (index) => {};
 
   const classes = useStyles();
 
@@ -116,7 +108,7 @@ export default function App() {
               {
                 bibleList.filter(
                   (book) => book.identifier === referenceSelected.bookId
-                )[0]?.rutitle
+                )[0]?.title
               }{' '}
             </Button>
             <Button
@@ -125,7 +117,7 @@ export default function App() {
               color="secondary"
               onClick={() => setShowBookSelect(!showBookSelect)}
             >
-              {referenceSelected.chapter} гл.
+              {referenceSelected.chapter} ch.
             </Button>
           </Toolbar>
         </AppBar>
