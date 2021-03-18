@@ -12,7 +12,7 @@ import SupportNotes from './SupportNotes';
 import BookList from './components/BookList/BookList';
 
 import { AppBar, Button, Toolbar, Dialog, DialogContent } from '@material-ui/core';
-
+import MenuBar from './components/MenuBar/MenuBar';
 import { makeStyles } from '@material-ui/core/styles';
 import './layout.css';
 
@@ -50,7 +50,10 @@ export default function Layout() {
   const [resources, setResources] = useState([]);
   const [showBookSelect, setShowBookSelect] = React.useState(false);
 
-  const [referenceSelected, setReferenceSelected] = useState({ bookId: 'tit', chapter: 1 });
+  const [referenceSelected, setReferenceSelected] = useState({
+    bookId: 'tit',
+    chapter: 1,
+  });
 
   localStorage.setItem('layout', JSON.stringify(_absoluteLayout));
   const [absoluteLayout, setAbsoluteLayout] = useState(_absoluteLayout);
@@ -71,7 +74,10 @@ export default function Layout() {
 
   const onBook = (project) => {
     setShowBookSelect(false);
-    setReferenceSelected({ ...referenceSelected, bookId: project ? project.identifier : null });
+    setReferenceSelected({
+      ...referenceSelected,
+      bookId: project ? project.identifier : null,
+    });
   };
 
   // useEffect(() => {
@@ -79,7 +85,9 @@ export default function Layout() {
 
   useEffect(() => {
     if (referenceSelected?.verse) {
-      console.log("Reference: " + referenceSelected?.chapter + ":" + referenceSelected?.verse);
+      console.log(
+        'Reference: ' + referenceSelected?.chapter + ':' + referenceSelected?.verse
+      );
     }
   }, [referenceSelected?.chapter, referenceSelected?.verse]);
 
@@ -97,6 +105,7 @@ export default function Layout() {
         referenceSelected={referenceSelected}
         onReferenceSelected={setReferenceSelected}
       >
+        <MenuBar />
         <AppBar position="relative">
           <Toolbar style={{ margin: '0 auto' }}>
             <Button
@@ -105,7 +114,9 @@ export default function Layout() {
               onClick={() => setShowBookSelect(!showBookSelect)}
             >
               {
-                bibleList.filter((book) => book.identifier === referenceSelected.bookId)[0]?.rutitle
+                bibleList.filter(
+                  (book) => book.identifier === referenceSelected.bookId
+                )[0]?.rutitle
               }{' '}
             </Button>
             <Button
@@ -152,12 +163,12 @@ export default function Layout() {
             reference={referenceSelected}
             onReference={setReferenceSelected}
           />
-          <Chapter 
-            type="2" 
-            title="ROB" 
-            classes={classes} 
-            onClose={onClose} 
-            index={'3'} 
+          <Chapter
+            type="2"
+            title="ROB"
+            classes={classes}
+            onClose={onClose}
+            index={'3'}
             reference={referenceSelected}
             onReference={setReferenceSelected}
           />

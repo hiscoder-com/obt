@@ -18,7 +18,7 @@
     "react-dom": "^16.14.0",
     "react-scripts": "3.0.1",
     "resource-workspace-rcl": "^0.6.1",
-    "scripture-resources-rcl": "^4.x",
+    "scripture-resources-rcl": "4.0.2",
     "styled-components": "^5.2.1",
     "translation-helps-rcl": "^1.7.1",
     "use-deep-compare-effect": "^1.6.1",
