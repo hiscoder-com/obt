@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Card, CardContent, useContent, useCardState } from 'translation-helps-rcl';
 import { ReferenceSelectedContext } from 'scripture-resources-rcl';
 
-export default function SupportNotes(props) {
+export default function SupportTN(props) {
   const { title, classes, onClose, index } = props;
   const { state: reference } = React.useContext(ReferenceSelectedContext);
 

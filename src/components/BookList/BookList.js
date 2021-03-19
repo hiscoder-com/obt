@@ -5,7 +5,7 @@ import { ResourcesContext } from 'scripture-resources-rcl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 
-import { bibleList } from '../config';
+import { bibleList } from '../../config';
 
 import { Projects, useStyles } from './styled';
 
