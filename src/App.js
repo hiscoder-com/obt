@@ -6,9 +6,9 @@ import {
 } from 'scripture-resources-rcl';
 
 import { Workspace } from 'resource-workspace-rcl';
-import Chapter from './components/Chapter';
-import SupportQuestion from './components/SupportQuestion';
-import SupportNotes from './components/SupportNotes';
+import Chapter from './components/Chapter/Chapter';
+import SupportTQ from './components/SupportTQ/SupportTQ';
+import SupportTN from './components/SupportTN/SupportTN';
 import BookList from './components/BookList/BookList';
 import MenuBar from './components/MenuBar/MenuBar';
 
@@ -31,7 +31,7 @@ import AddIcon from '@material-ui/icons/Add';
 import { makeStyles } from '@material-ui/core/styles';
 import './styles/app.css';
 
-import { bibleList } from './components/config';
+import { bibleList } from './config';
 
 const BlueMenu = styled(Menu)`
   .MuiPaper-root {
@@ -218,8 +218,8 @@ export default function App(params) {
               reference={referenceSelected}
               onReference={setReferenceSelected}
             />
-            <SupportQuestion title="TQ" classes={classes} onClose={onClose} index={'4'} />
-            <SupportNotes
+            <SupportTQ title="TQ" classes={classes} onClose={onClose} index={'4'} />
+            <SupportTN
               title="TN TSV"
               classes={classes}
               onClose={onClose}
