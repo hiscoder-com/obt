@@ -1,20 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Card, CardContent, useContent, useCardState } from 'translation-helps-rcl';
 import { ReferenceSelectedContext } from 'scripture-resources-rcl';
 
-export default function SupportQuestion(props) {
+export default function SupportTQ(props) {
   const { title, classes, onClose, index } = props;
-  const [verse, setVerse] = useState('1');
-  const [chapter, setChapter] = useState('1');
-  const [bookId, setBookId] = useState('tit');
-  const { state } = React.useContext(ReferenceSelectedContext);
-  useEffect(() => {
-    if (state !== undefined && state.verse !== undefined) {
-      setVerse(state.verse);
-      setChapter(state.chapter);
-      setBookId(state.bookId);
-    }
-  }, [state]);
+  const { state: reference } = React.useContext(ReferenceSelectedContext);
 
   const {
     markdown,
@@ -22,14 +12,14 @@ export default function SupportQuestion(props) {
     isLoading,
     props: { languageId },
   } = useContent({
-    verse: verse,
-    chapter: chapter,
-    projectId: bookId,
+    verse: reference.verse,
+    chapter: reference.chapter,
+    projectId: reference.bookId,
     branch: 'master',
     languageId: 'ru',
     resourceId: 'tq',
     filePath:
-      String(chapter).padStart(2, '0') + '/' + String(verse).padStart(2, '0') + '.md',
+      String(reference.chapter).padStart(2, '0') + '/' + String(reference.verse).padStart(2, '0') + '.md',
     owner: 'bsa',
     server: 'https://git.door43.org',
   });
