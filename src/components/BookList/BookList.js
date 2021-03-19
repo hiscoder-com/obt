@@ -5,14 +5,13 @@ import { ResourcesContext } from 'scripture-resources-rcl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 
-import { bibleList } from '../config';
+import { bibleList } from '../../config';
 
 import { Projects, useStyles } from './styled';
 
-
 function BookList({ onBook }) {
   const { state } = React.useContext(ResourcesContext);
-  const classes = useStyles();  
+  const classes = useStyles();
   let issetCheck = false;
   const resourseList = bibleList;
 
@@ -25,24 +24,25 @@ function BookList({ onBook }) {
   };
 
   const stateResourseId =
-    state && state.resources && state.resources[0] && state.resources[0].projects? state.resources[0].projects.map((project) =>
-     project.identifier)    : [];
+    state && state.resources && state.resources[2] && state.resources[2].projects
+      ? state.resources[2].projects.map((project) => project.identifier)
+      : [];
   const stateResourse =
-     state && state.resources && state.resources[0] && state.resources[0].projects? state.resources[0].projects.map((project) =>
-      project)    : [];
-
+    state && state.resources && state.resources[2] && state.resources[2].projects
+      ? state.resources[2].projects.map((project) => project)
+      : [];
 
   resourseList.forEach(function (item) {
     stateResourseId.includes(item.identifier) ? (item.isset = true) : (issetCheck = true);
   });
 
-   function linkBook(item){
-     for (let i=0;i<stateResourse.length; ++i){
-       if (item === stateResourse[i].identifier) {
-         return stateResourse[i];
-       }
-     }
-   }
+  function linkBook(item) {
+    for (let i = 0; i < stateResourse.length; ++i) {
+      if (item === stateResourse[i].identifier) {
+        return stateResourse[i];
+      }
+    }
+  }
 
   function renderBookList(mainResourse, categories) {
     return mainResourse
@@ -58,7 +58,7 @@ function BookList({ onBook }) {
               {mainResourse.title}
             </button>
           ) : (
-            <span className={classes.falseElement} >{mainResourse.title}</span>
+            <span className={classes.falseElement}>{mainResourse.title}</span>
           )}
         </p>
       ));
