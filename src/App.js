@@ -11,6 +11,7 @@ import SupportTQ from './components/SupportTQ/SupportTQ';
 import SupportTN from './components/SupportTN/SupportTN';
 import BookList from './components/BookList/BookList';
 import MenuBar from './components/MenuBar/MenuBar';
+import TypoReport from './components/TypoReport';
 
 import {
   Switch,
@@ -227,6 +228,7 @@ export default function App(params) {
             />
           </Workspace>
         </ReferenceSelectedContextProvider>
+        <TypoReport />
       </ResourcesContextProvider>
     );
   } else {
@@ -349,6 +351,7 @@ export default function App(params) {
           <SupportNotes title="TN TSV" classes={classes} onClose={onClose} index={'5'} /> */}
           </Workspace>
         </ReferenceSelectedContextProvider>
+        <TypoReport />
       </ResourcesContextProvider>
     );
   }
