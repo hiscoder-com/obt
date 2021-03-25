@@ -28,11 +28,16 @@ export default function Chapter(props) {
       const errorCallback = (error) => console.log(error);
       parseBook.then(successCallback, errorCallback);
     }
+    else
+    {
+      // Book could not be found in this translation:
+      setChapter(null);
+    }
   }, [type, state.resources, onReference]);
 
   return (
     <Card closeable onClose={() => onClose(index)} title={title} classes={classes}>
-      {chapter !== undefined ? (
+      {chapter? (
         <Verses
           disableWordPopover={true}
           reference={reference}
