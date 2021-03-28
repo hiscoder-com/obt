@@ -4,45 +4,55 @@ import { Card } from 'translation-helps-rcl';
 import { Verses } from 'scripture-resources-rcl';
 import { ResourcesContext } from 'scripture-resources-rcl';
 
+import { resourcesList } from '../../config';
+
 export default function Chapter(props) {
-  const { type, title, classes, onClose, index, reference, onReference } = props;
+  const { title, classes, onClose, type, reference, onReference } = props;
   const { state } = React.useContext(ResourcesContext);
 
   const [chapter, setChapter] = useState();
 
+  const resource = resourcesList[type];
+
   const successCallback = (result) => {
     if (Object.keys(result.chapters).length > 0) {
-      setChapter(result.chapters[state.resources[type].reference.chapter]);
-      onReference(state.resources[type].reference);
+      setChapter(result.chapters[reference.chapter]);
     } else {
       console.log('Book not found');
     }
   };
+  let project = {};
+  if (state?.resources) {
+    state.resources.forEach((el) => {
+      if (el.resourceId === resource.resourceId && el.username === resource.owner) {
+        project = el.project;
+      }
+    });
+  }
 
   useDeepCompareEffect(() => {
-    if (
-      state.resources[type] !== undefined &&
-      state.resources[type].project !== undefined
-    ) {
-      const parseBook = state.resources[type].project.parseUsfm();
-      const errorCallback = (error) => console.log(error);
-      parseBook.then(successCallback, errorCallback);
-    }
-    else
-    {
+    if (Object.keys(project).length !== 0) {
+      project.parseUsfm().then(successCallback, (error) => console.log(error));
+    } else {
       // Book could not be found in this translation:
       setChapter(null);
     }
-  }, [type, state.resources, onReference]);
+  }, [project]);
 
   return (
-    <Card closeable onClose={() => onClose(index)} title={title} classes={classes}>
-      {chapter? (
+    <Card
+      closeable
+      onClose={() => onClose(type)}
+      title={title}
+      type={type}
+      classes={classes}
+    >
+      {chapter ? (
         <Verses
           disableWordPopover={true}
           reference={reference}
           verses={chapter}
-          renderOffscreen={false}
+          renderOffscreen={true}
         />
       ) : (
         'Loading...'
