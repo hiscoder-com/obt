@@ -6,10 +6,7 @@ import {
 } from 'scripture-resources-rcl';
 
 import { Workspace } from 'resource-workspace-rcl';
-import MenuBar from './components/MenuBar/MenuBar';
-import SubMenuBar from './components/SubMenuBar/SubMenuBar';
-import TypoReport from './components/TypoReport';
-import Card from './components/Card/Card';
+import { MenuBar, SubMenuBar, TypoReport, Card } from './components';
 
 import { getResources } from './helper';
 

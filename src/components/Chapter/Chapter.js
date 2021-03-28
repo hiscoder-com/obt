@@ -7,7 +7,7 @@ import { ResourcesContext } from 'scripture-resources-rcl';
 import { resourcesList } from '../../config';
 
 export default function Chapter(props) {
-  const { title, classes, onClose, type, reference, onReference } = props;
+  const { title, classes, onClose, type, reference } = props;
   const { state } = React.useContext(ResourcesContext);
 
   const [chapter, setChapter] = useState();
