@@ -17,8 +17,10 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import AddIcon from '@material-ui/icons/Add';
 
-import { bibleList } from '../../config';
+import { bibleList, resourcesList } from '../../config';
 
+const resourcesId = Object.keys(resourcesList);
+console.log(resourcesList['rob'].type);
 const useStyles = makeStyles(() => ({
   root: {
     padding: '0 !important',
@@ -42,24 +44,12 @@ function SubMenuBar(props) {
     });
   };
 
-  function handleAddNewBible() {
-    setAppConfig((prev) =>
-      prev.concat({ w: 4, h: 3, x: 0, y: 99, i: prev.length.toString(), type: 1 })
-    );
-    handleClose();
+  function handleAddNew(item) {
+    // setAppConfig((prev) => prev.concat({ w: 4, h: 3, x: 0, y: 99, i: index }));
+    // handleClose();
+    console.log(item);
   }
-  function handleAddNewTN() {
-    setAppConfig((prev) =>
-      prev.concat({ w: 4, h: 3, x: 0, y: 99, i: prev.length.toString(), type: 3 })
-    );
-    handleClose();
-  }
-  function handleAddNewTQ() {
-    setAppConfig((prev) =>
-      prev.concat({ w: 4, h: 3, x: 0, y: 99, i: prev.length.toString(), type: 4 })
-    );
-    handleClose();
-  }
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -84,9 +74,9 @@ function SubMenuBar(props) {
               open={Boolean(anchorEl)}
               onClose={handleClose}
             >
-              <MenuItem onClick={handleAddNewBible}>Bible</MenuItem>
-              <MenuItem onClick={handleAddNewTN}>TN TSV</MenuItem>
-              <MenuItem onClick={handleAddNewTQ}>TQ</MenuItem>
+              {resourcesId.map((item, index) => (
+                <MenuItem onClick={handleAddNew(item)}>{item}</MenuItem>
+              ))}
             </Menu>
           </Toolbar>
           <Toolbar style={{ margin: '0 auto' }}>

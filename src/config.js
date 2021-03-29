@@ -530,24 +530,6 @@ export const bibleList = [
 ];
 
 export const resourcesList = {
-  ult: {
-    link: 'unfoldingWord/en_ult/master',
-    branch: 'master',
-    type: 'bible',
-    languageId: 'en',
-    resourceId: 'ult',
-    title: 'ult',
-    owner: 'unfoldingWord',
-  },
-  ust: {
-    link: 'unfoldingWord/en_ust/master',
-    branch: 'master',
-    type: 'bible',
-    languageId: 'en',
-    resourceId: 'ust',
-    title: 'ust',
-    owner: 'unfoldingWord',
-  },
   rob: {
     link: 'bsa/ru_rob/master',
     branch: 'master',
@@ -574,6 +556,24 @@ export const resourcesList = {
     resourceId: 'rsob',
     title: 'rsob',
     owner: 'bsa',
+  },
+  ult: {
+    link: 'unfoldingWord/en_ult/master',
+    branch: 'master',
+    type: 'bible',
+    languageId: 'en',
+    resourceId: 'ult',
+    title: 'ult',
+    owner: 'unfoldingWord',
+  },
+  ust: {
+    link: 'unfoldingWord/en_ust/master',
+    branch: 'master',
+    type: 'bible',
+    languageId: 'en',
+    resourceId: 'ust',
+    title: 'ust',
+    owner: 'unfoldingWord',
   },
   tn: {
     link: 'bsa/ru_tn/master',
