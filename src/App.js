@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 
 import {
   ResourcesContextProvider,
@@ -10,26 +10,36 @@ import { MenuBar, SubMenuBar, TypoReport, Card } from './components';
 
 import { getResources } from './helper';
 
+import { makeStyles } from '@material-ui/core/styles';
 import './styles/app.css';
 
 const config = { server: 'https://git.door43.org' };
 
-const _appConfig = [
-  { w: 4, h: 5, x: 0, y: 0, i: 'rob' },
-  { w: 4, h: 5, x: 4, y: 0, i: 'tn' },
-  { w: 4, h: 5, x: 8, y: 0, i: 'ult' },
-];
+const _appConfig = localStorage.getItem('appConfig')
+  ? JSON.parse(localStorage.getItem('appConfig'))
+  : [
+      { w: 4, h: 5, x: 0, y: 0, i: 'rob' },
+      { w: 4, h: 5, x: 4, y: 0, i: 'tn' },
+      { w: 4, h: 5, x: 8, y: 0, i: 'ult' },
+    ];
 
 const _resourceLinks = getResources(_appConfig);
 
+const useStyles = makeStyles(() => ({
+  dragIndicator: {},
+}));
+
 export default function App() {
+  const classes = useStyles();
   const [resourceLinks, setResourceLinks] = useState(_resourceLinks);
   const [resources, setResources] = useState([]);
   const [appConfig, setAppConfig] = useState(_appConfig);
 
+  const memoResources = useMemo(() => getResources(appConfig), [appConfig]);
+
   useEffect(() => {
-    setResourceLinks(getResources(appConfig));
-  }, [appConfig]);
+    setResourceLinks(memoResources);
+  }, [memoResources]);
 
   const [referenceSelected, setReferenceSelected] = useState({
     bookId: 'tit',
@@ -39,11 +49,10 @@ export default function App() {
   const layout = {
     absolute: appConfig,
   };
-  console.log('layout', layout);
 
-  function onLayoutChange(layout) {
-    console.log('onLayoutChange', layout);
-    localStorage.setItem('layout', JSON.stringify(layout));
+  function onLayoutChange(appConfig) {
+    localStorage.setItem('appConfig', JSON.stringify(appConfig));
+    setAppConfig(appConfig);
   }
 
   const onClose = (index) => {
@@ -82,15 +91,15 @@ export default function App() {
           gridMargin={[15, 15]}
           rowHeight={30}
           totalGridUnits={12}
+          classes={classes}
           layout={layout}
           onLayoutChange={onLayoutChange}
         >
-          {appConfig.map((item, index) => (
+          {appConfig.map((item) => (
             <Card
               key={item.i}
-              onClose={onClose}
+              onClose={() => onClose(item.i)}
               reference={referenceSelected}
-              onReference={setReferenceSelected}
               type={item.i}
             />
           ))}
