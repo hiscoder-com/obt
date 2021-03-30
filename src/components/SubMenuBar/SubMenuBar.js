@@ -20,7 +20,7 @@ import AddIcon from '@material-ui/icons/Add';
 import { bibleList, resourcesList } from '../../config';
 
 const resourcesId = Object.keys(resourcesList);
-console.log(resourcesList['rob'].type);
+console.log(resourcesId);
 const useStyles = makeStyles(() => ({
   root: {
     padding: '0 !important',
@@ -32,8 +32,9 @@ const useStyles = makeStyles(() => ({
   dragIndicator: {},
 }));
 
+
 function SubMenuBar(props) {
-  const { setAppConfig, referenceSelected, setReferenceSelected } = props;
+  const { setAppConfig, referenceSelected, setReferenceSelected, appConfig} = props;
   const [showBookSelect, setShowBookSelect] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const onBook = (project) => {
@@ -43,11 +44,15 @@ function SubMenuBar(props) {
       bookId: project ? project.identifier : null,
     });
   };
+  const uniqChecking = (item) =>{
 
-  function handleAddNew(item) {
-    // setAppConfig((prev) => prev.concat({ w: 4, h: 3, x: 0, y: 99, i: index }));
-    // handleClose();
-    console.log(item);
+  }
+
+  const handleAddNew = (item) =>{
+     setAppConfig((prev) => prev.concat({ w: 4, h: 3, x: 0, y: 99, i: item }));
+     handleClose();
+    
+    console.log(appConfig)
   }
 
   const handleClick = (event) => {
@@ -74,8 +79,8 @@ function SubMenuBar(props) {
               open={Boolean(anchorEl)}
               onClose={handleClose}
             >
-              {resourcesId.map((item, index) => (
-                <MenuItem onClick={handleAddNew(item)}>{item}</MenuItem>
+              {resourcesId.map((item, key) => (
+                <MenuItem onClick={()=> handleAddNew(item)}>{item}</MenuItem>
               ))}
             </Menu>
           </Toolbar>
