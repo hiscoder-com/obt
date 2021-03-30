@@ -32,9 +32,8 @@ const useStyles = makeStyles(() => ({
   dragIndicator: {},
 }));
 
-
 function SubMenuBar(props) {
-  const { setAppConfig, referenceSelected, setReferenceSelected, appConfig} = props;
+  const { setAppConfig, referenceSelected, setReferenceSelected, appConfig } = props;
   const [showBookSelect, setShowBookSelect] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const onBook = (project) => {
@@ -44,20 +43,23 @@ function SubMenuBar(props) {
       bookId: project ? project.identifier : null,
     });
   };
-  console.log('appConfig:',appConfig)
+  console.log('appConfig:', appConfig);
   //ToDo - make checking for uniq (maybe create set, maybe just for ..in)
-  // but i'm lost state of appConfig - it's undefined
-  const uniqChecking = (item) =>{
-    console.log('appConfig:',appConfig)
-  }
 
-  const handleAddNew = (item) =>{
-    uniqChecking(item) 
-    setAppConfig((prev) => prev.concat({ w: 4, h: 3, x: 0, y: 99, i: item }));
-     handleClose();
-    
-    
-  }
+  const uniqChecking = (item) => {
+    for (let i = 0; i < appConfig.length; i++) {
+      if (appConfig[i].i === item) return true;
+    }
+  };
+
+  const handleAddNew = (item) => {
+    if (uniqChecking(item) !== true) {
+      setAppConfig((prev) => prev.concat({ w: 4, h: 3, x: 0, y: 99, i: item }));
+      handleClose();
+    } else {
+      handleClose();
+    }
+  };
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -83,8 +85,8 @@ function SubMenuBar(props) {
               open={Boolean(anchorEl)}
               onClose={handleClose}
             >
-              {Object.keys(resourcesList).map( (keyName,index) =>(
-                <MenuItem onClick={()=> handleAddNew(keyName)}>
+              {Object.keys(resourcesList).map((keyName, index) => (
+                <MenuItem onClick={() => handleAddNew(keyName)}>
                   {resourcesList[keyName].title}
                 </MenuItem>
               ))}

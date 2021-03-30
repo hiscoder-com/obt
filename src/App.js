@@ -39,10 +39,8 @@ export default function App() {
   const layout = {
     absolute: appConfig,
   };
-  console.log('layout', layout);
 
   function onLayoutChange(layout) {
-    console.log('onLayoutChange', layout);
     localStorage.setItem('layout', JSON.stringify(layout));
   }
 
@@ -74,6 +72,7 @@ export default function App() {
       >
         <MenuBar />
         <SubMenuBar
+          appConfig={appConfig}
           setAppConfig={setAppConfig}
           referenceSelected={referenceSelected}
           setReferenceSelected={setReferenceSelected}
