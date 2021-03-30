@@ -44,6 +44,7 @@ function SubMenuBar(props) {
       bookId: project ? project.identifier : null,
     });
   };
+  console.log('appConfig:',appConfig)
   //ToDo - make checking for uniq (maybe create set, maybe just for ..in)
   // but i'm lost state of appConfig - it's undefined
   const uniqChecking = (item) =>{
