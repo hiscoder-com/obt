@@ -44,15 +44,18 @@ function SubMenuBar(props) {
       bookId: project ? project.identifier : null,
     });
   };
+  //ToDo - make checking for uniq (maybe create set, maybe just for ..in)
+  // but i'm lost state of appConfig - it's undefined
   const uniqChecking = (item) =>{
-
+    console.log('appConfig:',appConfig)
   }
 
   const handleAddNew = (item) =>{
-     setAppConfig((prev) => prev.concat({ w: 4, h: 3, x: 0, y: 99, i: item }));
+    uniqChecking(item) 
+    setAppConfig((prev) => prev.concat({ w: 4, h: 3, x: 0, y: 99, i: item }));
      handleClose();
     
-    console.log(appConfig)
+    
   }
 
   const handleClick = (event) => {
@@ -79,8 +82,10 @@ function SubMenuBar(props) {
               open={Boolean(anchorEl)}
               onClose={handleClose}
             >
-              {resourcesId.map((item, key) => (
-                <MenuItem onClick={()=> handleAddNew(item)}>{item}</MenuItem>
+              {Object.keys(resourcesList).map( (keyName,index) =>(
+                <MenuItem onClick={()=> handleAddNew(keyName)}>
+                  {resourcesList[keyName].title}
+                </MenuItem>
               ))}
             </Menu>
           </Toolbar>
