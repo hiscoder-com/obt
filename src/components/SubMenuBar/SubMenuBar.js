@@ -1,6 +1,7 @@
 import React from 'react';
 
 import BookList from '../BookList/BookList';
+import BookSelect from './BookSelect';
 
 import {
   AppBar,
@@ -18,7 +19,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import AddIcon from '@material-ui/icons/Add';
 
 import { bibleList, resourcesList } from '../../config';
-
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -42,7 +42,7 @@ function SubMenuBar(props) {
       bookId: project ? project.identifier : null,
     });
   };
-  
+
   const uniqChecking = (item) => {
     for (let i = 0; i < appConfig.length; i++) {
       if (appConfig[i].i === item) return true;
@@ -89,27 +89,11 @@ function SubMenuBar(props) {
               ))}
             </Menu>
           </Toolbar>
-          <Toolbar style={{ margin: '0 auto' }}>
-            <Button
-              variant="contained"
-              color="secondary"
-              onClick={() => setShowBookSelect(!showBookSelect)}
-            >
-              {
-                bibleList.filter(
-                  (book) => book.identifier === referenceSelected.bookId
-                )[0]?.title
-              }{' '}
-            </Button>
-            <Button
-              style={{ marginLeft: '10px' }}
-              variant="contained"
-              color="secondary"
-              onClick={() => setShowBookSelect(!showBookSelect)}
-            >
-              {referenceSelected.chapter} ch.
-            </Button>
-          </Toolbar>
+
+          <BookSelect
+            referenceSelected={referenceSelected}
+            setReferenceSelected={setReferenceSelected}
+          />
         </Toolbar>
       </AppBar>
       <Dialog
