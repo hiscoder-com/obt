@@ -19,8 +19,7 @@ import AddIcon from '@material-ui/icons/Add';
 
 import { bibleList, resourcesList } from '../../config';
 
-const resourcesId = Object.keys(resourcesList);
-console.log(resourcesId);
+
 const useStyles = makeStyles(() => ({
   root: {
     padding: '0 !important',
@@ -43,9 +42,7 @@ function SubMenuBar(props) {
       bookId: project ? project.identifier : null,
     });
   };
-  console.log('appConfig:', appConfig);
-  //ToDo - make checking for uniq (maybe create set, maybe just for ..in)
-
+  
   const uniqChecking = (item) => {
     for (let i = 0; i < appConfig.length; i++) {
       if (appConfig[i].i === item) return true;
