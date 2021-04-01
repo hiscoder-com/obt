@@ -1,14 +1,13 @@
-import React from 'react';
+import React,{useState} from 'react';
 
-import BookList from '../BookList/BookList';
+
 import BookSelect from '../BookSelect/BookSelect';
+import { ChapterSelect } from '../ChapterSelect';
 
 import {
   AppBar,
   Toolbar,
   Fab,
-  Dialog,
-  DialogContent,
   MenuItem,
   Menu,
 } from '@material-ui/core';
@@ -17,8 +16,8 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import AddIcon from '@material-ui/icons/Add';
 
-import {  resourcesList } from '../../config';
-import { ChapterSelect } from '../ChapterSelect';
+import { resourcesList } from '../../config';
+
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -32,16 +31,10 @@ const useStyles = makeStyles(() => ({
 }));
 
 function SubMenuBar(props) {
+
   const { setAppConfig, referenceSelected, setReferenceSelected, appConfig } = props;
-  const [showBookSelect, setShowBookSelect] = React.useState(false);
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const onBook = (project) => {
-    setShowBookSelect(false);
-    setReferenceSelected({
-      ...referenceSelected,
-      bookId: project ? project.identifier : null,
-    });
-  };
+  const [anchorEl, setAnchorEl] = useState(null);
+  
 
   const uniqChecking = (item) => {
     for (let i = 0; i < appConfig.length; i++) {
@@ -101,17 +94,7 @@ function SubMenuBar(props) {
           </Toolbar>
         </Toolbar>
       </AppBar>
-      <Dialog
-        fullWidth={true}
-        maxWidth="lg"
-        open={showBookSelect}
-        onClose={() => setShowBookSelect(false)}
-      >
-        <DialogContent>
-          
-          <BookList onBook={onBook} />
-        </DialogContent>
-      </Dialog>
+      
     </>
   );
 }

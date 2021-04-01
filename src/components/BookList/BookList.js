@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useContext,useState} from 'react';
 
 import { ResourcesContext } from 'scripture-resources-rcl';
 
@@ -10,12 +10,12 @@ import { bibleList } from '../../config';
 import { Projects, useStyles } from './styled';
 
 function BookList({ onBook }) {
-  const { state } = React.useContext(ResourcesContext);
+  const { state } = useContext(ResourcesContext);
   const classes = useStyles();
   let issetCheck = false;
   const resourseList = bibleList;
 
-  const [checkState, setCheckState] = React.useState({
+  const [checkState, setCheckState] = useState({
     checkedA: false,
   });
 
@@ -24,12 +24,12 @@ function BookList({ onBook }) {
   };
 
   const stateResourseId =
-    state && state.resources && state.resources[2] && state.resources[2].projects
-      ? state.resources[2].projects.map((project) => project.identifier)
+    state && state.resources && state.resources[0] && state.resources[0].projects
+      ? state.resources[0].projects.map((project) => project.identifier)
       : [];
   const stateResourse =
-    state && state.resources && state.resources[2] && state.resources[2].projects
-      ? state.resources[2].projects.map((project) => project)
+    state && state.resources && state.resources[0] && state.resources[0].projects
+      ? state.resources[0].projects.map((project) => project)
       : [];
 
   resourseList.forEach(function (item) {
