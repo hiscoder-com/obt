@@ -3,35 +3,24 @@ import React from 'react';
 import BookList from '../BookList/BookList';
 
 import {
-  AppBar,
+  
   Button,
-  Toolbar,
-  Fab,
+  
   Dialog,
   DialogContent,
-  MenuItem,
-  Menu,
+ 
 } from '@material-ui/core';
 
-import { makeStyles } from '@material-ui/core/styles';
 
-import AddIcon from '@material-ui/icons/Add';
 
-import { bibleList, resourcesList } from '../../config';
 
-const useStyles = makeStyles(() => ({
-  root: {
-    padding: '0 !important',
-    margin: '0 1px !important',
-    height: '100%',
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  dragIndicator: {},
-}));
+
+import { bibleList } from '../../config';
+
+
 
 function BookSelect(props) {
-  const { setAppConfig, referenceSelected, setReferenceSelected, appConfig } = props;
+  const {  referenceSelected, setReferenceSelected} = props;
   const [showBookSelect, setShowBookSelect] = React.useState(false);
 
   const onBook = (project) => {
@@ -44,7 +33,7 @@ function BookSelect(props) {
 
   return (
     <>
-      <Toolbar style={{ margin: '0 auto' }}>
+      
         <Button
           variant="contained"
           color="secondary"
@@ -55,15 +44,8 @@ function BookSelect(props) {
               ?.title
           }{' '}
         </Button>
-        <Button
-          style={{ marginLeft: '10px' }}
-          variant="contained"
-          color="secondary"
-          onClick={() => setShowBookSelect(!showBookSelect)}
-        >
-          {referenceSelected.chapter} ch.
-        </Button>
-      </Toolbar>
+        
+      
 
       <Dialog
         fullWidth={true}

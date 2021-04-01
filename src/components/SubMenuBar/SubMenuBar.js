@@ -1,11 +1,10 @@
 import React from 'react';
 
 import BookList from '../BookList/BookList';
-import BookSelect from './BookSelect';
+import BookSelect from '../BookSelect/BookSelect';
 
 import {
   AppBar,
-  Button,
   Toolbar,
   Fab,
   Dialog,
@@ -18,7 +17,8 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import AddIcon from '@material-ui/icons/Add';
 
-import { bibleList, resourcesList } from '../../config';
+import {  resourcesList } from '../../config';
+import { ChapterSelect } from '../ChapterSelect';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -89,11 +89,16 @@ function SubMenuBar(props) {
               ))}
             </Menu>
           </Toolbar>
-
-          <BookSelect
-            referenceSelected={referenceSelected}
-            setReferenceSelected={setReferenceSelected}
-          />
+          <Toolbar style={{ margin: '0 auto' }}>
+            <BookSelect
+              referenceSelected={referenceSelected}
+              setReferenceSelected={setReferenceSelected}
+            />
+            <ChapterSelect
+              referenceSelected={referenceSelected}
+              setReferenceSelected={setReferenceSelected}
+            />
+          </Toolbar>
         </Toolbar>
       </AppBar>
       <Dialog
@@ -103,6 +108,7 @@ function SubMenuBar(props) {
         onClose={() => setShowBookSelect(false)}
       >
         <DialogContent>
+          
           <BookList onBook={onBook} />
         </DialogContent>
       </Dialog>
