@@ -83,6 +83,7 @@ export default function App() {
       >
         <MenuBar />
         <SubMenuBar
+          appConfig={appConfig}
           setAppConfig={setAppConfig}
           referenceSelected={referenceSelected}
           setReferenceSelected={setReferenceSelected}

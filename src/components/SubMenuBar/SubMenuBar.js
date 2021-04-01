@@ -1,5 +1,5 @@
 import React from 'react';
-
+import ChapterSelection from '../ChapterList/ChapterSelection';
 import BookList from '../BookList/BookList';
 
 import {
@@ -34,12 +34,17 @@ function SubMenuBar(props) {
   const { setAppConfig, referenceSelected, setReferenceSelected } = props;
   const [showBookSelect, setShowBookSelect] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const [showChapterSelect, setShowChapterSelect] = React.useState(false);
   const onBook = (project) => {
     setShowBookSelect(false);
     setReferenceSelected({
       ...referenceSelected,
       bookId: project ? project.identifier : null,
     });
+  };
+
+  const onClose = () => {
+    setShowChapterSelect(false);
   };
 
   function handleAddNewBible() {
@@ -105,7 +110,7 @@ function SubMenuBar(props) {
               style={{ marginLeft: '10px' }}
               variant="contained"
               color="secondary"
-              onClick={() => setShowBookSelect(!showBookSelect)}
+              onClick={() => setShowChapterSelect(!showChapterSelect)}
             >
               {referenceSelected.chapter} ch.
             </Button>
@@ -120,6 +125,20 @@ function SubMenuBar(props) {
       >
         <DialogContent>
           <BookList onBook={onBook} />
+        </DialogContent>
+      </Dialog>
+      <Dialog
+        fullWidth={true}
+        maxWidth="lg"
+        open={showChapterSelect}
+        onClose={() => setShowChapterSelect(false)}
+      >
+        <DialogContent>
+          <ChapterSelection
+            onClose={onClose}
+            setReferenceSelected={setReferenceSelected}
+            referenceSelected={referenceSelected}
+          />
         </DialogContent>
       </Dialog>
     </>
