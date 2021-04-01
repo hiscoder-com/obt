@@ -133,7 +133,7 @@ function SubMenuBar(props) {
         <DialogContent>
           <ChapterSelection
             setReferenceSelected={setReferenceSelected}
-            appConfig={appConfig}
+            referenceSelected={referenceSelected}
           />
         </DialogContent>
       </Dialog>
