@@ -1,9 +1,9 @@
 import React from 'react';
 
-import { ChaptersConfig } from './ChaptersConfig';
+import { ChaptersConfig } from './config';
 
 function ChapterSelection(props) {
-  const { setReferenceSelected, referenceSelected } = props;
+  const { setReferenceSelected, referenceSelected, onClose } = props;
 
   return (
     <>
@@ -11,7 +11,10 @@ function ChapterSelection(props) {
         ? Object.keys(ChaptersConfig[referenceSelected.bookId]).map((key) => (
             <button
               key={key}
-              onClick={() => setReferenceSelected({ ...referenceSelected, chapter: key })}
+              onClick={() => {
+                setReferenceSelected({ ...referenceSelected, chapter: key });
+                onClose();
+              }}
             >
               Глава{key}
             </button>

@@ -1,5 +1,5 @@
 import React from 'react';
-import ChapterSelection from '../ChapterSelection';
+import ChapterSelection from '../ChapterList/ChapterSelection';
 import BookList from '../BookList/BookList';
 
 import {
@@ -31,17 +31,20 @@ const useStyles = makeStyles(() => ({
 }));
 
 function SubMenuBar(props) {
-  const { setAppConfig, referenceSelected, setReferenceSelected, appConfig } = props;
+  const { setAppConfig, referenceSelected, setReferenceSelected } = props;
   const [showBookSelect, setShowBookSelect] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [showChapterSelect, setShowChapterSelect] = React.useState(false);
   const onBook = (project) => {
     setShowBookSelect(false);
-    setShowChapterSelect(false);
     setReferenceSelected({
       ...referenceSelected,
       bookId: project ? project.identifier : null,
     });
+  };
+
+  const onClose = () => {
+    setShowChapterSelect(false);
   };
 
   function handleAddNewBible() {
@@ -132,6 +135,7 @@ function SubMenuBar(props) {
       >
         <DialogContent>
           <ChapterSelection
+            onClose={onClose}
             setReferenceSelected={setReferenceSelected}
             referenceSelected={referenceSelected}
           />
