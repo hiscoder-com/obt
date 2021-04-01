@@ -10,3 +10,11 @@ export const getResources = (appConfig) => {
   resources === [] && resources.push(resourcesList['rob'].link);
   return resources;
 };
+
+export const getUniqueResources = (appConfig) => {
+  const resources = { ...resourcesList };
+  appConfig.forEach((el) => {
+    delete resources[el.i];
+  });
+  return resources;
+};
