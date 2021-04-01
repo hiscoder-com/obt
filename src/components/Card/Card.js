@@ -19,9 +19,10 @@ const useStyles = makeStyles(() => ({
   dragIndicator: {},
 }));
 
-function Card({ type, onClose, reference, onReference }) {
+function Card({ type, onClose, reference }) {
   let CurrentCard;
   const resource = resourcesList[type];
+  const classes = useStyles();
 
   switch (resource.resourceId) {
     case 'tn':
@@ -37,7 +38,6 @@ function Card({ type, onClose, reference, onReference }) {
       break;
   }
 
-  const classes = useStyles();
   return (
     <CurrentCard
       title={resource.title}
@@ -45,7 +45,6 @@ function Card({ type, onClose, reference, onReference }) {
       classes={classes}
       type={type}
       reference={reference}
-      onReference={onReference}
     />
   );
 }

@@ -557,6 +557,26 @@ export const resourcesList = {
     title: 'rsob',
     owner: 'bsa',
   },
+
+  ugnt: {
+    link: 'unfoldingWord/el-x-koine_ugnt/master',
+    branch: 'master',
+    type: 'bible',
+    languageId: 'el-x-koine',
+    resourceId: 'ugnt',
+    title: 'ugnt',
+    owner: 'unfoldingWord',
+  },
+  uhb: {
+    link: 'unfoldingWord/hbo_uhb/master',
+    branch: 'master',
+    type: 'bible',
+    languageId: 'hbo',
+    resourceId: 'uhb',
+    title: 'uhb',
+    owner: 'unfoldingWord',
+  },
+
   ult: {
     link: 'unfoldingWord/en_ult/master',
     branch: 'master',
@@ -593,7 +613,7 @@ export const resourcesList = {
     title: 'tq',
     owner: 'bsa',
   },
-  ta: {
+  /*ta: {
     link: 'bsa/ru_ta/master',
     branch: 'master',
     type: 'support',
@@ -610,23 +630,5 @@ export const resourcesList = {
     resourceId: 'tw',
     title: 'tw',
     owner: 'bsa',
-  },
-  uhb: {
-    link: 'unfoldingWord/hbo_uhb/master',
-    branch: 'master',
-    type: 'bible',
-    languageId: 'hbo',
-    resourceId: 'uhb',
-    title: 'uhb',
-    owner: 'unfoldingWord',
-  },
-  ugnt: {
-    link: 'unfoldingWord/el-x-koine_ugnt/master',
-    branch: 'master',
-    type: 'bible',
-    languageId: 'el-x-koine',
-    resourceId: 'ugnt',
-    title: 'ugnt',
-    owner: 'unfoldingWord',
-  },
+  },*/
 };
