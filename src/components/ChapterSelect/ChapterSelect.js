@@ -1,19 +1,14 @@
 import React from 'react';
 
-import BookList from '../BookList/BookList';
+import ChapterSelection from '../ChapterList/ChapterSelection';
 
 import { Button, Dialog, DialogContent } from '@material-ui/core';
 
-function ChapterSelect(props) {
-  const { referenceSelected, setReferenceSelected } = props;
-  const [showBookSelect, setShowBookSelect] = React.useState(false);
+function ChapterSelect({ referenceSelected, setReferenceSelected }) {
+  const [showChapterSelect, setShowChapterSelect] = React.useState(false);
 
-  const onBook = (project) => {
-    setShowBookSelect(false);
-    setReferenceSelected({
-      ...referenceSelected,
-      bookId: project ? project.identifier : null,
-    });
+  const onClose = () => {
+    setShowChapterSelect(false);
   };
 
   return (
@@ -22,18 +17,22 @@ function ChapterSelect(props) {
         style={{ marginLeft: '10px' }}
         variant="contained"
         color="secondary"
-        onClick={() => setShowBookSelect(!showBookSelect)}
+        onClick={() => setShowChapterSelect(!showChapterSelect)}
       >
         {referenceSelected.chapter} ch.
       </Button>
       <Dialog
         fullWidth={true}
         maxWidth="lg"
-        open={showBookSelect}
-        onClose={() => setShowBookSelect(false)}
+        open={showChapterSelect}
+        onClose={() => setShowChapterSelect(false)}
       >
         <DialogContent>
-          <BookList onBook={onBook} />
+          <ChapterSelection
+            setReferenceSelected={setReferenceSelected}
+            referenceSelected={referenceSelected}
+            onClose={onClose}
+          />
         </DialogContent>
       </Dialog>
     </>

@@ -557,7 +557,6 @@ export const resourcesList = {
     title: 'rsob',
     owner: 'bsa',
   },
-
   ugnt: {
     link: 'unfoldingWord/el-x-koine_ugnt/master',
     branch: 'master',
@@ -567,7 +566,7 @@ export const resourcesList = {
     title: 'ugnt',
     owner: 'unfoldingWord',
   },
-  uhb: {
+  /*uhb: {
     link: 'unfoldingWord/hbo_uhb/master',
     branch: 'master',
     type: 'bible',
@@ -575,8 +574,7 @@ export const resourcesList = {
     resourceId: 'uhb',
     title: 'uhb',
     owner: 'unfoldingWord',
-  },
-
+  },*/
   ult: {
     link: 'unfoldingWord/en_ult/master',
     branch: 'master',

@@ -3,9 +3,6 @@ import React, { useState } from 'react';
 import BookSelect from '../BookSelect/BookSelect';
 import { ChapterSelect } from '../ChapterSelect';
 
-import ChapterSelection from '../ChapterList/ChapterSelection';
-import BookList from '../BookList/BookList';
-
 import { AppBar, Toolbar, Fab, MenuItem, Menu } from '@material-ui/core';
 
 import AddIcon from '@material-ui/icons/Add';
@@ -23,11 +20,6 @@ function SubMenuBar(props) {
     setAppConfig((prev) => prev.concat({ w: 4, h: 3, x: 0, y: 99, i: item }));
 
     handleClose();
-  };
-  const [showChapterSelect, setShowChapterSelect] = React.useState(false);
-
-  const onClose = () => {
-    setShowChapterSelect(false);
   };
 
   const handleClick = (event) => {
@@ -61,7 +53,6 @@ function SubMenuBar(props) {
             </Menu>
           </Toolbar>
           <Toolbar style={{ margin: '0 auto' }}>
-
             <BookSelect
               referenceSelected={referenceSelected}
               setReferenceSelected={setReferenceSelected}
@@ -73,8 +64,6 @@ function SubMenuBar(props) {
           </Toolbar>
         </Toolbar>
       </AppBar>
-
- 
     </>
   );
 }
