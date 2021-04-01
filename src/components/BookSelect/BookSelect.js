@@ -17,7 +17,7 @@ function BookSelect(props) {
       bookId: project ? project.identifier : null,
     });
   };
-
+  console.log('referenceSelected', referenceSelected);
   return (
     <>
       <Button

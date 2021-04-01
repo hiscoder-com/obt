@@ -1,4 +1,4 @@
-import React,{useContext,useState} from 'react';
+import React, { useContext, useState } from 'react';
 
 import { ResourcesContext } from 'scripture-resources-rcl';
 
@@ -11,30 +11,45 @@ import { Projects, useStyles } from './styled';
 
 function BookList({ onBook }) {
   const { state } = useContext(ResourcesContext);
-  const classes = useStyles();
-  let issetCheck = false;
-  const resourseList = bibleList;
-
   const [checkState, setCheckState] = useState({
     checkedA: false,
   });
+
+  let issetCheck = false;
+  console.log('state', state);
+
+  const classes = useStyles();
 
   const handleChange = (event) => {
     setCheckState({ ...checkState, [event.target.name]: event.target.checked });
   };
 
-  const stateResourseId =
-    state && state.resources && state.resources[0] && state.resources[0].projects
-      ? state.resources[0].projects.map((project) => project.identifier)
-      : [];
+  const bookListIsset = () => {
+    for (let i = 0; i < state.resources.length; ++i) {
+      bibleList.forEach((item) => {
+        if (state.resources.length > 0) {
+          if (
+            state.resources[i].projects
+              .map((project) => project.identifier)
+              .includes(item.identifier)
+          ) {
+            item.isset = true;
+          }
+        } else {
+          item.isset = false;
+        }
+      });
+    }
+    return bibleList;
+  };
+
+  bookListIsset();
+  console.log('bibleList', bibleList);
+
   const stateResourse =
     state && state.resources && state.resources[0] && state.resources[0].projects
       ? state.resources[0].projects.map((project) => project)
       : [];
-
-  resourseList.forEach(function (item) {
-    stateResourseId.includes(item.identifier) ? (item.isset = true) : (issetCheck = true);
-  });
 
   function linkBook(item) {
     for (let i = 0; i < stateResourse.length; ++i) {
@@ -44,35 +59,35 @@ function BookList({ onBook }) {
     }
   }
 
-  function renderBookList(mainResourse, categories) {
-    return mainResourse
-      .filter((mainResourse) =>
+  const renderBookList = (bibleList, categories) => {
+    return bibleList
+      .filter((bibleList) =>
         checkState.checkedA
-          ? mainResourse.categories === categories && mainResourse.isset === true
-          : mainResourse.categories === categories
+          ? bibleList.categories === categories && bibleList.isset === true
+          : bibleList.categories === categories
       )
-      .map((mainResourse) => (
-        <p key={mainResourse.sort}>
-          {mainResourse.isset ? (
-            <button onClick={() => onBook(linkBook(mainResourse.identifier))}>
-              {mainResourse.title}
+      .map((bibleList) => (
+        <p key={bibleList.sort}>
+          {bibleList.isset ? (
+            <button onClick={() => onBook(linkBook(bibleList.identifier))}>
+              {bibleList.title}
             </button>
           ) : (
-            <span className={classes.falseElement}>{mainResourse.title}</span>
+            <span className={classes.falseElement}>{bibleList.title}</span>
           )}
         </p>
       ));
-  }
+  };
 
-  const otBookList = renderBookList(resourseList, 'bible-ot');
-  const ntBookList = renderBookList(resourseList, 'bible-nt');
+  const otBookList = renderBookList(bibleList, 'bible-ot');
+  const ntBookList = renderBookList(bibleList, 'bible-nt');
 
   const hideCheckRender =
     issetCheck === true ? (
       <FormControlLabel
         control={
           <Checkbox
-            checked={state.checkedA}
+            checked={checkState.checkedA}
             onChange={handleChange}
             name="checkedA"
             color="primary"
