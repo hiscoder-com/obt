@@ -2,14 +2,7 @@ import React from 'react';
 
 import BookList from '../BookList/BookList';
 
-import {
-    Button,
-    Dialog,
-    DialogContent,
-  
-  } from '@material-ui/core';
-
-
+import { Button, Dialog, DialogContent } from '@material-ui/core';
 
 function ChapterSelect(props) {
   const { referenceSelected, setReferenceSelected } = props;
@@ -25,15 +18,15 @@ function ChapterSelect(props) {
 
   return (
     <>
-        <Button
-          style={{ marginLeft: '10px' }}
-          variant="contained"
-          color="secondary"
-          onClick={() => setShowBookSelect(!showBookSelect)}
-        >
-          {referenceSelected.chapter} ch.
-        </Button>
-        <Dialog
+      <Button
+        style={{ marginLeft: '10px' }}
+        variant="contained"
+        color="secondary"
+        onClick={() => setShowBookSelect(!showBookSelect)}
+      >
+        {referenceSelected.chapter} ch.
+      </Button>
+      <Dialog
         fullWidth={true}
         maxWidth="lg"
         open={showBookSelect}
@@ -43,7 +36,6 @@ function ChapterSelect(props) {
           <BookList onBook={onBook} />
         </DialogContent>
       </Dialog>
-            
     </>
   );
 }

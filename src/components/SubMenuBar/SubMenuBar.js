@@ -1,54 +1,24 @@
-import React,{useState} from 'react';
-
+import React, { useState } from 'react';
 
 import BookSelect from '../BookSelect/BookSelect';
 import { ChapterSelect } from '../ChapterSelect';
 
-import {
-  AppBar,
-  Toolbar,
-  Fab,
-  MenuItem,
-  Menu,
-} from '@material-ui/core';
-
-import { makeStyles } from '@material-ui/core/styles';
+import { AppBar, Toolbar, Fab, MenuItem, Menu } from '@material-ui/core';
 
 import AddIcon from '@material-ui/icons/Add';
 
 import { resourcesList } from '../../config';
 
-
-const useStyles = makeStyles(() => ({
-  root: {
-    padding: '0 !important',
-    margin: '0 1px !important',
-    height: '100%',
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  dragIndicator: {},
-}));
+import { getUniqueResources } from '../../helper';
 
 function SubMenuBar(props) {
-
   const { setAppConfig, referenceSelected, setReferenceSelected, appConfig } = props;
   const [anchorEl, setAnchorEl] = useState(null);
-  
-
-  const uniqChecking = (item) => {
-    for (let i = 0; i < appConfig.length; i++) {
-      if (appConfig[i].i === item) return true;
-    }
-  };
+  const uniqueResources = getUniqueResources(appConfig);
 
   const handleAddNew = (item) => {
-    if (uniqChecking(item) !== true) {
-      setAppConfig((prev) => prev.concat({ w: 4, h: 3, x: 0, y: 99, i: item }));
-      handleClose();
-    } else {
-      handleClose();
-    }
+    setAppConfig((prev) => prev.concat({ w: 4, h: 3, x: 0, y: 99, i: item }));
+    handleClose();
   };
 
   const handleClick = (event) => {
@@ -58,12 +28,11 @@ function SubMenuBar(props) {
     setAnchorEl(null);
   };
 
-  const classes = useStyles();
   return (
     <>
       <AppBar position="relative">
         <Toolbar>
-          <Toolbar className={classes.addMenu}>
+          <Toolbar>
             <Fab color="primary" aria-label="add" onClick={handleClick}>
               <AddIcon />
             </Fab>
@@ -75,8 +44,8 @@ function SubMenuBar(props) {
               open={Boolean(anchorEl)}
               onClose={handleClose}
             >
-              {Object.keys(resourcesList).map((keyName, index) => (
-                <MenuItem onClick={() => handleAddNew(keyName)}>
+              {Object.keys(uniqueResources).map((keyName, index) => (
+                <MenuItem key={index} onClick={() => handleAddNew(keyName)}>
                   {resourcesList[keyName].title}
                 </MenuItem>
               ))}
@@ -94,7 +63,6 @@ function SubMenuBar(props) {
           </Toolbar>
         </Toolbar>
       </AppBar>
-      
     </>
   );
 }
