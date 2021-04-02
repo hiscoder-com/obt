@@ -26,6 +26,13 @@ const _appConfig = localStorage.getItem('appConfig')
 const _resourceLinks = getResources(_appConfig);
 
 const useStyles = makeStyles(() => ({
+  root: {
+    padding: '0 !important',
+    margin: '0 1px !important',
+    height: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+  },
   dragIndicator: {},
 }));
 
@@ -42,7 +49,7 @@ export default function App() {
   }, [memoResources]);
 
   const [referenceSelected, setReferenceSelected] = useState({
-    bookId: 'tit',
+    bookId: 'rut',
     chapter: 1,
   });
 
@@ -50,7 +57,7 @@ export default function App() {
     absolute: appConfig,
   };
 
-  function onLayoutChange(appConfig) {
+  function onLayoutChange() {
     localStorage.setItem('appConfig', JSON.stringify(appConfig));
     setAppConfig(appConfig);
   }
@@ -98,6 +105,7 @@ export default function App() {
         >
           {appConfig.map((item) => (
             <Card
+              classes={classes}
               key={item.i}
               onClose={() => onClose(item.i)}
               reference={referenceSelected}
