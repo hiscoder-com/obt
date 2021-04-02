@@ -3,7 +3,7 @@ import { Card, CardContent, useContent, useCardState } from 'translation-helps-r
 import { ReferenceSelectedContext } from 'scripture-resources-rcl';
 
 export default function SupportTN(props) {
-  const { title, classes, onClose, index } = props;
+  const { title, classes, onClose, type } = props;
   const { state: reference } = React.useContext(ReferenceSelectedContext);
 
   const [selectedQuote, setQuote] = useState({});
@@ -34,7 +34,7 @@ export default function SupportTN(props) {
     <Card
       closeable
       title={title}
-      onClose={() => onClose(index)}
+      onClose={() => onClose(type)}
       classes={classes}
       items={items}
       headers={headers}

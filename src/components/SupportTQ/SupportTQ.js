@@ -3,7 +3,7 @@ import { Card, CardContent, useContent, useCardState } from 'translation-helps-r
 import { ReferenceSelectedContext } from 'scripture-resources-rcl';
 
 export default function SupportTQ(props) {
-  const { title, classes, onClose, index } = props;
+  const { title, classes, onClose, type } = props;
   const { state: reference } = React.useContext(ReferenceSelectedContext);
 
   const {
@@ -19,7 +19,10 @@ export default function SupportTQ(props) {
     languageId: 'ru',
     resourceId: 'tq',
     filePath:
-      String(reference.chapter).padStart(2, '0') + '/' + String(reference.verse).padStart(2, '0') + '.md',
+      String(reference.chapter).padStart(2, '0') +
+      '/' +
+      String(reference.verse).padStart(2, '0') +
+      '.md',
     owner: 'bsa',
     server: 'https://git.door43.org',
   });
@@ -34,7 +37,7 @@ export default function SupportTQ(props) {
     <Card
       closeable
       title={title}
-      onClose={() => onClose(index)}
+      onClose={() => onClose(type)}
       classes={classes}
       items={items}
       headers={headers}
