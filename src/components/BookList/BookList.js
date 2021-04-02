@@ -14,6 +14,7 @@ function BookList({ onBook }) {
   const [checkState, setCheckState] = useState(false);
   const classes = useStyles();
   const currentBibleList = JSON.parse(JSON.stringify(bibleList));
+  const trueBibleList = JSON.parse(JSON.stringify(bibleList));
 
   const handleChange = () => {
     setCheckState((prev) => !prev);
@@ -22,6 +23,9 @@ function BookList({ onBook }) {
   let issetCheck = false;
   if (state.resources.length > 0) {
     state.resources.forEach((resource) => {
+      trueBibleList.forEach((item) => {
+        item.isset = true;
+      });
       currentBibleList.forEach((item) => {
         if (
           item.isset ||
@@ -29,12 +33,13 @@ function BookList({ onBook }) {
         ) {
           item.isset = true;
         } else {
-          issetCheck = true;
         }
       });
     });
   }
-
+  if (JSON.stringify(currentBibleList) !== JSON.stringify(trueBibleList)) {
+    issetCheck = true;
+  }
   const renderBookList = (currentBibleList, categories) => {
     return currentBibleList
       .filter((el) =>
