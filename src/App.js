@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import {
   ResourcesContextProvider,
@@ -42,11 +42,9 @@ export default function App() {
   const [resources, setResources] = useState([]);
   const [appConfig, setAppConfig] = useState(_appConfig);
 
-  const memoResources = useMemo(() => getResources(appConfig), [appConfig]);
-
   useEffect(() => {
-    setResourceLinks(memoResources);
-  }, [memoResources]);
+    setResourceLinks(getResources(appConfig));
+  }, [appConfig]);
 
   const [referenceSelected, setReferenceSelected] = useState({
     bookId: 'rut',
@@ -68,9 +66,9 @@ export default function App() {
 
   useEffect(() => {
     if (referenceSelected?.verse) {
-      console.log(
+      /* console.log(
         'Reference: ' + referenceSelected?.chapter + ':' + referenceSelected?.verse
-      );
+      ); */
     }
   }, [referenceSelected?.chapter, referenceSelected?.verse]);
 

@@ -11,93 +11,68 @@ import { Projects, useStyles } from './styled';
 
 function BookList({ onBook }) {
   const { state } = useContext(ResourcesContext);
-  const [checkState, setCheckState] = useState({
-    checkedA: false,
-  });
+  const [checkState, setCheckState] = useState(false);
+  const classes = useStyles();
+  const currentBibleList = JSON.parse(JSON.stringify(bibleList));
+
+  const handleChange = () => {
+    setCheckState((prev) => !prev);
+  };
 
   let issetCheck = false;
-  console.log('state', state);
-
-  const classes = useStyles();
-
-  const handleChange = (event) => {
-    setCheckState({ ...checkState, [event.target.name]: event.target.checked });
-  };
-
-  const bookListIsset = () => {
-    for (let i = 0; i < state.resources.length; ++i) {
-      bibleList.forEach((item) => {
-        if (state.resources.length > 0) {
-          if (
-            state.resources[i].projects
-              .map((project) => project.identifier)
-              .includes(item.identifier)
-          ) {
-            item.isset = true;
-          }
+  if (state.resources.length > 0) {
+    state.resources.forEach((resource) => {
+      currentBibleList.forEach((item) => {
+        if (
+          item.isset ||
+          resource.projects.map((project) => project.identifier).includes(item.identifier)
+        ) {
+          item.isset = true;
         } else {
-          item.isset = false;
+          issetCheck = true;
         }
       });
-    }
-    return bibleList;
-  };
-
-  bookListIsset();
-  console.log('bibleList', bibleList);
-
-  const stateResourse =
-    state && state.resources && state.resources[0] && state.resources[0].projects
-      ? state.resources[0].projects.map((project) => project)
-      : [];
-
-  function linkBook(item) {
-    for (let i = 0; i < stateResourse.length; ++i) {
-      if (item === stateResourse[i].identifier) {
-        return stateResourse[i];
-      }
-    }
+    });
   }
 
-  const renderBookList = (bibleList, categories) => {
-    return bibleList
-      .filter((bibleList) =>
-        checkState.checkedA
-          ? bibleList.categories === categories && bibleList.isset === true
-          : bibleList.categories === categories
+  const renderBookList = (currentBibleList, categories) => {
+    return currentBibleList
+      .filter((currentBibleList) =>
+        checkState
+          ? currentBibleList.categories === categories && currentBibleList.isset === true
+          : currentBibleList.categories === categories
       )
-      .map((bibleList) => (
-        <p key={bibleList.sort}>
-          {bibleList.isset ? (
-            <button onClick={() => onBook(linkBook(bibleList.identifier))}>
-              {bibleList.title}
+      .map((currentBibleList) => (
+        <p key={currentBibleList.sort}>
+          {currentBibleList.isset ? (
+            <button onClick={() => onBook(currentBibleList.identifier)}>
+              {currentBibleList.title}
             </button>
           ) : (
-            <span className={classes.falseElement}>{bibleList.title}</span>
+            <span className={classes.falseElement}>{currentBibleList.title}</span>
           )}
         </p>
       ));
   };
 
-  const otBookList = renderBookList(bibleList, 'bible-ot');
-  const ntBookList = renderBookList(bibleList, 'bible-nt');
+  const otBookList = renderBookList(currentBibleList, 'bible-ot');
+  const ntBookList = renderBookList(currentBibleList, 'bible-nt');
 
-  const hideCheckRender =
-    issetCheck === true ? (
-      <FormControlLabel
-        control={
-          <Checkbox
-            checked={checkState.checkedA}
-            onChange={handleChange}
-            name="checkedA"
-            color="primary"
-          />
-        }
-        label="show only existing books"
-      />
-    ) : (
-      []
-    );
+  const hideCheckRender = issetCheck ? (
+    <FormControlLabel
+      control={
+        <Checkbox
+          checked={checkState}
+          onChange={handleChange}
+          name="checkedA"
+          color="primary"
+        />
+      }
+      label="show only existing books"
+    />
+  ) : (
+    []
+  );
 
   return (
     <Projects>
