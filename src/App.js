@@ -57,7 +57,7 @@ export default function App() {
     absolute: appConfig,
   };
 
-  function onLayoutChange() {
+  function onLayoutChange(appConfig) {
     localStorage.setItem('appConfig', JSON.stringify(appConfig));
     setAppConfig(appConfig);
   }
