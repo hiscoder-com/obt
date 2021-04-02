@@ -37,19 +37,17 @@ function BookList({ onBook }) {
 
   const renderBookList = (currentBibleList, categories) => {
     return currentBibleList
-      .filter((currentBibleList) =>
+      .filter((el) =>
         checkState
-          ? currentBibleList.categories === categories && currentBibleList.isset === true
-          : currentBibleList.categories === categories
+          ? el.categories === categories && el.isset === true
+          : el.categories === categories
       )
-      .map((currentBibleList) => (
-        <p key={currentBibleList.sort}>
-          {currentBibleList.isset ? (
-            <button onClick={() => onBook(currentBibleList.identifier)}>
-              {currentBibleList.title}
-            </button>
+      .map((el) => (
+        <p key={el.sort}>
+          {el.isset ? (
+            <button onClick={() => onBook(el.identifier)}>{el.title}</button>
           ) : (
-            <span className={classes.falseElement}>{currentBibleList.title}</span>
+            <span className={classes.falseElement}>{el.title}</span>
           )}
         </p>
       ));

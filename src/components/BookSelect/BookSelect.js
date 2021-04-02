@@ -10,11 +10,11 @@ function BookSelect(props) {
   const { referenceSelected, setReferenceSelected } = props;
   const [showBookSelect, setShowBookSelect] = useState(false);
 
-  const onBook = (project) => {
+  const onBook = (identifier) => {
     setShowBookSelect(false);
     setReferenceSelected({
       ...referenceSelected,
-      bookId: project ? project.identifier : null,
+      bookId: identifier ?? null,
     });
   };
   //console.log('referenceSelected', referenceSelected);
