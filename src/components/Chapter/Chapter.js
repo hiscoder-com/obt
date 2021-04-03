@@ -6,8 +6,10 @@ import { ResourcesContext } from 'scripture-resources-rcl';
 
 import { resourcesList } from '../../config';
 
+import useStyles from './styled';
+
 export default function Chapter(props) {
-  const { title, classes, onClose, type, reference } = props;
+  const { title, onClose, type, reference } = props;
   const { state } = React.useContext(ResourcesContext);
 
   const [chapter, setChapter] = useState();
@@ -38,6 +40,8 @@ export default function Chapter(props) {
       setChapter(null);
     }
   }, [project]);
+
+  const classes = useStyles();
 
   return (
     <Card

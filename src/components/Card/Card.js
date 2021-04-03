@@ -4,20 +4,9 @@ import Chapter from '../Chapter/Chapter';
 import SupportTQ from '../SupportTQ/SupportTQ';
 import SupportTN from '../SupportTN/SupportTN';
 
-import { makeStyles } from '@material-ui/core/styles';
-
 import { resourcesList } from '../../config';
 
-const useStyles = makeStyles(() => ({
-  root: {
-    padding: '0 !important',
-    margin: '0 1px !important',
-    height: '100%',
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  dragIndicator: {},
-}));
+import useStyles from './styled';
 
 function Card({ type, onClose, reference }) {
   let CurrentCard;

@@ -10,7 +10,6 @@ import { MenuBar, SubMenuBar, TypoReport, Card } from './components';
 
 import { getResources } from './helper';
 
-import { makeStyles } from '@material-ui/core/styles';
 import './styles/app.css';
 
 const config = { server: 'https://git.door43.org' };
@@ -25,12 +24,7 @@ const _appConfig = localStorage.getItem('appConfig')
 
 const _resourceLinks = getResources(_appConfig);
 
-const useStyles = makeStyles(() => ({
-  dragIndicator: {},
-}));
-
 export default function App() {
-  const classes = useStyles();
   const [resourceLinks, setResourceLinks] = useState(_resourceLinks);
   const [resources, setResources] = useState([]);
   const [appConfig, setAppConfig] = useState(_appConfig);
@@ -92,7 +86,6 @@ export default function App() {
           gridMargin={[15, 15]}
           rowHeight={30}
           totalGridUnits={12}
-          classes={classes}
           layout={layout}
           onLayoutChange={onLayoutChange}
         >

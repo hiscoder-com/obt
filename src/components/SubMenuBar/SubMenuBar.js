@@ -11,6 +11,8 @@ import { resourcesList } from '../../config';
 
 import { getUniqueResources } from '../../helper';
 
+import useStyles from './styled';
+
 function SubMenuBar(props) {
   const { setAppConfig, referenceSelected, setReferenceSelected, appConfig } = props;
   const [anchorEl, setAnchorEl] = useState(null);
@@ -29,9 +31,11 @@ function SubMenuBar(props) {
     setAnchorEl(null);
   };
 
+  const classes = useStyles();
+
   return (
     <>
-      <AppBar position="relative">
+      <AppBar position="relative" className={classes.button}>
         <Toolbar>
           <Toolbar>
             <Fab color="primary" aria-label="add" onClick={handleClick}>

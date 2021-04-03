@@ -2,8 +2,12 @@ import React from 'react';
 
 import { ChaptersConfig } from './config';
 
+import useStyles from './styled';
+
 function ChapterSelection(props) {
   const { setReferenceSelected, referenceSelected, onClose } = props;
+
+  const classes = useStyles();
 
   return (
     <>
@@ -11,6 +15,7 @@ function ChapterSelection(props) {
         ? Object.keys(ChaptersConfig[referenceSelected.bookId]).map((key) => (
             <button
               key={key}
+              className={classes.button}
               onClick={() => {
                 setReferenceSelected({ ...referenceSelected, chapter: key });
                 onClose();
