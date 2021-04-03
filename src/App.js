@@ -9,7 +9,7 @@ import { Workspace } from 'resource-workspace-rcl';
 import { MenuBar, SubMenuBar, TypoReport, Card } from './components';
 
 import { getResources } from './helper';
-
+import { makeStyles } from '@material-ui/core/styles';
 import './styles/app.css';
 
 const config = { server: 'https://git.door43.org' };
@@ -24,7 +24,19 @@ const _appConfig = localStorage.getItem('appConfig')
 
 const _resourceLinks = getResources(_appConfig);
 
+const useStyles = makeStyles(() => ({
+  root: {
+    padding: '0 !important',
+    margin: '0 1px !important',
+    height: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  dragIndicator: {},
+}));
+
 export default function App() {
+  const classes = useStyles();
   const [resourceLinks, setResourceLinks] = useState(_resourceLinks);
   const [resources, setResources] = useState([]);
   const [appConfig, setAppConfig] = useState(_appConfig);
@@ -86,6 +98,7 @@ export default function App() {
           gridMargin={[15, 15]}
           rowHeight={30}
           totalGridUnits={12}
+          classes={classes}
           layout={layout}
           onLayoutChange={onLayoutChange}
         >
