@@ -12,6 +12,8 @@ function BookSelect(props) {
     setReferenceSelected,
     showBookSelect,
     setShowBookSelect,
+    setShowChapterSelect,
+    showChapterSelect,
   } = props;
 
   const onBook = (identifier) => {
@@ -22,6 +24,7 @@ function BookSelect(props) {
       chapter: 1,
       verse: 1,
     });
+    setShowChapterSelect(!showChapterSelect);
   };
 
   return (

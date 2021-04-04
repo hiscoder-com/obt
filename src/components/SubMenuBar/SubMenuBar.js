@@ -19,6 +19,8 @@ function SubMenuBar(props) {
     appConfig,
     showBookSelect,
     setShowBookSelect,
+    showChapterSelect,
+    setShowChapterSelect,
   } = props;
   const [anchorEl, setAnchorEl] = useState(null);
   const uniqueResources = getUniqueResources(appConfig);
@@ -65,10 +67,14 @@ function SubMenuBar(props) {
               setReferenceSelected={setReferenceSelected}
               showBookSelect={showBookSelect}
               setShowBookSelect={setShowBookSelect}
+              showChapterSelect={showChapterSelect}
+              setShowChapterSelect={setShowChapterSelect}
             />
             <ChapterSelect
               referenceSelected={referenceSelected}
               setReferenceSelected={setReferenceSelected}
+              showChapterSelect={showChapterSelect}
+              setShowChapterSelect={setShowChapterSelect}
             />
           </Toolbar>
         </Toolbar>

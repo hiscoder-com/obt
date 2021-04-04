@@ -51,6 +51,7 @@ export default function App() {
     chapter: 1,
   });
   const [showBookSelect, setShowBookSelect] = useState(true);
+  const [showChapterSelect, setShowChapterSelect] = useState(false);
   const layout = {
     absolute: appConfig,
   };
@@ -94,6 +95,8 @@ export default function App() {
           setReferenceSelected={setReferenceSelected}
           showBookSelect={showBookSelect}
           setShowBookSelect={setShowBookSelect}
+          showChapterSelect={showChapterSelect}
+          setShowChapterSelect={setShowChapterSelect}
         />
         <Workspace
           gridMargin={[15, 15]}
