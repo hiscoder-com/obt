@@ -1,0 +1,14 @@
+{
+  "Ch": {
+    "1": "Ch"
+  },
+  "Chap": {
+    "1":"Chapter "
+  },
+  "BookList": {
+    "1":"show only existing books",
+    "2": "New Testament",
+    "3": "Old Testament"
+  }
+
+}

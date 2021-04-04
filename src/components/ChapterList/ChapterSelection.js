@@ -1,10 +1,10 @@
 import React from 'react';
-
+import { useTranslation } from 'react-i18next';
 import { ChaptersConfig } from './config';
 
 function ChapterSelection(props) {
   const { setReferenceSelected, referenceSelected, onClose } = props;
-
+  const { t } = useTranslation();
   return (
     <>
       {ChaptersConfig
@@ -16,7 +16,8 @@ function ChapterSelection(props) {
                 onClose();
               }}
             >
-              Глава{key}
+              {t('Chap.1')}
+              {key}
             </button>
           ))
         : ''}

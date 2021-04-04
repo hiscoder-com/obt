@@ -4,7 +4,7 @@ import { ResourcesContext } from 'scripture-resources-rcl';
 
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
-
+import { useTranslation } from 'react-i18next';
 import { bibleList } from '../../config';
 
 import { Projects, useStyles } from './styled';
@@ -15,7 +15,7 @@ function BookList({ onBook }) {
   const classes = useStyles();
   const currentBibleList = JSON.parse(JSON.stringify(bibleList));
   const trueBibleList = JSON.parse(JSON.stringify(bibleList));
-
+  const { t, i18n } = useTranslation();
   const handleChange = () => {
     setCheckState((prev) => !prev);
   };
@@ -50,17 +50,17 @@ function BookList({ onBook }) {
       .map((el) => (
         <p key={el.sort}>
           {el.isset ? (
-            <button onClick={() => onBook(el.identifier)}>{el.title}</button>
+            <button onClick={() => onBook(el.identifier)}>
+              {i18n.language === 'eng' ? el.title : el.rutitle}
+            </button>
           ) : (
             <span className={classes.falseElement}>{el.title}</span>
           )}
         </p>
       ));
   };
-
   const otBookList = renderBookList(currentBibleList, 'bible-ot');
   const ntBookList = renderBookList(currentBibleList, 'bible-nt');
-
   const hideCheckRender = issetCheck ? (
     <FormControlLabel
       control={
@@ -71,7 +71,7 @@ function BookList({ onBook }) {
           color="primary"
         />
       }
-      label="show only existing books"
+      label={t('BookList.1')}
     />
   ) : (
     []
@@ -80,9 +80,9 @@ function BookList({ onBook }) {
   return (
     <Projects>
       {hideCheckRender}
-      <h2>New Testament</h2>
+      <h2>{t('BookList.2')}</h2>
       <div>{ntBookList}</div>
-      <h2>Old Testament</h2>
+      <h2>{t('BookList.3')}</h2>
       <div>{otBookList}</div>
     </Projects>
   );
