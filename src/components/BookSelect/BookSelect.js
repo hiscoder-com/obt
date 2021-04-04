@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import BookList from '../BookList/BookList';
 
@@ -7,8 +7,12 @@ import { Button, Dialog, DialogContent } from '@material-ui/core';
 import { bibleList } from '../../config';
 
 function BookSelect(props) {
-  const { referenceSelected, setReferenceSelected } = props;
-  const [showBookSelect, setShowBookSelect] = useState(false);
+  const {
+    referenceSelected,
+    setReferenceSelected,
+    showBookSelect,
+    setShowBookSelect,
+  } = props;
 
   const onBook = (identifier) => {
     setShowBookSelect(false);

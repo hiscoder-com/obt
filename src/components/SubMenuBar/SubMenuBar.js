@@ -12,7 +12,14 @@ import { resourcesList } from '../../config';
 import { getUniqueResources } from '../../helper';
 
 function SubMenuBar(props) {
-  const { setAppConfig, referenceSelected, setReferenceSelected, appConfig } = props;
+  const {
+    setAppConfig,
+    referenceSelected,
+    setReferenceSelected,
+    appConfig,
+    showBookSelect,
+    setShowBookSelect,
+  } = props;
   const [anchorEl, setAnchorEl] = useState(null);
   const uniqueResources = getUniqueResources(appConfig);
 
@@ -56,6 +63,8 @@ function SubMenuBar(props) {
             <BookSelect
               referenceSelected={referenceSelected}
               setReferenceSelected={setReferenceSelected}
+              showBookSelect={showBookSelect}
+              setShowBookSelect={setShowBookSelect}
             />
             <ChapterSelect
               referenceSelected={referenceSelected}
