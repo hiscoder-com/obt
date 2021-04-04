@@ -15,9 +15,11 @@ function BookSelect(props) {
     setReferenceSelected({
       ...referenceSelected,
       bookId: identifier ?? null,
+      chapter: 1,
+      verse: 1,
     });
   };
-  //console.log('referenceSelected', referenceSelected);
+
   return (
     <>
       <Button
