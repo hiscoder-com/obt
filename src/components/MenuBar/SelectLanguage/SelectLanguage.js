@@ -25,7 +25,7 @@ export default function SelectLanguage() {
         <WhiteIconNativeSelect
           className={classes.nativeSelect}
           onChange={handleChange}
-          defaultValue={'eng'}
+          defaultValue={'russ'}
         >
           <option className={classes.optionStyle} value={'eng'}>
             Eng
