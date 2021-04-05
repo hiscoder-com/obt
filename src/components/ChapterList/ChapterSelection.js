@@ -31,13 +31,11 @@ function ChapterSelection(props) {
   return (
     <>
       {ChaptersConfig
-     
         ? Object.keys(ChaptersConfig[referenceSelected.bookId]).map((key) =>
             referenceSelected.chapter === key
               ? currentElement(key, 'primary')
               : currentElement(key)
           )
-
         : ''}
     </>
   );
