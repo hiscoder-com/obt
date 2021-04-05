@@ -6,8 +6,6 @@ import { Button, Dialog, DialogContent } from '@material-ui/core';
 
 import { bibleList } from '../../config';
 
-import useStyles from './styled';
-
 function BookSelect(props) {
   const { referenceSelected, setReferenceSelected } = props;
   const [showBookSelect, setShowBookSelect] = useState(false);
@@ -21,14 +19,11 @@ function BookSelect(props) {
   };
   console.log('referenceSelected', referenceSelected);
 
-  const classes = useStyles();
-
   return (
     <>
       <Button
         variant="contained"
         color="secondary"
-        className={classes.button}
         onClick={() => setShowBookSelect(!showBookSelect)}
       >
         {
