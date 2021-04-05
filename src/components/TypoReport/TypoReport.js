@@ -13,6 +13,7 @@ import {
   Backdrop,
   CircularProgress,
 } from '@material-ui/core';
+import { useTranslation } from 'react-i18next';
 import useStyles from './style';
 
 export default function TypoReport() {
@@ -21,6 +22,7 @@ export default function TypoReport() {
   const [selectionNode, setSelectionNode] = React.useState('');
   const [selectionTypo, setSelectionTypo] = React.useState('');
   const [openBackdrop, setOpenBackdrop] = React.useState(false);
+  const { t } = useTranslation();
 
   const handleChange = (e) => {
     setValueComment(e.target.value);
@@ -67,15 +69,15 @@ export default function TypoReport() {
     <AppBar color="primary" className={classes.appBar}>
       <Container fixed>
         <Typography variant="subtitle2">
-          If you find an error, then select this piece of text and press &nbsp;
+          {t('Typo.1')} &nbsp;
           <Button size="small" variant="contained" onClick={handleClickOpen}>
-            Report a bug
+            {t('Typo.2')}
           </Button>
-          &nbsp; Thank!
+          &nbsp; {t('Typo.3')}
           <Dialog open={openDialog} aria-labelledby="form-dialog-title">
-            <DialogTitle id="form-dialog-title">Report a typo</DialogTitle>
+            <DialogTitle id="form-dialog-title">{t('Typo.4')}</DialogTitle>
             <DialogContent>
-              <DialogContentText>Text to be sent to our editors:</DialogContentText>
+              <DialogContentText>{t('Typo.5')}</DialogContentText>
               <DialogContentText className={classes.select}>
                 {selectionTypo}
               </DialogContentText>
@@ -84,7 +86,7 @@ export default function TypoReport() {
                 autoFocus
                 margin="dense"
                 id="comment"
-                label="Your comment (optional):"
+                label={t('Typo.6')}
                 type="text"
                 value={valueComment}
                 onChange={handleChange}
@@ -93,10 +95,10 @@ export default function TypoReport() {
             </DialogContent>
             <DialogActions>
               <Button onClick={handleCancel} color="primary" className={classes.select}>
-                Cancel
+                {t('Typo.7')}
               </Button>
               <Button onClick={handleSend} color="primary">
-                Send message
+                {t('Typo.8')}
               </Button>
               <Backdrop className={classes.backdrop} open={openBackdrop}>
                 <CircularProgress color="inherit" />

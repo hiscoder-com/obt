@@ -1,6 +1,7 @@
 import React from 'react';
 
 import BookList from '../BookList/BookList';
+import { useTranslation } from 'react-i18next';
 
 import { Button, Dialog, DialogContent } from '@material-ui/core';
 
@@ -15,6 +16,7 @@ function BookSelect(props) {
     setShowChapterSelect,
     showChapterSelect,
   } = props;
+  const { i18n } = useTranslation();
 
   const onBook = (identifier) => {
     setShowBookSelect(false);
@@ -34,10 +36,12 @@ function BookSelect(props) {
         color="secondary"
         onClick={() => setShowBookSelect(!showBookSelect)}
       >
-        {
-          bibleList.filter((book) => book.identifier === referenceSelected.bookId)[0]
-            ?.title
-        }{' '}
+        {i18n.language === 'eng'
+          ? bibleList.filter((book) => book.identifier === referenceSelected.bookId)[0]
+              ?.title
+          : bibleList.filter((book) => book.identifier === referenceSelected.bookId)[0]
+              ?.rutitle}
+        :{' '}
       </Button>
 
       <Dialog
