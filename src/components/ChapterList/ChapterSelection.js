@@ -8,7 +8,7 @@ import useStyles from './styled';
 
 function ChapterSelection(props) {
   const { setReferenceSelected, referenceSelected, onClose } = props;
-
+  const { t } = useTranslation();
   const classes = useStyles();
 
   return (
@@ -24,7 +24,8 @@ function ChapterSelection(props) {
                 onClose();
               }}
             >
-              Глава{key}
+              {t('Chap.1')}
+              {key}
             </Button>
           ))
         : ''}
