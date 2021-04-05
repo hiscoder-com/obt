@@ -25,13 +25,13 @@ export default function SelectLanguage() {
         <WhiteIconNativeSelect
           className={classes.nativeSelect}
           onChange={handleChange}
-          defaultValue={'russ'}
+          defaultValue={'rus'}
         >
           <option className={classes.optionStyle} value={'eng'}>
             Eng
           </option>
-          <option className={classes.optionStyle} value={'russ'}>
-            Русс
+          <option className={classes.optionStyle} value={'rus'}>
+            Рус
           </option>
         </WhiteIconNativeSelect>
       </FormControl>

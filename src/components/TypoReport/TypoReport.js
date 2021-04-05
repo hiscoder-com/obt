@@ -22,7 +22,7 @@ export default function TypoReport() {
   const [selectionNode, setSelectionNode] = React.useState('');
   const [selectionTypo, setSelectionTypo] = React.useState('');
   const [openBackdrop, setOpenBackdrop] = React.useState(false);
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
   const handleChange = (e) => {
     setValueComment(e.target.value);
