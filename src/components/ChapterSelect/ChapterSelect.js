@@ -30,7 +30,7 @@ function ChapterSelect({
         color="secondary"
         onClick={() => setShowChapterSelect(!showChapterSelect)}
       >
-        {referenceSelected.chapter} {t('Ch.1')}
+        {referenceSelected.chapter} {t('Chapter')}
       </Button>
       <Dialog
         fullWidth={true}

@@ -70,15 +70,15 @@ export default function TypoReport() {
     <AppBar color="primary" className={classes.appBar}>
       <Container fixed>
         <Typography variant="subtitle2">
-          {t('Typo.1')} &nbsp;
+          {t('find_an_error')} &nbsp;
           <Button size="small" variant="contained" onClick={handleClickOpen}>
-            {t('Typo.2')}
+            {t('Report_bug')}
           </Button>
-          &nbsp; {t('Typo.3')}
+          &nbsp; {t('Thank')}
           <Dialog open={openDialog} aria-labelledby="form-dialog-title">
-            <DialogTitle id="form-dialog-title">{t('Typo.4')}</DialogTitle>
+            <DialogTitle id="form-dialog-title">{t('Report_typo')}</DialogTitle>
             <DialogContent>
-              <DialogContentText>{t('Typo.5')}</DialogContentText>
+              <DialogContentText>{t('Text_to_editors')}</DialogContentText>
               <DialogContentText className={classes.select}>
                 {selectionTypo}
               </DialogContentText>
@@ -87,7 +87,7 @@ export default function TypoReport() {
                 autoFocus
                 margin="dense"
                 id="comment"
-                label={t('Typo.6')}
+                label={t('Your_comment')}
                 type="text"
                 value={valueComment}
                 onChange={handleChange}
@@ -96,10 +96,10 @@ export default function TypoReport() {
             </DialogContent>
             <DialogActions>
               <Button onClick={handleCancel} color="primary" className={classes.select}>
-                {t('Typo.7')}
+                {t('Cancel')}
               </Button>
               <Button onClick={handleSend} color="primary">
-                {t('Typo.8')}
+                {t('Send_message')}
               </Button>
               <Backdrop className={classes.backdrop} open={openBackdrop}>
                 <CircularProgress color="inherit" />

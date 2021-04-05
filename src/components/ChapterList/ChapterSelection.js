@@ -23,7 +23,7 @@ function ChapterSelection(props) {
           onClose();
         }}
       >
-        {t('Chap.1')}
+        {t('Chapter')}
         {key}
       </Button>
     );
@@ -31,11 +31,13 @@ function ChapterSelection(props) {
   return (
     <>
       {ChaptersConfig
+     
         ? Object.keys(ChaptersConfig[referenceSelected.bookId]).map((key) =>
             referenceSelected.chapter === key
               ? currentElement(key, 'primary')
               : currentElement(key)
           )
+
         : ''}
     </>
   );

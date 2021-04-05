@@ -16,7 +16,7 @@ function BookSelect(props) {
     setShowChapterSelect,
     showChapterSelect,
   } = props;
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const onBook = (identifier) => {
     setShowBookSelect(false);
@@ -36,12 +36,9 @@ function BookSelect(props) {
         color="secondary"
         onClick={() => setShowBookSelect(!showBookSelect)}
       >
-        {i18n.language === 'eng'
-          ? bibleList.filter((book) => book.identifier === referenceSelected.bookId)[0]
-              ?.title
-          : bibleList.filter((book) => book.identifier === referenceSelected.bookId)[0]
-              ?.rutitle}
-        :{' '}
+        {bibleList
+          .filter((book) => book.identifier === referenceSelected.bookId)
+          .map((book) => t(book.identifier))}
       </Button>
 
       <Dialog

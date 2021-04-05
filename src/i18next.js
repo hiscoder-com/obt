@@ -6,7 +6,7 @@ import LanguageDetector from 'i18next-browser-languagedetector';
 // don't want to use this?
 // have a look at the Quick start guide
 // for passing in lng and translations on init
-const Languages = ['eng', 'rus'];
+const Languages = ['en', 'ru'];
 i18n
   // load translation using http -> see /public/locales (i.e. https://github.com/i18next/react-i18next/tree/master/example/react/public/locales)
   // learn more: https://github.com/i18next/i18next-http-backend
@@ -19,7 +19,7 @@ i18n
   // init i18next
   // for all options read: https://www.i18next.com/overview/configuration-options
   .init({
-    fallbackLng: 'eng',
+    fallbackLng: 'en',
     debug: true,
     whitelist: Languages,
 

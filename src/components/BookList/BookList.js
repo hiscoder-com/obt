@@ -15,7 +15,7 @@ function BookList({ onBook, referenceSelected }) {
   const classes = useStyles();
   const currentBibleList = JSON.parse(JSON.stringify(bibleList));
   const trueBibleList = JSON.parse(JSON.stringify(bibleList));
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const handleChange = () => {
     setCheckState((prev) => !prev);
   };
@@ -44,7 +44,7 @@ function BookList({ onBook, referenceSelected }) {
   const currentBook = (el, color = '') => {
     return (
       <button style={{ color: color }} onClick={() => onBook(el.identifier)}>
-        {i18n.language === 'eng' ? el.title : el.rutitle}
+        {t(el.identifier)}
       </button>
     );
   };
@@ -59,11 +59,13 @@ function BookList({ onBook, referenceSelected }) {
       .map((el) => (
         <p key={el.sort}>
           {el.isset ? (
+
             el.identifier === referenceSelected.bookId ? (
               currentBook(el, 'blue')
             ) : (
               currentBook(el)
             )
+
           ) : (
             <span className={classes.falseElement}>{el.title}</span>
           )}
@@ -82,7 +84,7 @@ function BookList({ onBook, referenceSelected }) {
           color="primary"
         />
       }
-      label={t('BookList.1')}
+      label={t('existing_books')}
     />
   ) : (
     []
@@ -91,9 +93,9 @@ function BookList({ onBook, referenceSelected }) {
   return (
     <Projects>
       {hideCheckRender}
-      <h2>{t('BookList.2')}</h2>
+      <h2>{t('bible_NT')}</h2>
       <div>{ntBookList}</div>
-      <h2>{t('BookList.3')}</h2>
+      <h2>{t('bible_OT')}</h2>
       <div>{otBookList}</div>
     </Projects>
   );
