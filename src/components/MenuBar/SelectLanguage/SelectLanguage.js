@@ -14,7 +14,7 @@ const WhiteIconNativeSelect = styled(NativeSelect)`
 export default function SelectLanguage() {
   const classes = useStyles();
   const { i18n } = useTranslation();
-
+  const localValueLanguage = localStorage.getItem('i18nextLng');
   function handleChange(event) {
     i18n.changeLanguage(event.target.value);
   }
@@ -25,12 +25,12 @@ export default function SelectLanguage() {
         <WhiteIconNativeSelect
           className={classes.nativeSelect}
           onChange={handleChange}
-          defaultValue={'rus'}
+          defaultValue={localValueLanguage ? localValueLanguage : 'ru'}
         >
-          <option className={classes.optionStyle} value={'eng'}>
+          <option className={classes.optionStyle} value={'en'}>
             Eng
           </option>
-          <option className={classes.optionStyle} value={'rus'}>
+          <option className={classes.optionStyle} value={'ru'}>
             Рус
           </option>
         </WhiteIconNativeSelect>

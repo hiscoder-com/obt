@@ -16,7 +16,7 @@ function ChapterSelection(props) {
                 onClose();
               }}
             >
-              {t('Chap.1')}
+              {t('Chapter')}
               {key}
             </button>
           ))
