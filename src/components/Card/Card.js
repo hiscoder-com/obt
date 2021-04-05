@@ -9,7 +9,6 @@ import { resourcesList } from '../../config';
 import useStyles from './styled';
 
 function Card({ type, onClose, reference }) {
-
   let CurrentCard;
   const resource = resourcesList[type];
 
@@ -26,7 +25,7 @@ function Card({ type, onClose, reference }) {
       CurrentCard = Chapter;
       break;
   }
-
+  const classes = useStyles();
   return (
     <CurrentCard
       classes={classes}
