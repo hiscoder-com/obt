@@ -11,23 +11,31 @@ function ChapterSelection(props) {
   const { t } = useTranslation();
   const classes = useStyles();
 
+  const currentElement = (key, color: '') => {
+    return (
+      <Button
+        variant="contained"
+        color={color}
+        className={classes.root}
+        key={key}
+        onClick={() => {
+          setReferenceSelected({ ...referenceSelected, chapter: key, verse: 1 });
+          onClose();
+        }}
+      >
+        {t('Chap.1')}
+        {key}
+      </Button>
+    );
+  };
   return (
     <>
       {ChaptersConfig
-        ? Object.keys(ChaptersConfig[referenceSelected.bookId]).map((key) => (
-            <Button
-              variant="contained"
-              className={classes.root}
-              key={key}
-              onClick={() => {
-                setReferenceSelected({ ...referenceSelected, chapter: key, verse: 1 });
-                onClose();
-              }}
-            >
-              {t('Chap.1')}
-              {key}
-            </Button>
-          ))
+        ? Object.keys(ChaptersConfig[referenceSelected.bookId]).map((key) =>
+            referenceSelected.chapter === key
+              ? currentElement(key, 'primary')
+              : currentElement(key)
+          )
         : ''}
     </>
   );
