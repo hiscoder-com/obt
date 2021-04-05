@@ -5,21 +5,27 @@ import { useTranslation } from 'react-i18next';
 
 import { Button, Dialog, DialogContent } from '@material-ui/core';
 
+import useStyles from './styled';
+
 function ChapterSelect({
   referenceSelected,
   setReferenceSelected,
   showChapterSelect,
   setShowChapterSelect,
 }) {
+
   const onClose = () => {
     setShowChapterSelect(false);
   };
   const { t } = useTranslation();
 
+  const classes = useStyles();
+
   return (
     <>
       <Button
-        style={{ marginLeft: '10px' }}
+        className={classes.root}
+        ml={1}
         variant="contained"
         color="secondary"
         onClick={() => setShowChapterSelect(!showChapterSelect)}

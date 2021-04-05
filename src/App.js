@@ -9,7 +9,6 @@ import { Workspace } from 'resource-workspace-rcl';
 import { MenuBar, SubMenuBar, TypoReport, Card } from './components';
 
 import { getResources } from './helper';
-
 import { makeStyles } from '@material-ui/core/styles';
 import './styles/app.css';
 

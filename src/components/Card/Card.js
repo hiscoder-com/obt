@@ -6,7 +6,10 @@ import SupportTN from '../SupportTN/SupportTN';
 
 import { resourcesList } from '../../config';
 
-function Card({ type, onClose, reference, classes }) {
+import useStyles from './styled';
+
+function Card({ type, onClose, reference }) {
+
   let CurrentCard;
   const resource = resourcesList[type];
 
