@@ -5,9 +5,12 @@ import { useTranslation } from 'react-i18next';
 
 import { Button, Dialog, DialogContent } from '@material-ui/core';
 
-function ChapterSelect({ referenceSelected, setReferenceSelected }) {
-  const [showChapterSelect, setShowChapterSelect] = React.useState(false);
-
+function ChapterSelect({
+  referenceSelected,
+  setReferenceSelected,
+  showChapterSelect,
+  setShowChapterSelect,
+}) {
   const onClose = () => {
     setShowChapterSelect(false);
   };
