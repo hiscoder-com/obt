@@ -536,7 +536,7 @@ export const resourcesList = {
     type: 'bible',
     languageId: 'ru',
     resourceId: 'rob',
-    title: 'rob',
+    title: 'Russian Open Bible',
     owner: 'bsa',
   },
   rlob: {
@@ -545,7 +545,7 @@ export const resourcesList = {
     type: 'bible',
     languageId: 'ru',
     resourceId: 'rlob',
-    title: 'rlob',
+    title: 'Russian Literal Open Bible',
     owner: 'bsa',
   },
   rsob: {
@@ -554,7 +554,7 @@ export const resourcesList = {
     type: 'bible',
     languageId: 'ru',
     resourceId: 'rsob',
-    title: 'rsob',
+    title: 'Russian Simplified Open Bible',
     owner: 'bsa',
   },
   ugnt: {
@@ -563,25 +563,25 @@ export const resourcesList = {
     type: 'bible',
     languageId: 'el-x-koine',
     resourceId: 'ugnt',
-    title: 'ugnt',
+    title: 'unfoldingWord® Greek New Testament',
     owner: 'unfoldingWord',
   },
-  /*uhb: {
+  uhb: {
     link: 'unfoldingWord/hbo_uhb/master',
     branch: 'master',
     type: 'bible',
     languageId: 'hbo',
     resourceId: 'uhb',
-    title: 'uhb',
+    title: 'unfoldingWord® Hebrew Bible',
     owner: 'unfoldingWord',
-  },*/
+  },
   ult: {
     link: 'unfoldingWord/en_ult/master',
     branch: 'master',
     type: 'bible',
     languageId: 'en',
     resourceId: 'ult',
-    title: 'ult',
+    title: 'unfoldingWord® Literal Text',
     owner: 'unfoldingWord',
   },
   ust: {
@@ -590,7 +590,7 @@ export const resourcesList = {
     type: 'bible',
     languageId: 'en',
     resourceId: 'ust',
-    title: 'ust',
+    title: 'unfoldingWord® Literal Text',
     owner: 'unfoldingWord',
   },
   tn: {
@@ -599,7 +599,7 @@ export const resourcesList = {
     type: 'support',
     languageId: 'ru',
     resourceId: 'tn',
-    title: 'tn',
+    title: 'Translation Notes',
     owner: 'bsa',
   },
   tq: {
@@ -608,7 +608,7 @@ export const resourcesList = {
     type: 'support',
     languageId: 'ru',
     resourceId: 'tq',
-    title: 'tq',
+    title: 'Translation Questions',
     owner: 'bsa',
   },
   /*ta: {

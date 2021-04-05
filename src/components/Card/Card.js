@@ -9,9 +9,9 @@ import { resourcesList } from '../../config';
 import useStyles from './styled';
 
 function Card({ type, onClose, reference }) {
+
   let CurrentCard;
   const resource = resourcesList[type];
-  const classes = useStyles();
 
   switch (resource.resourceId) {
     case 'tn':
@@ -29,9 +29,9 @@ function Card({ type, onClose, reference }) {
 
   return (
     <CurrentCard
+      classes={classes}
       title={resource.title}
       onClose={onClose}
-      classes={classes}
       type={type}
       reference={reference}
     />

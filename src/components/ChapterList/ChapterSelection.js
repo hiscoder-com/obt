@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { useTranslation } from 'react-i18next';
 import { ChaptersConfig } from './config';
 
 import Button from '@material-ui/core/Button';
@@ -20,7 +20,7 @@ function ChapterSelection(props) {
               className={classes.root}
               key={key}
               onClick={() => {
-                setReferenceSelected({ ...referenceSelected, chapter: key });
+                setReferenceSelected({ ...referenceSelected, chapter: key, verse: 1 });
                 onClose();
               }}
             >

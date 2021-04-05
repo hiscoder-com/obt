@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import useDeepCompareEffect from 'use-deep-compare-effect';
+import React, { useState, useMemo, useEffect } from 'react';
 import { Card } from 'translation-helps-rcl';
 import { Verses } from 'scripture-resources-rcl';
 import { ResourcesContext } from 'scripture-resources-rcl';
@@ -9,19 +8,12 @@ import { resourcesList } from '../../config';
 export default function Chapter(props) {
   const { title, classes, onClose, type, reference } = props;
   const { state } = React.useContext(ResourcesContext);
+  let project = useMemo(() => {}, []);
 
   const [chapter, setChapter] = useState();
 
   const resource = resourcesList[type];
 
-  const successCallback = (result) => {
-    if (Object.keys(result.chapters).length > 0) {
-      setChapter(result.chapters[reference.chapter]);
-    } else {
-      console.log('Book not found');
-    }
-  };
-  let project = {};
   if (state?.resources) {
     state.resources.forEach((el) => {
       if (el.resourceId === resource.resourceId && el.username === resource.owner) {
@@ -30,14 +22,23 @@ export default function Chapter(props) {
     });
   }
 
-  useDeepCompareEffect(() => {
-    if (Object.keys(project).length !== 0) {
-      project.parseUsfm().then(successCallback, (error) => console.log(error));
+  useEffect(() => {
+    if (project && Object.keys(project).length !== 0) {
+      project.parseUsfm().then(
+        (result) => {
+          if (Object.keys(result.chapters).length > 0) {
+            setChapter(result.chapters[reference.chapter]);
+          } else {
+            console.log('Book not found');
+          }
+        },
+        (error) => console.log(error)
+      );
     } else {
       // Book could not be found in this translation:
       setChapter(null);
     }
-  }, [project]);
+  }, [project, reference.chapter]);
 
   return (
     <Card

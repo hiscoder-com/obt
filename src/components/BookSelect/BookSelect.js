@@ -1,23 +1,33 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import BookList from '../BookList/BookList';
+import { useTranslation } from 'react-i18next';
 
 import { Button, Dialog, DialogContent } from '@material-ui/core';
 
 import { bibleList } from '../../config';
 
 function BookSelect(props) {
-  const { referenceSelected, setReferenceSelected } = props;
-  const [showBookSelect, setShowBookSelect] = useState(false);
+  const {
+    referenceSelected,
+    setReferenceSelected,
+    showBookSelect,
+    setShowBookSelect,
+    setShowChapterSelect,
+    showChapterSelect,
+  } = props;
+  const { i18n } = useTranslation();
 
-  const onBook = (project) => {
+  const onBook = (identifier) => {
     setShowBookSelect(false);
     setReferenceSelected({
       ...referenceSelected,
-      bookId: project ? project.identifier : null,
+      bookId: identifier ?? null,
+      chapter: 1,
+      verse: 1,
     });
+    setShowChapterSelect(!showChapterSelect);
   };
-  console.log('referenceSelected', referenceSelected);
 
   return (
     <>
@@ -26,10 +36,12 @@ function BookSelect(props) {
         color="secondary"
         onClick={() => setShowBookSelect(!showBookSelect)}
       >
-        {
-          bibleList.filter((book) => book.identifier === referenceSelected.bookId)[0]
-            ?.title
-        }{' '}
+        {i18n.language === 'eng'
+          ? bibleList.filter((book) => book.identifier === referenceSelected.bookId)[0]
+              ?.title
+          : bibleList.filter((book) => book.identifier === referenceSelected.bookId)[0]
+              ?.rutitle}
+        :{' '}
       </Button>
 
       <Dialog

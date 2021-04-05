@@ -1,17 +1,23 @@
 import React from 'react';
 
 import ChapterSelection from '../ChapterList/ChapterSelection';
+import { useTranslation } from 'react-i18next';
 
 import { Button, Dialog, DialogContent } from '@material-ui/core';
 
 import useStyles from './styled';
 
-function ChapterSelect({ referenceSelected, setReferenceSelected }) {
-  const [showChapterSelect, setShowChapterSelect] = React.useState(false);
+function ChapterSelect({
+  referenceSelected,
+  setReferenceSelected,
+  showChapterSelect,
+  setShowChapterSelect,
+}) {
 
   const onClose = () => {
     setShowChapterSelect(false);
   };
+  const { t } = useTranslation();
 
   const classes = useStyles();
 
@@ -24,7 +30,7 @@ function ChapterSelect({ referenceSelected, setReferenceSelected }) {
         color="secondary"
         onClick={() => setShowChapterSelect(!showChapterSelect)}
       >
-        {referenceSelected.chapter} ch.
+        {referenceSelected.chapter} {t('Ch.1')}
       </Button>
       <Dialog
         fullWidth={true}

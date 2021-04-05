@@ -4,107 +4,85 @@ import { ResourcesContext } from 'scripture-resources-rcl';
 
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
-
+import { useTranslation } from 'react-i18next';
 import { bibleList } from '../../config';
 
 import { Projects, useStyles } from './styled';
 
 function BookList({ onBook }) {
   const { state } = useContext(ResourcesContext);
-  const [checkState, setCheckState] = useState({
-    checkedA: false,
-  });
+  const [checkState, setCheckState] = useState(false);
+  const classes = useStyles();
+  const currentBibleList = JSON.parse(JSON.stringify(bibleList));
+  const trueBibleList = JSON.parse(JSON.stringify(bibleList));
+  const { t, i18n } = useTranslation();
+  const handleChange = () => {
+    setCheckState((prev) => !prev);
+  };
 
   let issetCheck = false;
-  console.log('state', state);
-
-  const classes = useStyles();
-
-  const handleChange = (event) => {
-    setCheckState({ ...checkState, [event.target.name]: event.target.checked });
-  };
-
-  const bookListIsset = () => {
-    for (let i = 0; i < state.resources.length; ++i) {
-      bibleList.forEach((item) => {
-        if (state.resources.length > 0) {
-          if (
-            state.resources[i].projects
-              .map((project) => project.identifier)
-              .includes(item.identifier)
-          ) {
-            item.isset = true;
-          }
+  if (state.resources.length > 0) {
+    state.resources.forEach((resource) => {
+      trueBibleList.forEach((item) => {
+        item.isset = true;
+      });
+      currentBibleList.forEach((item) => {
+        if (
+          item.isset ||
+          resource.projects.map((project) => project.identifier).includes(item.identifier)
+        ) {
+          item.isset = true;
         } else {
-          item.isset = false;
         }
       });
-    }
-    return bibleList;
-  };
-
-  bookListIsset();
-  console.log('bibleList', bibleList);
-
-  const stateResourse =
-    state && state.resources && state.resources[0] && state.resources[0].projects
-      ? state.resources[0].projects.map((project) => project)
-      : [];
-
-  function linkBook(item) {
-    for (let i = 0; i < stateResourse.length; ++i) {
-      if (item === stateResourse[i].identifier) {
-        return stateResourse[i];
-      }
-    }
+    });
   }
-
-  const renderBookList = (bibleList, categories) => {
-    return bibleList
-      .filter((bibleList) =>
-        checkState.checkedA
-          ? bibleList.categories === categories && bibleList.isset === true
-          : bibleList.categories === categories
+  if (JSON.stringify(currentBibleList) !== JSON.stringify(trueBibleList)) {
+    issetCheck = true;
+  }
+  const renderBookList = (currentBibleList, categories) => {
+    return currentBibleList
+      .filter((el) =>
+        checkState
+          ? el.categories === categories && el.isset === true
+          : el.categories === categories
       )
-      .map((bibleList) => (
-        <p key={bibleList.sort}>
-          {bibleList.isset ? (
-            <button onClick={() => onBook(linkBook(bibleList.identifier))}>
-              {bibleList.title}
+      .map((el) => (
+        <p key={el.sort}>
+          {el.isset ? (
+            <button onClick={() => onBook(el.identifier)}>
+              {i18n.language === 'eng' ? el.title : el.rutitle}
             </button>
           ) : (
-            <span className={classes.falseElement}>{bibleList.title}</span>
+            <span className={classes.falseElement}>{el.title}</span>
           )}
         </p>
       ));
   };
-
-  const otBookList = renderBookList(bibleList, 'bible-ot');
-  const ntBookList = renderBookList(bibleList, 'bible-nt');
-
-  const hideCheckRender =
-    issetCheck === true ? (
-      <FormControlLabel
-        control={
-          <Checkbox
-            checked={checkState.checkedA}
-            onChange={handleChange}
-            name="checkedA"
-            color="primary"
-          />
-        }
-        label="show only existing books"
-      />
-    ) : (
-      []
-    );
+  const otBookList = renderBookList(currentBibleList, 'bible-ot');
+  const ntBookList = renderBookList(currentBibleList, 'bible-nt');
+  const hideCheckRender = issetCheck ? (
+    <FormControlLabel
+      control={
+        <Checkbox
+          checked={checkState}
+          onChange={handleChange}
+          name="checkedA"
+          color="primary"
+        />
+      }
+      label={t('BookList.1')}
+    />
+  ) : (
+    []
+  );
 
   return (
     <Projects>
       {hideCheckRender}
-      <h2>New Testament</h2>
+      <h2>{t('BookList.2')}</h2>
       <div>{ntBookList}</div>
-      <h2>Old Testament</h2>
+      <h2>{t('BookList.3')}</h2>
       <div>{otBookList}</div>
     </Projects>
   );
