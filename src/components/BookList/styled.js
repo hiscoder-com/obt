@@ -26,7 +26,6 @@ export const Projects = styled.div`
     font-size: 18px;
     cursor: pointer;
   }
-  
 `;
 
 export const useStyles = makeStyles((theme) => ({
@@ -36,10 +35,6 @@ export const useStyles = makeStyles((theme) => ({
     fontFamily: 'arial, sant-serif',
     color: '#bbbbbb',
     fontWeight: 600,
-    fontSize: 18
+    fontSize: 18,
   },
-  
 }));
-
-
-  

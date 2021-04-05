@@ -48,7 +48,7 @@ function BookSelect(props) {
         onClose={() => setShowBookSelect(false)}
       >
         <DialogContent>
-          <BookList onBook={onBook} />
+          <BookList onBook={onBook} referenceSelected={referenceSelected} />
         </DialogContent>
       </Dialog>
     </>

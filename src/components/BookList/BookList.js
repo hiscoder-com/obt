@@ -9,7 +9,7 @@ import { bibleList } from '../../config';
 
 import { Projects, useStyles } from './styled';
 
-function BookList({ onBook }) {
+function BookList({ onBook, referenceSelected }) {
   const { state } = useContext(ResourcesContext);
   const [checkState, setCheckState] = useState(false);
   const classes = useStyles();
@@ -40,6 +40,15 @@ function BookList({ onBook }) {
   if (JSON.stringify(currentBibleList) !== JSON.stringify(trueBibleList)) {
     issetCheck = true;
   }
+
+  const currentBook = (el, color = '') => {
+    return (
+      <button style={{ color: color }} onClick={() => onBook(el.identifier)}>
+        {t(el.identifier)}
+      </button>
+    );
+  };
+
   const renderBookList = (currentBibleList, categories) => {
     return currentBibleList
       .filter((el) =>
@@ -50,7 +59,13 @@ function BookList({ onBook }) {
       .map((el) => (
         <p key={el.sort}>
           {el.isset ? (
-            <button onClick={() => onBook(el.identifier)}>{t(el.identifier)}</button>
+
+            el.identifier === referenceSelected.bookId ? (
+              currentBook(el, 'blue')
+            ) : (
+              currentBook(el)
+            )
+
           ) : (
             <span className={classes.falseElement}>{el.title}</span>
           )}

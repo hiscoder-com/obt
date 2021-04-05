@@ -13,8 +13,9 @@ import {
   Backdrop,
   CircularProgress,
 } from '@material-ui/core';
+
 import { useTranslation } from 'react-i18next';
-import useStyles from './style';
+import useStyles from './styled';
 
 export default function TypoReport() {
   const [openDialog, setOpenDialog] = React.useState(false);
