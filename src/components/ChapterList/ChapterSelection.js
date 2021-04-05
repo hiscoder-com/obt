@@ -12,7 +12,7 @@ function ChapterSelection(props) {
             <button
               key={key}
               onClick={() => {
-                setReferenceSelected({ ...referenceSelected, chapter: key });
+                setReferenceSelected({ ...referenceSelected, chapter: key, verse: 1 });
                 onClose();
               }}
             >
