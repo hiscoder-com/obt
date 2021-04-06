@@ -2,12 +2,12 @@ import React, { useContext, useState } from 'react';
 
 import { ResourcesContext } from 'scripture-resources-rcl';
 
-import FormControlLabel from '@material-ui/core/FormControlLabel';
+import { Button, FormControlLabel } from '@material-ui/core';
 import Checkbox from '@material-ui/core/Checkbox';
 import { useTranslation } from 'react-i18next';
 import { bibleList } from '../../config';
 
-import { Projects, useStyles } from './style';
+import { useStyles } from './style';
 
 const trueBibleList = JSON.parse(
   JSON.stringify(bibleList.map((item) => ({ ...item, isset: true })))
@@ -36,11 +36,11 @@ function BookList({ onBook, referenceSelected }) {
 
   const issetCheck = JSON.stringify(currentBibleList) !== JSON.stringify(trueBibleList);
 
-  const currentBook = (el, color = '') => {
+  const currentBook = (el, color = 'primary') => {
     return (
-      <button style={{ color: color }} onClick={() => onBook(el.identifier)}>
+      <Button color={color} onClick={() => onBook(el.identifier)}>
         {t(el.identifier)}
-      </button>
+      </Button>
     );
   };
 
@@ -52,17 +52,17 @@ function BookList({ onBook, referenceSelected }) {
           : el.categories === categories
       )
       .map((el) => (
-        <p key={el.sort}>
+        <div className={classes.bookWrap} key={el.sort}>
           {el.isset ? (
             el.identifier === referenceSelected.bookId ? (
-              currentBook(el, 'blue')
+              currentBook(el, 'secondary')
             ) : (
               currentBook(el)
             )
           ) : (
-            <span className={classes.falseElement}>{t(el.identifier)}</span>
+            <Button disabled>{t(el.identifier)}</Button>
           )}
-        </p>
+        </div>
       ));
   };
   const hideCheckRender = issetCheck ? (
@@ -82,13 +82,13 @@ function BookList({ onBook, referenceSelected }) {
   );
 
   return (
-    <Projects>
+    <>
       {hideCheckRender}
       <h2>{t('bible_NT')}</h2>
-      <div>{renderBookList('bible-nt')}</div>
+      <div className={classes.bookGrid}>{renderBookList('bible-nt')}</div>
       <h2>{t('bible_OT')}</h2>
-      <div>{renderBookList('bible-ot')}</div>
-    </Projects>
+      <div className={classes.bookGrid}>{renderBookList('bible-ot')}</div>
+    </>
   );
 }
 
