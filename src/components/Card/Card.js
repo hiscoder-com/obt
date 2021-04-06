@@ -7,9 +7,7 @@ import { useTranslation } from 'react-i18next';
 
 import { resourcesList } from '../../config';
 
-import useStyles from './style';
-
-function Card({ type, onClose, reference }) {
+function Card({ type, onClose, reference, classes }) {
   let CurrentCard;
   const { t } = useTranslation();
   const resource = resourcesList[type];
@@ -27,7 +25,7 @@ function Card({ type, onClose, reference }) {
       CurrentCard = Chapter;
       break;
   }
-  const classes = useStyles();
+
   return (
     <CurrentCard
       classes={classes}
