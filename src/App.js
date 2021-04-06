@@ -5,7 +5,7 @@ import {
   ReferenceSelectedContextProvider,
 } from 'scripture-resources-rcl';
 
-import { Workspace } from 'resource-workspace-rcl';
+import { Workspace } from 'test-bsa-workspace';
 import { MenuBar, SubMenuBar, TypoReport, Card } from './components';
 
 import { getResources } from './helper';

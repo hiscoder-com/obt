@@ -9,37 +9,32 @@ import { bibleList } from '../../config';
 
 import { Projects, useStyles } from './styled';
 
+const trueBibleList = JSON.parse(
+  JSON.stringify(bibleList.map((item) => ({ ...item, isset: true })))
+);
+
 function BookList({ onBook, referenceSelected }) {
   const { state } = useContext(ResourcesContext);
   const [checkState, setCheckState] = useState(false);
   const classes = useStyles();
   const currentBibleList = JSON.parse(JSON.stringify(bibleList));
-  const trueBibleList = JSON.parse(JSON.stringify(bibleList));
   const { t } = useTranslation();
   const handleChange = () => {
     setCheckState((prev) => !prev);
   };
 
-  let issetCheck = false;
   if (state.resources.length > 0) {
     state.resources.forEach((resource) => {
-      trueBibleList.forEach((item) => {
-        item.isset = true;
-      });
+      const identifiers = resource.projects.map((project) => project.identifier);
       currentBibleList.forEach((item) => {
-        if (
-          item.isset ||
-          resource.projects.map((project) => project.identifier).includes(item.identifier)
-        ) {
+        if (item.isset || identifiers.includes(item.identifier)) {
           item.isset = true;
-        } else {
         }
       });
     });
   }
-  if (JSON.stringify(currentBibleList) !== JSON.stringify(trueBibleList)) {
-    issetCheck = true;
-  }
+
+  const issetCheck = JSON.stringify(currentBibleList) !== JSON.stringify(trueBibleList);
 
   const currentBook = (el, color = '') => {
     return (
@@ -49,7 +44,7 @@ function BookList({ onBook, referenceSelected }) {
     );
   };
 
-  const renderBookList = (currentBibleList, categories) => {
+  const renderBookList = (categories) => {
     return currentBibleList
       .filter((el) =>
         checkState
@@ -65,13 +60,11 @@ function BookList({ onBook, referenceSelected }) {
               currentBook(el)
             )
           ) : (
-            <span className={classes.falseElement}>{el.title}</span>
+            <span className={classes.falseElement}>{t(el.identifier)}</span>
           )}
         </p>
       ));
   };
-  const otBookList = renderBookList(currentBibleList, 'bible-ot');
-  const ntBookList = renderBookList(currentBibleList, 'bible-nt');
   const hideCheckRender = issetCheck ? (
     <FormControlLabel
       control={
@@ -92,9 +85,9 @@ function BookList({ onBook, referenceSelected }) {
     <Projects>
       {hideCheckRender}
       <h2>{t('bible_NT')}</h2>
-      <div>{ntBookList}</div>
+      <div>{renderBookList('bible-nt')}</div>
       <h2>{t('bible_OT')}</h2>
-      <div>{otBookList}</div>
+      <div>{renderBookList('bible-ot')}</div>
     </Projects>
   );
 }
