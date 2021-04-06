@@ -1,14 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 
 import {
   ResourcesContextProvider,
   ReferenceSelectedContextProvider,
 } from 'scripture-resources-rcl';
-
 import { Workspace } from 'test-bsa-workspace';
+
+import { AppContext } from './App.context';
 import { MenuBar, SubMenuBar, TypoReport, Card } from './components';
 
 import { getResources } from './helper';
+
 import './styles/app.css';
 import useStyles from './style';
 
@@ -33,6 +35,8 @@ const _reference = localStorage.getItem('reference')
 const _resourceLinks = getResources(_appConfig);
 
 export default function App() {
+  const { state, actions } = useContext(AppContext);
+  console.log(state, actions);
   const classes = useStyles();
   const [resourceLinks, setResourceLinks] = useState(_resourceLinks);
   const [resources, setResources] = useState([]);
