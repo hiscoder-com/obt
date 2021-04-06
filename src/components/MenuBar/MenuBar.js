@@ -4,7 +4,7 @@ import { AppBar, Toolbar, Typography } from '@material-ui/core';
 
 import SelectLanguage from './SelectLanguage/SelectLanguage';
 import Logo from './Logo/Logo';
-import useStyles from './styled';
+import useStyles from './style';
 
 export default function MenuBar() {
   const classes = useStyles();

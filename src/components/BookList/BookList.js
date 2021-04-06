@@ -7,7 +7,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import { useTranslation } from 'react-i18next';
 import { bibleList } from '../../config';
 
-import { Projects, useStyles } from './styled';
+import { Projects, useStyles } from './style';
 
 const trueBibleList = JSON.parse(
   JSON.stringify(bibleList.map((item) => ({ ...item, isset: true })))
