@@ -5,8 +5,7 @@ import { useTranslation } from 'react-i18next';
 
 import { resourcesList } from '../../config';
 
-export default function Chapter(props) {
-  const { title, classes, onClose, type, reference } = props;
+export default function Chapter({ title, classes, onClose, type, reference }) {
   const { t } = useTranslation();
   const { state } = React.useContext(ResourcesContext);
   let project = useMemo(() => {}, []);
