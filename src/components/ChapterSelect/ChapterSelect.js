@@ -13,7 +13,6 @@ function ChapterSelect({
   showChapterSelect,
   setShowChapterSelect,
 }) {
-
   const onClose = () => {
     setShowChapterSelect(false);
   };
