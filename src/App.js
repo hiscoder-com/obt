@@ -9,39 +9,27 @@ import { Workspace } from 'test-bsa-workspace';
 import { AppContext } from './App.context';
 import { MenuBar, SubMenuBar, TypoReport, Card } from './components';
 
-import { getResources } from './helper';
-
 import './styles/app.css';
 import useStyles from './style';
 
 const config = { server: 'https://git.door43.org' };
 
-const _reference = localStorage.getItem('reference')
-  ? JSON.parse(localStorage.getItem('reference'))
-  : {
-      bookId: 'rut',
-      chapter: 1,
-      verse: 1,
-    };
-
 export default function App() {
   const { state, actions } = useContext(AppContext);
-  const { appConfig } = state;
-  const { setAppConfig } = actions;
+  const {
+    appConfig,
+    referenceSelected,
+    resourceLinks,
+    resources,
+    _resourceLinks,
+  } = state;
+  const { setAppConfig, setReferenceSelected, setResourceLinks, setResources } = actions;
   const classes = useStyles();
-  const _resourceLinks = getResources(appConfig);
-  const [resourceLinks, setResourceLinks] = useState(_resourceLinks);
-  const [resources, setResources] = useState([]);
-  const [referenceSelected, setReferenceSelected] = useState(_reference);
   const [showBookSelect, setShowBookSelect] = useState(true);
   const [showChapterSelect, setShowChapterSelect] = useState(false);
   const layout = {
     absolute: appConfig,
   };
-
-  useEffect(() => {
-    setResourceLinks(getResources(appConfig));
-  }, [appConfig]);
 
   useEffect(() => {
     localStorage.setItem('reference', JSON.stringify(referenceSelected));
