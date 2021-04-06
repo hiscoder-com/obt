@@ -2,14 +2,7 @@ import React from 'react';
 
 import { useTranslation } from 'react-i18next';
 import { FormControl, NativeSelect } from '@material-ui/core';
-import styled from 'styled-components';
 import useStyles from './style';
-
-const WhiteIconNativeSelect = styled(NativeSelect)`
-  .MuiNativeSelect-icon {
-    color: white;
-  }
-`;
 
 export default function SelectLanguage() {
   const classes = useStyles();
@@ -21,19 +14,18 @@ export default function SelectLanguage() {
 
   return (
     <div>
-      <FormControl className={classes.formControl}>
-        <WhiteIconNativeSelect
-          className={classes.nativeSelect}
+      <FormControl>
+        <NativeSelect
+          classes={{
+            root: classes.root,
+            icon: classes.icon,
+          }}
           onChange={handleChange}
           defaultValue={localValueLanguage ? localValueLanguage : 'ru'}
         >
-          <option className={classes.optionStyle} value={'en'}>
-            Eng
-          </option>
-          <option className={classes.optionStyle} value={'ru'}>
-            Рус
-          </option>
-        </WhiteIconNativeSelect>
+          <option value={'en'}>Eng</option>
+          <option value={'ru'}>Рус</option>
+        </NativeSelect>
       </FormControl>
     </div>
   );
