@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 
 import { resourcesList } from '../../config';
 
-import useStyles from './styled';
+import useStyles from './style';
 
 function Card({ type, onClose, reference }) {
   let CurrentCard;
