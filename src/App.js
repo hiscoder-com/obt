@@ -16,14 +16,6 @@ import useStyles from './style';
 
 const config = { server: 'https://git.door43.org' };
 
-const _appConfig = localStorage.getItem('appConfig')
-  ? JSON.parse(localStorage.getItem('appConfig'))
-  : [
-      { w: 4, h: 5, x: 0, y: 0, i: 'rob' },
-      { w: 4, h: 5, x: 4, y: 0, i: 'tn' },
-      { w: 4, h: 5, x: 8, y: 0, i: 'ult' },
-    ];
-
 const _reference = localStorage.getItem('reference')
   ? JSON.parse(localStorage.getItem('reference'))
   : {
@@ -32,15 +24,14 @@ const _reference = localStorage.getItem('reference')
       verse: 1,
     };
 
-const _resourceLinks = getResources(_appConfig);
-
 export default function App() {
   const { state, actions } = useContext(AppContext);
-  console.log(state, actions);
+  const { appConfig } = state;
+  const { setAppConfig } = actions;
   const classes = useStyles();
+  const _resourceLinks = getResources(appConfig);
   const [resourceLinks, setResourceLinks] = useState(_resourceLinks);
   const [resources, setResources] = useState([]);
-  const [appConfig, setAppConfig] = useState(_appConfig);
   const [referenceSelected, setReferenceSelected] = useState(_reference);
   const [showBookSelect, setShowBookSelect] = useState(true);
   const [showChapterSelect, setShowChapterSelect] = useState(false);
@@ -81,8 +72,6 @@ export default function App() {
       >
         <MenuBar />
         <SubMenuBar
-          appConfig={appConfig}
-          setAppConfig={setAppConfig}
           referenceSelected={referenceSelected}
           setReferenceSelected={setReferenceSelected}
           showBookSelect={showBookSelect}

@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 
+import { AppContext } from '../../App.context';
 import { BookSelect, ChapterSelect } from '../../components';
 
 import { AppBar, Toolbar, Fab, MenuItem, Menu } from '@material-ui/core';
-
 import AddIcon from '@material-ui/icons/Add';
 
 import { useTranslation } from 'react-i18next';
@@ -11,11 +11,12 @@ import { useTranslation } from 'react-i18next';
 import { getUniqueResources } from '../../helper';
 
 function SubMenuBar(props) {
+  const { state, actions } = useContext(AppContext);
+  const { appConfig } = state;
+  const { setAppConfig } = actions;
   const {
-    setAppConfig,
     referenceSelected,
     setReferenceSelected,
-    appConfig,
     showBookSelect,
     setShowBookSelect,
     showChapterSelect,
