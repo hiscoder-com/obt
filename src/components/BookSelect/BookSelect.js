@@ -12,7 +12,6 @@ function BookSelect(props) {
     showBookSelect,
     setShowBookSelect,
     setShowChapterSelect,
-    showChapterSelect,
   } = props;
   const { t } = useTranslation();
 
@@ -24,7 +23,7 @@ function BookSelect(props) {
       chapter: 1,
       verse: 1,
     });
-    setShowChapterSelect(!showChapterSelect);
+    setShowChapterSelect(true);
   };
 
   return (

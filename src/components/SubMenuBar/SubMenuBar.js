@@ -69,7 +69,6 @@ function SubMenuBar(props) {
               setReferenceSelected={setReferenceSelected}
               showBookSelect={showBookSelect}
               setShowBookSelect={setShowBookSelect}
-              showChapterSelect={showChapterSelect}
               setShowChapterSelect={setShowChapterSelect}
             />
             <ChapterSelect
