@@ -22,6 +22,14 @@ const _appConfig = localStorage.getItem('appConfig')
       { w: 4, h: 5, x: 8, y: 0, i: 'ult' },
     ];
 
+const _reference = localStorage.getItem('reference')
+  ? JSON.parse(localStorage.getItem('reference'))
+  : {
+      bookId: 'rut',
+      chapter: 1,
+      verse: 1,
+    };
+
 const _resourceLinks = getResources(_appConfig);
 
 const useStyles = makeStyles(() => ({
@@ -40,20 +48,20 @@ export default function App() {
   const [resourceLinks, setResourceLinks] = useState(_resourceLinks);
   const [resources, setResources] = useState([]);
   const [appConfig, setAppConfig] = useState(_appConfig);
-
-  useEffect(() => {
-    setResourceLinks(getResources(appConfig));
-  }, [appConfig]);
-
-  const [referenceSelected, setReferenceSelected] = useState({
-    bookId: 'rut',
-    chapter: 1,
-  });
+  const [referenceSelected, setReferenceSelected] = useState(_reference);
   const [showBookSelect, setShowBookSelect] = useState(true);
   const [showChapterSelect, setShowChapterSelect] = useState(false);
   const layout = {
     absolute: appConfig,
   };
+
+  useEffect(() => {
+    setResourceLinks(getResources(appConfig));
+  }, [appConfig]);
+
+  useEffect(() => {
+    localStorage.setItem('reference', JSON.stringify(referenceSelected));
+  }, [referenceSelected]);
 
   function onLayoutChange(appConfig) {
     localStorage.setItem('appConfig', JSON.stringify(appConfig));
@@ -63,14 +71,6 @@ export default function App() {
   const onClose = (index) => {
     setAppConfig((prev) => prev.filter((el) => el.i !== index));
   };
-
-  useEffect(() => {
-    if (referenceSelected?.verse) {
-      /* console.log(
-        'Reference: ' + referenceSelected?.chapter + ':' + referenceSelected?.verse
-      ); */
-    }
-  }, [referenceSelected?.chapter, referenceSelected?.verse]);
 
   return (
     <ResourcesContextProvider
