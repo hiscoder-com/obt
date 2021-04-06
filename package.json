@@ -16,7 +16,6 @@
     "react-i18next": "^11.8.12",
     "test-bsa-workspace": "^0.6.2",
     "scripture-resources-rcl": "4.0.2",
-    "styled-components": "^5.2.1",
     "translation-helps-rcl": "^1.11.0",
     "use-deep-compare-effect": "^1.6.1",
     "web-vitals": "^0.2.4"
