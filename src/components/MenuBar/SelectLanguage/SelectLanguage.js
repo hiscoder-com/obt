@@ -23,8 +23,12 @@ export default function SelectLanguage() {
           onChange={handleChange}
           defaultValue={localValueLanguage ? localValueLanguage : 'ru'}
         >
-          <option value={'en'}>Eng</option>
-          <option value={'ru'}>Рус</option>
+          <option className={classes.option} value={'en'}>
+            Eng
+          </option>
+          <option className={classes.option} value={'ru'}>
+            Рус
+          </option>
         </NativeSelect>
       </FormControl>
     </div>

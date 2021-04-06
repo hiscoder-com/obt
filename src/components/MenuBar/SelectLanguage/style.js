@@ -9,6 +9,9 @@ const useStyles = makeStyles((theme) => ({
   icon: {
     color: 'white',
   },
+  option: {
+    color: 'black',
+  },
 }));
 
 export default useStyles;
