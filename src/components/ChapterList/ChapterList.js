@@ -6,8 +6,7 @@ import Button from '@material-ui/core/Button';
 
 import useStyles from './styled';
 
-function ChapterSelection(props) {
-  const { setReferenceSelected, referenceSelected, onClose } = props;
+function ChapterList({ setReferenceSelected, referenceSelected, onClose }) {
   const { t } = useTranslation();
   const classes = useStyles();
 
@@ -41,4 +40,4 @@ function ChapterSelection(props) {
   );
 }
 
-export default ChapterSelection;
+export default ChapterList;

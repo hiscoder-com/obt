@@ -5,8 +5,6 @@ import { useTranslation } from 'react-i18next';
 
 import { Button, Dialog, DialogContent } from '@material-ui/core';
 
-import { bibleList } from '../../config';
-
 function BookSelect(props) {
   const {
     referenceSelected,
@@ -14,7 +12,6 @@ function BookSelect(props) {
     showBookSelect,
     setShowBookSelect,
     setShowChapterSelect,
-    showChapterSelect,
   } = props;
   const { t } = useTranslation();
 
@@ -26,7 +23,7 @@ function BookSelect(props) {
       chapter: 1,
       verse: 1,
     });
-    setShowChapterSelect(!showChapterSelect);
+    setShowChapterSelect(true);
   };
 
   return (
@@ -36,9 +33,7 @@ function BookSelect(props) {
         color="secondary"
         onClick={() => setShowBookSelect(!showBookSelect)}
       >
-        {bibleList
-          .filter((book) => book.identifier === referenceSelected.bookId)
-          .map((book) => t(book.identifier))}
+        {t(referenceSelected.bookId ?? 'not_set')}
       </Button>
 
       <Dialog

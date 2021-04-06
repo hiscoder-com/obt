@@ -1,12 +1,13 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { Card } from 'translation-helps-rcl';
-import { Verses } from 'scripture-resources-rcl';
-import { ResourcesContext } from 'scripture-resources-rcl';
+import { Verses, ResourcesContext } from 'scripture-resources-rcl';
+import { useTranslation } from 'react-i18next';
 
 import { resourcesList } from '../../config';
 
 export default function Chapter(props) {
   const { title, classes, onClose, type, reference } = props;
+  const { t } = useTranslation();
   const { state } = React.useContext(ResourcesContext);
   let project = useMemo(() => {}, []);
 
@@ -56,7 +57,7 @@ export default function Chapter(props) {
           renderOffscreen={true}
         />
       ) : (
-        'Loading...'
+        t('Loading')
       )}
     </Card>
   );

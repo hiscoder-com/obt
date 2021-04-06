@@ -74,7 +74,7 @@ export default function TypoReport() {
           <Button size="small" variant="contained" onClick={handleClickOpen}>
             {t('Report_bug')}
           </Button>
-          &nbsp; {t('Thank')}
+          &nbsp; {t('Thanks')}
           <Dialog open={openDialog} aria-labelledby="form-dialog-title">
             <DialogTitle id="form-dialog-title">{t('Report_typo')}</DialogTitle>
             <DialogContent>
