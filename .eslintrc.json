@@ -5,8 +5,7 @@
     "extends": [
         "react-app",
         "plugin:react/recommended",
-        "prettier",
-        "prettier/react"
+        "prettier"
     ],
     "parserOptions": {
         "ecmaFeatures": {
@@ -20,9 +19,12 @@
         "prettier"
     ],
     "rules": {
-        "prettier/prettier": ["error", {
-           "endOfLine":"auto"
-         }],
+        "prettier/prettier": [
+            "error",
+            {
+                "endOfLine": "auto"
+            }
+        ],
         "react/prop-types": 0
     }
 }
