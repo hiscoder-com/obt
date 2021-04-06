@@ -11,7 +11,7 @@ function ChapterSelection(props) {
   const { t } = useTranslation();
   const classes = useStyles();
 
-  const currentElement = (key, color: '') => {
+  const currentElement = (key, color) => {
     return (
       <Button
         variant="contained"
@@ -31,13 +31,11 @@ function ChapterSelection(props) {
   return (
     <>
       {ChaptersConfig
-     
         ? Object.keys(ChaptersConfig[referenceSelected.bookId]).map((key) =>
-            referenceSelected.chapter === key
+            referenceSelected.chapter === parseInt(key)
               ? currentElement(key, 'primary')
               : currentElement(key)
           )
-
         : ''}
     </>
   );

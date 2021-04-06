@@ -16,7 +16,7 @@ function BookSelect(props) {
     setShowChapterSelect,
     showChapterSelect,
   } = props;
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
   const onBook = (identifier) => {
     setShowBookSelect(false);

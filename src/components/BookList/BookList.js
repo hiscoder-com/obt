@@ -59,13 +59,11 @@ function BookList({ onBook, referenceSelected }) {
       .map((el) => (
         <p key={el.sort}>
           {el.isset ? (
-
             el.identifier === referenceSelected.bookId ? (
               currentBook(el, 'blue')
             ) : (
               currentBook(el)
             )
-
           ) : (
             <span className={classes.falseElement}>{el.title}</span>
           )}
