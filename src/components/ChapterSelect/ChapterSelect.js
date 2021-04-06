@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 
 import { Button, Dialog, DialogContent } from '@material-ui/core';
 
-import useStyles from './styled';
+import useStyles from './style';
 
 function ChapterSelect({
   referenceSelected,

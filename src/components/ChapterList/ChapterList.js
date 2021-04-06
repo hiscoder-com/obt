@@ -4,7 +4,7 @@ import { ChaptersConfig } from './config';
 
 import Button from '@material-ui/core/Button';
 
-import useStyles from './styled';
+import useStyles from './style';
 
 function ChapterList({ setReferenceSelected, referenceSelected, onClose }) {
   const { t } = useTranslation();

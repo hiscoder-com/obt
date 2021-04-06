@@ -9,8 +9,8 @@ import { Workspace } from 'test-bsa-workspace';
 import { MenuBar, SubMenuBar, TypoReport, Card } from './components';
 
 import { getResources } from './helper';
-import { makeStyles } from '@material-ui/core/styles';
 import './styles/app.css';
+import useStyles from './style';
 
 const config = { server: 'https://git.door43.org' };
 
@@ -22,38 +22,35 @@ const _appConfig = localStorage.getItem('appConfig')
       { w: 4, h: 5, x: 8, y: 0, i: 'ult' },
     ];
 
-const _resourceLinks = getResources(_appConfig);
+const _reference = localStorage.getItem('reference')
+  ? JSON.parse(localStorage.getItem('reference'))
+  : {
+      bookId: 'rut',
+      chapter: 1,
+      verse: 1,
+    };
 
-const useStyles = makeStyles(() => ({
-  root: {
-    padding: '0 !important',
-    margin: '0 1px !important',
-    height: '100%',
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  dragIndicator: {},
-}));
+const _resourceLinks = getResources(_appConfig);
 
 export default function App() {
   const classes = useStyles();
   const [resourceLinks, setResourceLinks] = useState(_resourceLinks);
   const [resources, setResources] = useState([]);
   const [appConfig, setAppConfig] = useState(_appConfig);
-
-  useEffect(() => {
-    setResourceLinks(getResources(appConfig));
-  }, [appConfig]);
-
-  const [referenceSelected, setReferenceSelected] = useState({
-    bookId: 'rut',
-    chapter: 1,
-  });
+  const [referenceSelected, setReferenceSelected] = useState(_reference);
   const [showBookSelect, setShowBookSelect] = useState(true);
   const [showChapterSelect, setShowChapterSelect] = useState(false);
   const layout = {
     absolute: appConfig,
   };
+
+  useEffect(() => {
+    setResourceLinks(getResources(appConfig));
+  }, [appConfig]);
+
+  useEffect(() => {
+    localStorage.setItem('reference', JSON.stringify(referenceSelected));
+  }, [referenceSelected]);
 
   function onLayoutChange(appConfig) {
     localStorage.setItem('appConfig', JSON.stringify(appConfig));
@@ -63,14 +60,6 @@ export default function App() {
   const onClose = (index) => {
     setAppConfig((prev) => prev.filter((el) => el.i !== index));
   };
-
-  useEffect(() => {
-    if (referenceSelected?.verse) {
-      /* console.log(
-        'Reference: ' + referenceSelected?.chapter + ':' + referenceSelected?.verse
-      ); */
-    }
-  }, [referenceSelected?.chapter, referenceSelected?.verse]);
 
   return (
     <ResourcesContextProvider
