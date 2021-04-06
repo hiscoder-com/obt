@@ -32,7 +32,7 @@ function ChapterSelection(props) {
     <>
       {ChaptersConfig
         ? Object.keys(ChaptersConfig[referenceSelected.bookId]).map((key) =>
-            referenceSelected.chapter === parseInt(key)
+            parseInt(referenceSelected.chapter) === parseInt(key)
               ? currentElement(key, 'primary')
               : currentElement(key)
           )
