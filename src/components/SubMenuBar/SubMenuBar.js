@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
 
-import BookSelect from '../BookSelect/BookSelect';
-import { ChapterSelect } from '../ChapterSelect';
+import { BookSelect, ChapterSelect } from '../../components';
 
 import { AppBar, Toolbar, Fab, MenuItem, Menu } from '@material-ui/core';
 
 import AddIcon from '@material-ui/icons/Add';
 
-import { resourcesList } from '../../config';
 import { useTranslation } from 'react-i18next';
 
 import { getUniqueResources } from '../../helper';
@@ -50,7 +48,6 @@ function SubMenuBar(props) {
             </Fab>
             <Menu
               color="transparent"
-              id="simple-menu"
               anchorEl={anchorEl}
               keepMounted
               open={Boolean(anchorEl)}
@@ -58,7 +55,7 @@ function SubMenuBar(props) {
             >
               {Object.keys(uniqueResources).map((keyName, index) => (
                 <MenuItem key={index} onClick={() => handleAddNew(keyName)}>
-                  {t(resourcesList[keyName].resourceId)}
+                  {t(keyName)}
                 </MenuItem>
               ))}
             </Menu>

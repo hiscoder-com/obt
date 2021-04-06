@@ -1,6 +1,6 @@
 import React from 'react';
 
-import ChapterSelection from '../ChapterList/ChapterSelection';
+import { ChapterList } from '../ChapterList';
 import { useTranslation } from 'react-i18next';
 
 import { Button, Dialog, DialogContent } from '@material-ui/core';
@@ -38,7 +38,7 @@ function ChapterSelect({
         onClose={() => setShowChapterSelect(false)}
       >
         <DialogContent>
-          <ChapterSelection
+          <ChapterList
             setReferenceSelected={setReferenceSelected}
             referenceSelected={referenceSelected}
             onClose={onClose}
