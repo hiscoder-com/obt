@@ -10,19 +10,13 @@ import { useTranslation } from 'react-i18next';
 
 import { getUniqueResources } from '../../helper';
 
-function SubMenuBar(props) {
+function SubMenuBar() {
   const { state, actions } = useContext(AppContext);
   const { appConfig } = state;
   const { setAppConfig } = actions;
-  const {
-    referenceSelected,
-    setReferenceSelected,
-    showBookSelect,
-    setShowBookSelect,
-    showChapterSelect,
-    setShowChapterSelect,
-  } = props;
+
   const [anchorEl, setAnchorEl] = useState(null);
+
   const uniqueResources = getUniqueResources(appConfig);
   const { t } = useTranslation();
 
@@ -62,19 +56,8 @@ function SubMenuBar(props) {
             </Menu>
           </Toolbar>
           <Toolbar style={{ margin: '0 auto' }}>
-            <BookSelect
-              referenceSelected={referenceSelected}
-              setReferenceSelected={setReferenceSelected}
-              showBookSelect={showBookSelect}
-              setShowBookSelect={setShowBookSelect}
-              setShowChapterSelect={setShowChapterSelect}
-            />
-            <ChapterSelect
-              referenceSelected={referenceSelected}
-              setReferenceSelected={setReferenceSelected}
-              showChapterSelect={showChapterSelect}
-              setShowChapterSelect={setShowChapterSelect}
-            />
+            <BookSelect />
+            <ChapterSelect />
           </Toolbar>
         </Toolbar>
       </AppBar>
