@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 
 import './i18next';
@@ -9,12 +9,10 @@ import { AppContextProvider } from './App.context';
 import './styles/style.css';
 
 ReactDOM.render(
-  <Suspense fallback={<div>Loading ~~~</div>}>
-    <React.StrictMode>
-      <AppContextProvider>
-        <App />
-      </AppContextProvider>
-    </React.StrictMode>
-  </Suspense>,
+  <React.StrictMode>
+    <AppContextProvider>
+      <App />
+    </AppContextProvider>
+  </React.StrictMode>,
   document.getElementById('root')
 );
