@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
+import { AppContext } from '../../App.context';
 import { ChapterList } from '../ChapterList';
 import { useTranslation } from 'react-i18next';
 
@@ -7,12 +8,11 @@ import { Button, Dialog, DialogContent } from '@material-ui/core';
 
 import useStyles from './style';
 
-function ChapterSelect({
-  referenceSelected,
-  setReferenceSelected,
-  showChapterSelect,
-  setShowChapterSelect,
-}) {
+function ChapterSelect() {
+  const { state, actions } = useContext(AppContext);
+  const { referenceSelected, showChapterSelect } = state;
+  const { setReferenceSelected, setShowChapterSelect } = actions;
+
   const onClose = () => {
     setShowChapterSelect(false);
   };

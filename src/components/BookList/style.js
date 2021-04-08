@@ -1,14 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 export const useStyles = makeStyles((theme) => ({
-  falseElement: {
-    backgroundColor: 'transparent',
-    border: 'none',
-    fontFamily: 'arial, sant-serif',
-    color: '#bbbbbb',
-    fontWeight: 600,
-    fontSize: 18,
-  },
   bookWrap: {
     textAlign: 'center',
   },
