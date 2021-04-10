@@ -12,9 +12,9 @@ export const AppContext = React.createContext();
 const _appConfig = localStorage.getItem('appConfig')
   ? JSON.parse(localStorage.getItem('appConfig'))
   : [
-      { w: 4, h: 5, x: 0, y: 0, i: 'rob' },
-      { w: 4, h: 5, x: 4, y: 0, i: 'tn' },
-      { w: 4, h: 5, x: 8, y: 0, i: 'ult' },
+      { w: 4, h: 5, x: 0, y: 0, i: 'rob',minH : 2, minW : 2 },
+      { w: 4, h: 5, x: 4, y: 0, i: 'tn', minH : 2, minW : 2 },
+      { w: 4, h: 5, x: 8, y: 0, i: 'ult',minH : 2, minW : 2 },
     ];
 
 const _reference = localStorage.getItem('reference')
