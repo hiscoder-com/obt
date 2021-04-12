@@ -1,30 +1,17 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
+import { AppContext } from '../../App.context';
 import BookList from '../BookList/BookList';
 import { useTranslation } from 'react-i18next';
 
 import { Button, Dialog, DialogContent } from '@material-ui/core';
 
-function BookSelect(props) {
-  const {
-    referenceSelected,
-    setReferenceSelected,
-    showBookSelect,
-    setShowBookSelect,
-    setShowChapterSelect,
-  } = props;
+function BookSelect() {
   const { t } = useTranslation();
 
-  const onBook = (identifier) => {
-    setShowBookSelect(false);
-    setReferenceSelected({
-      ...referenceSelected,
-      bookId: identifier ?? null,
-      chapter: 1,
-      verse: 1,
-    });
-    setShowChapterSelect(true);
-  };
+  const { state, actions } = useContext(AppContext);
+  const { referenceSelected, showBookSelect } = state;
+  const { setShowBookSelect } = actions;
 
   return (
     <>
@@ -43,7 +30,7 @@ function BookSelect(props) {
         onClose={() => setShowBookSelect(false)}
       >
         <DialogContent>
-          <BookList onBook={onBook} referenceSelected={referenceSelected} />
+          <BookList />
         </DialogContent>
       </Dialog>
     </>

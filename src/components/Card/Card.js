@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
+import { AppContext } from '../../App.context';
 import Chapter from '../Chapter/Chapter';
 import SupportTQ from '../SupportTQ/SupportTQ';
 import SupportTN from '../SupportTN/SupportTN';
@@ -7,8 +8,10 @@ import { useTranslation } from 'react-i18next';
 
 import { resourcesList } from '../../config';
 
-function Card({ type, onClose, reference, classes }) {
+function Card({ type, onClose, classes }) {
   let CurrentCard;
+  const { state } = useContext(AppContext);
+  const { referenceSelected } = state;
   const { t } = useTranslation();
   const resource = resourcesList[type];
 
@@ -32,7 +35,7 @@ function Card({ type, onClose, reference, classes }) {
       title={t(resource.resourceId)}
       onClose={onClose}
       type={type}
-      reference={reference}
+      reference={referenceSelected}
     />
   );
 }

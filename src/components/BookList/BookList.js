@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react';
 
+import { AppContext } from '../../App.context';
 import { ResourcesContext } from 'scripture-resources-rcl';
 
 import { Button, FormControlLabel } from '@material-ui/core';
@@ -13,8 +14,26 @@ const trueBibleList = JSON.parse(
   JSON.stringify(bibleList.map((item) => ({ ...item, isset: true })))
 );
 
-function BookList({ onBook, referenceSelected }) {
+function BookList() {
   const { state } = useContext(ResourcesContext);
+  const appContext = useContext(AppContext);
+  const { referenceSelected } = appContext.state;
+  const {
+    setShowBookSelect,
+    setReferenceSelected,
+    setShowChapterSelect,
+  } = appContext.actions;
+
+  const onBook = (identifier) => {
+    setShowBookSelect(false);
+    setReferenceSelected({
+      bookId: identifier ?? null,
+      chapter: 1,
+      verse: 1,
+    });
+    setShowChapterSelect(true);
+  };
+
   const [checkState, setCheckState] = useState(false);
   const classes = useStyles();
   const currentBibleList = JSON.parse(JSON.stringify(bibleList));
