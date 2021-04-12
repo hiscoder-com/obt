@@ -21,7 +21,7 @@ function SubMenuBar() {
   const { t } = useTranslation();
 
   const handleAddNew = (item) => {
-    setAppConfig((prev) => prev.concat({ w: 4, h: 3, x: 0, y: 99, i: item }));
+    setAppConfig((prev) => prev.concat({ w: 4, h: 4, x: 0, y: 99, i: item, minH : 2, minW: 2 }));
 
     handleClose();
   };
