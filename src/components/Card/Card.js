@@ -15,6 +15,9 @@ function Card({ type, onClose, classes }) {
   const { referenceSelected } = state;
   const { t } = useTranslation();
   const resource = resourcesList[type];
+  if (!resource) {
+    return false;
+  }
 
   switch (resource.resourceId) {
     case 'tn':
