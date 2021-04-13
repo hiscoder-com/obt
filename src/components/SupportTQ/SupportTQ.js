@@ -1,6 +1,9 @@
 import React from 'react';
+
 import { Card, CardContent, useContent, useCardState } from 'translation-helps-rcl';
 import { ReferenceSelectedContext } from 'scripture-resources-rcl';
+
+import { resourcesList, server } from '../../config';
 
 export default function SupportTQ(props) {
   const { title, classes, onClose, type } = props;
@@ -15,16 +18,16 @@ export default function SupportTQ(props) {
     verse: reference.verse,
     chapter: reference.chapter,
     projectId: reference.bookId,
-    branch: 'master',
-    languageId: 'ru',
-    resourceId: 'tq',
+    branch: resourcesList[type].branch ?? 'master',
+    languageId: resourcesList[type].languageId ?? 'ru',
+    resourceId: resourcesList[type].resourceId ?? 'tq',
     filePath:
       String(reference.chapter).padStart(2, '0') +
       '/' +
       String(reference.verse).padStart(2, '0') +
       '.md',
-    owner: 'bsa',
-    server: 'https://git.door43.org',
+    owner: resourcesList[type].owner ?? 'bsa',
+    server,
   });
 
   const {

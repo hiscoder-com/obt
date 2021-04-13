@@ -6,26 +6,19 @@ import {
 } from 'scripture-resources-rcl';
 
 import { getResources } from './helper';
+import { server, defaultCards, defaultReference } from './config';
 
 export const AppContext = React.createContext();
 
 const _appConfig = localStorage.getItem('appConfig')
   ? JSON.parse(localStorage.getItem('appConfig'))
-  : [
-      { w: 4, h: 5, x: 0, y: 0, i: 'rob',minH : 2, minW : 2 },
-      { w: 4, h: 5, x: 4, y: 0, i: 'tn', minH : 2, minW : 2 },
-      { w: 4, h: 5, x: 8, y: 0, i: 'ult',minH : 2, minW : 2 },
-    ];
+  : defaultCards;
 
 const _reference = localStorage.getItem('reference')
   ? JSON.parse(localStorage.getItem('reference'))
-  : {
-      bookId: 'rut',
-      chapter: 1,
-      verse: 1,
-    };
+  : defaultReference;
 
-const config = { server: 'https://git.door43.org' };
+const config = { server };
 
 export function AppContextProvider({ children }) {
   const [appConfig, setAppConfig] = useState(_appConfig);
