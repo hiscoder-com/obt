@@ -1,3 +1,108 @@
+export const server = 'https://git.door43.org';
+
+export const defaultCards = [
+  { w: 4, h: 5, x: 0, y: 0, i: 'rob', minH: 2, minW: 4 },
+  { w: 4, h: 5, x: 4, y: 0, i: 'tn', minH: 2, minW: 4 },
+  { w: 4, h: 5, x: 8, y: 0, i: 'ult', minH: 2, minW: 4 },
+];
+
+export const defaultReference = {
+  bookId: 'tit',
+  chapter: 1,
+  verse: 1,
+};
+
+export const resourcesList = {
+  rob: {
+    link: 'ru_gl_final/ru_rob/master',
+    branch: 'master',
+    type: 'bible',
+    languageId: 'ru',
+    resourceId: 'rob',
+    owner: 'ru_gl_final',
+  },
+  rsb: {
+    link: 'Door43-Catalog/ru_rsb/master',
+    branch: 'master',
+    type: 'bible',
+    languageId: 'ru',
+    resourceId: 'rsb',
+    owner: 'Door43-Catalog',
+  },
+  rlob: {
+    link: 'ru_gl_final/ru_rlob/master',
+    branch: 'master',
+    type: 'bible',
+    languageId: 'ru',
+    resourceId: 'rlob',
+    owner: 'ru_gl_final',
+  },
+  rsob: {
+    link: 'ru_gl_final/ru_rsob/master',
+    branch: 'master',
+    type: 'bible',
+    languageId: 'ru',
+    resourceId: 'rsob',
+    owner: 'ru_gl_final',
+  },
+  ugnt: {
+    link: 'unfoldingWord/el-x-koine_ugnt/master',
+    branch: 'master',
+    type: 'bible',
+    languageId: 'el-x-koine',
+    resourceId: 'ugnt',
+    owner: 'unfoldingWord',
+  },
+  uhb: {
+    link: 'unfoldingWord/hbo_uhb/master',
+    branch: 'master',
+    type: 'bible',
+    languageId: 'hbo',
+    resourceId: 'uhb',
+    owner: 'unfoldingWord',
+  },
+  ult: {
+    link: 'unfoldingWord/en_ult/master',
+    branch: 'master',
+    type: 'bible',
+    languageId: 'en',
+    resourceId: 'ult',
+    owner: 'unfoldingWord',
+  },
+  ust: {
+    link: 'unfoldingWord/en_ust/master',
+    branch: 'master',
+    type: 'bible',
+    languageId: 'en',
+    resourceId: 'ust',
+    owner: 'unfoldingWord',
+  },
+  tn: {
+    link: 'ru_gl_final/ru_tn/master',
+    branch: 'master',
+    type: 'support',
+    languageId: 'ru',
+    resourceId: 'tn',
+    owner: 'ru_gl_final',
+  },
+  tq: {
+    link: 'ru_gl_final/ru_tq/master',
+    branch: 'master',
+    type: 'support',
+    languageId: 'ru',
+    resourceId: 'tq',
+    owner: 'ru_gl_final',
+  },
+  /*  tw: {
+    link: 'ru_gl_final/ru_tw/master',
+    branch: 'master',
+    type: 'support',
+    languageId: 'ru',
+    resourceId: 'tw',
+    owner: 'ru_gl_final',
+  },*/
+};
+
 export const bibleList = [
   {
     identifier: 'gen',
@@ -396,105 +501,3 @@ export const bibleList = [
     categories: 'bible-nt',
   },
 ];
-
-export const resourcesList = {
-  rob: {
-    link: 'bsa/ru_rob/master',
-    branch: 'master',
-    type: 'bible',
-    languageId: 'ru',
-    resourceId: 'rob',
-    title: 'Russian Open Bible',
-    owner: 'bsa',
-  },
-  rlob: {
-    link: 'bsa/ru_rlob/master',
-    branch: 'master',
-    type: 'bible',
-    languageId: 'ru',
-    resourceId: 'rlob',
-    title: 'Russian Literal Open Bible',
-    owner: 'bsa',
-  },
-  rsob: {
-    link: 'bsa/ru_rsob/master',
-    branch: 'master',
-    type: 'bible',
-    languageId: 'ru',
-    resourceId: 'rsob',
-    title: 'Russian Simplified Open Bible',
-    owner: 'bsa',
-  },
-  ugnt: {
-    link: 'unfoldingWord/el-x-koine_ugnt/master',
-    branch: 'master',
-    type: 'bible',
-    languageId: 'el-x-koine',
-    resourceId: 'ugnt',
-    title: 'unfoldingWord® Greek New Testament',
-    owner: 'unfoldingWord',
-  },
-  uhb: {
-    link: 'unfoldingWord/hbo_uhb/master',
-    branch: 'master',
-    type: 'bible',
-    languageId: 'hbo',
-    resourceId: 'uhb',
-    title: 'unfoldingWord® Hebrew Bible',
-    owner: 'unfoldingWord',
-  },
-  ult: {
-    link: 'unfoldingWord/en_ult/master',
-    branch: 'master',
-    type: 'bible',
-    languageId: 'en',
-    resourceId: 'ult',
-    title: 'unfoldingWord® Literal Text',
-    owner: 'unfoldingWord',
-  },
-  ust: {
-    link: 'unfoldingWord/en_ust/master',
-    branch: 'master',
-    type: 'bible',
-    languageId: 'en',
-    resourceId: 'ust',
-    title: 'unfoldingWord® Literal Text',
-    owner: 'unfoldingWord',
-  },
-  tn: {
-    link: 'bsa/ru_tn/master',
-    branch: 'master',
-    type: 'support',
-    languageId: 'ru',
-    resourceId: 'tn',
-    title: 'Translation Notes',
-    owner: 'bsa',
-  },
-  tq: {
-    link: 'bsa/ru_tq/master',
-    branch: 'master',
-    type: 'support',
-    languageId: 'ru',
-    resourceId: 'tq',
-    title: 'Translation Questions',
-    owner: 'bsa',
-  },
-  /*ta: {
-    link: 'bsa/ru_ta/master',
-    branch: 'master',
-    type: 'support',
-    languageId: 'ru',
-    resourceId: 'ta',
-    title: 'ta',
-    owner: 'bsa',
-  },
-  tw: {
-    link: 'bsa/ru_tw/master',
-    branch: 'master',
-    type: 'support',
-    languageId: 'ru',
-    resourceId: 'tw',
-    title: 'tw',
-    owner: 'bsa',
-  },*/
-};
