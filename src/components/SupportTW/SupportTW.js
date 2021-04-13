@@ -5,7 +5,7 @@ import { ReferenceSelectedContext } from 'scripture-resources-rcl';
 
 import { resourcesList, server } from '../../config';
 
-export default function SupportTN(props) {
+export default function SupportTW(props) {
   const { title, classes, onClose, type } = props;
   const { state: reference } = React.useContext(ReferenceSelectedContext);
 
@@ -21,7 +21,7 @@ export default function SupportTN(props) {
     projectId: reference.bookId,
     branch: resourcesList[type].branch ?? 'master',
     languageId: resourcesList[type].languageId ?? 'ru',
-    resourceId: resourcesList[type].resourceId ?? 'tn',
+    resourceId: resourcesList[type].resourceId ?? 'tw',
     owner: resourcesList[type].owner ?? 'bsa',
     server,
   });
@@ -52,7 +52,8 @@ export default function SupportTN(props) {
     >
       <CardContent
         item={item}
-        viewMode="table"
+        //        viewMode="table"
+        viewMode={'markdown'}
         filters={filters}
         fontSize={fontSize}
         markdown={markdown}

@@ -4,6 +4,7 @@ import { AppContext } from '../../App.context';
 import Chapter from '../Chapter/Chapter';
 import SupportTQ from '../SupportTQ/SupportTQ';
 import SupportTN from '../SupportTN/SupportTN';
+import SupportTW from '../SupportTW/SupportTW';
 import { useTranslation } from 'react-i18next';
 
 import { resourcesList } from '../../config';
@@ -22,6 +23,10 @@ function Card({ type, onClose, classes }) {
 
     case 'tq':
       CurrentCard = SupportTQ;
+      break;
+
+    case 'tw':
+      CurrentCard = SupportTW;
       break;
 
     default:
