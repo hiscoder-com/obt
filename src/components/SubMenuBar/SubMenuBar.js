@@ -9,6 +9,7 @@ import AddIcon from '@material-ui/icons/Add';
 import { useTranslation } from 'react-i18next';
 
 import { getUniqueResources } from '../../helper';
+import { defaultCard } from '../../config';
 
 function SubMenuBar() {
   const { state, actions } = useContext(AppContext);
@@ -21,7 +22,7 @@ function SubMenuBar() {
   const { t } = useTranslation();
 
   const handleAddNew = (item) => {
-    setAppConfig((prev) => prev.concat({ w: 4, h: 4, x: 0, y: 99, i: item, minH : 2, minW: 2 }));
+    setAppConfig((prev) => prev.concat({ ...defaultCard, i: item }));
 
     handleClose();
   };
