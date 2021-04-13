@@ -1,4 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
+
+import { useTranslation } from 'react-i18next';
+
+import { AppContext } from '../../App.context';
+
 import {
   AppBar,
   Typography,
@@ -14,10 +19,12 @@ import {
   CircularProgress,
 } from '@material-ui/core';
 
-import { useTranslation } from 'react-i18next';
 import useStyles from './style';
 
 export default function TypoReport() {
+  const { state } = useContext(AppContext);
+  const { referenceSelected } = state;
+
   const [openDialog, setOpenDialog] = React.useState(false);
   const [valueComment, setValueComment] = React.useState('');
   const [selectionNode, setSelectionNode] = React.useState('');
@@ -33,7 +40,11 @@ export default function TypoReport() {
     if (window.getSelection().toString()) {
       setOpenDialog(true);
       setSelectionNode(
-        window.getSelection()?.anchorNode?.parentNode?.textContent?.toString()
+        referenceSelected.bookId +
+          ' ' +
+          referenceSelected.chapter +
+          ':' +
+          referenceSelected.verse
       );
       setSelectionTypo(window.getSelection().toString());
     }

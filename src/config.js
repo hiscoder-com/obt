@@ -1,10 +1,12 @@
 export const server = 'https://git.door43.org';
 
 export const defaultCards = [
-  { w: 4, h: 5, x: 0, y: 0, i: 'rob', minH: 2, minW: 4 },
-  { w: 4, h: 5, x: 4, y: 0, i: 'tn', minH: 2, minW: 4 },
-  { w: 4, h: 5, x: 8, y: 0, i: 'ult', minH: 2, minW: 4 },
+  { w: 4, h: 9, x: 0, y: 0, i: 'rob', minH: 4, minW: 2 },
+  { w: 4, h: 9, x: 4, y: 0, i: 'rsb', minH: 4, minW: 2 },
+  { w: 4, h: 9, x: 8, y: 0, i: 'tn', minH: 4, minW: 2 },
 ];
+
+export const defaultCard = { w: 4, h: 4, x: 0, y: 99, minH: 4, minW: 2 };
 
 export const defaultReference = {
   bookId: 'tit',
