@@ -2,8 +2,9 @@ import React, { useContext, useState } from 'react';
 
 import { AppContext } from '../../App.context';
 import { ResourcesContext } from 'scripture-resources-rcl';
+import { SectionBlock } from 'demo-bsa-referense-rcl';
 
-import { Button, FormControlLabel } from '@material-ui/core';
+import { FormControlLabel } from '@material-ui/core';
 import Checkbox from '@material-ui/core/Checkbox';
 import { useTranslation } from 'react-i18next';
 import { bibleList } from '../../config';
@@ -55,14 +56,6 @@ function BookList() {
 
   const issetCheck = JSON.stringify(currentBibleList) !== JSON.stringify(trueBibleList);
 
-  const currentBook = (el, color = 'primary') => {
-    return (
-      <Button color={color} onClick={() => onBook(el.identifier)}>
-        {t(el.identifier)}
-      </Button>
-    );
-  };
-
   const renderBookList = (categories) => {
     return currentBibleList
       .filter((el) =>
@@ -70,19 +63,9 @@ function BookList() {
           ? el.categories === categories && el.isset === true
           : el.categories === categories
       )
-      .map((el) => (
-        <div className={classes.bookWrap} key={el.sort}>
-          {el.isset ? (
-            el.identifier === referenceSelected.bookId ? (
-              currentBook(el, 'secondary')
-            ) : (
-              currentBook(el)
-            )
-          ) : (
-            <Button disabled>{t(el.identifier)}</Button>
-          )}
-        </div>
-      ));
+      .map((el) => {
+        return { ...el, text: t(el.identifier) };
+      });
   };
   const hideCheckRender = issetCheck ? (
     <FormControlLabel
@@ -103,10 +86,22 @@ function BookList() {
   return (
     <>
       {hideCheckRender}
-      <h2>{t('bible_NT')}</h2>
-      <div className={classes.bookGrid}>{renderBookList('bible-nt')}</div>
-      <h2>{t('bible_OT')}</h2>
-      <div className={classes.bookGrid}>{renderBookList('bible-ot')}</div>
+      <SectionBlock
+        className={classes.bookGrid}
+        title={t('bible_NT')}
+        bookWrapClass={classes.bookWrap}
+        bookList={renderBookList('bible-nt')}
+        selectedBookId={referenceSelected.bookId}
+        onClickBook={(bookId) => onBook(bookId)}
+      />
+      <SectionBlock
+        className={classes.bookGrid}
+        title={t('bible_OT')}
+        bookWrapClass={classes.bookWrap}
+        bookList={renderBookList('bible-ot')}
+        selectedBookId={referenceSelected.bookId}
+        onClickBook={(bookId) => onBook(bookId)}
+      />
     </>
   );
 }
