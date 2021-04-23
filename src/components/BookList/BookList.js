@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 
 import { AppContext } from '../../App.context';
 import { ResourcesContext } from 'scripture-resources-rcl';
-import { SectionBlock } from 'demo-bsa-referense-rcl';
+import { BookList as BookListRCL } from 'demo-bsa-reference-rcl';
 
 import { FormControlLabel } from '@material-ui/core';
 import Checkbox from '@material-ui/core/Checkbox';
@@ -60,7 +60,7 @@ function BookList() {
     return currentBibleList
       .filter((el) =>
         checkState
-          ? el.categories === categories && el.isset === true
+          ? el.categories === categories && el.isset
           : el.categories === categories
       )
       .map((el) => {
@@ -86,19 +86,19 @@ function BookList() {
   return (
     <>
       {hideCheckRender}
-      <SectionBlock
-        className={classes.bookGrid}
+      <BookListRCL
         title={t('bible_NT')}
-        bookWrapClass={classes.bookWrap}
         bookList={renderBookList('bible-nt')}
+        bookWrapClass={classes.bookWrap}
+        className={classes.bookGrid}
         selectedBookId={referenceSelected.bookId}
         onClickBook={(bookId) => onBook(bookId)}
       />
-      <SectionBlock
-        className={classes.bookGrid}
+      <BookListRCL
         title={t('bible_OT')}
-        bookWrapClass={classes.bookWrap}
         bookList={renderBookList('bible-ot')}
+        bookWrapClass={classes.bookWrap}
+        className={classes.bookGrid}
         selectedBookId={referenceSelected.bookId}
         onClickBook={(bookId) => onBook(bookId)}
       />
