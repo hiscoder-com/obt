@@ -29,7 +29,7 @@ function BookList() {
     setShowBookSelect(false);
     setReferenceSelected({
       bookId: identifier ?? null,
-      chapter: 1,
+      chapter: '1',
       verse: 1,
     });
     setShowChapterSelect(true);

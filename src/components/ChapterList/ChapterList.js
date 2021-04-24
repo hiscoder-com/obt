@@ -9,7 +9,7 @@ import useStyles from './style';
 function ChapterList({ setReferenceSelected, referenceSelected, onClose }) {
   const { t } = useTranslation();
   const classes = useStyles();
-
+console.log(referenceSelected.chapter)
   const onClickChapter = (chapterId) => {
     setReferenceSelected({ ...referenceSelected, chapter: chapterId, verse: 1 });
     onClose();
@@ -21,7 +21,8 @@ function ChapterList({ setReferenceSelected, referenceSelected, onClose }) {
       title={t('Chapter')}
       marginSize={10}
       onClickChapter={onClickChapter}
-      ChapterclassName={classes.root}
+      chapterWrapClass={classes.root}
+     
     />
   );
 }
