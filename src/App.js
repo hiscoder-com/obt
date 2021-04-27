@@ -3,7 +3,7 @@ import React, { useContext } from 'react';
 import { Workspace } from 'test-bsa-workspace';
 
 import { AppContext } from './App.context';
-import { MenuBar, SubMenuBar, TypoReport, Card } from './components';
+import { SubMenuBar, TypoReport, Card } from './components';
 
 import './styles/app.css';
 import useStyles from './style';
@@ -28,7 +28,7 @@ export default function App() {
 
   return (
     <>
-      <MenuBar />
+      {/* <MenuBar /> */}
       <SubMenuBar />
       <Workspace
         gridMargin={[15, 15]}

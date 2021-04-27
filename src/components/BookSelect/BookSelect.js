@@ -16,8 +16,8 @@ function BookSelect() {
   return (
     <>
       <Button
-        variant="contained"
-        color="secondary"
+        variant="outlined"
+        color="inherit"
         onClick={() => setShowBookSelect(!showBookSelect)}
       >
         {t(referenceSelected.bookId ?? 'not_set')}

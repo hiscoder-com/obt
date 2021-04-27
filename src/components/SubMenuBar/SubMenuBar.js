@@ -3,8 +3,9 @@ import React, { useState, useContext } from 'react';
 import { AppContext } from '../../App.context';
 import { BookSelect, ChapterSelect } from '../../components';
 
-import { AppBar, Toolbar, Fab, MenuItem, Menu } from '@material-ui/core';
+import { AppBar, Toolbar, Fab, MenuItem, Menu, IconButton } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
+import MenuIcon from '@material-ui/icons/Menu';
 
 import { useTranslation } from 'react-i18next';
 
@@ -39,9 +40,9 @@ function SubMenuBar() {
       <AppBar position="relative">
         <Toolbar>
           <Toolbar>
-            <Fab color="primary" aria-label="add" onClick={handleClick}>
+            {/* <Fab color="primary" aria-label="add" onClick={handleClick}>
               <AddIcon />
-            </Fab>
+            </Fab> */}
             <Menu
               color="transparent"
               anchorEl={anchorEl}
@@ -60,6 +61,15 @@ function SubMenuBar() {
             <BookSelect />
             <ChapterSelect />
           </Toolbar>
+
+          <IconButton
+            edge="start"
+            color="inherit"
+            aria-label="menu"
+            onClick={handleClick}
+          >
+            <MenuIcon />
+          </IconButton>
         </Toolbar>
       </AppBar>
     </>

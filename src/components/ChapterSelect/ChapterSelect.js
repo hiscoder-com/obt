@@ -25,8 +25,8 @@ function ChapterSelect() {
       <Button
         className={classes.root}
         ml={1}
-        variant="contained"
-        color="secondary"
+        variant="outlined"
+        color="inherit"
         onClick={() => setShowChapterSelect(!showChapterSelect)}
       >
         {referenceSelected.chapter} {t('Chapter')}
