@@ -1,9 +1,13 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-export const useStyles = makeStyles((theme) => ({
-  bookWrap: {
-    textAlign: 'center',
+export const useBookStyles = makeStyles(() => ({
+  root: {
+    margin: '0 auto',
+    display: 'block',
   },
+}));
+
+export const useStyles = makeStyles((theme) => ({
   bookGrid: {
     columnGap: '25px',
     [theme.breakpoints.down('xs')]: {
