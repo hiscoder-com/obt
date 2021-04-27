@@ -81,11 +81,15 @@ export default function TypoReport() {
     <AppBar color="primary" className={classes.appBar}>
       <Container fixed>
         <Typography variant="subtitle2">
-          {t('find_an_error')} &nbsp;
-          <Button size="small" variant="contained" onClick={handleClickOpen}>
+          <Button
+            size="small"
+            variant="outlined"
+            color="inherit"
+            onClick={handleClickOpen}
+          >
             {t('Report_bug')}
           </Button>
-          &nbsp; {t('Thanks')}
+
           <Dialog open={openDialog} aria-labelledby="form-dialog-title">
             <DialogTitle id="form-dialog-title">{t('Report_typo')}</DialogTitle>
             <DialogContent>

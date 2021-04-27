@@ -2,9 +2,9 @@ import React, { useState, useContext } from 'react';
 
 import { AppContext } from '../../App.context';
 import { BookSelect, ChapterSelect } from '../../components';
+import SelectLanguage from '../MenuBar/SelectLanguage/SelectLanguage';
+import { AppBar, Toolbar, MenuItem, Menu, IconButton } from '@material-ui/core';
 
-import { AppBar, Toolbar, Fab, MenuItem, Menu, IconButton } from '@material-ui/core';
-import AddIcon from '@material-ui/icons/Add';
 import MenuIcon from '@material-ui/icons/Menu';
 
 import { useTranslation } from 'react-i18next';
@@ -17,41 +17,60 @@ function SubMenuBar() {
   const { appConfig } = state;
   const { setAppConfig } = actions;
 
-  const [anchorEl, setAnchorEl] = useState(null);
+  const [anchorAddMaterial, setAnchorAddMaterial] = useState(null);
+  const [anchorMainMenu, setAnchorMainMenu] = useState(null);
 
   const uniqueResources = getUniqueResources(appConfig);
   const { t } = useTranslation();
 
-  const handleAddNew = (item) => {
+  const handleAddMaterial = (item) => {
     setAppConfig((prev) => prev.concat({ ...defaultCard, i: item }));
-
-    handleClose();
+    handleCloseAddMaterial();
   };
 
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
+  const handleClickAddMaterial = (event) => {
+    setAnchorAddMaterial(true);
+    handleCloseMainMenu();
   };
-  const handleClose = () => {
-    setAnchorEl(null);
+  const handleClickMainMenu = (event) => {
+    setAnchorMainMenu(event.currentTarget);
+  };
+
+  const handleCloseMainMenu = () => {
+    setAnchorMainMenu(null);
+  };
+  const handleCloseAddMaterial = () => {
+    setAnchorAddMaterial(null);
   };
 
   return (
     <>
       <AppBar position="relative">
         <Toolbar>
+          Bible App
           <Toolbar>
-            {/* <Fab color="primary" aria-label="add" onClick={handleClick}>
-              <AddIcon />
-            </Fab> */}
             <Menu
               color="transparent"
-              anchorEl={anchorEl}
+              anchorEl={anchorMainMenu}
               keepMounted
-              open={Boolean(anchorEl)}
-              onClose={handleClose}
+              open={Boolean(anchorMainMenu)}
+              onClose={handleCloseMainMenu}
+            >
+              <MenuItem>
+                <SelectLanguage />
+              </MenuItem>
+              <MenuItem onClick={() => handleClickAddMaterial()}>+ Add material</MenuItem>
+              <MenuItem> Error Report</MenuItem>
+            </Menu>
+            <Menu
+              color="transparent"
+              anchorEl={anchorAddMaterial}
+              keepMounted
+              open={Boolean(anchorAddMaterial)}
+              onClose={handleCloseAddMaterial}
             >
               {Object.keys(uniqueResources).map((keyName, index) => (
-                <MenuItem key={index} onClick={() => handleAddNew(keyName)}>
+                <MenuItem key={index} onClick={() => handleAddMaterial(keyName)}>
                   {t(keyName)}
                 </MenuItem>
               ))}
@@ -61,12 +80,11 @@ function SubMenuBar() {
             <BookSelect />
             <ChapterSelect />
           </Toolbar>
-
           <IconButton
             edge="start"
             color="inherit"
             aria-label="menu"
-            onClick={handleClick}
+            onClick={handleClickMainMenu}
           >
             <MenuIcon />
           </IconButton>
