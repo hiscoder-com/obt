@@ -4,7 +4,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     margin: theme.spacing(1),
     minWidth: 20,
-    color: 'white',
+    color: 'black',
   },
   icon: {
     color: 'white',

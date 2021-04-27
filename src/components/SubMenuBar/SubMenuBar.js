@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 
 import { AppContext } from '../../App.context';
-import { BookSelect, ChapterSelect } from '../../components';
+import { BookSelect, ChapterSelect, TypoReport } from '../../components';
 import SelectLanguage from '../MenuBar/SelectLanguage/SelectLanguage';
 import { AppBar, Toolbar, MenuItem, Menu, IconButton } from '@material-ui/core';
 
@@ -80,6 +80,7 @@ function SubMenuBar() {
             <BookSelect />
             <ChapterSelect />
           </Toolbar>
+          <TypoReport />
           <IconButton
             edge="start"
             color="inherit"

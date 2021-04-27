@@ -1,10 +1,8 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
-  appBar: {
-    top: 'auto',
-    bottom: 0,
-    padding: 5,
+  root: {
+    marginRight: 40,
   },
   select: {
     color: 'red',

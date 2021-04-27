@@ -3,12 +3,10 @@ import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { AppContext } from '../../App.context';
-
+import AnnouncementIcon from '@material-ui/icons/Announcement';
 import {
-  AppBar,
   Typography,
   Button,
-  Container,
   Dialog,
   DialogTitle,
   DialogActions,
@@ -78,51 +76,42 @@ export default function TypoReport() {
   const classes = useStyles();
 
   return (
-    <AppBar color="primary" className={classes.appBar}>
-      <Container fixed>
-        <Typography variant="subtitle2">
-          <Button
-            size="small"
-            variant="outlined"
-            color="inherit"
-            onClick={handleClickOpen}
-          >
-            {t('Report_bug')}
-          </Button>
+    <Typography variant="subtitle2" className={classes.root}>
+      <Button size="small" variant="outlined" color="inherit" onClick={handleClickOpen}>
+        <AnnouncementIcon /> {t('Report_bug')}
+      </Button>
 
-          <Dialog open={openDialog} aria-labelledby="form-dialog-title">
-            <DialogTitle id="form-dialog-title">{t('Report_typo')}</DialogTitle>
-            <DialogContent>
-              <DialogContentText>{t('Text_to_editors')}</DialogContentText>
-              <DialogContentText className={classes.select}>
-                {selectionTypo}
-              </DialogContentText>
-              <DialogContentText>{selectionNode}</DialogContentText>
-              <TextField
-                autoFocus
-                margin="dense"
-                id="comment"
-                label={t('Your_comment')}
-                type="text"
-                value={valueComment}
-                onChange={handleChange}
-                fullWidth
-              />
-            </DialogContent>
-            <DialogActions>
-              <Button onClick={handleCancel} color="primary" className={classes.select}>
-                {t('Cancel')}
-              </Button>
-              <Button onClick={handleSend} color="primary">
-                {t('Send_message')}
-              </Button>
-              <Backdrop className={classes.backdrop} open={openBackdrop}>
-                <CircularProgress color="inherit" />
-              </Backdrop>
-            </DialogActions>
-          </Dialog>
-        </Typography>
-      </Container>
-    </AppBar>
+      <Dialog open={openDialog} aria-labelledby="form-dialog-title">
+        <DialogTitle id="form-dialog-title">{t('Report_typo')}</DialogTitle>
+        <DialogContent>
+          <DialogContentText>{t('Text_to_editors')}</DialogContentText>
+          <DialogContentText className={classes.select}>
+            {selectionTypo}
+          </DialogContentText>
+          <DialogContentText>{selectionNode}</DialogContentText>
+          <TextField
+            autoFocus
+            margin="dense"
+            id="comment"
+            label={t('Your_comment')}
+            type="text"
+            value={valueComment}
+            onChange={handleChange}
+            fullWidth
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCancel} color="primary" className={classes.select}>
+            {t('Cancel')}
+          </Button>
+          <Button onClick={handleSend} color="primary">
+            {t('Send_message')}
+          </Button>
+          <Backdrop className={classes.backdrop} open={openBackdrop}>
+            <CircularProgress color="inherit" />
+          </Backdrop>
+        </DialogActions>
+      </Dialog>
+    </Typography>
   );
 }
