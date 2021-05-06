@@ -29,7 +29,7 @@ export function AppContextProvider({ children }) {
 
   const [appConfig, setAppConfig] = useState(_appConfig);
   const [referenceSelected, setReferenceSelected] = useState({
-    bookId: currentLocation[1] ?? _reference.bookId,
+    bookId: currentLocation[1] ? currentLocation[1] : _reference.bookId,
     chapter: currentLocation[2] ?? _reference.chapter,
     verse: 1,
   });

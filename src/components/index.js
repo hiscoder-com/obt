@@ -10,4 +10,3 @@ export * from './SupportTN';
 export * from './SupportTQ';
 export * from './SupportTW';
 export * from './TypoReport';
-export * from './StaticPage';
