@@ -1,18 +1,29 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import './i18next';
 
 import App from './App';
+import { AboutPage, ContactPage } from './components';
 import { AppContextProvider } from './App.context';
 
 import './styles/style.css';
 
 ReactDOM.render(
-  <React.StrictMode>
+  <BrowserRouter>
     <AppContextProvider>
-      <App />
+      <Switch>
+        <Route path="/about">
+          <AboutPage />
+        </Route>
+        <Route path="/contact">
+          <ContactPage />
+        </Route>
+        <Route path="/:bookId?/:chapter?">
+          <App />
+        </Route>
+      </Switch>
     </AppContextProvider>
-  </React.StrictMode>,
+  </BrowserRouter>,
   document.getElementById('root')
 );
