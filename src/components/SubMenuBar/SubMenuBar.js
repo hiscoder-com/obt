@@ -19,6 +19,7 @@ function SubMenuBar() {
 
   const [anchorAddMaterial, setAnchorAddMaterial] = useState(null);
   const [anchorMainMenu, setAnchorMainMenu] = useState(null);
+  const [errorReport, setErrorReport] = useState(false);
 
   const uniqueResources = getUniqueResources(appConfig);
   const { t } = useTranslation();
@@ -29,7 +30,7 @@ function SubMenuBar() {
   };
 
   const handleClickAddMaterial = (event) => {
-    setAnchorAddMaterial(event.handleClickMainMenu);
+    setAnchorAddMaterial(true);
     handleCloseMainMenu();
   };
   const handleClickMainMenu = (event) => {
@@ -60,7 +61,10 @@ function SubMenuBar() {
                 <SelectLanguage />
               </MenuItem>
               <MenuItem onClick={() => handleClickAddMaterial()}>+ Add material</MenuItem>
-              <MenuItem> Error Report</MenuItem>
+              <MenuItem onClick={() => setErrorReport(!errorReport)}>
+                {' '}
+                Error Report
+              </MenuItem>
             </Menu>
             <Menu
               color="transparent"
@@ -80,7 +84,7 @@ function SubMenuBar() {
             <BookSelect />
             <ChapterSelect />
           </Toolbar>
-          <TypoReport />
+          {errorReport ? <TypoReport /> : []}
           <IconButton
             edge="start"
             color="inherit"
