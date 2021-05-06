@@ -29,7 +29,7 @@ function SubMenuBar() {
   };
 
   const handleClickAddMaterial = (event) => {
-    setAnchorAddMaterial(true);
+    setAnchorAddMaterial(event.handleClickMainMenu);
     handleCloseMainMenu();
   };
   const handleClickMainMenu = (event) => {

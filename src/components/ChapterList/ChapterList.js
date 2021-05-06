@@ -21,7 +21,7 @@ function ChapterList({ setReferenceSelected, referenceSelected, onClose }) {
       marginSize={10}
       onClickChapter={onClickChapter}
       chapterWrapClass={classes.root}
-     
+      variant={'outlined'}
     />
   );
 }
