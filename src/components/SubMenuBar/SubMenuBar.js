@@ -118,7 +118,11 @@ function SubMenuBar() {
                   }
                   label={t('Error_report')}
                 ></FormControlLabel>
-                <FormHelperText>{t('Text_under_checkbox_error')}</FormHelperText>
+                <FormHelperText>
+                  {t('Text_under_checkbox_error1')}
+                  <br />
+                  {t('Text_under_checkbox_error2')}
+                </FormHelperText>
               </FormControl>
             </MenuItem>
           </Menu>

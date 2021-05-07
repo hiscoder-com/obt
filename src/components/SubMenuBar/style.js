@@ -6,7 +6,7 @@ const useStyles = makeStyles((theme) => ({
   },
   report: {
     position: 'absolute',
-    right: theme.spacing(4),
+    right: theme.spacing(10),
   },
   centerButtons: {
     display: 'flex',

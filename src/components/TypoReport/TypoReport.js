@@ -8,7 +8,6 @@ import LogoFriends from './LogoFriends';
 
 import ErrorIcon from '@material-ui/icons/Error';
 import {
-  Typography,
   Button,
   Dialog,
   DialogTitle,
@@ -18,6 +17,7 @@ import {
   TextField,
   Backdrop,
   CircularProgress,
+  Link,
 } from '@material-ui/core';
 
 import useStyles from './style';
@@ -87,13 +87,13 @@ export default function TypoReport() {
   const classes = useStyles();
 
   return (
-    <Typography variant="subtitle2" className={classes.root}>
-      <Button size="small" variant="outlined" color="inherit" onClick={handleClickOpen}>
-        <ErrorIcon /> {t('Report_bug')}
+    <>
+      <Button variant="outlined" color="inherit" onClick={handleClickOpen}>
+        <ErrorIcon className={classes.icon} /> {t('Report_bug')}
       </Button>
 
-      <Dialog open={openDialog} aria-labelledby="form-dialog-title">
-        <DialogTitle id="form-dialog-title">{t('Report_typo')}</DialogTitle>
+      <Dialog open={openDialog}>
+        <DialogTitle className={classes.title}>{t('Report_typo')}</DialogTitle>
         <DialogContent>
           <DialogContentText>{t('Text_to_editors')}</DialogContentText>
           <DialogContentText className={classes.select}>
@@ -111,11 +111,21 @@ export default function TypoReport() {
             fullWidth
           />
         </DialogContent>
-        <DialogActions>
-          <Button onClick={handleCancel} color="primary" className={classes.select}>
+        <DialogActions className={classes.actions}>
+          <Button
+            onClick={handleCancel}
+            variant="contained"
+            color="primary"
+            className={classes.cancel}
+          >
             {t('Cancel')}
           </Button>
-          <Button onClick={handleSend} color="primary">
+          <Button
+            onClick={handleSend}
+            variant="contained"
+            color="secondary"
+            className={classes.send}
+          >
             {t('Send_message')}
           </Button>
           <Backdrop className={classes.backdrop} open={openBackdrop}>
@@ -125,18 +135,25 @@ export default function TypoReport() {
       </Dialog>
       <Dialog open={open} onClose={handleClose}>
         <DialogContent>
-          <DialogContentText id="alert-dialog-description">
+          <DialogContentText className={classes.center}>
             <LogoFriends />
-            {t('Thanks_report')}
-            {t('See_logs')}
+            {t('Thanks_report1')} <br />
+            {t('Thanks_report2')} <br /> <br />
+            {t('See_logs1')} <br />
+            <Link
+              href="https://git.door43.org/BSA/errors/src/branch/master/error.tsv"
+              target="_blank"
+            >
+              {t('See_logs2')}
+            </Link>
           </DialogContentText>
         </DialogContent>
-        <DialogActions>
+        <DialogActions className={classes.secondActions}>
           <Button onClick={handleClose} variant="contained" color="primary">
             {t('Close')}
           </Button>
         </DialogActions>
       </Dialog>
-    </Typography>
+    </>
   );
 }
