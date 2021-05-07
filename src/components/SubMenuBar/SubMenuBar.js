@@ -52,7 +52,7 @@ function SubMenuBar() {
     setAnchorAddMaterial(null);
   };
   const handleClickErrorReport = () => {
-    setErrorReport(!errorReport);
+    setErrorReport((prev) => !prev);
   };
 
   return (
@@ -74,7 +74,7 @@ function SubMenuBar() {
               <MenuItem onClick={handleClickAddMaterial}>
                 <AddIcon size={'small'} /> {t('Add_material')}
               </MenuItem>
-              <MenuItem onClick={handleClickErrorReport}>
+              <MenuItem>
                 <FormControlLabel
                   control={
                     <Checkbox

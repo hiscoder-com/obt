@@ -3,7 +3,8 @@ import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { AppContext } from '../../App.context';
-import AnnouncementIcon from '@material-ui/icons/Announcement';
+
+import ErrorIcon from '@material-ui/icons/Error';
 import {
   Typography,
   Button,
@@ -78,7 +79,7 @@ export default function TypoReport() {
   return (
     <Typography variant="subtitle2" className={classes.root}>
       <Button size="small" variant="outlined" color="inherit" onClick={handleClickOpen}>
-        <AnnouncementIcon /> {t('Report_bug')}
+        <ErrorIcon /> {t('Report_bug')}
       </Button>
 
       <Dialog open={openDialog} aria-labelledby="form-dialog-title">
