@@ -30,7 +30,7 @@ function SubMenuBar() {
   };
 
   const handleClickAddMaterial = (event) => {
-    setAnchorAddMaterial(true);
+    setAnchorAddMaterial(event.currentTarget);
     handleCloseMainMenu();
   };
   const handleClickMainMenu = (event) => {
@@ -42,6 +42,9 @@ function SubMenuBar() {
   };
   const handleCloseAddMaterial = () => {
     setAnchorAddMaterial(null);
+  };
+  const handleClickErrorReport = () => {
+    setErrorReport(!errorReport);
   };
 
   return (
@@ -60,11 +63,8 @@ function SubMenuBar() {
               <MenuItem>
                 <SelectLanguage />
               </MenuItem>
-              <MenuItem onClick={() => handleClickAddMaterial()}>+ Add material</MenuItem>
-              <MenuItem onClick={() => setErrorReport(!errorReport)}>
-                {' '}
-                Error Report
-              </MenuItem>
+              <MenuItem onClick={handleClickAddMaterial}>+ Add material</MenuItem>
+              <MenuItem onClick={handleClickErrorReport}> Error Report</MenuItem>
             </Menu>
             <Menu
               color="transparent"
