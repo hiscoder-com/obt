@@ -2,6 +2,7 @@
   "Chapter" : "Chapter ",
   "Error_report": "Error report",
   "Add_material": "Add material",
+  "Text_under_checkbox_error":"If you find an error, then select this piece of text and press",
   "existing_books" : "show only existing books",
   "bible_NT" : "New Testament",
   "bible_OT" : "Old Testament",

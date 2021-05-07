@@ -11,6 +11,8 @@ import {
   IconButton,
   Checkbox,
   FormControlLabel,
+  FormHelperText,
+  FormControl,
 } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import MenuIcon from '@material-ui/icons/Menu';
@@ -60,8 +62,22 @@ function SubMenuBar() {
       <AppBar position="relative">
         <Toolbar>
           Bible App
+          <Toolbar style={{ margin: '0 auto' }} position="fixed">
+            <BookSelect />
+            <ChapterSelect />
+          </Toolbar>
           <Toolbar>
             <Menu
+              elevation={0}
+              getContentAnchorEl={null}
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'center',
+              }}
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'center',
+              }}
               color="transparent"
               anchorEl={anchorMainMenu}
               keepMounted
@@ -75,17 +91,20 @@ function SubMenuBar() {
                 <AddIcon size={'small'} /> {t('Add_material')}
               </MenuItem>
               <MenuItem>
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      checked={errorReport}
-                      onChange={handleClickErrorReport}
-                      name="checkedA"
-                      color="primary"
-                    />
-                  }
-                  label={t('Error_report')}
-                />
+                <FormControl>
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        checked={errorReport}
+                        onChange={handleClickErrorReport}
+                        name="checkedA"
+                        color="primary"
+                      />
+                    }
+                    label={t('Error_report')}
+                  ></FormControlLabel>
+                  <FormHelperText>{t('Text_under_checkbox_error')}</FormHelperText>
+                </FormControl>
               </MenuItem>
             </Menu>
             <Menu
@@ -102,11 +121,7 @@ function SubMenuBar() {
               ))}
             </Menu>
           </Toolbar>
-          <Toolbar style={{ margin: '0 auto' }}>
-            <BookSelect />
-            <ChapterSelect />
-          </Toolbar>
-          {errorReport ? <TypoReport /> : []}
+          <Toolbar>{errorReport ? <TypoReport /> : []}</Toolbar>
           <IconButton
             edge="start"
             color="inherit"
