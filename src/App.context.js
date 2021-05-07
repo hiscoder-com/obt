@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
+import { useHistory, useLocation } from 'react-router-dom';
+
 import {
   ResourcesContextProvider,
   ReferenceSelectedContextProvider,
@@ -12,15 +14,24 @@ export const AppContext = React.createContext();
 
 const _appConfig =  defaultCards;
 
-const _reference = localStorage.getItem('reference')
+let _reference = localStorage.getItem('reference')
   ? JSON.parse(localStorage.getItem('reference'))
   : defaultReference;
 
 const config = { server };
 
 export function AppContextProvider({ children }) {
+  let history = useHistory();
+  let location = useLocation();
+  const currentLocation = location.pathname.split('/');
+
   const [appConfig, setAppConfig] = useState(_appConfig);
-  const [referenceSelected, setReferenceSelected] = useState(_reference);
+  const [referenceSelected, setReferenceSelected] = useState({
+    bookId: currentLocation[1] ? currentLocation[1] : _reference.bookId,
+    chapter: currentLocation[2] ?? _reference.chapter,
+    verse: 1,
+  });
+
   const _resourceLinks = getResources(appConfig);
   const [resourceLinks, setResourceLinks] = useState(_resourceLinks);
   const [resources, setResources] = useState([]);
@@ -33,7 +44,8 @@ export function AppContextProvider({ children }) {
 
   useEffect(() => {
     localStorage.setItem('reference', JSON.stringify(referenceSelected));
-  }, [referenceSelected]);
+    history.push('/' + referenceSelected.bookId + '/' + referenceSelected.chapter);
+  }, [referenceSelected, history]);
 
   const value = {
     state: {
