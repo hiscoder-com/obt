@@ -2,9 +2,17 @@ import React, { useState, useContext } from 'react';
 
 import { AppContext } from '../../App.context';
 import { BookSelect, ChapterSelect, TypoReport } from '../../components';
-import SelectLanguage from '../MenuBar/SelectLanguage/SelectLanguage';
-import { AppBar, Toolbar, MenuItem, Menu, IconButton } from '@material-ui/core';
-
+import SelectLanguage from '../SelectLanguage/SelectLanguage';
+import {
+  AppBar,
+  Toolbar,
+  MenuItem,
+  Menu,
+  IconButton,
+  Checkbox,
+  FormControlLabel,
+} from '@material-ui/core';
+import AddIcon from '@material-ui/icons/Add';
 import MenuIcon from '@material-ui/icons/Menu';
 
 import { useTranslation } from 'react-i18next';
@@ -63,8 +71,22 @@ function SubMenuBar() {
               <MenuItem>
                 <SelectLanguage />
               </MenuItem>
-              <MenuItem onClick={handleClickAddMaterial}>+ Add material</MenuItem>
-              <MenuItem onClick={handleClickErrorReport}> Error Report</MenuItem>
+              <MenuItem onClick={handleClickAddMaterial}>
+                <AddIcon size={'small'} /> {t('Add_material')}
+              </MenuItem>
+              <MenuItem onClick={handleClickErrorReport}>
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={errorReport}
+                      onChange={handleClickErrorReport}
+                      name="checkedA"
+                      color="primary"
+                    />
+                  }
+                  label={t('Error_report')}
+                />
+              </MenuItem>
             </Menu>
             <Menu
               color="transparent"

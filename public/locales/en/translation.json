@@ -1,5 +1,7 @@
 {
   "Chapter" : "Chapter ",
+  "Error_report": "Error report",
+  "Add_material": "Add material",
   "existing_books" : "show only existing books",
   "bible_NT" : "New Testament",
   "bible_OT" : "Old Testament",
