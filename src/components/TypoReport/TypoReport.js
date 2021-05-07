@@ -4,11 +4,11 @@ import { useTranslation } from 'react-i18next';
 
 import { AppContext } from '../../App.context';
 
+import LogoFriends from './LogoFriends';
+
+import ErrorIcon from '@material-ui/icons/Error';
 import {
-  AppBar,
-  Typography,
   Button,
-  Container,
   Dialog,
   DialogTitle,
   DialogActions,
@@ -17,6 +17,7 @@ import {
   TextField,
   Backdrop,
   CircularProgress,
+  Link,
 } from '@material-ui/core';
 
 import useStyles from './style';
@@ -30,12 +31,19 @@ export default function TypoReport() {
   const [selectionNode, setSelectionNode] = React.useState('');
   const [selectionTypo, setSelectionTypo] = React.useState('');
   const [openBackdrop, setOpenBackdrop] = React.useState(false);
+  const [open, setOpen] = React.useState(false);
   const { t } = useTranslation();
 
   const handleChange = (e) => {
     setValueComment(e.target.value);
   };
+  const handleClickOpenFinishDialog = () => {
+    setOpen(true);
+  };
 
+  const handleClose = () => {
+    setOpen(false);
+  };
   function handleClickOpen() {
     if (window.getSelection().toString()) {
       setOpenDialog(true);
@@ -67,6 +75,7 @@ export default function TypoReport() {
         setValueComment('');
         setOpenDialog(false);
         setOpenBackdrop(false);
+        handleClickOpenFinishDialog();
       })
       .catch((error) => console.log(error));
   }
@@ -78,47 +87,73 @@ export default function TypoReport() {
   const classes = useStyles();
 
   return (
-    <AppBar color="primary" className={classes.appBar}>
-      <Container fixed>
-        <Typography variant="subtitle2">
-          {t('find_an_error')} &nbsp;
-          <Button size="small" variant="contained" onClick={handleClickOpen}>
-            {t('Report_bug')}
+    <>
+      <Button variant="outlined" color="inherit" onClick={handleClickOpen}>
+        <ErrorIcon className={classes.icon} /> {t('Report_bug')}
+      </Button>
+
+      <Dialog open={openDialog}>
+        <DialogTitle className={classes.title}>{t('Report_typo')}</DialogTitle>
+        <DialogContent>
+          <DialogContentText>{t('Text_to_editors')}</DialogContentText>
+          <DialogContentText className={classes.select}>
+            {selectionTypo}
+          </DialogContentText>
+          <DialogContentText>{selectionNode}</DialogContentText>
+          <TextField
+            autoFocus
+            margin="dense"
+            id="comment"
+            label={t('Your_comment')}
+            type="text"
+            value={valueComment}
+            onChange={handleChange}
+            fullWidth
+          />
+        </DialogContent>
+        <DialogActions className={classes.actions}>
+          <Button
+            onClick={handleCancel}
+            variant="contained"
+            color="primary"
+            className={classes.cancel}
+          >
+            {t('Cancel')}
           </Button>
-          &nbsp; {t('Thanks')}
-          <Dialog open={openDialog} aria-labelledby="form-dialog-title">
-            <DialogTitle id="form-dialog-title">{t('Report_typo')}</DialogTitle>
-            <DialogContent>
-              <DialogContentText>{t('Text_to_editors')}</DialogContentText>
-              <DialogContentText className={classes.select}>
-                {selectionTypo}
-              </DialogContentText>
-              <DialogContentText>{selectionNode}</DialogContentText>
-              <TextField
-                autoFocus
-                margin="dense"
-                id="comment"
-                label={t('Your_comment')}
-                type="text"
-                value={valueComment}
-                onChange={handleChange}
-                fullWidth
-              />
-            </DialogContent>
-            <DialogActions>
-              <Button onClick={handleCancel} color="primary" className={classes.select}>
-                {t('Cancel')}
-              </Button>
-              <Button onClick={handleSend} color="primary">
-                {t('Send_message')}
-              </Button>
-              <Backdrop className={classes.backdrop} open={openBackdrop}>
-                <CircularProgress color="inherit" />
-              </Backdrop>
-            </DialogActions>
-          </Dialog>
-        </Typography>
-      </Container>
-    </AppBar>
+          <Button
+            onClick={handleSend}
+            variant="contained"
+            color="secondary"
+            className={classes.send}
+          >
+            {t('Send_message')}
+          </Button>
+          <Backdrop className={classes.backdrop} open={openBackdrop}>
+            <CircularProgress color="inherit" />
+          </Backdrop>
+        </DialogActions>
+      </Dialog>
+      <Dialog open={open} onClose={handleClose}>
+        <DialogContent>
+          <DialogContentText className={classes.center}>
+            <LogoFriends />
+            {t('Thanks_report1')} <br />
+            {t('Thanks_report2')} <br /> <br />
+            {t('See_logs1')} <br />
+            <Link
+              href="https://git.door43.org/BSA/errors/src/branch/master/error.tsv"
+              target="_blank"
+            >
+              {t('See_logs2')}
+            </Link>
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions className={classes.secondActions}>
+          <Button onClick={handleClose} variant="contained" color="primary">
+            {t('Close')}
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </>
   );
 }

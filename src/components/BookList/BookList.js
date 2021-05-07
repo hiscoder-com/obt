@@ -2,8 +2,9 @@ import React, { useContext, useState } from 'react';
 
 import { AppContext } from '../../App.context';
 import { ResourcesContext } from 'scripture-resources-rcl';
+import { BookList as BookListRCL } from 'demo-bsa-reference-rcl';
 
-import { Button, FormControlLabel } from '@material-ui/core';
+import { FormControlLabel } from '@material-ui/core';
 import Checkbox from '@material-ui/core/Checkbox';
 import { useTranslation } from 'react-i18next';
 import { bibleList } from '../../config';
@@ -28,7 +29,7 @@ function BookList() {
     setShowBookSelect(false);
     setReferenceSelected({
       bookId: identifier ?? null,
-      chapter: 1,
+      chapter: '1',
       verse: 1,
     });
     setShowChapterSelect(true);
@@ -55,34 +56,16 @@ function BookList() {
 
   const issetCheck = JSON.stringify(currentBibleList) !== JSON.stringify(trueBibleList);
 
-  const currentBook = (el, color = 'primary') => {
-    return (
-      <Button color={color} onClick={() => onBook(el.identifier)}>
-        {t(el.identifier)}
-      </Button>
-    );
-  };
-
   const renderBookList = (categories) => {
     return currentBibleList
       .filter((el) =>
         checkState
-          ? el.categories === categories && el.isset === true
+          ? el.categories === categories && el.isset
           : el.categories === categories
       )
-      .map((el) => (
-        <div className={classes.bookWrap} key={el.sort}>
-          {el.isset ? (
-            el.identifier === referenceSelected.bookId ? (
-              currentBook(el, 'secondary')
-            ) : (
-              currentBook(el)
-            )
-          ) : (
-            <Button disabled>{t(el.identifier)}</Button>
-          )}
-        </div>
-      ));
+      .map((el) => {
+        return { ...el, text: t(el.identifier) };
+      });
   };
   const hideCheckRender = issetCheck ? (
     <FormControlLabel
@@ -103,10 +86,22 @@ function BookList() {
   return (
     <>
       {hideCheckRender}
-      <h2>{t('bible_NT')}</h2>
-      <div className={classes.bookGrid}>{renderBookList('bible-nt')}</div>
-      <h2>{t('bible_OT')}</h2>
-      <div className={classes.bookGrid}>{renderBookList('bible-ot')}</div>
+      <BookListRCL
+        title={t('bible_NT')}
+        bookList={renderBookList('bible-nt')}
+        bookWrapClass={classes.bookWrap}
+        className={classes.bookGrid}
+        selectedBookId={referenceSelected.bookId}
+        onClickBook={(bookId) => onBook(bookId)}
+      />
+      <BookListRCL
+        title={t('bible_OT')}
+        bookList={renderBookList('bible-ot')}
+        bookWrapClass={classes.bookWrap}
+        className={classes.bookGrid}
+        selectedBookId={referenceSelected.bookId}
+        onClickBook={(bookId) => onBook(bookId)}
+      />
     </>
   );
 }
