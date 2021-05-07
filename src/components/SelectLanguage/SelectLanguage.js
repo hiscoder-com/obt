@@ -16,6 +16,7 @@ export default function SelectLanguage() {
     <div>
       <FormControl>
         <NativeSelect
+          variant="outlined"
           classes={{
             root: classes.root,
             icon: classes.icon,
@@ -24,10 +25,10 @@ export default function SelectLanguage() {
           defaultValue={localValueLanguage ? localValueLanguage : 'ru'}
         >
           <option className={classes.option} value={'en'}>
-            Eng
+            English
           </option>
           <option className={classes.option} value={'ru'}>
-            Рус
+            Русский
           </option>
         </NativeSelect>
       </FormControl>

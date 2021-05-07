@@ -10,9 +10,7 @@ import { server, defaultCards, defaultReference } from './config';
 
 export const AppContext = React.createContext();
 
-const _appConfig = localStorage.getItem('appConfig')
-  ? JSON.parse(localStorage.getItem('appConfig'))
-  : defaultCards;
+const _appConfig =  defaultCards;
 
 const _reference = localStorage.getItem('reference')
   ? JSON.parse(localStorage.getItem('reference'))
