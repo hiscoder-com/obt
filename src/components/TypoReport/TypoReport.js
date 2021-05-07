@@ -4,6 +4,8 @@ import { useTranslation } from 'react-i18next';
 
 import { AppContext } from '../../App.context';
 
+import LogoFriends from './LogoFriends';
+
 import ErrorIcon from '@material-ui/icons/Error';
 import {
   Typography,
@@ -29,12 +31,19 @@ export default function TypoReport() {
   const [selectionNode, setSelectionNode] = React.useState('');
   const [selectionTypo, setSelectionTypo] = React.useState('');
   const [openBackdrop, setOpenBackdrop] = React.useState(false);
+  const [open, setOpen] = React.useState(false);
   const { t } = useTranslation();
 
   const handleChange = (e) => {
     setValueComment(e.target.value);
   };
+  const handleClickOpenFinishDialog = () => {
+    setOpen(true);
+  };
 
+  const handleClose = () => {
+    setOpen(false);
+  };
   function handleClickOpen() {
     if (window.getSelection().toString()) {
       setOpenDialog(true);
@@ -66,6 +75,7 @@ export default function TypoReport() {
         setValueComment('');
         setOpenDialog(false);
         setOpenBackdrop(false);
+        handleClickOpenFinishDialog();
       })
       .catch((error) => console.log(error));
   }
@@ -111,6 +121,20 @@ export default function TypoReport() {
           <Backdrop className={classes.backdrop} open={openBackdrop}>
             <CircularProgress color="inherit" />
           </Backdrop>
+        </DialogActions>
+      </Dialog>
+      <Dialog open={open} onClose={handleClose}>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            <LogoFriends />
+            {t('Thanks_report')}
+            {t('See_logs')}
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} variant="contained" color="primary">
+            Close
+          </Button>
         </DialogActions>
       </Dialog>
     </Typography>
