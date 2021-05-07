@@ -9,7 +9,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import { useTranslation } from 'react-i18next';
 import { bibleList } from '../../config';
 
-import { useStyles } from './style';
+import { useStyles, useBookStyles } from './style';
 
 const trueBibleList = JSON.parse(
   JSON.stringify(bibleList.map((item) => ({ ...item, isset: true })))
@@ -37,6 +37,7 @@ function BookList() {
 
   const [checkState, setCheckState] = useState(false);
   const classes = useStyles();
+  const bookClasses = useBookStyles();
   const currentBibleList = JSON.parse(JSON.stringify(bibleList));
   const { t } = useTranslation();
   const handleChange = () => {
@@ -89,16 +90,16 @@ function BookList() {
       <BookListRCL
         title={t('bible_NT')}
         bookList={renderBookList('bible-nt')}
-        bookWrapClass={classes.bookWrap}
-        className={classes.bookGrid}
+        bookClasses={bookClasses}
+        bookListClassName={classes.bookGrid}
         selectedBookId={referenceSelected.bookId}
         onClickBook={(bookId) => onBook(bookId)}
       />
       <BookListRCL
         title={t('bible_OT')}
         bookList={renderBookList('bible-ot')}
-        bookWrapClass={classes.bookWrap}
-        className={classes.bookGrid}
+        bookClasses={bookClasses}
+        bookListClassName={classes.bookGrid}
         selectedBookId={referenceSelected.bookId}
         onClickBook={(bookId) => onBook(bookId)}
       />
