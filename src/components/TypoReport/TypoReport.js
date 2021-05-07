@@ -133,7 +133,7 @@ export default function TypoReport() {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} variant="contained" color="primary">
-            Close
+            {t('Close')}
           </Button>
         </DialogActions>
       </Dialog>
