@@ -1,12 +1,11 @@
 import React from 'react';
-import logo from './logo.png';
+import logo from './friends.png';
 
-function Logo({ size, className }) {
+function LogoFriends({ size, className }) {
   return (
     <div>
       <img alt=" value" src={logo} height={size} className={className} />
     </div>
   );
 }
-
-export default Logo;
+export default LogoFriends;

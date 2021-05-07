@@ -3,25 +3,23 @@ import React, { useContext } from 'react';
 import { AppContext } from '../../App.context';
 import BookList from '../BookList/BookList';
 import { useTranslation } from 'react-i18next';
-
-import { Button, Dialog, DialogContent } from '@material-ui/core';
-
+import { Book as BookRCL } from 'demo-bsa-reference-rcl';
+import { Dialog, DialogContent } from '@material-ui/core';
+import useBookStyles from './style';
 function BookSelect() {
   const { t } = useTranslation();
 
   const { state, actions } = useContext(AppContext);
   const { referenceSelected, showBookSelect } = state;
   const { setShowBookSelect } = actions;
-
+  const bookClasses = useBookStyles();
   return (
     <>
-      <Button
-        variant="contained"
-        color="secondary"
+      <BookRCL
+        classes={bookClasses}
         onClick={() => setShowBookSelect(!showBookSelect)}
-      >
-        {t(referenceSelected.bookId ?? 'not_set')}
-      </Button>
+        text={t(referenceSelected.bookId ?? 'not_set')}
+      />
 
       <Dialog
         fullWidth={true}
