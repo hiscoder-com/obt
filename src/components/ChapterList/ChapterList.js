@@ -1,8 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { ChapterList as ChapterListRCL } from 'demo-bsa-reference-rcl';
-
-import { chaptersConfig } from './config';
+import { BibleChapterList as BibleChapterListRCL } from 'demo-bsa-reference-rcl';
 
 import useStyles from './style';
 
@@ -14,13 +12,12 @@ function ChapterList({ setReferenceSelected, referenceSelected, onClose }) {
     onClose();
   };
   return (
-    <ChapterListRCL
+    <BibleChapterListRCL
       selectedChapter={referenceSelected.chapter}
-      chapters={Object.keys(chaptersConfig[referenceSelected.bookId])}
-      title={t('Chapter')}
-      marginSize={10}
+      bookId={referenceSelected.bookId}
+      text={t('Chapter')}
       onClickChapter={onClickChapter}
-      chapterWrapClass={classes.root}
+      chapterListClasses={classes}
     />
   );
 }

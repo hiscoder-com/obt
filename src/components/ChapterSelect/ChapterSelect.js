@@ -18,15 +18,15 @@ function ChapterSelect() {
   };
   const { t } = useTranslation();
 
-  const classes = useStyles();
+  const chapterClasses = useStyles();
 
   return (
     <>
       <ChapterRCL
-        className={classes.inherit}
+        classes={chapterClasses}
         onClick={() => setShowChapterSelect(!showChapterSelect)}
-        chapterKey={referenceSelected.chapter}
-        title={t('Chapter')}
+        chapterId={referenceSelected.chapter}
+        text={t('Chapter')}
         currentChapter={true}
       ></ChapterRCL>
       <Dialog
