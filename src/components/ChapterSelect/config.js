@@ -1,4 +1,4 @@
-export const chaptersConfig = {
+export const ChaptersConfig = {
   gen: {
     '1': '31',
     '2': '25',

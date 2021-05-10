@@ -7,6 +7,7 @@
     "@material-ui/icons": "^4.11.2",
     "@material-ui/lab": "^4.0.0-alpha.57",
     "@material-ui/styles": "^4.11.3",
+    "demo-bsa-reference-rcl": "^0.3.1",
     "i18next": "^20.1.0",
     "i18next-browser-languagedetector": "^6.1.0",
     "i18next-http-backend": "^1.2.1",
@@ -14,8 +15,9 @@
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
     "react-i18next": "^11.8.12",
-    "test-bsa-workspace": "^0.6.2",
+    "react-router-dom": "^5.2.0",
     "scripture-resources-rcl": "4.0.2",
+    "test-bsa-workspace": "^0.6.2",
     "translation-helps-rcl": "^1.11.0",
     "use-deep-compare-effect": "^1.6.1",
     "web-vitals": "^0.2.4"

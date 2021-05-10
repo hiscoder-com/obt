@@ -3,8 +3,8 @@ import React, { useContext } from 'react';
 import { AppContext } from '../../App.context';
 import { ChapterList } from '../ChapterList';
 import { useTranslation } from 'react-i18next';
-
-import { Button, Dialog, DialogContent } from '@material-ui/core';
+import { Chapter as ChapterRCL } from 'demo-bsa-reference-rcl';
+import { Dialog, DialogContent } from '@material-ui/core';
 
 import useStyles from './style';
 
@@ -18,19 +18,17 @@ function ChapterSelect() {
   };
   const { t } = useTranslation();
 
-  const classes = useStyles();
+  const chapterClasses = useStyles();
 
   return (
     <>
-      <Button
-        className={classes.root}
-        ml={1}
-        variant="contained"
-        color="secondary"
+      <ChapterRCL
+        classes={chapterClasses}
         onClick={() => setShowChapterSelect(!showChapterSelect)}
-      >
-        {referenceSelected.chapter} {t('Chapter')}
-      </Button>
+        chapterId={referenceSelected.chapter}
+        text={t('Chapter')}
+        currentChapter={true}
+      ></ChapterRCL>
       <Dialog
         fullWidth={true}
         maxWidth="lg"
