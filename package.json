@@ -16,8 +16,8 @@
     "react-dom": "^16.14.0",
     "react-i18next": "^11.8.12",
     "react-router-dom": "^5.2.0",
+    "resource-workspace-rcl": "^0.7.0",
     "scripture-resources-rcl": "4.0.2",
-    "test-bsa-workspace": "^0.6.2",
     "translation-helps-rcl": "^1.11.0",
     "use-deep-compare-effect": "^1.6.1",
     "web-vitals": "^0.2.4"
