@@ -53,7 +53,7 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
           disableWordPopover={true}
           reference={reference}
           verses={chapter}
-          renderOffscreen={true}
+          renderOffscreen={false}
         />
       ) : (
         t('Loading')
