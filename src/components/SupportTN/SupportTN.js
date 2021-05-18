@@ -1,14 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 
 import { Card, CardContent, useContent, useCardState } from 'translation-helps-rcl';
-import { ReferenceSelectedContext } from 'scripture-resources-rcl';
-
+import { AppContext } from '../../App.context';
 import { resourcesList, server } from '../../config';
 
 export default function SupportTN(props) {
   const { title, classes, onClose, type } = props;
-  const { state: reference } = React.useContext(ReferenceSelectedContext);
-
+  const appContext = useContext(AppContext);
+  const { referenceSelected } = appContext.state;
   const [selectedQuote, setQuote] = useState({});
   const {
     markdown,
@@ -16,9 +15,9 @@ export default function SupportTN(props) {
     isLoading,
     props: { languageId },
   } = useContent({
-    verse: reference.verse,
-    chapter: reference.chapter,
-    projectId: reference.bookId,
+    verse: referenceSelected.verse,
+    chapter: referenceSelected.chapter,
+    projectId: referenceSelected.bookId,
     branch: resourcesList[type].branch ?? 'master',
     languageId: resourcesList[type].languageId ?? 'ru',
     resourceId: resourcesList[type].resourceId ?? 'tn',

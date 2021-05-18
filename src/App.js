@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 
-import { Workspace } from 'test-bsa-workspace';
+import { Workspace } from 'resource-workspace-rcl';
 
 import { AppContext } from './App.context';
 import { SubMenuBar, Card } from './components';

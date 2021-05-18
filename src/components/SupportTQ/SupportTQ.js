@@ -1,13 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
 import { Card, CardContent, useContent, useCardState } from 'translation-helps-rcl';
-import { ReferenceSelectedContext } from 'scripture-resources-rcl';
-
+import { AppContext } from '../../App.context';
 import { resourcesList, server } from '../../config';
 
 export default function SupportTQ(props) {
   const { title, classes, onClose, type } = props;
-  const { state: reference } = React.useContext(ReferenceSelectedContext);
+  const appContext = useContext(AppContext);
+  const { referenceSelected } = appContext.state;
 
   const {
     markdown,
@@ -15,16 +15,16 @@ export default function SupportTQ(props) {
     isLoading,
     props: { languageId },
   } = useContent({
-    verse: reference.verse,
-    chapter: reference.chapter,
-    projectId: reference.bookId,
+    verse: referenceSelected.verse,
+    chapter: referenceSelected.chapter,
+    projectId: referenceSelected.bookId,
     branch: resourcesList[type].branch ?? 'master',
     languageId: resourcesList[type].languageId ?? 'ru',
     resourceId: resourcesList[type].resourceId ?? 'tq',
     filePath:
-      String(reference.chapter).padStart(2, '0') +
+      String(referenceSelected.chapter).padStart(2, '0') +
       '/' +
-      String(reference.verse).padStart(2, '0') +
+      String(referenceSelected.verse).padStart(2, '0') +
       '.md',
     owner: resourcesList[type].owner ?? 'bsa',
     server,
