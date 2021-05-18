@@ -7,7 +7,7 @@ const useStyles = makeStyles((theme) => ({
     color: 'black',
   },
   icon: {
-    color: 'white',
+    color: 'black',
   },
   option: {
     color: 'black',
