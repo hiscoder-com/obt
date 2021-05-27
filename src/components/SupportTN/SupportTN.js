@@ -26,8 +26,7 @@ export default function SupportTN(props) {
   });
 
   const {
-    state: { item, headers, filters, fontSize, itemIndex, markdownView },
-    actions: { setFilters, setFontSize, setItemIndex, setMarkdownView },
+    state: { item, headers, itemIndex, markdownView },
   } = useCardState({
     items,
   });
@@ -40,20 +39,14 @@ export default function SupportTN(props) {
       classes={classes}
       items={items}
       headers={headers}
-      filters={filters}
-      fontSize={fontSize}
+      filters={['OrigQuote', 'GLQuote', 'OccurrenceNote']}
       itemIndex={itemIndex}
-      setFilters={setFilters}
-      setFontSize={setFontSize}
-      setItemIndex={setItemIndex}
       markdownView={markdownView}
-      setMarkdownView={setMarkdownView}
     >
       <CardContent
         item={item}
         viewMode="table"
-        filters={filters}
-        fontSize={fontSize}
+        filters={['OrigQuote', 'GLQuote', 'OccurrenceNote']}
         markdown={markdown}
         isLoading={isLoading}
         languageId={languageId}
