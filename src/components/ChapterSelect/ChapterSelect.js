@@ -3,7 +3,7 @@ import React, { useContext } from 'react';
 import { AppContext } from '../../App.context';
 import { ChapterList } from '../ChapterList';
 import { useTranslation } from 'react-i18next';
-import { Chapter as ChapterRCL } from 'demo-bsa-reference-rcl';
+import { Chapter as ChapterRCL } from '@texttree/tt-reference-rcl';
 import { Dialog, DialogContent } from '@material-ui/core';
 
 import useStyles from './style';
@@ -26,7 +26,7 @@ function ChapterSelect() {
         classes={chapterClasses}
         onClick={() => setShowChapterSelect(!showChapterSelect)}
         chapterId={referenceSelected.chapter}
-        text={t('Chapter')}
+        chapterPrefix={referenceSelected.bookId === 'psa' ? t('Psalm') : t('Chapter')}
         currentChapter={true}
       ></ChapterRCL>
       <Dialog

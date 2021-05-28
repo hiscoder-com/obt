@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { BibleChapterList as BibleChapterListRCL } from 'demo-bsa-reference-rcl';
+import { BibleChapterList as BibleChapterListRCL } from '@texttree/tt-reference-rcl';
 
 import useStyles from './style';
 
@@ -15,7 +15,7 @@ function ChapterList({ setReferenceSelected, referenceSelected, onClose }) {
     <BibleChapterListRCL
       selectedChapter={referenceSelected.chapter}
       bookId={referenceSelected.bookId}
-      text={t('Chapter')}
+      chapterPrefix={referenceSelected.bookId === 'psa' ? t('Psalm') : t('Chapter')}
       onClickChapter={onClickChapter}
       chapterListClasses={classes}
     />
