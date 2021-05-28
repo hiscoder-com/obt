@@ -3,7 +3,7 @@ import React, { useContext } from 'react';
 import { AppContext } from '../../App.context';
 import BookList from '../BookList/BookList';
 import { useTranslation } from 'react-i18next';
-import { Book as BookRCL } from 'demo-bsa-reference-rcl';
+import { Book as BookRCL } from '@texttree/tt-reference-rcl';
 import { Dialog, DialogContent } from '@material-ui/core';
 import useBookStyles from './style';
 function BookSelect() {

@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 
 import { AppContext } from '../../App.context';
 import { ResourcesContext } from 'scripture-resources-rcl';
-import { BibleBookList as BibleBookListRCL } from 'demo-bsa-reference-rcl';
+import { BibleBookList as BibleBookListRCL } from '@texttree/tt-reference-rcl';
 
 import { useTranslation } from 'react-i18next';
 import { bibleList } from '../../config';
@@ -37,22 +37,21 @@ function BookList() {
     });
   }
   let availableBookList = Array.from(uniqueBookID);
-  const titleBook = {};
-  currentBibleList.map((el) => (titleBook[el.identifier] = t(el.identifier)));
+  const titleBooks = {};
+  currentBibleList.map((el) => (titleBooks[el.identifier] = t(el.identifier)));
 
   return (
     <>
       <BibleBookListRCL
-        titleBook={titleBook}
+        titleBooks={titleBooks}
         availableBookList={availableBookList}
-        label={t('existing_books')}
-        check={true}
+        labelForCheckbox={t('existing_books')}
+        showCheckbox={true}
+        sortFirstNT={true}
         selectedBookId={referenceSelected.bookId}
         onClickBook={(bookId) => onBook(bookId)}
-        allTestaments={true}
         titleOT={t('bible_OT')}
         titleNT={t('bible_NT')}
-        showTitle={true}
       />
     </>
   );
