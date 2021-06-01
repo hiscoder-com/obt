@@ -16,6 +16,11 @@ function ChapterSelect() {
   const onClose = () => {
     setShowChapterSelect(false);
   };
+  const onOpen = () => {
+    state.resources.length > 0
+      ? setShowChapterSelect(!showChapterSelect)
+      : setShowChapterSelect(false);
+  };
   const { t } = useTranslation();
 
   const chapterClasses = useStyles();
@@ -24,7 +29,7 @@ function ChapterSelect() {
     <>
       <ChapterRCL
         classes={chapterClasses}
-        onClick={() => setShowChapterSelect(!showChapterSelect)}
+        onClick={onOpen}
         chapterId={referenceSelected.chapter}
         chapterPrefix={referenceSelected.bookId === 'psa' ? t('Psalm') : t('Chapter')}
         currentChapter={true}
