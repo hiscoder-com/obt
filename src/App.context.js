@@ -34,6 +34,7 @@ export function AppContextProvider({ children }) {
     verse: 1,
   });
 
+  const [type, setType] = useState('');
   const _resourceLinks = getResources(appConfig);
   const [resourceLinks, setResourceLinks] = useState(_resourceLinks);
   const [resources, setResources] = useState([]);
@@ -58,6 +59,7 @@ export function AppContextProvider({ children }) {
       _resourceLinks,
       showBookSelect,
       showChapterSelect,
+      type,
     },
     actions: {
       setAppConfig,
@@ -66,6 +68,7 @@ export function AppContextProvider({ children }) {
       setResources,
       setShowBookSelect,
       setShowChapterSelect,
+      setType,
     },
   };
 

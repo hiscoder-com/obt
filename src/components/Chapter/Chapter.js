@@ -2,12 +2,16 @@ import React, { useState, useMemo, useEffect } from 'react';
 import { Card } from 'translation-helps-rcl';
 import { Verse, ResourcesContext } from 'scripture-resources-rcl';
 import { useTranslation } from 'react-i18next';
+import { AppContext } from '../../App.context';
 
 import { resourcesList } from '../../config';
 
 export default function Chapter({ title, classes, onClose, type, reference }) {
   const { t } = useTranslation();
   const { state } = React.useContext(ResourcesContext);
+  const { actions } = React.useContext(AppContext);
+  const { setType } = actions;
+
   let project = useMemo(() => {}, []);
 
   const [chapter, setChapter] = useState();
@@ -54,6 +58,7 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
           key={key}
           onClick={() => {
             console.log({ ...reference, type, verse: key });
+            setType(type);
           }}
         >
           <Verse
@@ -70,7 +75,7 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
       _verses.push(verse);
     }
     setVerses(_verses);
-  }, [chapter, reference, type]);
+  }, [chapter, reference, type, setType]);
 
   return (
     <Card

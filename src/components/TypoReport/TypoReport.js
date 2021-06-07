@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 
 import { useTranslation } from 'react-i18next';
 import { SendError } from 'tsv-frontend';
@@ -24,14 +24,14 @@ import useStyles from './style';
 
 export default function TypoReport() {
   const { state } = useContext(AppContext);
-  const { referenceSelected } = state;
+  const { referenceSelected, type } = state;
 
-  const [openDialog, setOpenDialog] = React.useState(false);
-  const [valueComment, setValueComment] = React.useState('');
-  const [selectionNode, setSelectionNode] = React.useState('');
-  const [selectionTypo, setSelectionTypo] = React.useState('');
-  const [openBackdrop, setOpenBackdrop] = React.useState(false);
-  const [open, setOpen] = React.useState(false);
+  const [openDialog, setOpenDialog] = useState(false);
+  const [valueComment, setValueComment] = useState('');
+  const [selectionNode, setSelectionNode] = useState('');
+  const [selectionTypo, setSelectionTypo] = useState('');
+  const [openBackdrop, setOpenBackdrop] = useState(false);
+  const [open, setOpen] = useState(false);
   const { t } = useTranslation();
 
   const handleChange = (e) => {
@@ -63,26 +63,25 @@ export default function TypoReport() {
     const answer = SendError({
       reference: referenceSelected.chapter + ':' + referenceSelected.verse,
       bookId: referenceSelected.bookId,
-      resource: 'resourse',
+      resource: type,
       serverLink: 'https://tsv-backend.herokuapp.com/send',
       fields: {
         Note: selectionTypo,
         Quote: valueComment,
       },
-    });
-
-    // .then(function (response) {
-    //   setValueComment('');
-    //   setOpenDialog(false);
-    //   setOpenBackdrop(false);
-    //   handleClickOpenFinishDialog();
-    // })
-    // .catch((error) => console.log(error));
-    console.log(JSON.stringify(answer));
-    setValueComment('');
-    setOpenDialog(false);
-    setOpenBackdrop(false);
-    handleClickOpenFinishDialog();
+    })
+      .then(function (response) {
+        setValueComment('');
+        setOpenDialog(false);
+        setOpenBackdrop(false);
+        handleClickOpenFinishDialog();
+      })
+      .catch((error) => console.log(error));
+    // console.log(JSON.stringify(answer));
+    // setValueComment('');
+    // setOpenDialog(false);
+    // setOpenBackdrop(false);
+    // handleClickOpenFinishDialog();
   }
 
   function handleCancel() {
