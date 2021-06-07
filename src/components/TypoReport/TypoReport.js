@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 
 import { useTranslation } from 'react-i18next';
-
+import { SendError } from 'tsv-frontend';
 import { AppContext } from '../../App.context';
 
 import LogoFriends from './LogoFriends';
@@ -60,16 +60,15 @@ export default function TypoReport() {
 
   function handleSend() {
     setOpenBackdrop(!openBackdrop);
-
-    const formData = new FormData();
-    formData.append('pass', 'success');
-    formData.append('ref', selectionNode);
-    formData.append('selected', selectionTypo);
-    formData.append('comment', valueComment);
-
-    fetch('https://bsa.foxprogs.com/error.php', {
-      method: 'POST',
-      body: formData,
+    const answer = SendError({
+      reference: referenceSelected.chapter + ':' + referenceSelected.verse,
+      bookId: referenceSelected.bookId,
+      resource: 'resourse',
+      serverLink: 'https://tsv-backend.herokuapp.com/send',
+      fields: {
+        Note: selectionTypo,
+        Quote: valueComment,
+      },
     })
       .then(function (response) {
         setValueComment('');
@@ -78,6 +77,25 @@ export default function TypoReport() {
         handleClickOpenFinishDialog();
       })
       .catch((error) => console.log(error));
+    console.log(JSON.stringify(answer));
+
+    // setOpenBackdrop(!openBackdrop);
+    // const formData = new FormData();
+    // formData.append('pass', 'success');
+    // formData.append('ref', selectionNode);
+    // formData.append('selected', selectionTypo);
+    // formData.append('comment', valueComment);
+    // fetch('https://bsa.foxprogs.com/error.php', {
+    //   method: 'POST',
+    //   body: formData,
+    // })
+    //   .then(function (response) {
+    //     setValueComment('');
+    //     setOpenDialog(false);
+    //     setOpenBackdrop(false);
+    //     handleClickOpenFinishDialog();
+    //   })
+    //   .catch((error) => console.log(error));
   }
 
   function handleCancel() {

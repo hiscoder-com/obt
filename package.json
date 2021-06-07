@@ -19,6 +19,7 @@
     "resource-workspace-rcl": "^0.7.0",
     "scripture-resources-rcl": "^4.1.8",
     "translation-helps-rcl": "^1.47.0",
+    "tsv-frontend": "^0.4.0",
     "use-deep-compare-effect": "^1.6.1",
     "web-vitals": "^2.0.1"
   },
