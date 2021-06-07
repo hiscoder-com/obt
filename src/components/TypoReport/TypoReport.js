@@ -69,33 +69,20 @@ export default function TypoReport() {
         Note: selectionTypo,
         Quote: valueComment,
       },
-    })
-      .then(function (response) {
-        setValueComment('');
-        setOpenDialog(false);
-        setOpenBackdrop(false);
-        handleClickOpenFinishDialog();
-      })
-      .catch((error) => console.log(error));
-    console.log(JSON.stringify(answer));
+    });
 
-    // setOpenBackdrop(!openBackdrop);
-    // const formData = new FormData();
-    // formData.append('pass', 'success');
-    // formData.append('ref', selectionNode);
-    // formData.append('selected', selectionTypo);
-    // formData.append('comment', valueComment);
-    // fetch('https://bsa.foxprogs.com/error.php', {
-    //   method: 'POST',
-    //   body: formData,
+    // .then(function (response) {
+    //   setValueComment('');
+    //   setOpenDialog(false);
+    //   setOpenBackdrop(false);
+    //   handleClickOpenFinishDialog();
     // })
-    //   .then(function (response) {
-    //     setValueComment('');
-    //     setOpenDialog(false);
-    //     setOpenBackdrop(false);
-    //     handleClickOpenFinishDialog();
-    //   })
-    //   .catch((error) => console.log(error));
+    // .catch((error) => console.log(error));
+    console.log(JSON.stringify(answer));
+    setValueComment('');
+    setOpenDialog(false);
+    setOpenBackdrop(false);
+    handleClickOpenFinishDialog();
   }
 
   function handleCancel() {
@@ -158,10 +145,7 @@ export default function TypoReport() {
             {t('Thanks_report1')} <br />
             {t('Thanks_report2')} <br /> <br />
             {t('See_logs1')} <br />
-            <Link
-              href="https://git.door43.org/BSA/errors/src/branch/master/error.tsv"
-              target="_blank"
-            >
+            <Link href="https://git.door43.org/BSA/errors" target="_blank">
               {t('See_logs2')}
             </Link>
           </DialogContentText>
