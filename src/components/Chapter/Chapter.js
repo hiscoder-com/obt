@@ -1,6 +1,6 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { Card } from 'translation-helps-rcl';
-import { Verses, ResourcesContext } from 'scripture-resources-rcl';
+import { Verse, ResourcesContext } from 'scripture-resources-rcl';
 import { useTranslation } from 'react-i18next';
 
 import { resourcesList } from '../../config';
@@ -11,6 +11,7 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
   let project = useMemo(() => {}, []);
 
   const [chapter, setChapter] = useState();
+  const [verses, setVerses] = useState();
 
   const resource = resourcesList[type];
 
@@ -40,6 +41,36 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
     }
   }, [project, reference.chapter]);
 
+  useEffect(() => {
+    let _verses = [];
+    for (let key in chapter) {
+      if (parseInt(key).toString() !== key.toString()) {
+        continue;
+      }
+      const { verseObjects } = chapter[key];
+      const verse = (
+        <span
+          key={key}
+          onClick={() => {
+            console.log({ ...reference, type, verse: key });
+          }}
+        >
+          <Verse
+            verseKey={key}
+            verseObjects={verseObjects}
+            paragraphs={false}
+            showUnsupported={false}
+            disableWordPopover={true}
+            reference={{ ...reference, verse: key }}
+            renderOffscreen={false}
+          />
+        </span>
+      );
+      _verses.push(verse);
+    }
+    setVerses(_verses);
+  }, [chapter, reference, type]);
+
   return (
     <Card
       closeable
@@ -48,16 +79,7 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
       type={type}
       classes={classes}
     >
-      {chapter ? (
-        <Verses
-          disableWordPopover={true}
-          reference={reference}
-          verses={chapter}
-          renderOffscreen={false}
-        />
-      ) : (
-        t('Loading')
-      )}
+      {chapter ? verses : t('Loading')}
     </Card>
   );
 }
