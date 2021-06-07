@@ -27,7 +27,7 @@ jobs:
         uses: voorhoede/get-netlify-url@v1
         id: get-netlify-url
         with:
-            site-name: gecraft-bsa
+            site-name: tt-bsa
 
       - name : 'Log retrieved URL'
         run: 'echo ${{ steps.get-netlify-url.outputs.url }}'

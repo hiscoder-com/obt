@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 
 import { useTranslation } from 'react-i18next';
-
+import { SendError } from 'tsv-frontend';
 import { AppContext } from '../../App.context';
 
 import LogoFriends from './LogoFriends';
@@ -60,24 +60,29 @@ export default function TypoReport() {
 
   function handleSend() {
     setOpenBackdrop(!openBackdrop);
+    const answer = SendError({
+      reference: referenceSelected.chapter + ':' + referenceSelected.verse,
+      bookId: referenceSelected.bookId,
+      resource: 'resourse',
+      serverLink: 'https://tsv-backend.herokuapp.com/send',
+      fields: {
+        Note: selectionTypo,
+        Quote: valueComment,
+      },
+    });
 
-    const formData = new FormData();
-    formData.append('pass', 'success');
-    formData.append('ref', selectionNode);
-    formData.append('selected', selectionTypo);
-    formData.append('comment', valueComment);
-
-    fetch('https://bsa.foxprogs.com/error.php', {
-      method: 'POST',
-      body: formData,
-    })
-      .then(function (response) {
-        setValueComment('');
-        setOpenDialog(false);
-        setOpenBackdrop(false);
-        handleClickOpenFinishDialog();
-      })
-      .catch((error) => console.log(error));
+    // .then(function (response) {
+    //   setValueComment('');
+    //   setOpenDialog(false);
+    //   setOpenBackdrop(false);
+    //   handleClickOpenFinishDialog();
+    // })
+    // .catch((error) => console.log(error));
+    console.log(JSON.stringify(answer));
+    setValueComment('');
+    setOpenDialog(false);
+    setOpenBackdrop(false);
+    handleClickOpenFinishDialog();
   }
 
   function handleCancel() {
@@ -140,10 +145,7 @@ export default function TypoReport() {
             {t('Thanks_report1')} <br />
             {t('Thanks_report2')} <br /> <br />
             {t('See_logs1')} <br />
-            <Link
-              href="https://git.door43.org/BSA/errors/src/branch/master/error.tsv"
-              target="_blank"
-            >
+            <Link href="https://git.door43.org/BSA/errors" target="_blank">
               {t('See_logs2')}
             </Link>
           </DialogContentText>
