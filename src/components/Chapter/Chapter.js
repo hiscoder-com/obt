@@ -50,6 +50,7 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
       const { verseObjects } = chapter[key];
       const verse = (
         <span
+          className="verse"
           key={key}
           onClick={() => {
             console.log({ ...reference, type, verse: key });

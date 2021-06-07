@@ -15,3 +15,10 @@ input {
   outline: none;
   border: none;
 }
+
+.verse br {
+  display: none;
+}
+.verse h4 {
+  margin: 0;
+}
