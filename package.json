@@ -3,24 +3,24 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@material-ui/core": "^4.11.3",
+    "@material-ui/core": "^4.11.4",
     "@material-ui/icons": "^4.11.2",
-    "@material-ui/lab": "^4.0.0-alpha.57",
-    "@material-ui/styles": "^4.11.3",
+    "@material-ui/lab": "^4.0.0-alpha.58",
+    "@material-ui/styles": "^4.11.4",
     "@texttree/tt-reference-rcl": "^1.0.0",
-    "i18next": "^20.1.0",
-    "i18next-browser-languagedetector": "^6.1.0",
-    "i18next-http-backend": "^1.2.1",
+    "i18next": "^20.3.1",
+    "i18next-browser-languagedetector": "^6.1.1",
+    "i18next-http-backend": "^1.2.6",
     "prop-types": "^15.7.2",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
-    "react-i18next": "^11.8.12",
+    "react-i18next": "^11.10.0",
     "react-router-dom": "^5.2.0",
     "resource-workspace-rcl": "^0.7.0",
-    "scripture-resources-rcl": "4.1.6",
-    "translation-helps-rcl": "^1.11.0",
+    "scripture-resources-rcl": "^4.1.8",
+    "translation-helps-rcl": "^1.47.0",
     "use-deep-compare-effect": "^1.6.1",
-    "web-vitals": "^0.2.4"
+    "web-vitals": "^2.0.1"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -46,13 +46,13 @@
     ]
   },
   "devDependencies": {
-    "eslint-config-prettier": "^8.1.0",
-    "eslint-plugin-import": "^2.22.1",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.23.4",
     "eslint-plugin-jsx-a11y": "^6.4.1",
-    "eslint-plugin-prettier": "^3.3.1",
-    "eslint-plugin-react": "^7.21.5",
+    "eslint-plugin-prettier": "^3.4.0",
+    "eslint-plugin-react": "^7.24.0",
     "eslint-plugin-react-hooks": "^4.2.0",
-    "prettier": "^2.2.1",
+    "prettier": "^2.3.0",
     "react-scripts": "3.0.1"
   }
 }
