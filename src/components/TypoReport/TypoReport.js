@@ -69,19 +69,13 @@ export default function TypoReport() {
         Note: selectionTypo,
         Quote: valueComment,
       },
-    })
-      .then(function (response) {
-        setValueComment('');
-        setOpenDialog(false);
-        setOpenBackdrop(false);
-        handleClickOpenFinishDialog();
-      })
-      .catch((error) => console.log(error));
-    // console.log(JSON.stringify(answer));
-    // setValueComment('');
-    // setOpenDialog(false);
-    // setOpenBackdrop(false);
-    // handleClickOpenFinishDialog();
+    });
+
+    console.log(type);
+    setValueComment('');
+    setOpenDialog(false);
+    setOpenBackdrop(false);
+    handleClickOpenFinishDialog();
   }
 
   function handleCancel() {
