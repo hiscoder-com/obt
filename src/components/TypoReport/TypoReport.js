@@ -26,6 +26,7 @@ export default function TypoReport() {
   const { state } = useContext(AppContext);
   const { referenceSelected, type } = state;
 
+  const [answer, setAnswer] = useState(null);
   const [openDialog, setOpenDialog] = useState(false);
   const [valueComment, setValueComment] = useState('');
   const [selectionNode, setSelectionNode] = useState('');
@@ -58,25 +59,48 @@ export default function TypoReport() {
     }
   }
 
-  function handleSend() {
+  const handleSend = () => {
     setOpenBackdrop(!openBackdrop);
-    const answer = SendError({
-      reference: referenceSelected.chapter + ':' + referenceSelected.verse,
-      bookId: referenceSelected.bookId,
-      resource: type,
-      serverLink: 'https://tsv-backend.herokuapp.com/send',
-      fields: {
-        Note: selectionTypo,
-        Quote: valueComment,
-      },
-    });
-
-    console.log(type);
+    async function sendMyError() {
+      let response = await SendError({
+        reference: referenceSelected.chapter + ':' + referenceSelected.verse,
+        bookId: referenceSelected.bookId,
+        resource: type,
+        serverLink: 'https://tsv-backend.herokuapp.com/send',
+        fields: {
+          Note: selectionTypo,
+          Quote: valueComment,
+        },
+      });
+      setAnswer(JSON.stringify(response));
+    }
+    sendMyError();
     setValueComment('');
     setOpenDialog(false);
     setOpenBackdrop(false);
     handleClickOpenFinishDialog();
-  }
+    console.log(answer);
+  };
+
+  // function handleSend() {
+  //   setOpenBackdrop(!openBackdrop);
+  //   const answer = SendError({
+  //     reference: referenceSelected.chapter + ':' + referenceSelected.verse,
+  //     bookId: referenceSelected.bookId,
+  //     resource: type,
+  //     serverLink: 'https://tsv-backend.herokuapp.com/send',
+  //     fields: {
+  //       Note: selectionTypo,
+  //       Quote: valueComment,
+  //     },
+  //   });
+
+  //   console.log(type);
+  //   setValueComment('');
+  //   setOpenDialog(false);
+  //   setOpenBackdrop(false);
+  //   handleClickOpenFinishDialog();
+  // }
 
   function handleCancel() {
     setOpenDialog(false);
