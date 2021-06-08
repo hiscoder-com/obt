@@ -10,7 +10,7 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
   const { t } = useTranslation();
   const { state } = React.useContext(ResourcesContext);
   const { actions } = React.useContext(AppContext);
-  const { setType } = actions;
+  const { setType, setQuote } = actions;
 
   let project = useMemo(() => {}, []);
 
@@ -59,6 +59,7 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
           key={key}
           onClick={() => {
             console.log({ ...reference, type, verse: key });
+            setQuote(verseObjects[0].text);
 
             setType(type);
           }}
@@ -74,10 +75,11 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
           />
         </span>
       );
+
       _verses.push(verse);
     }
     setVerses(_verses);
-  }, [chapter, reference, type, setType]);
+  }, [chapter, reference, type, setType, setQuote]);
 
   return (
     <Card

@@ -24,13 +24,12 @@ import useStyles from './style';
 
 export default function TypoReport() {
   const { state } = useContext(AppContext);
-  const { referenceSelected, type } = state;
+  const { referenceSelected, type, quote } = state;
 
   const [answer, setAnswer] = useState(null);
   const [openDialog, setOpenDialog] = useState(false);
   const [valueComment, setValueComment] = useState('');
   const [selectionNode, setSelectionNode] = useState('');
-  const [selectionTypo, setSelectionTypo] = useState('');
   const [openBackdrop, setOpenBackdrop] = useState(false);
   const [open, setOpen] = useState(false);
   const { t } = useTranslation();
@@ -46,17 +45,14 @@ export default function TypoReport() {
     setOpen(false);
   };
   function handleClickOpen() {
-    if (window.getSelection().toString()) {
-      setOpenDialog(true);
-      setSelectionNode(
-        referenceSelected.bookId +
-          ' ' +
-          referenceSelected.chapter +
-          ':' +
-          referenceSelected.verse
-      );
-      setSelectionTypo(window.getSelection().toString());
-    }
+    setOpenDialog(true);
+    setSelectionNode(
+      referenceSelected.bookId +
+        ' ' +
+        referenceSelected.chapter +
+        ':' +
+        referenceSelected.verse
+    );
   }
 
   const handleSend = () => {
@@ -68,8 +64,8 @@ export default function TypoReport() {
         resource: type,
         serverLink: 'https://tsv-backend.herokuapp.com/send',
         fields: {
-          Note: selectionTypo,
-          Quote: valueComment,
+          Note: valueComment,
+          Quote: quote,
         },
       });
       setAnswer(JSON.stringify(response));
@@ -82,30 +78,10 @@ export default function TypoReport() {
     console.log(answer);
   };
 
-  // function handleSend() {
-  //   setOpenBackdrop(!openBackdrop);
-  //   const answer = SendError({
-  //     reference: referenceSelected.chapter + ':' + referenceSelected.verse,
-  //     bookId: referenceSelected.bookId,
-  //     resource: type,
-  //     serverLink: 'https://tsv-backend.herokuapp.com/send',
-  //     fields: {
-  //       Note: selectionTypo,
-  //       Quote: valueComment,
-  //     },
-  //   });
-
-  //   console.log(type);
-  //   setValueComment('');
-  //   setOpenDialog(false);
-  //   setOpenBackdrop(false);
-  //   handleClickOpenFinishDialog();
-  // }
-
   function handleCancel() {
     setOpenDialog(false);
   }
-
+  const wrongQuote = 'Вы не выбрали стих. Кликните по стиху';
   const classes = useStyles();
 
   return (
@@ -119,7 +95,7 @@ export default function TypoReport() {
         <DialogContent>
           <DialogContentText>{t('Text_to_editors')}</DialogContentText>
           <DialogContentText className={classes.select}>
-            {selectionTypo}
+            {quote === '' ? wrongQuote : quote}
           </DialogContentText>
           <DialogContentText>{selectionNode}</DialogContentText>
           <TextField

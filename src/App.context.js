@@ -34,6 +34,7 @@ export function AppContextProvider({ children }) {
     verse: 1,
   });
 
+  const [quote, setQuote] = useState('');
   const [type, setType] = useState('');
   const _resourceLinks = getResources(appConfig);
   const [resourceLinks, setResourceLinks] = useState(_resourceLinks);
@@ -60,6 +61,7 @@ export function AppContextProvider({ children }) {
       showBookSelect,
       showChapterSelect,
       type,
+      quote,
     },
     actions: {
       setAppConfig,
@@ -69,6 +71,7 @@ export function AppContextProvider({ children }) {
       setShowBookSelect,
       setShowChapterSelect,
       setType,
+      setQuote,
     },
   };
 
