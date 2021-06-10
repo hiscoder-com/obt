@@ -1,28 +1,24 @@
 import React, { useContext, useState } from 'react';
 
-import { useTranslation } from 'react-i18next';
 import { SendError } from 'tsv-frontend';
 import { AppContext } from '../../App.context';
 
 import FinishDialog from './FinishDialog';
 import ReportDialog from './ReportDialog';
 
-import ErrorIcon from '@material-ui/icons/Error';
-import { Button, Backdrop, CircularProgress } from '@material-ui/core';
+import { Backdrop, CircularProgress } from '@material-ui/core';
 
 import useStyles from './style';
 
 export default function TypoReport() {
-  const { state } = useContext(AppContext);
-  const { referenceSelected, type, quote } = state;
+  const { state, actions } = useContext(AppContext);
+  const { referenceSelected, type, quote, showErrorReport } = state;
+  const { setShowErrorReport } = actions;
 
   const [answer, setAnswer] = useState(null);
-  const [openDialog, setOpenDialog] = useState(false);
   const [valueComment, setValueComment] = useState('');
-  const [selectionNode, setSelectionNode] = useState('');
   const [openBackdrop, setOpenBackdrop] = useState(false);
   const [open, setOpen] = useState(false);
-  const { t } = useTranslation();
 
   const handleChange = (e) => {
     setValueComment(e.target.value);
@@ -34,16 +30,6 @@ export default function TypoReport() {
   const handleClose = () => {
     setOpen(false);
   };
-  function handleClickOpen() {
-    setOpenDialog(true);
-    setSelectionNode(
-      referenceSelected.bookId +
-        ' ' +
-        referenceSelected.chapter +
-        ':' +
-        referenceSelected.verse
-    );
-  }
 
   const handleSend = (openBackdrop) => {
     setOpenBackdrop(!openBackdrop);
@@ -64,7 +50,7 @@ export default function TypoReport() {
         setAnswer(JSON.stringify(result));
         console.log(result);
         setValueComment('');
-        setOpenDialog(false);
+        setShowErrorReport(false);
         setOpenBackdrop(false);
         handleClickOpenFinishDialog();
       })
@@ -72,18 +58,14 @@ export default function TypoReport() {
   };
 
   function handleCancel() {
-    setOpenDialog(false);
+    setShowErrorReport(false);
   }
   const classes = useStyles();
 
   return (
     <>
-      <Button variant="outlined" color="inherit" onClick={handleClickOpen}>
-        <ErrorIcon className={classes.icon} /> {t('Report_bug')}
-      </Button>
       <ReportDialog
-        open={openDialog}
-        selectionNode={selectionNode}
+        open={showErrorReport}
         valueComment={valueComment}
         handleChange={handleChange}
         handleCancel={handleCancel}

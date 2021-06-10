@@ -18,7 +18,7 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
   const [position, setPosition] = React.useState(initialPosition);
   const { state } = React.useContext(ResourcesContext);
   const { actions } = React.useContext(AppContext);
-  const { setType, setQuote } = actions;
+  const { setType, setQuote, setShowErrorReport } = actions;
 
   let project = useMemo(() => {}, []);
 
@@ -32,6 +32,11 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
   };
 
   const handleContextClose = () => {
+    setPosition(initialPosition);
+  };
+
+  const handleOpenError = () => {
+    setShowErrorReport(true);
     setPosition(initialPosition);
   };
 
@@ -127,7 +132,7 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
           {contextReference?.verse}
         </MenuItem>
         <MenuItem onClick={handleContextClose}>Copy Link</MenuItem>
-        <MenuItem onClick={handleContextClose}>Send Error</MenuItem>
+        <MenuItem onClick={handleOpenError}>Send Error</MenuItem>
       </Menu>
       {chapter ? verses : t('Loading')}
     </Card>

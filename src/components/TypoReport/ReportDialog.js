@@ -15,14 +15,7 @@ import {
 
 import useStyles from './style';
 
-function ReportDialog({
-  open,
-  selectionNode,
-  valueComment,
-  handleChange,
-  handleCancel,
-  handleSend,
-}) {
+function ReportDialog({ open, valueComment, handleChange, handleCancel, handleSend }) {
   const { state } = useContext(AppContext);
   const { quote } = state;
   const { t } = useTranslation();
@@ -37,7 +30,6 @@ function ReportDialog({
         <DialogContentText className={classes.select}>
           {quote === '' ? wrongQuote : quote}
         </DialogContentText>
-        <DialogContentText>{selectionNode.toString()}</DialogContentText>
         <TextField
           autoFocus
           margin="dense"

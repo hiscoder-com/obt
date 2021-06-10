@@ -73,7 +73,7 @@ function SubMenuBar() {
             <BookSelect />
             <ChapterSelect />
           </div>
-          <div className={classes.report}>{errorReport ? <TypoReport /> : []}</div>
+          <div className={classes.report}>{errorReport ? <TypoReport /> : ''}</div>
           <IconButton
             edge="start"
             color="inherit"
