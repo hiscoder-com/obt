@@ -5,6 +5,8 @@ import { useTranslation } from 'react-i18next';
 import { AppContext } from '../../App.context';
 import { Menu, MenuItem } from '@material-ui/core';
 
+import { getVerseText } from '../../helper';
+
 import { resourcesList } from '../../config';
 
 const initialPosition = {
@@ -85,7 +87,7 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
           key={key}
           onClick={() => {
             console.log({ ...reference, type, verse: key });
-            setQuote(verseObjects[0].text || verseObjects[0].content);
+            setQuote(getVerseText(verseObjects));
             setType(type);
           }}
           onContextMenu={(e) => handleContextOpen(e, { ...reference, type, verse: key })}
