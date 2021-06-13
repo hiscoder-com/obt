@@ -22,16 +22,13 @@ export default function TypoReport() {
   const handleChange = (e) => {
     setValueComment(e.target.value);
   };
-  const handleClickOpenFinishDialog = () => {
-    setOpenFinishDialog(true);
-  };
 
   const handleCloseFinishDialog = () => {
     setOpenFinishDialog(false);
   };
 
   const handleSend = () => {
-    setOpenBackdrop(!openBackdrop);
+    setOpenBackdrop(true);
     setShowErrorReport(false);
     SendError({
       reference: referenceBlock.chapter + ':' + referenceBlock.verse,
