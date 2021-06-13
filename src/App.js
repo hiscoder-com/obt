@@ -3,14 +3,14 @@ import React, { useContext } from 'react';
 import { Workspace } from 'resource-workspace-rcl';
 
 import { AppContext } from './App.context';
-import { SubMenuBar, Card } from './components';
+import { SubMenuBar, Card, TypoReport } from './components';
 
 import './styles/app.css';
 import useStyles from './style';
 
 export default function App() {
   const { state, actions } = useContext(AppContext);
-  const { appConfig, referenceSelected } = state;
+  const { appConfig, referenceSelected, showErrorReport } = state;
   const { setAppConfig } = actions;
   const classes = useStyles();
   const layout = {
@@ -29,6 +29,7 @@ export default function App() {
   return (
     <>
       <SubMenuBar />
+      {showErrorReport ? <TypoReport /> : ''}
       <Workspace
         gridMargin={[15, 15]}
         rowHeight={30}

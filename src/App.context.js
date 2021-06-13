@@ -31,7 +31,7 @@ export function AppContextProvider({ children }) {
   const [referenceSelected, setReferenceSelected] = useState({
     bookId: currentLocation[1] ? currentLocation[1] : _reference.bookId,
     chapter: currentLocation[2] ?? _reference.chapter,
-    verse: 1,
+    verse: currentLocation[3] ?? _reference.verse ?? 1,
   });
 
   const [quote, setQuote] = useState('');
@@ -41,6 +41,7 @@ export function AppContextProvider({ children }) {
   const [resources, setResources] = useState([]);
   const [showBookSelect, setShowBookSelect] = useState(true);
   const [showChapterSelect, setShowChapterSelect] = useState(false);
+  const [showErrorReport, setShowErrorReport] = useState(false);
 
   useEffect(() => {
     setResourceLinks(getResources(appConfig));
@@ -48,7 +49,14 @@ export function AppContextProvider({ children }) {
 
   useEffect(() => {
     localStorage.setItem('reference', JSON.stringify(referenceSelected));
-    history.push('/' + referenceSelected.bookId + '/' + referenceSelected.chapter);
+    history.push(
+      '/' +
+        referenceSelected.bookId +
+        '/' +
+        referenceSelected.chapter +
+        '/' +
+        referenceSelected.verse
+    );
   }, [referenceSelected, history]);
 
   const value = {
@@ -60,6 +68,7 @@ export function AppContextProvider({ children }) {
       _resourceLinks,
       showBookSelect,
       showChapterSelect,
+      showErrorReport,
       type,
       quote,
     },
@@ -70,6 +79,7 @@ export function AppContextProvider({ children }) {
       setResources,
       setShowBookSelect,
       setShowChapterSelect,
+      setShowErrorReport,
       setType,
       setQuote,
     },
