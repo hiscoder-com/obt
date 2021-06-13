@@ -35,7 +35,7 @@ export default function TypoReport() {
       reference: referenceBlock?.chapter + ':' + referenceBlock?.verse,
       bookId: referenceBlock?.bookId,
       resource: referenceBlock?.type,
-      serverLink: 'http://localhost:4000/send',
+      serverLink: 'https://tsv-backend.herokuapp.com/send',
       fields: {
         Note: valueComment,
         Quote: referenceBlock?.text,

@@ -31,7 +31,7 @@ function ReportDialog({
   const wrongQuote = 'Вы не выбрали стих. Кликните по стиху';
 
   return (
-    <Dialog open={open}>
+    <Dialog open={open} onClose={handleCancel}>
       <DialogTitle className={classes.title}>{t('Report_typo')}</DialogTitle>
       <DialogContent>
         <DialogContentText>{t('Text_to_editors')}</DialogContentText>
