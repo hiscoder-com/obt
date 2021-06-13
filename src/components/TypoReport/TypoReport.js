@@ -12,49 +12,48 @@ import useStyles from './style';
 
 export default function TypoReport() {
   const { state, actions } = useContext(AppContext);
-  const { referenceSelected, type, quote, showErrorReport } = state;
+  const { showErrorReport, referenceBlock } = state;
   const { setShowErrorReport } = actions;
 
-  const [answer, setAnswer] = useState(null);
   const [valueComment, setValueComment] = useState('');
   const [openBackdrop, setOpenBackdrop] = useState(false);
-  const [open, setOpen] = useState(false);
+  const [openFinishDialog, setOpenFinishDialog] = useState(false);
 
   const handleChange = (e) => {
     setValueComment(e.target.value);
   };
   const handleClickOpenFinishDialog = () => {
-    setOpen(true);
+    setOpenFinishDialog(true);
   };
 
-  const handleClose = () => {
-    setOpen(false);
+  const handleCloseFinishDialog = () => {
+    setOpenFinishDialog(false);
   };
 
-  const handleSend = (openBackdrop) => {
+  const handleSend = () => {
     setOpenBackdrop(!openBackdrop);
-    async function sendMyError() {
-      return SendError({
-        reference: referenceSelected.chapter + ':' + referenceSelected.verse,
-        bookId: referenceSelected.bookId,
-        resource: type,
-        serverLink: 'http://localhost:4000/send',
-        fields: {
-          Note: valueComment,
-          Quote: quote,
-        },
-      });
-    }
-    sendMyError()
-      .then((result) => {
-        setAnswer(JSON.stringify(result));
-        console.log(result);
+    setShowErrorReport(false);
+    SendError({
+      reference: referenceBlock.chapter + ':' + referenceBlock.verse,
+      bookId: referenceBlock.bookId,
+      resource: referenceBlock.type,
+      serverLink: 'http://localhost:4000/send',
+      fields: {
+        Note: valueComment,
+        Quote: referenceBlock.text,
+      },
+    })
+      .then((res) => {
+        console.log(res);
         setValueComment('');
-        setShowErrorReport(false);
+        setOpenFinishDialog(true);
         setOpenBackdrop(false);
-        handleClickOpenFinishDialog();
       })
-      .catch((error) => console.log(error));
+      .catch((err) => {
+        console.log('err', err);
+        setValueComment('');
+        setOpenBackdrop(false);
+      });
   };
 
   function handleCancel() {
@@ -71,10 +70,10 @@ export default function TypoReport() {
         handleCancel={handleCancel}
         handleSend={handleSend}
       />
-      <FinishDialog isOpen={open} onClose={handleClose} />
       <Backdrop className={classes.backdrop} open={openBackdrop}>
         <CircularProgress color="inherit" />
       </Backdrop>
+      <FinishDialog isOpen={openFinishDialog} onClose={handleCloseFinishDialog} />
     </>
   );
 }

@@ -34,8 +34,7 @@ export function AppContextProvider({ children }) {
     verse: currentLocation[3] ?? _reference.verse ?? 1,
   });
 
-  const [quote, setQuote] = useState('');
-  const [type, setType] = useState('');
+  const [referenceBlock, setReferenceBlock] = useState();
   const _resourceLinks = getResources(appConfig);
   const [resourceLinks, setResourceLinks] = useState(_resourceLinks);
   const [resources, setResources] = useState([]);
@@ -69,8 +68,7 @@ export function AppContextProvider({ children }) {
       showBookSelect,
       showChapterSelect,
       showErrorReport,
-      type,
-      quote,
+      referenceBlock,
     },
     actions: {
       setAppConfig,
@@ -80,8 +78,7 @@ export function AppContextProvider({ children }) {
       setShowBookSelect,
       setShowChapterSelect,
       setShowErrorReport,
-      setType,
-      setQuote,
+      setReferenceBlock,
     },
   };
 

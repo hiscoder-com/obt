@@ -17,7 +17,7 @@ import useStyles from './style';
 
 function ReportDialog({ open, valueComment, handleChange, handleCancel, handleSend }) {
   const { state } = useContext(AppContext);
-  const { quote } = state;
+  const { referenceBlock } = state;
   const { t } = useTranslation();
   const classes = useStyles();
   const wrongQuote = 'Вы не выбрали стих. Кликните по стиху';
@@ -28,7 +28,7 @@ function ReportDialog({ open, valueComment, handleChange, handleCancel, handleSe
       <DialogContent>
         <DialogContentText>{t('Text_to_editors')}</DialogContentText>
         <DialogContentText className={classes.select}>
-          {quote === '' ? wrongQuote : quote}
+          {referenceBlock.text === '' ? wrongQuote : referenceBlock.text}
         </DialogContentText>
         <TextField
           autoFocus
