@@ -3,7 +3,7 @@ import React, { useContext } from 'react';
 import { Workspace } from 'resource-workspace-rcl';
 
 import { AppContext } from './App.context';
-import { SubMenuBar, Card } from './components';
+import { SubMenuBar, Card, TypoReport } from './components';
 
 import './styles/app.css';
 import useStyles from './style';
@@ -29,6 +29,7 @@ export default function App() {
   return (
     <>
       <SubMenuBar />
+      <TypoReport />
       <Workspace
         gridMargin={[15, 15]}
         rowHeight={30}

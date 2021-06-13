@@ -1,159 +1,84 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 
-import { useTranslation } from 'react-i18next';
-
+import { SendError } from 'tsv-frontend';
 import { AppContext } from '../../App.context';
 
-import LogoFriends from './LogoFriends';
+import FinishDialog from './FinishDialog';
+import ReportDialog from './ReportDialog';
 
-import ErrorIcon from '@material-ui/icons/Error';
-import {
-  Button,
-  Dialog,
-  DialogTitle,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  TextField,
-  Backdrop,
-  CircularProgress,
-  Link,
-} from '@material-ui/core';
+import { Backdrop, CircularProgress } from '@material-ui/core';
 
 import useStyles from './style';
 
 export default function TypoReport() {
-  const { state } = useContext(AppContext);
-  const { referenceSelected } = state;
+  const { state, actions } = useContext(AppContext);
+  const { showErrorReport, referenceBlock } = state;
+  const { setShowErrorReport } = actions;
 
-  const [openDialog, setOpenDialog] = React.useState(false);
-  const [valueComment, setValueComment] = React.useState('');
-  const [selectionNode, setSelectionNode] = React.useState('');
-  const [selectionTypo, setSelectionTypo] = React.useState('');
-  const [openBackdrop, setOpenBackdrop] = React.useState(false);
-  const [open, setOpen] = React.useState(false);
-  const { t } = useTranslation();
+  const [valueComment, setValueComment] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+  const [openBackdrop, setOpenBackdrop] = useState(false);
+  const [openFinishDialog, setOpenFinishDialog] = useState(false);
 
   const handleChange = (e) => {
     setValueComment(e.target.value);
   };
-  const handleClickOpenFinishDialog = () => {
-    setOpen(true);
+
+  const handleCloseFinishDialog = () => {
+    setOpenFinishDialog(false);
   };
 
-  const handleClose = () => {
-    setOpen(false);
-  };
-  function handleClickOpen() {
-    if (window.getSelection().toString()) {
-      setOpenDialog(true);
-      setSelectionNode(
-        referenceSelected.bookId +
-          ' ' +
-          referenceSelected.chapter +
-          ':' +
-          referenceSelected.verse
-      );
-      setSelectionTypo(window.getSelection().toString());
-    }
-  }
-
-  function handleSend() {
-    setOpenBackdrop(!openBackdrop);
-
-    const formData = new FormData();
-    formData.append('pass', 'success');
-    formData.append('ref', selectionNode);
-    formData.append('selected', selectionTypo);
-    formData.append('comment', valueComment);
-
-    fetch('https://bsa.foxprogs.com/error.php', {
-      method: 'POST',
-      body: formData,
+  const handleSend = () => {
+    setOpenBackdrop(true);
+    setShowErrorReport(false);
+    SendError({
+      reference: referenceBlock?.chapter + ':' + referenceBlock?.verse,
+      bookId: referenceBlock?.bookId,
+      resource: referenceBlock?.type,
+      serverLink: 'https://tsv-backend.herokuapp.com/send',
+      fields: {
+        Note: valueComment,
+        Quote: referenceBlock?.text,
+      },
     })
-      .then(function (response) {
-        setValueComment('');
-        setOpenDialog(false);
+      .then((res) => {
+        console.log('res', res);
         setOpenBackdrop(false);
-        handleClickOpenFinishDialog();
+        if (res.success) {
+          setValueComment('');
+          setOpenFinishDialog(true);
+        } else {
+          setShowErrorReport(true);
+          setErrorMessage(res.message);
+        }
       })
-      .catch((error) => console.log(error));
-  }
+      .catch((err) => {
+        console.log('err', err);
+        setErrorMessage(err.message);
+        setShowErrorReport(true);
+        setOpenBackdrop(false);
+      });
+  };
 
   function handleCancel() {
-    setOpenDialog(false);
+    setShowErrorReport(false);
   }
-
   const classes = useStyles();
 
   return (
     <>
-      <Button variant="outlined" color="inherit" onClick={handleClickOpen}>
-        <ErrorIcon className={classes.icon} /> {t('Report_bug')}
-      </Button>
-
-      <Dialog open={openDialog}>
-        <DialogTitle className={classes.title}>{t('Report_typo')}</DialogTitle>
-        <DialogContent>
-          <DialogContentText>{t('Text_to_editors')}</DialogContentText>
-          <DialogContentText className={classes.select}>
-            {selectionTypo}
-          </DialogContentText>
-          <DialogContentText>{selectionNode}</DialogContentText>
-          <TextField
-            autoFocus
-            margin="dense"
-            id="comment"
-            label={t('Your_comment')}
-            type="text"
-            value={valueComment}
-            onChange={handleChange}
-            fullWidth
-          />
-        </DialogContent>
-        <DialogActions className={classes.actions}>
-          <Button
-            onClick={handleCancel}
-            variant="contained"
-            color="primary"
-            className={classes.cancel}
-          >
-            {t('Cancel')}
-          </Button>
-          <Button
-            onClick={handleSend}
-            variant="contained"
-            color="secondary"
-            className={classes.send}
-          >
-            {t('Send_message')}
-          </Button>
-          <Backdrop className={classes.backdrop} open={openBackdrop}>
-            <CircularProgress color="inherit" />
-          </Backdrop>
-        </DialogActions>
-      </Dialog>
-      <Dialog open={open} onClose={handleClose}>
-        <DialogContent>
-          <DialogContentText className={classes.center}>
-            <LogoFriends />
-            {t('Thanks_report1')} <br />
-            {t('Thanks_report2')} <br /> <br />
-            {t('See_logs1')} <br />
-            <Link
-              href="https://git.door43.org/BSA/errors/src/branch/master/error.tsv"
-              target="_blank"
-            >
-              {t('See_logs2')}
-            </Link>
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions className={classes.secondActions}>
-          <Button onClick={handleClose} variant="contained" color="primary">
-            {t('Close')}
-          </Button>
-        </DialogActions>
-      </Dialog>
+      <Backdrop className={classes.backdrop} open={openBackdrop}>
+        <CircularProgress color="inherit" />
+      </Backdrop>
+      <ReportDialog
+        open={showErrorReport}
+        valueComment={valueComment}
+        handleChange={handleChange}
+        handleCancel={handleCancel}
+        handleSend={handleSend}
+        errorMessage={errorMessage}
+      />
+      <FinishDialog open={openFinishDialog} onClose={handleCloseFinishDialog} />
     </>
   );
 }

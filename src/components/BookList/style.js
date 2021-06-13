@@ -1,14 +1,8 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-export const useBookStyles = makeStyles(() => ({
-  root: {
-    margin: '0 auto',
-    display: 'block',
-  },
-}));
-
 export const useStyles = makeStyles((theme) => ({
-  bookGrid: {
+  bookList: {
+    margin: theme.spacing(1),
     columnGap: '25px',
     [theme.breakpoints.down('xs')]: {
       columnCount: 1,
@@ -25,5 +19,12 @@ export const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up('xl')]: {
       columnCount: 5,
     },
+  },
+}));
+
+export const useBookStyles = makeStyles(() => ({
+  root: {
+    margin: '0 auto',
+    display: 'block',
   },
 }));

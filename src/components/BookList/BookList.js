@@ -7,15 +7,15 @@ import { BibleBookList as BibleBookListRCL } from '@texttree/tt-reference-rcl';
 import { useTranslation } from 'react-i18next';
 import { bibleList } from '../../config';
 
+import { useStyles, useBookStyles } from './style';
+import { singleChaptersBookID } from '../../config';
+
 function BookList() {
   const { state } = useContext(ResourcesContext);
   const appContext = useContext(AppContext);
   const { referenceSelected } = appContext.state;
-  const {
-    setShowBookSelect,
-    setReferenceSelected,
-    setShowChapterSelect,
-  } = appContext.actions;
+  const { setShowBookSelect, setReferenceSelected, setShowChapterSelect } =
+    appContext.actions;
 
   const onBook = (identifier) => {
     setShowBookSelect(false);
@@ -24,12 +24,16 @@ function BookList() {
       chapter: '1',
       verse: 1,
     });
-    setShowChapterSelect(true);
+    !singleChaptersBookID.includes(identifier)
+      ? setShowChapterSelect(true)
+      : setShowChapterSelect(false);
   };
   let uniqueBookID = new Set();
 
   const currentBibleList = JSON.parse(JSON.stringify(bibleList));
   const { t } = useTranslation();
+  const classes = useStyles();
+  const bookClasses = useBookStyles();
 
   if (state.resources.length > 0) {
     state.resources.forEach((resource) => {
@@ -52,6 +56,8 @@ function BookList() {
         onClickBook={(bookId) => onBook(bookId)}
         titleOT={t('bible_OT')}
         titleNT={t('bible_NT')}
+        BibleBookListClasses={classes}
+        bookClasses={bookClasses}
       />
     </>
   );

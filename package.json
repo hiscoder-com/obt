@@ -7,7 +7,7 @@
     "@material-ui/icons": "^4.11.2",
     "@material-ui/lab": "^4.0.0-alpha.58",
     "@material-ui/styles": "^4.11.4",
-    "@texttree/tt-reference-rcl": "^1.0.0",
+    "@texttree/tt-reference-rcl": "^1.0.1",
     "i18next": "^20.3.1",
     "i18next-browser-languagedetector": "^6.1.1",
     "i18next-http-backend": "^1.2.6",
@@ -19,6 +19,7 @@
     "resource-workspace-rcl": "^0.7.0",
     "scripture-resources-rcl": "^4.1.8",
     "translation-helps-rcl": "^1.47.0",
+    "tsv-frontend": "^0.5.0",
     "use-deep-compare-effect": "^1.6.1",
     "web-vitals": "^2.0.1"
   },

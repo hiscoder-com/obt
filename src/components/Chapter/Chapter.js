@@ -2,13 +2,44 @@ import React, { useState, useMemo, useEffect } from 'react';
 import { Card } from 'translation-helps-rcl';
 import { Verse, ResourcesContext } from 'scripture-resources-rcl';
 import { useTranslation } from 'react-i18next';
+import { AppContext } from '../../App.context';
+import { Menu, MenuItem } from '@material-ui/core';
+
+import { getVerseText } from '../../helper';
 
 import { resourcesList } from '../../config';
 
+const initialPosition = {
+  mouseX: null,
+  mouseY: null,
+};
+
 export default function Chapter({ title, classes, onClose, type, reference }) {
   const { t } = useTranslation();
+
+  const [position, setPosition] = React.useState(initialPosition);
   const { state } = React.useContext(ResourcesContext);
+  const { actions } = React.useContext(AppContext);
+  const { setShowErrorReport, setReferenceBlock } = actions;
+
   let project = useMemo(() => {}, []);
+
+  const handleContextOpen = (event) => {
+    event.preventDefault();
+    setPosition({
+      mouseX: event.clientX - 2,
+      mouseY: event.clientY - 4,
+    });
+  };
+
+  const handleContextClose = () => {
+    setPosition(initialPosition);
+  };
+
+  const handleOpenError = () => {
+    setShowErrorReport(true);
+    setPosition(initialPosition);
+  };
 
   const [chapter, setChapter] = useState();
   const [verses, setVerses] = useState();
@@ -48,29 +79,38 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
         continue;
       }
       const { verseObjects } = chapter[key];
+
       const verse = (
         <span
           className="verse"
           key={key}
-          onClick={() => {
-            console.log({ ...reference, type, verse: key });
+          onContextMenu={(e) => {
+            setReferenceBlock({
+              ...reference,
+              type,
+              verse: key,
+              text: getVerseText(verseObjects),
+            });
+            handleContextOpen(e);
           }}
+          style={{ cursor: 'context-menu' }}
         >
           <Verse
             verseKey={key}
             verseObjects={verseObjects}
             paragraphs={false}
             showUnsupported={false}
-            disableWordPopover={true}
+            disableWordPopover={false}
             reference={{ ...reference, verse: key }}
             renderOffscreen={false}
           />
         </span>
       );
+
       _verses.push(verse);
     }
     setVerses(_verses);
-  }, [chapter, reference, type]);
+  }, [chapter, reference, type, setReferenceBlock]);
 
   return (
     <Card
@@ -80,7 +120,20 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
       type={type}
       classes={classes}
     >
-      {chapter ? verses : t('Loading')}
+      <Menu
+        keepMounted
+        open={position.mouseY !== null}
+        onClose={handleContextClose}
+        anchorReference="anchorPosition"
+        anchorPosition={
+          position.mouseY !== null && position.mouseX !== null
+            ? { top: position.mouseY, left: position.mouseX }
+            : undefined
+        }
+      >
+        <MenuItem onClick={handleOpenError}>Send Error</MenuItem>
+      </Menu>
+      {chapter ? verses : t('No_content')}
     </Card>
   );
 }
