@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 
 import { AppContext } from '../../App.context';
-import { BookSelect, ChapterSelect, TypoReport } from '../../components';
+import { BookSelect, ChapterSelect } from '../../components';
 import SelectLanguage from '../SelectLanguage/SelectLanguage';
 import {
   AppBar,
@@ -9,8 +9,6 @@ import {
   MenuItem,
   Menu,
   IconButton,
-  Checkbox,
-  FormControlLabel,
   FormHelperText,
   FormControl,
   Typography,
@@ -34,7 +32,6 @@ function SubMenuBar() {
 
   const [anchorAddMaterial, setAnchorAddMaterial] = useState(null);
   const [anchorMainMenu, setAnchorMainMenu] = useState(null);
-  const [errorReport, setErrorReport] = useState(false);
 
   const uniqueResources = getUniqueResources(appConfig);
   const { t } = useTranslation();
@@ -58,9 +55,6 @@ function SubMenuBar() {
   const handleCloseAddMaterial = () => {
     setAnchorAddMaterial(null);
   };
-  const handleClickErrorReport = () => {
-    setErrorReport((prev) => !prev);
-  };
 
   return (
     <>
@@ -73,7 +67,7 @@ function SubMenuBar() {
             <BookSelect />
             <ChapterSelect />
           </div>
-          <div className={classes.report}>{errorReport ? <TypoReport /> : ''}</div>
+
           <IconButton
             edge="start"
             color="inherit"
@@ -107,17 +101,6 @@ function SubMenuBar() {
             </MenuItem>
             <MenuItem>
               <FormControl>
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      checked={errorReport}
-                      onChange={handleClickErrorReport}
-                      name="checkedA"
-                      color="primary"
-                    />
-                  }
-                  label={t('Error_report')}
-                ></FormControlLabel>
                 <FormHelperText>
                   {t('Text_under_checkbox_error1')}
                   <br />
