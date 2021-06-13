@@ -8,6 +8,7 @@ import { useTranslation } from 'react-i18next';
 import { bibleList } from '../../config';
 
 import { useStyles, useBookStyles } from './style';
+import { singleChaptersBookID } from '../../config';
 
 function BookList() {
   const { state } = useContext(ResourcesContext);
@@ -23,7 +24,9 @@ function BookList() {
       chapter: '1',
       verse: 1,
     });
-    setShowChapterSelect(true);
+    !singleChaptersBookID.includes(identifier)
+      ? setShowChapterSelect(true)
+      : setShowChapterSelect(false);
   };
   let uniqueBookID = new Set();
 

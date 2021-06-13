@@ -7,7 +7,7 @@ export const defaultCards = [
 ];
 
 export const defaultCard = { w: 4, h: 4, x: 0, y: 99, minH: 4, minW: 2 };
-
+export const singleChaptersBookID = ['oba', '2jn', '3jn', 'jud', 'phm'];
 export const defaultReference = {
   bookId: 'tit',
   chapter: 1,
