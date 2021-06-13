@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { AppContext } from '../../App.context';
 
 import {
+  Box,
   Button,
   Dialog,
   DialogTitle,
@@ -15,7 +16,14 @@ import {
 
 import useStyles from './style';
 
-function ReportDialog({ open, valueComment, handleChange, handleCancel, handleSend }) {
+function ReportDialog({
+  open,
+  valueComment,
+  handleChange,
+  handleCancel,
+  handleSend,
+  errorMessage,
+}) {
   const { state } = useContext(AppContext);
   const { referenceBlock } = state;
   const { t } = useTranslation();
@@ -28,7 +36,18 @@ function ReportDialog({ open, valueComment, handleChange, handleCancel, handleSe
       <DialogContent>
         <DialogContentText>{t('Text_to_editors')}</DialogContentText>
         <DialogContentText className={classes.select}>
-          {referenceBlock.text === '' ? wrongQuote : referenceBlock.text}
+          {referenceBlock?.text === '' ? wrongQuote : referenceBlock?.text}
+          <Box component="span" className={classes.ref}>
+            (
+            {referenceBlock?.type +
+              '/' +
+              referenceBlock?.bookId +
+              '/' +
+              referenceBlock?.chapter +
+              '/' +
+              referenceBlock?.verse}
+            )
+          </Box>
         </DialogContentText>
         <TextField
           autoFocus
@@ -40,6 +59,9 @@ function ReportDialog({ open, valueComment, handleChange, handleCancel, handleSe
           onChange={handleChange}
           fullWidth
         />
+        <DialogContentText className={classes.errorMessage}>
+          {errorMessage}
+        </DialogContentText>
       </DialogContent>
       <DialogActions className={classes.actions}>
         <Button
@@ -51,6 +73,7 @@ function ReportDialog({ open, valueComment, handleChange, handleCancel, handleSe
           {t('Cancel')}
         </Button>
         <Button
+          disabled={valueComment === '' || referenceBlock?.text === ''}
           onClick={handleSend}
           variant="contained"
           color="secondary"

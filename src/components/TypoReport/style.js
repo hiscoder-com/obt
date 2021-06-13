@@ -34,6 +34,13 @@ const useStyles = makeStyles((theme) => ({
     zIndex: theme.zIndex.drawer + 1,
     color: '#fff',
   },
+  errorMessage: {
+    color: 'red',
+  },
+  ref: {
+    textAlign: 'right',
+    fontWeight: 'bold',
+  },
 }));
 
 export default useStyles;

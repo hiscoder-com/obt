@@ -7,12 +7,12 @@ import { Button, Dialog, DialogActions, DialogContent, Link } from '@material-ui
 
 import useStyles from './style';
 
-function FinishDialog({ isOpen, onClose }) {
+function FinishDialog({ open, onClose }) {
   const { t } = useTranslation();
   const classes = useStyles();
 
   return (
-    <Dialog open={isOpen} onClose={onClose}>
+    <Dialog open={open} onClose={onClose}>
       <DialogContent className={classes.center}>
         <div>
           <img alt="logo friends" src={logo} />

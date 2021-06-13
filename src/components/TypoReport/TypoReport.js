@@ -16,6 +16,7 @@ export default function TypoReport() {
   const { setShowErrorReport } = actions;
 
   const [valueComment, setValueComment] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
   const [openBackdrop, setOpenBackdrop] = useState(false);
   const [openFinishDialog, setOpenFinishDialog] = useState(false);
 
@@ -31,24 +32,30 @@ export default function TypoReport() {
     setOpenBackdrop(true);
     setShowErrorReport(false);
     SendError({
-      reference: referenceBlock.chapter + ':' + referenceBlock.verse,
-      bookId: referenceBlock.bookId,
-      resource: referenceBlock.type,
+      reference: referenceBlock?.chapter + ':' + referenceBlock?.verse,
+      bookId: referenceBlock?.bookId,
+      resource: referenceBlock?.type,
       serverLink: 'http://localhost:4000/send',
       fields: {
         Note: valueComment,
-        Quote: referenceBlock.text,
+        Quote: referenceBlock?.text,
       },
     })
       .then((res) => {
-        console.log(res);
-        setValueComment('');
-        setOpenFinishDialog(true);
+        console.log('res', res);
         setOpenBackdrop(false);
+        if (res.success) {
+          setValueComment('');
+          setOpenFinishDialog(true);
+        } else {
+          setShowErrorReport(true);
+          setErrorMessage(res.message);
+        }
       })
       .catch((err) => {
         console.log('err', err);
-        setValueComment('');
+        setErrorMessage(err.message);
+        setShowErrorReport(true);
         setOpenBackdrop(false);
       });
   };
@@ -60,17 +67,18 @@ export default function TypoReport() {
 
   return (
     <>
+      <Backdrop className={classes.backdrop} open={openBackdrop}>
+        <CircularProgress color="inherit" />
+      </Backdrop>
       <ReportDialog
         open={showErrorReport}
         valueComment={valueComment}
         handleChange={handleChange}
         handleCancel={handleCancel}
         handleSend={handleSend}
+        errorMessage={errorMessage}
       />
-      <Backdrop className={classes.backdrop} open={openBackdrop}>
-        <CircularProgress color="inherit" />
-      </Backdrop>
-      <FinishDialog isOpen={openFinishDialog} onClose={handleCloseFinishDialog} />
+      <FinishDialog open={openFinishDialog} onClose={handleCloseFinishDialog} />
     </>
   );
 }
