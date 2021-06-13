@@ -16,21 +16,20 @@ const initialPosition = {
 
 export default function Chapter({ title, classes, onClose, type, reference }) {
   const { t } = useTranslation();
-  const [contextReference, setContextReference] = React.useState();
+
   const [position, setPosition] = React.useState(initialPosition);
   const { state } = React.useContext(ResourcesContext);
   const { actions } = React.useContext(AppContext);
-  const { setType, setQuote, setShowErrorReport } = actions;
+  const { setShowErrorReport, setReferenceBlock } = actions;
 
   let project = useMemo(() => {}, []);
 
-  const handleContextOpen = (event, ref) => {
+  const handleContextOpen = (event) => {
     event.preventDefault();
     setPosition({
       mouseX: event.clientX - 2,
       mouseY: event.clientY - 4,
     });
-    setContextReference(ref);
   };
 
   const handleContextClose = () => {
@@ -85,12 +84,15 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
         <span
           className="verse"
           key={key}
-          onClick={() => {
-            console.log({ ...reference, type, verse: key });
-            setQuote(getVerseText(verseObjects));
-            setType(type);
+          onContextMenu={(e) => {
+            setReferenceBlock({
+              ...reference,
+              type,
+              verse: key,
+              text: getVerseText(verseObjects),
+            });
+            handleContextOpen(e);
           }}
-          onContextMenu={(e) => handleContextOpen(e, { ...reference, type, verse: key })}
           style={{ cursor: 'context-menu' }}
         >
           <Verse
@@ -108,7 +110,7 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
       _verses.push(verse);
     }
     setVerses(_verses);
-  }, [chapter, reference, type, setType, setQuote]);
+  }, [chapter, reference, type, setReferenceBlock]);
 
   return (
     <Card
@@ -129,14 +131,9 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
             : undefined
         }
       >
-        <MenuItem onClick={handleContextClose}>
-          {contextReference?.type} {contextReference?.bookId} {contextReference?.chapter}:
-          {contextReference?.verse}
-        </MenuItem>
-        <MenuItem onClick={handleContextClose}>Copy Link</MenuItem>
         <MenuItem onClick={handleOpenError}>Send Error</MenuItem>
       </Menu>
-      {chapter ? verses : t('Loading')}
+      {chapter ? verses : t('No_content')}
     </Card>
   );
 }

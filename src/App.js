@@ -10,7 +10,7 @@ import useStyles from './style';
 
 export default function App() {
   const { state, actions } = useContext(AppContext);
-  const { appConfig, referenceSelected, showErrorReport } = state;
+  const { appConfig, referenceSelected } = state;
   const { setAppConfig } = actions;
   const classes = useStyles();
   const layout = {
@@ -29,7 +29,7 @@ export default function App() {
   return (
     <>
       <SubMenuBar />
-      {showErrorReport ? <TypoReport /> : ''}
+      <TypoReport />
       <Workspace
         gridMargin={[15, 15]}
         rowHeight={30}

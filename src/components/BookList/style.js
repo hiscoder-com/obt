@@ -8,10 +8,10 @@ export const useStyles = makeStyles((theme) => ({
       columnCount: 1,
     },
     [theme.breakpoints.only('sm')]: {
-      columnCount: 1,
+      columnCount: 2,
     },
     [theme.breakpoints.only('md')]: {
-      columnCount: 2,
+      columnCount: 3,
     },
     [theme.breakpoints.only('lg')]: {
       columnCount: 4,

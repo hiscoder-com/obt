@@ -12,49 +12,52 @@ import useStyles from './style';
 
 export default function TypoReport() {
   const { state, actions } = useContext(AppContext);
-  const { referenceSelected, type, quote, showErrorReport } = state;
+  const { showErrorReport, referenceBlock } = state;
   const { setShowErrorReport } = actions;
 
-  const [answer, setAnswer] = useState(null);
   const [valueComment, setValueComment] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
   const [openBackdrop, setOpenBackdrop] = useState(false);
-  const [open, setOpen] = useState(false);
+  const [openFinishDialog, setOpenFinishDialog] = useState(false);
 
   const handleChange = (e) => {
     setValueComment(e.target.value);
   };
-  const handleClickOpenFinishDialog = () => {
-    setOpen(true);
+
+  const handleCloseFinishDialog = () => {
+    setOpenFinishDialog(false);
   };
 
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  const handleSend = (openBackdrop) => {
-    setOpenBackdrop(!openBackdrop);
-    async function sendMyError() {
-      return SendError({
-        reference: referenceSelected.chapter + ':' + referenceSelected.verse,
-        bookId: referenceSelected.bookId,
-        resource: type,
-        serverLink: 'http://localhost:4000/send',
-        fields: {
-          Note: valueComment,
-          Quote: quote,
-        },
-      });
-    }
-    sendMyError()
-      .then((result) => {
-        setAnswer(JSON.stringify(result));
-        console.log(result);
-        setValueComment('');
-        setShowErrorReport(false);
+  const handleSend = () => {
+    setOpenBackdrop(true);
+    setShowErrorReport(false);
+    SendError({
+      reference: referenceBlock?.chapter + ':' + referenceBlock?.verse,
+      bookId: referenceBlock?.bookId,
+      resource: referenceBlock?.type,
+      serverLink: 'https://tsv-backend.herokuapp.com/send',
+      fields: {
+        Note: valueComment,
+        Quote: referenceBlock?.text,
+      },
+    })
+      .then((res) => {
+        console.log('res', res);
         setOpenBackdrop(false);
-        handleClickOpenFinishDialog();
+        if (res.success) {
+          setValueComment('');
+          setOpenFinishDialog(true);
+        } else {
+          setShowErrorReport(true);
+          setErrorMessage(res.message);
+        }
       })
-      .catch((error) => console.log(error));
+      .catch((err) => {
+        console.log('err', err);
+        setErrorMessage(err.message);
+        setShowErrorReport(true);
+        setOpenBackdrop(false);
+      });
   };
 
   function handleCancel() {
@@ -64,17 +67,18 @@ export default function TypoReport() {
 
   return (
     <>
+      <Backdrop className={classes.backdrop} open={openBackdrop}>
+        <CircularProgress color="inherit" />
+      </Backdrop>
       <ReportDialog
         open={showErrorReport}
         valueComment={valueComment}
         handleChange={handleChange}
         handleCancel={handleCancel}
         handleSend={handleSend}
+        errorMessage={errorMessage}
       />
-      <FinishDialog isOpen={open} onClose={handleClose} />
-      <Backdrop className={classes.backdrop} open={openBackdrop}>
-        <CircularProgress color="inherit" />
-      </Backdrop>
+      <FinishDialog open={openFinishDialog} onClose={handleCloseFinishDialog} />
     </>
   );
 }
