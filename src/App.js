@@ -25,6 +25,15 @@ export default function App() {
   const onClose = (index) => {
     setAppConfig((prev) => prev.filter((el) => el.i !== index));
   };
+  const card = appConfig.map((item) => (
+    <Card
+      classes={classes}
+      key={item.i}
+      onClose={() => onClose(item.i)}
+      reference={referenceSelected}
+      type={item.i}
+    />
+  ));
 
   return (
     <>
@@ -38,15 +47,7 @@ export default function App() {
         layout={layout}
         onLayoutChange={onLayoutChange}
       >
-        {appConfig.map((item) => (
-          <Card
-            classes={classes}
-            key={item.i}
-            onClose={() => onClose(item.i)}
-            reference={referenceSelected}
-            type={item.i}
-          />
-        ))}
+        {card}
       </Workspace>
     </>
   );

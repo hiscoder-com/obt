@@ -1,7 +1,8 @@
 import React from 'react';
 
-import logo from './friends.png';
 import { useTranslation } from 'react-i18next';
+
+import logo from './friends.png';
 
 import { Button, Dialog, DialogActions, DialogContent, Link } from '@material-ui/core';
 

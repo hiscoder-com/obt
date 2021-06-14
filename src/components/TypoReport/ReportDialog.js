@@ -30,23 +30,26 @@ function ReportDialog({
   const classes = useStyles();
   const wrongQuote = 'Вы не выбрали стих. Кликните по стиху';
 
+  const showReference =
+    referenceBlock?.type +
+    '/' +
+    referenceBlock?.bookId +
+    '/' +
+    referenceBlock?.chapter +
+    '/' +
+    referenceBlock?.verse;
+  const showReferenceText =
+    referenceBlock?.text === '' ? wrongQuote : referenceBlock?.text;
+
   return (
     <Dialog open={open} onClose={handleCancel}>
       <DialogTitle className={classes.title}>{t('Report_typo')}</DialogTitle>
       <DialogContent>
         <DialogContentText>{t('Text_to_editors')}</DialogContentText>
         <DialogContentText className={classes.select}>
-          {referenceBlock?.text === '' ? wrongQuote : referenceBlock?.text}
+          {showReferenceText}
           <Box component="span" className={classes.ref}>
-            (
-            {referenceBlock?.type +
-              '/' +
-              referenceBlock?.bookId +
-              '/' +
-              referenceBlock?.chapter +
-              '/' +
-              referenceBlock?.verse}
-            )
+            ({showReference})
           </Box>
         </DialogContentText>
         <TextField

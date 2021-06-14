@@ -1,13 +1,14 @@
 import React, { useState, useMemo, useEffect } from 'react';
+
 import { Card } from 'translation-helps-rcl';
 import { Verse, ResourcesContext } from 'scripture-resources-rcl';
 import { useTranslation } from 'react-i18next';
+
 import { AppContext } from '../../App.context';
-import { Menu, MenuItem } from '@material-ui/core';
-
 import { getVerseText } from '../../helper';
-
 import { resourcesList } from '../../config';
+
+import { Menu, MenuItem } from '@material-ui/core';
 
 const initialPosition = {
   mouseX: null,
@@ -21,6 +22,9 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
   const { state } = React.useContext(ResourcesContext);
   const { actions } = React.useContext(AppContext);
   const { setShowErrorReport, setReferenceBlock } = actions;
+
+  const [chapter, setChapter] = useState();
+  const [verses, setVerses] = useState();
 
   let project = useMemo(() => {}, []);
 
@@ -40,9 +44,6 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
     setShowErrorReport(true);
     setPosition(initialPosition);
   };
-
-  const [chapter, setChapter] = useState();
-  const [verses, setVerses] = useState();
 
   const resource = resourcesList[type];
 

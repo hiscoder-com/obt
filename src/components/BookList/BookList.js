@@ -1,14 +1,13 @@
 import React, { useContext } from 'react';
 
-import { AppContext } from '../../App.context';
-import { ResourcesContext } from 'scripture-resources-rcl';
-import { BibleBookList as BibleBookListRCL } from '@texttree/tt-reference-rcl';
-
 import { useTranslation } from 'react-i18next';
-import { bibleList } from '../../config';
+import { ResourcesContext } from 'scripture-resources-rcl';
+
+import { AppContext } from '../../App.context';
+import { BibleBookList as BibleBookListRCL } from '@texttree/tt-reference-rcl';
+import { bibleList, singleChaptersBookID } from '../../config';
 
 import { useStyles, useBookStyles } from './style';
-import { singleChaptersBookID } from '../../config';
 
 function BookList() {
   const { state } = useContext(ResourcesContext);
