@@ -7,7 +7,7 @@ import { resourcesList, server } from '../../config';
 export default function SupportTQ(props) {
   const { title, classes, onClose, type } = props;
   const appContext = useContext(AppContext);
-  const { referenceSelected } = appContext.state;
+  const { referenceSelected, fontSize } = appContext.state;
 
   const {
     markdown,
@@ -31,8 +31,8 @@ export default function SupportTQ(props) {
   });
 
   const {
-    state: { item, headers, filters, fontSize, itemIndex, markdownView },
-    actions: { setFilters, setFontSize, setItemIndex, setMarkdownView },
+    state: { item, headers, filters, itemIndex, markdownView },
+    actions: { setFilters, setItemIndex, setMarkdownView },
   } = useCardState({
     items,
   });
@@ -45,10 +45,9 @@ export default function SupportTQ(props) {
       items={items}
       headers={headers}
       filters={filters}
-      fontSize={fontSize}
+      fontSize={+fontSize}
       itemIndex={itemIndex}
       setFilters={setFilters}
-      setFontSize={setFontSize}
       setItemIndex={setItemIndex}
       markdownView={markdownView}
       setMarkdownView={setMarkdownView}
@@ -56,7 +55,7 @@ export default function SupportTQ(props) {
       <CardContent
         item={item}
         filters={filters}
-        fontSize={fontSize}
+        fontSize={+fontSize}
         markdown={markdown}
         viewMode="question"
         isLoading={isLoading}

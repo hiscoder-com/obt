@@ -7,7 +7,7 @@ import { resourcesList, server } from '../../config';
 export default function SupportTN(props) {
   const { title, classes, onClose, type } = props;
   const appContext = useContext(AppContext);
-  const { referenceSelected } = appContext.state;
+  const { referenceSelected, fontSize } = appContext.state;
   const [selectedQuote, setQuote] = useState({});
   const {
     markdown,
@@ -39,6 +39,7 @@ export default function SupportTN(props) {
       onClose={() => onClose(type)}
       classes={classes}
       items={items}
+      fontSize={+fontSize}
       headers={headers}
       filters={['OrigQuote', 'GLQuote', 'OccurrenceNote']}
       itemIndex={itemIndex}
@@ -51,6 +52,7 @@ export default function SupportTN(props) {
         viewMode="table"
         filters={['OrigQuote', 'GLQuote', 'OccurrenceNote']}
         markdown={markdown}
+        fontSize={+fontSize}
         isLoading={isLoading}
         languageId={languageId}
         markdownView={markdownView}

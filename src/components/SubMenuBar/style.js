@@ -12,6 +12,9 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'row',
   },
+  input: {
+    width: '100%',
+  },
 }));
 
 export default useStyles;

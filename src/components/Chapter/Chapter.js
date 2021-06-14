@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo, useEffect, useContext } from 'react';
 import { Card } from 'translation-helps-rcl';
 import { Verse, ResourcesContext } from 'scripture-resources-rcl';
 import { useTranslation } from 'react-i18next';
@@ -17,10 +17,12 @@ const initialPosition = {
 export default function Chapter({ title, classes, onClose, type, reference }) {
   const { t } = useTranslation();
 
-  const [position, setPosition] = React.useState(initialPosition);
-  const { state } = React.useContext(ResourcesContext);
-  const { actions } = React.useContext(AppContext);
+  const [position, setPosition] = useState(initialPosition);
+  const { state } = useContext(ResourcesContext);
+  const { actions } = useContext(AppContext);
   const { setShowErrorReport, setReferenceBlock } = actions;
+  const appContext = useContext(AppContext);
+  const { fontSize } = appContext.state;
 
   let project = useMemo(() => {}, []);
 
@@ -43,7 +45,10 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
 
   const [chapter, setChapter] = useState();
   const [verses, setVerses] = useState();
-
+  const divStyle = {
+    fontSize: fontSize + '%',
+    cursor: 'context-menu',
+  };
   const resource = resourcesList[type];
 
   if (state?.resources) {
@@ -82,6 +87,7 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
 
       const verse = (
         <span
+          style={divStyle}
           className="verse"
           key={key}
           onContextMenu={(e) => {
@@ -93,7 +99,6 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
             });
             handleContextOpen(e);
           }}
-          style={{ cursor: 'context-menu' }}
         >
           <Verse
             verseKey={key}
@@ -110,7 +115,7 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
       _verses.push(verse);
     }
     setVerses(_verses);
-  }, [chapter, reference, type, setReferenceBlock]);
+  }, [chapter, reference, type, setReferenceBlock, fontSize]);
 
   return (
     <Card

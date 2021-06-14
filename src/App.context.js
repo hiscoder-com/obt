@@ -41,6 +41,7 @@ export function AppContextProvider({ children }) {
   const [showBookSelect, setShowBookSelect] = useState(true);
   const [showChapterSelect, setShowChapterSelect] = useState(false);
   const [showErrorReport, setShowErrorReport] = useState(false);
+  const [fontSize, setFontSize] = useState(100);
 
   useEffect(() => {
     setResourceLinks(getResources(appConfig));
@@ -69,6 +70,7 @@ export function AppContextProvider({ children }) {
       showChapterSelect,
       showErrorReport,
       referenceBlock,
+      fontSize,
     },
     actions: {
       setAppConfig,
@@ -79,6 +81,7 @@ export function AppContextProvider({ children }) {
       setShowChapterSelect,
       setShowErrorReport,
       setReferenceBlock,
+      setFontSize,
     },
   };
 

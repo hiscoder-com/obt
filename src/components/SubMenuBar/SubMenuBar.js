@@ -25,8 +25,8 @@ import { defaultCard } from '../../config';
 
 function SubMenuBar() {
   const { state, actions } = useContext(AppContext);
-  const { appConfig } = state;
-  const { setAppConfig } = actions;
+  const { appConfig, fontSize } = state;
+  const { setAppConfig, setFontSize } = actions;
 
   const classes = useStyles();
 
@@ -54,6 +54,10 @@ function SubMenuBar() {
   };
   const handleCloseAddMaterial = () => {
     setAnchorAddMaterial(null);
+  };
+
+  const handleChangeFontSize = (e) => {
+    setFontSize(e.target.value);
   };
 
   return (
@@ -98,6 +102,16 @@ function SubMenuBar() {
             </MenuItem>
             <MenuItem onClick={handleClickAddMaterial}>
               <AddIcon size={'small'} /> {t('Add_material')}
+            </MenuItem>
+            <MenuItem>
+              <input
+                className={classes.input}
+                type="range"
+                min={50}
+                max={150}
+                defaultValue={fontSize}
+                onInput={handleChangeFontSize}
+              />
             </MenuItem>
             <MenuItem>
               <FormControl>
