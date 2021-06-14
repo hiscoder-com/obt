@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
 
 import { useTranslation } from 'react-i18next';
+import { Chapter as ChapterRCL } from '@texttree/tt-reference-rcl';
 
 import { AppContext } from '../../App.context';
 import { ChapterList } from '../ChapterList';
-import { Chapter as ChapterRCL } from '@texttree/tt-reference-rcl';
 
 import { Dialog, DialogContent } from '@material-ui/core';
 import useStyles from './style';

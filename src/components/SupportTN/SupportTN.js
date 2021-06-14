@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
 
 import { Card, CardContent, useContent, useCardState } from 'translation-helps-rcl';
+
 import { AppContext } from '../../App.context';
 import { resourcesList, server } from '../../config';
 
@@ -32,6 +33,8 @@ export default function SupportTN(props) {
     items,
   });
 
+  const filterArray = ['OrigQuote', 'GLQuote', 'OccurrenceNote'];
+
   return (
     <Card
       closeable
@@ -40,7 +43,7 @@ export default function SupportTN(props) {
       classes={classes}
       items={items}
       headers={headers}
-      filters={['OrigQuote', 'GLQuote', 'OccurrenceNote']}
+      filters={filterArray}
       itemIndex={itemIndex}
       setItemIndex={setItemIndex}
       markdownView={markdownView}
@@ -49,7 +52,7 @@ export default function SupportTN(props) {
       <CardContent
         item={item}
         viewMode="table"
-        filters={['OrigQuote', 'GLQuote', 'OccurrenceNote']}
+        filters={filterArray}
         markdown={markdown}
         isLoading={isLoading}
         languageId={languageId}

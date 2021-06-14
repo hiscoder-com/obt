@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import './i18next';
 
+import './i18next';
 import App from './App';
 import { AppContextProvider } from './App.context';
 

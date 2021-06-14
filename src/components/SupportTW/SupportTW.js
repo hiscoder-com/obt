@@ -52,7 +52,6 @@ export default function SupportTW(props) {
     >
       <CardContent
         item={item}
-        //        viewMode="table"
         viewMode={'markdown'}
         filters={filters}
         fontSize={fontSize}

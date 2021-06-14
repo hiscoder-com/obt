@@ -2,9 +2,9 @@ import React, { useContext } from 'react';
 
 import { useTranslation } from 'react-i18next';
 import { ResourcesContext } from 'scripture-resources-rcl';
+import { BibleBookList as BibleBookListRCL } from '@texttree/tt-reference-rcl';
 
 import { AppContext } from '../../App.context';
-import { BibleBookList as BibleBookListRCL } from '@texttree/tt-reference-rcl';
 import { bibleList, singleChaptersBookID } from '../../config';
 
 import { useStyles, useBookStyles } from './style';
@@ -13,8 +13,11 @@ function BookList() {
   const { state } = useContext(ResourcesContext);
   const appContext = useContext(AppContext);
   const { referenceSelected } = appContext.state;
-  const { setShowBookSelect, setReferenceSelected, setShowChapterSelect } =
-    appContext.actions;
+  const {
+    setShowBookSelect,
+    setReferenceSelected,
+    setShowChapterSelect,
+  } = appContext.actions;
 
   const onBook = (identifier) => {
     setShowBookSelect(false);

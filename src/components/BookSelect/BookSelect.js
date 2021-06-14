@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
 
 import { useTranslation } from 'react-i18next';
+import { Book as BookRCL } from '@texttree/tt-reference-rcl';
 
 import { AppContext } from '../../App.context';
 import BookList from '../BookList/BookList';
-import { Book as BookRCL } from '@texttree/tt-reference-rcl';
 
 import { Dialog, DialogContent } from '@material-ui/core';
 import useBookStyles from './style';

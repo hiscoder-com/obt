@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 
 import { useTranslation } from 'react-i18next';
+
 import { AppContext } from '../../App.context';
 
 import {
@@ -13,7 +14,6 @@ import {
   DialogContentText,
   TextField,
 } from '@material-ui/core';
-
 import useStyles from './style';
 
 function ReportDialog({
@@ -28,7 +28,6 @@ function ReportDialog({
   const { referenceBlock } = state;
   const { t } = useTranslation();
   const classes = useStyles();
-  const wrongQuote = 'Вы не выбрали стих. Кликните по стиху';
 
   const showReference =
     referenceBlock?.type +
@@ -38,8 +37,7 @@ function ReportDialog({
     referenceBlock?.chapter +
     '/' +
     referenceBlock?.verse;
-  const showReferenceText =
-    referenceBlock?.text === '' ? wrongQuote : referenceBlock?.text;
+  const showReferenceText = referenceBlock?.text;
 
   return (
     <Dialog open={open} onClose={handleCancel}>
