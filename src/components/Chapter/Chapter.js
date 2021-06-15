@@ -84,7 +84,10 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
         continue;
       }
       const { verseObjects } = chapter[key];
-
+      const divStyle = {
+        fontSize: fontSize + '%',
+        cursor: 'context-menu',
+      };
       const verse = (
         <span
           style={divStyle}
