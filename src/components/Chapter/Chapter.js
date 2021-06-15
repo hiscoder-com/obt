@@ -45,10 +45,7 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
 
   const [chapter, setChapter] = useState();
   const [verses, setVerses] = useState();
-  const divStyle = {
-    fontSize: fontSize + '%',
-    cursor: 'context-menu',
-  };
+
   const resource = resourcesList[type];
 
   if (state?.resources) {
@@ -86,10 +83,11 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
       const { verseObjects } = chapter[key];
       const divStyle = {
         fontSize: fontSize + '%',
+        cursor: 'context-menu',
       };
       const verse = (
         <span
-          style={(divStyle, { cursor: 'context-menu' })}
+          style={divStyle}
           className="verse"
           key={key}
           onContextMenu={(e) => {
