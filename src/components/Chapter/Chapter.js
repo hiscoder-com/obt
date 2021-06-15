@@ -86,11 +86,10 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
       const { verseObjects } = chapter[key];
       const divStyle = {
         fontSize: fontSize + '%',
-        cursor: 'context-menu',
       };
       const verse = (
         <span
-          style={divStyle}
+          style={(divStyle, { cursor: 'context-menu' })}
           className="verse"
           key={key}
           onContextMenu={(e) => {
