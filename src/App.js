@@ -17,14 +17,23 @@ export default function App() {
     absolute: appConfig,
   };
 
-  function onLayoutChange(newLayout) {
+  const onLayoutChange = (newLayout) => {
     localStorage.setItem('appConfig', JSON.stringify(newLayout));
     setAppConfig(newLayout);
-  }
+  };
 
   const onClose = (index) => {
     setAppConfig((prev) => prev.filter((el) => el.i !== index));
   };
+  const cards = appConfig.map((item) => (
+    <Card
+      classes={classes}
+      key={item.i}
+      onClose={() => onClose(item.i)}
+      reference={referenceSelected}
+      type={item.i}
+    />
+  ));
 
   return (
     <>
@@ -38,15 +47,7 @@ export default function App() {
         layout={layout}
         onLayoutChange={onLayoutChange}
       >
-        {appConfig.map((item) => (
-          <Card
-            classes={classes}
-            key={item.i}
-            onClose={() => onClose(item.i)}
-            reference={referenceSelected}
-            type={item.i}
-          />
-        ))}
+        {cards}
       </Workspace>
     </>
   );
