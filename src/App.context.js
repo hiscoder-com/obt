@@ -20,6 +20,8 @@ let _reference = localStorage.getItem('reference')
   ? JSON.parse(localStorage.getItem('reference'))
   : defaultReference;
 
+let _fontSize = localStorage.getItem('fontSize');
+
 const config = { server };
 
 export function AppContextProvider({ children }) {
@@ -41,7 +43,8 @@ export function AppContextProvider({ children }) {
   const [showBookSelect, setShowBookSelect] = useState(true);
   const [showChapterSelect, setShowChapterSelect] = useState(false);
   const [showErrorReport, setShowErrorReport] = useState(false);
-  const [fontSize, setFontSize] = useState(100);
+  const [fontSize, setFontSize] = useState(_fontSize ? _fontSize : 100);
+  localStorage.setItem('fontSize', fontSize);
 
   useEffect(() => {
     setResourceLinks(getResources(appConfig));

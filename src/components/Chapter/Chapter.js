@@ -19,10 +19,10 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
 
   const [position, setPosition] = useState(initialPosition);
   const { state } = useContext(ResourcesContext);
-  const { actions } = useContext(AppContext);
-  const { setShowErrorReport, setReferenceBlock } = actions;
-  const appContext = useContext(AppContext);
-  const { fontSize } = appContext.state;
+  const {
+    actions: { setShowErrorReport, setReferenceBlock },
+    state: { fontSize },
+  } = useContext(AppContext);
 
   let project = useMemo(() => {}, []);
 
@@ -81,13 +81,13 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
         continue;
       }
       const { verseObjects } = chapter[key];
-      const divStyle = {
+      const verseStyle = {
         fontSize: fontSize + '%',
         cursor: 'context-menu',
       };
       const verse = (
         <span
-          style={divStyle}
+          style={verseStyle}
           className="verse"
           key={key}
           onContextMenu={(e) => {
