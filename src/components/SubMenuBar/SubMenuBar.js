@@ -1,13 +1,10 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 
 import { useTranslation } from 'react-i18next';
 
-import { AppContext } from '../../App.context';
 import { BookSelect, ChapterSelect } from '../../components';
 import SelectLanguage from '../SelectLanguage/SelectLanguage';
 import { SearchResources } from '../SearchResources';
-import { getUniqueResources } from '../../helper';
-import { defaultCard } from '../../config';
 
 import {
   AppBar,
@@ -24,22 +21,12 @@ import MenuIcon from '@material-ui/icons/Menu';
 import useStyles from './style';
 
 function SubMenuBar() {
-  const { state, actions } = useContext(AppContext);
-  const { appConfig } = state;
-  const { setAppConfig } = actions;
-
   const classes = useStyles();
 
   const [anchorAddMaterial, setAnchorAddMaterial] = useState(null);
   const [anchorMainMenu, setAnchorMainMenu] = useState(null);
 
-  const uniqueResources = getUniqueResources(appConfig);
   const { t } = useTranslation();
-
-  const handleAddMaterial = (item) => {
-    setAppConfig((prev) => prev.concat({ ...defaultCard, i: item }));
-    handleCloseAddMaterial();
-  };
 
   const handleClickAddMaterial = (event) => {
     setAnchorAddMaterial(event.currentTarget);
@@ -55,11 +42,7 @@ function SubMenuBar() {
   const handleCloseAddMaterial = () => {
     setAnchorAddMaterial(null);
   };
-  const menuItems = Object.keys(uniqueResources).map((keyName, index) => (
-    <MenuItem key={index} onClick={() => handleAddMaterial(keyName)}>
-      {t(keyName)}
-    </MenuItem>
-  ));
+
   return (
     <>
       <AppBar position="relative">
@@ -113,16 +96,11 @@ function SubMenuBar() {
               </FormControl>
             </MenuItem>
           </Menu>
-          <Menu
-            color="transparent"
+          <SearchResources
             anchorEl={anchorAddMaterial}
-            keepMounted
-            open={Boolean(anchorAddMaterial)}
             onClose={handleCloseAddMaterial}
-          >
-            <SearchResources />
-            {menuItems}
-          </Menu>
+            open={Boolean(anchorAddMaterial)}
+          />
         </Toolbar>
       </AppBar>
     </>

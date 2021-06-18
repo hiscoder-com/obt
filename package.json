@@ -1,6 +1,6 @@
 {
   "name": "bsa-app",
-  "version": "0.1.0",
+  "version": "1.1.0",
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.11.4",
@@ -9,6 +9,7 @@
     "@material-ui/styles": "^4.11.4",
     "@texttree/tt-reference-rcl": "^1.0.1",
     "axios": "^0.21.1",
+    "axios-cache-adapter": "^2.4.1",
     "i18next": "^20.3.1",
     "i18next-browser-languagedetector": "^6.1.2",
     "i18next-http-backend": "^1.2.6",

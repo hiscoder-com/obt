@@ -1,56 +1,63 @@
-import React, { /*useContext,*/ useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 
-//import { useTranslation } from 'react-i18next';
-//import { ResourcesContext } from 'scripture-resources-rcl';
+import { useTranslation } from 'react-i18next';
 
 import axios from 'axios';
+import { setupCache } from 'axios-cache-adapter';
 
-//import { AppContext } from '../../App.context';
+import { AppContext } from '../../App.context';
 import { langs, subjects } from './config';
 
-import { MenuItem } from '@material-ui/core';
+import { MenuItem, Menu } from '@material-ui/core';
+import { defaultCard } from '../../config';
+
+import { getUniqueResources } from '../../helper';
 
 import { useStyles } from './style';
 
-function SearchResources() {
-  //  const { state } = useContext(ResourcesContext);
-  //  const {
-  //    state: { referenceSelected },
-  //    actions,
-  //  } = useContext(AppContext);
+function SearchResources({ anchorEl, onClose, open }) {
+  const {
+    state: { appConfig, resourcesApp },
+    actions: { setAppConfig, setResourcesApp },
+  } = useContext(AppContext);
 
-  //const { t } = useTranslation();
+  const { t } = useTranslation();
   const classes = useStyles();
 
   const [currentLang] = useState(langs[0]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [resources, setResources] = useState([]);
-  /*'https://git.door43.org/api/catalog/v5/search?owner=Door43-Catalog&includeMetadata=true&showIngredients=true&sort=title&limit=50&page=' +
-          currentPage*/
+
+  const uniqueResources = getUniqueResources(appConfig, resourcesApp);
+
+  const handleAddMaterial = (item) => {
+    setAppConfig((prev) => prev.concat({ ...defaultCard, i: item.name }));
+    onClose();
+  };
+  /*'https://git.door43.org/api/catalog/v5/search?owner=Door43-Catalog&sort=title&limit=50&page=' + currentPage*/
   useEffect(() => {
     axios
-      .get(
-        'https://git.door43.org/api/v1/repos/search?owner=Door43-catalog&page=' +
-          currentPage
-      )
+      .create({
+        adapter: setupCache({
+          maxAge: 15 * 60 * 1000,
+        }).adapter,
+      })
+      .get('https://git.door43.org/api/v1/repos/search?owner=Door43-catalog')
       .then((res) => {
         const result = res.data.data.map((el) => {
           return {
             id: el.id,
-            language: el.language,
+            languageId: el.language,
             name: el.name,
             subject: el.subject,
             title: el.title,
-            //metadata_json_url: el.metadata_json_url,
-            //books: el.books,
-            //ingredients: el.ingredients,
+            branch: el.default_branch,
+            link: el.full_name + '/' + el.default_branch,
           };
         });
-        setResources(
+        setResourcesApp(
           result.filter(
             (el) =>
-              el.language !== '' &&
-              langs.includes(el.language) &&
+              el.languageId !== '' &&
+              langs.includes(el.languageId) &&
               el.subject !== '' &&
               subjects.includes(el.subject)
           )
@@ -58,20 +65,24 @@ function SearchResources() {
       })
       .catch((err) => console.log(err));
     return () => {};
-  }, [currentLang, currentPage]);
+  }, [currentLang, setResourcesApp]);
 
-  const handleClick = () => {
-    setCurrentPage((old) => parseInt(old) + 1);
-  };
+  const menuItems = uniqueResources.map((el) => (
+    <MenuItem key={el.id} classes={classes} onClick={() => handleAddMaterial(el)}>
+      {t(el.languageId)} - {el.title}
+    </MenuItem>
+  ));
 
   return (
-    <>
-      {resources.map((el) => (
-        <MenuItem key={el.id} classes={classes} onClick={handleClick}>
-          {el.language} - {el.title}
-        </MenuItem>
-      ))}
-    </>
+    <Menu
+      color="transparent"
+      anchorEl={anchorEl}
+      keepMounted
+      open={open}
+      onClose={onClose}
+    >
+      {menuItems}
+    </Menu>
   );
 }
 

@@ -1,26 +1,25 @@
-import { resourcesList } from './config';
-
-export const getResources = (appConfig) => {
+export const getResources = (appConfig, resourcesApp) => {
   const resources = [];
   if (appConfig.length > 0) {
     appConfig.forEach((el) => {
-      if (resourcesList[el.i]?.type === 'bible') {
-        resources.push(resourcesList[el.i].link);
+      if (
+        resourcesApp[el.i]?.subject &&
+        [('Bible', 'Aligned Bible')].includes(resourcesApp[el.i]?.subject)
+      ) {
+        resources.push(resourcesApp[el.i].link);
       }
     });
   }
-  resources === [] && resources.push(resourcesList['rob'].link);
+  resources.length === 0 && resources.push('Door43-catalog/ru_rob/master');
   return resources;
 };
 
-export const getUniqueResources = (appConfig) => {
-  const resources = { ...resourcesList };
-  if (appConfig.length > 0) {
-    appConfig.forEach((el) => {
-      delete resources[el.i];
-    });
+export const getUniqueResources = (appConfig, resourcesApp) => {
+  if (appConfig.length === 0) {
+    return resourcesApp;
   }
-  return resources;
+  const opened = appConfig.map((el) => el.i);
+  return resourcesApp.filter((el) => !opened.includes(el.name));
 };
 
 // +

@@ -13,11 +13,8 @@ function BookList() {
   const { state } = useContext(ResourcesContext);
   const appContext = useContext(AppContext);
   const { referenceSelected } = appContext.state;
-  const {
-    setShowBookSelect,
-    setReferenceSelected,
-    setShowChapterSelect,
-  } = appContext.actions;
+  const { setShowBookSelect, setReferenceSelected, setShowChapterSelect } =
+    appContext.actions;
 
   const onBook = (identifier) => {
     setShowBookSelect(false);

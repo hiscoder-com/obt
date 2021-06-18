@@ -60,8 +60,8 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
       project
         .parseUsfm()
         .then((result) => {
-          if (Object.keys(result.chapters).length > 0) {
-            setChapter(result.chapters[reference.chapter]);
+          if (Object.keys(result.json.chapters).length > 0) {
+            setChapter(result.json.chapters[reference.chapter]);
           }
         })
         .catch((error) => console.log(error));

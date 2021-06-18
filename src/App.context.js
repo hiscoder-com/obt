@@ -20,6 +20,10 @@ let _reference = localStorage.getItem('reference')
   ? JSON.parse(localStorage.getItem('reference'))
   : defaultReference;
 
+let _resourcesApp = localStorage.getItem('resourcesApp')
+  ? JSON.parse(localStorage.getItem('resourcesApp'))
+  : [];
+
 const config = { server };
 
 export function AppContextProvider({ children }) {
@@ -34,8 +38,10 @@ export function AppContextProvider({ children }) {
     verse: currentLocation[3] ?? _reference.verse ?? 1,
   });
 
+  const [resourcesApp, setResourcesApp] = useState(_resourcesApp);
+
   const [referenceBlock, setReferenceBlock] = useState({});
-  const _resourceLinks = getResources(appConfig);
+  const _resourceLinks = getResources(appConfig, resourcesApp);
   const [resourceLinks, setResourceLinks] = useState(_resourceLinks);
   const [resources, setResources] = useState([]);
   const [showBookSelect, setShowBookSelect] = useState(true);
@@ -43,8 +49,12 @@ export function AppContextProvider({ children }) {
   const [showErrorReport, setShowErrorReport] = useState(false);
 
   useEffect(() => {
-    setResourceLinks(getResources(appConfig));
-  }, [appConfig]);
+    setResourceLinks(getResources(appConfig, resourcesApp));
+  }, [appConfig, resourcesApp]);
+
+  useEffect(() => {
+    localStorage.setItem('resourcesApp', JSON.stringify(resourcesApp));
+  }, [resourcesApp]);
 
   useEffect(() => {
     localStorage.setItem('reference', JSON.stringify(referenceSelected));
@@ -63,6 +73,7 @@ export function AppContextProvider({ children }) {
       appConfig,
       referenceSelected,
       resourceLinks,
+      resourcesApp,
       resources,
       _resourceLinks,
       showBookSelect,
@@ -74,6 +85,7 @@ export function AppContextProvider({ children }) {
       setAppConfig,
       setReferenceSelected,
       setResourceLinks,
+      setResourcesApp,
       setResources,
       setShowBookSelect,
       setShowChapterSelect,

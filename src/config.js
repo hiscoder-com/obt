@@ -1,9 +1,9 @@
 export const server = 'https://git.door43.org';
 
 export const defaultCards = [
-  { w: 4, h: 9, x: 0, y: 0, i: 'rob', minH: 4, minW: 2 },
-  { w: 4, h: 9, x: 4, y: 0, i: 'rsb', minH: 4, minW: 2 },
-  { w: 4, h: 9, x: 8, y: 0, i: 'tn', minH: 4, minW: 2 },
+  { w: 4, h: 9, x: 0, y: 0, i: 'ru_rob', minH: 4, minW: 2 },
+  { w: 4, h: 9, x: 4, y: 0, i: 'ru_rsb', minH: 4, minW: 2 },
+  { w: 4, h: 9, x: 8, y: 0, i: 'ru_tn', minH: 4, minW: 2 },
 ];
 
 export const defaultCard = { w: 4, h: 4, x: 0, y: 99, minH: 4, minW: 2 };
@@ -15,90 +15,106 @@ export const defaultReference = {
 };
 
 export const resourcesList = {
-  rob: {
+  ru_rob: {
     link: 'Door43-Catalog/ru_rob/master',
     branch: 'master',
-    type: 'bible',
+    subject: 'Bible',
     languageId: 'ru',
     resourceId: 'rob',
     owner: 'Door43-Catalog',
   },
-  rsb: {
+  ru_rsb: {
     link: 'Door43-Catalog/ru_rsb/master',
     branch: 'master',
-    type: 'bible',
+    subject: 'Bible',
     languageId: 'ru',
     resourceId: 'rsb',
     owner: 'Door43-Catalog',
   },
-  rlob: {
+  ru_rlob: {
     link: 'Door43-Catalog/ru_rlob/master',
     branch: 'master',
-    type: 'bible',
+    subject: 'Bible',
     languageId: 'ru',
     resourceId: 'rlob',
     owner: 'Door43-Catalog',
   },
-  rsob: {
+  ru_rsob: {
     link: 'Door43-Catalog/ru_rsob/master',
     branch: 'master',
-    type: 'bible',
+    subject: 'Bible',
     languageId: 'ru',
     resourceId: 'rsob',
     owner: 'Door43-Catalog',
   },
-  ugnt: {
+  'el-x-koine_ugnt': {
     link: 'Door43-Catalog/el-x-koine_ugnt/master',
     branch: 'master',
-    type: 'bible',
+    subject: 'Bible',
     languageId: 'el-x-koine',
     resourceId: 'ugnt',
     owner: 'Door43-Catalog',
   },
-  uhb: {
+  hbo_uhb: {
     link: 'Door43-Catalog/hbo_uhb/master',
     branch: 'master',
-    type: 'bible',
+    subject: 'Bible',
     languageId: 'hbo',
     resourceId: 'uhb',
     owner: 'Door43-Catalog',
   },
-  ult: {
+  en_ult: {
     link: 'Door43-Catalog/en_ult/master',
     branch: 'master',
-    type: 'bible',
+    subject: 'Bible',
     languageId: 'en',
     resourceId: 'ult',
     owner: 'Door43-Catalog',
   },
-  ust: {
+  en_ust: {
     link: 'Door43-Catalog/en_ust/master',
     branch: 'master',
-    type: 'bible',
+    subject: 'Bible',
     languageId: 'en',
     resourceId: 'ust',
     owner: 'Door43-Catalog',
   },
-  tn: {
+  ru_tn: {
     link: 'Door43-Catalog/ru_tn/master',
     branch: 'master',
-    type: 'support',
+    subject: 'Bupport',
     languageId: 'ru',
     resourceId: 'tn',
     owner: 'Door43-Catalog',
   },
-  tq: {
+  ru_tq: {
     link: 'Door43-Catalog/ru_tq/master',
     branch: 'master',
-    type: 'support',
+    subject: 'Bupport',
     languageId: 'ru',
+    resourceId: 'tq',
+    owner: 'Door43-Catalog',
+  },
+  en_tn: {
+    link: 'Door43-Catalog/en_tn/master',
+    branch: 'master',
+    subject: 'Bupport',
+    languageId: 'en',
+    resourceId: 'tn',
+    owner: 'Door43-Catalog',
+  },
+  en_tq: {
+    link: 'Door43-Catalog/en_tq/master',
+    branch: 'master',
+    subject: 'Bupport',
+    languageId: 'en',
     resourceId: 'tq',
     owner: 'Door43-Catalog',
   },
   /*  tw: {
     link: 'Door43-Catalog/ru_tw/master',
     branch: 'master',
-    type: 'support',
+    subject: 'Bupport',
     languageId: 'ru',
     resourceId: 'tw',
     owner: 'Door43-Catalog',
