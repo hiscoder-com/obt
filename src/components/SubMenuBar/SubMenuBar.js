@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { AppContext } from '../../App.context';
 import { BookSelect, ChapterSelect } from '../../components';
 import SelectLanguage from '../SelectLanguage/SelectLanguage';
+import { SearchResources } from '../SearchResources';
 import { getUniqueResources } from '../../helper';
 import { defaultCard } from '../../config';
 
@@ -119,6 +120,7 @@ function SubMenuBar() {
             open={Boolean(anchorAddMaterial)}
             onClose={handleCloseAddMaterial}
           >
+            <SearchResources />
             {menuItems}
           </Menu>
         </Toolbar>
