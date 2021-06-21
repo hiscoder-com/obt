@@ -50,6 +50,7 @@ function SearchResources({ anchorEl, onClose, open }) {
             subject: el.subject,
             title: el.title,
             branch: el.default_branch,
+            owner: el.owner.username.toString().toLowerCase(),
             link: el.full_name + '/' + el.default_branch,
           };
         });

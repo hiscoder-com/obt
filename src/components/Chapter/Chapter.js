@@ -6,7 +6,6 @@ import { useTranslation } from 'react-i18next';
 
 import { AppContext } from '../../App.context';
 import { getVerseText } from '../../helper';
-import { resourcesList } from '../../config';
 
 import { Menu, MenuItem } from '@material-ui/core';
 
@@ -20,8 +19,10 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
 
   const [position, setPosition] = React.useState(initialPosition);
   const { state } = React.useContext(ResourcesContext);
-  const { actions } = React.useContext(AppContext);
-  const { setShowErrorReport, setReferenceBlock } = actions;
+  const {
+    state: { resourcesApp },
+    actions: { setShowErrorReport, setReferenceBlock },
+  } = React.useContext(AppContext);
 
   const [chapter, setChapter] = useState();
   const [verses, setVerses] = useState();
@@ -45,12 +46,22 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
     setPosition(initialPosition);
   };
 
-  const resource = resourcesList[type];
+  let resource = false;
+  resourcesApp.forEach((el) => {
+    if (el.name === type) {
+      resource = el;
+    }
+  });
 
   if (state?.resources) {
     state.resources.forEach((el) => {
-      if (el.resourceId === resource.resourceId && el.username === resource.owner) {
+      if (
+        el.repository === resource.name &&
+        el.username.toString().toLowerCase() === resource.owner.toString().toLowerCase()
+      ) {
         project = el.project;
+        console.log(el);
+        debugger;
       }
     });
   }
@@ -60,6 +71,7 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
       project
         .parseUsfm()
         .then((result) => {
+          console.log({ result: result });
           if (Object.keys(result.json.chapters).length > 0) {
             setChapter(result.json.chapters[reference.chapter]);
           }

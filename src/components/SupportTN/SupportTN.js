@@ -3,13 +3,22 @@ import React, { useState, useContext } from 'react';
 import { Card, CardContent, useContent, useCardState } from 'translation-helps-rcl';
 
 import { AppContext } from '../../App.context';
-import { resourcesList, server } from '../../config';
+import { server } from '../../config';
 
 export default function SupportTN(props) {
   const { title, classes, onClose, type } = props;
-  const appContext = useContext(AppContext);
-  const { referenceSelected } = appContext.state;
+  const {
+    state: { referenceSelected, resourcesApp },
+  } = useContext(AppContext);
   const [selectedQuote, setQuote] = useState({});
+
+  let resource = false;
+  resourcesApp.forEach((el) => {
+    if (el.name === type) {
+      resource = el;
+    }
+  });
+
   const {
     markdown,
     items,
@@ -19,10 +28,10 @@ export default function SupportTN(props) {
     verse: referenceSelected.verse,
     chapter: referenceSelected.chapter,
     projectId: referenceSelected.bookId,
-    branch: resourcesList[type].branch ?? 'master',
-    languageId: resourcesList[type].languageId ?? 'ru',
-    resourceId: resourcesList[type].resourceId ?? 'tn',
-    owner: resourcesList[type].owner ?? 'bsa',
+    branch: resource.branch ?? 'master',
+    languageId: resource.languageId ?? 'ru',
+    resourceId: 'tn',
+    owner: resource.owner ?? 'door43-catalog',
     server,
   });
 
