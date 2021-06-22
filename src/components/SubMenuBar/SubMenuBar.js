@@ -57,7 +57,7 @@ function SubMenuBar() {
   };
 
   const handleChangeFontSize = (e) => {
-    setFontSize(e.target.value);
+    setFontSize(parseInt(e.target.value));
   };
 
   return (

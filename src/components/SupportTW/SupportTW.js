@@ -43,7 +43,7 @@ export default function SupportTW(props) {
       items={items}
       headers={headers}
       filters={filters}
-      fontSize={+fontSize}
+      fontSize={fontSize}
       itemIndex={itemIndex}
       setFilters={setFilters}
       setItemIndex={setItemIndex}
@@ -55,7 +55,7 @@ export default function SupportTW(props) {
         //        viewMode="table"
         viewMode={'markdown'}
         filters={filters}
-        fontSize={+fontSize}
+        fontSize={fontSize}
         markdown={markdown}
         isLoading={isLoading}
         languageId={languageId}

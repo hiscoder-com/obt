@@ -20,7 +20,7 @@ let _reference = localStorage.getItem('reference')
   ? JSON.parse(localStorage.getItem('reference'))
   : defaultReference;
 
-let _fontSize = localStorage.getItem('fontSize');
+let _fontSize = parseInt(localStorage.getItem('fontSize'));
 
 const config = { server };
 

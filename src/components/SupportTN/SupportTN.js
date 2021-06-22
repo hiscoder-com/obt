@@ -39,7 +39,7 @@ export default function SupportTN(props) {
       onClose={() => onClose(type)}
       classes={classes}
       items={items}
-      fontSize={+fontSize}
+      fontSize={fontSize}
       headers={headers}
       filters={['OrigQuote', 'GLQuote', 'OccurrenceNote']}
       itemIndex={itemIndex}
@@ -52,7 +52,7 @@ export default function SupportTN(props) {
         viewMode="table"
         filters={['OrigQuote', 'GLQuote', 'OccurrenceNote']}
         markdown={markdown}
-        fontSize={+fontSize}
+        fontSize={fontSize}
         isLoading={isLoading}
         languageId={languageId}
         markdownView={markdownView}

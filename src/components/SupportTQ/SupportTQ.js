@@ -45,7 +45,7 @@ export default function SupportTQ(props) {
       items={items}
       headers={headers}
       filters={filters}
-      fontSize={+fontSize}
+      fontSize={fontSize}
       itemIndex={itemIndex}
       setFilters={setFilters}
       setItemIndex={setItemIndex}
@@ -55,7 +55,7 @@ export default function SupportTQ(props) {
       <CardContent
         item={item}
         filters={filters}
-        fontSize={+fontSize}
+        fontSize={fontSize}
         markdown={markdown}
         viewMode="question"
         isLoading={isLoading}
