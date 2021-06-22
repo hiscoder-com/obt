@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, /*useMemo,*/ useEffect } from 'react';
 
 import { Card } from 'translation-helps-rcl';
 import { Verse, ResourcesContext } from 'scripture-resources-rcl';
@@ -21,13 +21,15 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
   const { state } = React.useContext(ResourcesContext);
   const {
     state: { resourcesApp },
-    actions: { setShowErrorReport, setReferenceBlock },
+    actions: { setShowErrorReport, setReferenceBlock, setReferenceSelected },
   } = React.useContext(AppContext);
 
   const [chapter, setChapter] = useState();
   const [verses, setVerses] = useState();
+  const [project, setProject] = useState({});
+  const [resource, setResource] = useState(false);
 
-  let project = useMemo(() => {}, []);
+  //  let project = useMemo(() => {}, []);
 
   const handleContextOpen = (event) => {
     event.preventDefault();
@@ -46,25 +48,29 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
     setPosition(initialPosition);
   };
 
-  let resource = false;
-  resourcesApp.forEach((el) => {
-    if (el.name === type) {
-      resource = el;
-    }
-  });
-
-  if (state?.resources) {
-    state.resources.forEach((el) => {
-      if (
-        el.repository === resource.name &&
-        el.username.toString().toLowerCase() === resource.owner.toString().toLowerCase()
-      ) {
-        project = el.project;
-        console.log(el);
-        debugger;
+  useEffect(() => {
+    console.log('resourcesApp.forEach');
+    resourcesApp.forEach((el) => {
+      if (el.name === type) {
+        setResource(el);
       }
     });
-  }
+  }, [resourcesApp, type]);
+
+  const resources = state?.resources;
+  useEffect(() => {
+    console.log('resources.forEach');
+    if (resources) {
+      resources.forEach((el) => {
+        if (
+          el.repository === resource.name &&
+          el.username.toString().toLowerCase() === resource.owner.toString().toLowerCase()
+        ) {
+          setProject(el.project);
+        }
+      });
+    }
+  }, [resources, resource]);
 
   useEffect(() => {
     if (project && Object.keys(project).length !== 0) {
@@ -103,6 +109,7 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
             });
             handleContextOpen(e);
           }}
+          onClick={() => setReferenceSelected({ ...reference, verse: key })}
           style={{ cursor: 'context-menu' }}
         >
           <Verse
@@ -120,7 +127,7 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
       _verses.push(verse);
     }
     setVerses(_verses);
-  }, [chapter, reference, type, setReferenceBlock]);
+  }, [chapter, reference, type, setReferenceBlock, setReferenceSelected]);
   const anchorPosition =
     position.mouseY !== null && position.mouseX !== null
       ? { top: position.mouseY, left: position.mouseX }

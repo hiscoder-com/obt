@@ -1,7 +1,5 @@
 import React, { useContext } from 'react';
 
-import { useTranslation } from 'react-i18next';
-
 import { AppContext } from '../../App.context';
 import Chapter from '../Chapter/Chapter';
 import SupportTQ from '../SupportTQ/SupportTQ';
@@ -15,7 +13,6 @@ function Card({ type, onClose, classes }) {
     state: { referenceSelected, resourcesApp },
   } = useContext(AppContext);
 
-  const { t } = useTranslation();
   let resource = false;
   resourcesApp.forEach((el) => {
     if (el.name === type) {
@@ -54,7 +51,7 @@ function Card({ type, onClose, classes }) {
   return (
     <CurrentCard
       classes={classes}
-      title={t(resource.resourceId)}
+      title={resource.title}
       onClose={onClose}
       type={type}
       reference={referenceSelected}

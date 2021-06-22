@@ -2,15 +2,22 @@ export const getResources = (appConfig, resourcesApp) => {
   const resources = [];
   if (appConfig.length > 0) {
     appConfig.forEach((el) => {
-      if (
-        resourcesApp[el.i]?.subject &&
-        [('Bible', 'Aligned Bible')].includes(resourcesApp[el.i]?.subject)
-      ) {
-        resources.push(resourcesApp[el.i].link);
-      }
+      resourcesApp.forEach((r_el) => {
+        if (
+          r_el?.subject &&
+          [
+            'Bible',
+            'Aligned Bible',
+            'Hebrew Old Testament',
+            'Greek New Testament',
+          ].includes(r_el.subject) &&
+          r_el.name === el.i
+        ) {
+          resources.push(r_el.link);
+        }
+      });
     });
   }
-  resources.length === 0 && resources.push('Door43-catalog/ru_rob/master');
   return resources;
 };
 

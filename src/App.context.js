@@ -2,10 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import { useHistory, useLocation } from 'react-router-dom';
 
-import {
-  ResourcesContextProvider,
-  ReferenceSelectedContextProvider,
-} from 'scripture-resources-rcl';
+import { ResourcesContextProvider } from 'scripture-resources-rcl';
 
 import { getResources } from './helper';
 import { server, defaultCards, defaultReference } from './config';
@@ -97,7 +94,10 @@ export function AppContextProvider({ children }) {
   return (
     <AppContext.Provider value={value}>
       <ResourcesContextProvider
-        reference={referenceSelected}
+        reference={{
+          bookId: referenceSelected.bookId,
+          chapter: referenceSelected.chapter,
+        }}
         resourceLinks={resourceLinks}
         defaultResourceLinks={_resourceLinks}
         onResourceLinks={setResourceLinks}
@@ -105,12 +105,7 @@ export function AppContextProvider({ children }) {
         onResources={setResources}
         config={config}
       >
-        <ReferenceSelectedContextProvider
-          referenceSelected={referenceSelected}
-          onReferenceSelected={setReferenceSelected}
-        >
-          {children}
-        </ReferenceSelectedContextProvider>
+        {children}
       </ResourcesContextProvider>
     </AppContext.Provider>
   );
