@@ -1,13 +1,12 @@
 import React, { useContext, useState } from 'react';
 
 import { SendError } from 'tsv-frontend';
-import { AppContext } from '../../App.context';
 
+import { AppContext } from '../../App.context';
 import FinishDialog from './FinishDialog';
 import ReportDialog from './ReportDialog';
 
 import { Backdrop, CircularProgress } from '@material-ui/core';
-
 import useStyles from './style';
 
 export default function TypoReport() {
@@ -35,7 +34,7 @@ export default function TypoReport() {
       reference: referenceBlock?.chapter + ':' + referenceBlock?.verse,
       bookId: referenceBlock?.bookId,
       resource: referenceBlock?.type,
-      serverLink: 'https://tsv-backend.herokuapp.com/send',
+      serverLink: process.env.REACT_APP_SERVER_LINK,
       fields: {
         Note: valueComment,
         Quote: referenceBlock?.text,
@@ -60,9 +59,9 @@ export default function TypoReport() {
       });
   };
 
-  function handleCancel() {
+  const handleCancel = () => {
     setShowErrorReport(false);
-  }
+  };
   const classes = useStyles();
 
   return (

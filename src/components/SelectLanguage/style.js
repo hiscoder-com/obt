@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles((theme) => ({
+export const useSelectStyles = makeStyles((theme) => ({
   root: {
     margin: theme.spacing(1),
     minWidth: 20,
@@ -9,9 +9,10 @@ const useStyles = makeStyles((theme) => ({
   icon: {
     color: 'black',
   },
+}));
+
+export const useStyles = makeStyles((theme) => ({
   option: {
     color: 'black',
   },
 }));
-
-export default useStyles;

@@ -12,6 +12,5 @@
     "editor.formatOnSave": false
   },
   "files.eol": "\n",
-  "editor.tabSize": 2,
-  "i18next.i18nPaths": "h:/bsa/bsa/public/locales"
+  "editor.tabSize": 2
 }
