@@ -1,5 +1,7 @@
 import React, { useState, useContext } from 'react';
 
+import { FontSizeSlider } from 'translation-helps-rcl';
+
 import { AppContext } from '../../App.context';
 import { BookSelect, ChapterSelect } from '../../components';
 import SelectLanguage from '../SelectLanguage/SelectLanguage';
@@ -56,10 +58,6 @@ function SubMenuBar() {
     setAnchorAddMaterial(null);
   };
 
-  const handleChangeFontSize = (e) => {
-    setFontSize(parseInt(e.target.value));
-  };
-
   return (
     <>
       <AppBar position="relative">
@@ -104,13 +102,13 @@ function SubMenuBar() {
               <AddIcon size={'small'} /> {t('Add_material')}
             </MenuItem>
             <MenuItem>
-              <input
-                className={classes.input}
-                type="range"
-                min={50}
+              <FontSizeSlider
+                onChange={setFontSize}
+                marks={false}
                 max={150}
-                defaultValue={fontSize}
-                onInput={handleChangeFontSize}
+                min={50}
+                step={10}
+                value={fontSize}
               />
             </MenuItem>
             <MenuItem>

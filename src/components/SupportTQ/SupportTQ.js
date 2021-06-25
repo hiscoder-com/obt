@@ -29,13 +29,13 @@ export default function SupportTQ(props) {
     owner: resourcesList[type].owner ?? 'bsa',
     server,
   });
-
   const {
     state: { item, headers, filters, itemIndex, markdownView },
     actions: { setFilters, setItemIndex, setMarkdownView },
   } = useCardState({
     items,
   });
+
   return (
     <Card
       closeable
@@ -52,16 +52,18 @@ export default function SupportTQ(props) {
       markdownView={markdownView}
       setMarkdownView={setMarkdownView}
     >
-      <CardContent
-        item={item}
-        filters={filters}
-        fontSize={fontSize}
-        markdown={markdown}
-        viewMode="question"
-        isLoading={isLoading}
-        languageId={languageId}
-        markdownView={markdownView}
-      />
+      <div className="tqcard">
+        <CardContent
+          item={item}
+          filters={filters}
+          fontSize={fontSize}
+          markdown={markdown}
+          viewMode="question"
+          isLoading={isLoading}
+          languageId={languageId}
+          markdownView={markdownView}
+        />
+      </div>
     </Card>
   );
 }

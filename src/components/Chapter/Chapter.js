@@ -60,8 +60,8 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
     if (project && Object.keys(project).length !== 0) {
       project.parseUsfm().then(
         (result) => {
-          if (Object.keys(result.chapters).length > 0) {
-            setChapter(result.chapters[reference.chapter]);
+          if (Object.keys(result.json.chapters).length > 0) {
+            setChapter(result.json.chapters[reference.chapter]);
           } else {
             console.log('Book not found');
           }

@@ -22,3 +22,7 @@ input {
 .verse h4 {
   margin: 0;
 }
+
+.tqcard h1{
+  font-size: inherit;
+}
