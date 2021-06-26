@@ -95,13 +95,13 @@ function SubMenuBar() {
             open={Boolean(anchorMainMenu)}
             onClose={handleCloseMainMenu}
           >
-            <MenuItem>
+            <MenuItem button={false} divider={true}>
               <SelectLanguage />
             </MenuItem>
             <MenuItem onClick={handleClickAddMaterial}>
               <AddIcon size={'small'} /> {t('Add_material')}
             </MenuItem>
-            <MenuItem>
+            <MenuItem button={false} divider={true}>
               <FontSizeSlider
                 onChange={setFontSize}
                 marks={false}
@@ -111,7 +111,7 @@ function SubMenuBar() {
                 value={fontSize}
               />
             </MenuItem>
-            <MenuItem>
+            <MenuItem button={false} className={classes.menu}>
               <FormControl>
                 <FormHelperText>
                   {t('Text_under_checkbox_error1')}

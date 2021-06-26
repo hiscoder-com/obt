@@ -13,25 +13,24 @@ export default function SelectLanguage() {
   }
 
   return (
-    <div>
-      <FormControl>
-        <NativeSelect
-          variant="outlined"
-          classes={{
-            root: classes.root,
-            icon: classes.icon,
-          }}
-          onChange={handleChange}
-          defaultValue={localValueLanguage ? localValueLanguage : 'ru'}
-        >
-          <option className={classes.option} value={'en'}>
-            English
-          </option>
-          <option className={classes.option} value={'ru'}>
-            Русский
-          </option>
-        </NativeSelect>
-      </FormControl>
-    </div>
+    <FormControl className={classes.formControl}>
+      <NativeSelect
+        disableUnderline={true}
+        variant="outlined"
+        classes={{
+          root: classes.root,
+          icon: classes.icon,
+        }}
+        onChange={handleChange}
+        defaultValue={localValueLanguage ? localValueLanguage : 'ru'}
+      >
+        <option className={classes.option} value={'en'}>
+          English
+        </option>
+        <option className={classes.option} value={'ru'}>
+          Русский
+        </option>
+      </NativeSelect>
+    </FormControl>
   );
 }
