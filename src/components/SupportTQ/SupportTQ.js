@@ -41,7 +41,7 @@ export default function SupportTQ(props) {
       closeable
       title={title}
       onClose={() => onClose(type)}
-      classes={classes}
+      classes={{ ...classes, children: 'tqcard' }}
       items={items}
       headers={headers}
       filters={filters}
@@ -52,18 +52,16 @@ export default function SupportTQ(props) {
       markdownView={markdownView}
       setMarkdownView={setMarkdownView}
     >
-      <div className="tqcard">
-        <CardContent
-          item={item}
-          filters={filters}
-          fontSize={fontSize}
-          markdown={markdown}
-          viewMode="question"
-          isLoading={isLoading}
-          languageId={languageId}
-          markdownView={markdownView}
-        />
-      </div>
+      <CardContent
+        item={item}
+        filters={filters}
+        fontSize={fontSize}
+        markdown={markdown}
+        viewMode="question"
+        isLoading={isLoading}
+        languageId={languageId}
+        markdownView={markdownView}
+      />
     </Card>
   );
 }
