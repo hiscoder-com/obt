@@ -1,13 +1,15 @@
+
 import React, { useState, useMemo, useEffect, useContext } from 'react';
+
 import { Card } from 'translation-helps-rcl';
 import { Verse, ResourcesContext } from 'scripture-resources-rcl';
 import { useTranslation } from 'react-i18next';
+
 import { AppContext } from '../../App.context';
-import { Menu, MenuItem } from '@material-ui/core';
-
 import { getVerseText } from '../../helper';
-
 import { resourcesList } from '../../config';
+
+import { Menu, MenuItem } from '@material-ui/core';
 
 const initialPosition = {
   mouseX: null,
@@ -23,6 +25,9 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
     actions: { setShowErrorReport, setReferenceBlock },
     state: { fontSize },
   } = useContext(AppContext);
+
+  const [chapter, setChapter] = useState();
+  const [verses, setVerses] = useState();
 
   let project = useMemo(() => {}, []);
 
@@ -43,9 +48,6 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
     setPosition(initialPosition);
   };
 
-  const [chapter, setChapter] = useState();
-  const [verses, setVerses] = useState();
-
   const resource = resourcesList[type];
 
   if (state?.resources) {
@@ -58,18 +60,18 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
 
   useEffect(() => {
     if (project && Object.keys(project).length !== 0) {
+
       project.parseUsfm().then(
         (result) => {
           if (Object.keys(result.json.chapters).length > 0) {
             setChapter(result.json.chapters[reference.chapter]);
           } else {
             console.log('Book not found');
+
           }
-        },
-        (error) => console.log(error)
-      );
+        })
+        .catch((error) => console.log(error));
     } else {
-      // Book could not be found in this translation:
       setChapter(null);
     }
   }, [project, reference.chapter]);
@@ -116,6 +118,10 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
     }
     setVerses(_verses);
   }, [chapter, reference, type, setReferenceBlock, fontSize]);
+  const anchorPosition =
+    position.mouseY !== null && position.mouseX !== null
+      ? { top: position.mouseY, left: position.mouseX }
+      : undefined;
 
   return (
     <Card
@@ -130,13 +136,9 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
         open={position.mouseY !== null}
         onClose={handleContextClose}
         anchorReference="anchorPosition"
-        anchorPosition={
-          position.mouseY !== null && position.mouseX !== null
-            ? { top: position.mouseY, left: position.mouseX }
-            : undefined
-        }
+        anchorPosition={anchorPosition}
       >
-        <MenuItem onClick={handleOpenError}>Send Error</MenuItem>
+        <MenuItem onClick={handleOpenError}>{t('Error_report')}</MenuItem>
       </Menu>
       {chapter ? verses : t('No_content')}
     </Card>

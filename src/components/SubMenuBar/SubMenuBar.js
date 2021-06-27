@@ -1,10 +1,16 @@
 import React, { useState, useContext } from 'react';
 
+
 import { FontSizeSlider } from 'translation-helps-rcl';
+import { useTranslation } from 'react-i18next';
+
 
 import { AppContext } from '../../App.context';
 import { BookSelect, ChapterSelect } from '../../components';
 import SelectLanguage from '../SelectLanguage/SelectLanguage';
+import { getUniqueResources } from '../../helper';
+import { defaultCard } from '../../config';
+
 import {
   AppBar,
   Toolbar,
@@ -17,13 +23,7 @@ import {
 } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import MenuIcon from '@material-ui/icons/Menu';
-
-import { useTranslation } from 'react-i18next';
-
 import useStyles from './style';
-
-import { getUniqueResources } from '../../helper';
-import { defaultCard } from '../../config';
 
 function SubMenuBar() {
   const { state, actions } = useContext(AppContext);
@@ -57,7 +57,11 @@ function SubMenuBar() {
   const handleCloseAddMaterial = () => {
     setAnchorAddMaterial(null);
   };
-
+  const menuItems = Object.keys(uniqueResources).map((keyName, index) => (
+    <MenuItem key={index} onClick={() => handleAddMaterial(keyName)}>
+      {t(keyName)}
+    </MenuItem>
+  ));
   return (
     <>
       <AppBar position="relative">
@@ -128,11 +132,7 @@ function SubMenuBar() {
             open={Boolean(anchorAddMaterial)}
             onClose={handleCloseAddMaterial}
           >
-            {Object.keys(uniqueResources).map((keyName, index) => (
-              <MenuItem key={index} onClick={() => handleAddMaterial(keyName)}>
-                {t(keyName)}
-              </MenuItem>
-            ))}
+            {menuItems}
           </Menu>
         </Toolbar>
       </AppBar>

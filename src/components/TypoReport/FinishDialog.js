@@ -1,10 +1,9 @@
 import React from 'react';
 
-import logo from './friends.png';
 import { useTranslation } from 'react-i18next';
 
+import logo from './friends.png';
 import { Button, Dialog, DialogActions, DialogContent, Link } from '@material-ui/core';
-
 import useStyles from './style';
 
 function FinishDialog({ open, onClose }) {

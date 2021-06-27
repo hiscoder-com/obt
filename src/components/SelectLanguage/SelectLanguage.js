@@ -1,16 +1,22 @@
 import React from 'react';
 
 import { useTranslation } from 'react-i18next';
+
 import { FormControl, NativeSelect } from '@material-ui/core';
-import useStyles from './style';
+import { useStyles, useSelectStyles } from './style';
 
 export default function SelectLanguage() {
   const classes = useStyles();
+  const selectClasses = useSelectStyles();
   const { i18n } = useTranslation();
-  const localValueLanguage = localStorage.getItem('i18nextLng');
-  function handleChange(event) {
-    i18n.changeLanguage(event.target.value);
-  }
+
+  const localValueLanguage = localStorage.getItem('i18nextLng')
+    ? localStorage.getItem('i18nextLng')
+    : 'ru';
+
+  const handleChange = (e) => {
+    i18n.changeLanguage(e.target.value);
+  };
 
   return (
     <FormControl className={classes.formControl}>
