@@ -1,9 +1,7 @@
 import React, { useState, useContext } from 'react';
 
-
 import { FontSizeSlider } from 'translation-helps-rcl';
 import { useTranslation } from 'react-i18next';
-
 
 import { AppContext } from '../../App.context';
 import { BookSelect, ChapterSelect } from '../../components';

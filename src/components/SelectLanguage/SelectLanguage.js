@@ -3,11 +3,11 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { FormControl, NativeSelect } from '@material-ui/core';
-import { useStyles, useSelectStyles } from './style';
+import { useStyles } from './style';
 
 export default function SelectLanguage() {
   const classes = useStyles();
-  const selectClasses = useSelectStyles();
+
   const { i18n } = useTranslation();
 
   const localValueLanguage = localStorage.getItem('i18nextLng')
