@@ -1,6 +1,9 @@
 import React, { useState, useContext } from 'react';
 
+
+import { FontSizeSlider } from 'translation-helps-rcl';
 import { useTranslation } from 'react-i18next';
+
 
 import { AppContext } from '../../App.context';
 import { BookSelect, ChapterSelect } from '../../components';
@@ -24,8 +27,8 @@ import useStyles from './style';
 
 function SubMenuBar() {
   const { state, actions } = useContext(AppContext);
-  const { appConfig } = state;
-  const { setAppConfig } = actions;
+  const { appConfig, fontSize } = state;
+  const { setAppConfig, setFontSize } = actions;
 
   const classes = useStyles();
 
@@ -96,13 +99,23 @@ function SubMenuBar() {
             open={Boolean(anchorMainMenu)}
             onClose={handleCloseMainMenu}
           >
-            <MenuItem>
+            <MenuItem button={false} divider={true}>
               <SelectLanguage />
             </MenuItem>
             <MenuItem onClick={handleClickAddMaterial}>
               <AddIcon size={'small'} /> {t('Add_material')}
             </MenuItem>
-            <MenuItem>
+            <MenuItem button={false} divider={true}>
+              <FontSizeSlider
+                onChange={setFontSize}
+                marks={false}
+                max={150}
+                min={50}
+                step={10}
+                value={fontSize}
+              />
+            </MenuItem>
+            <MenuItem button={false} className={classes.menu}>
               <FormControl>
                 <FormHelperText>
                   {t('Text_under_checkbox_error1')}

@@ -4,9 +4,8 @@ const useStyles = makeStyles((theme) => ({
   grow: {
     justifyContent: 'space-between',
   },
-  report: {
-    position: 'absolute',
-    right: theme.spacing(10),
+  menu: {
+    minWidth: '220px',
   },
   centerButtons: {
     display: 'flex',

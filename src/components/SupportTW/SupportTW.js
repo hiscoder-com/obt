@@ -1,14 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 
 import { Card, CardContent, useContent, useCardState } from 'translation-helps-rcl';
 import { ReferenceSelectedContext } from 'scripture-resources-rcl';
-
+import { AppContext } from '../../App.context';
 import { resourcesList, server } from '../../config';
 
 export default function SupportTW(props) {
   const { title, classes, onClose, type } = props;
   const { state: reference } = React.useContext(ReferenceSelectedContext);
-
+  const appContext = useContext(AppContext);
+  const { fontSize } = appContext.state;
   const [selectedQuote, setQuote] = useState({});
   const {
     markdown,
@@ -27,8 +28,8 @@ export default function SupportTW(props) {
   });
 
   const {
-    state: { item, headers, filters, fontSize, itemIndex, markdownView },
-    actions: { setFilters, setFontSize, setItemIndex, setMarkdownView },
+    state: { item, headers, filters, itemIndex, markdownView },
+    actions: { setFilters, setItemIndex, setMarkdownView },
   } = useCardState({
     items,
   });
@@ -45,7 +46,6 @@ export default function SupportTW(props) {
       fontSize={fontSize}
       itemIndex={itemIndex}
       setFilters={setFilters}
-      setFontSize={setFontSize}
       setItemIndex={setItemIndex}
       markdownView={markdownView}
       setMarkdownView={setMarkdownView}

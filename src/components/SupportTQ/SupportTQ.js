@@ -8,7 +8,7 @@ import { resourcesList, server } from '../../config';
 export default function SupportTQ(props) {
   const { title, classes, onClose, type } = props;
   const appContext = useContext(AppContext);
-  const { referenceSelected } = appContext.state;
+  const { referenceSelected, fontSize } = appContext.state;
 
   const {
     markdown,
@@ -30,26 +30,25 @@ export default function SupportTQ(props) {
     owner: resourcesList[type].owner ?? 'bsa',
     server,
   });
-
   const {
-    state: { item, headers, filters, fontSize, itemIndex, markdownView },
-    actions: { setFilters, setFontSize, setItemIndex, setMarkdownView },
+    state: { item, headers, filters, itemIndex, markdownView },
+    actions: { setFilters, setItemIndex, setMarkdownView },
   } = useCardState({
     items,
   });
+
   return (
     <Card
       closeable
       title={title}
       onClose={() => onClose(type)}
-      classes={classes}
+      classes={{ ...classes, children: 'tqcard' }}
       items={items}
       headers={headers}
       filters={filters}
       fontSize={fontSize}
       itemIndex={itemIndex}
       setFilters={setFilters}
-      setFontSize={setFontSize}
       setItemIndex={setItemIndex}
       markdownView={markdownView}
       setMarkdownView={setMarkdownView}

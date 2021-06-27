@@ -1,4 +1,5 @@
-import React, { useState, useMemo, useEffect } from 'react';
+
+import React, { useState, useMemo, useEffect, useContext } from 'react';
 
 import { Card } from 'translation-helps-rcl';
 import { Verse, ResourcesContext } from 'scripture-resources-rcl';
@@ -18,10 +19,12 @@ const initialPosition = {
 export default function Chapter({ title, classes, onClose, type, reference }) {
   const { t } = useTranslation();
 
-  const [position, setPosition] = React.useState(initialPosition);
-  const { state } = React.useContext(ResourcesContext);
-  const { actions } = React.useContext(AppContext);
-  const { setShowErrorReport, setReferenceBlock } = actions;
+  const [position, setPosition] = useState(initialPosition);
+  const { state } = useContext(ResourcesContext);
+  const {
+    actions: { setShowErrorReport, setReferenceBlock },
+    state: { fontSize },
+  } = useContext(AppContext);
 
   const [chapter, setChapter] = useState();
   const [verses, setVerses] = useState();
@@ -57,11 +60,14 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
 
   useEffect(() => {
     if (project && Object.keys(project).length !== 0) {
-      project
-        .parseUsfm()
-        .then((result) => {
-          if (Object.keys(result.chapters).length > 0) {
-            setChapter(result.chapters[reference.chapter]);
+
+      project.parseUsfm().then(
+        (result) => {
+          if (Object.keys(result.json.chapters).length > 0) {
+            setChapter(result.json.chapters[reference.chapter]);
+          } else {
+            console.log('Book not found');
+
           }
         })
         .catch((error) => console.log(error));
@@ -77,9 +83,13 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
         continue;
       }
       const { verseObjects } = chapter[key];
-
+      const verseStyle = {
+        fontSize: fontSize + '%',
+        cursor: 'context-menu',
+      };
       const verse = (
         <span
+          style={verseStyle}
           className="verse"
           key={key}
           onContextMenu={(e) => {
@@ -91,7 +101,6 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
             });
             handleContextOpen(e);
           }}
-          style={{ cursor: 'context-menu' }}
         >
           <Verse
             verseKey={key}
@@ -108,7 +117,7 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
       _verses.push(verse);
     }
     setVerses(_verses);
-  }, [chapter, reference, type, setReferenceBlock]);
+  }, [chapter, reference, type, setReferenceBlock, fontSize]);
   const anchorPosition =
     position.mouseY !== null && position.mouseX !== null
       ? { top: position.mouseY, left: position.mouseX }
