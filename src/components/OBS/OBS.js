@@ -57,6 +57,7 @@ export default function OBS(props) {
         filters={filters}
         fontSize={fontSize}
         markdown={markdown}
+        viewMode="question"
         isLoading={isLoading}
         languageId={languageId}
         markdownView={markdownView}
