@@ -7,6 +7,7 @@ import Chapter from '../Chapter/Chapter';
 import SupportTQ from '../SupportTQ/SupportTQ';
 import SupportTN from '../SupportTN/SupportTN';
 import SupportTW from '../SupportTW/SupportTW';
+import OBS from '../OBS/OBS';
 
 import { resourcesList } from '../../config';
 
@@ -35,6 +36,10 @@ function Card({ type, onClose, classes }) {
     case 'tw':
       CurrentCard = SupportTW;
       break;
+
+    case 'obs':
+      CurrentCard = OBS;
+      break;  
 
     default:
       CurrentCard = Chapter;
