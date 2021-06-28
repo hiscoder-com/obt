@@ -24,7 +24,7 @@ export default function OBS(props) {
     resourceId: resourcesList[type].resourceId ?? 'obs',
     filePath:
       
-      String(referenceSelected.verse).padStart(2, '0') +
+      String(referenceSelected.chapter).padStart(2, '0') +
       '.md',
     owner: resourcesList[type].owner ?? 'bsa',
     server,
