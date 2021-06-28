@@ -96,10 +96,10 @@ export const resourcesList = {
     owner: 'Door43-Catalog',
   },
   obs: {
-    link: 'Door43-Catalog/ru_obs/content/master',
+    link: 'Door43-Catalog/en_obs/content/master',
     branch: 'master',
     type: 'obs',
-    languageId: 'ru',
+    languageId: 'en',
     resourceId: 'obs',
     owner: 'Door43-Catalog',
   },
