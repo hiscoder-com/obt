@@ -60,6 +60,8 @@ function BookList() {
         titleNT={t('bible_NT')}
         BibleBookListClasses={classes}
         bookClasses={bookClasses}
+        showOBS
+        
       />
     </>
   );
