@@ -95,6 +95,14 @@ export const resourcesList = {
     resourceId: 'tq',
     owner: 'Door43-Catalog',
   },
+  obs: {
+    link: 'Door43-Catalog/ru_obs/content/master',
+    branch: 'master',
+    type: 'obs',
+    languageId: 'ru',
+    resourceId: 'obs',
+    owner: 'Door43-Catalog',
+  },
   /*  tw: {
     link: 'Door43-Catalog/ru_tw/master',
     branch: 'master',

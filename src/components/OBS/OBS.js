@@ -41,7 +41,7 @@ export default function OBS(props) {
       closeable
       title={title}
       onClose={() => onClose(type)}
-      classes={{ ...classes, children: 'tqcard' }}
+      classes={{classes}}
       items={items}
       headers={headers}
       filters={filters}
