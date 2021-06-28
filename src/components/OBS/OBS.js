@@ -31,26 +31,25 @@ export default function OBS(props) {
   });
   const {
     state: { item, headers, filters, itemIndex, markdownView },
-    actions: { setFilters, setItemIndex, setMarkdownView },
+    actions: {  setItemIndex, setMarkdownView },
   } = useCardState({
     items,
   });
 
   return (
     <Card
-      closeable
-      title={title}
-      onClose={() => onClose(type)}
-      classes={{classes}}
-      items={items}
-      headers={headers}
-      filters={filters}
-      fontSize={fontSize}
-      itemIndex={itemIndex}
-      setFilters={setFilters}
-      setItemIndex={setItemIndex}
-      markdownView={markdownView}
-      setMarkdownView={setMarkdownView}
+    closeable
+    title={title}
+    onClose={() => onClose(type)}
+    classes={classes}
+    items={items}
+    fontSize={fontSize}
+    headers={headers}
+   
+    itemIndex={itemIndex}
+    setItemIndex={setItemIndex}
+    markdownView={markdownView}
+    setMarkdownView={setMarkdownView}
     >
       <CardContent
         item={item}

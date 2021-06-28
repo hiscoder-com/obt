@@ -42,7 +42,9 @@ function BookList() {
       resource.projects.map((project) => uniqueBookID.add(project.identifier));
     });
   }
+  uniqueBookID.add('obs')
   let availableBookList = Array.from(uniqueBookID);
+  
   const titleBooks = {};
   currentBibleList.map((el) => (titleBooks[el.identifier] = t(el.identifier)));
 
@@ -60,7 +62,7 @@ function BookList() {
         titleNT={t('bible_NT')}
         BibleBookListClasses={classes}
         bookClasses={bookClasses}
-        showOBS
+        showOBS={true}
         
       />
     </>
