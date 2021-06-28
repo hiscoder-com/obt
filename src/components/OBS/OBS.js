@@ -20,36 +20,32 @@ export default function OBS(props) {
     chapter: referenceSelected.chapter,
     projectId: referenceSelected.bookId,
     branch: resourcesList[type].branch ?? 'master',
-    languageId: resourcesList[type].languageId ?? 'ru',
+    languageId: resourcesList[type].languageId ?? 'en',
     resourceId: resourcesList[type].resourceId ?? 'obs',
-    filePath:
-      
-      String(referenceSelected.chapter).padStart(2, '0') +
-      '.md',
+    filePath: String(referenceSelected.chapter).padStart(2, '0') + '.md',
     owner: resourcesList[type].owner ?? 'bsa',
     server,
   });
   const {
     state: { item, headers, filters, itemIndex, markdownView },
-    actions: {  setItemIndex, setMarkdownView },
+    actions: { setItemIndex, setMarkdownView },
   } = useCardState({
     items,
   });
 
   return (
     <Card
-    closeable
-    title={title}
-    onClose={() => onClose(type)}
-    classes={classes}
-    items={items}
-    fontSize={fontSize}
-    headers={headers}
-   
-    itemIndex={itemIndex}
-    setItemIndex={setItemIndex}
-    markdownView={markdownView}
-    setMarkdownView={setMarkdownView}
+      closeable
+      title={title}
+      onClose={() => onClose(type)}
+      classes={classes}
+      items={items}
+      fontSize={fontSize}
+      headers={headers}
+      itemIndex={itemIndex}
+      setItemIndex={setItemIndex}
+      markdownView={markdownView}
+      setMarkdownView={setMarkdownView}
     >
       <CardContent
         item={item}
