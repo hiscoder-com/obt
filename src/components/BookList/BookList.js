@@ -5,7 +5,7 @@ import { ResourcesContext } from 'scripture-resources-rcl';
 import { BibleBookList as BibleBookListRCL } from '@texttree/tt-reference-rcl';
 
 import { AppContext } from '../../App.context';
-import { bibleList, singleChaptersBookID } from '../../config';
+import { bibleList, singleChaptersBookID } from '../../config/base';
 
 import { useStyles, useBookStyles } from './style';
 

@@ -1,7 +1,7 @@
 import React, { useState, /*useMemo,*/ useEffect } from 'react';
 
 import { Card } from 'translation-helps-rcl';
-import { Verse } from 'scripture-resources-rcl';
+import { Verse, ResourcesContext } from 'scripture-resources-rcl';
 import { useTranslation } from 'react-i18next';
 
 import { AppContext } from '../../App.context';
@@ -107,14 +107,13 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
           onContextMenu={(e) => {
             setReferenceBlock({
               ...reference,
-              type,
+              resource: type,
               verse: key,
               text: getVerseText(verseObjects),
             });
             handleContextOpen(e);
           }}
           onClick={() => setReferenceSelected({ ...reference, verse: key })}
-          style={{ cursor: 'context-menu' }}
         >
           <Verse
             verseKey={key}

@@ -1,7 +1,7 @@
 export const langs = ['en', 'ru', 'el-x-koine', 'hbo', 'tdj'];
 
 export const subjects = [
-  //'Open Bible Stories',
+  'Open Bible Stories',
   //'OBS Translation Notes',
   //'OBS Translation Questions',
   //'OBS Study Notes',
