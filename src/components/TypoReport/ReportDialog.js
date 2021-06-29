@@ -30,7 +30,7 @@ function ReportDialog({
   const classes = useStyles();
 
   const showReference =
-    referenceBlock?.type +
+    referenceBlock?.resource +
     '/' +
     referenceBlock?.bookId +
     '/' +

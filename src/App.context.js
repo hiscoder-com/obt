@@ -2,13 +2,10 @@ import React, { useState, useEffect } from 'react';
 
 import { useHistory, useLocation } from 'react-router-dom';
 
-import {
-  ResourcesContextProvider,
-  ReferenceSelectedContextProvider,
-} from 'scripture-resources-rcl';
+import { ResourcesContextProvider } from 'scripture-resources-rcl';
 
 import { getResources } from './helper';
-import { server, defaultCards, defaultReference } from './config';
+import { server, defaultCards, defaultReference } from './config/base';
 
 export const AppContext = React.createContext();
 
@@ -19,6 +16,12 @@ const _appConfig = localStorage.getItem('appConfig')
 let _reference = localStorage.getItem('reference')
   ? JSON.parse(localStorage.getItem('reference'))
   : defaultReference;
+
+let _resourcesApp = localStorage.getItem('resourcesApp')
+  ? JSON.parse(localStorage.getItem('resourcesApp'))
+  : [];
+
+let _fontSize = parseInt(localStorage.getItem('fontSize'));
 
 const config = { server };
 
@@ -34,17 +37,25 @@ export function AppContextProvider({ children }) {
     verse: currentLocation[3] ?? _reference.verse ?? 1,
   });
 
+  const [resourcesApp, setResourcesApp] = useState(_resourcesApp);
+
   const [referenceBlock, setReferenceBlock] = useState({});
-  const _resourceLinks = getResources(appConfig);
+  const _resourceLinks = getResources(appConfig, resourcesApp);
   const [resourceLinks, setResourceLinks] = useState(_resourceLinks);
   const [resources, setResources] = useState([]);
   const [showBookSelect, setShowBookSelect] = useState(true);
   const [showChapterSelect, setShowChapterSelect] = useState(false);
   const [showErrorReport, setShowErrorReport] = useState(false);
+  const [fontSize, setFontSize] = useState(_fontSize ? _fontSize : 100);
+  localStorage.setItem('fontSize', fontSize);
 
   useEffect(() => {
-    setResourceLinks(getResources(appConfig));
-  }, [appConfig]);
+    setResourceLinks(getResources(appConfig, resourcesApp));
+  }, [appConfig, resourcesApp]);
+
+  useEffect(() => {
+    localStorage.setItem('resourcesApp', JSON.stringify(resourcesApp));
+  }, [resourcesApp]);
 
   useEffect(() => {
     localStorage.setItem('reference', JSON.stringify(referenceSelected));
@@ -63,29 +74,36 @@ export function AppContextProvider({ children }) {
       appConfig,
       referenceSelected,
       resourceLinks,
+      resourcesApp,
       resources,
       _resourceLinks,
       showBookSelect,
       showChapterSelect,
       showErrorReport,
       referenceBlock,
+      fontSize,
     },
     actions: {
       setAppConfig,
       setReferenceSelected,
       setResourceLinks,
+      setResourcesApp,
       setResources,
       setShowBookSelect,
       setShowChapterSelect,
       setShowErrorReport,
       setReferenceBlock,
+      setFontSize,
     },
   };
 
   return (
     <AppContext.Provider value={value}>
       <ResourcesContextProvider
-        reference={referenceSelected}
+        reference={{
+          bookId: referenceSelected.bookId,
+          chapter: referenceSelected.chapter,
+        }}
         resourceLinks={resourceLinks}
         defaultResourceLinks={_resourceLinks}
         onResourceLinks={setResourceLinks}
@@ -93,12 +111,7 @@ export function AppContextProvider({ children }) {
         onResources={setResources}
         config={config}
       >
-        <ReferenceSelectedContextProvider
-          referenceSelected={referenceSelected}
-          onReferenceSelected={setReferenceSelected}
-        >
-          {children}
-        </ReferenceSelectedContextProvider>
+        {children}
       </ResourcesContextProvider>
     </AppContext.Provider>
   );

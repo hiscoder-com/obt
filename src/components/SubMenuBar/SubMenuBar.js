@@ -1,12 +1,12 @@
 import React, { useState, useContext } from 'react';
 
+import { FontSizeSlider } from 'translation-helps-rcl';
 import { useTranslation } from 'react-i18next';
 
 import { AppContext } from '../../App.context';
 import { BookSelect, ChapterSelect } from '../../components';
 import SelectLanguage from '../SelectLanguage/SelectLanguage';
-import { getUniqueResources } from '../../helper';
-import { defaultCard } from '../../config';
+import { SearchResources } from '../SearchResources';
 
 import {
   AppBar,
@@ -24,21 +24,15 @@ import useStyles from './style';
 
 function SubMenuBar() {
   const { state, actions } = useContext(AppContext);
-  const { appConfig } = state;
-  const { setAppConfig } = actions;
+  const { fontSize } = state;
+  const { setFontSize } = actions;
 
   const classes = useStyles();
 
   const [anchorAddMaterial, setAnchorAddMaterial] = useState(null);
   const [anchorMainMenu, setAnchorMainMenu] = useState(null);
 
-  const uniqueResources = getUniqueResources(appConfig);
   const { t } = useTranslation();
-
-  const handleAddMaterial = (item) => {
-    setAppConfig((prev) => prev.concat({ ...defaultCard, i: item }));
-    handleCloseAddMaterial();
-  };
 
   const handleClickAddMaterial = (event) => {
     setAnchorAddMaterial(event.currentTarget);
@@ -54,11 +48,7 @@ function SubMenuBar() {
   const handleCloseAddMaterial = () => {
     setAnchorAddMaterial(null);
   };
-  const menuItems = Object.keys(uniqueResources).map((keyName, index) => (
-    <MenuItem key={index} onClick={() => handleAddMaterial(keyName)}>
-      {t(keyName)}
-    </MenuItem>
-  ));
+
   return (
     <>
       <AppBar position="relative">
@@ -96,13 +86,23 @@ function SubMenuBar() {
             open={Boolean(anchorMainMenu)}
             onClose={handleCloseMainMenu}
           >
-            <MenuItem>
+            <MenuItem button={false} divider={true}>
               <SelectLanguage />
             </MenuItem>
             <MenuItem onClick={handleClickAddMaterial}>
               <AddIcon size={'small'} /> {t('Add_material')}
             </MenuItem>
-            <MenuItem>
+            <MenuItem button={false} divider={true}>
+              <FontSizeSlider
+                onChange={setFontSize}
+                marks={false}
+                max={150}
+                min={50}
+                step={10}
+                value={fontSize}
+              />
+            </MenuItem>
+            <MenuItem button={false} className={classes.menu}>
               <FormControl>
                 <FormHelperText>
                   {t('Text_under_checkbox_error1')}
@@ -112,15 +112,11 @@ function SubMenuBar() {
               </FormControl>
             </MenuItem>
           </Menu>
-          <Menu
-            color="transparent"
+          <SearchResources
             anchorEl={anchorAddMaterial}
-            keepMounted
-            open={Boolean(anchorAddMaterial)}
             onClose={handleCloseAddMaterial}
-          >
-            {menuItems}
-          </Menu>
+            open={Boolean(anchorAddMaterial)}
+          />
         </Toolbar>
       </AppBar>
     </>

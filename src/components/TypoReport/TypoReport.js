@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 
-import { SendError } from 'tsv-frontend';
+import { SendError } from '@texttree/user-notes-rcl';
 
 import { AppContext } from '../../App.context';
 import FinishDialog from './FinishDialog';
@@ -33,7 +33,7 @@ export default function TypoReport() {
     SendError({
       reference: referenceBlock?.chapter + ':' + referenceBlock?.verse,
       bookId: referenceBlock?.bookId,
-      resource: referenceBlock?.type,
+      resource: referenceBlock?.resource,
       serverLink: process.env.REACT_APP_SERVER_LINK,
       fields: {
         Note: valueComment,

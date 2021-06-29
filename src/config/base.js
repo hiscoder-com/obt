@@ -1,9 +1,9 @@
 export const server = 'https://git.door43.org';
 
 export const defaultCards = [
-  { w: 4, h: 9, x: 0, y: 0, i: 'rob', minH: 4, minW: 2 },
-  { w: 4, h: 9, x: 4, y: 0, i: 'rsb', minH: 4, minW: 2 },
-  { w: 4, h: 9, x: 8, y: 0, i: 'tn', minH: 4, minW: 2 },
+  { w: 4, h: 9, x: 0, y: 0, i: 'ru_rob', minH: 4, minW: 2 },
+  { w: 4, h: 9, x: 4, y: 0, i: 'ru_rsb', minH: 4, minW: 2 },
+  { w: 4, h: 9, x: 8, y: 0, i: 'ru_tn', minH: 4, minW: 2 },
 ];
 
 export const defaultCard = { w: 4, h: 4, x: 0, y: 99, minH: 4, minW: 2 };
@@ -12,97 +12,6 @@ export const defaultReference = {
   bookId: 'tit',
   chapter: 1,
   verse: 1,
-};
-
-export const resourcesList = {
-  rob: {
-    link: 'Door43-Catalog/ru_rob/master',
-    branch: 'master',
-    type: 'bible',
-    languageId: 'ru',
-    resourceId: 'rob',
-    owner: 'Door43-Catalog',
-  },
-  rsb: {
-    link: 'Door43-Catalog/ru_rsb/master',
-    branch: 'master',
-    type: 'bible',
-    languageId: 'ru',
-    resourceId: 'rsb',
-    owner: 'Door43-Catalog',
-  },
-  rlob: {
-    link: 'Door43-Catalog/ru_rlob/master',
-    branch: 'master',
-    type: 'bible',
-    languageId: 'ru',
-    resourceId: 'rlob',
-    owner: 'Door43-Catalog',
-  },
-  rsob: {
-    link: 'Door43-Catalog/ru_rsob/master',
-    branch: 'master',
-    type: 'bible',
-    languageId: 'ru',
-    resourceId: 'rsob',
-    owner: 'Door43-Catalog',
-  },
-  ugnt: {
-    link: 'Door43-Catalog/el-x-koine_ugnt/master',
-    branch: 'master',
-    type: 'bible',
-    languageId: 'el-x-koine',
-    resourceId: 'ugnt',
-    owner: 'Door43-Catalog',
-  },
-  uhb: {
-    link: 'Door43-Catalog/hbo_uhb/master',
-    branch: 'master',
-    type: 'bible',
-    languageId: 'hbo',
-    resourceId: 'uhb',
-    owner: 'Door43-Catalog',
-  },
-  ult: {
-    link: 'Door43-Catalog/en_ult/master',
-    branch: 'master',
-    type: 'bible',
-    languageId: 'en',
-    resourceId: 'ult',
-    owner: 'Door43-Catalog',
-  },
-  ust: {
-    link: 'Door43-Catalog/en_ust/master',
-    branch: 'master',
-    type: 'bible',
-    languageId: 'en',
-    resourceId: 'ust',
-    owner: 'Door43-Catalog',
-  },
-  tn: {
-    link: 'Door43-Catalog/ru_tn/master',
-    branch: 'master',
-    type: 'support',
-    languageId: 'ru',
-    resourceId: 'tn',
-    owner: 'Door43-Catalog',
-  },
-  tq: {
-    link: 'Door43-Catalog/ru_tq/master',
-    branch: 'master',
-    type: 'support',
-    languageId: 'ru',
-    resourceId: 'tq',
-    owner: 'Door43-Catalog',
-  },
-  /*  tw: {
-    link: 'Door43-Catalog/ru_tw/master',
-    branch: 'master',
-    type: 'support',
-    languageId: 'ru',
-    resourceId: 'tw',
-    owner: 'Door43-Catalog',
-  },*/
 };
 
 export const bibleList = [
@@ -501,5 +410,11 @@ export const bibleList = [
     isset: false,
     sort: 66,
     categories: 'bible-nt',
+  },
+  {
+    identifier: 'obs',
+    isset: false,
+    sort: 70,
+    categories: 'obs',
   },
 ];
