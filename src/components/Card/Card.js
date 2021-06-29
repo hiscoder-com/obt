@@ -39,7 +39,7 @@ function Card({ type, onClose, classes }) {
 
     case 'obs':
       CurrentCard = OBS;
-      break;  
+      break;
 
     default:
       CurrentCard = Chapter;
@@ -49,7 +49,7 @@ function Card({ type, onClose, classes }) {
   return (
     <CurrentCard
       classes={classes}
-      title={t(resource.resourceId)}
+      title={t(type)}
       onClose={onClose}
       type={type}
       reference={referenceSelected}

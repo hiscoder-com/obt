@@ -10,15 +10,16 @@ import { Dialog, DialogContent } from '@material-ui/core';
 import useStyles from './style';
 
 function ChapterSelect() {
-  const { state, actions } = useContext(AppContext);
-  const { referenceSelected, showChapterSelect } = state;
-  const { setReferenceSelected, setShowChapterSelect } = actions;
+  const {
+    state: { referenceSelected, showChapterSelect, appConfig },
+    actions: { setReferenceSelected, setShowChapterSelect },
+  } = useContext(AppContext);
 
   const onClose = () => {
     setShowChapterSelect(false);
   };
   const onOpen = () => {
-    state.resources.length > 0
+    appConfig.length > 0
       ? setShowChapterSelect(!showChapterSelect)
       : setShowChapterSelect(false);
   };
@@ -32,7 +33,13 @@ function ChapterSelect() {
         classes={chapterClasses}
         onClick={onOpen}
         chapterId={referenceSelected.chapter}
-        chapterPrefix={referenceSelected.bookId === 'psa' ? t('Psalm') : t('Chapter')}
+        chapterPrefix={
+          referenceSelected.bookId === 'psa'
+            ? t('Psalm')
+            : referenceSelected.bookId === 'obs'
+            ? t('Story')
+            : t('Chapter')
+        }
         currentChapter={true}
       ></ChapterRCL>
       <Dialog

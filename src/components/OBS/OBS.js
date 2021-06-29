@@ -16,19 +16,17 @@ export default function OBS(props) {
     isLoading,
     props: { languageId },
   } = useContent({
-    verse: referenceSelected.verse,
-    chapter: referenceSelected.chapter,
     projectId: referenceSelected.bookId,
     branch: resourcesList[type].branch ?? 'master',
-    languageId: resourcesList[type].languageId ?? 'en',
+    languageId: resourcesList[type].languageId ?? 'ru',
     resourceId: resourcesList[type].resourceId ?? 'obs',
     filePath: String(referenceSelected.chapter).padStart(2, '0') + '.md',
     owner: resourcesList[type].owner ?? 'bsa',
     server,
   });
   const {
-    state: { item, headers, filters, itemIndex, markdownView },
-    actions: { setItemIndex, setMarkdownView },
+    state: { item, headers, itemIndex },
+    actions: { setItemIndex },
   } = useCardState({
     items,
   });
@@ -44,18 +42,13 @@ export default function OBS(props) {
       headers={headers}
       itemIndex={itemIndex}
       setItemIndex={setItemIndex}
-      markdownView={markdownView}
-      setMarkdownView={setMarkdownView}
     >
       <CardContent
         item={item}
-        filters={filters}
         fontSize={fontSize}
         markdown={markdown}
-        viewMode="question"
         isLoading={isLoading}
         languageId={languageId}
-        markdownView={markdownView}
       />
     </Card>
   );
