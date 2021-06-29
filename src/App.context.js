@@ -5,7 +5,7 @@ import { useHistory, useLocation } from 'react-router-dom';
 import { ResourcesContextProvider } from 'scripture-resources-rcl';
 
 import { getResources } from './helper';
-import { server, defaultCards, defaultReference } from './config';
+import { server, defaultCards, defaultReference } from './config/base';
 
 export const AppContext = React.createContext();
 

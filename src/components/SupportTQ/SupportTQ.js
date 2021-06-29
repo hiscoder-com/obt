@@ -3,7 +3,7 @@ import React, { useContext } from 'react';
 import { Card, CardContent, useContent, useCardState } from 'translation-helps-rcl';
 
 import { AppContext } from '../../App.context';
-import { server } from '../../config';
+import { server } from '../../config/base';
 
 export default function SupportTQ(props) {
   const { title, classes, onClose, type } = props;

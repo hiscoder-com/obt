@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 
 import { FontSizeSlider } from 'translation-helps-rcl';
 import { useTranslation } from 'react-i18next';
 
+import { AppContext } from '../../App.context';
 import { BookSelect, ChapterSelect } from '../../components';
 import SelectLanguage from '../SelectLanguage/SelectLanguage';
 import { SearchResources } from '../SearchResources';
@@ -23,8 +24,8 @@ import useStyles from './style';
 
 function SubMenuBar() {
   const { state, actions } = useContext(AppContext);
-  const { appConfig, fontSize } = state;
-  const { setAppConfig, setFontSize } = actions;
+  const { fontSize } = state;
+  const { setFontSize } = actions;
 
   const classes = useStyles();
 

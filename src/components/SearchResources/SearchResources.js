@@ -6,10 +6,10 @@ import axios from 'axios';
 import { setupCache } from 'axios-cache-adapter';
 
 import { AppContext } from '../../App.context';
-import { langs, subjects } from './config';
+import { langs, subjects } from '../../config/materials';
 
 import { MenuItem, Menu } from '@material-ui/core';
-import { defaultCard } from '../../config';
+import { defaultCard } from '../../config/base';
 
 import { getUniqueResources } from '../../helper';
 

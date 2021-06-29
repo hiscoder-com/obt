@@ -3,12 +3,20 @@ import React, { useContext } from 'react';
 import { Card, CardContent, useContent, useCardState } from 'translation-helps-rcl';
 
 import { AppContext } from '../../App.context';
-import { resourcesList, server } from '../../config';
+import { server } from '../../config/base';
 
 export default function OBS(props) {
   const { title, classes, onClose, type } = props;
-  const appContext = useContext(AppContext);
-  const { referenceSelected, fontSize } = appContext.state;
+  const {
+    state: { referenceSelected, fontSize, resourcesApp },
+  } = useContext(AppContext);
+
+  let resource = false;
+  resourcesApp.forEach((el) => {
+    if (el.name === type) {
+      resource = el;
+    }
+  });
 
   const {
     markdown,
@@ -17,11 +25,11 @@ export default function OBS(props) {
     props: { languageId },
   } = useContent({
     projectId: referenceSelected.bookId,
-    branch: resourcesList[type].branch ?? 'master',
-    languageId: resourcesList[type].languageId ?? 'ru',
-    resourceId: resourcesList[type].resourceId ?? 'obs',
+    branch: resource.branch ?? 'master',
+    languageId: resource.languageId ?? 'ru',
+    resourceId: resource.resourceId ?? 'obs',
     filePath: String(referenceSelected.chapter).padStart(2, '0') + '.md',
-    owner: resourcesList[type].owner ?? 'bsa',
+    owner: resource.owner ?? 'bsa',
     server,
   });
   const {
