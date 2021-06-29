@@ -1,7 +1,7 @@
 import React, { useState, /*useMemo,*/ useEffect } from 'react';
 
 import { Card } from 'translation-helps-rcl';
-import { Verse, ResourcesContext } from 'scripture-resources-rcl';
+import { Verse } from 'scripture-resources-rcl';
 import { useTranslation } from 'react-i18next';
 
 import { AppContext } from '../../App.context';
@@ -20,7 +20,7 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
   const [position, setPosition] = React.useState(initialPosition);
   const { state } = React.useContext(ResourcesContext);
   const {
-    state: { resourcesApp },
+    state: { resourcesApp, fontSize },
     actions: { setShowErrorReport, setReferenceBlock, setReferenceSelected },
   } = React.useContext(AppContext);
 
@@ -95,9 +95,13 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
         continue;
       }
       const { verseObjects } = chapter[key];
-
+      const verseStyle = {
+        fontSize: fontSize + '%',
+        cursor: 'context-menu',
+      };
       const verse = (
         <span
+          style={verseStyle}
           className="verse"
           key={key}
           onContextMenu={(e) => {
@@ -127,7 +131,7 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
       _verses.push(verse);
     }
     setVerses(_verses);
-  }, [chapter, reference, type, setReferenceBlock, setReferenceSelected]);
+  }, [chapter, reference, type, setReferenceBlock, setReferenceSelected, fontSize]);
   const anchorPosition =
     position.mouseY !== null && position.mouseX !== null
       ? { top: position.mouseY, left: position.mouseX }

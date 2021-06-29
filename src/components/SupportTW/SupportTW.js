@@ -8,7 +8,7 @@ import { server } from '../../config';
 export default function SupportTW(props) {
   const { title, classes, onClose, type } = props;
   const {
-    state: { referenceSelected, resourcesApp },
+    state: { referenceSelected, resourcesApp,fontSize },
   } = useContext(AppContext);
 
   let resource = false;
@@ -36,8 +36,8 @@ export default function SupportTW(props) {
   });
 
   const {
-    state: { item, headers, filters, fontSize, itemIndex, markdownView },
-    actions: { setFilters, setFontSize, setItemIndex, setMarkdownView },
+    state: { item, headers, filters, itemIndex, markdownView },
+    actions: { setFilters, setItemIndex, setMarkdownView },
   } = useCardState({
     items,
   });
@@ -54,7 +54,6 @@ export default function SupportTW(props) {
       fontSize={fontSize}
       itemIndex={itemIndex}
       setFilters={setFilters}
-      setFontSize={setFontSize}
       setItemIndex={setItemIndex}
       markdownView={markdownView}
       setMarkdownView={setMarkdownView}

@@ -21,6 +21,8 @@ let _resourcesApp = localStorage.getItem('resourcesApp')
   ? JSON.parse(localStorage.getItem('resourcesApp'))
   : [];
 
+let _fontSize = parseInt(localStorage.getItem('fontSize'));
+
 const config = { server };
 
 export function AppContextProvider({ children }) {
@@ -44,6 +46,8 @@ export function AppContextProvider({ children }) {
   const [showBookSelect, setShowBookSelect] = useState(true);
   const [showChapterSelect, setShowChapterSelect] = useState(false);
   const [showErrorReport, setShowErrorReport] = useState(false);
+  const [fontSize, setFontSize] = useState(_fontSize ? _fontSize : 100);
+  localStorage.setItem('fontSize', fontSize);
 
   useEffect(() => {
     setResourceLinks(getResources(appConfig, resourcesApp));
@@ -77,6 +81,7 @@ export function AppContextProvider({ children }) {
       showChapterSelect,
       showErrorReport,
       referenceBlock,
+      fontSize,
     },
     actions: {
       setAppConfig,
@@ -88,6 +93,7 @@ export function AppContextProvider({ children }) {
       setShowChapterSelect,
       setShowErrorReport,
       setReferenceBlock,
+      setFontSize,
     },
   };
 

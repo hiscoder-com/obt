@@ -110,6 +110,21 @@ export const resourcesList = {
     languageId: 'en',
     resourceId: 'tq',
     owner: 'Door43-Catalog',
+  en_obs: {
+    link: 'Door43-Catalog/en_obs/content/master',
+    branch: 'master',
+    subject: 'obs',
+    languageId: 'en',
+    resourceId: 'obs',
+    owner: 'Door43-Catalog',
+  },
+  ru_obs: {
+    link: 'Door43-Catalog/ru_obs/content/master',
+    branch: 'master',
+    subject: 'obs',
+    languageId: 'ru',
+    resourceId: 'obs',
+    owner: 'Door43-Catalog',
   },
   /*  tw: {
     link: 'Door43-Catalog/ru_tw/master',
@@ -517,5 +532,11 @@ export const bibleList = [
     isset: false,
     sort: 66,
     categories: 'bible-nt',
+  },
+  {
+    identifier: 'obs',
+    isset: false,
+    sort: 70,
+    categories: 'obs',
   },
 ];

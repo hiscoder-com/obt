@@ -11,10 +11,11 @@ import { useStyles, useBookStyles } from './style';
 
 function BookList() {
   const { state } = useContext(ResourcesContext);
-  const appContext = useContext(AppContext);
-  const { referenceSelected } = appContext.state;
-  const { setShowBookSelect, setReferenceSelected, setShowChapterSelect } =
-    appContext.actions;
+  const {
+    state: { referenceSelected, appConfig },
+    actions: { setShowBookSelect, setReferenceSelected, setShowChapterSelect },
+  } = useContext(AppContext);
+  const showOBS = appConfig.filter((el) => el.i.split('_')[1] === 'obs').length > 0;
 
   const onBook = (identifier) => {
     setShowBookSelect(false);
@@ -39,7 +40,9 @@ function BookList() {
       resource.projects.map((project) => uniqueBookID.add(project.identifier));
     });
   }
+  showOBS && uniqueBookID.add('obs');
   let availableBookList = Array.from(uniqueBookID);
+
   const titleBooks = {};
   currentBibleList.map((el) => (titleBooks[el.identifier] = t(el.identifier)));
 
@@ -54,9 +57,11 @@ function BookList() {
         selectedBookId={referenceSelected.bookId}
         onClickBook={(bookId) => onBook(bookId)}
         titleOT={t('bible_OT')}
+        titleOBS={t('bible_OBS')}
         titleNT={t('bible_NT')}
         BibleBookListClasses={classes}
         bookClasses={bookClasses}
+        showOBS={showOBS}
       />
     </>
   );

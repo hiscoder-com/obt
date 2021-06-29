@@ -8,7 +8,9 @@ import { AppContext } from '../../App.context';
 import useStyles, { useButtonStyles } from './style';
 
 function ChapterList({ setReferenceSelected, referenceSelected, onClose }) {
-  const { state } = useContext(AppContext);
+  const {
+    state: { appConfig },
+  } = useContext(AppContext);
   const { t } = useTranslation();
   const classes = useStyles();
   const chapterClasses = useButtonStyles();
@@ -20,8 +22,14 @@ function ChapterList({ setReferenceSelected, referenceSelected, onClose }) {
     <BibleChapterListRCL
       chapterClasses={chapterClasses}
       selectedChapter={referenceSelected.chapter}
-      bookId={state.resources.length > 0 ? referenceSelected.bookId : ''}
-      chapterPrefix={referenceSelected.bookId === 'psa' ? t('Psalm') : t('Chapter')}
+      bookId={appConfig.length > 0 ? referenceSelected.bookId : ''}
+      chapterPrefix={
+        referenceSelected.bookId === 'psa'
+          ? t('Psalm')
+          : referenceSelected.bookId === 'obs'
+          ? t('Story')
+          : t('Chapter')
+      }
       onClickChapter={onClickChapter}
       chapterListClasses={classes}
     />
