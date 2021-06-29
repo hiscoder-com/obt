@@ -107,7 +107,7 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
           onContextMenu={(e) => {
             setReferenceBlock({
               ...reference,
-              type,
+              resource: type,
               verse: key,
               text: getVerseText(verseObjects),
             });

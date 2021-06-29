@@ -1,18 +1,15 @@
 import React, { useContext, useEffect, useState } from 'react';
 
 import { useTranslation } from 'react-i18next';
-
 import axios from 'axios';
 import { setupCache } from 'axios-cache-adapter';
 
 import { AppContext } from '../../App.context';
 import { langs, subjects } from '../../config/materials';
-
-import { MenuItem, Menu } from '@material-ui/core';
 import { defaultCard } from '../../config/base';
-
 import { getUniqueResources } from '../../helper';
 
+import { MenuItem, Menu } from '@material-ui/core';
 import { useStyles } from './style';
 
 function SearchResources({ anchorEl, onClose, open }) {
