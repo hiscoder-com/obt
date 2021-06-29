@@ -11,7 +11,8 @@ function Card({ type, onClose, classes }) {
   let CurrentCard;
 
   const {
-    state: { referenceSelected, resourcesApp },
+    state: { referenceSelected, resourcesApp, appConfig },
+    actions: { setAppConfig },
   } = useContext(AppContext);
 
   let resource = false;
@@ -22,6 +23,8 @@ function Card({ type, onClose, classes }) {
   });
 
   if (!resource) {
+    const _appConfig = appConfig.filter((el) => el.i !== type);
+    setAppConfig(_appConfig);
     return false;
   }
 

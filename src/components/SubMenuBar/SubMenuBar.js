@@ -7,6 +7,7 @@ import { AppContext } from '../../App.context';
 import { BookSelect, ChapterSelect } from '../../components';
 import SelectLanguage from '../SelectLanguage/SelectLanguage';
 import { SearchResources } from '../SearchResources';
+import { defaultCards } from '../../config/base';
 
 import {
   AppBar,
@@ -23,9 +24,10 @@ import MenuIcon from '@material-ui/icons/Menu';
 import useStyles from './style';
 
 function SubMenuBar() {
-  const { state, actions } = useContext(AppContext);
-  const { fontSize } = state;
-  const { setFontSize } = actions;
+  const {
+    state: { fontSize },
+    actions: { setFontSize, setAppConfig },
+  } = useContext(AppContext);
 
   const classes = useStyles();
 
@@ -47,6 +49,10 @@ function SubMenuBar() {
   };
   const handleCloseAddMaterial = () => {
     setAnchorAddMaterial(null);
+  };
+
+  const handleResetWorkspace = () => {
+    setAppConfig(defaultCards);
   };
 
   return (
@@ -102,7 +108,7 @@ function SubMenuBar() {
                 value={fontSize}
               />
             </MenuItem>
-            <MenuItem button={false} className={classes.menu}>
+            <MenuItem button={false} className={classes.menu} divider={true}>
               <FormControl>
                 <FormHelperText>
                   {t('Text_under_checkbox_error1')}
@@ -111,6 +117,7 @@ function SubMenuBar() {
                 </FormHelperText>
               </FormControl>
             </MenuItem>
+            <MenuItem onClick={handleResetWorkspace}>{t('Reset Workspace')}</MenuItem>
           </Menu>
           <SearchResources
             anchorEl={anchorAddMaterial}
