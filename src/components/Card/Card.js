@@ -1,7 +1,5 @@
 import React, { useContext } from 'react';
 
-import { useTranslation } from 'react-i18next';
-
 import { AppContext } from '../../App.context';
 import Chapter from '../Chapter/Chapter';
 import SupportTQ from '../SupportTQ/SupportTQ';
@@ -9,47 +7,56 @@ import SupportTN from '../SupportTN/SupportTN';
 import SupportTW from '../SupportTW/SupportTW';
 import OBS from '../OBS/OBS';
 
-import { resourcesList } from '../../config';
-
 function Card({ type, onClose, classes }) {
   let CurrentCard;
 
-  const { state } = useContext(AppContext);
-  const { referenceSelected } = state;
+  const {
+    state: { referenceSelected, resourcesApp },
+  } = useContext(AppContext);
 
-  const { t } = useTranslation();
-  const resource = resourcesList[type];
+  let resource = false;
+  resourcesApp.forEach((el) => {
+    if (el.name === type) {
+      resource = el;
+    }
+  });
 
   if (!resource) {
     return false;
   }
 
-  switch (resource.resourceId) {
-    case 'tn':
+  switch (resource.subject) {
+    case 'TSV Translation Notes':
       CurrentCard = SupportTN;
       break;
 
-    case 'tq':
+    case 'Translation Questions':
       CurrentCard = SupportTQ;
       break;
 
-    case 'tw':
+    case 'Translation Words':
       CurrentCard = SupportTW;
       break;
 
-    case 'obs':
+    case 'Open Bible Stories':
       CurrentCard = OBS;
       break;
 
-    default:
+    case 'Bible':
+    case 'Aligned Bible':
+    case 'Hebrew Old Testament':
+    case 'Greek New Testament':
       CurrentCard = Chapter;
       break;
+
+    default:
+      return false;
   }
 
   return (
     <CurrentCard
       classes={classes}
-      title={t(type)}
+      title={resource.title}
       onClose={onClose}
       type={type}
       reference={referenceSelected}

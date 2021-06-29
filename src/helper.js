@@ -1,26 +1,32 @@
-import { resourcesList } from './config';
-
-export const getResources = (appConfig) => {
+export const getResources = (appConfig, resourcesApp) => {
   const resources = [];
   if (appConfig.length > 0) {
     appConfig.forEach((el) => {
-      if (resourcesList[el.i]?.type === 'bible') {
-        resources.push(resourcesList[el.i].link);
-      }
+      resourcesApp.forEach((r_el) => {
+        if (
+          r_el?.subject &&
+          [
+            'Bible',
+            'Aligned Bible',
+            'Hebrew Old Testament',
+            'Greek New Testament',
+          ].includes(r_el.subject) &&
+          r_el.name === el.i
+        ) {
+          resources.push(r_el.link);
+        }
+      });
     });
   }
-  resources === [] && resources.push(resourcesList['rob'].link);
   return resources;
 };
 
-export const getUniqueResources = (appConfig) => {
-  const resources = { ...resourcesList };
-  if (appConfig.length > 0) {
-    appConfig.forEach((el) => {
-      delete resources[el.i];
-    });
+export const getUniqueResources = (appConfig, resourcesApp) => {
+  if (appConfig.length === 0) {
+    return resourcesApp;
   }
-  return resources;
+  const opened = appConfig.map((el) => el.i);
+  return resourcesApp.filter((el) => !opened.includes(el.name));
 };
 
 // +

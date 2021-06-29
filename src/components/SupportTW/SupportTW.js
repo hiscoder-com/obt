@@ -1,15 +1,23 @@
 import React, { useState, useContext } from 'react';
 
 import { Card, CardContent, useContent, useCardState } from 'translation-helps-rcl';
-import { ReferenceSelectedContext } from 'scripture-resources-rcl';
+
 import { AppContext } from '../../App.context';
-import { resourcesList, server } from '../../config';
+import { server } from '../../config';
 
 export default function SupportTW(props) {
   const { title, classes, onClose, type } = props;
-  const { state: reference } = React.useContext(ReferenceSelectedContext);
-  const appContext = useContext(AppContext);
-  const { fontSize } = appContext.state;
+  const {
+    state: { referenceSelected, resourcesApp,fontSize },
+  } = useContext(AppContext);
+
+  let resource = false;
+  resourcesApp.forEach((el) => {
+    if (el.name === type) {
+      resource = el;
+    }
+  });
+
   const [selectedQuote, setQuote] = useState({});
   const {
     markdown,
@@ -17,13 +25,13 @@ export default function SupportTW(props) {
     isLoading,
     props: { languageId },
   } = useContent({
-    verse: reference.verse,
-    chapter: reference.chapter,
-    projectId: reference.bookId,
-    branch: resourcesList[type].branch ?? 'master',
-    languageId: resourcesList[type].languageId ?? 'ru',
-    resourceId: resourcesList[type].resourceId ?? 'tw',
-    owner: resourcesList[type].owner ?? 'bsa',
+    verse: referenceSelected.verse,
+    chapter: referenceSelected.chapter,
+    projectId: referenceSelected.bookId,
+    branch: resource.branch ?? 'master',
+    languageId: resource.languageId ?? 'ru',
+    resourceId: 'tw',
+    owner: resource.owner ?? 'door43-catalog',
     server,
   });
 
