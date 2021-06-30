@@ -32,6 +32,11 @@ export default function OBS(props) {
     owner: resource.owner ?? 'bsa',
     server,
   });
+  if (markdown) {
+    // console.log(markdown);
+    console.log(markdown.split('\n\n'));
+  }
+
   const {
     state: { item, headers, itemIndex },
     actions: { setItemIndex },
