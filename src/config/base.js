@@ -13,6 +13,7 @@ export const defaultReference = {
   chapter: 1,
   verse: 1,
 };
+export const languages = ['en', 'ru'];
 
 export const bibleList = [
   {
