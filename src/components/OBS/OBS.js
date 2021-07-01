@@ -44,14 +44,18 @@ export default function OBS(props) {
         const text = _markdown[n * 2 + 1];
         let url_image = imageOBS.match(/\(([^)]*)\)/gm);
         url_image = url_image[0].slice(1, -1);
-        console.log(url_image, '\n', text);
-        verseObject.push(url_image, text);
+        // console.log(url_image, '\n', text);
+        verseObject.push({ url_image, text });
       }
-      console.log(verseObject);
-      return {};
+      // console.log(verseObject);
+      return verseObject;
     }
   }
-  const OBSVerse = mdToVerse(markdown);
+  if (markdown) {
+    const verseMD = mdToVerse(markdown);
+    console.log(verseMD);
+    // verseMD.map((verse, key) => console.log(verse.url_image));
+  }
 
   const {
     state: { item, headers, itemIndex },
