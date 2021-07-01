@@ -32,9 +32,19 @@ export default function OBS(props) {
     owner: resource.owner ?? 'bsa',
     server,
   });
+  let _markdown;
   if (markdown) {
-    // console.log(markdown);
-    console.log(markdown.split('\n\n'));
+    _markdown = markdown.split('\n\n');
+    _markdown.pop();
+    _markdown.shift();
+    for (let n = 0; n < _markdown.length / 2; n++) {
+      const img = _markdown[n * 2];
+      const text = _markdown[n * 2 + 1];
+      let url_image = img.match(/\(([^)]*)\)/gm);
+      url_image = url_image[0].slice(1, -1);
+      console.log(url_image, '\n', text);
+    }
+    // console.log(_markdown);
   }
 
   const {
