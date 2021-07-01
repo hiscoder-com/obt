@@ -51,10 +51,11 @@ export default function OBS(props) {
       return verseObject;
     }
   }
+  let verseOBS = [];
   if (markdown) {
     const verseMD = mdToVerse(markdown);
-    console.log(verseMD);
-    // verseMD.map((verse, key) => console.log(verse.url_image));
+
+    verseOBS = verseMD.map((verse, key) => <img src={verse.url_image} alt={key} />);
   }
 
   const {
