@@ -32,20 +32,26 @@ export default function OBS(props) {
     owner: resource.owner ?? 'bsa',
     server,
   });
-  let _markdown;
-  if (markdown) {
-    _markdown = markdown.split('\n\n');
-    _markdown.pop();
-    _markdown.shift();
-    for (let n = 0; n < _markdown.length / 2; n++) {
-      const img = _markdown[n * 2];
-      const text = _markdown[n * 2 + 1];
-      let url_image = img.match(/\(([^)]*)\)/gm);
-      url_image = url_image[0].slice(1, -1);
-      console.log(url_image, '\n', text);
+
+  function mdToVerse(md) {
+    if (md) {
+      let _markdown = md.split('\n\n');
+      _markdown.pop();
+      _markdown.shift();
+      const verseObject = [];
+      for (let n = 0; n < _markdown.length / 2; n++) {
+        const imageOBS = _markdown[n * 2];
+        const text = _markdown[n * 2 + 1];
+        let url_image = imageOBS.match(/\(([^)]*)\)/gm);
+        url_image = url_image[0].slice(1, -1);
+        console.log(url_image, '\n', text);
+        verseObject.push(url_image, text);
+      }
+      console.log(verseObject);
+      return {};
     }
-    // console.log(_markdown);
   }
+  const OBSVerse = mdToVerse(markdown);
 
   const {
     state: { item, headers, itemIndex },
@@ -55,6 +61,7 @@ export default function OBS(props) {
   });
 
   return (
+    // <>{OBSVerse}</>
     <Card
       closeable
       title={title}
