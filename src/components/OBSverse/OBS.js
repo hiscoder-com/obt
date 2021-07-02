@@ -56,14 +56,15 @@ export default function OBSverse(props) {
     const verseMD = mdToVerse(markdown);
 
     verseOBS = verseMD.map((verse, key) => (
-      <img
-        key={key}
-        onClick={(key) => {
-          alert(key);
-        }}
-        src={verse.url_image}
-        alt={key}
-      />
+      <>
+        <img
+          key={key}
+          onClick={(key) => console.log(key)}
+          src={verse.url_image}
+          alt={key}
+        />
+        <div>{verse.text}</div>
+      </>
     ));
   }
 

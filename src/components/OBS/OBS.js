@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 
-import { Card, CardContent, useContent, useCardState } from 'translation-helps-rcl';
+import { Card, useContent, useCardState } from 'translation-helps-rcl';
 
 import { AppContext } from '../../App.context';
 import { server } from '../../config/base';
@@ -21,7 +21,6 @@ export default function OBS(props) {
   const {
     markdown,
     items,
-    isLoading,
     props: { languageId },
   } = useContent({
     projectId: referenceSelected.bookId,
@@ -32,7 +31,7 @@ export default function OBS(props) {
     owner: resource.owner ?? 'bsa',
     server,
   });
-
+  console.log(languageId);
   function mdToVerse(md) {
     if (md) {
       let _markdown = md.split('\n\n');
@@ -56,19 +55,17 @@ export default function OBS(props) {
     const verseMD = mdToVerse(markdown);
 
     verseOBS = verseMD.map((verse, key) => (
-      <img
-        key={key}
-        onClick={(key) => {
-          alert(key);
-        }}
-        src={verse.url_image}
-        alt={key}
-      />
+      <>
+        <img onClick={(key) => console.log(key)} src={verse.url_image} alt={key} />
+        <div onClick={() => console.log(key)} key={key}>
+          {verse.text}
+        </div>
+      </>
     ));
   }
 
   const {
-    state: { item, headers, itemIndex },
+    state: { headers, itemIndex },
     actions: { setItemIndex },
   } = useCardState({
     items,
