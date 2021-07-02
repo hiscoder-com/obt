@@ -5,7 +5,7 @@ import { Card, CardContent, useContent, useCardState } from 'translation-helps-r
 import { AppContext } from '../../App.context';
 import { server } from '../../config/base';
 
-export default function OBS(props) {
+export default function OBSverse(props) {
   const { title, classes, onClose, type } = props;
   const {
     state: { referenceSelected, fontSize, resourcesApp },
