@@ -124,3 +124,11 @@ const getObject = (verseObject, showUnsupported) => {
       }
   }
 };
+
+export const langArrToObject = (langs) => {
+  let result = {};
+  langs.forEach((el) => {
+    result[el] = { translation: require(`./config/locales/${el}/translation.json`) };
+  });
+  return result;
+};
