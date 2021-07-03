@@ -7,7 +7,9 @@ export const defaultTplBible = [
 ];
 
 export const defaultTplOBS = [
-  { w: 12, h: 12, x: 0, y: 0, i: 'ru_obs', minH: 4, minW: 2 },
+  { w: 6, h: 10, x: 0, y: 0, i: 'ru_obs', minH: 4, minW: 2 },
+  { w: 6, h: 5, x: 6, y: 0, i: 'ru_obs-tn', minH: 4, minW: 2 },
+  { w: 6, h: 5, x: 6, y: 5, i: 'ru_obs-tq', minH: 4, minW: 2 },
 ];
 
 export const defaultCard = { w: 4, h: 4, x: 0, y: 99, minH: 4, minW: 2 };

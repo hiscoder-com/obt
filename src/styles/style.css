@@ -26,3 +26,8 @@ input {
 .tqcard h1{
   font-size: inherit;
 }
+
+.obs img{
+  height: auto;
+  max-width: 100%;
+}
