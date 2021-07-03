@@ -1,15 +1,24 @@
 export const server = 'https://git.door43.org';
 
-export const defaultCards = [
+export const defaultTplBible = [
   { w: 4, h: 9, x: 0, y: 0, i: 'ru_rob', minH: 4, minW: 2 },
   { w: 4, h: 9, x: 4, y: 0, i: 'ru_rsb', minH: 4, minW: 2 },
   { w: 4, h: 9, x: 8, y: 0, i: 'ru_tn', minH: 4, minW: 2 },
 ];
 
+export const defaultTplOBS = [
+  { w: 12, h: 12, x: 0, y: 0, i: 'ru_obs', minH: 4, minW: 2 },
+];
+
 export const defaultCard = { w: 4, h: 4, x: 0, y: 99, minH: 4, minW: 2 };
 export const singleChaptersBookID = ['oba', '2jn', '3jn', 'jud', 'phm'];
-export const defaultReference = {
-  bookId: 'tit',
+export const defaultBibleReference = {
+  bookId: 'mat',
+  chapter: 1,
+  verse: 1,
+};
+export const defaultOBSReference = {
+  bookId: 'obs',
   chapter: 1,
   verse: 1,
 };

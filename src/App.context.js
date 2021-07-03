@@ -5,17 +5,17 @@ import { useHistory, useLocation } from 'react-router-dom';
 import { ResourcesContextProvider } from 'scripture-resources-rcl';
 
 import { getResources } from './helper';
-import { server, defaultCards, defaultReference } from './config/base';
+import { server, defaultTplBible, defaultBibleReference } from './config/base';
 
 export const AppContext = React.createContext();
 
 const _appConfig = localStorage.getItem('appConfig')
   ? JSON.parse(localStorage.getItem('appConfig'))
-  : defaultCards;
+  : defaultTplBible;
 
 let _reference = localStorage.getItem('reference')
   ? JSON.parse(localStorage.getItem('reference'))
-  : defaultReference;
+  : defaultBibleReference;
 
 let _resourcesApp = localStorage.getItem('resourcesApp')
   ? JSON.parse(localStorage.getItem('resourcesApp'))

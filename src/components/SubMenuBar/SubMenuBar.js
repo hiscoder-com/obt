@@ -4,10 +4,13 @@ import { FontSizeSlider } from 'translation-helps-rcl';
 import { useTranslation } from 'react-i18next';
 
 import { AppContext } from '../../App.context';
-import { BookSelect, ChapterSelect } from '../../components';
-import SelectLanguage from '../SelectLanguage/SelectLanguage';
-import { SearchResources } from '../SearchResources';
-import { defaultCards } from '../../config/base';
+import {
+  BookSelect,
+  WorkspaceManager,
+  SearchResources,
+  ChapterSelect,
+  SelectLanguage,
+} from '../../components';
 
 import {
   AppBar,
@@ -26,7 +29,7 @@ import useStyles from './style';
 function SubMenuBar() {
   const {
     state: { fontSize },
-    actions: { setFontSize, setAppConfig },
+    actions: { setFontSize },
   } = useContext(AppContext);
 
   const classes = useStyles();
@@ -49,10 +52,6 @@ function SubMenuBar() {
   };
   const handleCloseAddMaterial = () => {
     setAnchorAddMaterial(null);
-  };
-
-  const handleResetWorkspace = () => {
-    setAppConfig(defaultCards);
   };
 
   return (
@@ -117,7 +116,7 @@ function SubMenuBar() {
                 </FormHelperText>
               </FormControl>
             </MenuItem>
-            <MenuItem onClick={handleResetWorkspace}>{t('Reset Workspace')}</MenuItem>
+            <WorkspaceManager />
           </Menu>
           <SearchResources
             anchorEl={anchorAddMaterial}
