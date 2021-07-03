@@ -5,7 +5,7 @@ import { Card, CardContent, useContent, useCardState } from 'translation-helps-r
 import { AppContext } from '../../App.context';
 import { server } from '../../config/base';
 
-export default function OBS(props) {
+export default function SupportOBSTN(props) {
   const { title, classes, onClose, type } = props;
   const {
     state: { referenceSelected, fontSize, resourcesApp },
@@ -24,17 +24,21 @@ export default function OBS(props) {
     isLoading,
     props: { languageId },
   } = useContent({
-    projectId: 'obs',
+    projectId: 'obs-tn',
     branch: resource.branch ?? 'master',
     languageId: resource.languageId ?? 'ru',
-    resourceId: 'obs',
-    filePath: String(referenceSelected.chapter).padStart(2, '0') + '.md',
+    resourceId: 'obs-tn',
+    filePath:
+      String(referenceSelected.chapter).padStart(2, '0') +
+      '/' +
+      String(referenceSelected.verse).padStart(2, '0') +
+      '.md',
     owner: resource.owner ?? 'door43-catalog',
     server,
   });
   const {
-    state: { item, headers, itemIndex },
-    actions: { setItemIndex },
+    state: { item, headers, filters, itemIndex, markdownView },
+    actions: { setFilters, setItemIndex, setMarkdownView },
   } = useCardState({
     items,
   });
@@ -44,19 +48,26 @@ export default function OBS(props) {
       closeable
       title={title}
       onClose={() => onClose(type)}
-      classes={{ ...classes, children: 'obs' }}
+      classes={{ ...classes, children: 'tqcard' }}
       items={items}
-      fontSize={fontSize}
       headers={headers}
+      filters={filters}
+      fontSize={fontSize}
       itemIndex={itemIndex}
+      setFilters={setFilters}
       setItemIndex={setItemIndex}
+      markdownView={markdownView}
+      setMarkdownView={setMarkdownView}
     >
       <CardContent
         item={item}
+        filters={filters}
         fontSize={fontSize}
         markdown={markdown}
+        viewMode="question"
         isLoading={isLoading}
         languageId={languageId}
+        markdownView={markdownView}
       />
     </Card>
   );

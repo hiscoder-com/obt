@@ -1,9 +1,9 @@
-export const langs = ['en', 'ru', 'el-x-koine', 'hbo', 'tdj'];
+export const langs = ['en', 'ru', 'el-x-koine', 'hbo', 'fr'];
 
 export const subjects = [
   'Open Bible Stories',
-  //'OBS Translation Notes',
-  //'OBS Translation Questions',
+  'OBS Translation Notes',
+  'OBS Translation Questions',
   //'OBS Study Notes',
   //'OBS Study Questions',
   //'TSV OBS Translation Words Links',
