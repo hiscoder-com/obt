@@ -1,11 +1,11 @@
 import React, { useContext } from 'react';
 
-import { Card, CardContent, useContent, useCardState } from 'translation-helps-rcl';
+import { Card, useContent, useCardState } from 'translation-helps-rcl';
 
 import { AppContext } from '../../App.context';
 import { server } from '../../config/base';
 
-export default function OBSverse(props) {
+export default function OBSVerse(props) {
   const { title, classes, onClose, type } = props;
   const {
     state: { referenceSelected, fontSize, resourcesApp },
@@ -18,12 +18,7 @@ export default function OBSverse(props) {
     }
   });
 
-  const {
-    markdown,
-    items,
-    isLoading,
-    props: { languageId },
-  } = useContent({
+  const { markdown, items } = useContent({
     projectId: referenceSelected.bookId,
     branch: resource.branch ?? 'master',
     languageId: resource.languageId ?? 'ru',
@@ -36,6 +31,9 @@ export default function OBSverse(props) {
   function mdToVerse(md) {
     if (md) {
       let _markdown = md.split('\n\n');
+      const headerMd = _markdown[0].slice(1);
+      const linkMd = _markdown[_markdown.length - 1].slice(1);
+
       _markdown.pop();
       _markdown.shift();
       const verseObject = [];
@@ -48,28 +46,39 @@ export default function OBSverse(props) {
         verseObject.push({ url_image, text });
       }
 
-      return verseObject;
+      return { verseObject, headerMd, linkMd };
     }
   }
-  let verseOBS = [];
+  let verseOBS;
   if (markdown) {
-    const verseMD = mdToVerse(markdown);
+    const { headerMd, linkMd, verseObject } = mdToVerse(markdown);
 
-    verseOBS = verseMD.map((verse, key) => (
+    const contentMd = verseObject.map((verse, index) => (
       <>
+        <p></p>
         <img
-          key={key}
-          onClick={(key) => console.log(key)}
+          onClick={(index) => console.log(index)}
           src={verse.url_image}
-          alt={key}
+          alt={index}
+          key={verse.id}
         />
-        <div>{verse.text}</div>
+        <p></p>
+        <div onClick={() => console.log(index)} key={verse.id}>
+          {verse.text}
+        </div>
       </>
     ));
+    verseOBS = (
+      <>
+        <h1>{headerMd}</h1> {contentMd}
+        <p></p>
+        {linkMd}
+      </>
+    );
   }
 
   const {
-    state: { item, headers, itemIndex },
+    state: { headers, itemIndex },
     actions: { setItemIndex },
   } = useCardState({
     items,
@@ -81,7 +90,7 @@ export default function OBSverse(props) {
         closeable
         title={title}
         onClose={() => onClose(type)}
-        classes={classes}
+        classes={{ ...classes, children: 'obs' }}
         items={items}
         fontSize={fontSize}
         headers={headers}

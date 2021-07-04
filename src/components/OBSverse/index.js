@@ -1,1 +1,1 @@
-export { default as OBS } from './OBS';
+export { default as OBSVerse } from './OBSVerse';
