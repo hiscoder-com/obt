@@ -9,6 +9,7 @@ export default function OBSVerse(props) {
   const { title, classes, onClose, type } = props;
   const {
     state: { referenceSelected, fontSize, resourcesApp },
+    actions: { setReferenceSelected },
   } = useContext(AppContext);
 
   let resource = false;
@@ -50,24 +51,26 @@ export default function OBSVerse(props) {
     }
   }
   let verseOBS;
+
   if (markdown) {
     const { headerMd, linkMd, verseObject } = mdToVerse(markdown);
 
     const contentMd = verseObject.map((verse, index) => (
-      <>
+      <div key={verse.id}>
         <p></p>
-        <img
-          onClick={(index) => console.log(index)}
-          src={verse.url_image}
-          alt={index}
-          key={verse.id}
-        />
+        <img onClick={(index) => console.log(index)} src={verse.url_image} alt={index} />
         <p></p>
-        <div onClick={() => console.log(index)} key={verse.id}>
+        <div
+          onClick={() =>
+            setReferenceSelected({ ...referenceSelected, verse: (index + 1).toString() })
+          }
+          key={index}
+        >
           {verse.text}
         </div>
-      </>
+      </div>
     ));
+    console.log(referenceSelected);
     verseOBS = (
       <>
         <h1>{headerMd}</h1> {contentMd}
@@ -97,7 +100,7 @@ export default function OBSVerse(props) {
         itemIndex={itemIndex}
         setItemIndex={setItemIndex}
       >
-        {verseOBS}
+        <>{verseOBS}</>
       </Card>
     </>
   );
