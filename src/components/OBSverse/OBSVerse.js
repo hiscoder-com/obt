@@ -31,8 +31,8 @@ export default function OBSVerse(props) {
   function mdToVerse(md) {
     if (md) {
       let _markdown = md.split('\n\n');
-      const headerMd = _markdown[0].slice(1);
-      const linkMd = _markdown[_markdown.length - 1].slice(1);
+      const headerMd = _markdown[0].trim().slice(1);
+      const linkMd = _markdown[_markdown.length - 1].trim().slice(1, -1);
 
       _markdown.pop();
       _markdown.shift();
@@ -72,7 +72,7 @@ export default function OBSVerse(props) {
       <>
         <h1>{headerMd}</h1> {contentMd}
         <p></p>
-        {linkMd}
+        <i>{linkMd}</i>
       </>
     );
   }
