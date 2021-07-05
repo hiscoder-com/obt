@@ -33,21 +33,15 @@ export default function OBSVerse(props) {
   function mdToVerse(md) {
     if (md) {
       let _markdown = md.split('\n\n');
-      const headerMd = _markdown[0].trim().slice(1);
-      const linkMd = _markdown[_markdown.length - 1].trim().slice(1, -1);
+      const headerMd = _markdown.shift().trim().slice(1, -1);
+      const linkMd = _markdown.pop().trim().slice(1, -1);
 
-      _markdown.pop();
-      _markdown.shift();
       const verseObject = [];
       for (let n = 0; n < _markdown.length / 2; n++) {
-        const imageOBS = _markdown[n * 2];
+        const urlImage = _markdown[n * 2].match(/\(([^)]*)\)/g)[0].slice(1, -1);
         const text = _markdown[n * 2 + 1];
-        let url_image = imageOBS.match(/\(([^)]*)\)/gm);
-        url_image = url_image[0].slice(1, -1);
-
-        verseObject.push({ url_image, text });
+        verseObject.push({ urlImage, text, key: (n + 1).toString() });
       }
-
       return { verseObject, headerMd, linkMd };
     }
   }
@@ -55,38 +49,43 @@ export default function OBSVerse(props) {
   useEffect(() => {
     if (markdown) {
       const { verseObject, headerMd, linkMd } = mdToVerse(markdown);
-      let content = [];
-      for (let key = 0; key <= verseObject.length - 1; key++) {
-        content.push(
-          <div key={key}>
-            <p></p>
-            <img src={verseObject[key].url_image} alt={key} />
-            <p></p>
-            <div
-              onClick={() =>
-                setReferenceSelected({
-                  ...referenceSelected,
-                  verse: (key + 1).toString(),
-                })
-              }
-              key={key}
-            >
-              {verseObject[key].text}
-            </div>
+      const contentMd = verseObject.map((verse) => {
+        const { key, urlImage, text } = verse;
+        return (
+          <div
+            key={key}
+            onClick={() =>
+              setReferenceSelected({
+                bookId: referenceSelected.bookId,
+                chapter: referenceSelected.chapter,
+                verse: key,
+              })
+            }
+          >
+            <img
+              src={urlImage}
+              alt={`OBSVerse #${key} OBS chapter#${referenceSelected.chapter}`}
+            />
+            <br />
+            <p>{text}</p>
           </div>
         );
-      }
-      let verseOBS = (
+      });
+      const verseOBS = (
         <>
-          <h1>{headerMd}</h1> {content}
-          <p></p>
+          <h1>{headerMd}</h1> {contentMd}
+          <br />
           <i>{linkMd}</i>
         </>
       );
       setVerses(verseOBS);
     }
-  }, [setReferenceSelected, markdown, referenceSelected]);
-  console.log(referenceSelected);
+  }, [
+    setReferenceSelected,
+    markdown,
+    referenceSelected.bookId,
+    referenceSelected.chapter,
+  ]);
 
   const {
     state: { headers, itemIndex },
