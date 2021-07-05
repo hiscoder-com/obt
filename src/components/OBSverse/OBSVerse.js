@@ -53,32 +53,34 @@ export default function OBSVerse(props) {
   let verseOBS;
 
   if (markdown) {
-    const { headerMd, linkMd, verseObject } = mdToVerse(markdown);
-
-    const contentMd = verseObject.map((verse, index) => (
-      <div key={verse.id}>
-        <p></p>
-        <img onClick={(index) => console.log(index)} src={verse.url_image} alt={index} />
-        <p></p>
-        <div
-          onClick={() =>
-            setReferenceSelected({ ...referenceSelected, verse: (index + 1).toString() })
-          }
-          key={index}
-        >
-          {verse.text}
+    const { verseObject, headerMd, linkMd } = mdToVerse(markdown);
+    let content = [];
+    for (let key = 0; key <= verseObject.length - 1; key++) {
+      content.push(
+        <div key={key}>
+          <p></p>
+          <img src={verseObject[key].url_image} alt={key} />
+          <p></p>
+          <div
+            onClick={() =>
+              setReferenceSelected({ ...referenceSelected, verse: key.toString() })
+            }
+            key={key}
+          >
+            {verseObject[key].text}
+          </div>
         </div>
-      </div>
-    ));
-    console.log(referenceSelected);
+      );
+    }
     verseOBS = (
       <>
-        <h1>{headerMd}</h1> {contentMd}
+        <h1>{headerMd}</h1> {content}
         <p></p>
         <i>{linkMd}</i>
       </>
     );
   }
+  console.log(referenceSelected);
 
   const {
     state: { headers, itemIndex },
