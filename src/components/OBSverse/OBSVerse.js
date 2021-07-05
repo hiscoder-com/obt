@@ -107,7 +107,7 @@ export default function OBSVerse(props) {
         itemIndex={itemIndex}
         setItemIndex={setItemIndex}
       >
-        <>{verses}</>
+        <div style={{ fontSize: fontSize + '%' }}>{verses}</div>
       </Card>
     </>
   );
