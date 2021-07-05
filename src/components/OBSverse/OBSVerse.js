@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 
 import { Card, useContent, useCardState } from 'translation-helps-rcl';
 
@@ -7,6 +7,7 @@ import { server } from '../../config/base';
 
 export default function OBSVerse(props) {
   const { title, classes, onClose, type } = props;
+  const [verses, setVerses] = useState();
   const {
     state: { referenceSelected, fontSize, resourcesApp },
     actions: { setReferenceSelected },
@@ -50,36 +51,38 @@ export default function OBSVerse(props) {
       return { verseObject, headerMd, linkMd };
     }
   }
-  let verseOBS;
 
-  if (markdown) {
-    const { verseObject, headerMd, linkMd } = mdToVerse(markdown);
-    let content = [];
-    for (let key = 0; key <= verseObject.length - 1; key++) {
-      content.push(
-        <div key={key}>
-          <p></p>
-          <img src={verseObject[key].url_image} alt={key} />
-          <p></p>
-          <div
-            onClick={() =>
-              setReferenceSelected({ ...referenceSelected, verse: key.toString() })
-            }
-            key={key}
-          >
-            {verseObject[key].text}
+  useEffect(() => {
+    if (markdown) {
+      const { verseObject, headerMd, linkMd } = mdToVerse(markdown);
+      let content = [];
+      for (let key = 0; key <= verseObject.length - 1; key++) {
+        content.push(
+          <div key={key}>
+            <p></p>
+            <img src={verseObject[key].url_image} alt={key} />
+            <p></p>
+            <div
+              onClick={() =>
+                setReferenceSelected({ ...referenceSelected, verse: key.toString() })
+              }
+              key={key}
+            >
+              {verseObject[key].text}
+            </div>
           </div>
-        </div>
+        );
+      }
+      let verseOBS = (
+        <>
+          <h1>{headerMd}</h1> {content}
+          <p></p>
+          <i>{linkMd}</i>
+        </>
       );
+      setVerses(verseOBS);
     }
-    verseOBS = (
-      <>
-        <h1>{headerMd}</h1> {content}
-        <p></p>
-        <i>{linkMd}</i>
-      </>
-    );
-  }
+  }, [setReferenceSelected, markdown, referenceSelected]);
   console.log(referenceSelected);
 
   const {
@@ -102,7 +105,7 @@ export default function OBSVerse(props) {
         itemIndex={itemIndex}
         setItemIndex={setItemIndex}
       >
-        <>{verseOBS}</>
+        <>{verses}</>
       </Card>
     </>
   );
