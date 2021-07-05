@@ -64,7 +64,10 @@ export default function OBSVerse(props) {
             <p></p>
             <div
               onClick={() =>
-                setReferenceSelected({ ...referenceSelected, verse: key.toString() })
+                setReferenceSelected({
+                  ...referenceSelected,
+                  verse: (key + 1).toString(),
+                })
               }
               key={key}
             >
