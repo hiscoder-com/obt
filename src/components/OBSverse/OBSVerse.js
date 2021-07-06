@@ -65,7 +65,7 @@ export default function OBSVerse(props) {
           >
             <img
               src={urlImage}
-              alt={`OBSVerse #${key} OBS chapter#${referenceSelected.chapter}`}
+              alt={`OBS verse #${key} OBS chapter#${referenceSelected.chapter}`}
             />
             <br />
             <p>{text}</p>
