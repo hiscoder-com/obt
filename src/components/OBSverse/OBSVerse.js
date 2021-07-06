@@ -38,7 +38,8 @@ export default function OBSVerse(props) {
 
       const verseObject = [];
       for (let n = 0; n < _markdown.length / 2; n++) {
-        const urlImage = _markdown[n * 2].match(/\(([^)]*)\)/g)[0].slice(1, -1);
+        const urlImage = /\(([^)]*)\)/g.exec(_markdown[n * 2])[1];
+        console.log();
         const text = _markdown[n * 2 + 1];
         verseObject.push({ urlImage, text, key: (n + 1).toString() });
       }
