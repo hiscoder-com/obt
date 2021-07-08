@@ -29,6 +29,11 @@ export function AppContextProvider({ children }) {
   let history = useHistory();
   let location = useLocation();
   const currentLocation = location.pathname.split('/');
+  const locationReference = {
+    bookId: currentLocation[1] ? currentLocation[1] : _reference.bookId,
+    chapter: currentLocation[2] ?? _reference.chapter,
+    verse: currentLocation[3] ?? _reference.verse ?? 1,
+  };
 
   const [appConfig, setAppConfig] = useState(_appConfig);
   const [referenceSelected, setReferenceSelected] = useState({
@@ -57,8 +62,27 @@ export function AppContextProvider({ children }) {
     localStorage.setItem('resourcesApp', JSON.stringify(resourcesApp));
   }, [resourcesApp]);
 
+  React.useEffect(() => {
+    if (locationReference?.bookId)
+    {
+      setReferenceSelected({
+        bookId: locationReference.bookId, 
+        chapter: locationReference.chapter, 
+        verse: locationReference.verse
+      });
+    }
+  }, [locationReference.bookId, locationReference.chapter, locationReference.verse, setReferenceSelected]);
+
   useEffect(() => {
-    localStorage.setItem('reference', JSON.stringify(referenceSelected));
+    localStorage.setItem('reference', JSON.stringify({
+      bookId: referenceSelected.bookId, 
+      chapter: referenceSelected.chapter, 
+      verse: referenceSelected.verse
+    }));
+
+    // Still has one problem, I cannot figure out.
+    // https://github.com/ReactTraining/history/issues/470
+
     history.push(
       '/' +
         referenceSelected.bookId +
@@ -67,7 +91,7 @@ export function AppContextProvider({ children }) {
         '/' +
         referenceSelected.verse
     );
-  }, [referenceSelected, history]);
+  }, [referenceSelected.bookId, referenceSelected.chapter, referenceSelected.verse, history]);
 
   const value = {
     state: {
