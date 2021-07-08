@@ -2,10 +2,13 @@ import React, { useContext, useState, useEffect } from 'react';
 
 import { Card, useContent, useCardState } from 'translation-helps-rcl';
 
+import { useTranslation } from 'react-i18next';
+
 import { AppContext } from '../../App.context';
 import { server } from '../../config/base';
 
 export default function OBSVerses(props) {
+  const { t } = useTranslation();
   const { title, classes, onClose, type } = props;
   const [verses, setVerses] = useState();
   const {
@@ -80,12 +83,13 @@ export default function OBSVerses(props) {
         </>
       );
       setVerses(versesOBS);
-    }
+    } else{setVerses(<>{t('No_content')}</>)}
   }, [
     setReferenceSelected,
     markdown,
     referenceSelected.bookId,
     referenceSelected.chapter,
+    t
   ]);
 
   const {
