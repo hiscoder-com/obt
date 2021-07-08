@@ -20,7 +20,7 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
   const [position, setPosition] = React.useState(initialPosition);
   const { state } = React.useContext(ResourcesContext);
   const {
-    state: { referenceSelected, resourcesApp, fontSize },
+    state: {  resourcesApp, fontSize },
     actions: { setShowErrorReport, setReferenceBlock, setReferenceSelected },
   } = React.useContext(AppContext);
 
@@ -132,7 +132,7 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
 
     setVerses(_verses);
   }, [
-    referenceSelected,
+    
     chapter,
     reference,
     type,

@@ -5,7 +5,7 @@ import Chapter from '../Chapter/Chapter';
 import SupportTQ from '../SupportTQ/SupportTQ';
 import SupportTN from '../SupportTN/SupportTN';
 import SupportTW from '../SupportTW/SupportTW';
-import OBSVerse from '../OBSVerse/OBSVerse';
+import OBSVerses from '../OBSVerses/OBSVerses';
 
 function Card({ type, onClose, classes }) {
   let CurrentCard;
@@ -42,7 +42,7 @@ function Card({ type, onClose, classes }) {
       break;
 
     case 'Open Bible Stories':
-      CurrentCard = OBSVerse;
+      CurrentCard = OBSVerses;
       break;
 
     case 'Bible':
