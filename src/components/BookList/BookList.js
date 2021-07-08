@@ -22,7 +22,7 @@ function BookList() {
     setReferenceSelected({
       bookId: identifier ?? null,
       chapter: '1',
-      verse: 1,
+      verse: '1',
     });
     !singleChaptersBookID.includes(identifier)
       ? setShowChapterSelect(true)
