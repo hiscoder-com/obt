@@ -36,14 +36,24 @@ export default function OBSVerses(props) {
   useEffect(() => {
     if (markdown) {
       const mdToVerses = (md) => {
-        let _markdown = md.split('\n\n');
+        let _markdown = md.split(/\n[\s]*/);
+        console.log(_markdown);
         const headerMd = _markdown.shift().trim().slice(1);
-        const linkMd = _markdown.pop().trim().slice(1, -1);
+        let linkMd = _markdown.pop().trim().slice(1, -1);
+        if (linkMd === '') {
+          linkMd = _markdown.pop().trim().slice(1, -1);
+        }
         const versesObject = [];
 
         for (let n = 0; n < _markdown.length / 2; n++) {
-          const urlImage = /\(([^)]*)\)/g.exec(_markdown[n * 2])[1];
-          const text = _markdown[n * 2 + 1];
+          let urlImage;
+          let text;
+          if (/\(([^)]*)\)/g.exec(_markdown[n * 2])[1]) {
+            urlImage = /\(([^)]*)\)/g.exec(_markdown[n * 2])[1];
+            text = _markdown[n * 2 + 1];
+          } else {
+            text = _markdown[n * 2];
+          }
           versesObject.push({ urlImage, text, key: (n + 1).toString() });
         }
 
