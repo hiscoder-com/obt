@@ -24,7 +24,7 @@ export default function SupportOBSTN(props) {
     isLoading,
     props: { languageId },
   } = useContent({
-    projectId: 'obs-tn',
+    projectId: referenceSelected.bookId + '-tn',
     branch: resource.branch ?? 'master',
     languageId: resource.languageId ?? 'ru',
     resourceId: 'obs-tn',

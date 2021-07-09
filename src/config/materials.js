@@ -1,5 +1,5 @@
 export const langs = ['en', 'ru', 'el-x-koine', 'hbo', 'fr'];
-
+export const owners = ['BSA', 'unfoldingWord', 'ru_gl'];
 export const subjects = [
   'Open Bible Stories',
   'OBS Translation Notes',

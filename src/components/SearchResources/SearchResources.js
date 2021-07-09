@@ -5,7 +5,7 @@ import axios from 'axios';
 import { setupCache } from 'axios-cache-adapter';
 
 import { AppContext } from '../../App.context';
-import { langs, subjects } from '../../config/materials';
+import { langs, subjects, owners } from '../../config/materials';
 import { defaultCard } from '../../config/base';
 import { getUniqueResources } from '../../helper';
 
@@ -29,7 +29,6 @@ function SearchResources({ anchorEl, onClose, open }) {
     setAppConfig((prev) => prev.concat({ ...defaultCard, i: item.name }));
     onClose();
   };
-  /*'https://git.door43.org/api/catalog/v5/search?owner=Door43-Catalog&sort=title&limit=50&page=' + currentPage*/
   useEffect(() => {
     axios
       .create({
@@ -37,7 +36,14 @@ function SearchResources({ anchorEl, onClose, open }) {
           maxAge: 15 * 60 * 1000,
         }).adapter,
       })
-      .get('https://git.door43.org/api/v1/repos/search?owner=Door43-catalog')
+      .get(
+        'https://git.door43.org/api/catalog/v5/search?sort=lang,title&owner=' +
+          owners.join(',') +
+          '&lang=' +
+          langs.join(',') +
+          '&subject=' +
+          subjects.join(',')
+      )
       .then((res) => {
         const result = res.data.data.map((el) => {
           return {
@@ -47,19 +53,11 @@ function SearchResources({ anchorEl, onClose, open }) {
             subject: el.subject,
             title: el.title,
             branch: el.default_branch,
-            owner: el.owner.username.toString().toLowerCase(),
+            owner: el.owner.toString().toLowerCase(),
             link: el.full_name + '/' + el.default_branch,
           };
         });
-        setResourcesApp(
-          result.filter(
-            (el) =>
-              el.languageId !== '' &&
-              langs.includes(el.languageId) &&
-              el.subject !== '' &&
-              subjects.includes(el.subject)
-          )
-        );
+        setResourcesApp(result);
       })
       .catch((err) => console.log(err));
     return () => {};

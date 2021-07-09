@@ -24,7 +24,7 @@ export default function SupportOBSTQ(props) {
     isLoading,
     props: { languageId },
   } = useContent({
-    projectId: 'obs-tq',
+    projectId: referenceSelected.bookId + '-tq',
     branch: resource.branch ?? 'master',
     languageId: resource.languageId ?? 'ru',
     resourceId: 'obs-tq',
