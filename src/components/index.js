@@ -4,7 +4,7 @@ export * from './Card';
 export * from './Chapter';
 export * from './ChapterList';
 export * from './ChapterSelect';
-export * from './OBS';
+export * from './OBSVerses';
 export * from './SearchResources';
 export * from './SelectLanguage';
 export * from './SubMenuBar';

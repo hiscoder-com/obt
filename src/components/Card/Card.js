@@ -6,7 +6,7 @@ import {
   SupportTQ,
   SupportTN,
   SupportTW,
-  OBS,
+  OBSVerses,
   SupportOBSTN,
   SupportOBSTQ,
 } from '../../components';
@@ -46,7 +46,7 @@ function Card({ type, onClose, classes }) {
       break;
 
     case 'Open Bible Stories':
-      CurrentCard = OBS;
+      CurrentCard = OBSVerses;
       break;
 
     case 'OBS Translation Questions':

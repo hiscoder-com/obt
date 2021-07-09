@@ -129,6 +129,7 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
 
       _verses.push(verse);
     }
+
     setVerses(_verses);
   }, [chapter, reference, type, setReferenceBlock, setReferenceSelected, fontSize]);
   const anchorPosition =
