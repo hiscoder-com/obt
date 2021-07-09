@@ -29,7 +29,6 @@ function SearchResources({ anchorEl, onClose, open }) {
     setAppConfig((prev) => prev.concat({ ...defaultCard, i: item.name }));
     onClose();
   };
-  /*'https://git.door43.org/api/catalog/v5/search?owner=Door43-Catalog&sort=title&limit=50&page=' + currentPage*/
   useEffect(() => {
     axios
       .create({
@@ -38,7 +37,7 @@ function SearchResources({ anchorEl, onClose, open }) {
         }).adapter,
       })
       .get(
-        'https://git.door43.org/api/catalog/v5/search?sort=language,lang,title&owner=' +
+        'https://git.door43.org/api/catalog/v5/search?sort=lang,title&owner=' +
           owners.join(',') +
           '&lang=' +
           langs.join(',') +
@@ -54,7 +53,7 @@ function SearchResources({ anchorEl, onClose, open }) {
             subject: el.subject,
             title: el.title,
             branch: el.default_branch,
-            owner: el.owner.username.toString().toLowerCase(),
+            owner: el.owner.toString().toLowerCase(),
             link: el.full_name + '/' + el.default_branch,
           };
         });
