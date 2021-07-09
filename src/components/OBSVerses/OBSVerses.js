@@ -33,8 +33,6 @@ export default function OBSVerses(props) {
     server,
   });
 
-  
-
   useEffect(() => {
     if (markdown) {
       const mdToVerses = (md) => {
@@ -42,16 +40,15 @@ export default function OBSVerses(props) {
         const headerMd = _markdown.shift().trim().slice(1);
         const linkMd = _markdown.pop().trim().slice(1, -1);
         const versesObject = [];
-  
+
         for (let n = 0; n < _markdown.length / 2; n++) {
           const urlImage = /\(([^)]*)\)/g.exec(_markdown[n * 2])[1];
           const text = _markdown[n * 2 + 1];
           versesObject.push({ urlImage, text, key: (n + 1).toString() });
         }
-        
+
         return { versesObject, headerMd, linkMd };
-      
-    }
+      };
       const { versesObject, headerMd, linkMd } = mdToVerses(markdown);
       const contentMd = versesObject.map((verse) => {
         const { key, urlImage, text } = verse;
@@ -83,13 +80,15 @@ export default function OBSVerses(props) {
         </>
       );
       setVerses(versesOBS);
-    } else{setVerses(<>{t('No_content')}</>)}
+    } else {
+      setVerses(<>{t('No_content')}</>);
+    }
   }, [
     setReferenceSelected,
     markdown,
     referenceSelected.bookId,
     referenceSelected.chapter,
-    t
+    t,
   ]);
 
   const {

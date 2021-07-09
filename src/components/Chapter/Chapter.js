@@ -20,7 +20,7 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
   const [position, setPosition] = React.useState(initialPosition);
   const { state } = React.useContext(ResourcesContext);
   const {
-    state: {  resourcesApp, fontSize },
+    state: { resourcesApp, fontSize },
     actions: { setShowErrorReport, setReferenceBlock, setReferenceSelected },
   } = React.useContext(AppContext);
 
@@ -131,15 +131,7 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
     }
 
     setVerses(_verses);
-  }, [
-    
-    chapter,
-    reference,
-    type,
-    setReferenceBlock,
-    setReferenceSelected,
-    fontSize,
-  ]);
+  }, [chapter, reference, type, setReferenceBlock, setReferenceSelected, fontSize]);
   const anchorPosition =
     position.mouseY !== null && position.mouseX !== null
       ? { top: position.mouseY, left: position.mouseX }
