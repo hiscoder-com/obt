@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 
 import { Card, CardContent, useContent, useCardState } from 'translation-helps-rcl';
 
@@ -41,6 +41,11 @@ export default function SupportTN(props) {
   } = useCardState({
     items,
   });
+
+  useEffect(() => {
+    setItemIndex(0);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [referenceSelected]);
 
   const filterArray = ['OrigQuote', 'GLQuote', 'OccurrenceNote'];
 
