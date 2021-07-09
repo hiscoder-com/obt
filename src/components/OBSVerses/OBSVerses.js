@@ -37,7 +37,6 @@ export default function OBSVerses(props) {
     if (markdown) {
       const mdToVerses = (md) => {
         let _markdown = md.split(/\n[\s]*/);
-        console.log(_markdown);
         const headerMd = _markdown.shift().trim().slice(1);
         let linkMd = _markdown.pop().trim().slice(1, -1);
         if (linkMd === '') {
