@@ -47,7 +47,7 @@ export default function OBSVerses(props) {
         for (let n = 0; n < _markdown.length / 2; n++) {
           let urlImage;
           let text;
-          if (/\(([^)]*)\)/g.exec(_markdown[n * 2])[1]) {
+          if (/\(([^)]*)\)/g.test(_markdown[n * 2])) {
             urlImage = /\(([^)]*)\)/g.exec(_markdown[n * 2])[1];
             text = _markdown[n * 2 + 1];
           } else {
