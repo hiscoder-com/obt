@@ -6,6 +6,7 @@ export default function Shortcut() {
   const { state, actions } = useContext(AppContext);
   const { referenceSelected } = state;
   const { setReferenceSelected } = actions;
+
   document.onkeyup = (event) => {
     let chapterNumber = parseInt(referenceSelected.chapter);
     let chapters = Object.keys(getBookChapters(referenceSelected.bookId));
@@ -15,21 +16,40 @@ export default function Shortcut() {
     let nextBookIndex = openBook + 1;
     let pastBook = allBooks[pastBookIndex];
     let nextBook = allBooks[nextBookIndex];
+    let pastChapters = Object.keys(getBookChapters(pastBook));
+
     if (event.code === 'ArrowRight' && event.ctrlKey) {
-      if (referenceSelected.bookId === 'rev' && chapterNumber === chapters.length) {
+      if (referenceSelected.bookId === 'obs' && chapterNumber === chapters.length) {
         setReferenceSelected({
-          bookId: 'rev',
+          ...referenceSelected,
           chapter: String(chapters.length),
           verse: 1,
         });
-      } else if (chapterNumber !== chapters.length) {
+      } else if (referenceSelected.bookId === 'obs') {
         chapterNumber++;
         setReferenceSelected({
           ...referenceSelected,
           chapter: String(chapterNumber),
           verse: 1,
         });
-      } else {
+      }
+      if (referenceSelected.bookId === 'rev' && chapterNumber === chapters.length) {
+        setReferenceSelected({
+          bookId: 'rev',
+          chapter: String(chapters.length),
+          verse: 1,
+        });
+      } else if (
+        chapterNumber !== chapters.length &&
+        referenceSelected.bookId !== 'obs'
+      ) {
+        chapterNumber++;
+        setReferenceSelected({
+          ...referenceSelected,
+          chapter: String(chapterNumber),
+          verse: 1,
+        });
+      } else if (referenceSelected.bookId !== 'obs') {
         setReferenceSelected({
           bookId: nextBook,
           chapter: '1',
@@ -37,9 +57,12 @@ export default function Shortcut() {
         });
       }
     } else if (event.code === 'ArrowLeft' && event.ctrlKey) {
-      if (referenceSelected.bookId === 'gen' && chapterNumber === 1) {
+      if (
+        (referenceSelected.bookId === 'gen' && chapterNumber === 1) ||
+        (referenceSelected.bookId === 'obs' && chapterNumber === 1)
+      ) {
         setReferenceSelected({
-          bookId: 'gen',
+          ...referenceSelected,
           chapter: '1',
           verse: 1,
         });
@@ -47,7 +70,7 @@ export default function Shortcut() {
         if (chapterNumber === 1) {
           setReferenceSelected({
             bookId: pastBook,
-            chapter: String(chapters.length),
+            chapter: String(pastChapters.length),
             verse: 1,
           });
         } else {
