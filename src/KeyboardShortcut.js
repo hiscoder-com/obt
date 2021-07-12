@@ -15,7 +15,6 @@ export default function Shortcut() {
     let nextBookIndex = openBook + 1;
     let pastBook = allBooks[pastBookIndex];
     let nextBook = allBooks[nextBookIndex];
-    console.log(referenceSelected);
     if (event.code === 'ArrowRight' && event.ctrlKey) {
       if (referenceSelected.bookId === 'rev' && chapterNumber === chapters.length) {
         setReferenceSelected({
