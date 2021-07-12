@@ -64,14 +64,13 @@ export default function OBSVerses(props) {
         return (
           <div
             key={key}
-            onClick={() => {
+            onClick={() =>
               setReferenceSelected({
                 bookId: referenceSelected.bookId,
                 chapter: referenceSelected.chapter,
                 verse: key,
-              });
-              console.log(key);
-            }}
+              })
+            }
           >
             {urlImage ? (
               <img
