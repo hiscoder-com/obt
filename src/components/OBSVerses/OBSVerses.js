@@ -51,7 +51,7 @@ export default function OBSVerses(props) {
             urlImage = /\(([^)]*)\)/g.exec(_markdown[n * 2])[1];
             text = _markdown[n * 2 + 1];
           } else {
-            text = _markdown[n * 2];
+            text = _markdown[n * 2] + '\n' + _markdown[n * 2 + 1];
           }
           versesObject.push({ urlImage, text, key: (n + 1).toString() });
         }
@@ -64,18 +64,23 @@ export default function OBSVerses(props) {
         return (
           <div
             key={key}
-            onClick={() =>
+            onClick={() => {
               setReferenceSelected({
                 bookId: referenceSelected.bookId,
                 chapter: referenceSelected.chapter,
                 verse: key,
-              })
-            }
+              });
+              console.log(key);
+            }}
           >
-            <img
-              src={urlImage}
-              alt={`OBS verse #${key} OBS chapter#${referenceSelected.chapter}`}
-            />
+            {urlImage ? (
+              <img
+                src={urlImage}
+                alt={`OBS verse #${key} OBS chapter#${referenceSelected.chapter}`}
+              />
+            ) : (
+              []
+            )}
             <br />
             <p>{text}</p>
           </div>
