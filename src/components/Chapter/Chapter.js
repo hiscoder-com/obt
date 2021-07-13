@@ -49,7 +49,6 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
   };
 
   useEffect(() => {
-    console.log('resourcesApp.forEach');
     resourcesApp.forEach((el) => {
       if (el.name === type) {
         setResource(el);
@@ -59,7 +58,6 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
 
   const resources = state?.resources;
   useEffect(() => {
-    console.log('resources.forEach');
     if (resources) {
       resources.forEach((el) => {
         if (
@@ -77,8 +75,7 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
       project
         .parseUsfm()
         .then((result) => {
-          console.log({ result: result });
-          if (Object.keys(result.json.chapters).length > 0) {
+          if (result.json && Object.keys(result.json.chapters).length > 0) {
             setChapter(result.json.chapters[reference.chapter]);
           }
         })

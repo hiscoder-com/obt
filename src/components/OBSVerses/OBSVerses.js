@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState, useEffect, useRef } from 'react';
 
 import { Card, useContent, useCardState } from 'translation-helps-rcl';
 
@@ -22,7 +22,7 @@ export default function OBSVerses(props) {
       resource = el;
     }
   });
-
+  const obsRef = useRef(null);
   const { markdown, items } = useContent({
     projectId: referenceSelected.bookId,
     branch: resource.branch ?? 'master',
@@ -32,6 +32,12 @@ export default function OBSVerses(props) {
     owner: resource.owner ?? 'bsa',
     server,
   });
+
+  useEffect(() => {
+    if (obsRef.current) {
+      obsRef.current.scrollIntoView();
+    }
+  }, [verses]);
 
   useEffect(() => {
     if (markdown) {
@@ -47,22 +53,20 @@ export default function OBSVerses(props) {
         for (let n = 0; n < _markdown.length / 2; n++) {
           let urlImage;
           let text;
-          let doubleText;
           if (/\(([^)]*)\)/g.test(_markdown[n * 2])) {
             urlImage = /\(([^)]*)\)/g.exec(_markdown[n * 2])[1];
             text = _markdown[n * 2 + 1];
           } else {
-            doubleText = _markdown[n * 2];
-            text = _markdown[n * 2 + 1];
+            text = _markdown[n * 2] + '\n' + _markdown[n * 2 + 1];
           }
-          versesObject.push({ urlImage, text, doubleText, key: (n + 1).toString() });
+          versesObject.push({ urlImage, text, key: (n + 1).toString() });
         }
 
         return { versesObject, headerMd, linkMd };
       };
       const { versesObject, headerMd, linkMd } = mdToVerses(markdown);
       const contentMd = versesObject.map((verse) => {
-        const { key, urlImage, text, doubleText } = verse;
+        const { key, urlImage, text } = verse;
         return (
           <div
             key={key}
@@ -75,26 +79,29 @@ export default function OBSVerses(props) {
             }}
           >
             {urlImage ? (
-              <img
-                src={urlImage}
-                alt={`OBS verse #${key} OBS chapter#${referenceSelected.chapter}`}
-              />
-            ) : doubleText ? (
-              <p>{doubleText}</p>
+              <>
+                <img
+                  src={urlImage}
+                  alt={`OBS verse #${key} OBS chapter#${referenceSelected.chapter}`}
+                />
+                <br />
+              </>
             ) : (
-              []
+              ''
             )}
-            <br />
-            <p>{text}</p>
+            {text.split('\n').map((el, index) => (
+              <p key={index}>{el}</p>
+            ))}
           </div>
         );
       });
       const versesOBS = (
-        <>
-          <h1>{headerMd}</h1> {contentMd}
+        <div ref={obsRef}>
+          <h1>{headerMd}</h1>
+          {contentMd}
           <br />
           <i>{linkMd}</i>
-        </>
+        </div>
       );
       setVerses(versesOBS);
     } else {
