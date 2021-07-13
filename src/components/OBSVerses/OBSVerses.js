@@ -47,30 +47,33 @@ export default function OBSVerses(props) {
         for (let n = 0; n < _markdown.length / 2; n++) {
           let urlImage;
           let text;
+          let doubleText;
           if (/\(([^)]*)\)/g.test(_markdown[n * 2])) {
             urlImage = /\(([^)]*)\)/g.exec(_markdown[n * 2])[1];
             text = _markdown[n * 2 + 1];
           } else {
-            text = _markdown[n * 2] + '\n' + _markdown[n * 2 + 1];
+            doubleText = _markdown[n * 2];
+            text = _markdown[n * 2 + 1];
           }
-          versesObject.push({ urlImage, text, key: (n + 1).toString() });
+          versesObject.push({ urlImage, text, doubleText, key: (n + 1).toString() });
         }
 
         return { versesObject, headerMd, linkMd };
       };
       const { versesObject, headerMd, linkMd } = mdToVerses(markdown);
       const contentMd = versesObject.map((verse) => {
-        const { key, urlImage, text } = verse;
+        const { key, urlImage, text, doubleText } = verse;
         return (
           <div
             key={key}
-            onClick={() =>
+            onClick={() => {
               setReferenceSelected({
                 bookId: referenceSelected.bookId,
                 chapter: referenceSelected.chapter,
                 verse: key,
-              })
-            }
+              });
+              console.log(key);
+            }}
           >
             {urlImage ? (
               <img
@@ -78,7 +81,7 @@ export default function OBSVerses(props) {
                 alt={`OBS verse #${key} OBS chapter#${referenceSelected.chapter}`}
               />
             ) : (
-              []
+              <p>{doubleText}</p>
             )}
             <br />
             <p>{text}</p>
