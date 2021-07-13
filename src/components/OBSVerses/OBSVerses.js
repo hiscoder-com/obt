@@ -72,7 +72,6 @@ export default function OBSVerses(props) {
                 chapter: referenceSelected.chapter,
                 verse: key,
               });
-              console.log(key);
             }}
           >
             {urlImage ? (
@@ -80,8 +79,10 @@ export default function OBSVerses(props) {
                 src={urlImage}
                 alt={`OBS verse #${key} OBS chapter#${referenceSelected.chapter}`}
               />
-            ) : (
+            ) : doubleText ? (
               <p>{doubleText}</p>
+            ) : (
+              []
             )}
             <br />
             <p>{text}</p>
