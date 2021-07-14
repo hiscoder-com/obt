@@ -5,7 +5,7 @@ import axios from 'axios';
 import { setupCache } from 'axios-cache-adapter';
 
 import { AppContext } from '../../App.context';
-import { langs, subjects, owners, blackListResource } from '../../config/materials';
+import { langs, subjects, owners, blackListResources } from '../../config/materials';
 import { defaultCard } from '../../config/base';
 import { getUniqueResources } from '../../helper';
 
@@ -64,7 +64,7 @@ function SearchResources({ anchorEl, onClose, open }) {
   }, [currentLang, setResourcesApp]);
 
   const menuItems = uniqueResources
-    .filter((el) => !blackListResource.includes(el.title))
+    .filter((el) => !blackListResources.includes(el.title))
     .map((el) => (
       <MenuItem key={el.id} classes={classes} onClick={() => handleAddMaterial(el)}>
         {t(el.languageId)} - {el.title}

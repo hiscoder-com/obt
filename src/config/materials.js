@@ -19,4 +19,5 @@ export const subjects = [
   'Greek New Testament',
   //'',
 ];
-export const blackListResource = ['Bunning Heuristic Prototype Greek New Testament'];
+export const blackListResources = ['Bunning Heuristic Prototype Greek New Testament'];
+//resource, that have not manifest or others reason
