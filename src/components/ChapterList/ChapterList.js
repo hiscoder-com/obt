@@ -15,7 +15,7 @@ function ChapterList({ setReferenceSelected, referenceSelected, onClose }) {
   const classes = useStyles();
   const chapterClasses = useButtonStyles();
   const onClickChapter = (chapterId) => {
-    setReferenceSelected({ ...referenceSelected, chapter: chapterId, verse: 1 });
+    setReferenceSelected({ ...referenceSelected, chapter: chapterId, verse: '1' });
     onClose();
   };
   return (
