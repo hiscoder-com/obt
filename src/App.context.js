@@ -87,8 +87,6 @@ export function AppContextProvider({ children }) {
       })
     );
 
-    // Still has one problem, I cannot figure out.
-    // https://github.com/ReactTraining/history/issues/470
     if (
       history.location.pathname !==
       '/' +
