@@ -66,12 +66,10 @@ function SearchResources({ anchorEl, onClose, open }) {
   const menuItems = uniqueResources
     .filter(
       (el) =>
-        !blackListResources
-          .map((resource) => resource)
-          .some(
-            (value) =>
-              JSON.stringify(value) === JSON.stringify({ owner: el.owner, name: el.name })
-          )
+        !blackListResources.some(
+          (value) =>
+            JSON.stringify(value) === JSON.stringify({ owner: el.owner, name: el.name })
+        )
     )
     .map((el) => (
       <MenuItem key={el.id} classes={classes} onClick={() => handleAddMaterial(el)}>
