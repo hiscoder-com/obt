@@ -64,7 +64,15 @@ function SearchResources({ anchorEl, onClose, open }) {
   }, [currentLang, setResourcesApp]);
 
   const menuItems = uniqueResources
-    .filter((el) => !blackListResources.includes(el.title))
+    .filter(
+      (el) =>
+        !blackListResources
+          .map((resource) => resource)
+          .some(
+            (value) =>
+              JSON.stringify(value) === JSON.stringify({ owner: el.owner, name: el.name })
+          )
+    )
     .map((el) => (
       <MenuItem key={el.id} classes={classes} onClick={() => handleAddMaterial(el)}>
         {t(el.languageId)} - {el.title}
