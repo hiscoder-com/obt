@@ -1,22 +1,37 @@
 import { useContext } from 'react';
-import { getBookChapters, getAllChapters } from '@texttree/tt-reference-rcl';
+
+import { ResourcesContext } from 'scripture-resources-rcl';
+
+import { getBookChapters } from '@texttree/tt-reference-rcl';
 import { AppContext } from './App.context';
 
 export default function Shortcut() {
-  const { state, actions } = useContext(AppContext);
-  const { referenceSelected } = state;
-  const { setReferenceSelected } = actions;
+  const { state } = useContext(ResourcesContext);
+  const {
+    state: { referenceSelected },
+    actions: { setReferenceSelected },
+  } = useContext(AppContext);
+
+  let uniqueBookID = new Set();
+
+  if (state.resources.length > 0) {
+    state.resources.forEach((resource) => {
+      resource.projects.map((project) => uniqueBookID.add(project.identifier));
+    });
+  }
 
   document.onkeyup = (event) => {
+    let availableBookList = Array.from(uniqueBookID);
     let chapterNumber = parseInt(referenceSelected.chapter);
     let chapters = Object.keys(getBookChapters(referenceSelected.bookId));
-    let allBooks = Object.keys(getAllChapters());
-    let openBook = allBooks.indexOf(referenceSelected.bookId);
+    let openBook = availableBookList.indexOf(referenceSelected.bookId);
     let pastBookIndex = openBook - 1;
     let nextBookIndex = openBook + 1;
-    let pastBook = allBooks[pastBookIndex];
-    let nextBook = allBooks[nextBookIndex];
+    let pastBook = availableBookList[pastBookIndex];
+    let nextBook = availableBookList[nextBookIndex];
     let pastChapters = Object.keys(getBookChapters(pastBook));
+    let lastBook = availableBookList[availableBookList.length - 1];
+    let firstBook = availableBookList[0];
 
     if (event.code === 'ArrowRight' && event.ctrlKey) {
       if (referenceSelected.bookId === 'obs' && chapterNumber === chapters.length) {
@@ -33,9 +48,9 @@ export default function Shortcut() {
           verse: 1,
         });
       }
-      if (referenceSelected.bookId === 'rev' && chapterNumber === chapters.length) {
+      if (referenceSelected.bookId === lastBook && chapterNumber === chapters.length) {
         setReferenceSelected({
-          bookId: 'rev',
+          bookId: lastBook,
           chapter: String(chapters.length),
           verse: 1,
         });
@@ -58,7 +73,7 @@ export default function Shortcut() {
       }
     } else if (event.code === 'ArrowLeft' && event.ctrlKey) {
       if (
-        (referenceSelected.bookId === 'gen' && chapterNumber === 1) ||
+        (referenceSelected.bookId === firstBook && chapterNumber === 1) ||
         (referenceSelected.bookId === 'obs' && chapterNumber === 1)
       ) {
         setReferenceSelected({
