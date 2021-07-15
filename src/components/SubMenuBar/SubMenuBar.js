@@ -116,7 +116,7 @@ function SubMenuBar() {
                 </FormHelperText>
               </FormControl>
             </MenuItem>
-            <WorkspaceManager />
+            <WorkspaceManager onClose={handleCloseMainMenu} />
           </Menu>
           <SearchResources
             anchorEl={anchorAddMaterial}

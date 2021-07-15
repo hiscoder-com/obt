@@ -12,20 +12,27 @@ import {
 } from '../../config/base';
 import { MenuItem, MenuList } from '@material-ui/core';
 
-function WorkspaceManager() {
+function WorkspaceManager({ onClose }) {
   const {
+    state: { referenceSelected },
     actions: { setReferenceSelected, setAppConfig },
   } = useContext(AppContext);
   const { t } = useTranslation();
 
   const handleResetToBible = () => {
     setAppConfig(defaultTplBible);
-    setReferenceSelected(defaultBibleReference);
+    if (referenceSelected.bookId === 'obs') {
+      setReferenceSelected(defaultBibleReference);
+    }
+    onClose();
   };
 
   const handleResetToOBS = () => {
     setAppConfig(defaultTplOBS);
-    setReferenceSelected(defaultOBSReference);
+    if (referenceSelected.bookId !== 'obs') {
+      setReferenceSelected(defaultOBSReference);
+    }
+    onClose();
   };
 
   return (

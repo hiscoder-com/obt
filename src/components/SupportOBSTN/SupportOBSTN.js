@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 
 import { Card, CardContent, useContent, useCardState } from 'translation-helps-rcl';
 
@@ -42,6 +42,11 @@ export default function SupportOBSTN(props) {
   } = useCardState({
     items,
   });
+
+  useEffect(() => {
+    setItemIndex(0);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [referenceSelected]);
 
   return (
     <Card
