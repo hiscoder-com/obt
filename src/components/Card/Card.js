@@ -26,7 +26,7 @@ function Card({ type, onClose, classes }) {
     }
   });
 
-  if (!resource) {
+  if (!resource && resourcesApp.length > 0) {
     const _appConfig = appConfig.filter((el) => el.i !== type);
     setAppConfig(_appConfig);
     return false;
