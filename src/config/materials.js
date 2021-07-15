@@ -19,3 +19,5 @@ export const subjects = [
   'Greek New Testament',
   //'',
 ];
+export const blackListResources = [{ owner: 'unfoldingword', name: 'BHP' }];
+//resource, that have not manifest or others reason

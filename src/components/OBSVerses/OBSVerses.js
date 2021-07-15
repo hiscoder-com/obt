@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState, useEffect, useRef } from 'react';
 
 import { Card, useContent, useCardState } from 'translation-helps-rcl';
 
@@ -22,7 +22,7 @@ export default function OBSVerses(props) {
       resource = el;
     }
   });
-
+  const obsRef = useRef(null);
   const { markdown, items } = useContent({
     projectId: referenceSelected.bookId,
     branch: resource.branch ?? 'master',
@@ -34,16 +34,31 @@ export default function OBSVerses(props) {
   });
 
   useEffect(() => {
+    if (obsRef.current) {
+      obsRef.current.scrollIntoView();
+    }
+  }, [verses]);
+
+  useEffect(() => {
     if (markdown) {
       const mdToVerses = (md) => {
-        let _markdown = md.split('\n\n');
+        let _markdown = md.split(/\n[\s]*/);
         const headerMd = _markdown.shift().trim().slice(1);
-        const linkMd = _markdown.pop().trim().slice(1, -1);
+        let linkMd = _markdown.pop().trim().slice(1, -1);
+        if (linkMd === '') {
+          linkMd = _markdown.pop().trim().slice(1, -1);
+        }
         const versesObject = [];
 
         for (let n = 0; n < _markdown.length / 2; n++) {
-          const urlImage = /\(([^)]*)\)/g.exec(_markdown[n * 2])[1];
-          const text = _markdown[n * 2 + 1];
+          let urlImage;
+          let text;
+          if (/\(([^)]*)\)/g.test(_markdown[n * 2])) {
+            urlImage = /\(([^)]*)\)/g.exec(_markdown[n * 2])[1];
+            text = _markdown[n * 2 + 1];
+          } else {
+            text = _markdown[n * 2] + '\n' + _markdown[n * 2 + 1];
+          }
           versesObject.push({ urlImage, text, key: (n + 1).toString() });
         }
 
@@ -55,29 +70,38 @@ export default function OBSVerses(props) {
         return (
           <div
             key={key}
-            onClick={() =>
+            onClick={() => {
               setReferenceSelected({
                 bookId: referenceSelected.bookId,
                 chapter: referenceSelected.chapter,
                 verse: key,
-              })
-            }
+              });
+            }}
           >
-            <img
-              src={urlImage}
-              alt={`OBS verse #${key} OBS chapter#${referenceSelected.chapter}`}
-            />
-            <br />
-            <p>{text}</p>
+            {urlImage ? (
+              <>
+                <img
+                  src={urlImage}
+                  alt={`OBS verse #${key} OBS chapter#${referenceSelected.chapter}`}
+                />
+                <br />
+              </>
+            ) : (
+              ''
+            )}
+            {text.split('\n').map((el, index) => (
+              <p key={index}>{el}</p>
+            ))}
           </div>
         );
       });
       const versesOBS = (
-        <>
-          <h1>{headerMd}</h1> {contentMd}
+        <div ref={obsRef}>
+          <h1>{headerMd}</h1>
+          {contentMd}
           <br />
           <i>{linkMd}</i>
-        </>
+        </div>
       );
       setVerses(versesOBS);
     } else {

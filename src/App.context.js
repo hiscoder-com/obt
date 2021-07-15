@@ -29,6 +29,11 @@ export function AppContextProvider({ children }) {
   let history = useHistory();
   let location = useLocation();
   const currentLocation = location.pathname.split('/');
+  const locationReference = {
+    bookId: currentLocation[1] ? currentLocation[1] : _reference.bookId,
+    chapter: currentLocation[2] ?? _reference.chapter,
+    verse: currentLocation[3] ?? _reference.verse ?? 1,
+  };
 
   const [appConfig, setAppConfig] = useState(_appConfig);
   const [referenceSelected, setReferenceSelected] = useState({
@@ -57,17 +62,55 @@ export function AppContextProvider({ children }) {
     localStorage.setItem('resourcesApp', JSON.stringify(resourcesApp));
   }, [resourcesApp]);
 
+  React.useEffect(() => {
+    if (locationReference?.bookId) {
+      setReferenceSelected({
+        bookId: locationReference.bookId,
+        chapter: locationReference.chapter,
+        verse: locationReference.verse,
+      });
+    }
+  }, [
+    locationReference.bookId,
+    locationReference.chapter,
+    locationReference.verse,
+    setReferenceSelected,
+  ]);
+
   useEffect(() => {
-    localStorage.setItem('reference', JSON.stringify(referenceSelected));
-    history.push(
+    localStorage.setItem(
+      'reference',
+      JSON.stringify({
+        bookId: referenceSelected.bookId,
+        chapter: referenceSelected.chapter,
+        verse: referenceSelected.verse,
+      })
+    );
+
+    if (
+      history.location.pathname !==
       '/' +
         referenceSelected.bookId +
         '/' +
         referenceSelected.chapter +
         '/' +
         referenceSelected.verse
-    );
-  }, [referenceSelected, history]);
+    ) {
+      history.push(
+        '/' +
+          referenceSelected.bookId +
+          '/' +
+          referenceSelected.chapter +
+          '/' +
+          referenceSelected.verse
+      );
+    }
+  }, [
+    referenceSelected.bookId,
+    referenceSelected.chapter,
+    referenceSelected.verse,
+    history,
+  ]);
 
   const value = {
     state: {
