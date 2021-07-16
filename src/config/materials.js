@@ -19,5 +19,19 @@ export const subjects = [
   'Greek New Testament',
   //'',
 ];
+export const bibleSubjects = [
+  'TSV Translation Notes',
+  'Translation Questions',
+  'Bible',
+  'Aligned Bible',
+  'Hebrew Old Testament',
+  'Greek New Testament',
+  //'',
+];
+export const obsSubjects = [
+  'Open Bible Stories',
+  'OBS Translation Notes',
+  'OBS Translation Questions',
+];
 export const blackListResources = [{ owner: 'unfoldingword', name: 'BHP' }];
 //resource, that have not manifest or others reason

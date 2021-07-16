@@ -52,13 +52,14 @@ function BookList() {
         titleBooks={titleBooks}
         availableBookList={availableBookList}
         labelForCheckbox={t('existing_books')}
-        showCheckbox={true}
+        showCheckbox={!showOBS}
+        showInactive={!showOBS}
         sortFirstNT={true}
         selectedBookId={referenceSelected.bookId}
         onClickBook={(bookId) => onBook(bookId)}
-        titleOT={t('Bible_OT')}
-        titleOBS={t('Bible_OBS')}
-        titleNT={t('Bible_NT')}
+        titleOT={showOBS ? '' : t('Bible_OT')}
+        titleOBS={showOBS ? '' : t('Bible_OBS')}
+        titleNT={showOBS ? '' : t('Bible_NT')}
         BibleBookListClasses={classes}
         bookClasses={bookClasses}
         showOBS={showOBS}

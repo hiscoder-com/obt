@@ -7,6 +7,7 @@ import { setupCache } from 'axios-cache-adapter';
 import { AppContext } from '../../App.context';
 import { langs, subjects, owners, blackListResources } from '../../config/materials';
 import { defaultCard } from '../../config/base';
+import { bibleSubjects, obsSubjects } from '../../config/materials';
 import { getUniqueResources } from '../../helper';
 
 import { MenuItem, Menu } from '@material-ui/core';
@@ -14,7 +15,7 @@ import { useStyles } from './style';
 
 function SearchResources({ anchorEl, onClose, open }) {
   const {
-    state: { appConfig, resourcesApp },
+    state: { appConfig, referenceSelected, resourcesApp },
     actions: { setAppConfig, setResourcesApp },
   } = useContext(AppContext);
 
@@ -62,7 +63,8 @@ function SearchResources({ anchorEl, onClose, open }) {
       .catch((err) => console.log(err));
     return () => {};
   }, [currentLang, setResourcesApp]);
-
+  const currentSubjects =
+    referenceSelected.bookId === 'obs' ? obsSubjects : bibleSubjects;
   const menuItems = uniqueResources
     .filter(
       (el) =>
@@ -71,6 +73,7 @@ function SearchResources({ anchorEl, onClose, open }) {
             JSON.stringify(value) === JSON.stringify({ owner: el.owner, name: el.name })
         )
     )
+    .filter((el) => currentSubjects.includes(el.subject))
     .map((el) => (
       <MenuItem key={el.id} classes={classes} onClick={() => handleAddMaterial(el)}>
         {t(el.languageId)} - {el.title}
