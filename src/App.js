@@ -10,7 +10,7 @@ import useStyles from './style';
 
 export default function App() {
   const { state, actions } = useContext(AppContext);
-  const { appConfig, referenceSelected } = state;
+  const { appConfig, referenceSelected, resourcesApp } = state;
   const { setAppConfig } = actions;
   const classes = useStyles();
   const layout = {
@@ -21,9 +21,28 @@ export default function App() {
     localStorage.setItem('appConfig', JSON.stringify(newLayout));
     setAppConfig(newLayout);
   };
+  const mainResources = resourcesApp
+    .filter((e) => appConfig.map((e) => e.i).includes(e.name))
+    .filter((e) =>
+      [
+        'Open Bible Stories',
+        'Bible',
+        'Aligned Bible',
+        'Hebrew Old Testament',
+        'Greek New Testament',
+      ].includes(e.subject)
+    );
 
+  const compareMaterials = (resources, type) => {
+    return (
+      (resources.length >= 1 && !resources.map((e) => e.name).includes(type)) ||
+      (resources.length > 1 && resources.map((e) => e.name).includes(type))
+    );
+  };
   const onClose = (index) => {
-    setAppConfig((prev) => prev.filter((el) => el.i !== index));
+    if (compareMaterials(mainResources, index)) {
+      setAppConfig((prev) => prev.filter((el) => el.i !== index));
+    }
   };
   const cards = appConfig.map((item) => (
     <Card
