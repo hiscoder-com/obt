@@ -25,16 +25,14 @@ export default function Shortcut() {
       }
     } else if (event.code === 'ArrowLeft' && event.ctrlKey) {
       if (chapterNumber === 1) {
+        //nothing to do
       } else {
-        if (chapterNumber === 1) {
-        } else {
-          chapterNumber--;
-          setReferenceSelected({
-            ...referenceSelected,
-            chapter: String(chapterNumber),
-            verse: 1,
-          });
-        }
+        chapterNumber--;
+        setReferenceSelected({
+          ...referenceSelected,
+          chapter: String(chapterNumber),
+          verse: 1,
+        });
       }
     }
   };
