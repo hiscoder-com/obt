@@ -1,4 +1,4 @@
-export const langs = ['en', 'ru', 'el-x-koine', 'hbo', 'fr', 'id'];
+export const langs = ['en', 'ru', 'el-x-koine', 'hbo', 'id'];
 export const owners = ['BSA', 'unfoldingWord', 'ru_gl'];
 export const subjects = [
   'Open Bible Stories',
@@ -18,6 +18,20 @@ export const subjects = [
   'Hebrew Old Testament',
   'Greek New Testament',
   //'',
+];
+export const bibleSubjects = [
+  'TSV Translation Notes',
+  'Translation Questions',
+  'Bible',
+  'Aligned Bible',
+  'Hebrew Old Testament',
+  'Greek New Testament',
+  //'',
+];
+export const obsSubjects = [
+  'Open Bible Stories',
+  'OBS Translation Notes',
+  'OBS Translation Questions',
 ];
 export const blackListResources = [{ owner: 'unfoldingword', name: 'BHP' }];
 //resource, that have not manifest or others reason

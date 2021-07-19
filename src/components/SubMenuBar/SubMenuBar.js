@@ -28,7 +28,7 @@ import useStyles from './style';
 
 function SubMenuBar() {
   const {
-    state: { fontSize },
+    state: { fontSize, referenceSelected },
     actions: { setFontSize },
   } = useContext(AppContext);
 
@@ -62,7 +62,7 @@ function SubMenuBar() {
             Bible App
           </Typography>
           <div className={classes.centerButtons}>
-            <BookSelect />
+            {referenceSelected.bookId !== 'obs' ? <BookSelect /> : ''}
             <ChapterSelect />
           </div>
 
