@@ -1,5 +1,16 @@
 export const langs = ['en', 'ru', 'el-x-koine', 'hbo', 'id'];
+
 export const owners = ['BSA', 'unfoldingWord', 'ru_gl'];
+
+//resource, that have not manifest or others reason
+export const blackListResources = [
+  { owner: 'unfoldingword', name: 'BHP' },
+  { owner: 'ru_gl', name: 'ru_rlob' },
+  { owner: 'ru_gl', name: 'ru_rsob' },
+];
+
+/* CORE */
+
 export const subjects = [
   'Open Bible Stories',
   'OBS Translation Notes',
@@ -33,9 +44,3 @@ export const obsSubjects = [
   'OBS Translation Notes',
   'OBS Translation Questions',
 ];
-export const blackListResources = [
-  { owner: 'unfoldingword', name: 'BHP' },
-  { owner: 'ru_gl', name: 'ru_rlob' },
-  { owner: 'ru_gl', name: 'ru_rsob' },
-];
-//resource, that have not manifest or others reason
