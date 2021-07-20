@@ -24,7 +24,7 @@ export const useStyles = makeStyles((theme) => ({
 
 export const useBookStyles = makeStyles(() => ({
   root: {
-    margin: '0 auto',
     display: 'flex',
+    minWidth: 'inherit',
   },
 }));

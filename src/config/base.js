@@ -12,19 +12,25 @@ export const defaultTplOBS = [
   { w: 6, h: 5, x: 6, y: 5, i: 'ru_obs-tq', minH: 4, minW: 2 },
 ];
 
-export const defaultCard = { w: 4, h: 4, x: 0, y: 99, minH: 4, minW: 2 };
-export const singleChaptersBookID = ['oba', '2jn', '3jn', 'jud', 'phm'];
 export const defaultBibleReference = {
   bookId: 'mat',
   chapter: 1,
   verse: 1,
 };
+
 export const defaultOBSReference = {
   bookId: 'obs',
   chapter: 1,
   verse: 1,
 };
+
 export const languages = ['en', 'ru'];
+
+/* CORE */
+
+export const defaultCard = { w: 4, h: 4, x: 0, y: 99, minH: 4, minW: 2 };
+
+export const singleChaptersBookID = ['oba', '2jn', '3jn', 'jud', 'phm'];
 
 export const bibleList = [
   {
