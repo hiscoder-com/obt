@@ -24,8 +24,8 @@ const useStyles = makeStyles((theme) => ({
 
 export const useButtonStyles = makeStyles((theme) => ({
   root: {
-    margin: '0 auto',
     display: 'flex',
+    minWidth: 'inherit',
   },
 }));
 
