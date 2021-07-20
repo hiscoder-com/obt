@@ -37,7 +37,7 @@ export default function OBSVerses(props) {
     if (obsRef.current) {
       obsRef.current.scrollIntoView();
     }
-  }, [verses]);
+  }, [referenceSelected.chapter]);
 
   useEffect(() => {
     if (markdown) {
@@ -67,6 +67,10 @@ export default function OBSVerses(props) {
       const { versesObject, headerMd, linkMd } = mdToVerses(markdown);
       const contentMd = versesObject.map((verse) => {
         const { key, urlImage, text } = verse;
+        const verseStyle = {
+          fontSize: fontSize + '%',
+          fontWeight: key === referenceSelected.verse ? 'bold' : 'inherit',
+        };
         return (
           <div
             key={key}
@@ -90,7 +94,9 @@ export default function OBSVerses(props) {
               ''
             )}
             {text.split('\n').map((el, index) => (
-              <p key={index}>{el}</p>
+              <p style={verseStyle} key={index}>
+                {el}
+              </p>
             ))}
           </div>
         );
@@ -113,6 +119,8 @@ export default function OBSVerses(props) {
     referenceSelected.bookId,
     referenceSelected.chapter,
     t,
+    fontSize,
+    referenceSelected.verse,
   ]);
 
   const {
@@ -135,7 +143,7 @@ export default function OBSVerses(props) {
         itemIndex={itemIndex}
         setItemIndex={setItemIndex}
       >
-        <div style={{ fontSize: fontSize + '%' }}>{verses}</div>
+        <div>{verses}</div>
       </Card>
     </>
   );
