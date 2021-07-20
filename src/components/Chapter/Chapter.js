@@ -1,4 +1,4 @@
-import React, { useState, /*useMemo,*/ useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { Card } from 'translation-helps-rcl';
 import { Verse, ResourcesContext } from 'scripture-resources-rcl';
@@ -28,8 +28,6 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
   const [verses, setVerses] = useState();
   const [project, setProject] = useState({});
   const [resource, setResource] = useState(false);
-
-  //  let project = useMemo(() => {}, []);
 
   const handleContextOpen = (event) => {
     event.preventDefault();
@@ -95,6 +93,7 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
       const verseStyle = {
         fontSize: fontSize + '%',
         cursor: 'context-menu',
+        fontWeight: key === reference.verse ? 'bold' : 'inherit',
       };
       const verse = (
         <span
@@ -110,7 +109,11 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
             });
             handleContextOpen(e);
           }}
-          onClick={() => setReferenceSelected({ ...reference, verse: key })}
+          onClick={() =>
+            reference.verse !== key
+              ? setReferenceSelected({ ...reference, verse: key })
+              : false
+          }
         >
           <Verse
             verseKey={key}
