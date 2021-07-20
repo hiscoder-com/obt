@@ -46,18 +46,27 @@ function SearchResources({ anchorEl, onClose, open }) {
           subjects.join(',')
       )
       .then((res) => {
-        const result = res.data.data.map((el) => {
-          return {
-            id: el.id,
-            languageId: el.language,
-            name: el.name,
-            subject: el.subject,
-            title: el.title,
-            branch: el.default_branch,
-            owner: el.owner.toString().toLowerCase(),
-            link: el.full_name + '/' + el.default_branch,
-          };
-        });
+        const result = res.data.data
+          .map((el) => {
+            return {
+              id: el.id,
+              languageId: el.language,
+              name: el.name,
+              subject: el.subject,
+              title: el.title,
+              branch: el.default_branch,
+              owner: el.owner.toString().toLowerCase(),
+              link: el.full_name + '/' + el.default_branch,
+            };
+          })
+          .filter(
+            (el) =>
+              !blackListResources.some(
+                (value) =>
+                  JSON.stringify(value) ===
+                  JSON.stringify({ owner: el.owner, name: el.name })
+              )
+          );
         setResourcesApp(result);
       })
       .catch((err) => console.log(err));
@@ -67,13 +76,6 @@ function SearchResources({ anchorEl, onClose, open }) {
   const currentSubjects =
     referenceSelected.bookId === 'obs' ? obsSubjects : bibleSubjects;
   const menuItems = uniqueResources
-    .filter(
-      (el) =>
-        !blackListResources.some(
-          (value) =>
-            JSON.stringify(value) === JSON.stringify({ owner: el.owner, name: el.name })
-        )
-    )
     .filter((el) => currentSubjects.includes(el.subject))
     .map((el) => {
       if (blockLang !== el.languageId) {
