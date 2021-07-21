@@ -95,7 +95,7 @@ function SubMenuBar() {
               <SelectLanguage />
             </MenuItem>
             <MenuItem onClick={handleClickAddMaterial}>
-              <AddIcon size={'small'} /> {t('Add_material')}
+              <AddIcon size={'small'} /> {t('Add_resources')}
             </MenuItem>
             <MenuItem button={false} divider={true}>
               <FontSizeSlider
