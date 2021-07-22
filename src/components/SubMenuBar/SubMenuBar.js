@@ -24,7 +24,7 @@ import {
 } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import MenuIcon from '@material-ui/icons/Menu';
-import useStyles from './style';
+import { useStyles, useModalStyles } from './style';
 
 function SubMenuBar() {
   const {
@@ -33,6 +33,8 @@ function SubMenuBar() {
   } = useContext(AppContext);
 
   const classes = useStyles();
+
+  const modalClasses = useModalStyles();
 
   const [anchorAddMaterial, setAnchorAddMaterial] = useState(null);
   const [anchorMainMenu, setAnchorMainMenu] = useState(null);
@@ -85,11 +87,11 @@ function SubMenuBar() {
               vertical: 'top',
               horizontal: 'center',
             }}
-            color="transparent"
             anchorEl={anchorMainMenu}
             keepMounted
             open={Boolean(anchorMainMenu)}
             onClose={handleCloseMainMenu}
+            classes={modalClasses}
           >
             <MenuItem button={false} divider={true}>
               <SelectLanguage />
