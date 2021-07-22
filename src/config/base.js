@@ -2,14 +2,14 @@ export const server = 'https://git.door43.org';
 
 export const defaultTplBible = {
   ru: [
-    { w: 4, h: 9, x: 0, y: 0, i: 'ru_rob', minH: 4, minW: 2 },
-    { w: 4, h: 9, x: 4, y: 0, i: 'ru_rsb', minH: 4, minW: 2 },
-    { w: 4, h: 9, x: 8, y: 0, i: 'ru_tn', minH: 4, minW: 2 },
+    { w: 4, h: 10, x: 0, y: 0, i: 'ru_rob', minH: 4, minW: 2 },
+    { w: 4, h: 10, x: 4, y: 0, i: 'ru_rsb', minH: 4, minW: 2 },
+    { w: 4, h: 10, x: 8, y: 0, i: 'ru_tn', minH: 4, minW: 2 },
   ],
   en: [
-    { w: 4, h: 9, x: 0, y: 0, i: 'en_ueb', minH: 4, minW: 2 },
-    { w: 4, h: 9, x: 4, y: 0, i: 'en_ust', minH: 4, minW: 2 },
-    { w: 4, h: 9, x: 8, y: 0, i: 'el-x-koine_ugnt', minH: 4, minW: 2 },
+    { w: 4, h: 10, x: 0, y: 0, i: 'en_ueb', minH: 4, minW: 2 },
+    { w: 4, h: 10, x: 4, y: 0, i: 'en_ust', minH: 4, minW: 2 },
+    { w: 4, h: 10, x: 8, y: 0, i: 'el-x-koine_ugnt', minH: 4, minW: 2 },
   ],
 };
 

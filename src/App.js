@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 
 import { Workspace } from 'resource-workspace-rcl';
 import { SnackbarProvider } from 'notistack';
@@ -18,6 +18,10 @@ export default function App() {
   const layout = {
     absolute: appConfig,
   };
+  const [rowHeight, setRowHeight] = useState(30);
+  useEffect(() => {
+    setRowHeight((window.innerHeight - 64) / 10 - 17);
+  }, []);
   Shortcut();
   const onLayoutChange = (newLayout) => {
     localStorage.setItem('appConfig', JSON.stringify(newLayout));
@@ -62,7 +66,7 @@ export default function App() {
       <TypoReport />
       <Workspace
         gridMargin={[15, 15]}
-        rowHeight={30}
+        rowHeight={rowHeight}
         totalGridUnits={12}
         classes={classes}
         layout={layout}
