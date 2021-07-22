@@ -1,27 +1,55 @@
 export const server = 'https://git.door43.org';
 
-export const defaultTplBible = [
-  { w: 4, h: 9, x: 0, y: 0, i: 'ru_rob', minH: 4, minW: 2 },
-  { w: 4, h: 9, x: 4, y: 0, i: 'ru_rsb', minH: 4, minW: 2 },
-  { w: 4, h: 9, x: 8, y: 0, i: 'ru_tn', minH: 4, minW: 2 },
-];
+export const defaultTplBible = {
+  ru: [
+    { w: 4, h: 9, x: 0, y: 0, i: 'ru_rob', minH: 4, minW: 2 },
+    { w: 4, h: 9, x: 4, y: 0, i: 'ru_rsb', minH: 4, minW: 2 },
+    { w: 4, h: 9, x: 8, y: 0, i: 'ru_tn', minH: 4, minW: 2 },
+  ],
+  en: [
+    { w: 4, h: 9, x: 0, y: 0, i: 'en_ueb', minH: 4, minW: 2 },
+    { w: 4, h: 9, x: 4, y: 0, i: 'en_ust', minH: 4, minW: 2 },
+    { w: 4, h: 9, x: 8, y: 0, i: 'el-x-koine_ugnt', minH: 4, minW: 2 },
+  ],
+};
 
-export const defaultTplOBS = [
-  { w: 6, h: 10, x: 0, y: 0, i: 'ru_obs', minH: 4, minW: 2 },
-  { w: 6, h: 5, x: 6, y: 0, i: 'ru_obs-tn', minH: 4, minW: 2 },
-  { w: 6, h: 5, x: 6, y: 5, i: 'ru_obs-tq', minH: 4, minW: 2 },
-];
+export const defaultTplOBS = {
+  ru: [
+    { w: 6, h: 10, x: 0, y: 0, i: 'ru_obs', minH: 4, minW: 2 },
+    { w: 6, h: 5, x: 6, y: 0, i: 'ru_obs-tn', minH: 4, minW: 2 },
+    { w: 6, h: 5, x: 6, y: 5, i: 'ru_obs-tq', minH: 4, minW: 2 },
+  ],
+  en: [
+    { w: 6, h: 10, x: 0, y: 0, i: 'en_obs', minH: 4, minW: 2 },
+    { w: 6, h: 5, x: 6, y: 0, i: 'en_obs-tn', minH: 4, minW: 2 },
+    { w: 6, h: 5, x: 6, y: 5, i: 'en_obs-tq', minH: 4, minW: 2 },
+  ],
+};
 
 export const defaultBibleReference = {
-  bookId: 'mat',
-  chapter: 1,
-  verse: 1,
+  ru: {
+    bookId: 'mat',
+    chapter: 1,
+    verse: 1,
+  },
+  en: {
+    bookId: 'mat',
+    chapter: 1,
+    verse: 1,
+  },
 };
 
 export const defaultOBSReference = {
-  bookId: 'obs',
-  chapter: 1,
-  verse: 1,
+  ru: {
+    bookId: 'obs',
+    chapter: 1,
+    verse: 1,
+  },
+  en: {
+    bookId: 'obs',
+    chapter: 1,
+    verse: 1,
+  },
 };
 
 export const languages = ['en', 'ru'];
