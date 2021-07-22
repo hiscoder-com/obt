@@ -18,8 +18,6 @@ import {
   MenuItem,
   Menu,
   IconButton,
-  FormHelperText,
-  FormControl,
   Typography,
 } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
@@ -109,14 +107,8 @@ function SubMenuBar() {
                 value={fontSize}
               />
             </MenuItem>
-            <MenuItem button={false} className={classes.menu} divider={true}>
-              <FormControl>
-                <FormHelperText>
-                  {t('Text_under_checkbox_error1')}
-                  <br />
-                  {t('Text_under_checkbox_error2')}
-                </FormHelperText>
-              </FormControl>
+            <MenuItem button={false} divider={true}>
+              <p className={classes.menu}>{t('Text_under_checkbox_error')}</p>
             </MenuItem>
             <WorkspaceManager onClose={handleCloseMainMenu} />
           </Menu>

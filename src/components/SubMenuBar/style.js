@@ -5,7 +5,7 @@ export const useStyles = makeStyles((theme) => ({
     justifyContent: 'space-between',
   },
   menu: {
-    minWidth: '220px',
+    whiteSpace: 'break-spaces',
   },
   centerButtons: {
     display: 'flex',
