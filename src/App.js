@@ -1,10 +1,12 @@
 import React, { useContext } from 'react';
 
 import { Workspace } from 'resource-workspace-rcl';
+import { SnackbarProvider } from 'notistack';
 
 import { AppContext } from './App.context';
 import { SubMenuBar, Card, TypoReport } from './components';
 import Shortcut from './KeyboardShortcut';
+
 import './styles/app.css';
 import useStyles from './style';
 
@@ -55,7 +57,7 @@ export default function App() {
   ));
 
   return (
-    <>
+    <SnackbarProvider maxSnack={3}>
       <SubMenuBar />
       <TypoReport />
       <Workspace
@@ -68,6 +70,6 @@ export default function App() {
       >
         {cards}
       </Workspace>
-    </>
+    </SnackbarProvider>
   );
 }

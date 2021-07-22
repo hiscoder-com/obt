@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Card } from 'translation-helps-rcl';
 import { Verse, ResourcesContext } from 'scripture-resources-rcl';
 import { useTranslation } from 'react-i18next';
+import { useSnackbar } from 'notistack';
 
 import { AppContext } from '../../App.context';
 import { getVerseText } from '../../helper';
@@ -20,7 +21,7 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
   const [position, setPosition] = React.useState(initialPosition);
   const { state } = React.useContext(ResourcesContext);
   const {
-    state: { resourcesApp, fontSize },
+    state: { resourcesApp, fontSize, referenceBlock },
     actions: { setShowErrorReport, setReferenceBlock, setReferenceSelected },
   } = React.useContext(AppContext);
 
@@ -28,6 +29,8 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
   const [verses, setVerses] = useState();
   const [project, setProject] = useState({});
   const [resource, setResource] = useState(false);
+
+  const { enqueueSnackbar } = useSnackbar();
 
   const handleContextOpen = (event) => {
     event.preventDefault();
@@ -136,7 +139,29 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
     position.mouseY !== null && position.mouseX !== null
       ? { top: position.mouseY, left: position.mouseX }
       : undefined;
-
+  const handleToClipboard = () => {
+    navigator.clipboard
+      .writeText(
+        referenceBlock.text +
+          ' (' +
+          t(referenceBlock.bookId) +
+          ' ' +
+          referenceBlock.chapter +
+          ':' +
+          referenceBlock.verse +
+          ')'
+      )
+      .then(
+        () => {
+          handleContextClose();
+          enqueueSnackbar(t('copied_success'), { variant: 'success' });
+        },
+        (err) => {
+          handleContextClose();
+          enqueueSnackbar(t('copied_error'), { variant: 'error' });
+        }
+      );
+  };
   return (
     <Card
       closeable
@@ -153,6 +178,7 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
         anchorPosition={anchorPosition}
       >
         <MenuItem onClick={handleOpenError}>{t('Error_report')}</MenuItem>
+        <MenuItem onClick={handleToClipboard}>{t('Copy_to_clipboard')}</MenuItem>
       </Menu>
       {chapter ? verses : t('No_content')}
     </Card>
