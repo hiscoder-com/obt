@@ -24,7 +24,7 @@ export default function SelectLanguage() {
     <FormControl className={classes.formControl}>
       <InputLabel id="lang-select-label">{t('Interface_lang')}</InputLabel>
       <NativeSelect
-        labelId="lang-select-label"
+        labelid="lang-select-label"
         disableUnderline={true}
         variant="outlined"
         classes={{
