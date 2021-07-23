@@ -142,14 +142,9 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
   const handleToClipboard = () => {
     navigator.clipboard
       .writeText(
-        referenceBlock.text +
-          ' (' +
-          t(referenceBlock.bookId) +
-          ' ' +
-          referenceBlock.chapter +
-          ':' +
-          referenceBlock.verse +
-          ')'
+        `${referenceBlock.text} (${t(referenceBlock.bookId)} ${referenceBlock.chapter}:${
+          referenceBlock.verse
+        })`
       )
       .then(
         () => {
