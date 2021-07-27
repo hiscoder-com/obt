@@ -51,7 +51,6 @@ function Matrix(height, width) {
   };
 }
 
-/** функция для рассчета высоты матрицы. Ищет самую низкую карточку */
 const calculateHeight = (appConfig) => {
   let maxHeight = 0;
   if (appConfig.length > 0) {
@@ -62,7 +61,6 @@ const calculateHeight = (appConfig) => {
   return maxHeight;
 };
 
-/** функция заполняе тпустую матрицу 1 там, где у нас карточки есть */
 const fillMatrix = (matrix, appConfig) => {
   if (appConfig.length > 0) {
     appConfig.forEach((el) => {
@@ -72,7 +70,6 @@ const fillMatrix = (matrix, appConfig) => {
   return matrix;
 };
 
-/** функция для получения заполненной карточки */
 const getFilledMatrix = (appConfig) => {
   const matrix = new Matrix(calculateHeight(appConfig) + 4, 12);
   fillMatrix(matrix, appConfig);
