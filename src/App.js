@@ -1,10 +1,12 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 
 import { Workspace } from 'resource-workspace-rcl';
+import { SnackbarProvider } from 'notistack';
 
 import { AppContext } from './App.context';
 import { SubMenuBar, Card, TypoReport } from './components';
 import Shortcut from './KeyboardShortcut';
+
 import './styles/app.css';
 import useStyles from './style';
 
@@ -16,6 +18,10 @@ export default function App() {
   const layout = {
     absolute: appConfig,
   };
+  const [rowHeight, setRowHeight] = useState(30);
+  useEffect(() => {
+    setRowHeight((window.innerHeight - 64) / 10 - 17);
+  }, []);
   Shortcut();
   const onLayoutChange = (newLayout) => {
     localStorage.setItem('appConfig', JSON.stringify(newLayout));
@@ -55,12 +61,12 @@ export default function App() {
   ));
 
   return (
-    <>
+    <SnackbarProvider maxSnack={3}>
       <SubMenuBar />
       <TypoReport />
       <Workspace
         gridMargin={[15, 15]}
-        rowHeight={30}
+        rowHeight={rowHeight}
         totalGridUnits={12}
         classes={classes}
         layout={layout}
@@ -68,6 +74,6 @@ export default function App() {
       >
         {cards}
       </Workspace>
-    </>
+    </SnackbarProvider>
   );
 }

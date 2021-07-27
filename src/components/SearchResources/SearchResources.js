@@ -7,6 +7,7 @@ import { setupCache } from 'axios-cache-adapter';
 import { AppContext } from '../../App.context';
 import { langs, subjects, owners, blackListResources } from '../../config/materials';
 import { defaultCard } from '../../config/base';
+import { getXY } from '../../core/matrix';
 import { bibleSubjects, obsSubjects } from '../../config/materials';
 import { getUniqueResources } from '../../helper';
 
@@ -27,9 +28,13 @@ function SearchResources({ anchorEl, onClose, open }) {
   const uniqueResources = getUniqueResources(appConfig, resourcesApp);
 
   const handleAddMaterial = (item) => {
-    setAppConfig((prev) => prev.concat({ ...defaultCard, i: item.name }));
+    const pos = getXY(appConfig);
+    setAppConfig((prev) =>
+      prev.concat({ ...defaultCard, x: pos.y, y: pos.x, i: item.name })
+    );
     onClose();
   };
+
   useEffect(() => {
     axios
       .create({

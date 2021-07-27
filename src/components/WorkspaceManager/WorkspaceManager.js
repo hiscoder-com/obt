@@ -14,23 +14,23 @@ import { MenuItem, MenuList } from '@material-ui/core';
 
 function WorkspaceManager({ onClose }) {
   const {
-    state: { referenceSelected },
+    state: { referenceSelected, currentLanguage },
     actions: { setReferenceSelected, setAppConfig },
   } = useContext(AppContext);
   const { t } = useTranslation();
 
   const handleResetToBible = () => {
-    setAppConfig(defaultTplBible);
+    setAppConfig(defaultTplBible[currentLanguage]);
     if (referenceSelected.bookId === 'obs') {
-      setReferenceSelected(defaultBibleReference);
+      setReferenceSelected(defaultBibleReference[currentLanguage]);
     }
     onClose();
   };
 
   const handleResetToOBS = () => {
-    setAppConfig(defaultTplOBS);
+    setAppConfig(defaultTplOBS[currentLanguage]);
     if (referenceSelected.bookId !== 'obs') {
-      setReferenceSelected(defaultOBSReference);
+      setReferenceSelected(defaultOBSReference[currentLanguage]);
     }
     onClose();
   };
