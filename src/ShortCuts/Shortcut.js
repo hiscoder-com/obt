@@ -4,7 +4,7 @@ import { useHotkeys } from 'react-hotkeys-hook';
 import { AppContext } from '../App.context';
 import { nextChapter, previousChapter } from './functions';
 
-export default function useShortcut() {
+export default function Shortcut() {
   const {
     state: { referenceSelected },
     actions: { setReferenceSelected },
@@ -22,5 +22,5 @@ export default function useShortcut() {
     {},
     [referenceSelected, setReferenceSelected]
   );
-  return useShortcut;
+  return Shortcut;
 }

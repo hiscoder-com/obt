@@ -4,7 +4,7 @@ import { Workspace } from 'resource-workspace-rcl';
 
 import { AppContext } from './App.context';
 import { SubMenuBar, Card, TypoReport } from './components';
-import useShortcut from './ShortCuts/useShortcut';
+import Shortcut from './ShortCuts/Shortcut';
 import './styles/app.css';
 import useStyles from './style';
 
@@ -16,7 +16,7 @@ export default function App() {
   const layout = {
     absolute: appConfig,
   };
-  useShortcut();
+  Shortcut();
   const onLayoutChange = (newLayout) => {
     localStorage.setItem('appConfig', JSON.stringify(newLayout));
     setAppConfig(newLayout);
