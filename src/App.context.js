@@ -5,17 +5,21 @@ import { useHistory, useLocation } from 'react-router-dom';
 import { ResourcesContextProvider } from 'scripture-resources-rcl';
 
 import { getResources } from './helper';
-import { server, defaultTplBible, defaultBibleReference } from './config/base';
+import { server, defaultTplBible, defaultBibleReference, languages } from './config/base';
 
 export const AppContext = React.createContext();
 
+const _currentLanguage = localStorage.getItem('i18nextLng')
+  ? localStorage.getItem('i18nextLng')
+  : languages[0];
+
 const _appConfig = localStorage.getItem('appConfig')
   ? JSON.parse(localStorage.getItem('appConfig'))
-  : defaultTplBible;
+  : defaultTplBible[_currentLanguage];
 
 let _reference = localStorage.getItem('reference')
   ? JSON.parse(localStorage.getItem('reference'))
-  : defaultBibleReference;
+  : defaultBibleReference[_currentLanguage];
 
 let _resourcesApp = localStorage.getItem('resourcesApp')
   ? JSON.parse(localStorage.getItem('resourcesApp'))
@@ -35,6 +39,7 @@ export function AppContextProvider({ children }) {
     verse: currentLocation[3] ?? _reference.verse ?? 1,
   };
 
+  const [currentLanguage, setCurrentLanguage] = useState(_currentLanguage);
   const [appConfig, setAppConfig] = useState(_appConfig);
   const [referenceSelected, setReferenceSelected] = useState({
     bookId: currentLocation[1] ? currentLocation[1] : _reference.bookId,
@@ -125,6 +130,7 @@ export function AppContextProvider({ children }) {
       showErrorReport,
       referenceBlock,
       fontSize,
+      currentLanguage,
     },
     actions: {
       setAppConfig,
@@ -137,6 +143,7 @@ export function AppContextProvider({ children }) {
       setShowErrorReport,
       setReferenceBlock,
       setFontSize,
+      setCurrentLanguage,
     },
   };
 
