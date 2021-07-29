@@ -21,6 +21,14 @@ export const getResources = (appConfig, resourcesApp) => {
   return resources;
 };
 
+export const getBookList = (bibleList, t) => {
+  const result = [];
+  bibleList.forEach((el) => {
+    result.push({ key: el.identifier, name: t(el.identifier), label: t(el.identifier) });
+  });
+  return result;
+};
+
 export const getUniqueResources = (appConfig, resourcesApp) => {
   if (appConfig.length === 0) {
     return resourcesApp;
