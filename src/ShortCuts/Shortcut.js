@@ -2,25 +2,16 @@ import { useContext } from 'react';
 import { useHotkeys } from 'react-hotkeys-hook';
 
 import { AppContext } from '../App.context';
-import { nextChapter, previousChapter } from './functions';
 
 export default function Shortcut() {
   const {
     state: { referenceSelected },
-    actions: { setReferenceSelected },
+    actions: { goToNextChapter, goToPrevChapter, goToPrevBook, goToNextBook },
   } = useContext(AppContext);
 
-  useHotkeys(
-    'ctrl+right',
-    () => nextChapter(referenceSelected, setReferenceSelected),
-    {},
-    [referenceSelected, setReferenceSelected]
-  );
-  useHotkeys(
-    'ctrl+left',
-    () => previousChapter(referenceSelected, setReferenceSelected),
-    {},
-    [referenceSelected, setReferenceSelected]
-  );
+  useHotkeys('ctrl+right', () => goToNextChapter(), {}, [referenceSelected]);
+  useHotkeys('ctrl+left', () => goToPrevChapter(), {}, [referenceSelected]);
+  useHotkeys('ctrl+shift+left', () => goToPrevBook(), {}, [referenceSelected]);
+  useHotkeys('ctrl+shift+right', () => goToNextBook(), {}, [referenceSelected]);
   return Shortcut;
 }

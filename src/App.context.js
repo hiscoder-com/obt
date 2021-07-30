@@ -211,6 +211,10 @@ export function AppContextProvider({ children }) {
       setReferenceBlock,
       setFontSize,
       setCurrentLanguage,
+      goToNextChapter,
+      goToPrevChapter,
+      goToPrevBook,
+      goToNextBook,
     },
   };
 
