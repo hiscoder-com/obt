@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 
 import { useTranslation } from 'react-i18next';
 import { ResourcesContext } from 'scripture-resources-rcl';
@@ -13,7 +13,12 @@ function BookList() {
   const { state } = useContext(ResourcesContext);
   const {
     state: { referenceSelected, appConfig },
-    actions: { setShowBookSelect, setReferenceSelected, setShowChapterSelect },
+    actions: {
+      setShowBookSelect,
+      setReferenceSelected,
+      setShowChapterSelect,
+      applyBooksFilter,
+    },
   } = useContext(AppContext);
   const showOBS = appConfig.filter((el) => el.i.split('_')[1] === 'obs').length > 0;
 
@@ -28,20 +33,21 @@ function BookList() {
       ? setShowChapterSelect(true)
       : setShowChapterSelect(false);
   };
-  let uniqueBookID = new Set();
 
   const currentBibleList = JSON.parse(JSON.stringify(bibleList));
   const { t } = useTranslation();
   const classes = useStyles();
   const bookClasses = useBookStyles();
 
+  const availableBookList = [];
   if (state.resources.length > 0) {
     state.resources.forEach((resource) => {
-      resource.projects.map((project) => uniqueBookID.add(project.identifier));
+      resource.projects.map((project) => availableBookList.push(project.identifier));
     });
   }
-  showOBS && uniqueBookID.add('obs');
-  let availableBookList = Array.from(uniqueBookID);
+  useEffect(() => {
+    applyBooksFilter(availableBookList);
+  }, []); // just apply the first time in this demo
 
   const titleBooks = {};
   currentBibleList.map((el) => (titleBooks[el.identifier] = t(el.identifier)));

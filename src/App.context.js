@@ -211,6 +211,7 @@ export function AppContextProvider({ children }) {
       setReferenceBlock,
       setFontSize,
       setCurrentLanguage,
+      applyBooksFilter,
       goToNextChapter,
       goToPrevChapter,
       goToPrevBook,
