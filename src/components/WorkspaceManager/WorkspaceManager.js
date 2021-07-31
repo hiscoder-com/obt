@@ -3,6 +3,7 @@ import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { AppContext } from '../../App.context';
+import { ReferenceContext } from '../../ReferenceContext';
 
 import {
   defaultTplBible,
@@ -14,15 +15,21 @@ import { MenuItem, MenuList } from '@material-ui/core';
 
 function WorkspaceManager({ onClose }) {
   const {
-    state: { referenceSelected, currentLanguage },
-    actions: { setReferenceSelected, setAppConfig },
+    state: { currentLanguage },
+    actions: { setAppConfig },
   } = useContext(AppContext);
+
+  const {
+    state: { referenceSelected },
+    actions: { goToBookChapterVerse },
+  } = useContext(ReferenceContext);
+
   const { t } = useTranslation();
 
   const handleResetToBible = () => {
     setAppConfig(defaultTplBible[currentLanguage]);
     if (referenceSelected.bookId === 'obs') {
-      setReferenceSelected(defaultBibleReference[currentLanguage]);
+      goToBookChapterVerse(defaultBibleReference[currentLanguage]);
     }
     onClose();
   };
@@ -30,7 +37,7 @@ function WorkspaceManager({ onClose }) {
   const handleResetToOBS = () => {
     setAppConfig(defaultTplOBS[currentLanguage]);
     if (referenceSelected.bookId !== 'obs') {
-      setReferenceSelected(defaultOBSReference[currentLanguage]);
+      goToBookChapterVerse(defaultOBSReference[currentLanguage]);
     }
     onClose();
   };

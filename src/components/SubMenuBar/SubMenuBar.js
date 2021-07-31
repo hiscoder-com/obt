@@ -4,6 +4,7 @@ import { FontSizeSlider } from 'translation-helps-rcl';
 import { useTranslation } from 'react-i18next';
 
 import { AppContext } from '../../App.context';
+import { ReferenceContext } from '../../ReferenceContext';
 import {
   BookSelect,
   WorkspaceManager,
@@ -26,9 +27,13 @@ import { useStyles, useModalStyles } from './style';
 
 function SubMenuBar() {
   const {
-    state: { fontSize, referenceSelected },
+    state: { fontSize },
     actions: { setFontSize },
   } = useContext(AppContext);
+
+  const {
+    state: { referenceSelected },
+  } = useContext(ReferenceContext);
 
   const classes = useStyles();
 

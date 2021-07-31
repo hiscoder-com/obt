@@ -5,6 +5,7 @@ import { ResourcesContext } from 'scripture-resources-rcl';
 import { BibleBookList as BibleBookListRCL } from '@texttree/tt-reference-rcl';
 
 import { AppContext } from '../../App.context';
+import { ReferenceContext } from '../../ReferenceContext';
 import { bibleList, singleChaptersBookID } from '../../config/base';
 
 import { useStyles, useBookStyles } from './style';
@@ -12,23 +13,21 @@ import { useStyles, useBookStyles } from './style';
 function BookList() {
   const { state } = useContext(ResourcesContext);
   const {
-    state: { referenceSelected, appConfig },
-    actions: {
-      setShowBookSelect,
-      setReferenceSelected,
-      setShowChapterSelect,
-      applyBooksFilter,
-    },
+    state: { appConfig },
+    actions: { setShowBookSelect, setShowChapterSelect },
   } = useContext(AppContext);
+
+  const {
+    state: { referenceSelected },
+    actions: { goToBookChapterVerse, applyBooksFilter },
+  } = useContext(ReferenceContext);
+
   const showOBS = appConfig.filter((el) => el.i.split('_')[1] === 'obs').length > 0;
 
   const onBook = (identifier) => {
     setShowBookSelect(false);
-    setReferenceSelected({
-      bookId: identifier ?? null,
-      chapter: '1',
-      verse: '1',
-    });
+
+    goToBookChapterVerse(identifier ?? null, '1', '1');
     !singleChaptersBookID.includes(identifier)
       ? setShowChapterSelect(true)
       : setShowChapterSelect(false);
@@ -47,7 +46,7 @@ function BookList() {
   }
   useEffect(() => {
     applyBooksFilter(availableBookList);
-  }, []); // just apply the first time in this demo
+  }, []);
 
   const titleBooks = {};
   currentBibleList.map((el) => (titleBooks[el.identifier] = t(el.identifier)));

@@ -1,6 +1,8 @@
 import React, { useContext } from 'react';
 
 import { AppContext } from '../../App.context';
+import { ReferenceContext } from '../../ReferenceContext';
+
 import {
   Chapter,
   SupportTQ,
@@ -15,9 +17,13 @@ function Card({ type, onClose, classes }) {
   let CurrentCard;
 
   const {
-    state: { referenceSelected, resourcesApp, appConfig },
+    state: { resourcesApp, appConfig },
     actions: { setAppConfig },
   } = useContext(AppContext);
+
+  const {
+    state: { referenceSelected },
+  } = useContext(ReferenceContext);
 
   let resource = false;
   resourcesApp.forEach((el) => {

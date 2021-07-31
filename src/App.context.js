@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 
 import { useHistory, useLocation } from 'react-router-dom';
 
 import { ResourcesContextProvider } from 'scripture-resources-rcl';
-import { useBibleReference } from 'bible-reference-rcl';
-import { useTranslation } from 'react-i18next';
 
+import { useTranslation } from 'react-i18next';
+import { ReferenceContext } from './ReferenceContext';
 import { getResources, getBookList } from './helper';
 import {
   server,
@@ -53,54 +53,27 @@ export function AppContextProvider({ children }) {
     console.log([{ bookId, chapter, verse }]);
   };
 
-  const {
-    state: { bookId, chapter, verse, bookList, chapterList, verseList },
-    actions: {
-      goToBookChapterVerse,
-      applyBooksFilter,
-      getFullBookList,
-      getFilteredBookList,
-      goToPrevBook,
-      goToNextBook,
-      goToPrevChapter,
-      goToNextChapter,
-      goToPrevVerse,
-      goToNextVerse,
-      onChangeBook,
-      onChangeChapter,
-      onChangeVerse,
-      setNewBookList,
-    },
-  } = useBibleReference({
-    initialBook: locationReference.bookId,
-    initialChapter: locationReference.chapter,
-    initialVerse: locationReference.verse,
-    onChange: onChangeReference,
-  });
-
-  console.log({ bookId, chapter, verse });
-
   const [refList, setRefList] = useState({
     bookList: [],
     chapterList: [],
     verseList: [],
   });
 
-  useEffect(() => {
-    setReferenceSelected({ bookId, chapter, verse });
-  }, [bookId, chapter, verse]);
+  // useEffect(() => {
+  //   setReferenceSelected({ bookId, chapter, verse });
+  // }, [bookId, chapter, verse]);
 
-  useEffect(() => {
-    applyBooksFilter(null);
-  }, []);
+  // useEffect(() => {
+  //   applyBooksFilter(null);
+  // }, []);
 
-  useEffect(() => {
-    setRefList({ bookList, chapterList, verseList });
-  }, [bookList, chapterList, verseList]);
+  // useEffect(() => {
+  //   setRefList({ bookList, chapterList, verseList });
+  // }, [bookList, chapterList, verseList]);
 
   const [currentLanguage, setCurrentLanguage] = useState(_currentLanguage);
   const [appConfig, setAppConfig] = useState(_appConfig);
-  const [referenceSelected, setReferenceSelected] = useState({ ...locationReference });
+  // const [referenceSelected, setReferenceSelected] = useState({ ...locationReference });
 
   const [resourcesApp, setResourcesApp] = useState(_resourcesApp);
 
@@ -114,14 +87,18 @@ export function AppContextProvider({ children }) {
   const [fontSize, setFontSize] = useState(_fontSize ? _fontSize : 100);
 
   localStorage.setItem('fontSize', fontSize);
+  const {
+    state: { referenceSelected },
+    actions: { goToBookChapterVerse },
+  } = useContext(ReferenceContext);
 
   useEffect(() => {
     setResourceLinks(getResources(appConfig, resourcesApp));
   }, [appConfig, resourcesApp]);
 
-  useEffect(() => {
-    setNewBookList(getBookList(bibleList, t));
-  }, [currentLanguage]);
+  // useEffect(() => {
+  //   setNewBookList(getBookList(bibleList, t));
+  // }, [currentLanguage]);
 
   useEffect(() => {
     localStorage.setItem('resourcesApp', JSON.stringify(resourcesApp));
@@ -134,54 +111,54 @@ export function AppContextProvider({ children }) {
         locationReference,
         eq: locationReference !== referenceSelected,
       });
-      setReferenceSelected({
-        bookId: locationReference.bookId,
-        chapter: locationReference.chapter,
-        verse: locationReference.verse,
-      });
+      goToBookChapterVerse(
+        locationReference.bookId,
+        locationReference.chapter,
+        locationReference.verse
+      );
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [locationReference.bookId, locationReference.chapter, locationReference.verse]);
 
-  useEffect(() => {
-    if (
-      history.location.pathname !==
-      '/' +
-        referenceSelected.bookId +
-        '/' +
-        referenceSelected.chapter +
-        '/' +
-        referenceSelected.verse
-    ) {
-      history.push(
-        '/' +
-          referenceSelected.bookId +
-          '/' +
-          referenceSelected.chapter +
-          '/' +
-          referenceSelected.verse
-      );
-      localStorage.setItem(
-        'reference',
-        JSON.stringify({
-          bookId: referenceSelected.bookId,
-          chapter: referenceSelected.chapter,
-          verse: referenceSelected.verse,
-        })
-      );
-      goToBookChapterVerse(
-        referenceSelected.bookId,
-        referenceSelected.chapter,
-        referenceSelected.verse
-      );
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [
-    referenceSelected.bookId,
-    referenceSelected.chapter,
-    referenceSelected.verse,
-    history,
-  ]);
+  // useEffect(() => {
+  //   if (
+  //     history.location.pathname !==
+  //     '/' +
+  //       referenceSelected.bookId +
+  //       '/' +
+  //       referenceSelected.chapter +
+  //       '/' +
+  //       referenceSelected.verse
+  //   ) {
+  //     history.push(
+  //       '/' +
+  //         referenceSelected.bookId +
+  //         '/' +
+  //         referenceSelected.chapter +
+  //         '/' +
+  //         referenceSelected.verse
+  //     );
+  //     localStorage.setItem(
+  //       'reference',
+  //       JSON.stringify({
+  //         bookId: referenceSelected.bookId,
+  //         chapter: referenceSelected.chapter,
+  //         verse: referenceSelected.verse,
+  //       })
+  //     );
+  //     goToBookChapterVerse(
+  //       referenceSelected.bookId,
+  //       referenceSelected.chapter,
+  //       referenceSelected.verse
+  //     );
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [
+  //   referenceSelected.bookId,
+  //   referenceSelected.chapter,
+  //   referenceSelected.verse,
+  //   history,
+  // ]);
 
   const value = {
     state: {
@@ -201,7 +178,7 @@ export function AppContextProvider({ children }) {
     },
     actions: {
       setAppConfig,
-      setReferenceSelected,
+      // setReferenceSelected,
       setResourceLinks,
       setResourcesApp,
       setResources,
@@ -211,11 +188,11 @@ export function AppContextProvider({ children }) {
       setReferenceBlock,
       setFontSize,
       setCurrentLanguage,
-      applyBooksFilter,
-      goToNextChapter,
-      goToPrevChapter,
-      goToPrevBook,
-      goToNextBook,
+      // applyBooksFilter,
+      // goToNextChapter,
+      // goToPrevChapter,
+      // goToPrevBook,
+      // goToNextBook,
     },
   };
 

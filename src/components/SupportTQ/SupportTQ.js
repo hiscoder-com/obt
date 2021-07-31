@@ -3,13 +3,20 @@ import React, { useContext } from 'react';
 import { Card, CardContent, useContent, useCardState } from 'translation-helps-rcl';
 
 import { AppContext } from '../../App.context';
+import { ReferenceContext } from '../../ReferenceContext';
 import { server } from '../../config/base';
 
 export default function SupportTQ(props) {
   const { title, classes, onClose, type } = props;
   const {
-    state: { referenceSelected, fontSize, resourcesApp },
+    state: { fontSize, resourcesApp },
   } = useContext(AppContext);
+
+  const {
+    state: { referenceSelected },
+  } = useContext(ReferenceContext);
+
+  const { bookId, chapter, verse } = referenceSelected;
 
   let resource = false;
   resourcesApp.forEach((el) => {
@@ -24,17 +31,14 @@ export default function SupportTQ(props) {
     isLoading,
     props: { languageId },
   } = useContent({
-    verse: referenceSelected.verse,
-    chapter: referenceSelected.chapter,
-    projectId: referenceSelected.bookId,
+    verse: verse,
+    chapter: chapter,
+    projectId: bookId,
     branch: resource.branch ?? 'master',
     languageId: resource.languageId ?? 'ru',
     resourceId: 'tq',
     filePath:
-      String(referenceSelected.chapter).padStart(2, '0') +
-      '/' +
-      String(referenceSelected.verse).padStart(2, '0') +
-      '.md',
+      String(chapter).padStart(2, '0') + '/' + String(verse).padStart(2, '0') + '.md',
     owner: resource.owner ?? 'door43-catalog',
     server,
   });

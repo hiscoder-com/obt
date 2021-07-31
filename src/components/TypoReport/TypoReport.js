@@ -3,6 +3,7 @@ import React, { useContext, useState } from 'react';
 import { SendError } from '@texttree/user-notes-rcl';
 
 import { AppContext } from '../../App.context';
+import { ReferenceContext } from '../../ReferenceContext';
 import FinishDialog from './FinishDialog';
 import ReportDialog from './ReportDialog';
 
@@ -10,9 +11,14 @@ import { Backdrop, CircularProgress } from '@material-ui/core';
 import useStyles from './style';
 
 export default function TypoReport() {
-  const { state, actions } = useContext(AppContext);
-  const { showErrorReport, referenceBlock } = state;
-  const { setShowErrorReport } = actions;
+  const {
+    state: { showErrorReport },
+    actions: { setShowErrorReport },
+  } = useContext(AppContext);
+
+  const {
+    state: { referenceBlock },
+  } = useContext(ReferenceContext);
 
   const [valueComment, setValueComment] = useState('');
   const [errorMessage, setErrorMessage] = useState('');

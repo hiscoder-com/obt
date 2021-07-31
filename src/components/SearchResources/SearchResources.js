@@ -5,6 +5,8 @@ import axios from 'axios';
 import { setupCache } from 'axios-cache-adapter';
 
 import { AppContext } from '../../App.context';
+import { ReferenceContext } from '../../ReferenceContext';
+
 import { langs, subjects, owners, blackListResources } from '../../config/materials';
 import { defaultCard } from '../../config/base';
 import { getXY } from '../../core/matrix';
@@ -16,9 +18,13 @@ import { useStyles } from './style';
 
 function SearchResources({ anchorEl, onClose, open }) {
   const {
-    state: { appConfig, referenceSelected, resourcesApp },
+    state: { appConfig, resourcesApp },
     actions: { setAppConfig, setResourcesApp },
   } = useContext(AppContext);
+
+  const {
+    state: { referenceSelected },
+  } = useContext(ReferenceContext);
 
   const { t } = useTranslation();
   const classes = useStyles();
