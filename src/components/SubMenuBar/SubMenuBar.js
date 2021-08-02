@@ -3,8 +3,8 @@ import React, { useState, useContext } from 'react';
 import { FontSizeSlider } from 'translation-helps-rcl';
 import { useTranslation } from 'react-i18next';
 
-import { AppContext } from '../../App.context';
-import { ReferenceContext } from '../../ReferenceContext';
+import { AppContext } from '../../context/AppContext';
+import { ReferenceContext } from '../../context/ReferenceContext';
 import {
   BookSelect,
   WorkspaceManager,

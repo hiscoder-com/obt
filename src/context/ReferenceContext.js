@@ -2,7 +2,7 @@ import { useBibleReference } from 'bible-reference-rcl';
 import { useHistory, useLocation } from 'react-router-dom';
 import React, { useState, createContext, useEffect } from 'react';
 
-import { defaultBibleReference, languages } from './config/base';
+import { defaultBibleReference, languages } from '../config/base';
 
 export const ReferenceContext = createContext();
 
@@ -66,6 +66,19 @@ export function ReferenceContextProvider({ children }) {
       goToBookChapterVerse(bookId, chapter, verse);
     }
   });
+
+  React.useEffect(() => {
+    if (
+      JSON.stringify({ bookId, chapter, verse }) !== JSON.stringify(locationReference)
+    ) {
+      goToBookChapterVerse(
+        locationReference.bookId,
+        locationReference.chapter,
+        locationReference.verse
+      );
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [locationReference.bookId, locationReference.chapter, locationReference.verse]);
 
   const value = {
     state: {

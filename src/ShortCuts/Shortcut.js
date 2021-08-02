@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { useHotkeys } from 'react-hotkeys-hook';
 
-import { ReferenceContext } from '../ReferenceContext';
+import { ReferenceContext } from '../context/ReferenceContext';
 
 export default function Shortcut() {
   const {

@@ -2,8 +2,8 @@ import React, { useContext } from 'react';
 
 import { Card, CardContent, useContent, useCardState } from 'translation-helps-rcl';
 
-import { AppContext } from '../../App.context';
-import { ReferenceContext } from '../../ReferenceContext';
+import { AppContext } from '../../context/AppContext';
+import { ReferenceContext } from '../../context/ReferenceContext';
 import { server } from '../../config/base';
 
 export default function SupportTQ(props) {
@@ -31,8 +31,6 @@ export default function SupportTQ(props) {
     isLoading,
     props: { languageId },
   } = useContent({
-    verse: verse,
-    chapter: chapter,
     projectId: bookId,
     branch: resource.branch ?? 'master',
     languageId: resource.languageId ?? 'ru',

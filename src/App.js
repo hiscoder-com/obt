@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Workspace } from 'resource-workspace-rcl';
 import { SnackbarProvider } from 'notistack';
 
-import { AppContext } from './App.context';
+import { AppContext } from './context/AppContext';
 import { SubMenuBar, Card, TypoReport } from './components';
 import Shortcut from './ShortCuts/Shortcut';
 import './styles/app.css';

@@ -4,8 +4,8 @@ import { useTranslation } from 'react-i18next';
 import { ResourcesContext } from 'scripture-resources-rcl';
 import { BibleBookList as BibleBookListRCL } from '@texttree/tt-reference-rcl';
 
-import { AppContext } from '../../App.context';
-import { ReferenceContext } from '../../ReferenceContext';
+import { AppContext } from '../../context/AppContext';
+import { ReferenceContext } from '../../context/ReferenceContext';
 import { bibleList, singleChaptersBookID } from '../../config/base';
 
 import { useStyles, useBookStyles } from './style';
@@ -14,7 +14,7 @@ function BookList() {
   const { state } = useContext(ResourcesContext);
   const {
     state: { appConfig },
-    actions: { setShowBookSelect, setShowChapterSelect },
+    actions: { setShowBookSelect, setShowChapterSelect, newBooklist },
   } = useContext(AppContext);
 
   const {
@@ -49,7 +49,6 @@ function BookList() {
   useEffect(() => {
     applyBooksFilter(availableBookList);
   }, [availableBookList, applyBooksFilter]);
-  showOBS && availableBookList.push('obs');
 
   const titleBooks = {};
   currentBibleList.map((el) => (titleBooks[el.identifier] = t(el.identifier)));

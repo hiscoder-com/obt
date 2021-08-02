@@ -4,8 +4,8 @@ import { Card, useContent, useCardState } from 'translation-helps-rcl';
 
 import { useTranslation } from 'react-i18next';
 
-import { AppContext } from '../../App.context';
-import { ReferenceContext } from '../../ReferenceContext';
+import { AppContext } from '../../context/AppContext';
+import { ReferenceContext } from '../../context/ReferenceContext';
 import { server } from '../../config/base';
 
 export default function OBSVerses(props) {
@@ -21,7 +21,7 @@ export default function OBSVerses(props) {
     actions: { onChangeVerse },
   } = useContext(ReferenceContext);
 
-  const { bookId, chapter } = referenceSelected;
+  const { bookId, chapter, verse } = referenceSelected;
 
   let resource = false;
   resourcesApp.forEach((el) => {
@@ -72,11 +72,11 @@ export default function OBSVerses(props) {
         return { versesObject, headerMd, linkMd };
       };
       const { versesObject, headerMd, linkMd } = mdToVerses(markdown);
-      const contentMd = versesObject.map((verse) => {
-        const { key, urlImage, text } = verse;
+      const contentMd = versesObject.map((item) => {
+        const { key, urlImage, text } = item;
         const verseStyle = {
           fontSize: fontSize + '%',
-          fontWeight: key === referenceSelected.verse ? 'bold' : 'inherit',
+          fontWeight: key === verse ? 'bold' : 'inherit',
         };
         return (
           <div
@@ -113,7 +113,7 @@ export default function OBSVerses(props) {
     } else {
       setVerses(<>{t('No_content')}</>);
     }
-  }, [markdown, bookId, chapter, t, fontSize, referenceSelected.verse, onChangeVerse]);
+  }, [markdown, bookId, chapter, verse, t, fontSize, onChangeVerse]);
 
   const {
     state: { headers, itemIndex },

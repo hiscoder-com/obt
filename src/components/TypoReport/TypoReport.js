@@ -2,8 +2,8 @@ import React, { useContext, useState } from 'react';
 
 import { SendError } from '@texttree/user-notes-rcl';
 
-import { AppContext } from '../../App.context';
-import { ReferenceContext } from '../../ReferenceContext';
+import { AppContext } from '../../context/AppContext';
+import { ReferenceContext } from '../../context/ReferenceContext';
 import FinishDialog from './FinishDialog';
 import ReportDialog from './ReportDialog';
 

@@ -5,8 +5,8 @@ import { Verse, ResourcesContext } from 'scripture-resources-rcl';
 import { useTranslation } from 'react-i18next';
 import { useSnackbar } from 'notistack';
 
-import { AppContext } from '../../App.context';
-import { ReferenceContext } from '../../ReferenceContext';
+import { AppContext } from '../../context/AppContext';
+import { ReferenceContext } from '../../context/ReferenceContext';
 import { getVerseText } from '../../helper';
 
 import { Menu, MenuItem } from '@material-ui/core';

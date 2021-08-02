@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 
-import { AppContext } from '../../App.context';
-import { ReferenceContext } from '../../ReferenceContext';
+import { AppContext } from '../../context/AppContext';
+import { ReferenceContext } from '../../context/ReferenceContext';
 
 import {
   Chapter,

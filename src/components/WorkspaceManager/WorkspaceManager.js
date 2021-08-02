@@ -2,8 +2,8 @@ import React, { useContext } from 'react';
 
 import { useTranslation } from 'react-i18next';
 
-import { AppContext } from '../../App.context';
-import { ReferenceContext } from '../../ReferenceContext';
+import { AppContext } from '../../context/AppContext';
+import { ReferenceContext } from '../../context/ReferenceContext';
 
 import {
   defaultTplBible,
@@ -26,7 +26,7 @@ function WorkspaceManager({ onClose }) {
 
   const { t } = useTranslation();
   const { bookId, chapter, verse } = defaultBibleReference[currentLanguage];
-  console.log('defaultReference', bookId, chapter, verse);
+
   const handleResetToBible = () => {
     setAppConfig(defaultTplBible[currentLanguage]);
     if (referenceSelected.bookId === 'obs') {

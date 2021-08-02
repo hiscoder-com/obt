@@ -4,8 +4,8 @@ import { useTranslation } from 'react-i18next';
 import axios from 'axios';
 import { setupCache } from 'axios-cache-adapter';
 
-import { AppContext } from '../../App.context';
-import { ReferenceContext } from '../../ReferenceContext';
+import { AppContext } from '../../context/AppContext';
+import { ReferenceContext } from '../../context/ReferenceContext';
 
 import { langs, subjects, owners, blackListResources } from '../../config/materials';
 import { defaultCard } from '../../config/base';

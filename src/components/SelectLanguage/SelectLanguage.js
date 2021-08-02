@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 
 import { useTranslation } from 'react-i18next';
 
-import { AppContext } from '../../App.context';
+import { AppContext } from '../../context/AppContext';
 
 import { languages } from '../../config/base';
 
