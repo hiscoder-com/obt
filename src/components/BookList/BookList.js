@@ -39,13 +39,12 @@ function BookList() {
   const bookClasses = useBookStyles();
 
   const availableBookList = useMemo(() => [], []);
-  useEffect(() => {
-    if (state.resources.length > 0) {
-      state.resources.forEach((resource) => {
-        resource.projects.map((project) => availableBookList.push(project.identifier));
-      });
-    }
-  }, [state.resources, availableBookList]);
+
+  if (state.resources.length > 0) {
+    state.resources.forEach((resource) => {
+      resource.projects.map((project) => availableBookList.push(project.identifier));
+    });
+  }
 
   useEffect(() => {
     applyBooksFilter(availableBookList);
