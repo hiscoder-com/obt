@@ -27,8 +27,8 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
   } = useContext(AppContext);
 
   const {
-    state: { referenceSelected, referenceBlock },
-    actions: { goToBookChapterVerse, setReferenceBlock, applyBooksFilter },
+    state: { referenceBlock },
+    actions: { goToBookChapterVerse, setReferenceBlock },
   } = useContext(ReferenceContext);
 
   const [chapter, setChapter] = useState();
@@ -120,7 +120,7 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
           }}
           onClick={() =>
             reference.verse !== key
-              ? goToBookChapterVerse({ ...reference, verse: key })
+              ? goToBookChapterVerse(reference.bookId, reference.chapter, key)
               : false
           }
         >

@@ -20,26 +20,13 @@ export function ReferenceContextProvider({ children }) {
   let history = useHistory();
   let location = useLocation();
   const currentLocation = location.pathname.split('/');
-  const [refList, setRefList] = useState({
-    bookList: [],
-    chapterList: [],
-    verseList: [],
-  });
-
-  // useEffect(() => {
-  //   applyBooksFilter(null);
-  // }, []);
-
-  // useEffect(() => {
-  //   setRefList({ bookList, chapterList, verseList });
-  // }, [bookList, chapterList, verseList]);
 
   const locationReference = {
     bookId: currentLocation[1] ? currentLocation[1] : _reference.bookId,
     chapter: currentLocation[2] ?? _reference.chapter,
     verse: currentLocation[3] ?? _reference.verse ?? 1,
   };
-  console.log('locationReference=', locationReference);
+
   const initialBook = locationReference.bookId;
   const initialChapter = String(locationReference.chapter);
   const initialVerse = String(locationReference.verse);

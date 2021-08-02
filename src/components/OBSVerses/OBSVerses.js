@@ -21,7 +21,7 @@ export default function OBSVerses(props) {
     actions: { onChangeVerse },
   } = useContext(ReferenceContext);
 
-  const { bookId, chapter, verse } = referenceSelected;
+  const { bookId, chapter } = referenceSelected;
 
   let resource = false;
   resourcesApp.forEach((el) => {
@@ -76,7 +76,7 @@ export default function OBSVerses(props) {
         const { key, urlImage, text } = verse;
         const verseStyle = {
           fontSize: fontSize + '%',
-          fontWeight: key === verse ? 'bold' : 'inherit',
+          fontWeight: key === referenceSelected.verse ? 'bold' : 'inherit',
         };
         return (
           <div
@@ -113,7 +113,7 @@ export default function OBSVerses(props) {
     } else {
       setVerses(<>{t('No_content')}</>);
     }
-  }, [markdown, bookId, chapter, t, fontSize, verse, onChangeVerse]);
+  }, [markdown, bookId, chapter, t, fontSize, referenceSelected.verse, onChangeVerse]);
 
   const {
     state: { headers, itemIndex },

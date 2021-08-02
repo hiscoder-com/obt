@@ -25,11 +25,12 @@ function WorkspaceManager({ onClose }) {
   } = useContext(ReferenceContext);
 
   const { t } = useTranslation();
-
+  const { bookId, chapter, verse } = defaultBibleReference[currentLanguage];
+  console.log('defaultReference', bookId, chapter, verse);
   const handleResetToBible = () => {
     setAppConfig(defaultTplBible[currentLanguage]);
     if (referenceSelected.bookId === 'obs') {
-      goToBookChapterVerse(defaultBibleReference[currentLanguage]);
+      goToBookChapterVerse(bookId, String(chapter), String(verse));
     }
     onClose();
   };
@@ -37,7 +38,11 @@ function WorkspaceManager({ onClose }) {
   const handleResetToOBS = () => {
     setAppConfig(defaultTplOBS[currentLanguage]);
     if (referenceSelected.bookId !== 'obs') {
-      goToBookChapterVerse(defaultOBSReference[currentLanguage]);
+      goToBookChapterVerse(
+        defaultOBSReference[currentLanguage].bookId,
+        String(defaultOBSReference[currentLanguage].chapter),
+        String(defaultOBSReference[currentLanguage].verse)
+      );
     }
     onClose();
   };

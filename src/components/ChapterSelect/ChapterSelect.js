@@ -54,11 +54,7 @@ function ChapterSelect() {
         onClose={() => setShowChapterSelect(false)}
       >
         <DialogContent>
-          <ChapterList
-            // setReferenceSelected={setReferenceSelected}
-            // referenceSelected={referenceSelected}
-            onClose={onClose}
-          />
+          <ChapterList onClose={onClose} />
         </DialogContent>
       </Dialog>
     </>

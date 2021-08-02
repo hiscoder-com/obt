@@ -2,10 +2,10 @@ import React, { useState, useEffect, useContext } from 'react';
 
 import { ResourcesContextProvider } from 'scripture-resources-rcl';
 
-import { useTranslation } from 'react-i18next';
+// import { useTranslation } from 'react-i18next';
 import { ReferenceContext } from './ReferenceContext';
-import { getResources, getBookList } from './helper';
-import { server, defaultTplBible, languages, bibleList } from './config/base';
+import { getResources } from './helper';
+import { server, defaultTplBible, languages } from './config/base';
 
 export const AppContext = React.createContext();
 
@@ -26,13 +26,13 @@ let _fontSize = parseInt(localStorage.getItem('fontSize'));
 const config = { server };
 
 export function AppContextProvider({ children }) {
-  const { t } = useTranslation();
+  // const { t } = useTranslation();
 
-  const [refList, setRefList] = useState({
-    bookList: [],
-    chapterList: [],
-    verseList: [],
-  });
+  // const [refList, setRefList] = useState({
+  //   bookList: [],
+  //   chapterList: [],
+  //   verseList: [],
+  // });
 
   // useEffect(() => {
   //   applyBooksFilter(null);
@@ -100,7 +100,7 @@ export function AppContextProvider({ children }) {
       showErrorReport,
       fontSize,
       currentLanguage,
-      refList,
+      // refList,
     },
     actions: {
       setAppConfig,

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useMemo } from 'react';
 
 import { useTranslation } from 'react-i18next';
 import { ResourcesContext } from 'scripture-resources-rcl';
@@ -38,15 +38,19 @@ function BookList() {
   const classes = useStyles();
   const bookClasses = useBookStyles();
 
-  const availableBookList = [];
-  if (state.resources.length > 0) {
-    state.resources.forEach((resource) => {
-      resource.projects.map((project) => availableBookList.push(project.identifier));
-    });
-  }
+  const availableBookList = useMemo(() => [], []);
+  useEffect(() => {
+    if (state.resources.length > 0) {
+      state.resources.forEach((resource) => {
+        resource.projects.map((project) => availableBookList.push(project.identifier));
+      });
+    }
+  }, [state.resources, availableBookList]);
+
   useEffect(() => {
     applyBooksFilter(availableBookList);
-  }, []);
+  }, [availableBookList, applyBooksFilter]);
+  showOBS && availableBookList.push('obs');
 
   const titleBooks = {};
   currentBibleList.map((el) => (titleBooks[el.identifier] = t(el.identifier)));
