@@ -163,6 +163,7 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
         }
       );
   };
+
   return (
     <Card
       closeable

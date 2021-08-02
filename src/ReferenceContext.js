@@ -1,5 +1,3 @@
-/* eslint-disable no-underscore-dangle */
-/* eslint-disable react/prop-types */
 import { useBibleReference } from 'bible-reference-rcl';
 import { useHistory, useLocation } from 'react-router-dom';
 import React, { useState, createContext, useEffect } from 'react';
