@@ -43,21 +43,36 @@ export function AppContextProvider({ children }) {
   localStorage.setItem('fontSize', fontSize);
   const {
     state: { referenceSelected },
-    actions: { setNewBookList },
+    actions: { setNewBookList, getFilteredBookList },
   } = useContext(ReferenceContext);
 
   useEffect(() => {
     setResourceLinks(getResources(appConfig, resourcesApp));
   }, [appConfig, resourcesApp]);
-
+  console.log(getFilteredBookList());
   useEffect(() => {
-    setNewBookList(getBookList(bibleList, t));
+    setNewBookList(getBookList(bibleList, t), true);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentLanguage]);
 
   useEffect(() => {
     localStorage.setItem('resourcesApp', JSON.stringify(resourcesApp));
   }, [resourcesApp]);
+
+  /*   const availableBookList = useMemo(() => [], []);
+
+  if (state.resources.length > 0) {
+    state.resources.forEach((resource) => {
+      resource.projects.map((project) => availableBookList.push(project.identifier));
+    });
+  }
+
+  useEffect(() => {
+    applyBooksFilter(availableBookList);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [availableBookList]);
+
+ */
 
   const value = {
     state: {

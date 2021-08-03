@@ -48,7 +48,8 @@ function BookList() {
 
   useEffect(() => {
     applyBooksFilter(availableBookList);
-  }, [availableBookList, applyBooksFilter]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [availableBookList]);
 
   const titleBooks = {};
   currentBibleList.map((el) => (titleBooks[el.identifier] = t(el.identifier)));

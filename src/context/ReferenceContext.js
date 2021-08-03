@@ -38,6 +38,8 @@ export function ReferenceContextProvider({ children }) {
       onChangeChapter,
       onChangeVerse,
       applyBooksFilter,
+      getFilteredBookList,
+      getFullBookList,
       goToBookChapterVerse,
       goToNextChapter,
       goToPrevChapter,
@@ -92,6 +94,8 @@ export function ReferenceContextProvider({ children }) {
       applyBooksFilter,
       setReferenceBlock,
       setNewBookList,
+      getFilteredBookList,
+      getFullBookList,
     },
   };
 
