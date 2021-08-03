@@ -65,20 +65,8 @@ export function ReferenceContextProvider({ children }) {
       );
       goToBookChapterVerse(bookId, chapter, verse);
     }
-  });
-
-  React.useEffect(() => {
-    if (
-      JSON.stringify({ bookId, chapter, verse }) !== JSON.stringify(locationReference)
-    ) {
-      goToBookChapterVerse(
-        locationReference.bookId,
-        locationReference.chapter,
-        locationReference.verse
-      );
-    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [locationReference.bookId, locationReference.chapter, locationReference.verse]);
+  }, [bookId, chapter, verse, history]);
 
   const value = {
     state: {
