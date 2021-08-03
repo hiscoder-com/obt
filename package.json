@@ -11,7 +11,7 @@
     "@texttree/user-notes-rcl": "^0.5.3",
     "axios": "^0.21.1",
     "axios-cache-adapter": "^2.7.3",
-    "bible-reference-rcl": "file:.yalc/bible-reference-rcl",
+    "@texttree/bible-reference-rcl": "^0.5.0-rc1",
     "i18next": "^20.3.2",
     "i18next-browser-languagedetector": "^6.1.2",
     "i18next-http-backend": "^1.2.6",
