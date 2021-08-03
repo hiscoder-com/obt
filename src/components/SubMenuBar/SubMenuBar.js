@@ -96,9 +96,6 @@ function SubMenuBar() {
             onClose={handleCloseMainMenu}
             classes={modalClasses}
           >
-            <MenuItem button={false} divider={true}>
-              <SelectLanguage />
-            </MenuItem>
             <MenuItem onClick={handleClickAddMaterial}>
               <AddIcon size={'small'} /> {t('Add_resources')}
             </MenuItem>
@@ -116,6 +113,9 @@ function SubMenuBar() {
               <p className={classes.menu}>{t('Text_under_checkbox_error')}</p>
             </MenuItem>
             <WorkspaceManager onClose={handleCloseMainMenu} />
+            <MenuItem button={false} divider={true}>
+              <SelectLanguage />
+            </MenuItem>
           </Menu>
           <SearchResources
             anchorEl={anchorAddMaterial}

@@ -28,7 +28,6 @@ const config = { server };
 export function AppContextProvider({ children }) {
   const [currentLanguage, setCurrentLanguage] = useState(_currentLanguage);
   const [appConfig, setAppConfig] = useState(_appConfig);
-  const [newBooklist, setNewBookList] = useState();
   const [resourcesApp, setResourcesApp] = useState(_resourcesApp);
 
   const _resourceLinks = getResources(appConfig, resourcesApp);
@@ -44,6 +43,7 @@ export function AppContextProvider({ children }) {
   localStorage.setItem('fontSize', fontSize);
   const {
     state: { referenceSelected },
+    actions: { setNewBookList },
   } = useContext(ReferenceContext);
 
   useEffect(() => {
@@ -52,7 +52,8 @@ export function AppContextProvider({ children }) {
 
   useEffect(() => {
     setNewBookList(getBookList(bibleList, t));
-  }, [currentLanguage, t]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentLanguage]);
 
   useEffect(() => {
     localStorage.setItem('resourcesApp', JSON.stringify(resourcesApp));
@@ -70,7 +71,6 @@ export function AppContextProvider({ children }) {
       showErrorReport,
       fontSize,
       currentLanguage,
-      newBooklist,
     },
     actions: {
       setAppConfig,

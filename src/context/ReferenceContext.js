@@ -45,6 +45,7 @@ export function ReferenceContextProvider({ children }) {
       goToNextVerse,
       goToPrevVerse,
       goToPrevBook,
+      setNewBookList,
     },
   } = useBibleReference({
     initialBook,
@@ -90,6 +91,7 @@ export function ReferenceContextProvider({ children }) {
       onChangeVerse,
       applyBooksFilter,
       setReferenceBlock,
+      setNewBookList,
     },
   };
 

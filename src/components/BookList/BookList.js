@@ -14,7 +14,7 @@ function BookList() {
   const { state } = useContext(ResourcesContext);
   const {
     state: { appConfig },
-    actions: { setShowBookSelect, setShowChapterSelect, newBooklist },
+    actions: { setShowBookSelect, setShowChapterSelect },
   } = useContext(AppContext);
 
   const {
