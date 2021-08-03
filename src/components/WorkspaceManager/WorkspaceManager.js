@@ -50,7 +50,9 @@ function WorkspaceManager({ onClose }) {
   return (
     <MenuList>
       <MenuItem onClick={handleResetToBible}>{t('Open_Bible')}</MenuItem>
-      <MenuItem onClick={handleResetToOBS}>{t('Open_OBS')}</MenuItem>
+      <MenuItem divider={true} onClick={handleResetToOBS}>
+        {t('Open_OBS')}
+      </MenuItem>
     </MenuList>
   );
 }
