@@ -28,15 +28,16 @@ function BookList() {
       : setShowChapterSelect(false);
   };
 
-  const currentBibleList = JSON.parse(JSON.stringify(bibleList));
   const { t } = useTranslation();
   const classes = useStyles();
   const bookClasses = useBookStyles();
 
   const titleBooks = {};
-  currentBibleList.map((el) => (titleBooks[el.identifier] = t(el.identifier)));
+  // TODO можно попробовать использовать getFilteredBookList. у него в поле name есть название на нужном языке (русский или англ)
+  bibleList.forEach((el) => (titleBooks[el.identifier] = t(el.identifier)));
+
   const availableBookList = getFilteredBookList().map((el) => el.key);
-  console.log('availableBookList', availableBookList);
+
   return (
     <>
       <BibleBookListRCL
