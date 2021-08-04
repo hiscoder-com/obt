@@ -36,6 +36,7 @@ export function AppContextProvider({ children }) {
   const [showBookSelect, setShowBookSelect] = useState(true);
   const [showChapterSelect, setShowChapterSelect] = useState(false);
   const [showErrorReport, setShowErrorReport] = useState(false);
+  const [errorFile, setErrorFile] = useState('');
   const [fontSize, setFontSize] = useState(_fontSize ? _fontSize : 100);
 
   const { t } = useTranslation();
@@ -71,10 +72,11 @@ export function AppContextProvider({ children }) {
       showErrorReport,
       fontSize,
       currentLanguage,
+      errorFile,
     },
     actions: {
       setAppConfig,
-
+      setErrorFile,
       setResourceLinks,
       setResourcesApp,
       setResources,

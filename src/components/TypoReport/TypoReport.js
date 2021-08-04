@@ -13,7 +13,7 @@ import useStyles from './style';
 export default function TypoReport() {
   const {
     state: { showErrorReport },
-    actions: { setShowErrorReport },
+    actions: { setShowErrorReport, setErrorFile },
   } = useContext(AppContext);
 
   const {
@@ -52,6 +52,7 @@ export default function TypoReport() {
         setOpenBackdrop(false);
         if (res.success) {
           setValueComment('');
+          setErrorFile(res.file);
           setOpenFinishDialog(true);
         } else {
           setShowErrorReport(true);
