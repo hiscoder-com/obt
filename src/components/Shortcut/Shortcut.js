@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { useHotkeys } from 'react-hotkeys-hook';
 
-import { ReferenceContext } from '../context/ReferenceContext';
+import { ReferenceContext } from '../../context/ReferenceContext';
 
 export default function Shortcut() {
   const {
@@ -22,5 +22,6 @@ export default function Shortcut() {
   useHotkeys('ctrl+shift+right', () => goToNextBook(), {}, [referenceSelected]);
   useHotkeys('ctrl+up', () => goToPrevVerse(), {}, [referenceSelected]);
   useHotkeys('ctrl+down', () => goToNextVerse(), {}, [referenceSelected]);
+
   return Shortcut;
 }

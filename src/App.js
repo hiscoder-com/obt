@@ -5,8 +5,7 @@ import { SnackbarProvider } from 'notistack';
 
 import { AppContext } from './context/AppContext';
 import { ReferenceContext } from './context/ReferenceContext';
-import { SubMenuBar, Card, TypoReport } from './components';
-import Shortcut from './ShortCuts/Shortcut';
+import { SubMenuBar, Card, TypoReport, Shortcut } from './components';
 import './styles/app.css';
 import useStyles from './style';
 
