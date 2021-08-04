@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 
 import { Card } from 'translation-helps-rcl';
 import { Verse, ResourcesContext } from 'scripture-resources-rcl';
 import { useTranslation } from 'react-i18next';
 import { useSnackbar } from 'notistack';
 
-import { AppContext } from '../../App.context';
+import { AppContext } from '../../context/AppContext';
+import { ReferenceContext } from '../../context/ReferenceContext';
 import { getVerseText } from '../../helper';
 
 import { Menu, MenuItem } from '@material-ui/core';
@@ -21,9 +22,14 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
   const [position, setPosition] = React.useState(initialPosition);
   const { state } = React.useContext(ResourcesContext);
   const {
-    state: { resourcesApp, fontSize, referenceBlock },
-    actions: { setShowErrorReport, setReferenceBlock, setReferenceSelected },
-  } = React.useContext(AppContext);
+    state: { resourcesApp, fontSize },
+    actions: { setShowErrorReport },
+  } = useContext(AppContext);
+
+  const {
+    state: { referenceBlock },
+    actions: { goToBookChapterVerse, setReferenceBlock },
+  } = useContext(ReferenceContext);
 
   const [chapter, setChapter] = useState();
   const [verses, setVerses] = useState();
@@ -114,7 +120,7 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
           }}
           onClick={() =>
             reference.verse !== key
-              ? setReferenceSelected({ ...reference, verse: key })
+              ? goToBookChapterVerse(reference.bookId, reference.chapter, key)
               : false
           }
         >
@@ -134,7 +140,7 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
     }
 
     setVerses(_verses);
-  }, [chapter, reference, type, setReferenceBlock, setReferenceSelected, fontSize]);
+  }, [chapter, reference, type, setReferenceBlock, goToBookChapterVerse, fontSize]);
   const anchorPosition =
     position.mouseY !== null && position.mouseX !== null
       ? { top: position.mouseY, left: position.mouseX }
@@ -157,6 +163,7 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
         }
       );
   };
+
   return (
     <Card
       closeable

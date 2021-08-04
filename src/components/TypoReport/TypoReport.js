@@ -2,7 +2,8 @@ import React, { useContext, useState } from 'react';
 
 import { SendError } from '@texttree/user-notes-rcl';
 
-import { AppContext } from '../../App.context';
+import { AppContext } from '../../context/AppContext';
+import { ReferenceContext } from '../../context/ReferenceContext';
 import FinishDialog from './FinishDialog';
 import ReportDialog from './ReportDialog';
 
@@ -10,9 +11,14 @@ import { Backdrop, CircularProgress } from '@material-ui/core';
 import useStyles from './style';
 
 export default function TypoReport() {
-  const { state, actions } = useContext(AppContext);
-  const { showErrorReport, referenceBlock } = state;
-  const { setShowErrorReport } = actions;
+  const {
+    state: { showErrorReport },
+    actions: { setShowErrorReport, setErrorFile },
+  } = useContext(AppContext);
+
+  const {
+    state: { referenceBlock },
+  } = useContext(ReferenceContext);
 
   const [valueComment, setValueComment] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
@@ -23,6 +29,8 @@ export default function TypoReport() {
     setValueComment(e.target.value);
   };
 
+  const { bookId, chapter, verse, resource, text } = referenceBlock;
+
   const handleCloseFinishDialog = () => {
     setOpenFinishDialog(false);
   };
@@ -31,20 +39,20 @@ export default function TypoReport() {
     setOpenBackdrop(true);
     setShowErrorReport(false);
     SendError({
-      reference: referenceBlock?.chapter + ':' + referenceBlock?.verse,
-      bookId: referenceBlock?.bookId,
-      resource: referenceBlock?.resource,
+      reference: chapter + ':' + verse,
+      bookId: bookId,
+      resource: resource,
       serverLink: process.env.REACT_APP_SERVER_LINK,
       fields: {
         Note: valueComment,
-        Quote: referenceBlock?.text,
+        Quote: text,
       },
     })
       .then((res) => {
-        console.log('res', res);
         setOpenBackdrop(false);
         if (res.success) {
           setValueComment('');
+          setErrorFile(res.file);
           setOpenFinishDialog(true);
         } else {
           setShowErrorReport(true);

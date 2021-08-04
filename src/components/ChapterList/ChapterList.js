@@ -3,32 +3,37 @@ import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { BibleChapterList as BibleChapterListRCL } from '@texttree/tt-reference-rcl';
 
-import { AppContext } from '../../App.context';
+import { AppContext } from '../../context/AppContext';
+import { ReferenceContext } from '../../context/ReferenceContext';
 
 import useStyles, { useButtonStyles } from './style';
 
-function ChapterList({ setReferenceSelected, referenceSelected, onClose }) {
+function ChapterList({ onClose }) {
   const {
     state: { appConfig },
   } = useContext(AppContext);
+
+  const {
+    state: { referenceSelected },
+    actions: { goToBookChapterVerse },
+  } = useContext(ReferenceContext);
+
+  const { bookId, chapter } = referenceSelected;
+
   const { t } = useTranslation();
   const classes = useStyles();
   const chapterClasses = useButtonStyles();
   const onClickChapter = (chapterId) => {
-    setReferenceSelected({ ...referenceSelected, chapter: chapterId, verse: '1' });
+    goToBookChapterVerse(bookId, chapterId, '1');
     onClose();
   };
   return (
     <BibleChapterListRCL
       chapterClasses={chapterClasses}
-      selectedChapter={referenceSelected.chapter}
-      bookId={appConfig.length > 0 ? referenceSelected.bookId : ''}
+      selectedChapter={chapter}
+      bookId={appConfig.length > 0 ? bookId : ''}
       chapterPrefix={
-        referenceSelected.bookId === 'psa'
-          ? t('Psalm')
-          : referenceSelected.bookId === 'obs'
-          ? t('Story')
-          : t('Chapter')
+        bookId === 'psa' ? t('Psalm') : bookId === 'obs' ? t('Story') : t('Chapter')
       }
       onClickChapter={onClickChapter}
       chapterListClasses={classes}

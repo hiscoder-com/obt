@@ -3,7 +3,8 @@ import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Chapter as ChapterRCL } from '@texttree/tt-reference-rcl';
 
-import { AppContext } from '../../App.context';
+import { AppContext } from '../../context/AppContext';
+import { ReferenceContext } from '../../context/ReferenceContext';
 import { ChapterList } from '../ChapterList';
 
 import { Dialog, DialogContent } from '@material-ui/core';
@@ -11,9 +12,13 @@ import useStyles from './style';
 
 function ChapterSelect() {
   const {
-    state: { referenceSelected, showChapterSelect, appConfig },
-    actions: { setReferenceSelected, setShowChapterSelect },
+    state: { showChapterSelect, appConfig },
+    actions: { setShowChapterSelect },
   } = useContext(AppContext);
+
+  const {
+    state: { referenceSelected },
+  } = useContext(ReferenceContext);
 
   const onClose = () => {
     setShowChapterSelect(false);
@@ -49,11 +54,7 @@ function ChapterSelect() {
         onClose={() => setShowChapterSelect(false)}
       >
         <DialogContent>
-          <ChapterList
-            setReferenceSelected={setReferenceSelected}
-            referenceSelected={referenceSelected}
-            onClose={onClose}
-          />
+          <ChapterList onClose={onClose} />
         </DialogContent>
       </Dialog>
     </>

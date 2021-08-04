@@ -3,7 +3,8 @@ import React, { useState, useContext } from 'react';
 import { FontSizeSlider } from 'translation-helps-rcl';
 import { useTranslation } from 'react-i18next';
 
-import { AppContext } from '../../App.context';
+import { AppContext } from '../../context/AppContext';
+import { ReferenceContext } from '../../context/ReferenceContext';
 import {
   BookSelect,
   WorkspaceManager,
@@ -26,9 +27,13 @@ import { useStyles, useModalStyles } from './style';
 
 function SubMenuBar() {
   const {
-    state: { fontSize, referenceSelected },
+    state: { fontSize },
     actions: { setFontSize },
   } = useContext(AppContext);
+
+  const {
+    state: { referenceSelected },
+  } = useContext(ReferenceContext);
 
   const classes = useStyles();
 
@@ -91,9 +96,6 @@ function SubMenuBar() {
             onClose={handleCloseMainMenu}
             classes={modalClasses}
           >
-            <MenuItem button={false} divider={true}>
-              <SelectLanguage />
-            </MenuItem>
             <MenuItem onClick={handleClickAddMaterial}>
               <AddIcon size={'small'} /> {t('Add_resources')}
             </MenuItem>
@@ -111,6 +113,9 @@ function SubMenuBar() {
               <p className={classes.menu}>{t('Text_under_checkbox_error')}</p>
             </MenuItem>
             <WorkspaceManager onClose={handleCloseMainMenu} />
+            <MenuItem button={false}>
+              <SelectLanguage />
+            </MenuItem>
           </Menu>
           <SearchResources
             anchorEl={anchorAddMaterial}

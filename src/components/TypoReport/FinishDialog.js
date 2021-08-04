@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
 import { useTranslation } from 'react-i18next';
+
+import { AppContext } from '../../context/AppContext';
 
 import logo from './friends.png';
 import { Button, Dialog, DialogActions, DialogContent, Link } from '@material-ui/core';
@@ -9,6 +11,9 @@ import useStyles from './style';
 function FinishDialog({ open, onClose }) {
   const { t } = useTranslation();
   const classes = useStyles();
+  const {
+    state: { errorFile },
+  } = useContext(AppContext);
 
   return (
     <Dialog open={open} onClose={onClose}>
@@ -19,7 +24,7 @@ function FinishDialog({ open, onClose }) {
         {t('Thanks_report1')} <br />
         {t('Thanks_report2')} <br /> <br />
         {t('See_logs1')} <br />
-        <Link href="https://git.door43.org/BSA/errors" target="_blank">
+        <Link href={errorFile} target="_blank">
           {t('See_logs2')}
         </Link>
       </DialogContent>

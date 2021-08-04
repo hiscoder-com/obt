@@ -2,14 +2,21 @@ import React, { useContext } from 'react';
 
 import { Card, CardContent, useContent, useCardState } from 'translation-helps-rcl';
 
-import { AppContext } from '../../App.context';
+import { AppContext } from '../../context/AppContext';
+import { ReferenceContext } from '../../context/ReferenceContext';
 import { server } from '../../config/base';
 
 export default function SupportOBSTQ(props) {
   const { title, classes, onClose, type } = props;
   const {
-    state: { referenceSelected, fontSize, resourcesApp },
+    state: { fontSize, resourcesApp },
   } = useContext(AppContext);
+
+  const {
+    state: { referenceSelected },
+  } = useContext(ReferenceContext);
+
+  const { bookId, chapter, verse } = referenceSelected;
 
   let resource = false;
   resourcesApp.forEach((el) => {
@@ -24,15 +31,12 @@ export default function SupportOBSTQ(props) {
     isLoading,
     props: { languageId },
   } = useContent({
-    projectId: referenceSelected.bookId + '-tq',
+    projectId: bookId + '-tq',
     branch: resource.branch ?? 'master',
     languageId: resource.languageId ?? 'ru',
     resourceId: 'obs-tq',
     filePath:
-      String(referenceSelected.chapter).padStart(2, '0') +
-      '/' +
-      String(referenceSelected.verse).padStart(2, '0') +
-      '.md',
+      String(chapter).padStart(2, '0') + '/' + String(verse).padStart(2, '0') + '.md',
     owner: resource.owner ?? 'door43-catalog',
     server,
   });

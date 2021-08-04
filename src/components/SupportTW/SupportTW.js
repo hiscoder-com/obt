@@ -2,14 +2,21 @@ import React, { useState, useContext } from 'react';
 
 import { Card, CardContent, useContent, useCardState } from 'translation-helps-rcl';
 
-import { AppContext } from '../../App.context';
+import { AppContext } from '../../context/AppContext';
+import { ReferenceContext } from '../../context/ReferenceContext';
 import { server } from '../../config/base';
 
 export default function SupportTW(props) {
   const { title, classes, onClose, type } = props;
   const {
-    state: { referenceSelected, resourcesApp, fontSize },
+    state: { resourcesApp, fontSize },
   } = useContext(AppContext);
+
+  const {
+    state: { referenceSelected },
+  } = useContext(ReferenceContext);
+
+  const { bookId, chapter, verse } = referenceSelected;
 
   let resource = false;
   resourcesApp.forEach((el) => {
@@ -25,9 +32,9 @@ export default function SupportTW(props) {
     isLoading,
     props: { languageId },
   } = useContent({
-    verse: referenceSelected.verse,
-    chapter: referenceSelected.chapter,
-    projectId: referenceSelected.bookId,
+    verse: verse,
+    chapter: chapter,
+    projectId: bookId,
     branch: resource.branch ?? 'master',
     languageId: resource.languageId ?? 'ru',
     resourceId: 'tw',
