@@ -7,6 +7,7 @@ export * from './ChapterSelect';
 export * from './OBSVerses';
 export * from './SearchResources';
 export * from './SelectLanguage';
+export * from './Shortcut';
 export * from './SubMenuBar';
 export * from './SupportOBSTN';
 export * from './SupportOBSTQ';

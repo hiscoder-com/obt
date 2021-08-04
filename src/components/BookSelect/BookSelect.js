@@ -3,7 +3,8 @@ import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Book as BookRCL } from '@texttree/tt-reference-rcl';
 
-import { AppContext } from '../../App.context';
+import { AppContext } from '../../context/AppContext';
+import { ReferenceContext } from '../../context/ReferenceContext';
 import BookList from '../BookList/BookList';
 
 import { Dialog, DialogContent } from '@material-ui/core';
@@ -12,10 +13,14 @@ import useBookStyles from './style';
 function BookSelect() {
   const { t } = useTranslation();
 
-  const { state, actions } = useContext(AppContext);
+  const {
+    state: { showBookSelect },
+    actions: { setShowBookSelect },
+  } = useContext(AppContext);
 
-  const { referenceSelected, showBookSelect } = state;
-  const { setShowBookSelect } = actions;
+  const {
+    state: { referenceSelected },
+  } = useContext(ReferenceContext);
 
   const bookClasses = useBookStyles();
 

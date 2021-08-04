@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 
 import { useTranslation } from 'react-i18next';
 
-import { AppContext } from '../../App.context';
+import { ReferenceContext } from '../../context/ReferenceContext';
 
 import {
   Box,
@@ -24,20 +24,18 @@ function ReportDialog({
   handleSend,
   errorMessage,
 }) {
-  const { state } = useContext(AppContext);
-  const { referenceBlock } = state;
+  const {
+    state: { referenceBlock },
+  } = useContext(ReferenceContext);
+
   const { t } = useTranslation();
   const classes = useStyles();
 
-  const showReference =
-    referenceBlock?.resource +
-    '/' +
-    referenceBlock?.bookId +
-    '/' +
-    referenceBlock?.chapter +
-    '/' +
-    referenceBlock?.verse;
-  const showReferenceText = referenceBlock?.text;
+  const { bookId, chapter, verse, resource, text } = referenceBlock;
+
+  const showReference = `${resource}/${bookId}/${chapter}/${verse}`;
+
+  const showReferenceText = text;
 
   return (
     <Dialog open={open} onClose={handleCancel}>

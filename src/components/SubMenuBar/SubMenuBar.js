@@ -3,7 +3,8 @@ import React, { useState, useContext } from 'react';
 import { FontSizeSlider } from 'translation-helps-rcl';
 import { useTranslation } from 'react-i18next';
 
-import { AppContext } from '../../App.context';
+import { AppContext } from '../../context/AppContext';
+import { ReferenceContext } from '../../context/ReferenceContext';
 import {
   BookSelect,
   WorkspaceManager,
@@ -18,21 +19,25 @@ import {
   MenuItem,
   Menu,
   IconButton,
-  FormHelperText,
-  FormControl,
   Typography,
 } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import MenuIcon from '@material-ui/icons/Menu';
-import useStyles from './style';
+import { useStyles, useModalStyles } from './style';
 
 function SubMenuBar() {
   const {
-    state: { fontSize, referenceSelected },
+    state: { fontSize },
     actions: { setFontSize },
   } = useContext(AppContext);
 
+  const {
+    state: { referenceSelected },
+  } = useContext(ReferenceContext);
+
   const classes = useStyles();
+
+  const modalClasses = useModalStyles();
 
   const [anchorAddMaterial, setAnchorAddMaterial] = useState(null);
   const [anchorMainMenu, setAnchorMainMenu] = useState(null);
@@ -85,15 +90,12 @@ function SubMenuBar() {
               vertical: 'top',
               horizontal: 'center',
             }}
-            color="transparent"
             anchorEl={anchorMainMenu}
             keepMounted
             open={Boolean(anchorMainMenu)}
             onClose={handleCloseMainMenu}
+            classes={modalClasses}
           >
-            <MenuItem button={false} divider={true}>
-              <SelectLanguage />
-            </MenuItem>
             <MenuItem onClick={handleClickAddMaterial}>
               <AddIcon size={'small'} /> {t('Add_resources')}
             </MenuItem>
@@ -107,16 +109,13 @@ function SubMenuBar() {
                 value={fontSize}
               />
             </MenuItem>
-            <MenuItem button={false} className={classes.menu} divider={true}>
-              <FormControl>
-                <FormHelperText>
-                  {t('Text_under_checkbox_error1')}
-                  <br />
-                  {t('Text_under_checkbox_error2')}
-                </FormHelperText>
-              </FormControl>
+            <MenuItem button={false} divider={true}>
+              <p className={classes.menu}>{t('Text_under_checkbox_error')}</p>
             </MenuItem>
             <WorkspaceManager onClose={handleCloseMainMenu} />
+            <MenuItem button={false}>
+              <SelectLanguage />
+            </MenuItem>
           </Menu>
           <SearchResources
             anchorEl={anchorAddMaterial}

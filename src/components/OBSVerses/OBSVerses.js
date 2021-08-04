@@ -4,7 +4,8 @@ import { Card, useContent, useCardState } from 'translation-helps-rcl';
 
 import { useTranslation } from 'react-i18next';
 
-import { AppContext } from '../../App.context';
+import { AppContext } from '../../context/AppContext';
+import { ReferenceContext } from '../../context/ReferenceContext';
 import { server } from '../../config/base';
 
 export default function OBSVerses(props) {
@@ -12,9 +13,15 @@ export default function OBSVerses(props) {
   const { title, classes, onClose, type } = props;
   const [verses, setVerses] = useState();
   const {
-    state: { referenceSelected, fontSize, resourcesApp },
-    actions: { setReferenceSelected },
+    state: { fontSize, resourcesApp },
   } = useContext(AppContext);
+
+  const {
+    state: { referenceSelected },
+    actions: { onChangeVerse },
+  } = useContext(ReferenceContext);
+
+  const { bookId, chapter, verse } = referenceSelected;
 
   let resource = false;
   resourcesApp.forEach((el) => {
@@ -24,11 +31,11 @@ export default function OBSVerses(props) {
   });
   const obsRef = useRef(null);
   const { markdown, items } = useContent({
-    projectId: referenceSelected.bookId,
+    projectId: bookId,
     branch: resource.branch ?? 'master',
     languageId: resource.languageId ?? 'ru',
     resourceId: resource.resourceId ?? 'obs',
-    filePath: String(referenceSelected.chapter).padStart(2, '0') + '.md',
+    filePath: String(chapter).padStart(2, '0') + '.md',
     owner: resource.owner ?? 'bsa',
     server,
   });
@@ -37,7 +44,7 @@ export default function OBSVerses(props) {
     if (obsRef.current) {
       obsRef.current.scrollIntoView();
     }
-  }, [referenceSelected.chapter]);
+  }, [chapter]);
 
   useEffect(() => {
     if (markdown) {
@@ -65,29 +72,22 @@ export default function OBSVerses(props) {
         return { versesObject, headerMd, linkMd };
       };
       const { versesObject, headerMd, linkMd } = mdToVerses(markdown);
-      const contentMd = versesObject.map((verse) => {
-        const { key, urlImage, text } = verse;
+      const contentMd = versesObject.map((item) => {
+        const { key, urlImage, text } = item;
         const verseStyle = {
           fontSize: fontSize + '%',
-          fontWeight: key === referenceSelected.verse ? 'bold' : 'inherit',
+          fontWeight: key === verse ? 'bold' : 'inherit',
         };
         return (
           <div
             key={key}
             onClick={() => {
-              setReferenceSelected({
-                bookId: referenceSelected.bookId,
-                chapter: referenceSelected.chapter,
-                verse: key,
-              });
+              onChangeVerse(key);
             }}
           >
             {urlImage ? (
               <>
-                <img
-                  src={urlImage}
-                  alt={`OBS verse #${key} OBS chapter#${referenceSelected.chapter}`}
-                />
+                <img src={urlImage} alt={`OBS verse #${key} OBS chapter#${chapter}`} />
                 <br />
               </>
             ) : (
@@ -113,15 +113,7 @@ export default function OBSVerses(props) {
     } else {
       setVerses(<>{t('No_content')}</>);
     }
-  }, [
-    setReferenceSelected,
-    markdown,
-    referenceSelected.bookId,
-    referenceSelected.chapter,
-    t,
-    fontSize,
-    referenceSelected.verse,
-  ]);
+  }, [markdown, bookId, chapter, verse, t, fontSize, onChangeVerse]);
 
   const {
     state: { headers, itemIndex },

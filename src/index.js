@@ -4,18 +4,20 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 import './i18next';
 import App from './App';
-import { AppContextProvider } from './App.context';
-
+import { AppContextProvider } from './context/AppContext';
+import { ReferenceContextProvider } from './context/ReferenceContext';
 import './styles/style.css';
 
 ReactDOM.render(
   <BrowserRouter>
     <Switch>
-      <AppContextProvider>
-        <Route path="/:bookId?/:chapter?">
-          <App />
-        </Route>
-      </AppContextProvider>
+      <ReferenceContextProvider>
+        <AppContextProvider>
+          <Route>
+            <App />
+          </Route>
+        </AppContextProvider>
+      </ReferenceContextProvider>
     </Switch>
   </BrowserRouter>,
   document.getElementById('root')

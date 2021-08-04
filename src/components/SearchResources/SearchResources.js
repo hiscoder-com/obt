@@ -4,9 +4,12 @@ import { useTranslation } from 'react-i18next';
 import axios from 'axios';
 import { setupCache } from 'axios-cache-adapter';
 
-import { AppContext } from '../../App.context';
+import { AppContext } from '../../context/AppContext';
+import { ReferenceContext } from '../../context/ReferenceContext';
+
 import { langs, subjects, owners, blackListResources } from '../../config/materials';
 import { defaultCard } from '../../config/base';
+import { getXY } from '../../core/matrix';
 import { bibleSubjects, obsSubjects } from '../../config/materials';
 import { getUniqueResources } from '../../helper';
 
@@ -15,9 +18,13 @@ import { useStyles } from './style';
 
 function SearchResources({ anchorEl, onClose, open }) {
   const {
-    state: { appConfig, referenceSelected, resourcesApp },
+    state: { appConfig, resourcesApp },
     actions: { setAppConfig, setResourcesApp },
   } = useContext(AppContext);
+
+  const {
+    state: { referenceSelected },
+  } = useContext(ReferenceContext);
 
   const { t } = useTranslation();
   const classes = useStyles();
@@ -27,9 +34,13 @@ function SearchResources({ anchorEl, onClose, open }) {
   const uniqueResources = getUniqueResources(appConfig, resourcesApp);
 
   const handleAddMaterial = (item) => {
-    setAppConfig((prev) => prev.concat({ ...defaultCard, i: item.name }));
+    const pos = getXY(appConfig);
+    setAppConfig((prev) =>
+      prev.concat({ ...defaultCard, x: pos.y, y: pos.x, i: item.name })
+    );
     onClose();
   };
+
   useEffect(() => {
     axios
       .create({
