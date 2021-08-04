@@ -59,21 +59,6 @@ export function AppContextProvider({ children }) {
     localStorage.setItem('resourcesApp', JSON.stringify(resourcesApp));
   }, [resourcesApp]);
 
-  /*   const availableBookList = useMemo(() => [], []);
-
-  if (state.resources.length > 0) {
-    state.resources.forEach((resource) => {
-      resource.projects.map((project) => availableBookList.push(project.identifier));
-    });
-  }
-
-  useEffect(() => {
-    applyBooksFilter(availableBookList);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [availableBookList]);
-
- */
-
   const value = {
     state: {
       appConfig,
