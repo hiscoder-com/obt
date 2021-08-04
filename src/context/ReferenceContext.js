@@ -29,7 +29,7 @@ export function ReferenceContextProvider({ children }) {
   const initialChapter = String(locationReference.chapter);
   const initialVerse = String(locationReference.verse);
 
-  const [referenceBlock, setReferenceBlock] = useState({});
+  const [referenceBlock, setReferenceBlock] = useState(locationReference);
 
   const {
     state: { chapter, verse, bookList, chapterList, verseList, bookName, bookId },

@@ -29,6 +29,8 @@ export default function TypoReport() {
     setValueComment(e.target.value);
   };
 
+  const { bookId, chapter, verse, resource, text } = referenceBlock;
+
   const handleCloseFinishDialog = () => {
     setOpenFinishDialog(false);
   };
@@ -37,13 +39,13 @@ export default function TypoReport() {
     setOpenBackdrop(true);
     setShowErrorReport(false);
     SendError({
-      reference: referenceBlock?.chapter + ':' + referenceBlock?.verse,
-      bookId: referenceBlock?.bookId,
-      resource: referenceBlock?.resource,
+      reference: chapter + ':' + verse,
+      bookId: bookId,
+      resource: resource,
       serverLink: process.env.REACT_APP_SERVER_LINK,
       fields: {
         Note: valueComment,
-        Quote: referenceBlock?.text,
+        Quote: text,
       },
     })
       .then((res) => {

@@ -31,9 +31,11 @@ function ReportDialog({
   const { t } = useTranslation();
   const classes = useStyles();
 
-  const showReference = `${referenceBlock?.resource}/${referenceBlock?.bookId}/${referenceBlock?.chapter}/${referenceBlock?.verse}`;
+  const { bookId, chapter, verse, resource, text } = referenceBlock;
 
-  const showReferenceText = referenceBlock?.text;
+  const showReference = `${resource}/${bookId}/${chapter}/${verse}`;
+
+  const showReferenceText = text;
 
   return (
     <Dialog open={open} onClose={handleCancel}>
