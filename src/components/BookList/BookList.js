@@ -49,7 +49,7 @@ function BookList() {
         sortFirstNT={true}
         selectedBookId={referenceSelected.bookId}
         onClickBook={(bookId) => onBook(bookId)}
-        titleOBS={t('Bible_OBS')}
+        titleOT={t('Bible_OT')}
         titleNT={t('Bible_NT')}
         BibleBookListClasses={classes}
         bookClasses={bookClasses}
