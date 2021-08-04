@@ -75,7 +75,6 @@ export default function App() {
   ));
 
   const availableBookList = useMemo(() => {
-    console.log('availableBookList', showOBS, resources);
     const newBookList = [];
     if (showOBS) {
       newBookList.push('obs');
@@ -95,7 +94,6 @@ export default function App() {
   }, [resources.length, showOBS]);
 
   useEffect(() => {
-    console.log('applyBooksFilter', availableBookList);
     applyBooksFilter(availableBookList);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [availableBookList]);

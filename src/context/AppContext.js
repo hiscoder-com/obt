@@ -43,13 +43,13 @@ export function AppContextProvider({ children }) {
   localStorage.setItem('fontSize', fontSize);
   const {
     state: { referenceSelected },
-    actions: { setNewBookList, getFilteredBookList },
+    actions: { setNewBookList },
   } = useContext(ReferenceContext);
 
   useEffect(() => {
     setResourceLinks(getResources(appConfig, resourcesApp));
   }, [appConfig, resourcesApp]);
-  console.log(getFilteredBookList());
+
   useEffect(() => {
     setNewBookList(getBookList(bibleList, t), true);
     // eslint-disable-next-line react-hooks/exhaustive-deps

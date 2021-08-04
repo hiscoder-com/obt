@@ -47,7 +47,6 @@ export default function TypoReport() {
       },
     })
       .then((res) => {
-        console.log('res', res);
         setOpenBackdrop(false);
         if (res.success) {
           setValueComment('');
