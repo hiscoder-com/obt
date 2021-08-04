@@ -6,6 +6,8 @@ import { SnackbarProvider } from 'notistack';
 import { AppContext } from './context/AppContext';
 import { ReferenceContext } from './context/ReferenceContext';
 import { SubMenuBar, Card, TypoReport, Shortcut } from './components';
+import { useWindowSize } from './hooks';
+
 import './styles/app.css';
 import useStyles from './style';
 
@@ -27,10 +29,12 @@ export default function App() {
 
   const showOBS = appConfig.filter((el) => el.i.split('_')[1] === 'obs').length > 0;
 
+  const [, height] = useWindowSize();
   const [rowHeight, setRowHeight] = useState(30);
+
   useEffect(() => {
-    setRowHeight((window.innerHeight - 64) / 10 - 17);
-  }, []);
+    setRowHeight((height - 64) / 10 - 17);
+  }, [height]);
 
   Shortcut();
 
