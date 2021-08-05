@@ -10,8 +10,12 @@ const _currentLanguage = localStorage.getItem('i18nextLng')
   ? localStorage.getItem('i18nextLng')
   : languages[0];
 
-let _reference = localStorage.getItem('reference')
-  ? JSON.parse(localStorage.getItem('reference'))
+const _workspaceType = localStorage.getItem('workspace')
+  ? localStorage.getItem('workspace')
+  : 'bible';
+
+const _reference = localStorage.getItem('reference')
+  ? JSON.parse(localStorage.getItem('reference'))[_workspaceType]
   : defaultBibleReference[_currentLanguage];
 
 export function ReferenceContextProvider({ children }) {

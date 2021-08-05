@@ -15,43 +15,57 @@ import { MenuItem, MenuList } from '@material-ui/core';
 
 function WorkspaceManager({ onClose }) {
   const {
-    state: { currentLanguage },
-    actions: { setAppConfig },
+    state: { currentLanguage, workspaceType },
+    actions: { setAppConfig, setWorkspaceType },
   } = useContext(AppContext);
 
   const {
-    state: { referenceSelected },
     actions: { goToBookChapterVerse },
   } = useContext(ReferenceContext);
 
   const { t } = useTranslation();
   const { bookId, chapter, verse } = defaultBibleReference[currentLanguage];
 
-  const handleResetToBible = () => {
-    setAppConfig(defaultTplBible[currentLanguage]);
-    if (referenceSelected.bookId === 'obs') {
-      goToBookChapterVerse(bookId, String(chapter), String(verse));
-    }
+  const handleOpenBible = () => {
+    setWorkspaceType('bible');
     onClose();
   };
 
-  const handleResetToOBS = () => {
-    setAppConfig(defaultTplOBS[currentLanguage]);
-    if (referenceSelected.bookId !== 'obs') {
-      goToBookChapterVerse(
-        defaultOBSReference[currentLanguage].bookId,
-        String(defaultOBSReference[currentLanguage].chapter),
-        String(defaultOBSReference[currentLanguage].verse)
-      );
+  const handleOpenOBS = () => {
+    setWorkspaceType('obs');
+    onClose();
+  };
+
+  const handleReset = () => {
+    switch (workspaceType) {
+      case 'bible':
+        setAppConfig(defaultTplBible[currentLanguage]);
+        goToBookChapterVerse(bookId, chapter, verse);
+        break;
+
+      case 'obs':
+        setAppConfig(defaultTplOBS[currentLanguage]);
+        goToBookChapterVerse(
+          defaultOBSReference[currentLanguage].bookId,
+          defaultOBSReference[currentLanguage].chapter,
+          defaultOBSReference[currentLanguage].verse
+        );
+        break;
+
+      default:
+        break;
     }
     onClose();
   };
 
   return (
     <MenuList>
-      <MenuItem onClick={handleResetToBible}>{t('Open_Bible')}</MenuItem>
-      <MenuItem divider={true} onClick={handleResetToOBS}>
+      <MenuItem onClick={handleOpenBible}>{t('Open_Bible')}</MenuItem>
+      <MenuItem divider={true} onClick={handleOpenOBS}>
         {t('Open_OBS')}
+      </MenuItem>
+      <MenuItem divider={true} onClick={handleReset}>
+        {t('Reset')}
       </MenuItem>
     </MenuList>
   );

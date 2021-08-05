@@ -13,20 +13,25 @@ const _currentLanguage = localStorage.getItem('i18nextLng')
   ? localStorage.getItem('i18nextLng')
   : languages[0];
 
+const _workspaceType = localStorage.getItem('workspace')
+  ? localStorage.getItem('workspace')
+  : 'bible';
+
 const _appConfig = localStorage.getItem('appConfig')
-  ? JSON.parse(localStorage.getItem('appConfig'))
+  ? JSON.parse(localStorage.getItem('appConfig'))[_workspaceType]
   : defaultTplBible[_currentLanguage];
 
-let _resourcesApp = localStorage.getItem('resourcesApp')
+const _resourcesApp = localStorage.getItem('resourcesApp')
   ? JSON.parse(localStorage.getItem('resourcesApp'))
   : [];
 
-let _fontSize = parseInt(localStorage.getItem('fontSize'));
+const _fontSize = parseInt(localStorage.getItem('fontSize'));
 
 const config = { server };
 
 export function AppContextProvider({ children }) {
   const [currentLanguage, setCurrentLanguage] = useState(_currentLanguage);
+  const [workspaceType, setWorkspaceType] = useState(_workspaceType);
   const [appConfig, setAppConfig] = useState(_appConfig);
   const [resourcesApp, setResourcesApp] = useState(_resourcesApp);
 
@@ -60,6 +65,10 @@ export function AppContextProvider({ children }) {
     localStorage.setItem('resourcesApp', JSON.stringify(resourcesApp));
   }, [resourcesApp]);
 
+  useEffect(() => {
+    localStorage.setItem('workspaceType', workspaceType);
+  }, [workspaceType]);
+
   const value = {
     state: {
       appConfig,
@@ -73,6 +82,7 @@ export function AppContextProvider({ children }) {
       fontSize,
       currentLanguage,
       errorFile,
+      workspaceType,
     },
     actions: {
       setAppConfig,
@@ -85,6 +95,7 @@ export function AppContextProvider({ children }) {
       setShowErrorReport,
       setFontSize,
       setCurrentLanguage,
+      setWorkspaceType,
     },
   };
 

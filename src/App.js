@@ -13,7 +13,7 @@ import useStyles from './style';
 
 export default function App() {
   const {
-    state: { appConfig, referenceSelected, resourcesApp, resources },
+    state: { appConfig, resourcesApp, resources, workspaceType },
     actions: { setAppConfig },
   } = useContext(AppContext);
 
@@ -39,9 +39,17 @@ export default function App() {
   Shortcut();
 
   const onLayoutChange = (newLayout) => {
-    localStorage.setItem('appConfig', JSON.stringify(newLayout));
+    const oldAppConfig = JSON.parse(localStorage.getItem('appConfig'));
+    const newAppConfig = { ...oldAppConfig, [workspaceType]: newLayout };
+    localStorage.setItem('appConfig', JSON.stringify(newAppConfig));
     setAppConfig(newLayout);
   };
+
+  useEffect(() => {
+    const appConfig = JSON.parse(localStorage.getItem('appConfig'));
+    setAppConfig(appConfig[workspaceType]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [workspaceType]);
 
   const mainResources = resourcesApp
     .filter((e) => appConfig.map((e) => e.i).includes(e.name))
@@ -69,13 +77,7 @@ export default function App() {
   };
 
   const cards = appConfig.map((item) => (
-    <Card
-      classes={classes}
-      key={item.i}
-      onClose={() => onClose(item.i)}
-      reference={referenceSelected}
-      type={item.i}
-    />
+    <Card classes={classes} key={item.i} onClose={() => onClose(item.i)} type={item.i} />
   ));
 
   const availableBookList = useMemo(() => {

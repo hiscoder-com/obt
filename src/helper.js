@@ -140,3 +140,7 @@ export const langArrToObject = (langs) => {
   });
   return result;
 };
+
+export const fixLS = (array) => {
+  return array;
+};
