@@ -4,26 +4,26 @@ import { ResourcesContextProvider } from 'scripture-resources-rcl';
 
 import { useTranslation } from 'react-i18next';
 import { ReferenceContext } from './ReferenceContext';
-import { getResources, getBookList } from '../helper';
-import { server, defaultTplBible, languages, bibleList } from '../config/base';
+import { getResources, getBookList, checkLSVal } from '../helper';
+import {
+  server,
+  defaultTplBible,
+  defaultTplOBS,
+  languages,
+  bibleList,
+} from '../config/base';
 
 export const AppContext = React.createContext();
 
-const _currentLanguage = localStorage.getItem('i18nextLng')
-  ? localStorage.getItem('i18nextLng')
-  : languages[0];
-
-const _workspaceType = localStorage.getItem('workspace')
-  ? localStorage.getItem('workspace')
-  : 'bible';
-
-const _appConfig = localStorage.getItem('appConfig')
-  ? JSON.parse(localStorage.getItem('appConfig'))[_workspaceType]
-  : defaultTplBible[_currentLanguage];
-
-const _resourcesApp = localStorage.getItem('resourcesApp')
-  ? JSON.parse(localStorage.getItem('resourcesApp'))
-  : [];
+const _currentLanguage = checkLSVal('i18nextLng', languages[0]);
+const _workspaceType = checkLSVal('workspaceType', 'bible');
+const _resourcesApp = checkLSVal('resourcesApp', [], false);
+const _appConfig = checkLSVal(
+  'appConfig',
+  { bible: defaultTplBible[_currentLanguage], obs: defaultTplOBS[_currentLanguage] },
+  false,
+  'bible'
+)[_workspaceType];
 
 const _fontSize = parseInt(localStorage.getItem('fontSize'));
 

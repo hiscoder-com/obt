@@ -141,6 +141,24 @@ export const langArrToObject = (langs) => {
   return result;
 };
 
-export const fixLS = (array) => {
-  return array;
+export const checkLSVal = (el, val, isString = true, ext = false) => {
+  console.log({ el, val });
+  let value;
+  if (isString) {
+    value = localStorage.getItem(el);
+  } else {
+    try {
+      value = JSON.parse(localStorage.getItem(el));
+    } catch (error) {
+      localStorage.setItem(el, isString ? val : JSON.stringify(val));
+      return val;
+    }
+  }
+
+  if (value === null || (ext && !value[ext])) {
+    localStorage.setItem(el, isString ? val : JSON.stringify(val));
+    return val;
+  } else {
+    return value;
+  }
 };

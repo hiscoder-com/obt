@@ -2,21 +2,22 @@ import { useBibleReference } from '@texttree/bible-reference-rcl';
 import { useHistory, useLocation } from 'react-router-dom';
 import React, { useState, createContext, useEffect } from 'react';
 
-import { defaultBibleReference, languages } from '../config/base';
+import { checkLSVal } from '../helper';
+import { defaultBibleReference, defaultOBSReference, languages } from '../config/base';
 
 export const ReferenceContext = createContext();
 
-const _currentLanguage = localStorage.getItem('i18nextLng')
-  ? localStorage.getItem('i18nextLng')
-  : languages[0];
-
-const _workspaceType = localStorage.getItem('workspace')
-  ? localStorage.getItem('workspace')
-  : 'bible';
-
-const _reference = localStorage.getItem('reference')
-  ? JSON.parse(localStorage.getItem('reference'))[_workspaceType]
-  : defaultBibleReference[_currentLanguage];
+const _currentLanguage = checkLSVal('i18nextLng', languages[0]);
+const _workspaceType = checkLSVal('workspaceType', 'bible');
+const _reference = checkLSVal(
+  'reference',
+  {
+    bible: defaultBibleReference[_currentLanguage],
+    obs: defaultOBSReference[_currentLanguage],
+  },
+  false,
+  'bible'
+)[_workspaceType];
 
 export function ReferenceContextProvider({ children }) {
   let history = useHistory();
@@ -62,14 +63,12 @@ export function ReferenceContextProvider({ children }) {
   useEffect(() => {
     if (history.location.pathname !== '/' + bookId + '/' + chapter + '/' + verse) {
       history.push('/' + bookId + '/' + chapter + '/' + verse);
-      localStorage.setItem(
-        'reference',
-        JSON.stringify({
-          bookId: bookId,
-          chapter: chapter,
-          verse: verse,
-        })
-      );
+      const oldReference = JSON.parse(localStorage.getItem('reference'));
+      const newReference = {
+        ...oldReference,
+        [localStorage.getItem('workspaceType')]: { bookId, chapter, verse },
+      };
+      localStorage.setItem('reference', JSON.stringify(newReference));
       goToBookChapterVerse(bookId, chapter, verse);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

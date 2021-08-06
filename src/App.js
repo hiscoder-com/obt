@@ -18,7 +18,7 @@ export default function App() {
   } = useContext(AppContext);
 
   const {
-    actions: { applyBooksFilter },
+    actions: { applyBooksFilter, goToBookChapterVerse },
   } = useContext(ReferenceContext);
 
   const classes = useStyles();
@@ -48,6 +48,9 @@ export default function App() {
   useEffect(() => {
     const appConfig = JSON.parse(localStorage.getItem('appConfig'));
     setAppConfig(appConfig[workspaceType]);
+
+    const reference = JSON.parse(localStorage.getItem('reference'))[workspaceType];
+    goToBookChapterVerse(reference.bookId, reference.chapter, reference.verse);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [workspaceType]);
 
