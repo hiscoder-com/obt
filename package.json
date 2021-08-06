@@ -23,7 +23,7 @@
     "react-i18next": "^11.11.1",
     "react-router-dom": "^5.2.0",
     "resource-workspace-rcl": "^0.7.0",
-    "scripture-resources-rcl": "^4.2.0",
+    "scripture-resources-rcl": "^5.1.1",
     "translation-helps-rcl": "^1.47.3",
     "use-deep-compare-effect": "^1.6.1",
     "web-vitals": "^2.0.1"
