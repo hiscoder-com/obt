@@ -4,7 +4,6 @@ import { FontSizeSlider } from 'translation-helps-rcl';
 import { useTranslation } from 'react-i18next';
 
 import { AppContext } from '../../context/AppContext';
-import { ReferenceContext } from '../../context/ReferenceContext';
 import {
   BookSelect,
   WorkspaceManager,
@@ -27,13 +26,9 @@ import { useStyles, useModalStyles } from './style';
 
 function SubMenuBar() {
   const {
-    state: { fontSize },
+    state: { fontSize, workspaceType },
     actions: { setFontSize },
   } = useContext(AppContext);
-
-  const {
-    state: { referenceSelected },
-  } = useContext(ReferenceContext);
 
   const classes = useStyles();
 
@@ -67,7 +62,7 @@ function SubMenuBar() {
             Bible App
           </Typography>
           <div className={classes.centerButtons}>
-            {referenceSelected.bookId !== 'obs' ? <BookSelect /> : ''}
+            {workspaceType !== 'obs' ? <BookSelect /> : ''}
             <ChapterSelect />
           </div>
 

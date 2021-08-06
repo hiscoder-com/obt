@@ -69,10 +69,26 @@ export function ReferenceContextProvider({ children }) {
         [localStorage.getItem('workspaceType')]: { bookId, chapter, verse },
       };
       localStorage.setItem('reference', JSON.stringify(newReference));
-      goToBookChapterVerse(bookId, chapter, verse);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [bookId, chapter, verse, history]);
+  }, [bookId, chapter, verse]);
+
+  useEffect(() => {
+    if (history.location.pathname !== '/' + bookId + '/' + chapter + '/' + verse) {
+      const oldReference = JSON.parse(localStorage.getItem('reference'));
+      const newReference = {
+        ...oldReference,
+        [localStorage.getItem('workspaceType')]: { ...locationReference },
+      };
+      localStorage.setItem('reference', JSON.stringify(newReference));
+      goToBookChapterVerse(
+        locationReference.bookId,
+        locationReference.chapter,
+        locationReference.verse
+      );
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [history.location]);
 
   const value = {
     state: {

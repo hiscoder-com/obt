@@ -142,7 +142,6 @@ export const langArrToObject = (langs) => {
 };
 
 export const checkLSVal = (el, val, isString = true, ext = false) => {
-  console.log({ el, val });
   let value;
   if (isString) {
     value = localStorage.getItem(el);

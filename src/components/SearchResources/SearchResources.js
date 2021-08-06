@@ -5,7 +5,6 @@ import axios from 'axios';
 import { setupCache } from 'axios-cache-adapter';
 
 import { AppContext } from '../../context/AppContext';
-import { ReferenceContext } from '../../context/ReferenceContext';
 
 import { langs, subjects, owners, blackListResources } from '../../config/materials';
 import { defaultCard } from '../../config/base';
@@ -18,13 +17,9 @@ import { useStyles } from './style';
 
 function SearchResources({ anchorEl, onClose, open }) {
   const {
-    state: { appConfig, resourcesApp },
+    state: { appConfig, resourcesApp, workspaceType },
     actions: { setAppConfig, setResourcesApp },
   } = useContext(AppContext);
-
-  const {
-    state: { referenceSelected },
-  } = useContext(ReferenceContext);
 
   const { t } = useTranslation();
   const classes = useStyles();
@@ -84,8 +79,7 @@ function SearchResources({ anchorEl, onClose, open }) {
     return () => {};
   }, [currentLang, setResourcesApp]);
   let blockLang = '';
-  const currentSubjects =
-    referenceSelected.bookId === 'obs' ? obsSubjects : bibleSubjects;
+  const currentSubjects = workspaceType === 'obs' ? obsSubjects : bibleSubjects;
   const menuItems = uniqueResources
     .filter((el) => currentSubjects.includes(el.subject))
     .map((el) => {

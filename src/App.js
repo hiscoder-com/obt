@@ -14,20 +14,20 @@ import useStyles from './style';
 export default function App() {
   const {
     state: { appConfig, resourcesApp, resources, workspaceType },
-    actions: { setAppConfig },
+    actions: { setAppConfig, setWorkspaceType },
   } = useContext(AppContext);
 
   const {
+    state: { referenceSelected },
     actions: { applyBooksFilter, goToBookChapterVerse },
   } = useContext(ReferenceContext);
 
   const classes = useStyles();
+  const { bookId } = referenceSelected;
 
   const layout = {
     absolute: appConfig,
   };
-
-  const showOBS = appConfig.filter((el) => el.i.split('_')[1] === 'obs').length > 0;
 
   const [, height] = useWindowSize();
   const [rowHeight, setRowHeight] = useState(30);
@@ -35,6 +35,15 @@ export default function App() {
   useEffect(() => {
     setRowHeight((height - 64) / 10 - 17);
   }, [height]);
+
+  useEffect(() => {
+    if (bookId.toString().toLowerCase() === 'obs') {
+      workspaceType !== 'obs' && setWorkspaceType('obs');
+    } else {
+      workspaceType === 'obs' && setWorkspaceType('bible');
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [bookId]);
 
   Shortcut();
 
@@ -85,7 +94,7 @@ export default function App() {
 
   const availableBookList = useMemo(() => {
     const newBookList = [];
-    if (showOBS) {
+    if (workspaceType === 'obs') {
       newBookList.push('obs');
     } else {
       if (resources.length > 0) {
@@ -100,7 +109,7 @@ export default function App() {
     }
     return newBookList;
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [resources.length, showOBS]);
+  }, [resources.length, workspaceType]);
 
   useEffect(() => {
     applyBooksFilter(availableBookList);
