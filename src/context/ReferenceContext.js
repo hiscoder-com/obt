@@ -54,7 +54,7 @@ export function ReferenceContextProvider({ children }) {
     initialChapter,
     initialVerse,
   });
-
+  console.log(String(chapter), String(verse));
   useEffect(() => {
     if (history.location.pathname !== '/' + bookId + '/' + chapter + '/' + verse) {
       history.push('/' + bookId + '/' + chapter + '/' + verse);
