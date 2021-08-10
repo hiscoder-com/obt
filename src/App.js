@@ -23,9 +23,7 @@ export default function App() {
 
   const classes = useStyles();
 
-  const layout = {
-    absolute: appConfig,
-  };
+  const layout = appConfig;
 
   const showOBS = appConfig.filter((el) => el.i.split('_')[1] === 'obs').length > 0;
 
@@ -101,7 +99,7 @@ export default function App() {
     applyBooksFilter(availableBookList);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [availableBookList]);
-
+  const layoutWidths = [[1, 1], [1, 1], [1]];
   return (
     <SnackbarProvider maxSnack={3}>
       <SubMenuBar />
@@ -113,6 +111,7 @@ export default function App() {
         classes={classes}
         layout={layout}
         onLayoutChange={onLayoutChange}
+        layoutWidths={layoutWidths}
       >
         {cards}
       </Workspace>
