@@ -21,7 +21,7 @@ export default function App() {
     state: {
       referenceSelected: { bookId },
     },
-    actions: { applyBooksFilter, goToBookChapterVerse },
+    actions: { applyBooksFilter },
   } = useContext(ReferenceContext);
 
   const classes = useStyles();
@@ -39,7 +39,6 @@ export default function App() {
 
   Shortcut();
 
-  //+
   const onLayoutChange = (newLayout) => {
     const oldAppConfig = JSON.parse(localStorage.getItem('appConfig'));
     let type = 'bible';
@@ -61,11 +60,6 @@ export default function App() {
       bookId === 'obs' ? 'obs' : 'bible'
     ];
     setAppConfig(appConfig);
-
-    const reference = JSON.parse(localStorage.getItem('reference'))[
-      bookId === 'obs' ? 'obs' : 'bible'
-    ];
-    //goToBookChapterVerse(reference.bookId, reference.chapter, reference.verse);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [bookId]);
 

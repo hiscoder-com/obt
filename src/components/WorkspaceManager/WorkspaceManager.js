@@ -40,8 +40,14 @@ function WorkspaceManager({ onClose }) {
   };
   const workspaceType = bookId === 'obs' ? 'obs' : 'bible';
   const handleReset = () => {
+    const oldAppConfig = JSON.parse(localStorage.getItem('appConfig'));
     switch (workspaceType) {
       case 'bible':
+        const bibleAppConfig = {
+          ...oldAppConfig,
+          [workspaceType]: defaultTplBible[currentLanguage],
+        };
+        localStorage.setItem('appConfig', JSON.stringify(bibleAppConfig));
         setAppConfig(defaultTplBible[currentLanguage]);
         goToBookChapterVerse(
           defaultBibleReference[currentLanguage].bookId,
@@ -51,6 +57,11 @@ function WorkspaceManager({ onClose }) {
         break;
 
       case 'obs':
+        const obsAppConfig = {
+          ...oldAppConfig,
+          [workspaceType]: defaultTplOBS[currentLanguage],
+        };
+        localStorage.setItem('appConfig', JSON.stringify(obsAppConfig));
         setAppConfig(defaultTplOBS[currentLanguage]);
         goToBookChapterVerse(
           defaultOBSReference[currentLanguage].bookId,
