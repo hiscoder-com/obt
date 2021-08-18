@@ -31,7 +31,7 @@ function SearchResources({ anchorEl, onClose, open }) {
   const handleAddMaterial = (item) => {
     const pos = getXY(appConfig);
     setAppConfig((prev) =>
-      prev.concat({ ...defaultCard, x: pos.y, y: pos.x, i: item.name })
+      prev.concat({ ...defaultCard, x: pos.x, y: pos.y, i: item.name })
     );
     onClose();
   };
