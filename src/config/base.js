@@ -1,4 +1,4 @@
-export const server = 'https://git.door43.org';
+export const server = 'https://qa.door43.org';
 
 export const defaultTplBible = {
   ru: [

@@ -16,25 +16,32 @@ import {
 export const AppContext = React.createContext();
 
 const _currentLanguage = checkLSVal('i18nextLng', languages[0]);
-const _workspaceType = checkLSVal('workspaceType', 'bible');
 const _resourcesApp = checkLSVal('resourcesApp', [], false);
-const _appConfig = checkLSVal(
-  'appConfig',
-  { bible: defaultTplBible[_currentLanguage], obs: defaultTplOBS[_currentLanguage] },
-  false,
-  'bible'
-)[_workspaceType];
 
 const _fontSize = parseInt(localStorage.getItem('fontSize'));
 
 const config = { server };
 
 export function AppContextProvider({ children }) {
-  const [currentLanguage, setCurrentLanguage] = useState(_currentLanguage);
-  const [workspaceType, setWorkspaceType] = useState(_workspaceType);
-  const [appConfig, setAppConfig] = useState(_appConfig);
-  const [resourcesApp, setResourcesApp] = useState(_resourcesApp);
+  const {
+    state: { referenceSelected },
+    actions: { setNewBookList },
+  } = useContext(ReferenceContext);
 
+  const [currentLanguage, setCurrentLanguage] = useState(_currentLanguage);
+  const [appConfig, setAppConfig] = useState(
+    () =>
+      checkLSVal(
+        'appConfig',
+        {
+          bible: defaultTplBible[_currentLanguage],
+          obs: defaultTplOBS[_currentLanguage],
+        },
+        false,
+        'bible'
+      )[referenceSelected.bookId === 'obs' ? 'obs' : 'bible']
+  );
+  const [resourcesApp, setResourcesApp] = useState(_resourcesApp);
   const _resourceLinks = getResources(appConfig, resourcesApp);
   const [resourceLinks, setResourceLinks] = useState(_resourceLinks);
   const [resources, setResources] = useState([]);
@@ -46,11 +53,9 @@ export function AppContextProvider({ children }) {
 
   const { t } = useTranslation();
 
-  localStorage.setItem('fontSize', fontSize);
-  const {
-    state: { referenceSelected },
-    actions: { setNewBookList },
-  } = useContext(ReferenceContext);
+  useEffect(() => {
+    localStorage.setItem('fontSize', fontSize);
+  }, [fontSize]);
 
   useEffect(() => {
     setResourceLinks(getResources(appConfig, resourcesApp));
@@ -65,10 +70,6 @@ export function AppContextProvider({ children }) {
     localStorage.setItem('resourcesApp', JSON.stringify(resourcesApp));
   }, [resourcesApp]);
 
-  useEffect(() => {
-    localStorage.setItem('workspaceType', workspaceType);
-  }, [workspaceType]);
-
   const value = {
     state: {
       appConfig,
@@ -82,7 +83,6 @@ export function AppContextProvider({ children }) {
       fontSize,
       currentLanguage,
       errorFile,
-      workspaceType,
     },
     actions: {
       setAppConfig,
@@ -95,7 +95,6 @@ export function AppContextProvider({ children }) {
       setShowErrorReport,
       setFontSize,
       setCurrentLanguage,
-      setWorkspaceType,
     },
   };
 

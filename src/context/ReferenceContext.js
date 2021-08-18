@@ -8,7 +8,6 @@ import { defaultBibleReference, defaultOBSReference, languages } from '../config
 export const ReferenceContext = createContext();
 
 const _currentLanguage = checkLSVal('i18nextLng', languages[0]);
-const _workspaceType = checkLSVal('workspaceType', 'bible');
 const _reference = checkLSVal(
   'reference',
   {
@@ -17,7 +16,7 @@ const _reference = checkLSVal(
   },
   false,
   'bible'
-)[_workspaceType];
+)['bible'];
 
 export function ReferenceContextProvider({ children }) {
   let history = useHistory();
@@ -66,7 +65,7 @@ export function ReferenceContextProvider({ children }) {
       const oldReference = JSON.parse(localStorage.getItem('reference'));
       const newReference = {
         ...oldReference,
-        [localStorage.getItem('workspaceType')]: { bookId, chapter, verse },
+        [bookId === 'obs' ? 'obs' : 'bible']: { bookId, chapter, verse },
       };
       localStorage.setItem('reference', JSON.stringify(newReference));
     }
@@ -78,7 +77,7 @@ export function ReferenceContextProvider({ children }) {
       const oldReference = JSON.parse(localStorage.getItem('reference'));
       const newReference = {
         ...oldReference,
-        [localStorage.getItem('workspaceType')]: { ...locationReference },
+        [locationReference.bookId === 'obs' ? 'obs' : 'bible']: { ...locationReference },
       };
       localStorage.setItem('reference', JSON.stringify(newReference));
       goToBookChapterVerse(

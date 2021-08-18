@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import axios from 'axios';
 import { setupCache } from 'axios-cache-adapter';
 
-import { AppContext } from '../../context/AppContext';
+import { AppContext, ReferenceContext } from '../../context';
 
 import { langs, subjects, owners, blackListResources } from '../../config/materials';
 import { defaultCard } from '../../config/base';
@@ -17,9 +17,15 @@ import { useStyles } from './style';
 
 function SearchResources({ anchorEl, onClose, open }) {
   const {
-    state: { appConfig, resourcesApp, workspaceType },
+    state: { appConfig, resourcesApp },
     actions: { setAppConfig, setResourcesApp },
   } = useContext(AppContext);
+
+  const {
+    state: {
+      referenceSelected: { bookId },
+    },
+  } = useContext(ReferenceContext);
 
   const { t } = useTranslation();
   const classes = useStyles();
@@ -44,7 +50,7 @@ function SearchResources({ anchorEl, onClose, open }) {
         }).adapter,
       })
       .get(
-        'https://git.door43.org/api/catalog/v5/search?sort=lang,title&owner=' +
+        'https://qa.door43.org/api/catalog/v5/search?sort=lang,title&owner=' +
           owners.join(',') +
           '&lang=' +
           langs.join(',') +
@@ -79,7 +85,7 @@ function SearchResources({ anchorEl, onClose, open }) {
     return () => {};
   }, [currentLang, setResourcesApp]);
   let blockLang = '';
-  const currentSubjects = workspaceType === 'obs' ? obsSubjects : bibleSubjects;
+  const currentSubjects = bookId === 'obs' ? obsSubjects : bibleSubjects;
   const menuItems = uniqueResources
     .filter((el) => currentSubjects.includes(el.subject))
     .map((el) => {

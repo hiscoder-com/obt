@@ -2,8 +2,7 @@ import React, { useContext } from 'react';
 
 import { useTranslation } from 'react-i18next';
 
-import { AppContext } from '../../context/AppContext';
-import { ReferenceContext } from '../../context/ReferenceContext';
+import { AppContext, ReferenceContext } from '../../context';
 
 import {
   defaultTplBible,
@@ -15,32 +14,40 @@ import { MenuItem, MenuList } from '@material-ui/core';
 
 function WorkspaceManager({ onClose }) {
   const {
-    state: { currentLanguage, workspaceType },
-    actions: { setAppConfig, setWorkspaceType },
+    state: { currentLanguage },
+    actions: { setAppConfig },
   } = useContext(AppContext);
 
   const {
+    state: {
+      referenceSelected: { bookId },
+    },
     actions: { goToBookChapterVerse },
   } = useContext(ReferenceContext);
 
   const { t } = useTranslation();
-  const { bookId, chapter, verse } = defaultBibleReference[currentLanguage];
 
   const handleOpenBible = () => {
-    setWorkspaceType('bible');
+    const curRef = JSON.parse(localStorage.getItem('reference'))['bible'];
+    goToBookChapterVerse(curRef.bookId, curRef.chapter, curRef.verse);
     onClose();
   };
 
   const handleOpenOBS = () => {
-    setWorkspaceType('obs');
+    const curRef = JSON.parse(localStorage.getItem('reference'))['obs'];
+    goToBookChapterVerse(curRef.bookId, curRef.chapter, curRef.verse);
     onClose();
   };
-
+  const workspaceType = bookId === 'obs' ? 'obs' : 'bible';
   const handleReset = () => {
     switch (workspaceType) {
       case 'bible':
         setAppConfig(defaultTplBible[currentLanguage]);
-        goToBookChapterVerse(bookId, chapter, verse);
+        goToBookChapterVerse(
+          defaultBibleReference[currentLanguage].bookId,
+          defaultBibleReference[currentLanguage].chapter,
+          defaultBibleReference[currentLanguage].verse
+        );
         break;
 
       case 'obs':

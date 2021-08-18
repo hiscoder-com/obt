@@ -13,17 +13,18 @@ import useStyles from './style';
 
 export default function App() {
   const {
-    state: { appConfig, resourcesApp, resources, workspaceType },
-    actions: { setAppConfig, setWorkspaceType },
+    state: { appConfig, resourcesApp, resources },
+    actions: { setAppConfig },
   } = useContext(AppContext);
 
   const {
-    state: { referenceSelected },
+    state: {
+      referenceSelected: { bookId },
+    },
     actions: { applyBooksFilter, goToBookChapterVerse },
   } = useContext(ReferenceContext);
 
   const classes = useStyles();
-  const { bookId } = referenceSelected;
 
   const layout = {
     absolute: appConfig,
@@ -36,32 +37,37 @@ export default function App() {
     setRowHeight((height - 64) / 10 - 17);
   }, [height]);
 
-  useEffect(() => {
-    if (bookId.toString().toLowerCase() === 'obs') {
-      workspaceType !== 'obs' && setWorkspaceType('obs');
-    } else {
-      workspaceType === 'obs' && setWorkspaceType('bible');
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [bookId]);
-
   Shortcut();
 
+  //+
   const onLayoutChange = (newLayout) => {
     const oldAppConfig = JSON.parse(localStorage.getItem('appConfig'));
-    const newAppConfig = { ...oldAppConfig, [workspaceType]: newLayout };
+    let type = 'bible';
+    newLayout.forEach((el) => {
+      if (el.i.split('_')[1].split('-')[0] === 'obs') {
+        type = 'obs';
+      }
+    });
+    const newAppConfig = {
+      ...oldAppConfig,
+      [type]: newLayout,
+    };
     localStorage.setItem('appConfig', JSON.stringify(newAppConfig));
     setAppConfig(newLayout);
   };
 
   useEffect(() => {
-    const appConfig = JSON.parse(localStorage.getItem('appConfig'));
-    setAppConfig(appConfig[workspaceType]);
+    const appConfig = JSON.parse(localStorage.getItem('appConfig'))[
+      bookId === 'obs' ? 'obs' : 'bible'
+    ];
+    setAppConfig(appConfig);
 
-    const reference = JSON.parse(localStorage.getItem('reference'))[workspaceType];
-    goToBookChapterVerse(reference.bookId, reference.chapter, reference.verse);
+    const reference = JSON.parse(localStorage.getItem('reference'))[
+      bookId === 'obs' ? 'obs' : 'bible'
+    ];
+    //goToBookChapterVerse(reference.bookId, reference.chapter, reference.verse);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [workspaceType]);
+  }, [bookId]);
 
   const mainResources = resourcesApp
     .filter((e) => appConfig.map((e) => e.i).includes(e.name))
@@ -94,7 +100,7 @@ export default function App() {
 
   const availableBookList = useMemo(() => {
     const newBookList = [];
-    if (workspaceType === 'obs') {
+    if (bookId === 'obs') {
       newBookList.push('obs');
     } else {
       if (resources.length > 0) {
@@ -109,7 +115,7 @@ export default function App() {
     }
     return newBookList;
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [resources.length, workspaceType]);
+  }, [resources.length, bookId]);
 
   useEffect(() => {
     applyBooksFilter(availableBookList);
