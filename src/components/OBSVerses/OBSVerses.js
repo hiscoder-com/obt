@@ -29,7 +29,7 @@ export default function OBSVerses(props) {
       resource = el;
     }
   });
-  const obsRef = useRef(null);
+  const obsRef = useRef([]);
   const { markdown, items } = useContent({
     projectId: bookId,
     branch: resource.branch ?? 'master',
@@ -41,10 +41,10 @@ export default function OBSVerses(props) {
   });
 
   useEffect(() => {
-    if (obsRef.current) {
-      obsRef.current.scrollIntoView();
+    if (obsRef.current[verse]) {
+      obsRef.current[verse].scrollIntoView();
     }
-  }, [chapter]);
+  }, [verse]);
 
   useEffect(() => {
     if (markdown) {
@@ -80,6 +80,7 @@ export default function OBSVerses(props) {
         };
         return (
           <div
+            ref={(ref) => (obsRef.current[key] = ref)}
             key={key}
             onClick={() => {
               onChangeVerse(key);
@@ -102,7 +103,7 @@ export default function OBSVerses(props) {
         );
       });
       const versesOBS = (
-        <div ref={obsRef}>
+        <div>
           <h1>{headerMd}</h1>
           {contentMd}
           <br />
