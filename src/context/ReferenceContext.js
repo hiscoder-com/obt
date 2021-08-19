@@ -2,17 +2,21 @@ import { useBibleReference } from '@texttree/bible-reference-rcl';
 import { useHistory, useLocation } from 'react-router-dom';
 import React, { useState, createContext, useEffect } from 'react';
 
-import { defaultBibleReference, languages } from '../config/base';
+import { checkLSVal } from '../helper';
+import { defaultBibleReference, defaultOBSReference, languages } from '../config/base';
 
 export const ReferenceContext = createContext();
 
-const _currentLanguage = localStorage.getItem('i18nextLng')
-  ? localStorage.getItem('i18nextLng')
-  : languages[0];
-
-let _reference = localStorage.getItem('reference')
-  ? JSON.parse(localStorage.getItem('reference'))
-  : defaultBibleReference[_currentLanguage];
+const _currentLanguage = checkLSVal('i18nextLng', languages[0]);
+const _reference = checkLSVal(
+  'reference',
+  {
+    bible: defaultBibleReference[_currentLanguage],
+    obs: defaultOBSReference[_currentLanguage],
+  },
+  false,
+  'bible'
+)['bible'];
 
 export function ReferenceContextProvider({ children }) {
   let history = useHistory();
@@ -58,18 +62,32 @@ export function ReferenceContextProvider({ children }) {
   useEffect(() => {
     if (history.location.pathname !== '/' + bookId + '/' + chapter + '/' + verse) {
       history.push('/' + bookId + '/' + chapter + '/' + verse);
-      localStorage.setItem(
-        'reference',
-        JSON.stringify({
-          bookId: bookId,
-          chapter: chapter,
-          verse: verse,
-        })
-      );
-      goToBookChapterVerse(bookId, chapter, verse);
+      const oldReference = JSON.parse(localStorage.getItem('reference'));
+      const newReference = {
+        ...oldReference,
+        [bookId === 'obs' ? 'obs' : 'bible']: { bookId, chapter, verse },
+      };
+      localStorage.setItem('reference', JSON.stringify(newReference));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [bookId, chapter, verse, history]);
+  }, [bookId, chapter, verse]);
+
+  useEffect(() => {
+    if (history.location.pathname !== '/' + bookId + '/' + chapter + '/' + verse) {
+      const oldReference = JSON.parse(localStorage.getItem('reference'));
+      const newReference = {
+        ...oldReference,
+        [locationReference.bookId === 'obs' ? 'obs' : 'bible']: { ...locationReference },
+      };
+      localStorage.setItem('reference', JSON.stringify(newReference));
+      goToBookChapterVerse(
+        locationReference.bookId,
+        locationReference.chapter,
+        locationReference.verse
+      );
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [history.location]);
 
   const value = {
     state: {
