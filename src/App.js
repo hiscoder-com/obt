@@ -13,11 +13,14 @@ import useStyles from './style';
 
 export default function App() {
   const {
-    state: { appConfig, referenceSelected, resourcesApp, resources },
+    state: { appConfig, resourcesApp, resources },
     actions: { setAppConfig },
   } = useContext(AppContext);
 
   const {
+    state: {
+      referenceSelected: { bookId },
+    },
     actions: { applyBooksFilter },
   } = useContext(ReferenceContext);
 
@@ -26,8 +29,6 @@ export default function App() {
   const layout = {
     absolute: appConfig,
   };
-
-  const showOBS = appConfig.filter((el) => el.i.split('_')[1] === 'obs').length > 0;
 
   const [, height] = useWindowSize();
   const [rowHeight, setRowHeight] = useState(30);
@@ -39,9 +40,28 @@ export default function App() {
   Shortcut();
 
   const onLayoutChange = (newLayout) => {
-    localStorage.setItem('appConfig', JSON.stringify(newLayout));
+    const oldAppConfig = JSON.parse(localStorage.getItem('appConfig'));
+    let type = 'bible';
+    newLayout.forEach((el) => {
+      if (el.i.split('_')[1].split('-')[0] === 'obs') {
+        type = 'obs';
+      }
+    });
+    const newAppConfig = {
+      ...oldAppConfig,
+      [type]: newLayout,
+    };
+    localStorage.setItem('appConfig', JSON.stringify(newAppConfig));
     setAppConfig(newLayout);
   };
+
+  useEffect(() => {
+    const appConfig = JSON.parse(localStorage.getItem('appConfig'))[
+      bookId === 'obs' ? 'obs' : 'bible'
+    ];
+    setAppConfig(appConfig);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [bookId]);
 
   const mainResources = resourcesApp
     .filter((e) => appConfig.map((e) => e.i).includes(e.name))
@@ -69,18 +89,12 @@ export default function App() {
   };
 
   const cards = appConfig.map((item) => (
-    <Card
-      classes={classes}
-      key={item.i}
-      onClose={() => onClose(item.i)}
-      reference={referenceSelected}
-      type={item.i}
-    />
+    <Card classes={classes} key={item.i} onClose={() => onClose(item.i)} type={item.i} />
   ));
 
   const availableBookList = useMemo(() => {
     const newBookList = [];
-    if (showOBS) {
+    if (bookId === 'obs') {
       newBookList.push('obs');
     } else {
       if (resources.length > 0) {
@@ -95,7 +109,7 @@ export default function App() {
     }
     return newBookList;
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [resources.length, showOBS]);
+  }, [resources.length, bookId]);
 
   useEffect(() => {
     applyBooksFilter(availableBookList);

@@ -4,8 +4,7 @@ import { useTranslation } from 'react-i18next';
 import axios from 'axios';
 import { setupCache } from 'axios-cache-adapter';
 
-import { AppContext } from '../../context/AppContext';
-import { ReferenceContext } from '../../context/ReferenceContext';
+import { AppContext, ReferenceContext } from '../../context';
 
 import { langs, subjects, owners, blackListResources } from '../../config/materials';
 import { defaultCard } from '../../config/base';
@@ -23,7 +22,9 @@ function SearchResources({ anchorEl, onClose, open }) {
   } = useContext(AppContext);
 
   const {
-    state: { referenceSelected },
+    state: {
+      referenceSelected: { bookId },
+    },
   } = useContext(ReferenceContext);
 
   const { t } = useTranslation();
@@ -36,7 +37,7 @@ function SearchResources({ anchorEl, onClose, open }) {
   const handleAddMaterial = (item) => {
     const pos = getXY(appConfig);
     setAppConfig((prev) =>
-      prev.concat({ ...defaultCard, x: pos.y, y: pos.x, i: item.name })
+      prev.concat({ ...defaultCard, x: pos.x, y: pos.y, i: item.name })
     );
     onClose();
   };
@@ -49,7 +50,7 @@ function SearchResources({ anchorEl, onClose, open }) {
         }).adapter,
       })
       .get(
-        'https://git.door43.org/api/catalog/v5/search?sort=lang,title&owner=' +
+        'https://qa.door43.org/api/catalog/v5/search?sort=lang,title&owner=' +
           owners.join(',') +
           '&lang=' +
           langs.join(',') +
@@ -84,8 +85,7 @@ function SearchResources({ anchorEl, onClose, open }) {
     return () => {};
   }, [currentLang, setResourcesApp]);
   let blockLang = '';
-  const currentSubjects =
-    referenceSelected.bookId === 'obs' ? obsSubjects : bibleSubjects;
+  const currentSubjects = bookId === 'obs' ? obsSubjects : bibleSubjects;
   const menuItems = uniqueResources
     .filter((el) => currentSubjects.includes(el.subject))
     .map((el) => {

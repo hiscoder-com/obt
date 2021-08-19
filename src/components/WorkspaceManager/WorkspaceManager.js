@@ -2,8 +2,7 @@ import React, { useContext } from 'react';
 
 import { useTranslation } from 'react-i18next';
 
-import { AppContext } from '../../context/AppContext';
-import { ReferenceContext } from '../../context/ReferenceContext';
+import { AppContext, ReferenceContext } from '../../context';
 
 import {
   defaultTplBible,
@@ -20,38 +19,71 @@ function WorkspaceManager({ onClose }) {
   } = useContext(AppContext);
 
   const {
-    state: { referenceSelected },
+    state: {
+      referenceSelected: { bookId },
+    },
     actions: { goToBookChapterVerse },
   } = useContext(ReferenceContext);
 
   const { t } = useTranslation();
-  const { bookId, chapter, verse } = defaultBibleReference[currentLanguage];
 
-  const handleResetToBible = () => {
-    setAppConfig(defaultTplBible[currentLanguage]);
-    if (referenceSelected.bookId === 'obs') {
-      goToBookChapterVerse(bookId, String(chapter), String(verse));
-    }
+  const handleOpenBible = () => {
+    const curRef = JSON.parse(localStorage.getItem('reference'))['bible'];
+    goToBookChapterVerse(curRef.bookId, curRef.chapter, curRef.verse);
     onClose();
   };
 
-  const handleResetToOBS = () => {
-    setAppConfig(defaultTplOBS[currentLanguage]);
-    if (referenceSelected.bookId !== 'obs') {
-      goToBookChapterVerse(
-        defaultOBSReference[currentLanguage].bookId,
-        String(defaultOBSReference[currentLanguage].chapter),
-        String(defaultOBSReference[currentLanguage].verse)
-      );
+  const handleOpenOBS = () => {
+    const curRef = JSON.parse(localStorage.getItem('reference'))['obs'];
+    goToBookChapterVerse(curRef.bookId, curRef.chapter, curRef.verse);
+    onClose();
+  };
+  const workspaceType = bookId === 'obs' ? 'obs' : 'bible';
+  const handleReset = () => {
+    const oldAppConfig = JSON.parse(localStorage.getItem('appConfig'));
+    switch (workspaceType) {
+      case 'bible':
+        const bibleAppConfig = {
+          ...oldAppConfig,
+          [workspaceType]: defaultTplBible[currentLanguage],
+        };
+        localStorage.setItem('appConfig', JSON.stringify(bibleAppConfig));
+        setAppConfig(defaultTplBible[currentLanguage]);
+        goToBookChapterVerse(
+          defaultBibleReference[currentLanguage].bookId,
+          defaultBibleReference[currentLanguage].chapter,
+          defaultBibleReference[currentLanguage].verse
+        );
+        break;
+
+      case 'obs':
+        const obsAppConfig = {
+          ...oldAppConfig,
+          [workspaceType]: defaultTplOBS[currentLanguage],
+        };
+        localStorage.setItem('appConfig', JSON.stringify(obsAppConfig));
+        setAppConfig(defaultTplOBS[currentLanguage]);
+        goToBookChapterVerse(
+          defaultOBSReference[currentLanguage].bookId,
+          defaultOBSReference[currentLanguage].chapter,
+          defaultOBSReference[currentLanguage].verse
+        );
+        break;
+
+      default:
+        break;
     }
     onClose();
   };
 
   return (
     <MenuList>
-      <MenuItem onClick={handleResetToBible}>{t('Open_Bible')}</MenuItem>
-      <MenuItem divider={true} onClick={handleResetToOBS}>
+      <MenuItem onClick={handleOpenBible}>{t('Open_Bible')}</MenuItem>
+      <MenuItem divider={true} onClick={handleOpenOBS}>
         {t('Open_OBS')}
+      </MenuItem>
+      <MenuItem divider={true} onClick={handleReset}>
+        {t('Reset')}
       </MenuItem>
     </MenuList>
   );
