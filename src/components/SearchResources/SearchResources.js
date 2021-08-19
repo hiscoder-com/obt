@@ -50,7 +50,7 @@ function SearchResources({ anchorEl, onClose, open }) {
         }).adapter,
       })
       .get(
-        'https://qa.door43.org/api/catalog/v5/search?sort=lang,title&owner=' +
+        'https://git.door43.org/api/catalog/v5/search?sort=lang,title&owner=' +
           owners.join(',') +
           '&lang=' +
           langs.join(',') +
