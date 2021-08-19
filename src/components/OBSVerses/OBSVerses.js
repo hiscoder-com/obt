@@ -45,7 +45,7 @@ export default function OBSVerses(props) {
       obsRef.current[verse].scrollIntoView();
     }
   }, [verse]);
-  console.log(obsRef.current);
+
   useEffect(() => {
     if (markdown) {
       const mdToVerses = (md) => {
