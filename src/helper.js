@@ -161,3 +161,25 @@ export const checkLSVal = (el, val, isString = true, ext = false) => {
     return value;
   }
 };
+
+export const saveToClipboard = (
+  text,
+  snackbar,
+  nameSuccess,
+  variantSuccess,
+  nameError,
+  variantError,
+  closeAction
+) => {
+  navigator.clipboard.writeText(text).then(
+    () => {
+      closeAction && closeAction();
+      snackbar && snackbar(nameSuccess, variantSuccess);
+    },
+    (err) => {
+      closeAction && closeAction();
+      snackbar && snackbar(nameError, variantError);
+    }
+  );
+};
+//сделал универсальную функцию для Chapter и ShowReference

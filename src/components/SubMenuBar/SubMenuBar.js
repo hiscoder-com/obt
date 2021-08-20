@@ -10,6 +10,7 @@ import {
   SearchResources,
   ChapterSelect,
   SelectLanguage,
+  ShowReference,
 } from '../../components';
 
 import {
@@ -65,7 +66,7 @@ function SubMenuBar() {
       <AppBar position="relative">
         <Toolbar className={classes.grow}>
           <Typography variant="h6" color="inherit">
-            Bible App
+            <ShowReference />
           </Typography>
           <div className={classes.centerButtons}>
             {bookId !== 'obs' ? <BookSelect /> : ''}
