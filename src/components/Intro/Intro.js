@@ -1,21 +1,39 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
 import { Steps } from 'intro.js-react';
 
 import 'intro.js/introjs.css';
+import { AppContext } from '../../context/AppContext';
 
 // https://github.com/HiDeoo/intro.js-react обертка для реакта
 // https://introjs.com/docs/examples/events/confirm-before-exit сама библиотека
 
 function Intro() {
+  const {
+    actions: { setShowBookSelect, setShowChapterSelect },
+  } = useContext(AppContext);
+
   const onBeforeChange = (nextStepIndex) => {
-    // вот эта функция обязательна.
+    switch (String(nextStepIndex)) {
+      case '3':
+        setShowBookSelect(true);
+        break;
+      case '4':
+        setShowBookSelect(false);
+        setShowChapterSelect(true);
+        break;
+      case '5':
+        setShowChapterSelect(false);
+        break;
+      default:
+        break;
+    } // вот эта функция обязательна.
     // К примеру 1 шаг показать аппбар,
     // второй шаг - показывает список книг, а значит надо модалку с выбором книг отобразить,
     // третий шаг - показывает карточку, а значит перед ним надо скрыть модалку и т.д.
     console.log(nextStepIndex);
   };
-
+  // const setShow = setShowBookSelect();
   const steps = [
     {
       element: '.root', // нужно проставить классы у нужных элементов потому что с родными MUI не очень удобно
@@ -28,6 +46,10 @@ function Intro() {
     },
     {
       element: '.intro-bookSelect',
+      intro: 'Выбор книг',
+    },
+    {
+      element: '.MuiDialogContent-root',
       intro: 'Выбор книг',
     },
     {
@@ -57,7 +79,7 @@ function Intro() {
       enabled={true}
       steps={steps}
       initialStep={0}
-      // onBeforeChange={onBeforeChange}
+      onBeforeChange={onBeforeChange}
       onExit={() => console.log('exit')}
       options={options}
     />

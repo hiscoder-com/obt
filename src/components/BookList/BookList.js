@@ -40,20 +40,22 @@ function BookList() {
 
   return (
     <>
-      <BibleBookListRCL
-        titleBooks={titleBooks}
-        availableBookList={availableBookList}
-        labelForCheckbox={t('existing_books')}
-        showCheckbox={true}
-        showInactive={true}
-        sortFirstNT={true}
-        selectedBookId={referenceSelected.bookId}
-        onClickBook={(bookId) => onBook(bookId)}
-        titleOT={t('Bible_OT')}
-        titleNT={t('Bible_NT')}
-        BibleBookListClasses={classes}
-        bookClasses={bookClasses}
-      />
+      <div className={'intro-bookList'}>
+        <BibleBookListRCL
+          titleBooks={titleBooks}
+          availableBookList={availableBookList}
+          labelForCheckbox={t('existing_books')}
+          showCheckbox={true}
+          showInactive={true}
+          sortFirstNT={true}
+          selectedBookId={referenceSelected.bookId}
+          onClickBook={(bookId) => onBook(bookId)}
+          titleOT={t('Bible_OT')}
+          titleNT={t('Bible_NT')}
+          BibleBookListClasses={classes}
+          bookClasses={bookClasses}
+        />
+      </div>
     </>
   );
 }
