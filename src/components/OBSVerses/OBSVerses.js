@@ -32,7 +32,7 @@ export default function OBSVerses(props) {
   const obsRef = useRef([]);
   const { markdown, items } = useContent({
     projectId: bookId,
-    branch: resource.branch ?? 'master',
+    ref: resource.branch ?? 'master',
     languageId: resource.languageId ?? 'ru',
     resourceId: resource.resourceId ?? 'obs',
     filePath: String(chapter).padStart(2, '0') + '.md',

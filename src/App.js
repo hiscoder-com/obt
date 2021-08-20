@@ -25,10 +25,10 @@ export default function App() {
   } = useContext(ReferenceContext);
 
   const classes = useStyles();
-
   const layout = {
-    absolute: appConfig,
+    lg: appConfig,
   };
+
 
   const [, height] = useWindowSize();
   const [rowHeight, setRowHeight] = useState(30);

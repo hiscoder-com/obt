@@ -35,7 +35,7 @@ export default function SupportTW(props) {
     verse: verse,
     chapter: chapter,
     projectId: bookId,
-    branch: resource.branch ?? 'master',
+    ref: resource.branch ?? 'master',
     languageId: resource.languageId ?? 'ru',
     resourceId: 'tw',
     owner: resource.owner ?? 'door43-catalog',
