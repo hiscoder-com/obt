@@ -112,35 +112,37 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
         fontWeight: key === reference.verse ? 'bold' : 'inherit',
       };
       const verse = (
-        <div
-          ref={(ref) => (verseRef.current[key] = ref)}
-          style={verseStyle}
-          className={'verse' + (key === reference.verse ? ' current' : '')}
-          key={key}
-          onContextMenu={(e) => {
-            setReferenceBlock({
-              ...reference,
-              resource: type,
-              verse: key,
-              text: getVerseText(verseObjects),
-            });
-            handleContextOpen(e);
-          }}
-          onClick={() =>
-            reference.verse !== key
-              ? goToBookChapterVerse(reference.bookId, reference.chapter, key)
-              : false
-          }
-        >
-          <Verse
-            verseKey={key}
-            verseObjects={verseObjects}
-            paragraphs={false}
-            showUnsupported={false}
-            disableWordPopover={false}
-            reference={{ ...reference, verse: key }}
-            renderOffscreen={false}
-          />
+        <div className={`intro-verse${key}`}>
+          <div
+            ref={(ref) => (verseRef.current[key] = ref)}
+            style={verseStyle}
+            className={'verse' + (key === reference.verse ? ' current' : '')}
+            key={key}
+            onContextMenu={(e) => {
+              setReferenceBlock({
+                ...reference,
+                resource: type,
+                verse: key,
+                text: getVerseText(verseObjects),
+              });
+              handleContextOpen(e);
+            }}
+            onClick={() =>
+              reference.verse !== key
+                ? goToBookChapterVerse(reference.bookId, reference.chapter, key)
+                : false
+            }
+          >
+            <Verse
+              verseKey={key}
+              verseObjects={verseObjects}
+              paragraphs={false}
+              showUnsupported={false}
+              disableWordPopover={false}
+              reference={{ ...reference, verse: key }}
+              renderOffscreen={false}
+            />
+          </div>
         </div>
       );
       _verses.push(verse);

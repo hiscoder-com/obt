@@ -12,18 +12,53 @@ function Intro() {
   const {
     actions: { setShowBookSelect, setShowChapterSelect },
   } = useContext(AppContext);
-
+  const steps = [
+    {
+      element: '.root', // нужно проставить классы у нужных элементов потому что с родными MUI не очень удобно
+      intro:
+        'Перед вами интерактивный гид по приложению Bible Study App(BSA). Мы хотим, чтобы вам было проще  разобраться с возможностями BSA. Листайте дальше! ', // и надо придумать текст хэлпов.
+    },
+    {
+      element: '.intro-appBar', // нужно проставить классы у нужных элементов потому что с родными MUI не очень удобно
+      intro: 'AppBar',
+      position: 'top', // и надо придумать текст хэлпов.
+    },
+    {
+      element: '.intro-bookSelect',
+      intro: 'Выбор книг',
+    },
+    {
+      element: 'intro-bookSelect',
+      intro: 'Выбор книг',
+    },
+    {
+      element: '.MuiBox-root',
+      intro: 'Выбор главы',
+    },
+    {
+      element: '.sc-dlnjwi',
+      intro: 'карточка',
+    },
+    {
+      element: '.intro-verse1',
+      intro: 'стих',
+    },
+  ];
   const onBeforeChange = (nextStepIndex) => {
     switch (String(nextStepIndex)) {
       case '3':
-        setShowBookSelect(true);
+        // setShowBookSelect(true);
         break;
       case '4':
-        setShowBookSelect(false);
-        setShowChapterSelect(true);
+        // setShowBookSelect(false);
+        // setShowChapterSelect(true);
         break;
       case '5':
-        setShowChapterSelect(false);
+        // setShowChapterSelect(false);
+        break;
+      case '7':
+        // setShowChapterSelect(false);
+        steps.updateStepElement(nextStepIndex);
         break;
       default:
         break;
@@ -34,33 +69,7 @@ function Intro() {
     console.log(nextStepIndex);
   };
   // const setShow = setShowBookSelect();
-  const steps = [
-    {
-      element: '.root', // нужно проставить классы у нужных элементов потому что с родными MUI не очень удобно
-      intro:
-        'Перед вами интерактивный гид по приложению Bible Study App(BSA). Мы хотим, чтобы вам было проще  разобраться с возможностями BSA. Листайте дальше! ', // и надо придумать текст хэлпов.
-    },
-    {
-      element: '.intro-appBar', // нужно проставить классы у нужных элементов потому что с родными MUI не очень удобно
-      intro: 'AppBar', // и надо придумать текст хэлпов.
-    },
-    {
-      element: '.intro-bookSelect',
-      intro: 'Выбор книг',
-    },
-    {
-      element: '.MuiDialogContent-root',
-      intro: 'Выбор книг',
-    },
-    {
-      element: '.intro-chapterSelect',
-      intro: 'Выбор главы',
-    },
-    {
-      element: '.intro-hamMenu',
-      intro: 'Меню приложения',
-    },
-  ];
+
   const options = {
     nextLabel: 'Дальше', // здесь нужно переводы задействовать, в зависимости от локали, типа t('nextLabel')
     prevLabel: 'Назад',
@@ -71,17 +80,19 @@ function Intro() {
     exitOnEsc: false,
     exitOnOverlayClick: false,
     showBullets: false,
-    disableInteraction: true,
+    disableInteraction: false,
   };
   return (
     <Steps
       // тут надо в локалсторэдж может хранить, показыали хэлп или нет. При первом запуске его показать, а дальше показывать только если нажали на кнопку хэлп в меню
+
       enabled={true}
       steps={steps}
       initialStep={0}
       onBeforeChange={onBeforeChange}
       onExit={() => console.log('exit')}
       options={options}
+      ref={(steps) => steps}
     />
   );
 }
