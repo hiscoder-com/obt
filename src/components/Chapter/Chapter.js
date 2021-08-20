@@ -7,7 +7,7 @@ import { useSnackbar } from 'notistack';
 
 import { AppContext } from '../../context/AppContext';
 import { ReferenceContext } from '../../context/ReferenceContext';
-import { getVerseText } from '../../helper';
+import { getVerseText, saveToClipboard } from '../../helper';
 
 import { Menu, MenuItem } from '@material-ui/core';
 
@@ -152,24 +152,22 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
     position.mouseY !== null && position.mouseX !== null
       ? { top: position.mouseY, left: position.mouseX }
       : undefined;
-  const handleToClipboard = () => {
-    navigator.clipboard
-      .writeText(
-        `${referenceBlock.text} (${t(referenceBlock.bookId)} ${referenceBlock.chapter}:${
-          referenceBlock.verse
-        })`
-      )
-      .then(
-        () => {
-          handleContextClose();
-          enqueueSnackbar(t('copied_success'), { variant: 'success' });
-        },
-        (err) => {
-          handleContextClose();
-          enqueueSnackbar(t('copied_error'), { variant: 'error' });
-        }
-      );
-  };
+
+  const textToClipboard = `${referenceBlock.text} (${t(referenceBlock.bookId)} ${
+    referenceBlock.chapter
+  }:${referenceBlock.verse})`;
+  const handleToClipboard = () =>
+    saveToClipboard(
+      textToClipboard,
+      enqueueSnackbar,
+      t('copied_success'),
+      {
+        variant: 'success',
+      },
+      t('copied_error'),
+      { variant: 'error' },
+      handleContextClose
+    );
 
   return (
     <Card
