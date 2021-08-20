@@ -15,6 +15,8 @@
     "i18next": "^20.3.2",
     "i18next-browser-languagedetector": "^6.1.2",
     "i18next-http-backend": "^1.2.6",
+    "intro.js": "^4.1.0",
+    "intro.js-react": "^0.4.0",
     "notistack": "^1.0.9",
     "prop-types": "^15.7.2",
     "react": "^16.14.0",

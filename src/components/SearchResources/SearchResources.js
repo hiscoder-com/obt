@@ -7,7 +7,7 @@ import { setupCache } from 'axios-cache-adapter';
 import { AppContext, ReferenceContext } from '../../context';
 
 import { langs, subjects, owners, blackListResources } from '../../config/materials';
-import { defaultCard } from '../../config/base';
+import { defaultCard, server } from '../../config/base';
 import { getXY } from '../../core/matrix';
 import { bibleSubjects, obsSubjects } from '../../config/materials';
 import { getUniqueResources } from '../../helper';
@@ -50,7 +50,8 @@ function SearchResources({ anchorEl, onClose, open }) {
         }).adapter,
       })
       .get(
-        'https://git.door43.org/api/catalog/v5/search?sort=lang,title&owner=' +
+        server +
+          '/api/catalog/v5/search?sort=lang,title&owner=' +
           owners.join(',') +
           '&lang=' +
           langs.join(',') +
