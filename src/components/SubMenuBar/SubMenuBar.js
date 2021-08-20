@@ -62,69 +62,73 @@ function SubMenuBar() {
 
   return (
     <>
-      <AppBar position="relative">
-        <Toolbar className={classes.grow}>
-          <Typography variant="h6" color="inherit">
-            Bible App
-          </Typography>
-          <div className={classes.centerButtons}>
-            {bookId !== 'obs' ? <BookSelect /> : ''}
-            <ChapterSelect />
-          </div>
+      <div className={'intro-appBar'}>
+        <AppBar position="relative">
+          <Toolbar className={classes.grow}>
+            <Typography variant="h6" color="inherit">
+              Bible App
+            </Typography>
+            <div className={classes.centerButtons}>
+              {bookId !== 'obs' ? <BookSelect /> : ''}
+              <ChapterSelect />
+            </div>
 
-          <IconButton
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            onClick={handleClickMainMenu}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Menu
-            elevation={0}
-            getContentAnchorEl={null}
-            anchorOrigin={{
-              vertical: 'bottom',
-              horizontal: 'center',
-            }}
-            transformOrigin={{
-              vertical: 'top',
-              horizontal: 'center',
-            }}
-            anchorEl={anchorMainMenu}
-            keepMounted
-            open={Boolean(anchorMainMenu)}
-            onClose={handleCloseMainMenu}
-            classes={modalClasses}
-          >
-            <MenuItem onClick={handleClickAddMaterial}>
-              <AddIcon size={'small'} /> {t('Add_resources')}
-            </MenuItem>
-            <MenuItem button={false} divider={true}>
-              <FontSizeSlider
-                onChange={setFontSize}
-                marks={false}
-                max={150}
-                min={50}
-                step={10}
-                value={fontSize}
-              />
-            </MenuItem>
-            <MenuItem button={false} divider={true}>
-              <p className={classes.menu}>{t('Text_under_checkbox_error')}</p>
-            </MenuItem>
-            <WorkspaceManager onClose={handleCloseMainMenu} />
-            <MenuItem button={false}>
-              <SelectLanguage />
-            </MenuItem>
-          </Menu>
-          <SearchResources
-            anchorEl={anchorAddMaterial}
-            onClose={handleCloseAddMaterial}
-            open={Boolean(anchorAddMaterial)}
-          />
-        </Toolbar>
-      </AppBar>
+            <div className={'intro-hamMenu'}>
+              <IconButton
+                edge="start"
+                color="inherit"
+                aria-label="menu"
+                onClick={handleClickMainMenu}
+              >
+                <MenuIcon />
+              </IconButton>
+            </div>
+            <Menu
+              elevation={0}
+              getContentAnchorEl={null}
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'center',
+              }}
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'center',
+              }}
+              anchorEl={anchorMainMenu}
+              keepMounted
+              open={Boolean(anchorMainMenu)}
+              onClose={handleCloseMainMenu}
+              classes={modalClasses}
+            >
+              <MenuItem onClick={handleClickAddMaterial}>
+                <AddIcon size={'small'} /> {t('Add_resources')}
+              </MenuItem>
+              <MenuItem button={false} divider={true}>
+                <FontSizeSlider
+                  onChange={setFontSize}
+                  marks={false}
+                  max={150}
+                  min={50}
+                  step={10}
+                  value={fontSize}
+                />
+              </MenuItem>
+              <MenuItem button={false} divider={true}>
+                <p className={classes.menu}>{t('Text_under_checkbox_error')}</p>
+              </MenuItem>
+              <WorkspaceManager onClose={handleCloseMainMenu} />
+              <MenuItem button={false}>
+                <SelectLanguage />
+              </MenuItem>
+            </Menu>
+            <SearchResources
+              anchorEl={anchorAddMaterial}
+              onClose={handleCloseAddMaterial}
+              open={Boolean(anchorAddMaterial)}
+            />
+          </Toolbar>
+        </AppBar>
+      </div>
     </>
   );
 }

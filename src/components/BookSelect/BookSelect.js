@@ -26,11 +26,13 @@ function BookSelect() {
 
   return (
     <>
-      <BookRCL
-        classes={bookClasses}
-        onClick={() => setShowBookSelect(!showBookSelect)}
-        text={t(referenceSelected.bookId ?? 'not_set')}
-      />
+      <div className={'intro-bookSelect'}>
+        <BookRCL
+          classes={bookClasses}
+          onClick={() => setShowBookSelect(!showBookSelect)}
+          text={t(referenceSelected.bookId ?? 'not_set')}
+        />
+      </div>
       <Dialog
         fullWidth={true}
         maxWidth="lg"

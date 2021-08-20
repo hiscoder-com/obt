@@ -18,21 +18,30 @@ function Intro() {
 
   const steps = [
     {
-      element: '.MuiAppBar-root', // нужно проставить классы у нужных элементов потому что с родными MUI не очень удобно
-      intro: 'test 1', // и надо придумать текст хэлпов.
+      element: '.root', // нужно проставить классы у нужных элементов потому что с родными MUI не очень удобно
+      intro:
+        'Перед вами интерактивный гид по приложению Bible Study App(BSA). Мы хотим, чтобы вам было проще  разобраться с возможностями BSA. Листайте дальше! ', // и надо придумать текст хэлпов.
     },
     {
-      element: '.current',
-      intro: 'test 2',
+      element: '.intro-appBar', // нужно проставить классы у нужных элементов потому что с родными MUI не очень удобно
+      intro: 'AppBar', // и надо придумать текст хэлпов.
     },
     {
-      element: '.verse',
-      intro: 'test 3',
+      element: '.intro-bookSelect',
+      intro: 'Выбор книг',
+    },
+    {
+      element: '.intro-chapterSelect',
+      intro: 'Выбор главы',
+    },
+    {
+      element: '.intro-hamMenu',
+      intro: 'Меню приложения',
     },
   ];
   const options = {
-    nextLabel: 'Двльше', // здесь нужно переводы задействовать, в зависимости от локали, типа t('nextLabel')
-    prevLabel: 'Prev label',
+    nextLabel: 'Дальше', // здесь нужно переводы задействовать, в зависимости от локали, типа t('nextLabel')
+    prevLabel: 'Назад',
     doneLabel: 'doneLabel',
     tooltipClass: 'tooltipClass', // а тут стили для тултипов, это уже в самую последнюю очередь можем подправить
     highlightClass: 'highlightClass',
@@ -48,7 +57,7 @@ function Intro() {
       enabled={true}
       steps={steps}
       initialStep={0}
-      onBeforeChange={onBeforeChange}
+      // onBeforeChange={onBeforeChange}
       onExit={() => console.log('exit')}
       options={options}
     />

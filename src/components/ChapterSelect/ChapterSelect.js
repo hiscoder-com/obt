@@ -34,19 +34,21 @@ function ChapterSelect() {
 
   return (
     <>
-      <ChapterRCL
-        classes={chapterClasses}
-        onClick={onOpen}
-        chapterId={referenceSelected.chapter}
-        chapterPrefix={
-          referenceSelected.bookId === 'psa'
-            ? t('Psalm')
-            : referenceSelected.bookId === 'obs'
-            ? t('Story')
-            : t('Chapter')
-        }
-        currentChapter={true}
-      ></ChapterRCL>
+      <div className={'intro-chapterSelect'}>
+        <ChapterRCL
+          classes={chapterClasses}
+          onClick={onOpen}
+          chapterId={referenceSelected.chapter}
+          chapterPrefix={
+            referenceSelected.bookId === 'psa'
+              ? t('Psalm')
+              : referenceSelected.bookId === 'obs'
+              ? t('Story')
+              : t('Chapter')
+          }
+          currentChapter={true}
+        ></ChapterRCL>
+      </div>
       <Dialog
         fullWidth={true}
         maxWidth="lg"

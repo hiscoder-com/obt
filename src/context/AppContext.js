@@ -45,7 +45,7 @@ export function AppContextProvider({ children }) {
   const _resourceLinks = getResources(appConfig, resourcesApp);
   const [resourceLinks, setResourceLinks] = useState(_resourceLinks);
   const [resources, setResources] = useState([]);
-  const [showBookSelect, setShowBookSelect] = useState(true);
+  const [showBookSelect, setShowBookSelect] = useState(false);
   const [showChapterSelect, setShowChapterSelect] = useState(false);
   const [showErrorReport, setShowErrorReport] = useState(false);
   const [errorFile, setErrorFile] = useState('');
