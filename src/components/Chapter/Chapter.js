@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useRef } from 'react';
 
 import { Card } from 'translation-helps-rcl';
 import { Verse, ResourcesContext } from 'scripture-resources-rcl';
@@ -18,7 +18,7 @@ const initialPosition = {
 
 export default function Chapter({ title, classes, onClose, type, reference }) {
   const { t } = useTranslation();
-
+  const verseRef = useRef([]);
   const [position, setPosition] = React.useState(initialPosition);
   const { state } = React.useContext(ResourcesContext);
   const {
@@ -35,7 +35,6 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
   const [verses, setVerses] = useState();
   const [project, setProject] = useState({});
   const [resource, setResource] = useState(false);
-
   const { enqueueSnackbar } = useSnackbar();
 
   const handleContextOpen = (event) => {
@@ -93,6 +92,14 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
   }, [project, reference.chapter]);
 
   useEffect(() => {
+    if (Chapter && verseRef.current[reference.verse]) {
+      verseRef.current[reference.verse].scrollIntoView({
+        block: 'center',
+      });
+    }
+  }, [reference.verse]);
+
+  useEffect(() => {
     let _verses = [];
     for (let key in chapter) {
       if (parseInt(key).toString() !== key.toString()) {
@@ -105,9 +112,10 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
         fontWeight: key === reference.verse ? 'bold' : 'inherit',
       };
       const verse = (
-        <span
+        <div
+          ref={(ref) => (verseRef.current[key] = ref)}
           style={verseStyle}
-          className="verse"
+          className={'verse' + (key === reference.verse ? ' current' : '')}
           key={key}
           onContextMenu={(e) => {
             setReferenceBlock({
@@ -133,14 +141,13 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
             reference={{ ...reference, verse: key }}
             renderOffscreen={false}
           />
-        </span>
+        </div>
       );
-
       _verses.push(verse);
     }
-
     setVerses(_verses);
   }, [chapter, reference, type, setReferenceBlock, goToBookChapterVerse, fontSize]);
+
   const anchorPosition =
     position.mouseY !== null && position.mouseX !== null
       ? { top: position.mouseY, left: position.mouseX }

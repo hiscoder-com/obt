@@ -14,12 +14,12 @@ function Matrix(height, width) {
   };
   this.getXY = () => {
     const position = { x: 0, y: 0 };
-    const max = { y: this.matrix[0].length - 1, x: this.matrix.length - 1 };
+    const max = { x: this.matrix[0].length - 1, y: this.matrix.length - 1 };
     let find = false;
-    for (let x = 0; x < max.x; x++) {
-      const line = this.matrix[x];
-      for (let y = 0; y < max.y; y++) {
-        const val = line[y];
+    for (let y = 0; y <= max.y; y++) {
+      const line = this.matrix[y];
+      for (let x = 0; x <= max.x; x++) {
+        const val = line[x];
         if (val === 1) {
           find = false;
         } else {
@@ -32,7 +32,7 @@ function Matrix(height, width) {
                 find = false;
                 break;
               } else {
-                if (this.matrix[position.x + i][position.y + j] === 1) {
+                if (this.matrix[position.y + j][position.x + i] === 1) {
                   find = false;
                   break;
                 }
