@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useRef } from 'react';
 
 import { Steps } from 'intro.js-react';
 
@@ -9,66 +9,103 @@ import { AppContext } from '../../context/AppContext';
 // https://introjs.com/docs/examples/events/confirm-before-exit сама библиотека
 
 function Intro() {
+  const stepsRef = useRef();
   const {
-    actions: { setShowBookSelect, setShowChapterSelect },
+    actions: { setShowBookSelect, setShowChapterSelect, setShowErrorReport },
   } = useContext(AppContext);
   const steps = [
     {
-      element: '.root', // нужно проставить классы у нужных элементов потому что с родными MUI не очень удобно
+      element: '.root',
       intro:
         'Перед вами интерактивный гид по приложению Bible Study App(BSA). Мы хотим, чтобы вам было проще  разобраться с возможностями BSA. Листайте дальше! ', // и надо придумать текст хэлпов.
     },
     {
-      element: '.intro-appBar', // нужно проставить классы у нужных элементов потому что с родными MUI не очень удобно
-      intro: 'AppBar',
-      position: 'top', // и надо придумать текст хэлпов.
+      element: '.intro-appBar',
+      intro:
+        '1.Презентация AppBar. На этой панели представлена кнопка выбора книги и кнопка выбора главы Библии.',
     },
     {
-      element: '.intro-bookSelect',
-      intro: 'Выбор книг',
+      element: '.intro-bookList',
+      intro: '2.Здесь выбирете книгу.',
     },
     {
-      element: 'intro-bookSelect',
-      intro: 'Выбор книг',
+      element: '.intro-chapterSelect',
+      intro: '3.Здесь выбираете нужную главу',
     },
     {
-      element: '.MuiBox-root',
-      intro: 'Выбор главы',
+      element: '.react-grid-layout',
+      intro: '4.Это окно Workspace. В нём находятся карточки.',
     },
     {
-      element: '.sc-dlnjwi',
-      intro: 'карточка',
+      element: '.intro-card',
+      intro:
+        '5.В каждой отдельной карточке показывается конкретный перевод Бибилии,' +
+        'ОБС или дополнтельные инструменты: TN,TQ.' +
+        'Карточки можно перемещать, менять размер, удалять.' +
+        'Невозможно удалить последнюю карточку с Библией или ОБС.',
     },
     {
-      element: '.intro-verse1',
-      intro: 'стих',
+      element: '.verse',
+      intro:
+        '6.С каждым стихом можно работать отдельно. При клике на него текущий референс меняется.  ',
+    },
+    {
+      element: '.intro-contextMenu',
+      intro:
+        '7.При нажатии на любой стих правой кнопкой мыши - откроется контекстное меню. Можно либо скопировать  стих либо отправить сообщение об ошибке в данном стихе.   ',
+    },
+    {
+      element: '.intro-reportDialog',
+      intro: '8.В окне отправки ошибок необходимо обязательно написать комментарий..   ',
+    },
+    {
+      element: '.introMenu',
+      intro:
+        '9.В меню можно управлять наполнением Workspace: добавить новую карточку , ' +
+        'переключаться между ОБС и Библией, сбросить состояние Workspace к значению по-умолчанию' +
+        ', поменять разщмер шрифта в карточках, поменять язык интерфейса.',
     },
   ];
-  const onBeforeChange = (nextStepIndex) => {
-    switch (String(nextStepIndex)) {
+  const onBeforeChange = (stepIndex) => {
+    switch (String(stepIndex)) {
+      case '0':
+        console.log('stepsRef', stepsRef.current);
+        break;
+      case '1':
+        setShowBookSelect(false);
+        setShowChapterSelect(false);
+        console.log('stepsRef.current', stepsRef.current);
+        break;
+      case '2':
+        setShowBookSelect(true);
+        console.log('stepsRef.current', stepsRef.current);
+        break;
       case '3':
-        // setShowBookSelect(true);
+        setShowBookSelect(false);
+        setShowChapterSelect(true);
+        console.log('stepsRef.current', stepsRef.current);
         break;
       case '4':
-        // setShowBookSelect(false);
-        // setShowChapterSelect(true);
+        setShowChapterSelect(false);
         break;
-      case '5':
-        // setShowChapterSelect(false);
+      case '6':
+        setShowChapterSelect(false);
         break;
       case '7':
-        // setShowChapterSelect(false);
-        steps.updateStepElement(nextStepIndex);
+        // TODO: вытащить событие открытия контекстного меню
+        setShowErrorReport(false);
+        break;
+      case '8':
+        setShowErrorReport(true);
+        break;
+      case '9':
+        setShowErrorReport(false);
+        // TODO: вытащить событие открытия  меню гамбургера
         break;
       default:
         break;
-    } // вот эта функция обязательна.
-    // К примеру 1 шаг показать аппбар,
-    // второй шаг - показывает список книг, а значит надо модалку с выбором книг отобразить,
-    // третий шаг - показывает карточку, а значит перед ним надо скрыть модалку и т.д.
-    console.log(nextStepIndex);
+    }
   };
-  // const setShow = setShowBookSelect();
 
   const options = {
     nextLabel: 'Дальше', // здесь нужно переводы задействовать, в зависимости от локали, типа t('nextLabel')
@@ -80,7 +117,7 @@ function Intro() {
     exitOnEsc: false,
     exitOnOverlayClick: false,
     showBullets: false,
-    disableInteraction: false,
+    disableInteraction: true,
   };
   return (
     <Steps
@@ -88,11 +125,11 @@ function Intro() {
 
       enabled={true}
       steps={steps}
+      ref={stepsRef}
       initialStep={0}
       onBeforeChange={onBeforeChange}
       onExit={() => console.log('exit')}
       options={options}
-      ref={(steps) => steps}
     />
   );
 }

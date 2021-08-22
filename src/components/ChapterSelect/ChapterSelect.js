@@ -54,10 +54,8 @@ function ChapterSelect() {
         open={showChapterSelect}
         onClose={() => setShowChapterSelect(false)}
       >
-        <DialogContent>
-          <div className={'intro-chapterSelect'}>
-            <ChapterList onClose={onClose} />
-          </div>
+        <DialogContent className={'intro-chapterSelect'}>
+          <ChapterList onClose={onClose} />
         </DialogContent>
       </Dialog>
     </>

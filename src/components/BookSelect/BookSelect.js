@@ -26,20 +26,19 @@ function BookSelect() {
 
   return (
     <>
-      <div className={'intro-bookSelect'}>
-        <BookRCL
-          classes={bookClasses}
-          onClick={() => setShowBookSelect(!showBookSelect)}
-          text={t(referenceSelected.bookId ?? 'not_set')}
-        />
-      </div>
+      <BookRCL
+        classes={bookClasses}
+        onClick={() => setShowBookSelect(!showBookSelect)}
+        text={t(referenceSelected.bookId ?? 'not_set')}
+      />
+
       <Dialog
         fullWidth={true}
         maxWidth="lg"
         open={showBookSelect}
         onClose={() => setShowBookSelect(false)}
       >
-        <DialogContent>
+        <DialogContent className={'intro-bookList'}>
           <BookList />
         </DialogContent>
       </Dialog>

@@ -78,6 +78,7 @@ export default function TypoReport() {
         <CircularProgress color="inherit" />
       </Backdrop>
       <ReportDialog
+        classname={'intro-reportDialog'}
         open={showErrorReport}
         valueComment={valueComment}
         handleChange={handleChange}

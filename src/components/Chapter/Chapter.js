@@ -112,37 +112,35 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
         fontWeight: key === reference.verse ? 'bold' : 'inherit',
       };
       const verse = (
-        <div className={`intro-verse${key}`}>
-          <div
-            ref={(ref) => (verseRef.current[key] = ref)}
-            style={verseStyle}
-            className={'verse' + (key === reference.verse ? ' current' : '')}
-            key={key}
-            onContextMenu={(e) => {
-              setReferenceBlock({
-                ...reference,
-                resource: type,
-                verse: key,
-                text: getVerseText(verseObjects),
-              });
-              handleContextOpen(e);
-            }}
-            onClick={() =>
-              reference.verse !== key
-                ? goToBookChapterVerse(reference.bookId, reference.chapter, key)
-                : false
-            }
-          >
-            <Verse
-              verseKey={key}
-              verseObjects={verseObjects}
-              paragraphs={false}
-              showUnsupported={false}
-              disableWordPopover={false}
-              reference={{ ...reference, verse: key }}
-              renderOffscreen={false}
-            />
-          </div>
+        <div
+          ref={(ref) => (verseRef.current[key] = ref)}
+          style={verseStyle}
+          className={'verse' + (key === reference.verse ? ' current' : '')}
+          key={key}
+          onContextMenu={(e) => {
+            setReferenceBlock({
+              ...reference,
+              resource: type,
+              verse: key,
+              text: getVerseText(verseObjects),
+            });
+            handleContextOpen(e);
+          }}
+          onClick={() =>
+            reference.verse !== key
+              ? goToBookChapterVerse(reference.bookId, reference.chapter, key)
+              : false
+          }
+        >
+          <Verse
+            verseKey={key}
+            verseObjects={verseObjects}
+            paragraphs={false}
+            showUnsupported={false}
+            disableWordPopover={false}
+            reference={{ ...reference, verse: key }}
+            renderOffscreen={false}
+          />
         </div>
       );
       _verses.push(verse);
@@ -172,6 +170,9 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
         }
       );
   };
+  useEffect(() => {
+    classes.root += ' intro-card';
+  }, [classes]);
 
   return (
     <Card
@@ -182,6 +183,7 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
       classes={classes}
     >
       <Menu
+        className={'intro-contextMenu'}
         keepMounted
         open={position.mouseY !== null}
         onClose={handleContextClose}
