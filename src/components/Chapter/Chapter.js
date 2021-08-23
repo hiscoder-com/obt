@@ -22,7 +22,7 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
   const [position, setPosition] = React.useState(initialPosition);
   const { state } = React.useContext(ResourcesContext);
   const {
-    state: { resourcesApp, fontSize },
+    state: { resourcesApp, fontSize, introContextMenuOpen },
     actions: { setShowErrorReport },
   } = useContext(AppContext);
 
@@ -152,6 +152,7 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
     position.mouseY !== null && position.mouseX !== null
       ? { top: position.mouseY, left: position.mouseX }
       : undefined;
+  console.log(anchorPosition);
   const handleToClipboard = () => {
     navigator.clipboard
       .writeText(
@@ -185,10 +186,10 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
       <Menu
         className={'intro-contextMenu'}
         keepMounted
-        open={position.mouseY !== null}
+        open={position.mouseY !== null || introContextMenuOpen}
         onClose={handleContextClose}
         anchorReference="anchorPosition"
-        anchorPosition={anchorPosition}
+        anchorPosition={!introContextMenuOpen ? anchorPosition : { top: 165, left: 236 }}
       >
         <MenuItem onClick={handleOpenError}>{t('Error_report')}</MenuItem>
         <MenuItem onClick={handleToClipboard}>{t('Copy_to_clipboard')}</MenuItem>

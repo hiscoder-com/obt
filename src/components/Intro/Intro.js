@@ -17,6 +17,7 @@ function Intro() {
       setShowErrorReport,
       setLoadIntro,
       setAnchorMainMenu,
+      setIntroContextMenuOpen,
     },
     state: { loadIntro },
   } = useContext(AppContext);
@@ -98,19 +99,22 @@ function Intro() {
         break;
       case '6':
         setShowChapterSelect(false);
+        setIntroContextMenuOpen(false);
         break;
       case '7':
-        // TODO: вытащить событие открытия контекстного меню
+        setIntroContextMenuOpen(true);
+
         setShowErrorReport(false);
         break;
       case '8':
+        setIntroContextMenuOpen(false);
         setShowErrorReport(true);
         setAnchorMainMenu(false);
         break;
       case '9':
         setShowErrorReport(false);
         setAnchorMainMenu(true);
-        // TODO: вытащить событие открытия  меню гамбургера
+
         break;
       default:
         break;

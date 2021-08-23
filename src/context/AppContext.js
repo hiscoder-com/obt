@@ -53,6 +53,7 @@ export function AppContextProvider({ children }) {
   const [fontSize, setFontSize] = useState(_fontSize ? _fontSize : 100);
   const [loadIntro, setLoadIntro] = useState();
   const [anchorMainMenu, setAnchorMainMenu] = useState(null);
+  const [introContextMenuOpen, setIntroContextMenuOpen] = useState(false);
 
   const { t } = useTranslation();
 
@@ -91,6 +92,7 @@ export function AppContextProvider({ children }) {
       currentLanguage,
       errorFile,
       fontSize,
+      introContextMenuOpen,
       loadIntro,
       resourceLinks,
       resourcesApp,
@@ -106,6 +108,7 @@ export function AppContextProvider({ children }) {
       setCurrentLanguage,
       setErrorFile,
       setFontSize,
+      setIntroContextMenuOpen,
       setLoadIntro,
       setResourceLinks,
       setResourcesApp,
