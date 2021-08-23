@@ -11,7 +11,12 @@ import { AppContext } from '../../context/AppContext';
 function Intro() {
   const stepsRef = useRef();
   const {
-    actions: { setShowBookSelect, setShowChapterSelect, setShowErrorReport },
+    actions: {
+      setShowBookSelect,
+      setShowChapterSelect,
+      setShowErrorReport,
+      setLoadIntro,
+    },
     state: { loadIntro },
   } = useContext(AppContext);
   const steps = [
@@ -131,7 +136,7 @@ function Intro() {
       ref={stepsRef}
       initialStep={0}
       onBeforeChange={onBeforeChange}
-      onExit={() => console.log('exit')}
+      onExit={(re) => setLoadIntro((prev) => (prev = true))}
       options={options}
     />
   );
