@@ -19,6 +19,7 @@ const initialPosition = {
 export default function Chapter({ title, classes, onClose, type, reference }) {
   const { t } = useTranslation();
   const verseRef = useRef([]);
+
   const [position, setPosition] = React.useState(initialPosition);
   const { state } = React.useContext(ResourcesContext);
   const {
@@ -35,6 +36,7 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
   const [verses, setVerses] = useState();
   const [project, setProject] = useState({});
   const [resource, setResource] = useState(false);
+  const [introContextMenuPosition, setIntroContextMenuPosition] = useState(false);
   const { enqueueSnackbar } = useSnackbar();
 
   const handleContextOpen = (event) => {
@@ -147,12 +149,21 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
     }
     setVerses(_verses);
   }, [chapter, reference, type, setReferenceBlock, goToBookChapterVerse, fontSize]);
+  useEffect(() => {
+    if (verseRef.current[reference.verse]) {
+      const { top, left } = verseRef.current[reference.verse].getBoundingClientRect();
+      setIntroContextMenuPosition({ top: top, left: left });
+    }
+    return () => {
+      setIntroContextMenuPosition(false);
+    };
+  }, [introContextMenuOpen, reference.verse]);
 
   const anchorPosition =
     position.mouseY !== null && position.mouseX !== null
       ? { top: position.mouseY, left: position.mouseX }
       : undefined;
-  console.log(anchorPosition);
+
   const handleToClipboard = () => {
     navigator.clipboard
       .writeText(
@@ -184,15 +195,17 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
       classes={classes}
     >
       <Menu
-        className={'intro-contextMenu'}
         keepMounted
         open={position.mouseY !== null || introContextMenuOpen}
         onClose={handleContextClose}
         anchorReference="anchorPosition"
-        anchorPosition={!introContextMenuOpen ? anchorPosition : { top: 165, left: 236 }}
+        anchorPosition={!introContextMenuOpen ? anchorPosition : introContextMenuPosition}
       >
-        <MenuItem onClick={handleOpenError}>{t('Error_report')}</MenuItem>
-        <MenuItem onClick={handleToClipboard}>{t('Copy_to_clipboard')}</MenuItem>
+        <div className="intro-contextMenu">
+          {/*TODO сделать нормальное добавление класса */}
+          <MenuItem onClick={handleOpenError}>{t('Error_report')}</MenuItem>
+          <MenuItem onClick={handleToClipboard}>{t('Copy_to_clipboard')}</MenuItem>
+        </div>
       </Menu>
       {chapter ? verses : t('No_content')}
     </Card>

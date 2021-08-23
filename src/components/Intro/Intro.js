@@ -16,7 +16,7 @@ function Intro() {
       setShowChapterSelect,
       setShowErrorReport,
       setLoadIntro,
-      setAnchorMainMenu,
+      setOpenMainMenu,
       setIntroContextMenuOpen,
     },
     state: { loadIntro },
@@ -33,11 +33,11 @@ function Intro() {
         '1.Презентация AppBar. На этой панели представлена кнопка выбора книги и кнопка выбора главы Библии.',
     },
     {
-      element: '.intro-bookList',
+      element: '.intro-bookList', //TODO -добавить
       intro: '2.Здесь выбирете книгу.',
     },
     {
-      element: '.intro-chapterSelect',
+      element: '.intro-chapterSelect', //TODO -добавить
       intro: '3.Здесь выбираете нужную главу',
     },
     {
@@ -58,17 +58,17 @@ function Intro() {
         '6.С каждым стихом можно работать отдельно. При клике на него текущий референс меняется.  ',
     },
     {
-      element: '.intro-contextMenu',
+      element: '.MuiPaper-elevation8', //TODO -добавить
       intro:
         '7.При нажатии на любой стих правой кнопкой мыши - откроется контекстное меню.' +
         ' Можно либо скопировать  стих либо отправить сообщение об ошибке в данном стихе.  ',
     },
     {
-      element: '.intro-reportDialog',
+      element: '.intro-reportDialog', //TODO -добавить
       intro: '8.В окне отправки ошибок необходимо обязательно написать комментарий..   ',
     },
     {
-      element: '.introMenu',
+      element: '.MuiPaper-rounded', //TODO Найти возможность добавить класс
       intro:
         '9.В меню можно управлять наполнением Workspace: добавить новую карточку , ' +
         'переключаться между ОБС и Библией, сбросить состояние Workspace к значению по-умолчанию' +
@@ -109,25 +109,29 @@ function Intro() {
       case '8':
         setIntroContextMenuOpen(false);
         setShowErrorReport(true);
-        setAnchorMainMenu(false);
+        setOpenMainMenu(false);
         break;
       case '9':
         setShowErrorReport(false);
-        setAnchorMainMenu(true);
-
+        setOpenMainMenu(true);
         break;
       default:
         break;
     }
   };
   const onExit = () => {
-    setLoadIntro((prev) => (prev = true));
-    setAnchorMainMenu(false);
+    setLoadIntro(true); //TODO - если поменять местами с setOpenMainMenu(false), тогда в конце остается фон серый, еслои оставить - ошибка вылазит в anchorEL
+    setOpenMainMenu(false);
+
+    setIntroContextMenuOpen(false);
+
+    setShowErrorReport(false);
+    setShowChapterSelect(false);
   };
   const options = {
     nextLabel: 'Дальше', // здесь нужно переводы задействовать, в зависимости от локали, типа t('nextLabel')
     prevLabel: 'Назад',
-    doneLabel: 'doneLabel',
+    doneLabel: 'Хватит!',
     tooltipClass: 'tooltipClass', // а тут стили для тултипов, это уже в самую последнюю очередь можем подправить
     highlightClass: 'highlightClass',
     tooltipPosition: 'auto',

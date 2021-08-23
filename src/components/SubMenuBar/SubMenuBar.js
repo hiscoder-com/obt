@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useRef } from 'react';
 
 import { FontSizeSlider } from 'translation-helps-rcl';
 import { useTranslation } from 'react-i18next';
@@ -26,8 +26,8 @@ import { useStyles, useModalStyles } from './style';
 
 function SubMenuBar() {
   const {
-    state: { fontSize, anchorMainMenu },
-    actions: { setFontSize, setLoadIntro, setAnchorMainMenu },
+    state: { fontSize, loadIntro, openMainMenu },
+    actions: { setFontSize, setLoadIntro },
   } = useContext(AppContext);
 
   const {
@@ -35,11 +35,12 @@ function SubMenuBar() {
       referenceSelected: { bookId },
     },
   } = useContext(ReferenceContext);
+  const menuRef = useRef([]);
 
   const classes = useStyles();
 
   const modalClasses = useModalStyles();
-
+  const [anchorMainMenu, setAnchorMainMenu] = useState(null);
   const [anchorAddMaterial, setAnchorAddMaterial] = useState(null);
 
   const { t } = useTranslation();
@@ -62,6 +63,10 @@ function SubMenuBar() {
     setLoadIntro((prev) => (prev = false));
     handleCloseMainMenu();
   };
+  console.log('menuRef', menuRef.current);
+  console.log('anchorMainMenu', anchorMainMenu);
+  console.log('loadIntro', loadIntro);
+  const anchorEl = !loadIntro ? menuRef.current : anchorMainMenu;
 
   return (
     <>
@@ -76,6 +81,7 @@ function SubMenuBar() {
           </div>
 
           <IconButton
+            ref={menuRef}
             edge="start"
             color="inherit"
             aria-label="menu"
@@ -95,9 +101,9 @@ function SubMenuBar() {
               vertical: 'top',
               horizontal: 'center',
             }}
-            anchorEl={anchorMainMenu}
+            anchorEl={anchorEl}
             keepMounted
-            open={Boolean(anchorMainMenu)}
+            open={Boolean(anchorMainMenu) || openMainMenu}
             onClose={handleCloseMainMenu}
             classes={modalClasses}
           >
