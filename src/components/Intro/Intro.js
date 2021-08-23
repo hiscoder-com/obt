@@ -136,7 +136,9 @@ function Intro() {
     tooltipClass: 'tooltipClass', // а тут стили для тултипов, это уже в самую последнюю очередь можем подправить
     highlightClass: 'highlightClass',
     tooltipPosition: 'auto',
-    overlayOpacity: 0.8,
+    hidePrev: true,
+    hideNext: true,
+    overlayOpacity: 0.6,
     exitOnEsc: false,
     exitOnOverlayClick: false,
     showBullets: false,
