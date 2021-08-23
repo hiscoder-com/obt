@@ -26,8 +26,8 @@ import { useStyles, useModalStyles } from './style';
 
 function SubMenuBar() {
   const {
-    state: { fontSize },
-    actions: { setFontSize, setLoadIntro },
+    state: { fontSize, anchorMainMenu },
+    actions: { setFontSize, setLoadIntro, setAnchorMainMenu },
   } = useContext(AppContext);
 
   const {
@@ -41,7 +41,6 @@ function SubMenuBar() {
   const modalClasses = useModalStyles();
 
   const [anchorAddMaterial, setAnchorAddMaterial] = useState(null);
-  const [anchorMainMenu, setAnchorMainMenu] = useState(null);
 
   const { t } = useTranslation();
 
@@ -61,11 +60,7 @@ function SubMenuBar() {
   };
   const handleOpenUsersGuide = () => {
     setLoadIntro((prev) => (prev = false));
-
-    cleanLoadIntro();
-  };
-  const cleanLoadIntro = () => {
-    // setLoadIntro((prev) => (prev = true));
+    handleCloseMainMenu();
   };
 
   return (

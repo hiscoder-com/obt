@@ -16,6 +16,7 @@ function Intro() {
       setShowChapterSelect,
       setShowErrorReport,
       setLoadIntro,
+      setAnchorMainMenu,
     },
     state: { loadIntro },
   } = useContext(AppContext);
@@ -104,16 +105,21 @@ function Intro() {
         break;
       case '8':
         setShowErrorReport(true);
+        setAnchorMainMenu(false);
         break;
       case '9':
         setShowErrorReport(false);
+        setAnchorMainMenu(true);
         // TODO: вытащить событие открытия  меню гамбургера
         break;
       default:
         break;
     }
   };
-
+  const onExit = () => {
+    setLoadIntro((prev) => (prev = true));
+    setAnchorMainMenu(false);
+  };
   const options = {
     nextLabel: 'Дальше', // здесь нужно переводы задействовать, в зависимости от локали, типа t('nextLabel')
     prevLabel: 'Назад',
@@ -136,7 +142,7 @@ function Intro() {
       ref={stepsRef}
       initialStep={0}
       onBeforeChange={onBeforeChange}
-      onExit={(re) => setLoadIntro((prev) => (prev = true))}
+      onExit={onExit}
       options={options}
     />
   );
