@@ -27,7 +27,7 @@ import { useStyles, useModalStyles } from './style';
 function SubMenuBar() {
   const {
     state: { fontSize },
-    actions: { setFontSize },
+    actions: { setFontSize, setLoadIntro },
   } = useContext(AppContext);
 
   const {
@@ -58,6 +58,14 @@ function SubMenuBar() {
   };
   const handleCloseAddMaterial = () => {
     setAnchorAddMaterial(null);
+  };
+  const handleOpenUsersGuide = () => {
+    setLoadIntro((prev) => (prev = false));
+
+    cleanLoadIntro();
+  };
+  const cleanLoadIntro = () => {
+    // setLoadIntro((prev) => (prev = true));
   };
 
   return (
@@ -115,9 +123,10 @@ function SubMenuBar() {
               <p className={classes.menu}>{t('Text_under_checkbox_error')}</p>
             </MenuItem>
             <WorkspaceManager onClose={handleCloseMainMenu} />
-            <MenuItem button={false}>
+            <MenuItem button={false} divider={true}>
               <SelectLanguage />
             </MenuItem>
+            <MenuItem onClick={handleOpenUsersGuide}>{t('UsersGuide')}</MenuItem>
           </Menu>
           <SearchResources
             anchorEl={anchorAddMaterial}

@@ -53,7 +53,8 @@ function Intro() {
     {
       element: '.intro-contextMenu',
       intro:
-        '7.При нажатии на любой стих правой кнопкой мыши - откроется контекстное меню. Можно либо скопировать  стих либо отправить сообщение об ошибке в данном стихе.   ',
+        '7.При нажатии на любой стих правой кнопкой мыши - откроется контекстное меню.' +
+        ' Можно либо скопировать  стих либо отправить сообщение об ошибке в данном стихе.  ',
     },
     {
       element: '.intro-reportDialog',
@@ -75,7 +76,7 @@ function Intro() {
       case '1':
         setShowBookSelect(false);
         setShowChapterSelect(false);
-        console.log('stepsRef.current', stepsRef.current);
+
         break;
       case '2':
         setShowBookSelect(true);

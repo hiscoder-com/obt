@@ -109,6 +109,7 @@ export function AppContextProvider({ children }) {
       setShowErrorReport,
       setFontSize,
       setCurrentLanguage,
+      setLoadIntro,
     },
   };
 
