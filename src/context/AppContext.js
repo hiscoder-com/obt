@@ -18,6 +18,8 @@ export const AppContext = React.createContext();
 const _currentLanguage = checkLSVal('i18nextLng', languages[0]);
 const _resourcesApp = checkLSVal('resourcesApp', [], false);
 
+const _loadIntro = checkLSVal('loadIntro', false);
+
 const _fontSize = parseInt(localStorage.getItem('fontSize'));
 
 const config = { server };
@@ -42,6 +44,7 @@ export function AppContextProvider({ children }) {
         'bible'
       )[referenceSelected.bookId === 'obs' ? 'obs' : 'bible']
   );
+  console.log('_loadIntro', _loadIntro);
   const [resourcesApp, setResourcesApp] = useState(_resourcesApp);
   const _resourceLinks = getResources(appConfig, resourcesApp);
   const [resourceLinks, setResourceLinks] = useState(_resourceLinks);
@@ -51,7 +54,7 @@ export function AppContextProvider({ children }) {
   const [showErrorReport, setShowErrorReport] = useState(false);
   const [errorFile, setErrorFile] = useState('');
   const [fontSize, setFontSize] = useState(_fontSize ? _fontSize : 100);
-  const [loadIntro, setLoadIntro] = useState();
+  const [loadIntro, setLoadIntro] = useState(_loadIntro);
   const [introContextMenuOpen, setIntroContextMenuOpen] = useState(false);
   const [openMainMenu, setOpenMainMenu] = useState(false);
 
@@ -75,13 +78,6 @@ export function AppContextProvider({ children }) {
   }, [resourcesApp]);
 
   useEffect(() => {
-    const intro = localStorage.getItem('loadIntro');
-
-    if (intro === null) {
-      setLoadIntro(false);
-    } else {
-      setLoadIntro(localStorage.getItem('loadIntro'));
-    }
     localStorage.setItem('loadIntro', true);
   }, []);
 
