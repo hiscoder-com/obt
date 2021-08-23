@@ -81,7 +81,6 @@ function Intro() {
   const onBeforeChange = (stepIndex) => {
     switch (String(stepIndex)) {
       case '0':
-        console.log('stepsRef', stepsRef.current);
         break;
       case '1':
         setShowBookSelect(false);
@@ -102,15 +101,20 @@ function Intro() {
         stepsRef.current.updateStepElement(stepIndex);
         break;
       case '6':
+        setIntroContextMenuOpen(false);
         stepsRef.current.updateStepElement(stepIndex);
         break;
       case '7':
+        setShowErrorReport(false);
         setIntroContextMenuOpen(true);
+
         stepsRef.current.updateStepElement(stepIndex);
         break;
       case '8':
         setIntroContextMenuOpen(false);
+        setOpenMainMenu(false);
         setShowErrorReport(true);
+
         stepsRef.current.updateStepElement(stepIndex);
         break;
       case '9':
