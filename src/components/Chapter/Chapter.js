@@ -182,9 +182,6 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
         }
       );
   };
-  useEffect(() => {
-    classes.root += ' intro-card';
-  }, [classes]);
 
   return (
     <Card
@@ -192,7 +189,7 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
       onClose={() => onClose(type)}
       title={title}
       type={type}
-      classes={classes}
+      classes={{ ...classes, root: classes.root + ' intro-card' }}
     >
       <Menu
         keepMounted
@@ -200,12 +197,11 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
         onClose={handleContextClose}
         anchorReference="anchorPosition"
         anchorPosition={!introContextMenuOpen ? anchorPosition : introContextMenuPosition}
+        PopoverClasses={{ paper: 'intro-contextMenu' }}
       >
-        <div className="intro-contextMenu">
-          {/*TODO сделать нормальное добавление класса */}
-          <MenuItem onClick={handleOpenError}>{t('Error_report')}</MenuItem>
-          <MenuItem onClick={handleToClipboard}>{t('Copy_to_clipboard')}</MenuItem>
-        </div>
+        {/*TODO сделать нормальное добавление класса */}
+        <MenuItem onClick={handleOpenError}>{t('Error_report')}</MenuItem>
+        <MenuItem onClick={handleToClipboard}>{t('Copy_to_clipboard')}</MenuItem>
       </Menu>
       {chapter ? verses : t('No_content')}
     </Card>

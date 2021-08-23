@@ -8,6 +8,10 @@ import { AppContext } from '../../context/AppContext';
 // https://github.com/HiDeoo/intro.js-react обертка для реакта
 // https://introjs.com/docs/examples/events/confirm-before-exit сама библиотека
 
+// TODO
+// Надо продумать такой момент, человек может справку в ОБС запустить, а там нет выбора книги, нет карточки Чаптер.
+// Я думаю может при запуске хэлпа переключать на Библию?
+
 function Intro() {
   const stepsRef = useRef();
   const {
@@ -23,7 +27,6 @@ function Intro() {
   } = useContext(AppContext);
   const steps = [
     {
-      element: '.root',
       intro:
         'Перед вами интерактивный гид по приложению Bible Study App(BSA). Мы хотим, чтобы вам было проще  разобраться с возможностями BSA. Листайте дальше! ', // и надо придумать текст хэлпов.
     },
@@ -37,7 +40,7 @@ function Intro() {
       intro: '2.Здесь выбирете книгу.',
     },
     {
-      element: '.intro-chapterSelect', //TODO -добавить
+      element: '.intro-chapterList', //TODO -добавить
       intro: '3.Здесь выбираете нужную главу',
     },
     {
@@ -58,7 +61,7 @@ function Intro() {
         '6.С каждым стихом можно работать отдельно. При клике на него текущий референс меняется.  ',
     },
     {
-      element: '.MuiPaper-elevation8', //TODO -добавить
+      element: '.intro-contextMenu', //TODO -добавить
       intro:
         '7.При нажатии на любой стих правой кнопкой мыши - откроется контекстное меню.' +
         ' Можно либо скопировать  стих либо отправить сообщение об ошибке в данном стихе.  ',
@@ -68,7 +71,7 @@ function Intro() {
       intro: '8.В окне отправки ошибок необходимо обязательно написать комментарий..   ',
     },
     {
-      element: '.MuiPaper-rounded', //TODO Найти возможность добавить класс
+      element: '.intro-hamburger', //TODO Найти возможность добавить класс
       intro:
         '9.В меню можно управлять наполнением Workspace: добавить новую карточку , ' +
         'переключаться между ОБС и Библией, сбросить состояние Workspace к значению по-умолчанию' +
@@ -83,37 +86,37 @@ function Intro() {
       case '1':
         setShowBookSelect(false);
         setShowChapterSelect(false);
-
+        stepsRef.current.updateStepElement(stepIndex);
         break;
       case '2':
         setShowBookSelect(true);
-        console.log('stepsRef.current', stepsRef.current);
+        stepsRef.current.updateStepElement(stepIndex);
         break;
       case '3':
         setShowBookSelect(false);
         setShowChapterSelect(true);
-        console.log('stepsRef.current', stepsRef.current);
+        stepsRef.current.updateStepElement(stepIndex);
         break;
       case '4':
         setShowChapterSelect(false);
+        stepsRef.current.updateStepElement(stepIndex);
         break;
       case '6':
-        setShowChapterSelect(false);
-        setIntroContextMenuOpen(false);
+        stepsRef.current.updateStepElement(stepIndex);
         break;
       case '7':
         setIntroContextMenuOpen(true);
-
-        setShowErrorReport(false);
+        stepsRef.current.updateStepElement(stepIndex);
         break;
       case '8':
         setIntroContextMenuOpen(false);
         setShowErrorReport(true);
-        setOpenMainMenu(false);
+        stepsRef.current.updateStepElement(stepIndex);
         break;
       case '9':
         setShowErrorReport(false);
         setOpenMainMenu(true);
+        stepsRef.current.updateStepElement(stepIndex);
         break;
       default:
         break;
@@ -122,9 +125,7 @@ function Intro() {
   const onExit = () => {
     setLoadIntro(true); //TODO - если поменять местами с setOpenMainMenu(false), тогда в конце остается фон серый, еслои оставить - ошибка вылазит в anchorEL
     setOpenMainMenu(false);
-
     setIntroContextMenuOpen(false);
-
     setShowErrorReport(false);
     setShowChapterSelect(false);
   };
@@ -135,6 +136,7 @@ function Intro() {
     tooltipClass: 'tooltipClass', // а тут стили для тултипов, это уже в самую последнюю очередь можем подправить
     highlightClass: 'highlightClass',
     tooltipPosition: 'auto',
+    overlayOpacity: 0.8,
     exitOnEsc: false,
     exitOnOverlayClick: false,
     showBullets: false,

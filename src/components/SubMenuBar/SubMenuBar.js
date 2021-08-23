@@ -106,6 +106,7 @@ function SubMenuBar() {
             open={Boolean(anchorMainMenu) || openMainMenu}
             onClose={handleCloseMainMenu}
             classes={modalClasses}
+            PopoverClasses={{ paper: 'intro-hamburger' }}
           >
             <MenuItem onClick={handleClickAddMaterial}>
               <AddIcon size={'small'} /> {t('Add_resources')}

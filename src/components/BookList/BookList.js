@@ -53,6 +53,7 @@ function BookList() {
         titleNT={t('Bible_NT')}
         BibleBookListClasses={classes}
         bookClasses={bookClasses}
+        className={'intro-bookList'}
       />
     </>
   );
