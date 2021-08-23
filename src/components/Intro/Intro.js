@@ -12,6 +12,7 @@ function Intro() {
   const stepsRef = useRef();
   const {
     actions: { setShowBookSelect, setShowChapterSelect, setShowErrorReport },
+    state: { loadIntro },
   } = useContext(AppContext);
   const steps = [
     {
@@ -119,11 +120,12 @@ function Intro() {
     showBullets: false,
     disableInteraction: true,
   };
+
   return (
     <Steps
-      // тут надо в локалсторэдж может хранить, показыали хэлп или нет. При первом запуске его показать, а дальше показывать только если нажали на кнопку хэлп в меню
+      //  показыали хэлп или нет. При первом запуске его показать, а дальше показывать только если нажали на кнопку хэлп в меню
 
-      enabled={true}
+      enabled={!loadIntro}
       steps={steps}
       ref={stepsRef}
       initialStep={0}

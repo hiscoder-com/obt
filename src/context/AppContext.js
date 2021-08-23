@@ -29,6 +29,7 @@ export function AppContextProvider({ children }) {
   } = useContext(ReferenceContext);
 
   const [currentLanguage, setCurrentLanguage] = useState(_currentLanguage);
+
   const [appConfig, setAppConfig] = useState(
     () =>
       checkLSVal(
@@ -50,6 +51,7 @@ export function AppContextProvider({ children }) {
   const [showErrorReport, setShowErrorReport] = useState(false);
   const [errorFile, setErrorFile] = useState('');
   const [fontSize, setFontSize] = useState(_fontSize ? _fontSize : 100);
+  const [loadIntro, setLoadIntro] = useState();
 
   const { t } = useTranslation();
 
@@ -70,6 +72,17 @@ export function AppContextProvider({ children }) {
     localStorage.setItem('resourcesApp', JSON.stringify(resourcesApp));
   }, [resourcesApp]);
 
+  useEffect(() => {
+    const intro = localStorage.getItem('loadIntro');
+
+    if (intro === null) {
+      setLoadIntro(false);
+    } else {
+      setLoadIntro(localStorage.getItem('loadIntro'));
+    }
+    localStorage.setItem('loadIntro', true);
+  }, []);
+
   const value = {
     state: {
       appConfig,
@@ -83,6 +96,7 @@ export function AppContextProvider({ children }) {
       fontSize,
       currentLanguage,
       errorFile,
+      loadIntro,
     },
     actions: {
       setAppConfig,
