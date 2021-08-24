@@ -63,9 +63,7 @@ function SubMenuBar() {
     setLoadIntro((prev) => (prev = false));
     handleCloseMainMenu();
   };
-  console.log('loadIntro', loadIntro);
-  console.log('menuRef.current', menuRef.current);
-  console.log('anchorMainMenu', anchorMainMenu);
+
   const anchorEl = loadIntro && anchorMainMenu ? anchorMainMenu : menuRef.current;
 
   return (
