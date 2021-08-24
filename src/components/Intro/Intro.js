@@ -107,7 +107,7 @@ function Intro() {
       case '9':
         setShowErrorReport(false);
         setOpenMainMenu(true);
-        stepsRef.current.updateStepElement(stepIndex);
+        // stepsRef.current.updateStepElement(stepIndex);
         break;
       default:
         break;
@@ -124,9 +124,9 @@ function Intro() {
     setShowChapterSelect(false);
   };
   const options = {
-    nextLabel: 'Дальше', // здесь нужно переводы задействовать, в зависимости от локали, типа t('nextLabel')
-    prevLabel: 'Назад',
-    doneLabel: 'Закрыть',
+    nextLabel: t('Next'),
+    prevLabel: t('Previous'),
+    doneLabel: t('Done'),
     tooltipClass: 'tooltipClass', // а тут стили для тултипов, это уже в самую последнюю очередь можем подправить
     highlightClass: 'highlightClass',
     tooltipPosition: 'auto',
@@ -144,7 +144,7 @@ function Intro() {
       enabled={!loadIntro}
       steps={steps}
       ref={stepsRef}
-      initialStep={6}
+      initialStep={0}
       onBeforeChange={onBeforeChange}
       onExit={onExit}
       options={options}
