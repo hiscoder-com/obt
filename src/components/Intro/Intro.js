@@ -4,15 +4,14 @@ import { Steps } from 'intro.js-react';
 
 import 'intro.js/introjs.css';
 import { AppContext } from '../../context/AppContext';
-
-// https://github.com/HiDeoo/intro.js-react обертка для реакта
-// https://introjs.com/docs/examples/events/confirm-before-exit сама библиотека
+import { useTranslation } from 'react-i18next';
 
 // TODO
 // Надо продумать такой момент, человек может справку в ОБС запустить, а там нет выбора книги, нет карточки Чаптер.
 // Я думаю может при запуске хэлпа переключать на Библию?
 
 function Intro() {
+  const { t } = useTranslation();
   const stepsRef = useRef();
   const {
     actions: {
@@ -27,55 +26,43 @@ function Intro() {
   } = useContext(AppContext);
   const steps = [
     {
-      intro:
-        'Перед вами интерактивный гид по приложению Bible Study App(BSA). Мы хотим, чтобы вам было проще  разобраться с возможностями BSA. Листайте дальше! ', // и надо придумать текст хэлпов.
+      intro: t('introStep0'),
     },
     {
       element: '.intro-appBar',
-      intro:
-        '1.Презентация AppBar. На этой панели представлена кнопка выбора книги и кнопка выбора главы Библии.',
+      intro: t('introStep1'),
     },
     {
-      element: '.intro-bookList', //TODO -добавить
-      intro: '2.Здесь выбирете книгу.',
+      element: '.intro-bookList',
+      intro: t('introStep2'),
     },
     {
-      element: '.intro-chapterList', //TODO -добавить
-      intro: '3.Здесь выбираете нужную главу',
+      element: '.intro-chapterList',
+      intro: t('introStep3'),
     },
     {
       element: '.react-grid-layout',
-      intro: '4.Это окно Workspace. В нём находятся карточки.',
+      intro: t('introStep4'),
     },
     {
       element: '.intro-card',
-      intro:
-        '5.В каждой отдельной карточке показывается конкретный перевод Бибилии,' +
-        'ОБС или дополнтельные инструменты: TN,TQ.' +
-        'Карточки можно перемещать, менять размер, удалять.' +
-        'Невозможно удалить последнюю карточку с Библией или ОБС.',
+      intro: t('introStep5'),
     },
     {
       element: '.verse',
-      intro:
-        '6.С каждым стихом можно работать отдельно. При клике на него текущий референс меняется.  ',
+      intro: t('introStep6'),
     },
     {
-      element: '.intro-contextMenu', //TODO -добавить
-      intro:
-        '7.При нажатии на любой стих правой кнопкой мыши - откроется контекстное меню.' +
-        ' Можно либо скопировать  стих либо отправить сообщение об ошибке в данном стихе.  ',
+      element: '.intro-contextMenu',
+      intro: t('introStep7'),
     },
     {
-      element: '.intro-reportDialog', //TODO -добавить
-      intro: '8.В окне отправки ошибок необходимо обязательно написать комментарий..   ',
+      element: '.intro-reportDialog',
+      intro: t('introStep8'),
     },
     {
-      element: '.intro-hamburger', //TODO Найти возможность добавить класс
-      intro:
-        '9.В меню можно управлять наполнением Workspace: добавить новую карточку , ' +
-        'переключаться между ОБС и Библией, сбросить состояние Workspace к значению по-умолчанию' +
-        ', поменять разщмер шрифта в карточках, поменять язык интерфейса.',
+      element: '.intro-hamburger', //TODO Надо убрать сообщение левее, её кушает экран
+      intro: t('introStep9'),
     },
   ];
   const onBeforeChange = (stepIndex) => {
