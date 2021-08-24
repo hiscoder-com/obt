@@ -21,9 +21,11 @@ function Intro() {
       setLoadIntro,
       setOpenMainMenu,
       setIntroContextMenuOpen,
+      setIntroContextMenuPosition,
     },
-    state: { loadIntro },
+    state: { loadIntro, showChapterSelect, introContextMenuPosition },
   } = useContext(AppContext);
+
   const steps = [
     {
       intro: t('introStep0'),
@@ -65,6 +67,14 @@ function Intro() {
       intro: t('introStep9'),
     },
   ];
+
+  React.useEffect(() => {
+    if (document.querySelector('.current')) {
+      const { top, left } = document.querySelector('.current').getBoundingClientRect();
+      setIntroContextMenuPosition({ top: top, left: left });
+    }
+  }, [showChapterSelect]); //TODO надо придумать другую зависимость
+
   const onBeforeChange = (stepIndex) => {
     switch (String(stepIndex)) {
       case '0':
@@ -94,7 +104,6 @@ function Intro() {
       case '7':
         setShowErrorReport(false);
         setIntroContextMenuOpen(true);
-
         stepsRef.current.updateStepElement(stepIndex);
         break;
       case '8':
@@ -107,18 +116,15 @@ function Intro() {
       case '9':
         setShowErrorReport(false);
         setOpenMainMenu(true);
-        // stepsRef.current.updateStepElement(stepIndex);
+        stepsRef.current.updateStepElement(stepIndex);
         break;
       default:
         break;
     }
   };
   const onExit = () => {
-    //TODO - если поменять местами с setOpenMainMenu(false), тогда в конце остается фон серый, еслои оставить - ошибка вылазит в anchorEL
-    // ещё одна асинхронная задачка
     setLoadIntro(true);
     setOpenMainMenu(false);
-
     setIntroContextMenuOpen(false);
     setShowErrorReport(false);
     setShowChapterSelect(false);

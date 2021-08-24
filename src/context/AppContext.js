@@ -57,7 +57,7 @@ export function AppContextProvider({ children }) {
   const [loadIntro, setLoadIntro] = useState(_loadIntro);
   const [introContextMenuOpen, setIntroContextMenuOpen] = useState(false);
   const [openMainMenu, setOpenMainMenu] = useState(false);
-
+  const [introContextMenuPosition, setIntroContextMenuPosition] = useState(null);
   const { t } = useTranslation();
 
   useEffect(() => {
@@ -88,6 +88,7 @@ export function AppContextProvider({ children }) {
       errorFile,
       fontSize,
       introContextMenuOpen,
+      introContextMenuPosition,
       loadIntro,
       openMainMenu,
       resourceLinks,
@@ -104,6 +105,7 @@ export function AppContextProvider({ children }) {
       setErrorFile,
       setFontSize,
       setIntroContextMenuOpen,
+      setIntroContextMenuPosition,
       setLoadIntro,
       setOpenMainMenu,
       setResourceLinks,

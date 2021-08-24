@@ -23,7 +23,7 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
   const [position, setPosition] = React.useState(initialPosition);
   const { state } = React.useContext(ResourcesContext);
   const {
-    state: { resourcesApp, fontSize, introContextMenuOpen },
+    state: { resourcesApp, fontSize, introContextMenuOpen, introContextMenuPosition },
     actions: { setShowErrorReport },
   } = useContext(AppContext);
 
@@ -36,7 +36,7 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
   const [verses, setVerses] = useState();
   const [project, setProject] = useState({});
   const [resource, setResource] = useState(false);
-  const [introContextMenuPosition, setIntroContextMenuPosition] = useState(false);
+
   const { enqueueSnackbar } = useSnackbar();
 
   const handleContextOpen = (event) => {
@@ -149,15 +149,6 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
     }
     setVerses(_verses);
   }, [chapter, reference, type, setReferenceBlock, goToBookChapterVerse, fontSize]);
-  // useEffect(() => {
-  //   if (verseRef.current[reference.verse]) {
-  //     const { top, left } = verseRef.current[reference.verse].getBoundingClientRect();
-  //     setIntroContextMenuPosition({ top: top, left: left });
-  //   }
-  //   return () => {
-  //     setIntroContextMenuPosition(false);
-  //   };
-  // }, []);
 
   const anchorPosition =
     position.mouseY !== null && position.mouseX !== null
@@ -196,8 +187,11 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
         open={position.mouseY !== null || introContextMenuOpen}
         onClose={handleContextClose}
         anchorReference="anchorPosition"
-        anchorPosition={!introContextMenuOpen ? anchorPosition : { top: 100, left: 100 }} //TODO пока захардкодил, потому что привязка к элементу
-        //множится кратно кол-ву карточек chapter в workspace, чтобы меня это не тормозило - продолжил с другими проблемами
+        anchorPosition={
+          introContextMenuOpen && introContextMenuPosition
+            ? introContextMenuPosition
+            : anchorPosition
+        }
         PopoverClasses={{ paper: 'intro-contextMenu' }}
       >
         <MenuItem onClick={handleOpenError}>{t('Error_report')}</MenuItem>
