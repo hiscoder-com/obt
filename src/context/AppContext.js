@@ -44,7 +44,7 @@ export function AppContextProvider({ children }) {
         'bible'
       )[referenceSelected.bookId === 'obs' ? 'obs' : 'bible']
   );
-  console.log('_loadIntro', _loadIntro);
+
   const [resourcesApp, setResourcesApp] = useState(_resourcesApp);
   const _resourceLinks = getResources(appConfig, resourcesApp);
   const [resourceLinks, setResourceLinks] = useState(_resourceLinks);

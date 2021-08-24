@@ -35,7 +35,7 @@ function SubMenuBar() {
       referenceSelected: { bookId },
     },
   } = useContext(ReferenceContext);
-  const menuRef = useRef([]);
+  const menuRef = useRef(null);
 
   const classes = useStyles();
 
@@ -63,9 +63,7 @@ function SubMenuBar() {
     setLoadIntro((prev) => (prev = false));
     handleCloseMainMenu();
   };
-  console.log('menuRef', menuRef.current);
-  console.log('anchorMainMenu', anchorMainMenu);
-  console.log('loadIntro', loadIntro);
+
   const anchorEl = !loadIntro ? menuRef.current : anchorMainMenu;
 
   return (

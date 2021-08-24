@@ -127,8 +127,11 @@ function Intro() {
     }
   };
   const onExit = () => {
-    setLoadIntro(true); //TODO - если поменять местами с setOpenMainMenu(false), тогда в конце остается фон серый, еслои оставить - ошибка вылазит в anchorEL
+    //TODO - если поменять местами с setOpenMainMenu(false), тогда в конце остается фон серый, еслои оставить - ошибка вылазит в anchorEL
+    // ещё одна асинхронная задачка
+    setLoadIntro(true);
     setOpenMainMenu(false);
+
     setIntroContextMenuOpen(false);
     setShowErrorReport(false);
     setShowChapterSelect(false);
@@ -136,7 +139,7 @@ function Intro() {
   const options = {
     nextLabel: 'Дальше', // здесь нужно переводы задействовать, в зависимости от локали, типа t('nextLabel')
     prevLabel: 'Назад',
-    doneLabel: 'Хватит!',
+    doneLabel: 'Закрыть',
     tooltipClass: 'tooltipClass', // а тут стили для тултипов, это уже в самую последнюю очередь можем подправить
     highlightClass: 'highlightClass',
     tooltipPosition: 'auto',
@@ -151,12 +154,10 @@ function Intro() {
 
   return (
     <Steps
-      //  показыали хэлп или нет. При первом запуске его показать, а дальше показывать только если нажали на кнопку хэлп в меню
-
       enabled={!loadIntro}
       steps={steps}
       ref={stepsRef}
-      initialStep={0}
+      initialStep={6}
       onBeforeChange={onBeforeChange}
       onExit={onExit}
       options={options}

@@ -149,15 +149,15 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
     }
     setVerses(_verses);
   }, [chapter, reference, type, setReferenceBlock, goToBookChapterVerse, fontSize]);
-  useEffect(() => {
-    if (verseRef.current[reference.verse]) {
-      const { top, left } = verseRef.current[reference.verse].getBoundingClientRect();
-      setIntroContextMenuPosition({ top: top, left: left });
-    }
-    return () => {
-      setIntroContextMenuPosition(false);
-    };
-  }, [introContextMenuOpen, reference.verse]);
+  // useEffect(() => {
+  //   if (verseRef.current[reference.verse]) {
+  //     const { top, left } = verseRef.current[reference.verse].getBoundingClientRect();
+  //     setIntroContextMenuPosition({ top: top, left: left });
+  //   }
+  //   return () => {
+  //     setIntroContextMenuPosition(false);
+  //   };
+  // }, []);
 
   const anchorPosition =
     position.mouseY !== null && position.mouseX !== null
@@ -196,10 +196,10 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
         open={position.mouseY !== null || introContextMenuOpen}
         onClose={handleContextClose}
         anchorReference="anchorPosition"
-        anchorPosition={!introContextMenuOpen ? anchorPosition : introContextMenuPosition}
+        anchorPosition={!introContextMenuOpen ? anchorPosition : { top: 100, left: 100 }} //TODO пока захардкодил, потому что привязка к элементу
+        //множится кратно кол-ву карточек chapter в workspace, чтобы меня это не тормозило - продолжил с другими проблемами
         PopoverClasses={{ paper: 'intro-contextMenu' }}
       >
-        {/*TODO сделать нормальное добавление класса */}
         <MenuItem onClick={handleOpenError}>{t('Error_report')}</MenuItem>
         <MenuItem onClick={handleToClipboard}>{t('Copy_to_clipboard')}</MenuItem>
       </Menu>
