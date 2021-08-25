@@ -23,7 +23,7 @@ function Intro() {
       setIntroContextMenuOpen,
       setIntroContextMenuPosition,
     },
-    state: { loadIntro, showChapterSelect, introContextMenuPosition },
+    state: { loadIntro, showChapterSelect },
   } = useContext(AppContext);
 
   const steps = [
@@ -95,22 +95,23 @@ function Intro() {
         break;
       case '4':
         setShowChapterSelect(false);
-        setIntroContextMenuOpen(false);
+
         stepsRef.current.updateStepElement(stepIndex);
         break;
       case '6':
-        setIntroContextMenuOpen(true);
+        setIntroContextMenuOpen(false);
         document.querySelector('.intro-contextMenu').style.opacity = 0;
         stepsRef.current.updateStepElement(stepIndex);
         break;
       case '7':
+        setIntroContextMenuOpen(true);
         setShowErrorReport(false);
         document.querySelector('.intro-contextMenu').style.opacity = 1;
         stepsRef.current.updateStepElement(stepIndex);
         break;
       case '8':
-        setIntroContextMenuOpen(true);
         document.querySelector('.intro-contextMenu').style.opacity = 0;
+        setIntroContextMenuOpen(false);
         setShowErrorReport(true);
         setOpenMainMenu(true);
         document.querySelector('.intro-hamburger').style.opacity = 0;

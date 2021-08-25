@@ -9,26 +9,19 @@ import { AppContext } from '../../context/AppContext';
 import { ReferenceContext } from '../../context/ReferenceContext';
 import { getVerseText } from '../../helper';
 
-import { Menu, MenuItem } from '@material-ui/core';
-
-const initialPosition = {
-  mouseX: null,
-  mouseY: null,
-};
+import { ContextMenu } from '../ContextMenu';
 
 export default function Chapter({ title, classes, onClose, type, reference }) {
   const { t } = useTranslation();
   const verseRef = useRef([]);
 
-  const [position, setPosition] = React.useState(initialPosition);
   const { state } = React.useContext(ResourcesContext);
   const {
-    state: { resourcesApp, fontSize, introContextMenuOpen, introContextMenuPosition },
-    actions: { setShowErrorReport },
+    state: { resourcesApp, fontSize },
+    actions: { setPositionContextMenu },
   } = useContext(AppContext);
 
   const {
-    state: { referenceBlock },
     actions: { goToBookChapterVerse, setReferenceBlock },
   } = useContext(ReferenceContext);
 
@@ -37,23 +30,12 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
   const [project, setProject] = useState({});
   const [resource, setResource] = useState(false);
 
-  const { enqueueSnackbar } = useSnackbar();
-
   const handleContextOpen = (event) => {
     event.preventDefault();
-    setPosition({
+    setPositionContextMenu({
       mouseX: event.clientX - 2,
       mouseY: event.clientY - 4,
     });
-  };
-
-  const handleContextClose = () => {
-    setPosition(initialPosition);
-  };
-
-  const handleOpenError = () => {
-    setShowErrorReport(true);
-    setPosition(initialPosition);
   };
 
   useEffect(() => {
@@ -150,30 +132,6 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
     setVerses(_verses);
   }, [chapter, reference, type, setReferenceBlock, goToBookChapterVerse, fontSize]);
 
-  const anchorPosition =
-    position.mouseY !== null && position.mouseX !== null
-      ? { top: position.mouseY, left: position.mouseX }
-      : undefined;
-
-  const handleToClipboard = () => {
-    navigator.clipboard
-      .writeText(
-        `${referenceBlock.text} (${t(referenceBlock.bookId)} ${referenceBlock.chapter}:${
-          referenceBlock.verse
-        })`
-      )
-      .then(
-        () => {
-          handleContextClose();
-          enqueueSnackbar(t('copied_success'), { variant: 'success' });
-        },
-        (err) => {
-          handleContextClose();
-          enqueueSnackbar(t('copied_error'), { variant: 'error' });
-        }
-      );
-  };
-
   return (
     <Card
       closeable
@@ -182,21 +140,7 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
       type={type}
       classes={{ ...classes, root: classes.root + ' intro-card' }}
     >
-      <Menu
-        keepMounted
-        open={position.mouseY !== null || introContextMenuOpen}
-        onClose={handleContextClose}
-        anchorReference="anchorPosition"
-        anchorPosition={
-          introContextMenuOpen && introContextMenuPosition
-            ? introContextMenuPosition
-            : anchorPosition
-        }
-        PopoverClasses={{ paper: 'intro-contextMenu' }}
-      >
-        <MenuItem onClick={handleOpenError}>{t('Error_report')}</MenuItem>
-        <MenuItem onClick={handleToClipboard}>{t('Copy_to_clipboard')}</MenuItem>
-      </Menu>
+      <ContextMenu />
       {chapter ? verses : t('No_content')}
     </Card>
   );
