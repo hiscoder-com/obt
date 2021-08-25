@@ -12,7 +12,7 @@ const initialPositionContextMenu = {
   mouseX: null,
   mouseY: null,
 };
-function ContextMenu() {
+function ContextMenu({ introClasses }) {
   const {
     state: { introContextMenuOpen, introContextMenuPosition, positionContextMenu },
     actions: { setShowErrorReport, setPositionContextMenu },
@@ -68,7 +68,7 @@ function ContextMenu() {
           ? introContextMenuPosition
           : anchorPosition
       }
-      PopoverClasses={{ paper: 'intro-contextMenu' }}
+      PopoverClasses={introClasses}
     >
       <MenuItem onClick={handleOpenError}>{t('Error_report')}</MenuItem>
       <MenuItem onClick={handleToClipboard}>{t('Copy_to_clipboard')}</MenuItem>

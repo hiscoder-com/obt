@@ -2,6 +2,8 @@ import React, { useContext, useRef } from 'react';
 
 import { Steps } from 'intro.js-react';
 
+import { ContextMenu } from '../ContextMenu';
+
 import 'intro.js/introjs.css';
 import { AppContext } from '../../context/AppContext';
 import { useTranslation } from 'react-i18next';
@@ -153,15 +155,19 @@ function Intro() {
   };
 
   return (
-    <Steps
-      enabled={!loadIntro}
-      steps={steps}
-      ref={stepsRef}
-      initialStep={0}
-      onBeforeChange={onBeforeChange}
-      onExit={onExit}
-      options={options}
-    />
+    <>
+      {' '}
+      <Steps
+        enabled={!loadIntro}
+        steps={steps}
+        ref={stepsRef}
+        initialStep={0}
+        onBeforeChange={onBeforeChange}
+        onExit={onExit}
+        options={options}
+      />
+      <ContextMenu introClasses={{ paper: 'intro-contextMenu' }} />
+    </>
   );
 }
 
