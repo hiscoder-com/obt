@@ -31,10 +31,7 @@ export function AppContextProvider({ children }) {
   } = useContext(ReferenceContext);
 
   const [currentLanguage, setCurrentLanguage] = useState(_currentLanguage);
-  const initialPositionContextMenu = {
-    mouseX: null,
-    mouseY: null,
-  };
+
   const [appConfig, setAppConfig] = useState(
     () =>
       checkLSVal(
@@ -58,12 +55,9 @@ export function AppContextProvider({ children }) {
   const [errorFile, setErrorFile] = useState('');
   const [fontSize, setFontSize] = useState(_fontSize ? _fontSize : 100);
   const [loadIntro, setLoadIntro] = useState(_loadIntro);
-  const [introContextMenuOpen, setIntroContextMenuOpen] = useState(false);
+
   const [openMainMenu, setOpenMainMenu] = useState(false);
-  const [introContextMenuPosition, setIntroContextMenuPosition] = useState(null);
-  const [positionContextMenu, setPositionContextMenu] = React.useState(
-    initialPositionContextMenu
-  );
+
   const { t } = useTranslation();
 
   useEffect(() => {
@@ -93,11 +87,10 @@ export function AppContextProvider({ children }) {
       currentLanguage,
       errorFile,
       fontSize,
-      introContextMenuOpen,
-      introContextMenuPosition,
+
       loadIntro,
       openMainMenu,
-      positionContextMenu,
+
       resourceLinks,
       resourcesApp,
       resources,
@@ -111,11 +104,10 @@ export function AppContextProvider({ children }) {
       setCurrentLanguage,
       setErrorFile,
       setFontSize,
-      setIntroContextMenuOpen,
-      setIntroContextMenuPosition,
+
       setLoadIntro,
       setOpenMainMenu,
-      setPositionContextMenu,
+
       setResourceLinks,
       setResourcesApp,
       setResources,

@@ -1,4 +1,4 @@
-import React, { useContext, useRef } from 'react';
+import React, { useContext, useRef, useState } from 'react';
 
 import { Steps } from 'intro.js-react';
 
@@ -13,8 +13,11 @@ import { useTranslation } from 'react-i18next';
 // Я думаю может при запуске хэлпа переключать на Библию?
 
 function Intro() {
+  const [introContextMenuPosition, setIntroContextMenuPosition] = useState(null);
+  const [introContextMenuOpen, setIntroContextMenuOpen] = useState(false);
   const { t } = useTranslation();
   const stepsRef = useRef();
+
   const {
     actions: {
       setShowBookSelect,
@@ -22,8 +25,6 @@ function Intro() {
       setShowErrorReport,
       setLoadIntro,
       setOpenMainMenu,
-      setIntroContextMenuOpen,
-      setIntroContextMenuPosition,
     },
     state: { loadIntro, showChapterSelect },
   } = useContext(AppContext);
@@ -98,7 +99,9 @@ function Intro() {
         break;
       case '4':
         setShowChapterSelect(false);
-
+        stepsRef.current.updateStepElement(stepIndex);
+        break;
+      case '5':
         stepsRef.current.updateStepElement(stepIndex);
         break;
       case '6':
@@ -113,10 +116,10 @@ function Intro() {
         stepsRef.current.updateStepElement(stepIndex);
         break;
       case '8':
-        document.querySelector('.intro-contextMenu').style.opacity = 0;
         setIntroContextMenuOpen(false);
         setShowErrorReport(true);
         setOpenMainMenu(true);
+        document.querySelector('.intro-contextMenu').style.opacity = 0;
         document.querySelector('.intro-hamburger').style.opacity = 0;
         stepsRef.current.updateStepElement(stepIndex);
         break;
@@ -125,7 +128,6 @@ function Intro() {
         setShowErrorReport(false);
         document.querySelector('.intro-hamburger').style.opacity = 1;
         stepsRef.current.updateStepElement(stepIndex);
-
         break;
       default:
         break;
@@ -142,7 +144,7 @@ function Intro() {
     nextLabel: t('Next'),
     prevLabel: t('Previous'),
     doneLabel: t('Done'),
-    tooltipClass: 'tooltipClass', // а тут стили для тултипов, это уже в самую последнюю очередь можем подправить
+    tooltipClass: 'tooltipClass',
     highlightClass: 'highlightClass',
     tooltipPosition: 'auto',
     hidePrev: true,
@@ -156,7 +158,6 @@ function Intro() {
 
   return (
     <>
-      {' '}
       <Steps
         enabled={!loadIntro}
         steps={steps}
@@ -166,7 +167,11 @@ function Intro() {
         onExit={onExit}
         options={options}
       />
-      <ContextMenu introClasses={{ paper: 'intro-contextMenu' }} />
+      <ContextMenu
+        introClasses={{ paper: 'intro-contextMenu' }}
+        introContextMenuPosition={introContextMenuPosition}
+        openContextMenu={introContextMenuOpen}
+      />
     </>
   );
 }

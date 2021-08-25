@@ -17,18 +17,23 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
   const { state } = React.useContext(ResourcesContext);
   const {
     state: { resourcesApp, fontSize },
-    actions: { setPositionContextMenu },
   } = useContext(AppContext);
 
   const {
     actions: { goToBookChapterVerse, setReferenceBlock },
   } = useContext(ReferenceContext);
 
+  const initialPositionContextMenu = {
+    mouseX: null,
+    mouseY: null,
+  };
   const [chapter, setChapter] = useState();
   const [verses, setVerses] = useState();
   const [project, setProject] = useState({});
   const [resource, setResource] = useState(false);
-
+  const [positionContextMenu, setPositionContextMenu] = React.useState(
+    initialPositionContextMenu
+  );
   const handleContextOpen = (event) => {
     event.preventDefault();
     setPositionContextMenu({
@@ -132,6 +137,11 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
     // eslint-disable-next-line
   }, [chapter, reference, type, setReferenceBlock, goToBookChapterVerse, fontSize]);
 
+  const anchorPosition =
+    positionContextMenu.mouseY !== null && positionContextMenu.mouseX !== null
+      ? { top: positionContextMenu.mouseY, left: positionContextMenu.mouseX }
+      : undefined;
+
   return (
     <Card
       closeable
@@ -140,7 +150,12 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
       type={type}
       classes={{ ...classes, root: classes.root + ' intro-card' }}
     >
-      <ContextMenu />
+      <ContextMenu
+        anchorPosition={anchorPosition}
+        openContextMenu={positionContextMenu.mouseY !== null}
+        setPositionContextMenu={setPositionContextMenu}
+        initialPositionContextMenu={initialPositionContextMenu}
+      />
       {chapter ? verses : t('No_content')}
     </Card>
   );

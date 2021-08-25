@@ -8,14 +8,17 @@ import { ReferenceContext } from '../../context/ReferenceContext';
 
 import { Menu, MenuItem } from '@material-ui/core';
 
-const initialPositionContextMenu = {
-  mouseX: null,
-  mouseY: null,
-};
-function ContextMenu({ introClasses }) {
+function ContextMenu({
+  introClasses,
+  contextMenuRef,
+  introContextMenuPosition,
+  openContextMenu,
+  anchorPosition,
+  setPositionContextMenu,
+  initialPositionContextMenu,
+}) {
   const {
-    state: { introContextMenuOpen, introContextMenuPosition, positionContextMenu },
-    actions: { setShowErrorReport, setPositionContextMenu },
+    actions: { setShowErrorReport },
   } = useContext(AppContext);
 
   const {
@@ -52,22 +55,14 @@ function ContextMenu({ introClasses }) {
       );
   };
 
-  const anchorPosition =
-    positionContextMenu.mouseY !== null && positionContextMenu.mouseX !== null
-      ? { top: positionContextMenu.mouseY, left: positionContextMenu.mouseX }
-      : undefined;
-
   return (
     <Menu
+      ref={contextMenuRef}
       keepMounted
-      open={positionContextMenu.mouseY !== null || introContextMenuOpen}
+      open={openContextMenu}
       onClose={handleContextClose}
       anchorReference="anchorPosition"
-      anchorPosition={
-        introContextMenuOpen && introContextMenuPosition
-          ? introContextMenuPosition
-          : anchorPosition
-      }
+      anchorPosition={!anchorPosition ? introContextMenuPosition : anchorPosition}
       PopoverClasses={introClasses}
     >
       <MenuItem onClick={handleOpenError}>{t('Error_report')}</MenuItem>
