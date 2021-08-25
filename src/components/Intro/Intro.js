@@ -95,28 +95,33 @@ function Intro() {
         break;
       case '4':
         setShowChapterSelect(false);
+        setIntroContextMenuOpen(false);
         stepsRef.current.updateStepElement(stepIndex);
         break;
       case '6':
-        setIntroContextMenuOpen(false);
+        setIntroContextMenuOpen(true);
+        document.querySelector('.intro-contextMenu').style.opacity = 0;
         stepsRef.current.updateStepElement(stepIndex);
         break;
       case '7':
         setShowErrorReport(false);
-        setIntroContextMenuOpen(true);
+        document.querySelector('.intro-contextMenu').style.opacity = 1;
         stepsRef.current.updateStepElement(stepIndex);
         break;
       case '8':
-        setIntroContextMenuOpen(false);
-        setOpenMainMenu(false);
+        setIntroContextMenuOpen(true);
+        document.querySelector('.intro-contextMenu').style.opacity = 0;
         setShowErrorReport(true);
-
+        setOpenMainMenu(true);
+        document.querySelector('.intro-hamburger').style.opacity = 0;
         stepsRef.current.updateStepElement(stepIndex);
         break;
       case '9':
+        setIntroContextMenuOpen(false);
         setShowErrorReport(false);
-        setOpenMainMenu(true);
+        document.querySelector('.intro-hamburger').style.opacity = 1;
         stepsRef.current.updateStepElement(stepIndex);
+
         break;
       default:
         break;
