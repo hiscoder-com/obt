@@ -5,18 +5,21 @@ import { Steps } from 'intro.js-react';
 import { ContextMenu } from '../ContextMenu';
 
 import 'intro.js/introjs.css';
-import { AppContext } from '../../context/AppContext';
+import { AppContext, ReferenceContext } from '../../context';
 import { useTranslation } from 'react-i18next';
-
-// TODO
-// Надо продумать такой момент, человек может справку в ОБС запустить, а там нет выбора книги, нет карточки Чаптер.
-// Я думаю может при запуске хэлпа переключать на Библию?
 
 function Intro() {
   const [introContextMenuPosition, setIntroContextMenuPosition] = useState(null);
   const [introContextMenuOpen, setIntroContextMenuOpen] = useState(false);
   const { t } = useTranslation();
   const stepsRef = useRef();
+
+  const {
+    state: {
+      referenceSelected: { bookId },
+    },
+    actions: { goToBookChapterVerse },
+  } = useContext(ReferenceContext);
 
   const {
     actions: {
@@ -28,6 +31,11 @@ function Intro() {
     },
     state: { loadIntro, showChapterSelect },
   } = useContext(AppContext);
+
+  const openBible = () => {
+    const curRef = JSON.parse(localStorage.getItem('reference'))['bible'];
+    goToBookChapterVerse(curRef.bookId, curRef.chapter, curRef.verse);
+  };
 
   const steps = [
     {
@@ -68,6 +76,7 @@ function Intro() {
     {
       element: '.intro-hamburger', //TODO Надо убрать сообщение левее, её кушает экран
       intro: t('introStep9'),
+      position: 'bottom',
     },
   ];
 
@@ -78,6 +87,10 @@ function Intro() {
     }
     // eslint-disable-next-line
   }, [showChapterSelect]); //TODO надо придумать другую зависимость
+
+  const onStart = () => {
+    bookId === 'obs' && openBible();
+  };
 
   const onBeforeChange = (stepIndex) => {
     switch (String(stepIndex)) {
@@ -166,6 +179,7 @@ function Intro() {
         onBeforeChange={onBeforeChange}
         onExit={onExit}
         options={options}
+        onStart={onStart}
       />
       <ContextMenu
         introClasses={{ paper: 'intro-contextMenu' }}
