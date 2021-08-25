@@ -73,6 +73,7 @@ function Intro() {
       const { top, left } = document.querySelector('.current').getBoundingClientRect();
       setIntroContextMenuPosition({ top: top, left: left });
     }
+    // eslint-disable-next-line
   }, [showChapterSelect]); //TODO надо придумать другую зависимость
 
   const onBeforeChange = (stepIndex) => {

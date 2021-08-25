@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext, useRef } from 'react';
+import React, { useContext } from 'react';
 
 import { useTranslation } from 'react-i18next';
 import { useSnackbar } from 'notistack';
@@ -56,9 +56,6 @@ function ContextMenu() {
     positionContextMenu.mouseY !== null && positionContextMenu.mouseX !== null
       ? { top: positionContextMenu.mouseY, left: positionContextMenu.mouseX }
       : undefined;
-  console.log('initialPositionContextMenu', initialPositionContextMenu);
-  console.log('positionContextMenu', positionContextMenu);
-  console.log('anchorPosition', anchorPosition);
 
   return (
     <Menu

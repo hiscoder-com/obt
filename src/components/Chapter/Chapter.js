@@ -3,7 +3,6 @@ import React, { useState, useEffect, useContext, useRef } from 'react';
 import { Card } from 'translation-helps-rcl';
 import { Verse, ResourcesContext } from 'scripture-resources-rcl';
 import { useTranslation } from 'react-i18next';
-import { useSnackbar } from 'notistack';
 
 import { AppContext } from '../../context/AppContext';
 import { ReferenceContext } from '../../context/ReferenceContext';
@@ -130,6 +129,7 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
       _verses.push(verse);
     }
     setVerses(_verses);
+    // eslint-disable-next-line
   }, [chapter, reference, type, setReferenceBlock, goToBookChapterVerse, fontSize]);
 
   return (
