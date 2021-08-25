@@ -105,7 +105,6 @@ export function AppContextProvider({ children }) {
       showBookSelect,
       showChapterSelect,
       showErrorReport,
-      initialPositionContextMenu,
     },
     actions: {
       setAppConfig,

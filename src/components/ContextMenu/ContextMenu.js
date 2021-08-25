@@ -8,10 +8,14 @@ import { ReferenceContext } from '../../context/ReferenceContext';
 
 import { Menu, MenuItem } from '@material-ui/core';
 
+const initialPositionContextMenu = {
+  mouseX: null,
+  mouseY: null,
+};
 function ContextMenu() {
   const {
     state: { introContextMenuOpen, introContextMenuPosition, positionContextMenu },
-    actions: { setShowErrorReport, setPositionContextMenu, initialPositionContextMenu },
+    actions: { setShowErrorReport, setPositionContextMenu },
   } = useContext(AppContext);
 
   const {
@@ -52,6 +56,9 @@ function ContextMenu() {
     positionContextMenu.mouseY !== null && positionContextMenu.mouseX !== null
       ? { top: positionContextMenu.mouseY, left: positionContextMenu.mouseX }
       : undefined;
+  console.log('initialPositionContextMenu', initialPositionContextMenu);
+  console.log('positionContextMenu', positionContextMenu);
+  console.log('anchorPosition', anchorPosition);
 
   return (
     <Menu
