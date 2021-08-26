@@ -54,9 +54,8 @@ function Intro() {
       intro: t('introChapterList'),
     },
     {
-      intro: t('introShortCuts'), //TODO необходимо сделать переносы предложений в Json для красоты. чтобы текст не сливался
+      intro: t('introShortCuts'),
     },
-
     {
       element: '.react-grid-layout',
       intro: t('introWorkSpace'),
@@ -121,25 +120,25 @@ function Intro() {
         stepsRef.current.updateStepElement(stepIndex);
         break;
       case '6':
+        setIntroContextMenuOpen(false);
         stepsRef.current.updateStepElement(stepIndex);
         break;
       case '7':
-        setIntroContextMenuOpen(false);
+        setIntroContextMenuOpen(true);
         document.querySelector('.intro-contextMenu').style.opacity = 0;
         stepsRef.current.updateStepElement(stepIndex);
         break;
       case '8':
-        setIntroContextMenuOpen(true);
         setShowErrorReport(false);
         document.querySelector('.intro-contextMenu').style.opacity = 1;
         stepsRef.current.updateStepElement(stepIndex);
         break;
       case '9':
-        setIntroContextMenuOpen(false);
         setShowErrorReport(true);
         setOpenMainMenu(true);
-        document.querySelector('.intro-contextMenu').style.opacity = 0;
         document.querySelector('.intro-hamburger').style.opacity = 0;
+        setIntroContextMenuOpen(true);
+        document.querySelector('.intro-contextMenu').style.opacity = 0;
         stepsRef.current.updateStepElement(stepIndex);
         break;
       case '10':
