@@ -39,44 +39,47 @@ function Intro() {
 
   const steps = [
     {
-      intro: t('introStep0'),
+      intro: t('introStart'),
     },
     {
       element: '.intro-appBar',
-      intro: t('introStep1'),
+      intro: t('introAppBar'),
     },
     {
       element: '.intro-bookList',
-      intro: t('introStep2'),
+      intro: t('introBookList'),
     },
     {
       element: '.intro-chapterList',
-      intro: t('introStep3'),
+      intro: t('introChapterList'),
     },
     {
+      intro: t('introShortCuts'), //TODO необходимо сделать переносы предложений в Json для красоты. чтобы текст не сливался
+    },
+
+    {
       element: '.react-grid-layout',
-      intro: t('introStep4'),
+      intro: t('introWorkSpace'),
     },
     {
       element: '.intro-card',
-      intro: t('introStep5'),
+      intro: t('introCard'),
     },
     {
       element: '.verse',
-      intro: t('introStep6'),
+      intro: t('introVerse'),
     },
     {
       element: '.intro-contextMenu',
-      intro: t('introStep7'),
+      intro: t('introContextMenu'),
     },
     {
       element: '.intro-reportDialog',
-      intro: t('introStep8'),
+      intro: t('introReportDialog'),
     },
     {
-      element: '.intro-hamburger', //TODO Надо убрать сообщение левее, её кушает экран
-      intro: t('introStep9'),
-      position: 'bottom',
+      element: '.intro-hamburger',
+      intro: t('introHamburger'),
     },
   ];
 
@@ -118,17 +121,20 @@ function Intro() {
         stepsRef.current.updateStepElement(stepIndex);
         break;
       case '6':
+        stepsRef.current.updateStepElement(stepIndex);
+        break;
+      case '7':
         setIntroContextMenuOpen(false);
         document.querySelector('.intro-contextMenu').style.opacity = 0;
         stepsRef.current.updateStepElement(stepIndex);
         break;
-      case '7':
+      case '8':
         setIntroContextMenuOpen(true);
         setShowErrorReport(false);
         document.querySelector('.intro-contextMenu').style.opacity = 1;
         stepsRef.current.updateStepElement(stepIndex);
         break;
-      case '8':
+      case '9':
         setIntroContextMenuOpen(false);
         setShowErrorReport(true);
         setOpenMainMenu(true);
@@ -136,7 +142,7 @@ function Intro() {
         document.querySelector('.intro-hamburger').style.opacity = 0;
         stepsRef.current.updateStepElement(stepIndex);
         break;
-      case '9':
+      case '10':
         setIntroContextMenuOpen(false);
         setShowErrorReport(false);
         document.querySelector('.intro-hamburger').style.opacity = 1;
@@ -152,6 +158,7 @@ function Intro() {
     setIntroContextMenuOpen(false);
     setShowErrorReport(false);
     setShowChapterSelect(false);
+    setShowBookSelect(false);
   };
   const options = {
     nextLabel: t('Next'),

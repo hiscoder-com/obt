@@ -8,15 +8,16 @@ import { ReferenceContext } from '../../context/ReferenceContext';
 
 import { Menu, MenuItem } from '@material-ui/core';
 
-function ContextMenu({
-  introClasses,
-  contextMenuRef,
-  introContextMenuPosition,
-  openContextMenu,
-  anchorPosition,
-  setPositionContextMenu,
-  initialPositionContextMenu,
-}) {
+function ContextMenu(props) {
+  const {
+    introClasses,
+    introContextMenuPosition,
+    openContextMenu,
+    anchorPosition,
+    setPositionContextMenu,
+    initialPositionContextMenu,
+  } = props;
+
   const {
     actions: { setShowErrorReport },
   } = useContext(AppContext);
@@ -57,7 +58,6 @@ function ContextMenu({
 
   return (
     <Menu
-      ref={contextMenuRef}
       keepMounted
       open={openContextMenu}
       onClose={handleContextClose}
