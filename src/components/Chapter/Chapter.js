@@ -20,7 +20,7 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
   const { t } = useTranslation();
   const [position, setPosition] = React.useState(initialPosition);
 
-  const [verseRef] = useScrollTo();
+  const [verseRef] = useScrollTo('center');
 
   const { state } = React.useContext(ResourcesContext);
   const {
