@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext, useCallback, useRef } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 
 import { Card } from 'translation-helps-rcl';
 import { Verse, ResourcesContext } from 'scripture-resources-rcl';
@@ -19,16 +19,8 @@ const initialPosition = {
 export default function Chapter({ title, classes, onClose, type, reference }) {
   const { t } = useTranslation();
   const [position, setPosition] = React.useState(initialPosition);
-  const [currentVerse, setCurrentVerse] = useState(null);
 
-  const verseRef = useCallback((node) => {
-    if (node !== null) {
-      setCurrentVerse(node);
-    }
-  }, []);
-const cardRef = useRef(null)
-console.log(cardRef.current);
-  useScrollTo(currentVerse);
+  const [verseRef] = useScrollTo();
 
   const { state } = React.useContext(ResourcesContext);
   const {
@@ -178,7 +170,6 @@ console.log(cardRef.current);
 
   return (
     <Card
-    ref={cardRef}
       closeable
       onClose={() => onClose(type)}
       title={title}
