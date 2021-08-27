@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback } from 'react';
 
-export const useScrollTo = (position = 'start') => {
+export const useScrollToVerse = (position = 'start') => {
   const [currentVerse, setCurrentVerse] = useState(null);
 
   const verseRef = useCallback((node) => {
@@ -15,7 +15,6 @@ export const useScrollTo = (position = 'start') => {
         behavior: 'smooth',
         block: position,
       });
-      console.log(currentVerse);
     }
   }, [currentVerse, position]);
 

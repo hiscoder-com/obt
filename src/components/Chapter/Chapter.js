@@ -8,7 +8,7 @@ import { useSnackbar } from 'notistack';
 import { AppContext } from '../../context/AppContext';
 import { ReferenceContext } from '../../context/ReferenceContext';
 import { getVerseText } from '../../helper';
-import { useScrollTo } from '../../hooks/scrollToCurrentVerse';
+import { useScrollToVerse } from '../../hooks';
 import { Menu, MenuItem } from '@material-ui/core';
 
 const initialPosition = {
@@ -20,7 +20,7 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
   const { t } = useTranslation();
   const [position, setPosition] = React.useState(initialPosition);
 
-  const [verseRef] = useScrollTo('center');
+  const [verseRef] = useScrollToVerse('center');
 
   const { state } = React.useContext(ResourcesContext);
   const {

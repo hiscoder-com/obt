@@ -29,7 +29,6 @@ export default function App() {
     lg: appConfig,
   };
 
-
   const [, height] = useWindowSize();
   const [rowHeight, setRowHeight] = useState(30);
 

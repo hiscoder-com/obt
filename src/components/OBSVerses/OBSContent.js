@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { useScrollTo } from '../../hooks/scrollToCurrentVerse';
+import { useScrollToVerse } from '../../hooks';
 
 function OBSContent({ markdown, verse, fontSize, onChangeVerse }) {
   const { t } = useTranslation();
   const [verses, setVerses] = useState();
 
-  const [verseRef] = useScrollTo();
+  const [verseRef] = useScrollToVerse();
 
   const mdToVerses = (md) => {
     let _markdown = md.split(/\n[\s]*/);
