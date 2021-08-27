@@ -2,15 +2,11 @@ import React, { useState, useEffect, useContext, useRef } from 'react';
 
 import { Card } from 'translation-helps-rcl';
 import { Verse } from 'scripture-resources-rcl';
-import { useTranslation } from 'react-i18next';
-import { useSnackbar } from 'notistack';
 
-import { AppContext } from '../../context/AppContext';
-import { ReferenceContext } from '../../context/ReferenceContext';
-import { getVerseText } from '../../helper';
-
-import { Menu, MenuItem } from '@material-ui/core';
 import USFMContent from './USFMContent';
+import VerseMenu from './VerseMenu';
+import { AppContext, ReferenceContext } from '../../context';
+import { getVerseText } from '../../helper';
 
 const initialPosition = {
   mouseX: null,
@@ -18,23 +14,19 @@ const initialPosition = {
 };
 
 export default function Chapter({ title, classes, onClose, type, reference }) {
-  const { t } = useTranslation();
   const verseRef = useRef([]);
   const [position, setPosition] = React.useState(initialPosition);
   const {
     state: { resourcesApp, fontSize },
-    actions: { setShowErrorReport },
   } = useContext(AppContext);
 
   const {
-    state: { referenceBlock },
     actions: { goToBookChapterVerse, setReferenceBlock },
   } = useContext(ReferenceContext);
 
   const [chapter, setChapter] = useState();
   const [verses, setVerses] = useState();
   const [resource, setResource] = useState(false);
-  const { enqueueSnackbar } = useSnackbar();
 
   const handleContextOpen = (event) => {
     event.preventDefault();
@@ -42,15 +34,6 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
       mouseX: event.clientX - 2,
       mouseY: event.clientY - 4,
     });
-  };
-
-  const handleContextClose = () => {
-    setPosition(initialPosition);
-  };
-
-  const handleOpenError = () => {
-    setShowErrorReport(true);
-    setPosition(initialPosition);
   };
 
   useEffect(() => {
@@ -89,6 +72,7 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
           className={'verse' + (key === reference.verse ? ' current' : '')}
           key={key}
           onContextMenu={(e) => {
+            e.preventDefault();
             setReferenceBlock({
               ...reference,
               resource: type,
@@ -119,29 +103,6 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
     setVerses(_verses);
   }, [chapter, reference, type, setReferenceBlock, goToBookChapterVerse, fontSize]);
 
-  const anchorPosition =
-    position.mouseY !== null && position.mouseX !== null
-      ? { top: position.mouseY, left: position.mouseX }
-      : undefined;
-  const handleToClipboard = () => {
-    navigator.clipboard
-      .writeText(
-        `${referenceBlock.text} (${t(referenceBlock.bookId)} ${referenceBlock.chapter}:${
-          referenceBlock.verse
-        })`
-      )
-      .then(
-        () => {
-          handleContextClose();
-          enqueueSnackbar(t('copied_success'), { variant: 'success' });
-        },
-        (err) => {
-          handleContextClose();
-          enqueueSnackbar(t('copied_error'), { variant: 'error' });
-        }
-      );
-  };
-
   return (
     <Card
       closeable
@@ -150,16 +111,11 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
       type={type}
       classes={classes}
     >
-      <Menu
-        keepMounted
-        open={position.mouseY !== null}
-        onClose={handleContextClose}
-        anchorReference="anchorPosition"
-        anchorPosition={anchorPosition}
-      >
-        <MenuItem onClick={handleOpenError}>{t('Error_report')}</MenuItem>
-        <MenuItem onClick={handleToClipboard}>{t('Copy_to_clipboard')}</MenuItem>
-      </Menu>
+      <VerseMenu
+        position={position}
+        setPosition={setPosition}
+        initialPosition={initialPosition}
+      />
       <USFMContent
         chapter={chapter}
         setChapter={setChapter}
