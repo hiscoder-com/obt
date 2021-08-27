@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext, useRef } from 'react';
 
 import { Card } from 'translation-helps-rcl';
-import { Verse, ResourcesContext } from 'scripture-resources-rcl';
+import { Verse } from 'scripture-resources-rcl';
 import { useTranslation } from 'react-i18next';
 import { useSnackbar } from 'notistack';
 
@@ -10,6 +10,7 @@ import { ReferenceContext } from '../../context/ReferenceContext';
 import { getVerseText } from '../../helper';
 
 import { Menu, MenuItem } from '@material-ui/core';
+import USFMContent from './USFMContent';
 
 const initialPosition = {
   mouseX: null,
@@ -20,7 +21,6 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
   const { t } = useTranslation();
   const verseRef = useRef([]);
   const [position, setPosition] = React.useState(initialPosition);
-  const { state } = React.useContext(ResourcesContext);
   const {
     state: { resourcesApp, fontSize },
     actions: { setShowErrorReport },
@@ -33,7 +33,6 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
 
   const [chapter, setChapter] = useState();
   const [verses, setVerses] = useState();
-  const [project, setProject] = useState({});
   const [resource, setResource] = useState(false);
   const { enqueueSnackbar } = useSnackbar();
 
@@ -62,41 +61,13 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
     });
   }, [resourcesApp, type]);
 
-  const resources = state?.resources;
   useEffect(() => {
-    if (resources) {
-      resources.forEach((el) => {
-        if (
-          el.repository === resource.name &&
-          el.username.toString().toLowerCase() === resource.owner.toString().toLowerCase()
-        ) {
-          setProject(el.project);
-        }
-      });
-    }
-  }, [resources, resource]);
-
-  useEffect(() => {
-    if (project && Object.keys(project).length !== 0) {
-      project
-        .parseUsfm()
-        .then((result) => {
-          if (result.json && Object.keys(result.json.chapters).length > 0) {
-            setChapter(result.json.chapters[reference.chapter]);
-          }
-        })
-        .catch((error) => console.log(error));
-    } else {
-      setChapter(null);
-    }
-  }, [project, reference.chapter]);
-
-  useEffect(() => {
-    if (Chapter && verseRef.current[reference.verse]) {
+    if (chapter && verseRef.current[reference.verse]) {
       verseRef.current[reference.verse].scrollIntoView({
         block: 'center',
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [reference.verse]);
 
   useEffect(() => {
@@ -189,7 +160,13 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
         <MenuItem onClick={handleOpenError}>{t('Error_report')}</MenuItem>
         <MenuItem onClick={handleToClipboard}>{t('Copy_to_clipboard')}</MenuItem>
       </Menu>
-      {chapter ? verses : t('No_content')}
+      <USFMContent
+        chapter={chapter}
+        setChapter={setChapter}
+        resource={resource}
+        verses={verses}
+        reference={reference}
+      />
     </Card>
   );
 }
