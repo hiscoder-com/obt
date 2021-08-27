@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext, useCallback } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 
 import { Card } from 'translation-helps-rcl';
 import { Verse, ResourcesContext } from 'scripture-resources-rcl';
@@ -8,7 +8,7 @@ import { useSnackbar } from 'notistack';
 import { AppContext } from '../../context/AppContext';
 import { ReferenceContext } from '../../context/ReferenceContext';
 import { getVerseText } from '../../helper';
-
+import { useScrollTo } from '../../hooks/scrollToCurrentVerse';
 import { Menu, MenuItem } from '@material-ui/core';
 
 const initialPosition = {
@@ -19,22 +19,8 @@ const initialPosition = {
 export default function Chapter({ title, classes, onClose, type, reference }) {
   const { t } = useTranslation();
   const [position, setPosition] = React.useState(initialPosition);
-  const [currentVerse, setCurrentVerse] = useState(null);
 
-  const verseRef = useCallback((node) => {
-    if (node !== null) {
-      setCurrentVerse(node);
-    }
-  }, []);
-
-  useEffect(() => {
-    if (currentVerse !== null) {
-      currentVerse.scrollIntoView({
-        behavior: 'smooth',
-        block: 'center',
-      });
-    }
-  }, [currentVerse]);
+  const [verseRef] = useScrollTo('center');
 
   const { state } = React.useContext(ResourcesContext);
   const {
