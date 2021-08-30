@@ -20,7 +20,7 @@ import {
   IconButton,
   Typography,
 } from '@material-ui/core';
-import { AddIcon, MenuIcon } from '@material-ui/icons/Menu';
+import { AddIcon, MenuIcon } from '@material-ui/icons';
 import { useStyles, useModalStyles } from './style';
 
 function SubMenuBar() {
