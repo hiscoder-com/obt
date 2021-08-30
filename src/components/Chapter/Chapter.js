@@ -10,6 +10,11 @@ import { getVerseText } from '../../helper';
 
 import { ContextMenu } from '../ContextMenu';
 
+const initialPositionContextMenu = {
+  left: null,
+  top: null,
+};
+
 export default function Chapter({ title, classes, onClose, type, reference }) {
   const { t } = useTranslation();
   const verseRef = useRef([]);
@@ -23,10 +28,6 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
     actions: { goToBookChapterVerse, setReferenceBlock },
   } = useContext(ReferenceContext);
 
-  const initialPositionContextMenu = {
-    mouseX: null,
-    mouseY: null,
-  };
   const [chapter, setChapter] = useState();
   const [verses, setVerses] = useState();
   const [project, setProject] = useState({});
@@ -37,8 +38,8 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
   const handleContextOpen = (event) => {
     event.preventDefault();
     setPositionContextMenu({
-      mouseX: event.clientX - 2,
-      mouseY: event.clientY - 4,
+      left: event.clientX - 2,
+      top: event.clientY - 4,
     });
   };
 
@@ -137,11 +138,6 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
     // eslint-disable-next-line
   }, [chapter, reference, type, setReferenceBlock, goToBookChapterVerse, fontSize]);
 
-  const anchorPosition =
-    positionContextMenu.mouseY !== null && positionContextMenu.mouseX !== null
-      ? { top: positionContextMenu.mouseY, left: positionContextMenu.mouseX }
-      : undefined;
-
   return (
     <Card
       closeable
@@ -150,12 +146,7 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
       type={type}
       classes={{ ...classes, root: classes.root + ' intro-card' }}
     >
-      <ContextMenu
-        anchorPosition={anchorPosition}
-        openContextMenu={positionContextMenu.mouseY !== null}
-        setPositionContextMenu={setPositionContextMenu}
-        initialPositionContextMenu={initialPositionContextMenu}
-      />
+      <ContextMenu position={positionContextMenu} setPosition={setPositionContextMenu} />
       {chapter ? verses : t('No_content')}
     </Card>
   );

@@ -8,9 +8,16 @@ import { AppContext, ReferenceContext } from '../../context';
 
 import 'intro.js/introjs.css';
 
+const initialPosition = {
+  left: null,
+  top: null,
+};
+
 function Intro() {
-  const [introContextMenuPosition, setIntroContextMenuPosition] = useState(null);
-  const [introContextMenuOpen, setIntroContextMenuOpen] = useState(false);
+  const [introContextMenuPosition, setIntroContextMenuPosition] =
+    useState(initialPosition);
+  const [currentVersePosition, setCurrentVersePosition] = useState(initialPosition);
+  const [, setIntroContextMenuOpen] = useState(false);
   const { t } = useTranslation();
   const stepsRef = useRef();
 
@@ -81,11 +88,10 @@ function Intro() {
       intro: t('introHamburger'),
     },
   ];
-
   React.useEffect(() => {
     if (document.querySelector('.current')) {
       const { top, left } = document.querySelector('.current').getBoundingClientRect();
-      setIntroContextMenuPosition({ top: top, left: left });
+      setCurrentVersePosition({ top, left });
     }
     // eslint-disable-next-line
   }, [showChapterSelect]); //TODO надо придумать другую зависимость
@@ -120,11 +126,11 @@ function Intro() {
         stepsRef.current.updateStepElement(stepIndex);
         break;
       case '6':
-        setIntroContextMenuOpen(false);
+        setIntroContextMenuPosition(initialPosition);
         stepsRef.current.updateStepElement(stepIndex);
         break;
       case '7':
-        setIntroContextMenuOpen(true);
+        setIntroContextMenuPosition(currentVersePosition);
         document.querySelector('.intro-contextMenu').style.opacity = 0;
         stepsRef.current.updateStepElement(stepIndex);
         break;
@@ -137,12 +143,12 @@ function Intro() {
         setShowErrorReport(true);
         setOpenMainMenu(true);
         document.querySelector('.intro-hamburger').style.opacity = 0;
-        setIntroContextMenuOpen(true);
+        setIntroContextMenuPosition(currentVersePosition);
         document.querySelector('.intro-contextMenu').style.opacity = 0;
         stepsRef.current.updateStepElement(stepIndex);
         break;
       case '10':
-        setIntroContextMenuOpen(false);
+        setIntroContextMenuPosition(initialPosition);
         setShowErrorReport(false);
         document.querySelector('.intro-hamburger').style.opacity = 1;
         stepsRef.current.updateStepElement(stepIndex);
@@ -188,9 +194,8 @@ function Intro() {
         onStart={onStart}
       />
       <ContextMenu
-        introClasses={{ paper: 'intro-contextMenu' }}
-        introContextMenuPosition={introContextMenuPosition}
-        openContextMenu={introContextMenuOpen}
+        PopoverClasses={{ paper: 'intro-contextMenu' }}
+        position={introContextMenuPosition}
       />
     </>
   );

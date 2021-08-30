@@ -144,25 +144,33 @@ export const langArrToObject = (langs) => {
  *
  * @param {string} el Name
  * @param {*} val default value
- * @param {bool} isString is string or object
+ * @param {string} type is string or object or bool
  * @param {string} ext if value is object, check element
  * @returns
  */
-export const checkLSVal = (el, val, isString = true, ext = false) => {
+export const checkLSVal = (el, val, type = 'string', ext = false) => {
   let value;
-  if (isString) {
-    value = localStorage.getItem(el);
-  } else {
-    try {
-      value = JSON.parse(localStorage.getItem(el));
-    } catch (error) {
-      localStorage.setItem(el, isString ? val : JSON.stringify(val));
-      return val;
-    }
+  switch (type) {
+    case 'object':
+      try {
+        value = JSON.parse(localStorage.getItem(el));
+      } catch (error) {
+        localStorage.setItem(el, JSON.stringify(val));
+        return val;
+      }
+      break;
+    case 'boolean':
+      value = localStorage.getItem(el) === 'true';
+      break;
+
+    case 'string':
+    default:
+      value = localStorage.getItem(el);
+      break;
   }
 
   if (value === null || (ext && !value[ext])) {
-    localStorage.setItem(el, isString ? val : JSON.stringify(val));
+    localStorage.setItem(el, type === 'string' ? val : JSON.stringify(val));
     return val;
   } else {
     return value;
