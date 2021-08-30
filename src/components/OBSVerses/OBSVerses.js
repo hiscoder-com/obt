@@ -4,8 +4,7 @@ import { Card, useContent, useCardState } from 'translation-helps-rcl';
 
 import { useTranslation } from 'react-i18next';
 
-import { AppContext } from '../../context/AppContext';
-import { ReferenceContext } from '../../context/ReferenceContext';
+import { AppContext, ReferenceContext } from '../../context';
 import { server } from '../../config/base';
 
 export default function OBSVerses(props) {

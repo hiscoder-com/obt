@@ -6,10 +6,16 @@ import { setupCache } from 'axios-cache-adapter';
 
 import { AppContext, ReferenceContext } from '../../context';
 
-import { langs, subjects, owners, blackListResources } from '../../config/materials';
+import {
+  langs,
+  subjects,
+  owners,
+  blackListResources,
+  bibleSubjects,
+  obsSubjects,
+} from '../../config/materials';
 import { defaultCard, server } from '../../config/base';
 import { getXY } from '../../core/matrix';
-import { bibleSubjects, obsSubjects } from '../../config/materials';
 import { getUniqueResources } from '../../helper';
 
 import { MenuItem, Menu } from '@material-ui/core';

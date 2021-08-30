@@ -4,11 +4,10 @@ import { Card } from 'translation-helps-rcl';
 import { Verse, ResourcesContext } from 'scripture-resources-rcl';
 import { useTranslation } from 'react-i18next';
 
-import { AppContext } from '../../context/AppContext';
-import { ReferenceContext } from '../../context/ReferenceContext';
+import { AppContext, ReferenceContext } from '../../context';
 import { getVerseText } from '../../helper';
 
-import { ContextMenu } from '../ContextMenu';
+import { ContextMenu } from '../../components';
 
 const initialPositionContextMenu = {
   left: null,

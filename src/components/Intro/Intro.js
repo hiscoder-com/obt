@@ -2,7 +2,7 @@ import React, { useContext, useRef, useState } from 'react';
 
 import { Steps } from 'intro.js-react';
 import { useTranslation } from 'react-i18next';
-import { ContextMenu } from '../ContextMenu';
+import { ContextMenu } from '../../components';
 
 import { AppContext, ReferenceContext } from '../../context';
 

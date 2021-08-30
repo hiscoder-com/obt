@@ -3,9 +3,8 @@ import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Book as BookRCL } from '@texttree/tt-reference-rcl';
 
-import { AppContext } from '../../context/AppContext';
-import { ReferenceContext } from '../../context/ReferenceContext';
-import BookList from '../BookList/BookList';
+import { AppContext, ReferenceContext } from '../../context';
+import { BookList } from '../../components';
 
 import { Dialog, DialogContent } from '@material-ui/core';
 import useBookStyles from './style';

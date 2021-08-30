@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 
 import { useTranslation } from 'react-i18next';
 
-import { ReferenceContext } from '../../context/ReferenceContext';
+import { ReferenceContext } from '../../context';
 
 import {
   Box,
