@@ -1,12 +1,12 @@
 import React, { useContext, useRef, useState } from 'react';
 
 import { Steps } from 'intro.js-react';
-
+import { useTranslation } from 'react-i18next';
 import { ContextMenu } from '../ContextMenu';
 
-import 'intro.js/introjs.css';
 import { AppContext, ReferenceContext } from '../../context';
-import { useTranslation } from 'react-i18next';
+
+import 'intro.js/introjs.css';
 
 function Intro() {
   const [introContextMenuPosition, setIntroContextMenuPosition] = useState(null);
@@ -152,7 +152,7 @@ function Intro() {
     }
   };
   const onExit = () => {
-    setLoadIntro(true);
+    setLoadIntro(false);
     setOpenMainMenu(false);
     setIntroContextMenuOpen(false);
     setShowErrorReport(false);
@@ -178,7 +178,7 @@ function Intro() {
   return (
     <>
       <Steps
-        enabled={!loadIntro}
+        enabled={loadIntro}
         steps={steps}
         ref={stepsRef}
         initialStep={0}

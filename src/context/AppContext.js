@@ -18,7 +18,7 @@ export const AppContext = React.createContext();
 const _currentLanguage = checkLSVal('i18nextLng', languages[0]);
 const _resourcesApp = checkLSVal('resourcesApp', [], false);
 
-const _loadIntro = checkLSVal('loadIntro', false);
+const _loadIntro = checkLSVal('loadIntro', true);
 
 const _fontSize = parseInt(localStorage.getItem('fontSize'));
 
@@ -78,8 +78,8 @@ export function AppContextProvider({ children }) {
   }, [resourcesApp]);
 
   useEffect(() => {
-    localStorage.setItem('loadIntro', true);
-  }, []);
+    localStorage.setItem('loadIntro', loadIntro);
+  }, [loadIntro]);
 
   const value = {
     state: {
@@ -87,10 +87,8 @@ export function AppContextProvider({ children }) {
       currentLanguage,
       errorFile,
       fontSize,
-
       loadIntro,
       openMainMenu,
-
       resourceLinks,
       resourcesApp,
       resources,
@@ -104,10 +102,8 @@ export function AppContextProvider({ children }) {
       setCurrentLanguage,
       setErrorFile,
       setFontSize,
-
       setLoadIntro,
       setOpenMainMenu,
-
       setResourceLinks,
       setResourcesApp,
       setResources,

@@ -140,7 +140,14 @@ export const langArrToObject = (langs) => {
   });
   return result;
 };
-
+/**
+ *
+ * @param {string} el Name
+ * @param {*} val default value
+ * @param {bool} isString is string or object
+ * @param {string} ext if value is object, check element
+ * @returns
+ */
 export const checkLSVal = (el, val, isString = true, ext = false) => {
   let value;
   if (isString) {

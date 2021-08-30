@@ -60,7 +60,7 @@ function SubMenuBar() {
     setAnchorAddMaterial(null);
   };
   const handleOpenUsersGuide = () => {
-    setLoadIntro((prev) => (prev = false));
+    setLoadIntro(true);
     handleCloseMainMenu();
   };
 
