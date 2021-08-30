@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext, useRef } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 
 import { Card } from 'translation-helps-rcl';
 import { Verse, ResourcesContext } from 'scripture-resources-rcl';
@@ -8,7 +8,7 @@ import { useSnackbar } from 'notistack';
 import { AppContext } from '../../context/AppContext';
 import { ReferenceContext } from '../../context/ReferenceContext';
 import { getVerseText } from '../../helper';
-
+import { useScrollToVerse } from '../../hooks';
 import { Menu, MenuItem } from '@material-ui/core';
 
 const initialPosition = {
@@ -18,8 +18,10 @@ const initialPosition = {
 
 export default function Chapter({ title, classes, onClose, type, reference }) {
   const { t } = useTranslation();
-  const verseRef = useRef([]);
   const [position, setPosition] = React.useState(initialPosition);
+
+  const [verseRef] = useScrollToVerse('center');
+
   const { state } = React.useContext(ResourcesContext);
   const {
     state: { resourcesApp, fontSize },
@@ -92,14 +94,6 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
   }, [project, reference.chapter]);
 
   useEffect(() => {
-    if (Chapter && verseRef.current[reference.verse]) {
-      verseRef.current[reference.verse].scrollIntoView({
-        block: 'center',
-      });
-    }
-  }, [reference.verse]);
-
-  useEffect(() => {
     let _verses = [];
     for (let key in chapter) {
       if (parseInt(key).toString() !== key.toString()) {
@@ -113,7 +107,9 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
       };
       const verse = (
         <div
-          ref={(ref) => (verseRef.current[key] = ref)}
+          ref={(ref) => {
+            key === reference.verse && verseRef(ref);
+          }}
           style={verseStyle}
           className={'verse' + (key === reference.verse ? ' current' : '')}
           key={key}
@@ -146,7 +142,8 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
       _verses.push(verse);
     }
     setVerses(_verses);
-  }, [chapter, reference, type, setReferenceBlock, goToBookChapterVerse, fontSize]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [chapter, reference, type, fontSize]);
 
   const anchorPosition =
     position.mouseY !== null && position.mouseX !== null

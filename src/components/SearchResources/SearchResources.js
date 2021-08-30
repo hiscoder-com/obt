@@ -66,7 +66,7 @@ function SearchResources({ anchorEl, onClose, open }) {
               name: el.name,
               subject: el.subject,
               title: el.title,
-              branch: el.default_branch,
+              ref: el.default_branch,
               owner: el.owner.toString().toLowerCase(),
               link: el.full_name + '/' + el.default_branch,
             };
