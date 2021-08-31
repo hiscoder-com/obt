@@ -193,13 +193,16 @@ const easeInOut = (timeFraction) => {
 };*/
 
 export const animateScrollTo = (currentVerse, position) => {
+  if (!currentVerse.clientHeight && !currentVerse.parentNode?.clientHeight) {
+    return false;
+  }
   const duration = 1000;
   const draw = (tf) => {
     let offset = 0;
     const top = currentVerse.offsetTop - 12;
     switch (position) {
       case 'center':
-        offset = currentVerse.clientHeight? currentVerse.clientHeight / 2 - currentVerse.parentNode.clientHeight / 2: 0;
+        offset = currentVerse.clientHeight / 2 - currentVerse.parentNode.clientHeight / 2;
         break;
       case 'top':
       default:
@@ -222,9 +225,10 @@ export const scrollTo = (currentVerse, position) => {
     default:
       break;
   }
-  currentVerse.parentNode.scrollTo({
+  currentVerse.parentNode.scrollTo(0, top + offset);
+  /* currentVerse.parentNode.scrollTo({
     top: top + offset,
     left: 0,
     behavior: 'smooth',
-  });
+  }); */
 };

@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback } from 'react';
 
-import { animateScrollTo } from '../helper';
+import { scrollTo } from '../helper';
 
 /**
  *
@@ -18,7 +18,7 @@ export const useScrollToVerse = (position = 'top') => {
 
   useEffect(() => {
     if (currentVerse !== null) {
-      animateScrollTo(currentVerse, position);
+      scrollTo(currentVerse, position);
     }
   }, [currentVerse, position]);
 
