@@ -14,7 +14,7 @@ const _reference = checkLSVal(
     bible: defaultBibleReference[_currentLanguage],
     obs: defaultOBSReference[_currentLanguage],
   },
-  false,
+  'object',
   'bible'
 )['bible'];
 

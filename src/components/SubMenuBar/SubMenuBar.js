@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useRef } from 'react';
 
 import { FontSizeSlider } from 'translation-helps-rcl';
 import { useTranslation } from 'react-i18next';
@@ -26,8 +26,8 @@ import { useStyles, useModalStyles } from './style';
 
 function SubMenuBar() {
   const {
-    state: { fontSize },
-    actions: { setFontSize },
+    state: { fontSize, loadIntro, openMainMenu },
+    actions: { setFontSize, setLoadIntro },
   } = useContext(AppContext);
 
   const {
@@ -35,13 +35,13 @@ function SubMenuBar() {
       referenceSelected: { bookId },
     },
   } = useContext(ReferenceContext);
+  const menuRef = useRef(null);
 
   const classes = useStyles();
 
   const modalClasses = useModalStyles();
-
-  const [anchorAddMaterial, setAnchorAddMaterial] = useState(null);
   const [anchorMainMenu, setAnchorMainMenu] = useState(null);
+  const [anchorAddMaterial, setAnchorAddMaterial] = useState(null);
 
   const { t } = useTranslation();
 
@@ -59,10 +59,16 @@ function SubMenuBar() {
   const handleCloseAddMaterial = () => {
     setAnchorAddMaterial(null);
   };
+  const handleOpenUsersGuide = () => {
+    setLoadIntro(true);
+    handleCloseMainMenu();
+  };
+
+  const anchorEl = loadIntro && anchorMainMenu ? anchorMainMenu : menuRef.current;
 
   return (
     <>
-      <AppBar position="relative">
+      <AppBar className={'intro-appBar'} position="relative">
         <Toolbar className={classes.grow}>
           <Typography variant="h6" color="inherit">
             Bible App
@@ -73,6 +79,7 @@ function SubMenuBar() {
           </div>
 
           <IconButton
+            ref={menuRef}
             edge="start"
             color="inherit"
             aria-label="menu"
@@ -80,6 +87,7 @@ function SubMenuBar() {
           >
             <MenuIcon />
           </IconButton>
+
           <Menu
             elevation={0}
             getContentAnchorEl={null}
@@ -91,11 +99,12 @@ function SubMenuBar() {
               vertical: 'top',
               horizontal: 'center',
             }}
-            anchorEl={anchorMainMenu}
+            anchorEl={anchorEl}
             keepMounted
-            open={Boolean(anchorMainMenu)}
+            open={Boolean(anchorMainMenu) || openMainMenu}
             onClose={handleCloseMainMenu}
             classes={modalClasses}
+            PopoverClasses={{ paper: 'intro-hamburger' }}
           >
             <MenuItem onClick={handleClickAddMaterial}>
               <AddIcon size={'small'} /> {t('Add_resources')}
@@ -114,9 +123,10 @@ function SubMenuBar() {
               <p className={classes.menu}>{t('Text_under_checkbox_error')}</p>
             </MenuItem>
             <WorkspaceManager onClose={handleCloseMainMenu} />
-            <MenuItem button={false}>
+            <MenuItem button={false} divider={true}>
               <SelectLanguage />
             </MenuItem>
+            <MenuItem onClick={handleOpenUsersGuide}>{t('UsersGuide')}</MenuItem>
           </Menu>
           <SearchResources
             anchorEl={anchorAddMaterial}

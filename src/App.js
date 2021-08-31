@@ -5,7 +5,7 @@ import { SnackbarProvider } from 'notistack';
 
 import { AppContext } from './context/AppContext';
 import { ReferenceContext } from './context/ReferenceContext';
-import { SubMenuBar, Card, TypoReport, Shortcut } from './components';
+import { SubMenuBar, Card, TypoReport, Shortcut, Intro } from './components';
 import { useWindowSize } from './hooks';
 
 import './styles/app.css';
@@ -98,11 +98,13 @@ export default function App() {
     } else {
       if (resources.length > 0) {
         resources.forEach((resource) => {
-          resource.projects.forEach((project) => {
-            if (!newBookList.includes(project.identifier)) {
-              newBookList.push(project.identifier);
-            }
-          });
+          if (resource.projects) {
+            resource.projects.forEach((project) => {
+              if (!newBookList.includes(project.identifier)) {
+                newBookList.push(project.identifier);
+              }
+            });
+          }
         });
       }
     }
@@ -117,6 +119,7 @@ export default function App() {
 
   return (
     <SnackbarProvider maxSnack={3}>
+      <Intro />
       <SubMenuBar />
       <TypoReport />
       <Workspace
