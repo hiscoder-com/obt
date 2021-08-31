@@ -161,3 +161,70 @@ export const checkLSVal = (el, val, isString = true, ext = false) => {
     return value;
   }
 };
+
+export const animate = ({ timing, draw, duration = 1000 }) => {
+  let start = performance.now();
+
+  requestAnimationFrame(function animate(time) {
+    // timeFraction goes from 0 to 1
+    let timeFraction = (time - start) / duration;
+    if (timeFraction > 1) timeFraction = 1;
+
+    // calculate the current animation state
+    let progress = timing(timeFraction);
+
+    draw(progress); // draw it
+
+    if (timeFraction < 1) {
+      requestAnimationFrame(animate);
+    }
+  });
+};
+const easeInOut = (timeFraction) => {
+  if (timeFraction < 0.5) {
+    return timeFraction * timeFraction * 2;
+  } else {
+    return 1 - (1 - timeFraction) * (1 - timeFraction) * 2;
+  }
+};
+
+/*const linear = (timeFraction) => {
+  return timeFraction;
+};*/
+
+export const animateScrollTo = (currentVerse, position) => {
+  const duration = 1000;
+  const draw = (tf) => {
+    let offset = 0;
+    const top = currentVerse.offsetTop - 12;
+    switch (position) {
+      case 'center':
+        offset = currentVerse.clientHeight / 2 - currentVerse.parentNode.clientHeight / 2;
+        break;
+      case 'top':
+      default:
+        break;
+    }
+    currentVerse.parentNode.scrollTop =
+      currentVerse.parentNode.scrollTop * (1 - tf) + (top + offset) * tf;
+  };
+  animate({ timing: easeInOut, draw, duration });
+};
+
+export const scrollTo = (currentVerse, position) => {
+  let offset = 0;
+  const top = currentVerse.offsetTop - 12;
+  switch (position) {
+    case 'center':
+      offset = currentVerse.clientHeight / 2 - currentVerse.parentNode.clientHeight / 2;
+      break;
+    case 'top':
+    default:
+      break;
+  }
+  currentVerse.parentNode.scrollTo({
+    top: top + offset,
+    left: 0,
+    behavior: 'smooth',
+  });
+};
