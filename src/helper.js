@@ -199,7 +199,7 @@ export const animateScrollTo = (currentVerse, position) => {
     const top = currentVerse.offsetTop - 12;
     switch (position) {
       case 'center':
-        offset = currentVerse.clientHeight / 2 - currentVerse.parentNode.clientHeight / 2;
+        offset = currentVerse.clientHeight? currentVerse.clientHeight / 2 - currentVerse.parentNode.clientHeight / 2: 0;
         break;
       case 'top':
       default:
