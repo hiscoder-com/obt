@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext, useRef } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 
 import { Card } from 'translation-helps-rcl';
 import { Verse, ResourcesContext } from 'scripture-resources-rcl';
@@ -6,8 +6,8 @@ import { useTranslation } from 'react-i18next';
 
 import { AppContext, ReferenceContext } from '../../context';
 import { getVerseText } from '../../helper';
-
 import { ContextMenu } from '../../components';
+import { useScrollToVerse } from '../../hooks';
 
 const initialPositionContextMenu = {
   left: null,
@@ -16,7 +16,8 @@ const initialPositionContextMenu = {
 
 export default function Chapter({ title, classes, onClose, type, reference }) {
   const { t } = useTranslation();
-  const verseRef = useRef([]);
+  const [position, setPosition] = React.useState(initialPosition);
+  const [verseRef] = useScrollToVerse('center');
 
   const { state } = React.useContext(ResourcesContext);
   const {
@@ -80,14 +81,6 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
   }, [project, reference.chapter]);
 
   useEffect(() => {
-    if (Chapter && verseRef.current[reference.verse]) {
-      verseRef.current[reference.verse].scrollIntoView({
-        block: 'center',
-      });
-    }
-  }, [reference.verse]);
-
-  useEffect(() => {
     let _verses = [];
     for (let key in chapter) {
       if (parseInt(key).toString() !== key.toString()) {
@@ -101,7 +94,9 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
       };
       const verse = (
         <div
-          ref={(ref) => (verseRef.current[key] = ref)}
+          ref={(ref) => {
+            key === reference.verse && verseRef(ref);
+          }}
           style={verseStyle}
           className={'verse' + (key === reference.verse ? ' current' : '')}
           key={key}
@@ -134,8 +129,7 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
       _verses.push(verse);
     }
     setVerses(_verses);
-    // eslint-disable-next-line
-  }, [chapter, reference, type, setReferenceBlock, goToBookChapterVerse, fontSize]);
+  }, [chapter, reference, type, fontSize]);
 
   return (
     <Card

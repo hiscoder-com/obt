@@ -31,10 +31,10 @@ export default function SupportTN(props) {
     isLoading,
     props: { languageId },
   } = useContent({
-    verse: verse,
-    chapter: chapter,
+    verse: String(verse),
+    chapter: String(chapter),
     projectId: bookId,
-    branch: resource.branch ?? 'master',
+    ref: resource.branch ?? 'master',
     languageId: resource.languageId ?? 'ru',
     resourceId: 'tn',
     owner: resource.owner ?? 'door43-catalog',

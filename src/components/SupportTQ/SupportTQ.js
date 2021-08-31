@@ -31,7 +31,7 @@ export default function SupportTQ(props) {
     props: { languageId },
   } = useContent({
     projectId: bookId,
-    branch: resource.branch ?? 'master',
+    ref: resource.branch ?? 'master',
     languageId: resource.languageId ?? 'ru',
     resourceId: 'tq',
     filePath:
