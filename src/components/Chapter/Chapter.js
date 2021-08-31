@@ -9,14 +9,13 @@ import { getVerseText } from '../../helper';
 import { ContextMenu } from '../../components';
 import { useScrollToVerse } from '../../hooks';
 
-const initialPositionContextMenu = {
+const initialPosition = {
   left: null,
   top: null,
 };
 
 export default function Chapter({ title, classes, onClose, type, reference }) {
   const { t } = useTranslation();
-  const [position, setPosition] = React.useState(initialPosition);
   const [verseRef] = useScrollToVerse('center');
 
   const { state } = React.useContext(ResourcesContext);
@@ -32,9 +31,7 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
   const [verses, setVerses] = useState();
   const [project, setProject] = useState({});
   const [resource, setResource] = useState(false);
-  const [positionContextMenu, setPositionContextMenu] = React.useState(
-    initialPositionContextMenu
-  );
+  const [positionContextMenu, setPositionContextMenu] = React.useState(initialPosition);
   const handleContextOpen = (event) => {
     event.preventDefault();
     setPositionContextMenu({
@@ -129,6 +126,7 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
       _verses.push(verse);
     }
     setVerses(_verses);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [chapter, reference, type, fontSize]);
 
   return (
