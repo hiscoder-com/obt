@@ -4,8 +4,7 @@ import { Card, useContent } from 'translation-helps-rcl';
 
 import OBSContent from './OBSContent';
 
-import { AppContext } from '../../context/AppContext';
-import { ReferenceContext } from '../../context/ReferenceContext';
+import { AppContext, ReferenceContext } from '../../context';
 import { server } from '../../config/base';
 
 export default function OBSVerses({ title, classes, onClose, type }) {

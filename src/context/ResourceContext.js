@@ -29,8 +29,6 @@ export function ResourceContextProvider({ children }) {
     setResourceLinks(getResources(appConfig, resourcesApp));
   }, [appConfig, resourcesApp]);
 
-  console.log(getFilteredBookList());
-
   const availableBookList = useMemo(() => [], []);
 
   if (state.resources.length > 0) {
