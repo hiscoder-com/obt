@@ -36,7 +36,7 @@ export default function App() {
   const [rowHeight, setRowHeight] = useState(30);
 
   useEffect(() => {
-    setRowHeight((height - 64) / 10 - 17);
+    setRowHeight((height - 64) / 12 - 17);
   }, [height]);
 
   Shortcut();
