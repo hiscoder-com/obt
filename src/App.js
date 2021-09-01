@@ -8,10 +8,13 @@ import { ReferenceContext } from './context/ReferenceContext';
 import { SubMenuBar, Card, TypoReport, Shortcut } from './components';
 import { useWindowSize } from './hooks';
 
+import smoothscroll from 'smoothscroll-polyfill';
+
 import './styles/app.css';
 import useStyles from './style';
 
 export default function App() {
+  smoothscroll.polyfill();
   const {
     state: { appConfig, resourcesApp, resources },
     actions: { setAppConfig },
