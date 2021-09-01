@@ -1,12 +1,11 @@
 
 # Changelog
 
-v1.х(31.08.2021)
+v1.х(01.089.2021)
 
 **Implemented enhancements:**
 
-- First option
+- Add context menu into OBSVerse
 
 **Fixed bugs:**
 
-- First option
