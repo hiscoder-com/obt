@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { Verse } from 'scripture-resources-rcl';
 import { getVerseText } from '../../helper';
 import { ReferenceContext } from '../../context';
@@ -10,11 +10,16 @@ function USFMContent({ reference, setPosition, content, type }) {
   const [verses, setVerses] = useState();
   const [chapter, setChapter] = useState();
   const [verseRef] = useScrollToVerse('center');
-
+  /**
+   * попробовать сохранить состояние, чтобы по сто раз не загружать контент с гита
+   * так же использовать статус, идет загрузка, или получили ошибку
+   * Если вдруг тут не получится использовать, то может быть попробовать глобально использовать хук useRsrc из scripture-resources-rcl
+   */
   const {
     actions: { setReferenceBlock, goToBookChapterVerse },
-  } = React.useContext(ReferenceContext);
-  const resource = content?.resource;
+  } = useContext(ReferenceContext);
+  const { resource, resourceStatus } =
+    content; /** contentNotFoundError, error, initialized, manifestNotFoundError */
   useEffect(() => {
     if (resource?.project && Object.keys(resource.project).length !== 0) {
       resource.project
