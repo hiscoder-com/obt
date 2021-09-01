@@ -160,7 +160,11 @@ export const checkLSVal = (el, val, type = 'string', ext = false) => {
       }
       break;
     case 'boolean':
-      value = localStorage.getItem(el) === 'true';
+      if (localStorage.getItem(el) === null) {
+        value = null;
+      } else {
+        value = localStorage.getItem(el) === 'true';
+      }
       break;
 
     case 'string':
