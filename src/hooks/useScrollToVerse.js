@@ -1,13 +1,11 @@
 import { useEffect, useState, useCallback } from 'react';
 
-import { scrollTo } from '../helper';
-
 /**
  *
  * @param {string} position 'top', 'center'
  * @returns
  */
-export const useScrollToVerse = (position = 'top') => {
+export const useScrollToVerse = (position = 'start') => {
   const [currentVerse, setCurrentVerse] = useState(null);
 
   const verseRef = useCallback((node) => {
@@ -18,7 +16,7 @@ export const useScrollToVerse = (position = 'top') => {
 
   useEffect(() => {
     if (currentVerse !== null) {
-      scrollTo(currentVerse, position);
+      currentVerse.scrollIntoView({ behavior: 'smooth', block: position });
     }
   }, [currentVerse, position]);
 
