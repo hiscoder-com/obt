@@ -12,7 +12,6 @@ export const useScrollToVerse = (position = 'start') => {
   useEffect(() => {
     if (currentVerse !== null) {
       currentVerse.scrollIntoView({
-        behavior: 'smooth',
         block: position,
       });
     }
