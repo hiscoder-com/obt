@@ -32,6 +32,7 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
   const [project, setProject] = useState({});
   const [resource, setResource] = useState(false);
   const [positionContextMenu, setPositionContextMenu] = React.useState(initialPosition);
+
   const handleContextOpen = (event) => {
     event.preventDefault();
     setPositionContextMenu({

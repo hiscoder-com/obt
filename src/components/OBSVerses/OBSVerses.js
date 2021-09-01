@@ -51,6 +51,7 @@ export default function OBSVerses({ title, classes, onClose, type }) {
           fontSize={fontSize}
           verse={verse}
           onChangeVerse={onChangeVerse}
+          type={type}
         />
       </Card>
     </>
