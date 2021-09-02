@@ -1,9 +1,31 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useTranslation } from 'react-i18next';
-
+import { ContextMenu } from '../ContextMenu';
+import { ReferenceContext } from '../../context';
 import { useScrollToVerse } from '../../hooks';
 
-function OBSContent({ markdown, verse, fontSize, onChangeVerse }) {
+const initialPositionContextMenu = {
+  left: null,
+  top: null,
+};
+
+function OBSContent({ markdown, verse, fontSize, type, onChangeVerse }) {
+  const [positionContextMenu, setPositionContextMenu] = useState(
+    initialPositionContextMenu
+  );
+  const {
+    state: { referenceSelected },
+    actions: { setReferenceBlock },
+  } = useContext(ReferenceContext);
+
+  const handleContextOpen = (event) => {
+    event.preventDefault();
+    setPositionContextMenu({
+      left: event.clientX - 2,
+      top: event.clientY - 4,
+    });
+  };
+
   const { t } = useTranslation();
   const [verses, setVerses] = useState();
 
@@ -61,7 +83,19 @@ function OBSContent({ markdown, verse, fontSize, onChangeVerse }) {
               ''
             )}
             {text.split('\n').map((el, index) => (
-              <p style={verseStyle} key={index}>
+              <p
+                style={verseStyle}
+                key={index}
+                onContextMenu={(e) => {
+                  setReferenceBlock({
+                    ...referenceSelected,
+                    resource: type,
+                    verse: key,
+                    text: el,
+                  });
+                  handleContextOpen(e);
+                }}
+              >
                 {el}
               </p>
             ))}
@@ -80,9 +114,15 @@ function OBSContent({ markdown, verse, fontSize, onChangeVerse }) {
     } else {
       setVerses(<>{t('No_content')}</>);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [markdown, verse, verseRef, t, fontSize, onChangeVerse]);
 
-  return <div>{verses}</div>;
+  return (
+    <div>
+      {verses}
+      <ContextMenu position={positionContextMenu} setPosition={setPositionContextMenu} />
+    </div>
+  );
 }
 
 export default OBSContent;
