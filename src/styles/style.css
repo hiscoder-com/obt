@@ -39,9 +39,9 @@ input {
   background-color: #0008;
   box-shadow: inherit;
   font-size: 1.1em;
-  min-width:400px;
+  min-width: 320px;
   line-height: 1.5;
-  max-width:500px;
+  max-width: 500px;
 }
 
 .tooltipClass .introjs-skipbutton{

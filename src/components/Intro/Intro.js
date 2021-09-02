@@ -171,7 +171,7 @@ function Intro() {
     doneLabel: t('Done'),
     tooltipClass: 'tooltipClass',
     highlightClass: 'highlightClass',
-    tooltipPosition: 'auto',
+    helperElementPadding: 0,
     nextToDone: true,
     hidePrev: true,
     overlayOpacity: 0.6,
