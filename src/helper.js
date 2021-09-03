@@ -182,4 +182,3 @@ export const saveToClipboard = (
     }
   );
 };
-//сделал универсальную функцию для Chapter и ShowReference

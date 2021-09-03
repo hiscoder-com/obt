@@ -526,12 +526,17 @@ export const bibles_abbrv = {
   tit: { ru: 'Тит' },
   phm: { ru: 'Флм' },
   heb: { ru: 'Евр' },
-  jas: { ru: 'Суд' },
+  jas: { ru: 'Иак' },
   '1pe': { ru: '1Петр' },
   '2pe': { ru: '2Петр' },
   '1jn': { ru: '1Ин' },
   '2jn': { ru: '2Ин' },
   '3jn': { ru: '3Ин' },
-  jud: { ru: 'Откр' },
+  jud: { ru: 'Иуд' },
   rev: { ru: 'Откр' },
 };
+console.log(bibles_abbrv['jud'].ru);
+export const getAbbr = (bookId, lang) => {
+  return lang ? bibles_abbrv[bookId][lang] : bookId;
+};
+console.log(getAbbr('jud', 'ru'));
