@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 
 import { useTranslation } from 'react-i18next';
-
+import { useSwitchModeBible } from '../../hooks/useSwitchModeBible';
 import { AppContext, ReferenceContext } from '../../context';
 
 import {
@@ -19,26 +19,29 @@ function WorkspaceManager({ onClose }) {
   } = useContext(AppContext);
 
   const {
-    state: {
-      referenceSelected: { bookId },
-    },
+    // state: {
+    //   referenceSelected: { bookId },
+    // },
     actions: { goToBookChapterVerse },
   } = useContext(ReferenceContext);
+
+  const {
+    state: { workspaceType },
+    actions: { openBible, openOBS },
+  } = useSwitchModeBible(goToBookChapterVerse, 'reference');
 
   const { t } = useTranslation();
 
   const handleOpenBible = () => {
-    const curRef = JSON.parse(localStorage.getItem('reference'))['bible'];
-    goToBookChapterVerse(curRef.bookId, curRef.chapter, curRef.verse);
+    openBible();
     onClose();
   };
 
   const handleOpenOBS = () => {
-    const curRef = JSON.parse(localStorage.getItem('reference'))['obs'];
-    goToBookChapterVerse(curRef.bookId, curRef.chapter, curRef.verse);
+    openOBS();
     onClose();
   };
-  const workspaceType = bookId === 'obs' ? 'obs' : 'bible';
+  // const workspaceType = bookId === 'obs' ? 'obs' : 'bible';
   const handleReset = () => {
     const oldAppConfig = JSON.parse(localStorage.getItem('appConfig'));
     switch (workspaceType) {

@@ -14,7 +14,6 @@ function ShowReference() {
   const {
     state: { currentLanguage },
   } = useContext(AppContext);
-  console.log(currentLanguage);
 
   const abbr = getAbbr(bookId, currentLanguage === 'ru' ? currentLanguage : null);
 

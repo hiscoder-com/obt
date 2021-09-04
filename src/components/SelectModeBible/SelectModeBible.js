@@ -1,16 +1,16 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext } from 'react';
 
 import { useTranslation } from 'react-i18next';
 import { ReferenceContext } from '../../context/ReferenceContext';
-
+import { useSwitchModeBible } from '../../hooks/useSwitchModeBible';
 import { FormControl, NativeSelect } from '@material-ui/core';
 import { useStyles } from './style';
 
 function SelectModeBible() {
+  const options = ['OBS', 'Bible'];
   const { t } = useTranslation();
 
   const classes = useStyles();
-  const [workspaceType, setWorkspaceType] = useState();
 
   const {
     state: {
@@ -19,37 +19,15 @@ function SelectModeBible() {
     actions: { goToBookChapterVerse },
   } = useContext(ReferenceContext);
 
-  const handleOpenBible = () => {
-    const curRef = JSON.parse(localStorage.getItem('reference'))['bible'];
-    goToBookChapterVerse(curRef.bookId, curRef.chapter, curRef.verse);
-  };
-
-  const handleOpenOBS = () => {
-    const curRef = JSON.parse(localStorage.getItem('reference'))['obs'];
-    goToBookChapterVerse(curRef.bookId, curRef.chapter, curRef.verse);
-  };
-
-  useEffect(() => {
-    let cleanup = false;
-    switch (workspaceType) {
-      case 'OBS':
-        if (!cleanup) handleOpenOBS();
-        break;
-      case 'Bible':
-        if (!cleanup) handleOpenBible();
-        break;
-      default:
-        break;
-    }
-    return () => {
-      cleanup = true;
-    };
-  }, [workspaceType]);
+  const {
+    state: { workspaceType },
+    actions: { setWorkspaceType },
+  } = useSwitchModeBible(goToBookChapterVerse, 'reference');
 
   const handleChange = (e) => {
-    setWorkspaceType(e.target.value);
+    setWorkspaceType(e.target.value.toLowerCase());
   };
-
+  console.log('workspaceType', workspaceType);
   return (
     <>
       <div>
@@ -65,8 +43,11 @@ function SelectModeBible() {
             onChange={handleChange}
             defaultValue={bookId !== 'obs' ? t('Bible') : t('OBS')}
           >
-            <option>{t('OBS')}</option>
-            <option>{t('Bible')}</option>
+            {options.map((el) => (
+              <option key={el} value={el}>
+                {t(el)}
+              </option>
+            ))}
           </NativeSelect>
         </FormControl>
       </div>
