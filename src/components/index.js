@@ -5,6 +5,7 @@ export * from './Chapter';
 export * from './ChapterList';
 export * from './ChapterSelect';
 export * from './OBSVerses';
+export * from './SelectModeBible';
 export * from './SearchResources';
 export * from './SelectLanguage';
 export * from './ShowReference';

@@ -535,8 +535,7 @@ export const bibles_abbrv = {
   jud: { ru: 'Иуд' },
   rev: { ru: 'Откр' },
 };
-console.log(bibles_abbrv['jud'].ru);
+
 export const getAbbr = (bookId, lang) => {
-  return lang ? bibles_abbrv[bookId][lang] : bookId;
+  return lang && bookId !== 'obs' ? bibles_abbrv[bookId][lang] : bookId;
 };
-console.log(getAbbr('jud', 'ru'));
