@@ -14,22 +14,22 @@ export const useSwitchModeBible = (goToBookChapterVerse, reference, bookId) => {
     goToBookChapterVerse(curRef.bookId, curRef.chapter, curRef.verse);
   };
 
-  useEffect(() => {
-    let cleanup = false;
-    switch (workspaceType) {
-      case 'obs':
-        if (!cleanup) openOBS();
-        break;
-      case 'bible':
-        if (!cleanup) openBible();
-        break;
-      default:
-        break;
-    }
-    return () => {
-      cleanup = true;
-    };
-  }, [workspaceType]);
+  // useEffect(() => {
+  //   let cleanup = false;
+  //   switch (workspaceType) {
+  //     case 'obs':
+  //       if (!cleanup) openOBS();
+  //       break;
+  //     case 'bible':
+  //       if (!cleanup) openBible();
+  //       break;
+  //     default:
+  //       break;
+  //   }
+  //   return () => {
+  //     cleanup = true;
+  //   };
+  // }, [workspaceType]);
 
   return {
     state: {

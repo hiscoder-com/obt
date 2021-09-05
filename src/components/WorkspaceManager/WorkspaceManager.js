@@ -19,17 +19,18 @@ function WorkspaceManager({ onClose }) {
   } = useContext(AppContext);
 
   const {
-    // state: {
-    //   referenceSelected: { bookId },
-    // },
+    state: {
+      referenceSelected: { bookId },
+    },
     actions: { goToBookChapterVerse },
   } = useContext(ReferenceContext);
 
   const {
     state: { workspaceType },
     actions: { openBible, openOBS },
-  } = useSwitchModeBible(goToBookChapterVerse, 'reference');
-
+  } = useSwitchModeBible(goToBookChapterVerse, 'reference', bookId);
+  console.log('bookId', bookId);
+  console.log('workspaceType', workspaceType);
   const { t } = useTranslation();
 
   const handleOpenBible = () => {

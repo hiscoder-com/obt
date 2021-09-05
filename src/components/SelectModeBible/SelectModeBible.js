@@ -23,11 +23,18 @@ function SelectModeBible() {
     state: { workspaceType },
     actions: { setWorkspaceType },
   } = useSwitchModeBible(goToBookChapterVerse, 'reference');
+  const value = () => {
+    options.map((el) => {
+      if (el.toLowerCase() === workspaceType) {
+        return el;
+      }
+    });
+  };
 
   const handleChange = (e) => {
     setWorkspaceType(e.target.value.toLowerCase());
   };
-  console.log('workspaceType', workspaceType);
+
   return (
     <>
       <div>
@@ -42,6 +49,7 @@ function SelectModeBible() {
             }}
             onChange={handleChange}
             defaultValue={bookId !== 'obs' ? t('Bible') : t('OBS')}
+            value={value}
           >
             {options.map((el) => (
               <option key={el} value={el}>
