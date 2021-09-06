@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 
 import { useTranslation } from 'react-i18next';
 import { ReferenceContext } from '../../context/ReferenceContext';
-import { useSwitchModeBible } from '../../hooks/useSwitchModeBible';
+import { switchModeBible } from '../../helper';
 import { FormControl, NativeSelect } from '@material-ui/core';
 import { useStyles } from './style';
 
@@ -13,26 +13,14 @@ function SelectModeBible() {
   const classes = useStyles();
 
   const {
-    state: {
-      referenceSelected: { bookId },
-    },
+    state: { referenceSelected: bookId },
     actions: { goToBookChapterVerse },
   } = useContext(ReferenceContext);
-
-  const {
-    state: { workspaceType },
-    actions: { setWorkspaceType },
-  } = useSwitchModeBible(goToBookChapterVerse, 'reference');
-  const value = () => {
-    options.map((el) => {
-      if (el.toLowerCase() === workspaceType) {
-        return el;
-      }
-    });
-  };
+  // const workspaceType = bookId === 'obs' ? 'obs' : 'bible';
 
   const handleChange = (e) => {
-    setWorkspaceType(e.target.value.toLowerCase());
+    const type = e.target.value.toLowerCase();
+    switchModeBible(type, 'reference', goToBookChapterVerse);
   };
 
   return (
@@ -49,7 +37,6 @@ function SelectModeBible() {
             }}
             onChange={handleChange}
             defaultValue={bookId !== 'obs' ? t('Bible') : t('OBS')}
-            value={value}
           >
             {options.map((el) => (
               <option key={el} value={el}>

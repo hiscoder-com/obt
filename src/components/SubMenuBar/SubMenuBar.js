@@ -67,7 +67,7 @@ function SubMenuBar() {
       <AppBar position="relative">
         <Toolbar className={classes.grow}>
           <Typography variant="h6" color="inherit">
-            {/* <ShowReference /> <SelectModeBible /> */}
+            <ShowReference /> <SelectModeBible />
           </Typography>
           <div className={classes.centerButtons}>
             {bookId !== 'obs' ? <BookSelect /> : ''}

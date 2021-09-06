@@ -182,3 +182,8 @@ export const saveToClipboard = (
     }
   );
 };
+
+export const switchModeBible = (type, reference, goToBookChapterVerse) => {
+  const curRef = JSON.parse(localStorage.getItem(reference))[type];
+  goToBookChapterVerse(curRef.bookId, curRef.chapter, curRef.verse);
+};
