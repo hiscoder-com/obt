@@ -7,19 +7,34 @@ import { FormControl, NativeSelect } from '@material-ui/core';
 import { useStyles } from './style';
 
 function SelectModeBible() {
-  const options = ['OBS', 'Bible'];
+  const options = [
+    { key: 'obs', label: 'OBS' },
+    { key: 'bible', label: 'Bible' },
+  ];
   const { t } = useTranslation();
 
   const classes = useStyles();
 
   const {
-    state: { referenceSelected: bookId },
+    state: {
+      referenceSelected: { bookId },
+    },
     actions: { goToBookChapterVerse },
   } = useContext(ReferenceContext);
-  // const workspaceType = bookId === 'obs' ? 'obs' : 'bible';
+
+  const initialSelectedValue = bookId === 'obs' ? 'obs' : 'bible';
+  const [selectedValue, setSelectedValue] = React.useState(initialSelectedValue);
+  React.useEffect(() => {
+    if (bookId !== 'obs') {
+      setSelectedValue('Bible');
+    } else {
+      setSelectedValue('OBS');
+    }
+  }, [bookId]);
 
   const handleChange = (e) => {
     const type = e.target.value.toLowerCase();
+    console.log(type);
     switchModeBible(type, 'reference', goToBookChapterVerse);
   };
 
@@ -36,11 +51,12 @@ function SelectModeBible() {
               select: classes.select,
             }}
             onChange={handleChange}
-            defaultValue={bookId !== 'obs' ? t('Bible') : t('OBS')}
+            value={selectedValue}
+            // defaultValue={bookId !== 'obs' ? t('Bible') : t('OBS')}
           >
             {options.map((el) => (
-              <option key={el} value={el}>
-                {t(el)}
+              <option key={el.key} value={el.label} className={classes.option}>
+                {t(el.label)}
               </option>
             ))}
           </NativeSelect>
