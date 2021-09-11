@@ -9,6 +9,7 @@ function USFMContent({ reference, setPosition, content, type }) {
   const { t } = useTranslation();
   const [verses, setVerses] = useState();
   const [chapter, setChapter] = useState();
+  const [old, setOld] = useState(null);
   const [verseRef] = useScrollToVerse('center');
   /**
    * попробовать сохранить состояние, чтобы по сто раз не загружать контент с гита
@@ -18,24 +19,38 @@ function USFMContent({ reference, setPosition, content, type }) {
   const {
     actions: { setReferenceBlock, goToBookChapterVerse },
   } = useContext(ReferenceContext);
-  const { resource, resourceStatus } =
-    content; /** contentNotFoundError, error, initialized, manifestNotFoundError */
+  /** resourceStatus: contentNotFoundError, error, initialized, manifestNotFoundError */
+  const resource = content.resource;
+  console.info('PARSE CONTENT ' + type);
+  const resourceLink = resource?.resourceLink;
   useEffect(() => {
+    console.info('old', old, 'new', [resource, reference.chapter]);
+    setOld([resource, reference.chapter]);
+    console.info('USE EFFECT ' + type);
+    let isMounted = true;
     if (resource?.project && Object.keys(resource.project).length !== 0) {
+      console.info('PARSE USFM ' + type);
       resource.project
         .parseUsfm()
         .then((result) => {
-          console.log({ result: result });
-          if (Object.keys(result.json.chapters).length > 0) {
-            setChapter(result.json.chapters[reference.chapter]);
+          console.info('THEN ' + type);
+          //console.log({ result: result });
+          if (isMounted) {
+            if (Object.keys(result.json.chapters).length > 0) {
+              setChapter(result.json.chapters[reference.chapter]);
+            }
           }
         })
         .catch((error) => console.log(error));
     } else {
       setChapter(null);
     }
+    return () => {
+      // clean up
+      isMounted = false;
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [resource, reference.chapter]);
+  }, [resourceLink, reference.chapter]);
 
   useEffect(() => {
     const handleContextMenu = (e, key, verseObjects) => {

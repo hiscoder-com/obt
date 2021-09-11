@@ -78,6 +78,7 @@ function Card({ type, onClose, classes }) {
     <CurrentCard
       classes={classes}
       title={resource.title}
+      resource={resource}
       onClose={onClose}
       type={type}
       reference={referenceSelected}

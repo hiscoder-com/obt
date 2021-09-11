@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 
 import { Card, useContent } from 'translation-helps-rcl';
 
@@ -13,10 +13,10 @@ const initialPosition = {
   mouseY: null,
 };
 
-export default function Chapter({ title, classes, onClose, type, reference }) {
+export default function Chapter({ title, classes, onClose, resource, type, reference }) {
   const [position, setPosition] = useState(initialPosition);
   const {
-    state: { resourcesApp, fontSize },
+    state: { fontSize },
   } = useContext(AppContext);
 
   const {
@@ -25,23 +25,13 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
     },
   } = useContext(ReferenceContext);
 
-  const [resource, setResource] = useState(false);
-
-  useEffect(() => {
-    resourcesApp.forEach((el) => {
-      if (el.name === type) {
-        setResource(el);
-      }
-    });
-  }, [resourcesApp, type]);
-
   const content = useContent({
     chapter: chapter,
     projectId: bookId,
-    branch: resource.branch ?? 'master',
-    languageId: resource.languageId ?? 'ru',
-    resourceId: type.split('_')[1] ?? 'rob',
-    owner: resource.owner ?? 'door43-catalog',
+    branch: resource.branch,
+    languageId: resource.languageId,
+    resourceId: type.split('_')[1],
+    owner: resource.owner,
     server,
   });
 
