@@ -1,4 +1,4 @@
-import { useBibleReference } from '@texttree/bible-reference-rcl';
+import { useBibleReference } from 'bible-reference-rcl';
 import { useHistory, useLocation } from 'react-router-dom';
 import React, { useState, createContext, useEffect } from 'react';
 
@@ -106,13 +106,13 @@ export function ReferenceContextProvider({ children }) {
     },
     actions: {
       goToBookChapterVerse,
+      goToNextBook,
+      goToPrevBook,
       goToNextChapter,
       goToPrevChapter,
-      onChangeBook,
-      goToNextBook,
       goToNextVerse,
       goToPrevVerse,
-      goToPrevBook,
+      onChangeBook,
       onChangeChapter,
       onChangeVerse,
       applyBooksFilter,
