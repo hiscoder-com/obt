@@ -9,7 +9,7 @@ import { AppContext } from '../../context/AppContext';
 import { ReferenceContext } from '../../context/ReferenceContext';
 import { getVerseText } from '../../helper';
 
-import { Menu, MenuItem } from '@material-ui/core';
+import { Menu, MenuItem, CircularProgress } from '@material-ui/core';
 
 const initialPosition = {
   mouseX: null,
@@ -31,6 +31,7 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
     actions: { goToBookChapterVerse, setReferenceBlock },
   } = useContext(ReferenceContext);
 
+  const [isLoading, setIsLoading] = useState(false);
   const [chapter, setChapter] = useState();
   const [verses, setVerses] = useState();
   const [project, setProject] = useState({});
@@ -78,16 +79,22 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
 
   useEffect(() => {
     if (project && Object.keys(project).length !== 0) {
+      setIsLoading(true);
       project
         .parseUsfm()
         .then((result) => {
           if (result.json && Object.keys(result.json.chapters).length > 0) {
             setChapter(result.json.chapters[reference.chapter]);
+            setIsLoading(false);
           }
         })
-        .catch((error) => console.log(error));
+        .catch((error) => {
+          console.log(error);
+          setIsLoading(false);
+        });
     } else {
       setChapter(null);
+      setIsLoading(false);
     }
   }, [project, reference.chapter]);
 
@@ -189,7 +196,14 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
         <MenuItem onClick={handleOpenError}>{t('Error_report')}</MenuItem>
         <MenuItem onClick={handleToClipboard}>{t('Copy_to_clipboard')}</MenuItem>
       </Menu>
-      {chapter ? verses : t('No_content')}
+
+      {isLoading ? (
+        <CircularProgress color="inherit" />
+      ) : chapter === null ? (
+        t('No_content')
+      ) : (
+        verses
+      )}
     </Card>
   );
 }
