@@ -7,10 +7,7 @@ export const useStyles = makeStyles((theme) => ({
   formControl: {
     width: '100%',
   },
-  root: {
-    color: 'black',
-    fontSize: 20,
-  },
+  root: {},
   icon: {
     color: 'white',
   },

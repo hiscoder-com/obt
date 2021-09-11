@@ -14,14 +14,7 @@ import {
   SelectModeBible,
 } from '../../components';
 
-import {
-  AppBar,
-  Toolbar,
-  MenuItem,
-  Menu,
-  IconButton,
-  Typography,
-} from '@material-ui/core';
+import { AppBar, Toolbar, MenuItem, Menu, IconButton } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import MenuIcon from '@material-ui/icons/Menu';
 import { useStyles, useModalStyles } from './style';
@@ -66,14 +59,14 @@ function SubMenuBar() {
     <>
       <AppBar position="relative">
         <Toolbar className={classes.grow}>
-          <Typography variant="h6" color="inherit">
-            <ShowReference /> <SelectModeBible />
-          </Typography>
+          <div className={classes.reference}>
+            <SelectModeBible />
+            <ShowReference />
+          </div>
           <div className={classes.centerButtons}>
             {bookId !== 'obs' ? <BookSelect /> : ''}
             <ChapterSelect />
           </div>
-
           <IconButton
             edge="start"
             color="inherit"
