@@ -7,11 +7,13 @@ import { useTranslation } from 'react-i18next';
 import { AppContext } from '../../context/AppContext';
 import { ReferenceContext } from '../../context/ReferenceContext';
 import { server } from '../../config/base';
+import { CircularProgress } from '@material-ui/core';
 
 export default function OBSVerses(props) {
   const { t } = useTranslation();
   const { title, classes, onClose, type } = props;
   const [verses, setVerses] = useState();
+  const [isLoading, setIsLoading] = useState(false);
   const {
     state: { fontSize, resourcesApp },
   } = useContext(AppContext);
@@ -48,6 +50,7 @@ export default function OBSVerses(props) {
 
   useEffect(() => {
     if (markdown) {
+      setIsLoading(true);
       const mdToVerses = (md) => {
         let _markdown = md.split(/\n[\s]*/);
         const headerMd = _markdown.shift().trim().slice(1);
@@ -111,7 +114,9 @@ export default function OBSVerses(props) {
         </div>
       );
       setVerses(versesOBS);
+      setIsLoading(false);
     } else {
+      setIsLoading(false);
       setVerses(<>{t('No_content')}</>);
     }
   }, [markdown, bookId, chapter, verse, t, fontSize, onChangeVerse]);
@@ -136,7 +141,7 @@ export default function OBSVerses(props) {
         itemIndex={itemIndex}
         setItemIndex={setItemIndex}
       >
-        <div>{verses}</div>
+        <div>{isLoading ? <CircularProgress color="blue" /> : verses}</div>
       </Card>
     </>
   );

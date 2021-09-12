@@ -198,7 +198,7 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
       </Menu>
 
       {isLoading ? (
-        <CircularProgress color="inherit" />
+        <CircularProgress color="blue" />
       ) : chapter === null ? (
         t('No_content')
       ) : (
