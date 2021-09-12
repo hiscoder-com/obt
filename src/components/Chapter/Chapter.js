@@ -9,6 +9,7 @@ import { AppContext } from '../../context/AppContext';
 import { ReferenceContext } from '../../context/ReferenceContext';
 import { getVerseText } from '../../helper';
 
+
 import { Menu, MenuItem, CircularProgress } from '@material-ui/core';
 
 const initialPosition = {
