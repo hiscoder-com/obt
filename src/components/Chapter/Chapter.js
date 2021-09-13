@@ -64,18 +64,22 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
   }, [resources, resource]);
 
   useEffect(() => {
+    let isMounted = true;
     if (project && Object.keys(project).length !== 0) {
       project
         .parseUsfm()
         .then((result) => {
           if (result.json && Object.keys(result.json.chapters).length > 0) {
-            setChapter(result.json.chapters[reference.chapter]);
+            isMounted && setChapter(result.json.chapters[reference.chapter]);
           }
         })
         .catch((error) => console.log(error));
     } else {
-      setChapter(null);
+      isMounted && setChapter(null);
     }
+    return () => {
+      isMounted = false;
+    };
   }, [project, reference.chapter]);
 
   useEffect(() => {
