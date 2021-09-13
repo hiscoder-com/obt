@@ -51,8 +51,7 @@ function SelectModeBible() {
               select: classes.select,
             }}
             onChange={handleChange}
-            value={selectedValue}
-            // defaultValue={bookId !== 'obs' ? t('Bible') : t('OBS')}
+            value={selectedValue.toUpperCase}
           >
             {options.map((el) => (
               <option key={el.key} value={el.label} className={classes.option}>

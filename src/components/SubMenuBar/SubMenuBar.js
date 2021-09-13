@@ -61,11 +61,9 @@ function SubMenuBar() {
         <Toolbar className={classes.grow}>
           <div className={classes.reference}>
             <SelectModeBible />
-            <ShowReference />
           </div>
           <div className={classes.centerButtons}>
-            {bookId !== 'obs' ? <BookSelect /> : ''}
-            <ChapterSelect />
+            <ShowReference />
           </div>
           <IconButton
             edge="start"
