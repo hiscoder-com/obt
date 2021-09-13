@@ -37,7 +37,7 @@ export default function App() {
   }, [height]);
 
   Shortcut();
-Swipes();
+  Swipes();
   const onLayoutChange = (newLayout) => {
     const oldAppConfig = JSON.parse(localStorage.getItem('appConfig'));
     let type = 'bible';
