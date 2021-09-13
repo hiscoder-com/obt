@@ -6,7 +6,7 @@ import { ReferenceContext } from '../../context';
 export default function Swipes() {
 const {
   actions: {
-  goToNextChapter,
+    goToNextChapter,
     goToPrevChapter, 
   },
 } = useContext(ReferenceContext);
@@ -14,11 +14,13 @@ const {
   const { ref } = useSwipeable({
     onSwipedLeft: (eventData) => goToNextChapter(),
     onSwipedRight: (eventData) => goToPrevChapter(),
+    delta: 100,          // min distance(px) before a swipe starts. *See Notes*
   });
 
   useEffect(() => {
     ref(document);
-  }, [ref]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return Swipes;
 }
