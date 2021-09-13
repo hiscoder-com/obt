@@ -9,8 +9,8 @@ import { AppContext } from '../../context/AppContext';
 import { ReferenceContext } from '../../context/ReferenceContext';
 import { getVerseText } from '../../helper';
 
-
 import { Menu, MenuItem, CircularProgress } from '@material-ui/core';
+import { useCircularStyles } from './style';
 
 const initialPosition = {
   mouseX: null,
@@ -19,6 +19,7 @@ const initialPosition = {
 
 export default function Chapter({ title, classes, onClose, type, reference }) {
   const { t } = useTranslation();
+  const classesCircular = useCircularStyles();
   const verseRef = useRef([]);
   const [position, setPosition] = React.useState(initialPosition);
   const { state } = React.useContext(ResourcesContext);
@@ -198,12 +199,14 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
         <MenuItem onClick={handleToClipboard}>{t('Copy_to_clipboard')}</MenuItem>
       </Menu>
 
-      {isLoading ? (
-        <div style={{display:'flex',justifyContent:'center',marginTop:'20px'}}><CircularProgress color='primary' size={100} /></div>
-      ) : chapter === null ? (
-        t('No_content')
-      ) : (
+      {isLoading || chapter === undefined ? (
+        <div className={classesCircular.root}>
+          <CircularProgress color="primary" size={100} />
+        </div>
+      ) : chapter != null ? (
         verses
+      ) : (
+        t('No_content')
       )}
     </Card>
   );
