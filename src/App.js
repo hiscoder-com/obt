@@ -54,13 +54,13 @@ export default function App() {
     setAppConfig(newLayout);
   };
 
-  useEffect(() => {
+  /*useEffect(() => {
     const appConfig = JSON.parse(localStorage.getItem('appConfig'))[
       bookId === 'obs' ? 'obs' : 'bible'
     ];
     setAppConfig(appConfig);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [bookId]);
+  }, [bookId]);*/
 
   const mainResources = resourcesApp
     .filter((e) => appConfig.map((e) => e.i).includes(e.name))
