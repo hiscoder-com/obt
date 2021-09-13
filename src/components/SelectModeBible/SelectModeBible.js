@@ -26,15 +26,15 @@ function SelectModeBible() {
   const [selectedValue, setSelectedValue] = React.useState(initialSelectedValue);
   React.useEffect(() => {
     if (bookId !== 'obs') {
-      setSelectedValue('Bible');
+      setSelectedValue('bible');
     } else {
-      setSelectedValue('OBS');
+      setSelectedValue('obs');
     }
   }, [bookId]);
 
   const handleChange = (e) => {
-    const type = e.target.value.toLowerCase();
-    console.log(type);
+    const type = e.target.value;
+
     switchModeBible(type, 'reference', goToBookChapterVerse);
   };
 
@@ -46,16 +46,15 @@ function SelectModeBible() {
             labelid="workSpace-select-label"
             disableUnderline={true}
             classes={{
-              root: classes.root,
               icon: classes.icon,
               select: classes.select,
             }}
             onChange={handleChange}
-            value={selectedValue.toUpperCase}
+            value={selectedValue}
           >
             {options.map((el) => (
-              <option key={el.key} value={el.label} className={classes.option}>
-                {t(el.label)}
+              <option key={el.key} value={el.key} className={classes.option}>
+                {t(el.label).toUpperCase()}
               </option>
             ))}
           </NativeSelect>
