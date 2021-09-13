@@ -199,7 +199,7 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
       </Menu>
 
       {isLoading ? (
-        <CircularProgress color="blue" />
+        <div style={{display:'flex',justifyContent:'center',marginTop:'20px'}}><CircularProgress color='primary' size={100} /></div>
       ) : chapter === null ? (
         t('No_content')
       ) : (
