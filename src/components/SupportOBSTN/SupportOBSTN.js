@@ -29,7 +29,7 @@ export default function SupportOBSTN(props) {
   const {
     markdown,
     items,
-    isLoading,
+    resourceStatus: { loading },
     props: { languageId },
   } = useContent({
     projectId: bookId + '-tn',
@@ -75,7 +75,7 @@ export default function SupportOBSTN(props) {
         fontSize={fontSize}
         markdown={markdown}
         viewMode="question"
-        isLoading={isLoading}
+        isLoading={Boolean(loading)}
         languageId={languageId}
         markdownView={markdownView}
       />

@@ -8,9 +8,11 @@ import { AppContext } from '../../context/AppContext';
 import { ReferenceContext } from '../../context/ReferenceContext';
 import { server } from '../../config/base';
 import { CircularProgress } from '@material-ui/core';
+import { useCircularStyles } from './style';
 
 export default function OBSVerses(props) {
   const { t } = useTranslation();
+  const classesCircular = useCircularStyles();
   const { title, classes, onClose, type } = props;
   const [verses, setVerses] = useState();
   const [isLoading, setIsLoading] = useState(false);
@@ -32,7 +34,7 @@ export default function OBSVerses(props) {
     }
   });
   const obsRef = useRef([]);
-  const { markdown, items } = useContent({
+  const { markdown, items, resourceStatus } = useContent({
     projectId: bookId,
     ref: resource.branch ?? 'master',
     languageId: resource.languageId ?? 'ru',
@@ -47,6 +49,10 @@ export default function OBSVerses(props) {
       obsRef.current[verse].scrollIntoView();
     }
   }, [verse]);
+
+  useEffect(() => {
+    setIsLoading(!(resourceStatus.initialized && !resourceStatus.loading));
+  }, [resourceStatus])
 
   useEffect(() => {
     if (markdown) {
@@ -114,9 +120,7 @@ export default function OBSVerses(props) {
         </div>
       );
       setVerses(versesOBS);
-      setIsLoading(false);
     } else {
-      setIsLoading(false);
       setVerses(<>{t('No_content')}</>);
     }
   }, [markdown, bookId, chapter, verse, t, fontSize, onChangeVerse]);
@@ -141,7 +145,9 @@ export default function OBSVerses(props) {
         itemIndex={itemIndex}
         setItemIndex={setItemIndex}
       >
-        <div>{isLoading ? <CircularProgress color="blue" /> : verses}</div>
+        <div>{isLoading ? <div className={classesCircular.root}>
+          <CircularProgress color="primary" size={100} />
+        </div> : verses}</div>
       </Card>
     </>
   );

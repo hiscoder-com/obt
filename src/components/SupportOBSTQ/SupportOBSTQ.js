@@ -28,7 +28,7 @@ export default function SupportOBSTQ(props) {
   const {
     markdown,
     items,
-    isLoading,
+    resourceStatus: { loading },
     props: { languageId },
   } = useContent({
     projectId: bookId + '-tq',
@@ -46,7 +46,6 @@ export default function SupportOBSTQ(props) {
   } = useCardState({
     items,
   });
-
   return (
     <Card
       closeable
@@ -69,7 +68,7 @@ export default function SupportOBSTQ(props) {
         fontSize={fontSize}
         markdown={markdown}
         viewMode="question"
-        isLoading={isLoading}
+        isLoading={Boolean(loading)}
         languageId={languageId}
         markdownView={markdownView}
       />
