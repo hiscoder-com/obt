@@ -6,8 +6,8 @@ import { ReferenceContext } from '../../context';
 export default function Swipes() {
 const {
   actions: {
-    goToNextChapter,
-    goToPrevChapter,
+  goToNextChapter,
+    goToPrevChapter, 
   },
 } = useContext(ReferenceContext);
 
@@ -18,7 +18,7 @@ const {
 
   useEffect(() => {
     ref(document);
-  }, []);
+  }, [ref]);
 
   return Swipes;
 }
