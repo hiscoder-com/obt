@@ -5,7 +5,7 @@ import { SnackbarProvider } from 'notistack';
 
 import { AppContext } from './context/AppContext';
 import { ReferenceContext } from './context/ReferenceContext';
-import { SubMenuBar, Card, TypoReport, Shortcut, Intro } from './components';
+import { SubMenuBar, Card, TypoReport, Shortcut, Intro, Swipes } from './components';
 import { useWindowSize } from './hooks';
 
 import './styles/app.css';
@@ -37,7 +37,7 @@ export default function App() {
   }, [height]);
 
   Shortcut();
-
+Swipes();
   const onLayoutChange = (newLayout) => {
     const oldAppConfig = JSON.parse(localStorage.getItem('appConfig'));
     let type = 'bible';
