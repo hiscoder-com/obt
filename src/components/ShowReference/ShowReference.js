@@ -5,6 +5,7 @@ import { ReferenceContext, AppContext } from '../../context';
 import { useTranslation } from 'react-i18next';
 import { getAbbr } from '../../config/base';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { useStyles } from './style';
 
 function ShowReference() {
   const matches = useMediaQuery('(min-width:400px)');
@@ -22,7 +23,9 @@ function ShowReference() {
   const {
     state: { currentLanguage },
   } = useContext(AppContext);
+
   const { t } = useTranslation();
+  const classes = useStyles();
 
   const abbr = getAbbr(bookId, currentLanguage === 'ru' ? currentLanguage : null);
 
@@ -30,19 +33,20 @@ function ShowReference() {
   const showBook = bookId !== 'obs' ? ismobile : t('Story');
   const showChapter = chapter + ':' + verse;
 
-  const handleClickBook = () => setShowBookSelect(!showBookSelect);
+  const handleClickBook = () =>
+    bookId !== 'obs'
+      ? setShowBookSelect(!showBookSelect)
+      : setShowChapterSelect(!showChapterSelect);
   const handleClickChapter = () => setShowChapterSelect(!showChapterSelect);
 
   return (
     <>
-      <div style={{ display: 'flex' }}>
-        <div style={{ paddingLeft: '3px', display: 'flex' }}>
-          <div onClick={handleClickBook} style={{ margin: '5px' }}>
-            {showBook ? showBook.toUpperCase() : null}
-          </div>
-          <div onClick={handleClickChapter} style={{ margin: '5px' }}>
-            {showChapter}
-          </div>
+      <div className={classes.root}>
+        <div className={classes.showBook} onClick={handleClickBook}>
+          {showBook && showBook.toUpperCase()}
+        </div>
+        <div className={classes.showChapter} onClick={handleClickChapter}>
+          {showChapter}
         </div>
       </div>
     </>

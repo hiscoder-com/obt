@@ -1,20 +1,22 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 export const useStyles = makeStyles((theme) => ({
-  option: {
-    color: 'black',
-  },
-  formControl: {
-    width: '100%',
-  },
   root: {
-    color: 'black',
-    fontSize: 20,
+    paddingLeft: '3px',
+    display: 'flex',
   },
-  icon: {
-    color: 'white',
+  showBook: {
+    margin: '5px',
+    cursor: 'pointer',
+    '&:hover': {
+      color: '#000',
+    },
   },
-  select: {
-    color: 'white',
+  showChapter: {
+    margin: '5px',
+    cursor: 'pointer',
+    '&:hover': {
+      color: '#000',
+    },
   },
 }));
