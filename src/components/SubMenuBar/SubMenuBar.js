@@ -3,7 +3,7 @@ import React, { useState, useContext } from 'react';
 import { FontSizeSlider } from 'translation-helps-rcl';
 import { useTranslation } from 'react-i18next';
 
-import { AppContext, ReferenceContext } from '../../context';
+import { AppContext } from '../../context';
 import {
   BookSelect,
   WorkspaceManager,
@@ -24,12 +24,6 @@ function SubMenuBar() {
     state: { fontSize },
     actions: { setFontSize },
   } = useContext(AppContext);
-
-  const {
-    state: {
-      referenceSelected: { bookId },
-    },
-  } = useContext(ReferenceContext);
 
   const classes = useStyles();
 
@@ -64,6 +58,8 @@ function SubMenuBar() {
           </div>
           <div className={classes.centerButtons}>
             <ShowReference />
+            <ChapterSelect />
+            <BookSelect />
           </div>
           <IconButton
             edge="start"

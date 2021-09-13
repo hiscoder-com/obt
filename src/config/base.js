@@ -512,7 +512,7 @@ export const bibles_abbrv = {
   luk: { ru: 'Лк' },
   jhn: { ru: 'Ин' },
   act: { ru: 'Деян' },
-  rom: { ru: 'Иак' },
+  rom: { ru: 'Рим' },
   '1co': { ru: '1Кор' },
   '2co': { ru: '2Кор' },
   gal: { ru: 'Гал' },
@@ -537,5 +537,7 @@ export const bibles_abbrv = {
 };
 
 export const getAbbr = (bookId, lang) => {
-  return lang && bookId !== 'obs' ? bibles_abbrv[bookId][lang] : bookId;
+  if (bookId && lang) {
+    return bookId !== 'obs' ? bibles_abbrv[bookId][lang] : bookId;
+  }
 };
