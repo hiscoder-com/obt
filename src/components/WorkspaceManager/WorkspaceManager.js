@@ -29,12 +29,16 @@ function WorkspaceManager({ onClose }) {
 
   const handleOpenBible = () => {
     const curRef = JSON.parse(localStorage.getItem('reference'))['bible'];
+    const appConfig = JSON.parse(localStorage.getItem('appConfig'))['bible'];
+    setAppConfig(appConfig);
     goToBookChapterVerse(curRef.bookId, curRef.chapter, curRef.verse);
     onClose();
   };
 
   const handleOpenOBS = () => {
     const curRef = JSON.parse(localStorage.getItem('reference'))['obs'];
+    const appConfig = JSON.parse(localStorage.getItem('appConfig'))['obs'];
+    setAppConfig(appConfig);
     goToBookChapterVerse(curRef.bookId, curRef.chapter, curRef.verse);
     onClose();
   };

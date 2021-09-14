@@ -2,8 +2,7 @@ import React, { useContext } from 'react';
 
 import { Card, CardContent, useContent, useCardState } from 'translation-helps-rcl';
 
-import { AppContext } from '../../context/AppContext';
-import { ReferenceContext } from '../../context/ReferenceContext';
+import { AppContext, ReferenceContext } from '../../context';
 import { server } from '../../config/base';
 
 export default function SupportTQ(props) {
