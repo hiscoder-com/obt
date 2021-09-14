@@ -3,23 +3,18 @@ import React, { useState, useContext, useRef } from 'react';
 import { FontSizeSlider } from 'translation-helps-rcl';
 import { useTranslation } from 'react-i18next';
 
-import { AppContext, ReferenceContext } from '../../context';
+import { AppContext } from '../../context';
 import {
   BookSelect,
   WorkspaceManager,
   SearchResources,
   ChapterSelect,
   SelectLanguage,
+  ShowReference,
+  SelectModeBible,
 } from '../../components';
 
-import {
-  AppBar,
-  Toolbar,
-  MenuItem,
-  Menu,
-  IconButton,
-  Typography,
-} from '@material-ui/core';
+import { AppBar, Toolbar, MenuItem, Menu, IconButton } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import MenuIcon from '@material-ui/icons/Menu';
 import { useStyles, useModalStyles } from './style';
@@ -30,11 +25,6 @@ function SubMenuBar() {
     actions: { setFontSize, setLoadIntro },
   } = useContext(AppContext);
 
-  const {
-    state: {
-      referenceSelected: { bookId },
-    },
-  } = useContext(ReferenceContext);
   const menuRef = useRef(null);
 
   const classes = useStyles();
@@ -70,14 +60,14 @@ function SubMenuBar() {
     <>
       <AppBar className={'intro-appBar'} position="relative">
         <Toolbar className={classes.grow}>
-          <Typography variant="h6" color="inherit">
-            Bible App
-          </Typography>
-          <div className={classes.centerButtons}>
-            {bookId !== 'obs' ? <BookSelect /> : ''}
-            <ChapterSelect />
+          <div className={classes.reference}>
+            <SelectModeBible />
           </div>
-
+          <div className={classes.centerButtons}>
+            <ShowReference />
+            <ChapterSelect />
+            <BookSelect />
+          </div>
           <IconButton
             ref={menuRef}
             edge="start"

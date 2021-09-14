@@ -11,6 +11,12 @@ export const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'row',
   },
+  reference: {
+    margin: theme.spacing(1),
+    display: 'flex',
+    borderRadius: 6,
+    color: 'white',
+  },
 }));
 
 export const useModalStyles = makeStyles((theme) => ({

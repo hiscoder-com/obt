@@ -142,7 +142,8 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
       _verses.push(verse);
     }
     setVerses(_verses);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
+     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [chapter, reference, type, fontSize]);
 
   return (

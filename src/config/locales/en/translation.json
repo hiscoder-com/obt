@@ -1,5 +1,6 @@
 {
   "Add_resources": "Add Resources",
+  "Bible": "Bible",
   "Bible_NT": "New Testament",
   "Bible_OBS": "Other",
   "Bible_OT": "Old Testament",
@@ -13,6 +14,7 @@
   "Interface_lang": "Interface language",
   "Next":"Next",
   "No_content": "No content available",
+  "OBS":"OBS",
   "Open_Bible": "Show Bible",
   "Open_OBS": "Show Open Bible Stories",
   "Previous":"Previous",
