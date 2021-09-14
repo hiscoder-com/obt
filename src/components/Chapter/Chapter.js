@@ -6,8 +6,12 @@ import { useTranslation } from 'react-i18next';
 
 import { AppContext, ReferenceContext } from '../../context';
 import { getVerseText } from '../../helper';
+import { CircularProgress } from '@material-ui/core';
+import { useCircularStyles } from './style';
+
 import { ContextMenu } from '../../components';
 import { useScrollToVerse } from '../../hooks';
+
 
 const initialPosition = {
   left: null,
@@ -16,8 +20,8 @@ const initialPosition = {
 
 export default function Chapter({ title, classes, onClose, type, reference }) {
   const { t } = useTranslation();
+  const classesCircular = useCircularStyles();
   const [verseRef] = useScrollToVerse('center');
-
   const { state } = React.useContext(ResourcesContext);
   const {
     state: { resourcesApp, fontSize },
@@ -27,6 +31,7 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
     actions: { goToBookChapterVerse, setReferenceBlock },
   } = useContext(ReferenceContext);
 
+  const [isLoading, setIsLoading] = useState(false);
   const [chapter, setChapter] = useState();
   const [verses, setVerses] = useState();
   const [project, setProject] = useState({});
@@ -66,16 +71,22 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
   useEffect(() => {
     let isMounted = true;
     if (project && Object.keys(project).length !== 0) {
+      setIsLoading(true);
       project
         .parseUsfm()
         .then((result) => {
           if (result.json && Object.keys(result.json.chapters).length > 0) {
             isMounted && setChapter(result.json.chapters[reference.chapter]);
+            setIsLoading(false);
           }
         })
-        .catch((error) => console.log(error));
+        .catch((error) => {
+          console.log(error);
+          setIsLoading(false);
+        });
     } else {
       isMounted && setChapter(null);
+      setIsLoading(false);
     }
     return () => {
       isMounted = false;
@@ -143,7 +154,15 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
       classes={{ ...classes, root: classes.root + ' intro-card' }}
     >
       <ContextMenu position={positionContextMenu} setPosition={setPositionContextMenu} />
-      {chapter ? verses : t('No_content')}
+      {isLoading || chapter === undefined ? (
+        <div className={classesCircular.root}>
+          <CircularProgress color="primary" size={100} />
+        </div>
+      ) : chapter != null ? (
+        verses
+      ) : (
+        t('No_content')
+      )}
     </Card>
   );
 }
