@@ -25,9 +25,7 @@ function SubMenuBar() {
     actions: { setFontSize, setLoadIntro },
   } = useContext(AppContext);
 
-
   const menuRef = useRef(null);
-
 
   const classes = useStyles();
 

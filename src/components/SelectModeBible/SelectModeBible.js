@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 
 import { useTranslation } from 'react-i18next';
-import { ReferenceContext } from '../../context/ReferenceContext';
+import { ReferenceContext, AppContext } from '../../context';
 import { switchModeBible } from '../../helper';
 import { FormControl, NativeSelect } from '@material-ui/core';
 import { useStyles } from './style';
@@ -22,6 +22,10 @@ function SelectModeBible() {
     actions: { goToBookChapterVerse },
   } = useContext(ReferenceContext);
 
+  const {
+    actions: { setAppConfig },
+  } = useContext(AppContext);
+
   const initialSelectedValue = bookId === 'obs' ? 'obs' : 'bible';
   const [selectedValue, setSelectedValue] = React.useState(initialSelectedValue);
   React.useEffect(() => {
@@ -35,7 +39,7 @@ function SelectModeBible() {
   const handleChange = (e) => {
     const type = e.target.value;
 
-    switchModeBible(type, 'reference', goToBookChapterVerse);
+    switchModeBible(type, goToBookChapterVerse, setAppConfig);
   };
 
   return (

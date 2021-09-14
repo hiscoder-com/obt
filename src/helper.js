@@ -202,7 +202,9 @@ export const saveToClipboard = (
   );
 };
 
-export const switchModeBible = (type, reference, goToBookChapterVerse) => {
-  const curRef = JSON.parse(localStorage.getItem(reference))[type];
+export const switchModeBible = (type, goToBookChapterVerse, setAppConfig) => {
+  const curRef = JSON.parse(localStorage.getItem('reference'))[type];
+  const appConfig = JSON.parse(localStorage.getItem('appConfig'))[type];
+  setAppConfig(appConfig);
   goToBookChapterVerse(curRef.bookId, curRef.chapter, curRef.verse);
 };
