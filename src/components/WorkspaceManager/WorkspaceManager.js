@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
 
 import { useTranslation } from 'react-i18next';
-import { switchModeBible } from '../../helper';
 
 import { AppContext, ReferenceContext } from '../../context';
 
@@ -28,15 +27,6 @@ function WorkspaceManager({ onClose }) {
 
   const { t } = useTranslation();
 
-  const handleOpenBible = () => {
-    switchModeBible('bible', 'reference', goToBookChapterVerse);
-    onClose();
-  };
-
-  const handleOpenOBS = () => {
-    switchModeBible('obs', 'reference', goToBookChapterVerse);
-    onClose();
-  };
   const workspaceType = bookId === 'obs' ? 'obs' : 'bible';
   const handleReset = () => {
     const oldAppConfig = JSON.parse(localStorage.getItem('appConfig'));
@@ -77,10 +67,6 @@ function WorkspaceManager({ onClose }) {
 
   return (
     <MenuList>
-      <MenuItem onClick={handleOpenBible}>{t('Open_Bible')}</MenuItem>
-      <MenuItem divider={true} onClick={handleOpenOBS}>
-        {t('Open_OBS')}
-      </MenuItem>
       <MenuItem divider={true} onClick={handleReset}>
         {t('Reset')}
       </MenuItem>
