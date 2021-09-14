@@ -23,7 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - for now removed features
 
 ### Fixed
-- for any bug fixes
+- Can't perform a React state update on an unmounted component.
 
 ### Security
 - in case of vulnerabilities
