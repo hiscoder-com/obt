@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 - for new features
+- swipes (left-right) to switch chapter on the phone
 
 ### Changed
 - for changes in existing functionality
