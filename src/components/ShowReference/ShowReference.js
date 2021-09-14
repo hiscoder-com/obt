@@ -11,7 +11,6 @@ function ShowReference() {
   const matches = useMediaQuery('(min-width:400px)');
 
   const {
-    state: { showChapterSelect, showBookSelect },
     actions: { setShowChapterSelect, setShowBookSelect },
   } = useContext(AppContext);
 
@@ -34,10 +33,8 @@ function ShowReference() {
   const showChapter = chapter + ':' + verse;
 
   const handleClickBook = () =>
-    bookId !== 'obs'
-      ? setShowBookSelect(!showBookSelect)
-      : setShowChapterSelect(!showChapterSelect);
-  const handleClickChapter = () => setShowChapterSelect(!showChapterSelect);
+    bookId !== 'obs' ? setShowBookSelect(true) : setShowChapterSelect(true);
+  const handleClickChapter = () => setShowChapterSelect(true);
 
   return (
     <>

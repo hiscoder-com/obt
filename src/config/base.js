@@ -537,7 +537,5 @@ export const bibles_abbrv = {
 };
 
 export const getAbbr = (bookId, lang) => {
-  if (bookId && lang) {
-    return bookId !== 'obs' ? bibles_abbrv[bookId][lang] : bookId;
-  }
+  return lang && bookId !== 'obs' ? bibles_abbrv[bookId][lang] : bookId;
 };
