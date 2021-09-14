@@ -28,7 +28,7 @@ export default function SupportTN(props) {
   const {
     markdown,
     items,
-    isLoading,
+    resourceStatus: { loading },
     props: { languageId },
   } = useContent({
     verse: String(verse),
@@ -76,7 +76,7 @@ export default function SupportTN(props) {
         filters={filterArray}
         markdown={markdown}
         fontSize={fontSize}
-        isLoading={isLoading}
+        isLoading={Boolean(loading)}
         languageId={languageId}
         markdownView={markdownView}
         selectedQuote={selectedQuote}
