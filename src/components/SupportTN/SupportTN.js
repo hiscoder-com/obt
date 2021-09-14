@@ -2,8 +2,7 @@ import React, { useState, useContext, useEffect } from 'react';
 
 import { Card, CardContent, useContent, useCardState } from 'translation-helps-rcl';
 
-import { AppContext } from '../../context/AppContext';
-import { ReferenceContext } from '../../context/ReferenceContext';
+import { AppContext, ReferenceContext } from '../../context';
 import { server } from '../../config/base';
 
 export default function SupportTN(props) {
@@ -32,10 +31,10 @@ export default function SupportTN(props) {
     isLoading,
     props: { languageId },
   } = useContent({
-    verse: verse,
-    chapter: chapter,
+    verse: String(verse),
+    chapter: String(chapter),
     projectId: bookId,
-    branch: resource.branch ?? 'master',
+    ref: resource.branch ?? 'master',
     languageId: resource.languageId ?? 'ru',
     resourceId: 'tn',
     owner: resource.owner ?? 'door43-catalog',

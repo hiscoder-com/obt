@@ -2,8 +2,7 @@ import React, { useContext, useEffect } from 'react';
 
 import { Card, CardContent, useContent, useCardState } from 'translation-helps-rcl';
 
-import { AppContext } from '../../context/AppContext';
-import { ReferenceContext } from '../../context/ReferenceContext';
+import { AppContext, ReferenceContext } from '../../context';
 
 import { server } from '../../config/base';
 
@@ -33,7 +32,7 @@ export default function SupportOBSTN(props) {
     props: { languageId },
   } = useContent({
     projectId: bookId + '-tn',
-    branch: resource.branch ?? 'master',
+    ref: resource.branch ?? 'master',
     languageId: resource.languageId ?? 'ru',
     resourceId: 'obs-tn',
     filePath:

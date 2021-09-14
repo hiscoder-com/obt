@@ -2,8 +2,7 @@ import React, { useContext, useState } from 'react';
 
 import { SendError } from '@texttree/user-notes-rcl';
 
-import { AppContext } from '../../context/AppContext';
-import { ReferenceContext } from '../../context/ReferenceContext';
+import { AppContext, ReferenceContext } from '../../context';
 import FinishDialog from './FinishDialog';
 import ReportDialog from './ReportDialog';
 
@@ -78,6 +77,7 @@ export default function TypoReport() {
         <CircularProgress color="inherit" />
       </Backdrop>
       <ReportDialog
+        classname={'intro-reportDialog'}
         open={showErrorReport}
         valueComment={valueComment}
         handleChange={handleChange}

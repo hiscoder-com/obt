@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.?.?] - 2021-??-??
 
+
 ### Added 
 
 - swipes (left-right) to switch chapter on the phone
@@ -19,6 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed (for changes in existing functionality)
 
 - in main menu removed options for change Bible/OBS mode
+
 
 ### Deprecated
 -  for soon-to-be removed features

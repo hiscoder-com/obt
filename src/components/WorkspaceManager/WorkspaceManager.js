@@ -26,7 +26,6 @@ function WorkspaceManager({ onClose }) {
   } = useContext(ReferenceContext);
 
   const { t } = useTranslation();
-
   const workspaceType = bookId === 'obs' ? 'obs' : 'bible';
   const handleReset = () => {
     const oldAppConfig = JSON.parse(localStorage.getItem('appConfig'));

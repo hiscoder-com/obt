@@ -2,8 +2,7 @@ import React, { useContext } from 'react';
 
 import { Card, CardContent, useContent, useCardState } from 'translation-helps-rcl';
 
-import { AppContext } from '../../context/AppContext';
-import { ReferenceContext } from '../../context/ReferenceContext';
+import { AppContext, ReferenceContext } from '../../context';
 import { server } from '../../config/base';
 
 export default function SupportOBSTQ(props) {
@@ -32,7 +31,7 @@ export default function SupportOBSTQ(props) {
     props: { languageId },
   } = useContent({
     projectId: bookId + '-tq',
-    branch: resource.branch ?? 'master',
+    ref: resource.branch ?? 'master',
     languageId: resource.languageId ?? 'ru',
     resourceId: 'obs-tq',
     filePath:
