@@ -1,15 +1,21 @@
-import React, { useContext, useEffect, useState, useMemo } from 'react';
+import React, { useContext, useEffect, useState, useMemo, Suspense } from 'react';
 
-import { Workspace } from 'resource-workspace-rcl';
 import { SnackbarProvider } from 'notistack';
+import { Workspace } from 'resource-workspace-rcl';
 
 import { AppContext } from './context/AppContext';
 import { ReferenceContext } from './context/ReferenceContext';
-import { SubMenuBar, Card, TypoReport, Shortcut, Intro, Swipes } from './components';
+import { Shortcut, Swipes } from './components';
 import { useWindowSize } from './hooks';
 
 import './styles/app.css';
 import useStyles from './style';
+
+const Intro = React.lazy(() => import('./components/Intro/Intro'));
+const Card = React.lazy(() => import('./components/Card/Card'));
+//const Workspace = React.lazy(() => import('resource-workspace-rcl'));
+const TypoReport = React.lazy(() => import('./components/TypoReport/TypoReport'));
+const SubMenuBar = React.lazy(() => import('./components/SubMenuBar/SubMenuBar'));
 
 export default function App() {
   const {
@@ -88,7 +94,9 @@ export default function App() {
   };
 
   const cards = appConfig.map((item) => (
-    <Card classes={classes} key={item.i} onClose={() => onClose(item.i)} type={item.i} />
+    <Suspense key={item.i}>
+      <Card classes={classes} onClose={() => onClose(item.i)} type={item.i} />
+    </Suspense>
   ));
 
   const availableBookList = useMemo(() => {
@@ -119,9 +127,11 @@ export default function App() {
 
   return (
     <SnackbarProvider maxSnack={3}>
-      <Intro />
-      <SubMenuBar />
-      <TypoReport />
+      <Suspense>
+        <Intro />
+        <SubMenuBar />
+        <TypoReport />
+      </Suspense>
       <Workspace
         gridMargin={[15, 15]}
         rowHeight={rowHeight}

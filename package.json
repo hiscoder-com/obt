@@ -34,13 +34,15 @@
     "react-swipeable": "^6.2.0",
     "resource-workspace-rcl": "^1.0.0",
     "scripture-resources-rcl": "^5.1.1",
+    "source-map-explorer": "^2.5.2",
     "translation-helps-rcl": "^2.3.2",
     "use-deep-compare-effect": "^1.6.1"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
+    "analyze": "source-map-explorer 'build/static/js/*.js'",
+    "start": "react-app-rewired start",
+    "build": "react-app-rewired build",
+    "test": "react-app-rewired test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -68,6 +70,7 @@
     "eslint-plugin-react": "^7.25.1",
     "eslint-plugin-react-hooks": "^4.2.0",
     "prettier": "^2.3.2",
+    "react-app-rewired": "^2.1.8",
     "react-scripts": "3.0.1"
   }
 }
