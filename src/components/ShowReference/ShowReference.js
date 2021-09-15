@@ -1,11 +1,13 @@
 import React, { useContext } from 'react';
 
 import { ReferenceContext, AppContext } from '../../context';
+import ButtonGroup from '@material-ui/core/ButtonGroup';
+import Button from '@material-ui/core/Button';
 
 import { useTranslation } from 'react-i18next';
 import { getAbbr } from '../../config/base';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
-import { useStyles } from './style';
+
 
 function ShowReference() {
   const matches = useMediaQuery('(min-width:400px)');
@@ -24,7 +26,7 @@ function ShowReference() {
   } = useContext(AppContext);
 
   const { t } = useTranslation();
-  const classes = useStyles();
+  
 
   const abbr = getAbbr(bookId, currentLanguage === 'ru' ? currentLanguage : null);
 
@@ -37,15 +39,11 @@ function ShowReference() {
   const handleClickChapter = () => setShowChapterSelect(true);
 
   return (
-    <>
-      <div className={classes.root}>
-        <div className={classes.showBook} onClick={handleClickBook}>
-          {showBook && showBook.toUpperCase()}
-        </div>
-        <div className={classes.showChapter} onClick={handleClickChapter}>
-          {showChapter}
-        </div>
-      </div>
+    <>  
+    <ButtonGroup disableElevation variant="contained" color="primary" >
+      <Button onClick={handleClickBook}> {showBook && showBook.toUpperCase()} </Button>
+      <Button onClick={handleClickChapter}>{showChapter}</Button>
+    </ButtonGroup>
     </>
   );
 }
