@@ -6,6 +6,7 @@ import { ContextMenu } from '../../components';
 import { switchModeBible } from '../../helper';
 import { AppContext, ReferenceContext } from '../../context';
 
+
 import 'intro.js/introjs.css';
 
 const initialPosition = {
@@ -66,6 +67,7 @@ function Intro() {
     {
       element: '.react-grid-layout',
       intro: t('introWorkSpace'),
+      
     },
     {
       element: '.intro-card',
