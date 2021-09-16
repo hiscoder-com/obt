@@ -13,14 +13,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added 
 
-- swipes (left-right) to switch chapter on the phone
-- current reference(book,chapter,verse) of Bible/OBS in app bar: clickable and adaptive for screen size 
-- select Bible/OBS mode in app bar
+- Swipes (left-right) to switch chapter on the phone
+- Current reference(book,chapter,verse) of Bible/OBS in app bar: clickable and adaptive for screen size 
+- Select Bible/OBS mode in app bar
+
 
 ### Changed (for changes in existing functionality)
 
-- in main menu removed options for change Bible/OBS mode
-
+- In main menu removed options for change Bible/OBS mode
+- UI version of buttons in app bar
+- Font style in title of cards
 
 ### Deprecated
 -  for soon-to-be removed features
@@ -30,6 +32,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 - Can't perform a React state update on an unmounted component.
+- Switch OBS to Bible when open user guide
 
 ### Security
 - in case of vulnerabilities

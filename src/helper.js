@@ -181,26 +181,6 @@ export const checkLSVal = (el, val, type = 'string', ext = false) => {
   }
 };
 
-export const saveToClipboard = (
-  text,
-  snackbar,
-  nameSuccess,
-  variantSuccess,
-  nameError,
-  variantError,
-  closeAction
-) => {
-  navigator.clipboard.writeText(text).then(
-    () => {
-      closeAction && closeAction();
-      snackbar && snackbar(nameSuccess, variantSuccess);
-    },
-    (err) => {
-      closeAction && closeAction();
-      snackbar && snackbar(nameError, variantError);
-    }
-  );
-};
 
 export const switchModeBible = (type, goToBookChapterVerse, setAppConfig) => {
   const curRef = JSON.parse(localStorage.getItem('reference'))[type];

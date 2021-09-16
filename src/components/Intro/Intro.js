@@ -3,8 +3,9 @@ import React, { useContext, useRef, useState } from 'react';
 import { Steps } from 'intro.js-react';
 import { useTranslation } from 'react-i18next';
 import { ContextMenu } from '../../components';
-
+import { switchModeBible } from '../../helper';
 import { AppContext, ReferenceContext } from '../../context';
+
 
 import 'intro.js/introjs.css';
 
@@ -35,13 +36,13 @@ function Intro() {
       setShowErrorReport,
       setLoadIntro,
       setOpenMainMenu,
+      setAppConfig
     },
     state: { loadIntro, showChapterSelect },
   } = useContext(AppContext);
 
   const openBible = () => {
-    const curRef = JSON.parse(localStorage.getItem('reference'))['bible'];
-    goToBookChapterVerse(curRef.bookId, curRef.chapter, curRef.verse);
+    switchModeBible('bible', goToBookChapterVerse, setAppConfig);
   };
 
   const steps = [
@@ -66,6 +67,7 @@ function Intro() {
     {
       element: '.react-grid-layout',
       intro: t('introWorkSpace'),
+      
     },
     {
       element: '.intro-card',

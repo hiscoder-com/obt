@@ -153,6 +153,7 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
       title={title}
       type={type}
       classes={{ ...classes, root: classes.root + ' intro-card' }}
+      id ={type}
     >
       <ContextMenu position={positionContextMenu} setPosition={setPositionContextMenu} />
       {isLoading || chapter === undefined ? (
