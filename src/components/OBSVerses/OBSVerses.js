@@ -54,6 +54,7 @@ export default function OBSVerses({ title, classes, onClose, type }) {
         title={title}
         onClose={() => onClose(type)}
         classes={{ ...classes, children: 'obs' }}
+        id ={type}
         fontSize={fontSize}
       >
        {

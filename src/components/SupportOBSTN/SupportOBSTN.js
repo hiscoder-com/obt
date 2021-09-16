@@ -58,6 +58,7 @@ export default function SupportOBSTN(props) {
       title={title}
       onClose={() => onClose(type)}
       classes={{ ...classes, children: 'tqcard' }}
+      id ={type}
       items={items}
       headers={headers}
       filters={filters}

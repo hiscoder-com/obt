@@ -54,6 +54,7 @@ export default function SupportTW(props) {
       title={title}
       onClose={() => onClose(type)}
       classes={classes}
+      id ={type}
       items={items}
       headers={headers}
       filters={filters}
