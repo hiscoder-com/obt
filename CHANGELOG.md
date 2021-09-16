@@ -22,6 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - In main menu removed options for change Bible/OBS mode
 - UI version of buttons in app bar
+- Font style in title of cards
 
 ### Deprecated
 -  for soon-to-be removed features
