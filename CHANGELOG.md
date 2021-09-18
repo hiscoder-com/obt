@@ -11,10 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.?.?] - 2021-??-??
 
 
-### Added 
+### Added
 
 - Swipes (left-right) to switch chapter on the phone
-- Current reference(book,chapter,verse) of Bible/OBS in app bar: clickable and adaptive for screen size 
+- Current reference(book,chapter,verse) of Bible/OBS in app bar: clickable and adaptive for screen size
 - Select Bible/OBS mode in app bar
 
 
@@ -23,6 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - In main menu removed options for change Bible/OBS mode
 - UI version of buttons in app bar
 - Font style in title of cards
+- Updated bible-reference-rcl version 1.1.0, added OBS support, save filter after updating the list of books
 
 ### Deprecated
 -  for soon-to-be removed features
