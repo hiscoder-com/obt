@@ -18,6 +18,7 @@ const _reference = checkLSVal(
   'object',
   'bible'
 )['bible'];
+const addOBS = true;
 
 export function ReferenceContextProvider({ children }) {
   const { t } = useTranslation();
@@ -63,6 +64,7 @@ export function ReferenceContextProvider({ children }) {
     initialBook,
     initialChapter,
     initialVerse,
+    addOBS,
   });
 
   useEffect(() => {
