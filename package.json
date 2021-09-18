@@ -54,6 +54,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "serve": "serve -s build",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -85,6 +86,7 @@
     "eslint-plugin-react": "^7.25.1",
     "eslint-plugin-react-hooks": "^4.2.0",
     "prettier": "^2.3.2",
-    "react-scripts": "4.0.3"
+    "react-scripts": "4.0.3",
+    "serve": "^12.0.1"
   }
 }
