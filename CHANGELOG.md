@@ -32,11 +32,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - for now removed features
 
 ### Fixed
-- Can't perform a React state update on an unmounted component.
+- Can't perform a React state update on an unmounted component
 - Switch OBS to Bible when open user guide
+- If the content did not fit on the screen, then when scrolling to a verse, the main screen scrolled
 
 ### Security
-- in case of vulnerabilities
+- Updating dependencies
 
 ## [1.0.0] - 2021-09-02
 
