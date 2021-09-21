@@ -3,57 +3,47 @@ import React, { useState, useEffect, useContext } from 'react';
 import { Card } from 'translation-helps-rcl';
 import { Verse, ResourcesContext } from 'scripture-resources-rcl';
 import { useTranslation } from 'react-i18next';
-import { useSnackbar } from 'notistack';
 
-import { AppContext } from '../../context/AppContext';
-import { ReferenceContext } from '../../context/ReferenceContext';
+import { AppContext, ReferenceContext } from '../../context';
 import { getVerseText } from '../../helper';
+import { CircularProgress } from '@material-ui/core';
+import { useCircularStyles } from './style';
+
+import { ContextMenu } from '../../components';
 import { useScrollToVerse } from '../../hooks';
-import { Menu, MenuItem } from '@material-ui/core';
+
 
 const initialPosition = {
-  mouseX: null,
-  mouseY: null,
+  left: null,
+  top: null,
 };
 
 export default function Chapter({ title, classes, onClose, type, reference }) {
   const { t } = useTranslation();
-  const [position, setPosition] = React.useState(initialPosition);
-
+  const classesCircular = useCircularStyles();
   const [verseRef] = useScrollToVerse('center');
-
   const { state } = React.useContext(ResourcesContext);
   const {
     state: { resourcesApp, fontSize },
-    actions: { setShowErrorReport },
   } = useContext(AppContext);
 
   const {
-    state: { referenceBlock },
     actions: { goToBookChapterVerse, setReferenceBlock },
   } = useContext(ReferenceContext);
 
+  const [isLoading, setIsLoading] = useState(false);
   const [chapter, setChapter] = useState();
   const [verses, setVerses] = useState();
   const [project, setProject] = useState({});
   const [resource, setResource] = useState(false);
-  const { enqueueSnackbar } = useSnackbar();
+  const [positionContextMenu, setPositionContextMenu] = React.useState(initialPosition);
 
   const handleContextOpen = (event) => {
     event.preventDefault();
-    setPosition({
-      mouseX: event.clientX - 2,
-      mouseY: event.clientY - 4,
+    setPositionContextMenu({
+      left: event.clientX - 2,
+      top: event.clientY - 4,
     });
-  };
-
-  const handleContextClose = () => {
-    setPosition(initialPosition);
-  };
-
-  const handleOpenError = () => {
-    setShowErrorReport(true);
-    setPosition(initialPosition);
   };
 
   useEffect(() => {
@@ -79,18 +69,28 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
   }, [resources, resource]);
 
   useEffect(() => {
+    let isMounted = true;
     if (project && Object.keys(project).length !== 0) {
+      setIsLoading(true);
       project
         .parseUsfm()
         .then((result) => {
           if (result.json && Object.keys(result.json.chapters).length > 0) {
-            setChapter(result.json.chapters[reference.chapter]);
+            isMounted && setChapter(result.json.chapters[reference.chapter]);
+            setIsLoading(false);
           }
         })
-        .catch((error) => console.log(error));
+        .catch((error) => {
+          console.log(error);
+          setIsLoading(false);
+        });
     } else {
-      setChapter(null);
+      isMounted && setChapter(null);
+      setIsLoading(false);
     }
+    return () => {
+      isMounted = false;
+    };
   }, [project, reference.chapter]);
 
   useEffect(() => {
@@ -142,31 +142,9 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
       _verses.push(verse);
     }
     setVerses(_verses);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [chapter, reference, type, fontSize]);
 
-  const anchorPosition =
-    position.mouseY !== null && position.mouseX !== null
-      ? { top: position.mouseY, left: position.mouseX }
-      : undefined;
-  const handleToClipboard = () => {
-    navigator.clipboard
-      .writeText(
-        `${referenceBlock.text} (${t(referenceBlock.bookId)} ${referenceBlock.chapter}:${
-          referenceBlock.verse
-        })`
-      )
-      .then(
-        () => {
-          handleContextClose();
-          enqueueSnackbar(t('copied_success'), { variant: 'success' });
-        },
-        (err) => {
-          handleContextClose();
-          enqueueSnackbar(t('copied_error'), { variant: 'error' });
-        }
-      );
-  };
+     // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [chapter, reference, type, fontSize]);
 
   return (
     <Card
@@ -174,19 +152,19 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
       onClose={() => onClose(type)}
       title={title}
       type={type}
-      classes={classes}
+      classes={{ ...classes, root: classes.root + ' intro-card' }}
+      id ={type}
     >
-      <Menu
-        keepMounted
-        open={position.mouseY !== null}
-        onClose={handleContextClose}
-        anchorReference="anchorPosition"
-        anchorPosition={anchorPosition}
-      >
-        <MenuItem onClick={handleOpenError}>{t('Error_report')}</MenuItem>
-        <MenuItem onClick={handleToClipboard}>{t('Copy_to_clipboard')}</MenuItem>
-      </Menu>
-      {chapter ? verses : t('No_content')}
+      <ContextMenu position={positionContextMenu} setPosition={setPositionContextMenu} />
+      {isLoading || chapter === undefined ? (
+        <div className={classesCircular.root}>
+          <CircularProgress color="primary" size={100} />
+        </div>
+      ) : chapter != null ? (
+        verses
+      ) : (
+        t('No_content')
+      )}
     </Card>
   );
 }

@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 
 import { useTranslation } from 'react-i18next';
 
-import { ReferenceContext } from '../../context/ReferenceContext';
+import { ReferenceContext } from '../../context';
 
 import {
   Box,
@@ -38,7 +38,7 @@ function ReportDialog({
   const showReferenceText = text;
 
   return (
-    <Dialog open={open} onClose={handleCancel}>
+    <Dialog open={open} onClose={handleCancel} classes={{ paper: 'intro-reportDialog' }}>
       <DialogTitle className={classes.title}>{t('Report_typo')}</DialogTitle>
       <DialogContent>
         <DialogContentText>{t('Text_to_editors')}</DialogContentText>

@@ -2,8 +2,7 @@ import React, { useContext } from 'react';
 
 import { Card, CardContent, useContent, useCardState } from 'translation-helps-rcl';
 
-import { AppContext } from '../../context/AppContext';
-import { ReferenceContext } from '../../context/ReferenceContext';
+import { AppContext, ReferenceContext } from '../../context';
 import { server } from '../../config/base';
 
 export default function SupportTQ(props) {
@@ -28,7 +27,7 @@ export default function SupportTQ(props) {
   const {
     markdown,
     items,
-    isLoading,
+    resourceStatus: { loading },
     props: { languageId },
   } = useContent({
     projectId: bookId,
@@ -53,6 +52,7 @@ export default function SupportTQ(props) {
       title={title}
       onClose={() => onClose(type)}
       classes={{ ...classes, children: 'tqcard' }}
+      id ={type}
       items={items}
       headers={headers}
       filters={filters}
@@ -69,7 +69,7 @@ export default function SupportTQ(props) {
         fontSize={fontSize}
         markdown={markdown}
         viewMode="question"
-        isLoading={isLoading}
+        isLoading={Boolean(loading)}
         languageId={languageId}
         markdownView={markdownView}
       />

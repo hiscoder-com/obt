@@ -16,7 +16,9 @@ import {
 export const AppContext = React.createContext();
 
 const _currentLanguage = checkLSVal('i18nextLng', languages[0]);
-const _resourcesApp = checkLSVal('resourcesApp', [], false);
+const _resourcesApp = checkLSVal('resourcesApp', [], 'object');
+
+const _loadIntro = checkLSVal('loadIntro', true, 'boolean');
 
 const _fontSize = parseInt(localStorage.getItem('fontSize'));
 
@@ -29,6 +31,7 @@ export function AppContextProvider({ children }) {
   } = useContext(ReferenceContext);
 
   const [currentLanguage, setCurrentLanguage] = useState(_currentLanguage);
+
   const [appConfig, setAppConfig] = useState(
     () =>
       checkLSVal(
@@ -37,19 +40,23 @@ export function AppContextProvider({ children }) {
           bible: defaultTplBible[_currentLanguage],
           obs: defaultTplOBS[_currentLanguage],
         },
-        false,
+        'object',
         'bible'
       )[referenceSelected.bookId === 'obs' ? 'obs' : 'bible']
   );
+
   const [resourcesApp, setResourcesApp] = useState(_resourcesApp);
   const _resourceLinks = getResources(appConfig, resourcesApp);
   const [resourceLinks, setResourceLinks] = useState(_resourceLinks);
   const [resources, setResources] = useState([]);
-  const [showBookSelect, setShowBookSelect] = useState(true);
+  const [showBookSelect, setShowBookSelect] = useState(false);
   const [showChapterSelect, setShowChapterSelect] = useState(false);
   const [showErrorReport, setShowErrorReport] = useState(false);
   const [errorFile, setErrorFile] = useState('');
   const [fontSize, setFontSize] = useState(_fontSize ? _fontSize : 100);
+  const [loadIntro, setLoadIntro] = useState(_loadIntro);
+
+  const [openMainMenu, setOpenMainMenu] = useState(false);
 
   const { t } = useTranslation();
 
@@ -70,9 +77,18 @@ export function AppContextProvider({ children }) {
     localStorage.setItem('resourcesApp', JSON.stringify(resourcesApp));
   }, [resourcesApp]);
 
+  useEffect(() => {
+    localStorage.setItem('loadIntro', loadIntro);
+  }, [loadIntro]);
+
   const value = {
     state: {
       appConfig,
+      currentLanguage,
+      errorFile,
+      fontSize,
+      loadIntro,
+      openMainMenu,
       resourceLinks,
       resourcesApp,
       resources,
@@ -80,21 +96,20 @@ export function AppContextProvider({ children }) {
       showBookSelect,
       showChapterSelect,
       showErrorReport,
-      fontSize,
-      currentLanguage,
-      errorFile,
     },
     actions: {
       setAppConfig,
+      setCurrentLanguage,
       setErrorFile,
+      setFontSize,
+      setLoadIntro,
+      setOpenMainMenu,
       setResourceLinks,
       setResourcesApp,
       setResources,
       setShowBookSelect,
       setShowChapterSelect,
       setShowErrorReport,
-      setFontSize,
-      setCurrentLanguage,
     },
   };
 

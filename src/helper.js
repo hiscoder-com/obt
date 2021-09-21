@@ -140,22 +140,41 @@ export const langArrToObject = (langs) => {
   });
   return result;
 };
-
-export const checkLSVal = (el, val, isString = true, ext = false) => {
+/**
+ *
+ * @param {string} el Name
+ * @param {*} val default value
+ * @param {string} type is string or object or bool
+ * @param {string} ext if value is object, check element
+ * @returns
+ */
+export const checkLSVal = (el, val, type = 'string', ext = false) => {
   let value;
-  if (isString) {
-    value = localStorage.getItem(el);
-  } else {
-    try {
-      value = JSON.parse(localStorage.getItem(el));
-    } catch (error) {
-      localStorage.setItem(el, isString ? val : JSON.stringify(val));
-      return val;
-    }
+  switch (type) {
+    case 'object':
+      try {
+        value = JSON.parse(localStorage.getItem(el));
+      } catch (error) {
+        localStorage.setItem(el, JSON.stringify(val));
+        return val;
+      }
+      break;
+    case 'boolean':
+      if (localStorage.getItem(el) === null) {
+        value = null;
+      } else {
+        value = localStorage.getItem(el) === 'true';
+      }
+      break;
+
+    case 'string':
+    default:
+      value = localStorage.getItem(el);
+      break;
   }
 
   if (value === null || (ext && !value[ext])) {
-    localStorage.setItem(el, isString ? val : JSON.stringify(val));
+    localStorage.setItem(el, type === 'string' ? val : JSON.stringify(val));
     return val;
   } else {
     return value;
@@ -226,4 +245,11 @@ export const scrollTo = (currentVerse, position) => {
       break;
   }
   currentVerse.parentNode.scrollTo(0, top + offset);
+};
+
+export const switchModeBible = (type, goToBookChapterVerse, setAppConfig) => {
+  const curRef = JSON.parse(localStorage.getItem('reference'))[type];
+  const appConfig = JSON.parse(localStorage.getItem('appConfig'))[type];
+  setAppConfig(appConfig);
+  goToBookChapterVerse(curRef.bookId, curRef.chapter, curRef.verse);
 };

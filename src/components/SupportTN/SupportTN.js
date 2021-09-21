@@ -2,8 +2,7 @@ import React, { useState, useContext, useEffect } from 'react';
 
 import { Card, CardContent, useContent, useCardState } from 'translation-helps-rcl';
 
-import { AppContext } from '../../context/AppContext';
-import { ReferenceContext } from '../../context/ReferenceContext';
+import { AppContext, ReferenceContext } from '../../context';
 import { server } from '../../config/base';
 
 export default function SupportTN(props) {
@@ -29,7 +28,7 @@ export default function SupportTN(props) {
   const {
     markdown,
     items,
-    isLoading,
+    resourceStatus: { loading },
     props: { languageId },
   } = useContent({
     verse: String(verse),
@@ -62,6 +61,7 @@ export default function SupportTN(props) {
       title={title}
       onClose={() => onClose(type)}
       classes={classes}
+      id ={type}
       items={items}
       fontSize={fontSize}
       headers={headers}
@@ -77,7 +77,7 @@ export default function SupportTN(props) {
         filters={filterArray}
         markdown={markdown}
         fontSize={fontSize}
-        isLoading={isLoading}
+        isLoading={Boolean(loading)}
         languageId={languageId}
         markdownView={markdownView}
         selectedQuote={selectedQuote}

@@ -2,8 +2,7 @@ import React, { useState, useContext } from 'react';
 
 import { Card, CardContent, useContent, useCardState } from 'translation-helps-rcl';
 
-import { AppContext } from '../../context/AppContext';
-import { ReferenceContext } from '../../context/ReferenceContext';
+import { AppContext, ReferenceContext } from '../../context';
 import { server } from '../../config/base';
 
 export default function SupportTW(props) {
@@ -29,7 +28,7 @@ export default function SupportTW(props) {
   const {
     markdown,
     items,
-    isLoading,
+    resourceStatus: { loading },
     props: { languageId },
   } = useContent({
     verse: verse,
@@ -55,6 +54,7 @@ export default function SupportTW(props) {
       title={title}
       onClose={() => onClose(type)}
       classes={classes}
+      id ={type}
       items={items}
       headers={headers}
       filters={filters}
@@ -71,7 +71,7 @@ export default function SupportTW(props) {
         filters={filters}
         fontSize={fontSize}
         markdown={markdown}
-        isLoading={isLoading}
+        isLoading={Boolean(loading)}
         languageId={languageId}
         markdownView={markdownView}
         selectedQuote={selectedQuote}

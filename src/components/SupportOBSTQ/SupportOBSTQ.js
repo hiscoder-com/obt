@@ -2,8 +2,7 @@ import React, { useContext } from 'react';
 
 import { Card, CardContent, useContent, useCardState } from 'translation-helps-rcl';
 
-import { AppContext } from '../../context/AppContext';
-import { ReferenceContext } from '../../context/ReferenceContext';
+import { AppContext, ReferenceContext } from '../../context';
 import { server } from '../../config/base';
 
 export default function SupportOBSTQ(props) {
@@ -28,7 +27,7 @@ export default function SupportOBSTQ(props) {
   const {
     markdown,
     items,
-    isLoading,
+    resourceStatus: { loading },
     props: { languageId },
   } = useContent({
     projectId: bookId + '-tq',
@@ -46,13 +45,13 @@ export default function SupportOBSTQ(props) {
   } = useCardState({
     items,
   });
-
   return (
     <Card
       closeable
       title={title}
       onClose={() => onClose(type)}
       classes={{ ...classes, children: 'tqcard' }}
+      id ={type}
       items={items}
       headers={headers}
       filters={filters}
@@ -69,7 +68,7 @@ export default function SupportOBSTQ(props) {
         fontSize={fontSize}
         markdown={markdown}
         viewMode="question"
-        isLoading={isLoading}
+        isLoading={Boolean(loading)}
         languageId={languageId}
         markdownView={markdownView}
       />
