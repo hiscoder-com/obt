@@ -27,7 +27,7 @@ export default function SupportTQ(props) {
   const {
     markdown,
     items,
-    isLoading,
+    resourceStatus: { loading },
     props: { languageId },
   } = useContent({
     projectId: bookId,
@@ -52,6 +52,7 @@ export default function SupportTQ(props) {
       title={title}
       onClose={() => onClose(type)}
       classes={{ ...classes, children: 'tqcard' }}
+      id ={type}
       items={items}
       headers={headers}
       filters={filters}
@@ -68,7 +69,7 @@ export default function SupportTQ(props) {
         fontSize={fontSize}
         markdown={markdown}
         viewMode="question"
-        isLoading={isLoading}
+        isLoading={Boolean(loading)}
         languageId={languageId}
         markdownView={markdownView}
       />
