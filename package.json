@@ -10,7 +10,6 @@
   "author": "TextTree (https://texttree.org)",
   "private": true,
   "dependencies": {
-    "@craco/craco": "^6.3.0",
     "@material-ui/core": "^4.12.3",
     "@material-ui/icons": "^4.11.2",
     "@material-ui/lab": "^4.0.0-alpha.60",
@@ -35,7 +34,6 @@
     "react-swipeable": "^6.2.0",
     "resource-workspace-rcl": "^1.0.0",
     "scripture-resources-rcl": "5.1.1",
-    "source-map-explorer": "^2.5.2",
     "translation-helps-rcl": "^2.3.2",
     "use-deep-compare-effect": "^1.6.1"
   },
@@ -64,6 +62,7 @@
     ]
   },
   "devDependencies": {
+    "@craco/craco": "^6.3.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.24.2",
     "eslint-plugin-jsx-a11y": "^6.4.1",
@@ -71,6 +70,7 @@
     "eslint-plugin-react": "^7.25.1",
     "eslint-plugin-react-hooks": "^4.2.0",
     "prettier": "^2.3.2",
-    "react-scripts": "^4.0.3"
+    "react-scripts": "^4.0.3",
+    "source-map-explorer": "^2.5.2"
   }
 }
