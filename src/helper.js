@@ -225,9 +225,5 @@ export const scrollTo = (currentVerse, position) => {
     default:
       break;
   }
-  currentVerse.parentNode.scrollTo({
-    top: top + offset,
-    left: 0,
-    behavior: 'smooth',
-  });
+  currentVerse.parentNode.scrollTo(0, top + offset);
 };
