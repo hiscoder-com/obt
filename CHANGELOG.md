@@ -15,7 +15,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - swipes (left-right) to switch chapter on the phone
 
 ### Changed
-- for changes in existing functionality
+- Bundle optimization
+- Lazy loading
 
 ### Deprecated
 -  for soon-to-be removed features
