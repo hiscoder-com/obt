@@ -9,7 +9,6 @@ import { server } from '../../config/base';
 import { CircularProgress } from '@material-ui/core';
 import { useCircularStyles } from './style';
 
-
 export default function OBSVerses({ title, classes, onClose, type }) {
   const classesCircular = useCircularStyles();
   const [isLoading, setIsLoading] = useState(false);
@@ -44,9 +43,8 @@ export default function OBSVerses({ title, classes, onClose, type }) {
 
   useEffect(() => {
     setIsLoading(!(resourceStatus.initialized && !resourceStatus.loading));
-  }, [resourceStatus])
+  }, [resourceStatus]);
 
- 
   return (
     <>
       <Card
@@ -54,21 +52,22 @@ export default function OBSVerses({ title, classes, onClose, type }) {
         title={title}
         onClose={() => onClose(type)}
         classes={{ ...classes, children: 'obs' }}
-        id ={type}
+        id={type}
         fontSize={fontSize}
       >
-       {
-          isLoading ? <div className={classesCircular.root}>
-          <CircularProgress color="primary" size={100} />
-        </div> : 
-        <OBSContent
-          markdown={markdown}
-          fontSize={fontSize}
-          verse={verse}
-          onChangeVerse={onChangeVerse}
-          type={type}
-        />
-         }
+        {isLoading ? (
+          <div className={classesCircular.root}>
+            <CircularProgress color="primary" size={100} />
+          </div>
+        ) : (
+          <OBSContent
+            markdown={markdown}
+            fontSize={fontSize}
+            verse={verse}
+            onChangeVerse={onChangeVerse}
+            type={type}
+          />
+        )}
       </Card>
     </>
   );

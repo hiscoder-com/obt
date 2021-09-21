@@ -12,7 +12,6 @@ import { useCircularStyles } from './style';
 import { ContextMenu } from '../../components';
 import { useScrollToVerse } from '../../hooks';
 
-
 const initialPosition = {
   left: null,
   top: null,
@@ -143,7 +142,7 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
     }
     setVerses(_verses);
 
-     // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [chapter, reference, type, fontSize]);
 
   return (
@@ -153,7 +152,7 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
       title={title}
       type={type}
       classes={{ ...classes, root: classes.root + ' intro-card' }}
-      id ={type}
+      id={type}
     >
       <ContextMenu position={positionContextMenu} setPosition={setPositionContextMenu} />
       {isLoading || chapter === undefined ? (
