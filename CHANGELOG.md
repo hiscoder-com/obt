@@ -8,13 +8,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 -
 
-## [1.?.?] - 2021-??-??
+## [1.1.0] - 2021-09-22
 
 
 ### Added
 - Swipes (left-right) to switch chapter on the phone
 - Current reference(book,chapter,verse) of Bible/OBS in app bar: clickable and adaptive for screen size
 - Select Bible/OBS mode in app bar
+- Service Worker for caching requests
 
 ### Changed (for changes in existing functionality)
 - In main menu removed options for change Bible/OBS mode
