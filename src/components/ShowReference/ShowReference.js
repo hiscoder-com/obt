@@ -8,7 +8,6 @@ import { useTranslation } from 'react-i18next';
 import { getAbbr } from '../../config/base';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
-
 function ShowReference() {
   const matches = useMediaQuery('(min-width:400px)');
 
@@ -26,7 +25,6 @@ function ShowReference() {
   } = useContext(AppContext);
 
   const { t } = useTranslation();
-  
 
   const abbr = getAbbr(bookId, currentLanguage === 'ru' ? currentLanguage : null);
 
@@ -39,7 +37,7 @@ function ShowReference() {
   const handleClickChapter = () => setShowChapterSelect(true);
 
   return (
-    <ButtonGroup disableElevation variant="contained" color="primary" >
+    <ButtonGroup disableElevation variant="contained" color="primary">
       <Button onClick={handleClickBook}> {showBook && showBook.toUpperCase()} </Button>
       <Button onClick={handleClickChapter}>{showChapter}</Button>
     </ButtonGroup>

@@ -38,9 +38,10 @@
     "use-deep-compare-effect": "^1.7.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
+    "analyze": "source-map-explorer 'build/static/js/*.js'",
+    "start": "craco start",
+    "build": "craco build",
+    "test": "craco test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -61,6 +62,7 @@
     ]
   },
   "devDependencies": {
+    "@craco/craco": "^6.3.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.24.2",
     "eslint-plugin-jsx-a11y": "^6.4.1",
@@ -68,6 +70,7 @@
     "eslint-plugin-react": "^7.25.1",
     "eslint-plugin-react-hooks": "^4.2.0",
     "prettier": "^2.3.2",
-    "react-scripts": "3.0.1"
+    "react-scripts": "^4.0.3",
+    "source-map-explorer": "^2.5.2"
   }
 }

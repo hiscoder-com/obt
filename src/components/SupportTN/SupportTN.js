@@ -61,7 +61,7 @@ export default function SupportTN(props) {
       title={title}
       onClose={() => onClose(type)}
       classes={classes}
-      id ={type}
+      id={type}
       items={items}
       fontSize={fontSize}
       headers={headers}
