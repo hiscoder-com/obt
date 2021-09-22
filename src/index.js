@@ -1,14 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-
-import './i18next';
 import App from './App';
+import './i18next';
 import ContextProviders from './context/ContextProviders';
 import './styles/style.css';
 
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 // import reportWebVitals from './reportWebVitals';
+// const App = React.lazy(() => import('./App.js'));
 
 ReactDOM.render(
   <React.StrictMode>
