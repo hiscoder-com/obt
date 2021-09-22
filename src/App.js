@@ -1,15 +1,20 @@
 import React, { useContext, useEffect, useState, useMemo } from 'react';
 
-import { Workspace } from 'resource-workspace-rcl';
 import { SnackbarProvider } from 'notistack';
+import { Workspace } from 'resource-workspace-rcl';
 
 import { AppContext } from './context/AppContext';
 import { ReferenceContext } from './context/ReferenceContext';
-import { SubMenuBar, Card, TypoReport, Shortcut, Intro, Swipes } from './components';
+import { Shortcut, Swipes, Intro, Card, TypoReport, SubMenuBar } from './components';
 import { useWindowSize } from './hooks';
 
 import './styles/app.css';
 import useStyles from './style';
+
+//const Intro = React.lazy(() => import('./components/Intro/Intro'));
+//const Card = React.lazy(() => import('./components/Card/Card'));
+//const TypoReport = React.lazy(() => import('./components/TypoReport/TypoReport'));
+//const SubMenuBar = React.lazy(() => import('./components/SubMenuBar/SubMenuBar'));
 
 export default function App() {
   const {
@@ -54,14 +59,6 @@ export default function App() {
     setAppConfig(newLayout);
   };
 
-  /*useEffect(() => {
-    const appConfig = JSON.parse(localStorage.getItem('appConfig'))[
-      bookId === 'obs' ? 'obs' : 'bible'
-    ];
-    setAppConfig(appConfig);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [bookId]);*/
-
   const mainResources = resourcesApp
     .filter((e) => appConfig.map((e) => e.i).includes(e.name))
     .filter((e) =>
@@ -88,7 +85,7 @@ export default function App() {
   };
 
   const cards = appConfig.map((item) => (
-    <Card classes={classes} key={item.i} onClose={() => onClose(item.i)} type={item.i} />
+    <Card key={item.i} classes={classes} onClose={() => onClose(item.i)} type={item.i} />
   ));
 
   const availableBookList = useMemo(() => {
