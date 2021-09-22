@@ -1,21 +1,20 @@
-import React, { useContext, useEffect, useState, useMemo, Suspense } from 'react';
+import React, { useContext, useEffect, useState, useMemo } from 'react';
 
 import { SnackbarProvider } from 'notistack';
 import { Workspace } from 'resource-workspace-rcl';
 
 import { AppContext } from './context/AppContext';
 import { ReferenceContext } from './context/ReferenceContext';
-import { Shortcut, Swipes } from './components';
+import { Shortcut, Swipes, Intro, Card, TypoReport, SubMenuBar } from './components';
 import { useWindowSize } from './hooks';
 
 import './styles/app.css';
 import useStyles from './style';
 
-const Intro = React.lazy(() => import('./components/Intro/Intro'));
-const Card = React.lazy(() => import('./components/Card/Card'));
-//const Workspace = React.lazy(() => import('resource-workspace-rcl'));
-const TypoReport = React.lazy(() => import('./components/TypoReport/TypoReport'));
-const SubMenuBar = React.lazy(() => import('./components/SubMenuBar/SubMenuBar'));
+//const Intro = React.lazy(() => import('./components/Intro/Intro'));
+//const Card = React.lazy(() => import('./components/Card/Card'));
+//const TypoReport = React.lazy(() => import('./components/TypoReport/TypoReport'));
+//const SubMenuBar = React.lazy(() => import('./components/SubMenuBar/SubMenuBar'));
 
 export default function App() {
   const {
@@ -60,14 +59,6 @@ export default function App() {
     setAppConfig(newLayout);
   };
 
-  /*useEffect(() => {
-    const appConfig = JSON.parse(localStorage.getItem('appConfig'))[
-      bookId === 'obs' ? 'obs' : 'bible'
-    ];
-    setAppConfig(appConfig);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [bookId]);*/
-
   const mainResources = resourcesApp
     .filter((e) => appConfig.map((e) => e.i).includes(e.name))
     .filter((e) =>
@@ -94,9 +85,7 @@ export default function App() {
   };
 
   const cards = appConfig.map((item) => (
-    <Suspense key={item.i}>
-      <Card classes={classes} onClose={() => onClose(item.i)} type={item.i} />
-    </Suspense>
+    <Card key={item.i} classes={classes} onClose={() => onClose(item.i)} type={item.i} />
   ));
 
   const availableBookList = useMemo(() => {
@@ -127,11 +116,9 @@ export default function App() {
 
   return (
     <SnackbarProvider maxSnack={3}>
-      <Suspense>
-        <Intro />
-        <SubMenuBar />
-        <TypoReport />
-      </Suspense>
+      <Intro />
+      <SubMenuBar />
+      <TypoReport />
       <Workspace
         gridMargin={[15, 15]}
         rowHeight={rowHeight}
