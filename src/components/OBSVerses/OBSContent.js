@@ -103,12 +103,12 @@ function OBSContent({ markdown, verse, fontSize, type, onChangeVerse }) {
         );
       });
       const versesOBS = (
-        <div>
+        <>
           <h1>{headerMd}</h1>
           {contentMd}
           <br />
           <i>{linkMd}</i>
-        </div>
+        </>
       );
       setVerses(versesOBS);
     } else {
@@ -118,10 +118,10 @@ function OBSContent({ markdown, verse, fontSize, type, onChangeVerse }) {
   }, [markdown, verse, verseRef, t, fontSize, onChangeVerse]);
 
   return (
-    <div>
+    <>
       {verses}
       <ContextMenu position={positionContextMenu} setPosition={setPositionContextMenu} />
-    </div>
+    </>
   );
 }
 
