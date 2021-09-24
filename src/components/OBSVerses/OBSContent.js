@@ -71,7 +71,7 @@ function OBSContent({ markdown, verse, fontSize, type, onChangeVerse }) {
             }}
             key={key}
             onClick={() => {
-              onChangeVerse(key);
+              onChangeVerse(key, key);
             }}
           >
             {urlImage ? (
