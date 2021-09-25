@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 
 import { Card, useContent } from 'translation-helps-rcl';
 
@@ -6,8 +6,13 @@ import OBSContent from './OBSContent';
 
 import { AppContext, ReferenceContext } from '../../context';
 import { server } from '../../config/base';
+import { CircularProgress } from '@material-ui/core';
+import { useCircularStyles } from './style';
 
 export default function OBSVerses({ title, classes, onClose, type }) {
+  const classesCircular = useCircularStyles();
+  const [isLoading, setIsLoading] = useState(false);
+
   const {
     state: { fontSize, resourcesApp },
   } = useContext(AppContext);
@@ -26,8 +31,7 @@ export default function OBSVerses({ title, classes, onClose, type }) {
       resource = el;
     }
   });
-
-  const { markdown } = useContent({
+  const { markdown, resourceStatus } = useContent({
     projectId: bookId,
     ref: resource.branch ?? 'master',
     languageId: resource.languageId ?? 'ru',
@@ -37,6 +41,10 @@ export default function OBSVerses({ title, classes, onClose, type }) {
     server,
   });
 
+  useEffect(() => {
+    setIsLoading(!(resourceStatus.initialized && !resourceStatus.loading));
+  }, [resourceStatus]);
+
   return (
     <>
       <Card
@@ -44,15 +52,22 @@ export default function OBSVerses({ title, classes, onClose, type }) {
         title={title}
         onClose={() => onClose(type)}
         classes={{ ...classes, children: 'obs' }}
+        id={type}
         fontSize={fontSize}
       >
-        <OBSContent
-          markdown={markdown}
-          fontSize={fontSize}
-          verse={verse}
-          onChangeVerse={onChangeVerse}
-          type={type}
-        />
+        {isLoading ? (
+          <div className={classesCircular.root}>
+            <CircularProgress color="primary" size={100} />
+          </div>
+        ) : (
+          <OBSContent
+            markdown={markdown}
+            fontSize={fontSize}
+            verse={verse}
+            onChangeVerse={onChangeVerse}
+            type={type}
+          />
+        )}
       </Card>
     </>
   );
