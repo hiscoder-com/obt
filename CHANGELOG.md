@@ -10,10 +10,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - PR template
 
 ### Changed (for changes in existing functionality)
-- style for "add resources" button
+- Style for "add resources" button
 
 ### Fixed (for any bug fixes)
-- font family for card headers
+- Font family for card headers
+- The default action when using shortcuts
 
 ### Security (in case of vulnerabilities)
 - Updating dependencies
