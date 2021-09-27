@@ -67,6 +67,6 @@ input {
 .tooltipClass .introjs-arrow{
   display: none !important;
 }
-div[id*="_title"][class*="title"]{
+div[id*="_title"]{
   font-family:inherit;
 }

@@ -16,12 +16,72 @@ export default function Shortcut() {
     },
   } = useContext(ReferenceContext);
 
-  useHotkeys('ctrl+right', () => goToNextChapter(), {}, [referenceSelected]);
-  useHotkeys('ctrl+left', () => goToPrevChapter(), {}, [referenceSelected]);
-  useHotkeys('ctrl+shift+left', () => goToPrevBook(), {}, [referenceSelected]);
-  useHotkeys('ctrl+shift+right', () => goToNextBook(), {}, [referenceSelected]);
-  useHotkeys('ctrl+up', () => goToPrevVerse(), {}, [referenceSelected]);
-  useHotkeys('ctrl+down', () => goToNextVerse(), {}, [referenceSelected]);
+  useHotkeys(
+    'ctrl+right',
+    (e) => {
+      goToNextChapter();
+      e.cancelBubble = true;
+      e.preventDefault();
+      e.stopImmediatePropagation();
+    },
+    {},
+    [referenceSelected]
+  );
+  useHotkeys(
+    'ctrl+left',
+    (e) => {
+      goToPrevChapter();
+      e.cancelBubble = true;
+      e.preventDefault();
+      e.stopImmediatePropagation();
+    },
+    {},
+    [referenceSelected]
+  );
+  useHotkeys(
+    'ctrl+shift+left',
+    (e) => {
+      goToPrevBook();
+      e.cancelBubble = true;
+      e.preventDefault();
+      e.stopImmediatePropagation();
+    },
+    {},
+    [referenceSelected]
+  );
+  useHotkeys(
+    'ctrl+shift+right',
+    (e) => {
+      goToNextBook();
+      e.cancelBubble = true;
+      e.preventDefault();
+      e.stopImmediatePropagation();
+    },
+    {},
+    [referenceSelected]
+  );
+  useHotkeys(
+    'ctrl+up',
+    (e) => {
+      goToPrevVerse();
+      e.cancelBubble = true;
+      e.preventDefault();
+      e.stopImmediatePropagation();
+    },
+    {},
+    [referenceSelected]
+  );
+  useHotkeys(
+    'ctrl+down',
+    (e) => {
+      goToNextVerse();
+      e.cancelBubble = true;
+      e.preventDefault();
+      e.stopImmediatePropagation();
+    },
+    {},
+    [referenceSelected]
+  );
 
   return Shortcut;
 }
