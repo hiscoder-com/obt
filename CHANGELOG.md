@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed (for changes in existing functionality)
 - Style for "add resources" button
+- Add new url for cache
 
 ### Fixed (for any bug fixes)
 - Font family for card headers

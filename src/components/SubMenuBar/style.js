@@ -28,18 +28,18 @@ export const useModalStyles = makeStyles((theme) => ({
 
 export const useAddStyles = makeStyles((theme) => ({
   root: {
-    color: '#38addf',
+    color: '#333333',
     borderColor: '#38addf',
     '&:hover': {
-      color: '#38addf',
+      color: '#333333',
       borderColor: '#38addf',
     },
     '&:active': {
-      color: '#38addf',
+      color: '#333333',
       borderColor: '#38addf',
     },
     '&:focus': {
-      color: '#38addf',
+      color: '#333333',
       borderColor: '#38addf',
     },
   },

@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from 'react';
 
 import { useTranslation } from 'react-i18next';
 import axios from 'axios';
-import { setupCache } from 'axios-cache-adapter';
 
 import { AppContext, ReferenceContext } from '../../context';
 
@@ -50,11 +49,6 @@ function SearchResources({ anchorEl, onClose, open }) {
 
   useEffect(() => {
     axios
-      .create({
-        adapter: setupCache({
-          maxAge: 15 * 60 * 1000,
-        }).adapter,
-      })
       .get(
         server +
           '/api/catalog/v5/search?sort=lang,title&owner=' +
