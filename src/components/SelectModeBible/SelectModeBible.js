@@ -29,42 +29,33 @@ function SelectModeBible() {
   const initialSelectedValue = bookId === 'obs' ? 'obs' : 'bible';
   const [selectedValue, setSelectedValue] = React.useState(initialSelectedValue);
   React.useEffect(() => {
-    if (bookId !== 'obs') {
-      setSelectedValue('bible');
-    } else {
-      setSelectedValue('obs');
-    }
+    setSelectedValue(bookId === 'obs' ? 'obs' : 'bible');
   }, [bookId]);
 
   const handleChange = (e) => {
     const type = e.target.value;
-
     switchModeBible(type, goToBookChapterVerse, setAppConfig);
   };
 
   return (
-    <>
-      <div>
-        <FormControl className={classes.formControl}>
-          <NativeSelect
-            labelid="workSpace-select-label"
-            disableUnderline={true}
-            classes={{
-              icon: classes.icon,
-              select: classes.select,
-            }}
-            onChange={handleChange}
-            value={selectedValue}
-          >
-            {options.map((el) => (
-              <option key={el.key} value={el.key} className={classes.option}>
-                {t(el.label).toUpperCase()}
-              </option>
-            ))}
-          </NativeSelect>
-        </FormControl>
-      </div>
-    </>
+    <FormControl className={classes.formControl}>
+      <NativeSelect
+        labelid="workSpace-select-label"
+        disableUnderline={true}
+        classes={{
+          icon: classes.icon,
+          select: classes.select,
+        }}
+        onChange={handleChange}
+        value={selectedValue}
+      >
+        {options.map((el) => (
+          <option key={el.key} value={el.key} className={classes.option}>
+            {t(el.label).toUpperCase()}
+          </option>
+        ))}
+      </NativeSelect>
+    </FormControl>
   );
 }
 

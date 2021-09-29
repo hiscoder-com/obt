@@ -12,10 +12,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed (for changes in existing functionality)
 - Style for "add resources" button
 - Add new url for cache
+- Highlighting the current verse
 
 ### Fixed (for any bug fixes)
 - Font family for card headers
 - The default action when using shortcuts
+- Highlighting a verse when switching to OBS
 
 ### Security (in case of vulnerabilities)
 - Updating dependencies

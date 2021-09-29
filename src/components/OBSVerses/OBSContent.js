@@ -9,7 +9,7 @@ const initialPositionContextMenu = {
   top: null,
 };
 
-function OBSContent({ markdown, verse, fontSize, type, onChangeVerse }) {
+function OBSContent({ markdown, verse, chapter, fontSize, type, goToBookChapterVerse }) {
   const [positionContextMenu, setPositionContextMenu] = useState(
     initialPositionContextMenu
   );
@@ -62,16 +62,16 @@ function OBSContent({ markdown, verse, fontSize, type, onChangeVerse }) {
         const { key, urlImage, text } = item;
         const verseStyle = {
           fontSize: fontSize + '%',
-          fontWeight: key === verse ? 'bold' : 'inherit',
         };
         return (
           <div
             ref={(ref) => {
               key === verse && verseRef(ref);
             }}
+            className={'verse' + (key === verse ? ' current' : '')}
             key={key}
             onClick={() => {
-              onChangeVerse(key, key);
+              goToBookChapterVerse('obs', chapter, key);
             }}
           >
             {urlImage ? (
@@ -115,7 +115,7 @@ function OBSContent({ markdown, verse, fontSize, type, onChangeVerse }) {
       setVerses(<>{t('No_content')}</>);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [markdown, verse, verseRef, t, fontSize, onChangeVerse]);
+  }, [markdown, verse, verseRef, t, fontSize, goToBookChapterVerse]);
 
   return (
     <>
