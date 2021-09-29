@@ -9,6 +9,10 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import ReactMarkdown from 'react-markdown';
 
 import changeLog from '../../CHANGELOG.md';
+//TODO fix
+// I cant import at ../../../CHANGELOG.md
+// Module not found: You attempted to import ../../../CHANGELOG.md which falls outside of the project src/ directory. Relative imports outside of src/ are not supported.
+
 import * as PACKAGE_JSON from '../../../package.json';
 
 function About() {
@@ -34,7 +38,7 @@ function About() {
 
   return (
     <div>
-      <div onClick={handleClickOpen}>{`v${PACKAGE_JSON.default.version}`}</div>
+      <div onClick={handleClickOpen}>{`v${PACKAGE_JSON?.default?.version}`}</div>
       <Dialog
         open={open}
         onClose={handleClose}
@@ -44,7 +48,7 @@ function About() {
         <DialogTitle id="alert-dialog-title">{'About'}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            <ReactMarkdown>{log.text}</ReactMarkdown>
+            <ReactMarkdown>{log ? log.text : 'Version of application'}</ReactMarkdown>
           </DialogContentText>
         </DialogContent>
         <DialogActions>
