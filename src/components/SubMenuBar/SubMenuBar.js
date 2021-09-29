@@ -12,6 +12,7 @@ import {
   SelectLanguage,
   ShowReference,
   SelectModeBible,
+  About,
 } from '../../components';
 
 import { AppBar, Toolbar, MenuItem, Menu, IconButton } from '@material-ui/core';
@@ -116,7 +117,15 @@ function SubMenuBar() {
             <MenuItem button={false} divider={true}>
               <SelectLanguage />
             </MenuItem>
-            <MenuItem onClick={handleOpenUsersGuide}>{t('UsersGuide')}</MenuItem>
+            <MenuItem onClick={handleOpenUsersGuide} divider={true}>
+              {t('UsersGuide')}
+            </MenuItem>
+            <MenuItem
+              button={false}
+              style={{ backgroundColor: '#3f51b5', color: 'white' }}
+            >
+              <About />
+            </MenuItem>
           </Menu>
           <SearchResources
             anchorEl={anchorAddMaterial}
