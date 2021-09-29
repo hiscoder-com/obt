@@ -14,7 +14,7 @@ import {
   obsSubjects,
 } from '../../config/materials';
 import { defaultCard, server } from '../../config/base';
-import { getXY } from '../../core/matrix';
+import { getXY } from '@texttree/resource-workspace-rcl';
 import { getUniqueResources } from '../../helper';
 
 import { MenuItem, Menu } from '@material-ui/core';
@@ -22,7 +22,7 @@ import { useStyles } from './style';
 
 function SearchResources({ anchorEl, onClose, open }) {
   const {
-    state: { appConfig, resourcesApp },
+    state: { appConfig, resourcesApp, breakpoint },
     actions: { setAppConfig, setResourcesApp },
   } = useContext(AppContext);
 
@@ -40,7 +40,7 @@ function SearchResources({ anchorEl, onClose, open }) {
   const uniqueResources = getUniqueResources(appConfig, resourcesApp);
 
   const handleAddMaterial = (item) => {
-    const pos = getXY(appConfig);
+    const pos = getXY(appConfig, breakpoint.cols, defaultCard.h, defaultCard.w);
     setAppConfig((prev) =>
       prev.concat({ ...defaultCard, x: pos.x, y: pos.y, i: item.name })
     );

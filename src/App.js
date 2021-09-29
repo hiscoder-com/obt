@@ -1,12 +1,11 @@
-import React, { useContext, useEffect, useState, useMemo } from 'react';
+import React, { useContext, useEffect, useMemo } from 'react';
 
 import { SnackbarProvider } from 'notistack';
-import { Workspace } from 'resource-workspace-rcl';
+import { Workspace } from '@texttree/resource-workspace-rcl';
 
 import { AppContext } from './context/AppContext';
 import { ReferenceContext } from './context/ReferenceContext';
 import { Shortcut, Swipes, Intro, Card, TypoReport, SubMenuBar } from './components';
-import { useWindowSize } from './hooks';
 
 import './styles/app.css';
 import useStyles from './style';
@@ -19,7 +18,7 @@ import useStyles from './style';
 export default function App() {
   const {
     state: { appConfig, resourcesApp, resources },
-    actions: { setAppConfig },
+    actions: { setAppConfig, setBreakpoint },
   } = useContext(AppContext);
 
   const {
@@ -33,13 +32,7 @@ export default function App() {
   const layout = {
     lg: appConfig,
   };
-
-  const [, height] = useWindowSize();
-  const [rowHeight, setRowHeight] = useState(30);
-
-  useEffect(() => {
-    setRowHeight((height - 64) / 12 - 17);
-  }, [height]);
+  const breakpoints = { lg: 900, md: 700, sm: 500 };
 
   Shortcut();
   Swipes();
@@ -114,6 +107,10 @@ export default function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [availableBookList]);
 
+  const onBreakpointChange = (name, cols) => {
+    setBreakpoint({ name, cols });
+  };
+
   return (
     <SnackbarProvider maxSnack={3}>
       <Intro />
@@ -121,10 +118,14 @@ export default function App() {
       <TypoReport />
       <Workspace
         gridMargin={[15, 15]}
-        rowHeight={rowHeight}
+        autoResize={true}
         totalGridUnits={12}
         classes={classes}
         layout={layout}
+        breakpoints={breakpoints}
+        rows={12}
+        correctHeight={64}
+        onBreakpointChange={onBreakpointChange}
         onLayoutChange={onLayoutChange}
       >
         {cards}

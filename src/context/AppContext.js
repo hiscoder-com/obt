@@ -58,6 +58,8 @@ export function AppContextProvider({ children }) {
 
   const [openMainMenu, setOpenMainMenu] = useState(false);
 
+  const [breakpoint, setBreakpoint] = useState({ name: 'lg', cols: 12 });
+
   const { t } = useTranslation();
 
   useEffect(() => {
@@ -84,6 +86,7 @@ export function AppContextProvider({ children }) {
   const value = {
     state: {
       appConfig,
+      breakpoint,
       currentLanguage,
       errorFile,
       fontSize,
@@ -99,6 +102,7 @@ export function AppContextProvider({ children }) {
     },
     actions: {
       setAppConfig,
+      setBreakpoint,
       setCurrentLanguage,
       setErrorFile,
       setFontSize,
