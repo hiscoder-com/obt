@@ -2,6 +2,9 @@ import React, { useState, useContext, useRef } from 'react';
 
 import { FontSizeSlider } from 'translation-helps-rcl';
 import { useTranslation } from 'react-i18next';
+import axios from 'axios';
+import { decodeBase64ToUtf8 } from 'gitea-react-toolkit';
+import YAML from 'js-yaml-parser';
 
 import { AppContext } from '../../context';
 import {
@@ -21,7 +24,7 @@ import { useStyles, useModalStyles, useAddStyles } from './style';
 
 function SubMenuBar() {
   const {
-    state: { fontSize, loadIntro, openMainMenu },
+    state: { fontSize, loadIntro, openMainMenu, appConfig, resourcesApp },
     actions: { setFontSize, setLoadIntro },
   } = useContext(AppContext);
 
@@ -45,6 +48,26 @@ function SubMenuBar() {
 
   const handleCloseMainMenu = () => {
     setAnchorMainMenu(null);
+  };
+  const handleCached = () => {
+    appConfig.forEach(async (el) => {
+      const res = resourcesApp.filter((r) => r.name === el.i)[0];
+      const url =
+        'https://git.door43.org/api/v1/repos/' +
+        res.owner +
+        '/' +
+        res.name +
+        '/contents/';
+      axios.get(url + 'manifest.yaml?ref=master').then((result) => {
+        const json = YAML.safeLoad(decodeBase64ToUtf8(result.data.content));
+        if (json?.dublin_core) {
+          json.projects.forEach((pr) => {
+            axios.get(url + pr.path.substring(2) + '?ref=master');
+            console.log(pr.path);
+          });
+        }
+      });
+    });
   };
   const handleCloseAddMaterial = () => {
     setAnchorAddMaterial(null);
@@ -109,6 +132,7 @@ function SubMenuBar() {
                 {t('Add_resources')}
               </Button>
             </MenuItem>
+            <MenuItem onClick={handleCached}>Cached</MenuItem>
             <MenuItem button={false} divider={true}>
               <FontSizeSlider
                 onChange={setFontSize}

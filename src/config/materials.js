@@ -1,4 +1,4 @@
-export const langs = ['en', 'ru', 'el-x-koine', 'hbo', 'id'];
+export const langs = ['en', 'ru', 'el-x-koine', 'hbo', 'id', 'tg'];
 
 export const owners = ['BSA', 'unfoldingWord', 'ru_gl'];
 
