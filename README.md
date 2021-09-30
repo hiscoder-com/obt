@@ -1,6 +1,8 @@
 https://develop--tt-bsa.netlify.app/
-[CHANGELOG.md]( /src/docs/CHANGELOG.md)
-[CODESTYLE.md]( /src/docs/CODESTYLE.md)
+
+[CHANGELOG]( /src/docs/CHANGELOG.md)
+
+[CODESTYLE]( /src/docs/CODESTYLE.md)
 
 
 ## 0.10.0 (old)
