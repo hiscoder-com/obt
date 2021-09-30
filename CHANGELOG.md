@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Font family for card headers
 - The default action when using shortcuts
 - Highlighting a verse when switching to OBS
+- Fix sending errors from OBS
 
 ### Security (in case of vulnerabilities)
 - Updating dependencies
