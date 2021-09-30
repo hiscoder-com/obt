@@ -1,23 +1,25 @@
 import React from 'react';
 
-import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  MenuList,
+  MenuItem,
+} from '@material-ui/core';
+
 import ReactMarkdown from 'react-markdown';
 
-import changeLog from '../../CHANGELOG.md';
-//TODO fix
-// I cant import at ../../../CHANGELOG.md
-// Module not found: You attempted to import ../../../CHANGELOG.md which falls outside of the project src/ directory. Relative imports outside of src/ are not supported.
+import changeLog from '../../docs/CHANGELOG.md';
 
 import * as PACKAGE_JSON from '../../../package.json';
 
-function About() {
+function About({ open, setOpen, handleClick }) {
   const [log, setLog] = React.useState();
-
+  console.log(log);
   React.useEffect(() => {
     fetch(changeLog)
       .then((response) => response.text())
@@ -25,20 +27,20 @@ function About() {
         setLog({ text: text });
       });
   }, []);
-  console.log(log);
-  const [open, setOpen] = React.useState(false);
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
 
   const handleClose = () => {
     setOpen(false);
   };
 
   return (
-    <div>
-      <div onClick={handleClickOpen}>{`v${PACKAGE_JSON?.default?.version}`}</div>
+    <>
+      <MenuList>
+        <MenuItem onClick={handleClick}>
+          <div>{`${PACKAGE_JSON?.default?.name.toUpperCase()} v${
+            PACKAGE_JSON?.default?.version
+          }`}</div>
+        </MenuItem>
+      </MenuList>
       <Dialog
         open={open}
         onClose={handleClose}
@@ -48,16 +50,21 @@ function About() {
         <DialogTitle id="alert-dialog-title">{'About'}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
+            {`${PACKAGE_JSON?.default?.name.toUpperCase()} v ${
+              PACKAGE_JSON?.default?.version
+            } \n\
+            ${PACKAGE_JSON?.default?.description}`}
+
             <ReactMarkdown>{log ? log.text : 'Version of application'}</ReactMarkdown>
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} color="primary" autoFocus>
-            OK
+          <Button onClick={handleClose} color="secondary" autoFocus>
+            CLOSE
           </Button>
         </DialogActions>
       </Dialog>
-    </div>
+    </>
   );
 }
 

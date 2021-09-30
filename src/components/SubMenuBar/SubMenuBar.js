@@ -33,6 +33,7 @@ function SubMenuBar() {
   const modalClasses = useModalStyles();
   const [anchorMainMenu, setAnchorMainMenu] = useState(null);
   const [anchorAddMaterial, setAnchorAddMaterial] = useState(null);
+  const [openAbout, setOpenAbout] = useState(false);
 
   const { t } = useTranslation();
 
@@ -53,6 +54,9 @@ function SubMenuBar() {
   const handleOpenUsersGuide = () => {
     setLoadIntro(true);
     handleCloseMainMenu();
+  };
+  const handleClickOpenAbout = () => {
+    setOpenAbout(true);
   };
 
   const anchorEl = loadIntro && anchorMainMenu ? anchorMainMenu : menuRef.current;
@@ -120,12 +124,12 @@ function SubMenuBar() {
             <MenuItem onClick={handleOpenUsersGuide} divider={true}>
               {t('UsersGuide')}
             </MenuItem>
-            <MenuItem
-              button={false}
-              style={{ backgroundColor: '#3f51b5', color: 'white' }}
-            >
-              <About />
-            </MenuItem>
+            {/* <MenuItem onClick={handleClickOpenAbout}></MenuItem> */}
+            <About
+              open={openAbout}
+              setOpen={setOpenAbout}
+              handleClick={handleClickOpenAbout}
+            />
           </Menu>
           <SearchResources
             anchorEl={anchorAddMaterial}
