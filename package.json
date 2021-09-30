@@ -16,7 +16,7 @@
     "@material-ui/styles": "^4.11.4",
     "bible-reference-rcl": "^1.1.0",
     "@texttree/tt-reference-rcl": "^1.2.0",
-    "@texttree/user-notes-rcl": "^0.5.3",
+    "@texttree/user-notes-rcl": "0.5.4",
     "axios": "^0.21.4",
     "axios-cache-adapter": "^2.7.3",
     "i18next": "^20.6.0",
