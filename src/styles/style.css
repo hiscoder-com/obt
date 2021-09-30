@@ -16,7 +16,12 @@ input {
   outline: none;
   border: none;
 }
-
+.verse {
+  cursor: context-menu;
+}
+.verse.current {
+  background-color: rgb(253, 244, 190);
+}
 .verse br {
   display: none;
 }

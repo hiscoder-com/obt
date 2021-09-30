@@ -101,8 +101,6 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
       const { verseObjects } = chapter[key];
       const verseStyle = {
         fontSize: fontSize + '%',
-        cursor: 'context-menu',
-        fontWeight: key === reference.verse ? 'bold' : 'inherit',
       };
       const verse = (
         <div

@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.1.1] - 2021-09-??
+## [1.1.1] - 2021-09-29
 
 ### Added (for new features)
 - PR template
@@ -12,10 +12,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed (for changes in existing functionality)
 - Style for "add resources" button
 - Add new url for cache
+- Highlighting the current verse
 
 ### Fixed (for any bug fixes)
 - Font family for card headers
 - The default action when using shortcuts
+- Highlighting a verse when switching to OBS
 - Fix sending errors from OBS
 
 ### Security (in case of vulnerabilities)
