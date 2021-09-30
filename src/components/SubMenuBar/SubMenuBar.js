@@ -14,10 +14,10 @@ import {
   SelectModeBible,
 } from '../../components';
 
-import { AppBar, Toolbar, MenuItem, Menu, IconButton } from '@material-ui/core';
+import { AppBar, Toolbar, MenuItem, Menu, IconButton, Button } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import MenuIcon from '@material-ui/icons/Menu';
-import { useStyles, useModalStyles } from './style';
+import { useStyles, useModalStyles, useAddStyles } from './style';
 
 function SubMenuBar() {
   const {
@@ -28,7 +28,7 @@ function SubMenuBar() {
   const menuRef = useRef(null);
 
   const classes = useStyles();
-
+  const addClasses = useAddStyles();
   const modalClasses = useModalStyles();
   const [anchorMainMenu, setAnchorMainMenu] = useState(null);
   const [anchorAddMaterial, setAnchorAddMaterial] = useState(null);
@@ -96,8 +96,18 @@ function SubMenuBar() {
             classes={modalClasses}
             PopoverClasses={{ paper: 'intro-hamburger' }}
           >
-            <MenuItem onClick={handleClickAddMaterial}>
-              <AddIcon size={'small'} /> {t('Add_resources')}
+            <MenuItem button={false}>
+              <Button
+                startIcon={<AddIcon size={'small'} />}
+                onClick={handleClickAddMaterial}
+                classes={addClasses}
+                variant="outlined"
+                color="primary"
+                size="small"
+                fullWidth
+              >
+                {t('Add_resources')}
+              </Button>
             </MenuItem>
             <MenuItem button={false} divider={true}>
               <FontSizeSlider

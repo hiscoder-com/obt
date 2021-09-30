@@ -5,4 +5,4 @@
 
 `Has the changelog been added to what is being done in this pull request`
 
- @foxprogs
+@foxprogs @Vorobushec @Valyukhov
