@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed (for any bug fixes)
 - Font family for card headers
 - The default action when using shortcuts
+- Fix sending errors from OBS
 
 ### Security (in case of vulnerabilities)
 - Updating dependencies
