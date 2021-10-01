@@ -25,19 +25,21 @@ function About({ open, setOpen, handleClick }) {
       .then((text) => {
         setLog({ text: text });
       });
-  }, []);
+  }, [open]);
 
   const handleClose = () => {
     setOpen(false);
   };
 
+  const textLabel = PACKAGE_JSON
+    ? `${PACKAGE_JSON?.default?.name.toUpperCase()} v${PACKAGE_JSON?.default?.version}`
+    : `Information about application`;
+
   return (
     <>
       <MenuList>
         <MenuItem onClick={handleClick}>
-          <div>{`${PACKAGE_JSON?.default?.name.toUpperCase()} v${
-            PACKAGE_JSON?.default?.version
-          }`}</div>
+          <div>{textLabel}</div>
         </MenuItem>
       </MenuList>
       <Dialog
@@ -51,14 +53,14 @@ function About({ open, setOpen, handleClick }) {
           <DialogContentText id="alert-dialog-description">
             {`${PACKAGE_JSON?.default?.name.toUpperCase()} v ${
               PACKAGE_JSON?.default?.version
-            } \n\
+            }. 
             ${PACKAGE_JSON?.default?.description}`}
 
             <ReactMarkdown>{log ? log.text : 'Version of application'}</ReactMarkdown>
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} color="secondary" autoFocus>
+          <Button onClick={handleClose} color="primary" autoFocus>
             CLOSE
           </Button>
         </DialogActions>
