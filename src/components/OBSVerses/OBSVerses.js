@@ -19,9 +19,9 @@ export default function OBSVerses({ title, classes, onClose, type }) {
 
   const {
     state: {
-      referenceSelected: { bookId, chapter, verse },
+      referenceSelected: { chapter, verse },
     },
-    actions: { onChangeVerse },
+    actions: { goToBookChapterVerse },
   } = useContext(ReferenceContext);
 
   let resource = false;
@@ -32,7 +32,7 @@ export default function OBSVerses({ title, classes, onClose, type }) {
     }
   });
   const { markdown, resourceStatus } = useContent({
-    projectId: bookId,
+    projectId: 'obs',
     ref: resource.branch ?? 'master',
     languageId: resource.languageId ?? 'ru',
     resourceId: resource.resourceId ?? 'obs',
@@ -64,7 +64,8 @@ export default function OBSVerses({ title, classes, onClose, type }) {
             markdown={markdown}
             fontSize={fontSize}
             verse={verse}
-            onChangeVerse={onChangeVerse}
+            chapter={chapter}
+            goToBookChapterVerse={goToBookChapterVerse}
             type={type}
           />
         )}
