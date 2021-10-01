@@ -49,7 +49,11 @@ export default function App() {
       [type]: newLayout,
     };
     localStorage.setItem('appConfig', JSON.stringify(newAppConfig));
-    setAppConfig(newLayout);
+    // setAppConfig(newLayout);
+    // TODO - если убрать сохранение локального аппконфига - идет отработка изначального фунцкионала ReactGridLayout
+    // но, при этом не сохраняется текущие изменения. Т.е. если изменить размер окон, потом поменять разрешение, то размер
+    // окон не сохранится, а если поменять размер - сделать дейтсвие, где сохраняется аппконфиг (переключение режима Bible/OBS,
+    // ,добавление карточек) - тогда лейаут фиксируется в локалсторейдж
   };
 
   const mainResources = resourcesApp
