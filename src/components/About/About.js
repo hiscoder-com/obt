@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
+import { useTranslation } from 'react-i18next';
 import ReactMarkdown from 'react-markdown';
 
 import {
@@ -17,6 +18,7 @@ import changeLog from '../../docs/CHANGELOG.md';
 import * as PACKAGE_JSON from '../../../package.json';
 
 function About({ open, setOpen, handleClick }) {
+  const { t } = useTranslation();
   const [log, setLog] = useState();
 
   useEffect(() => {
@@ -61,7 +63,7 @@ function About({ open, setOpen, handleClick }) {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="primary" autoFocus>
-            CLOSE
+            {t('Close')}
           </Button>
         </DialogActions>
       </Dialog>
