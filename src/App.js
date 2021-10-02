@@ -36,7 +36,7 @@ export default function App() {
 
   Shortcut();
   Swipes();
-  const onLayoutChange = (newLayout) => {
+  const onLayoutChange = (newLayout, _newLayout) => {
     const oldAppConfig = JSON.parse(localStorage.getItem('appConfig'));
     let type = 'bible';
     newLayout.forEach((el) => {
@@ -49,11 +49,7 @@ export default function App() {
       [type]: newLayout,
     };
     localStorage.setItem('appConfig', JSON.stringify(newAppConfig));
-    // setAppConfig(newLayout);
-    // TODO - если убрать сохранение локального аппконфига - идет отработка изначального фунцкионала ReactGridLayout
-    // но, при этом не сохраняется текущие изменения. Т.е. если изменить размер окон, потом поменять разрешение, то размер
-    // окон не сохранится, а если поменять размер - сделать дейтсвие, где сохраняется аппконфиг (переключение режима Bible/OBS,
-    // ,добавление карточек) - тогда лейаут фиксируется в локалсторейдж
+    setAppConfig(_newLayout['lg']);
   };
 
   const mainResources = resourcesApp
