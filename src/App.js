@@ -49,7 +49,8 @@ export default function App() {
       [type]: newLayout,
     };
     localStorage.setItem('appConfig', JSON.stringify(newAppConfig));
-    setAppConfig(_newLayout['lg']);
+    setAppConfig(_newLayout['lg']); //TODO - в такой конфигурации в локалсторедж сохрaняется только
+    //значения ключа 'lg'. на десктопе - норм, на телефоне - не катит, высота скачет.
   };
 
   const mainResources = resourcesApp
@@ -127,6 +128,13 @@ export default function App() {
         correctHeight={64}
         onBreakpointChange={onBreakpointChange}
         onLayoutChange={onLayoutChange}
+        columns={{
+          lg: 12,
+          md: 6,
+          sm: 2,
+          xs: 2,
+          xxs: 2,
+        }}
       >
         {cards}
       </Workspace>
