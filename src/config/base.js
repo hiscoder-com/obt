@@ -1,5 +1,91 @@
 export const server = 'https://qa.door43.org';
 
+/**
+ this default for next columns in Workspace:
+ columns={{
+          lg: 12,
+          md: 6,
+          sm: 1,
+          xs: 1,
+          xxs: 1,
+        }}
+ */
+
+/** export const defaultTplBible = {
+  ru: {
+    lg: [
+      { w: 4, h: 12, x: 0, y: 0, i: 'ru_rob', minH: 4, minW: 2 },
+      { w: 4, h: 12, x: 4, y: 0, i: 'ru_rsb', minH: 4, minW: 2 },
+      { w: 4, h: 12, x: 8, y: 0, i: 'ru_tn', minH: 4, minW: 2 },
+    ],
+    md: [
+      { w: 3, h: 12, x: 0, y: 0, i: 'ru_rob', minH: 4, minW: 2 },
+      { w: 3, h: 6, x: 3, y: 0, i: 'ru_rsb', minH: 4, minW: 2 },
+      { w: 3, h: 6, x: 3, y: 6, i: 'ru_tn', minH: 4, minW: 2 },
+    ],
+    sm: [
+      { w: 1, h: 4, x: 0, y: 0, i: 'ru_rob', minH: 3, minW: 1 },
+      { w: 1, h: 4, x: 0, y: 4, i: 'ru_rsb', minH: 3, minW: 1 },
+      { w: 1, h: 4, x: 0, y: 8, i: 'ru_tn', minH: 3, minW: 1 },
+    ],
+  },
+  en: {
+    lg: [
+      { w: 4, h: 12, x: 0, y: 0, i: 'en_ueb', minH: 4, minW: 2 },
+      { w: 4, h: 12, x: 4, y: 0, i: 'en_ust', minH: 4, minW: 2 },
+      { w: 4, h: 12, x: 8, y: 0, i: 'el-x-koine_ugnt', minH: 4, minW: 2 },
+    ],
+    md: [
+      { w: 3, h: 12, x: 0, y: 0, i: 'en_ueb', minH: 4, minW: 2 },
+      { w: 3, h: 6, x: 3, y: 0, i: 'en_ust', minH: 4, minW: 2 },
+      { w: 3, h: 6, x: 3, y: 6, i: 'el-x-koine_ugnt', minH: 4, minW: 2 },
+    ],
+    sm: [
+      { w: 1, h: 4, x: 0, y: 0, i: 'en_ueb', minH: 3, minW: 1 },
+      { w: 1, h: 4, x: 0, y: 4, i: 'en_ust', minH: 3, minW: 1 },
+      { w: 1, h: 4, x: 0, y:8, i: 'el-x-koine_ugnt', minH: 3, minW: 1 },
+    ],
+  },
+};
+
+export const defaultTplOBS = {
+  ru: {
+    lg: [
+      { w: 4, h: 12, x: 0, y: 0, i: 'ru_obs', minH: 4, minW: 2 },
+      { w: 4, h: 12, x: 4, y: 0, i: 'ru_obs-tn', minH: 4, minW: 2 },
+      { w: 4, h: 12, x: 8, y: 0, i: 'ru_obs-tq', minH: 4, minW: 2 },
+    ],
+     md: [
+      { w: 3, h: 12, x: 0, y: 0, i: 'ru_obs', minH: 4, minW: 2 },
+      { w: 3, h: 6, x: 3, y: 0, i: 'ru_obs-tn', minH: 4, minW: 2 },
+      { w: 3, h: 6, x: 3, y: 6, i: 'ru_obs-tq', minH: 4, minW: 2 },
+    ],
+    sm: [
+      { w: 1, h: 5, x: 0, y: 0, i: 'ru_obs', minH: 3, minW: 1 },
+      { w: 1, h: 4, x: 0, y: 5, i: 'ru_obs-tn', minH: 3, minW: 1 },
+      { w: 1, h: 3, x: 0, y: 9, i: 'ru_obs-tq', minH: 3, minW: 1 },
+    ],
+  },
+  en: {
+    lg: [
+      { w: 4, h: 12, x: 0, y: 0, i: 'en_obs', minH: 4, minW: 2 },
+      { w: 4, h: 12, x: 4, y: 0, i: 'en_obs-tn', minH: 4, minW: 2 },
+      { w: 4, h: 12, x: 8, y: 0, i: 'en_obs-tq', minH: 4, minW: 2 },
+    ],
+     md: [
+      { w: 3, h: 12, x: 0, y: 0, i: 'en_obs', minH: 4, minW: 2 },
+      { w: 3, h: 6, x: 3, y: 0, i: 'en_obs-tn', minH: 4, minW: 2 },
+      { w: 3, h: 6, x: 3, y: 6, i: 'en_obs-tq', minH: 4, minW: 2 },
+    ],
+    sm: [
+      { w: 1, h: 5, x: 0, y: 0, i: 'en_obs', minH: 3, minW: 1 },
+      { w: 1, h: 4, x: 0, y: 5, i: 'en_obs-tn', minH: 3, minW: 1 },
+      { w: 1, h: 3, x: 0, y: 9, i: 'en_obs-tq', minH: 3, minW: 1 },
+    ],
+  },
+};
+*/
+
 export const defaultTplBible = {
   ru: [
     { w: 4, h: 12, x: 0, y: 0, i: 'ru_rob', minH: 4, minW: 2 },
@@ -7,9 +93,9 @@ export const defaultTplBible = {
     { w: 4, h: 12, x: 8, y: 0, i: 'ru_tn', minH: 4, minW: 2 },
   ],
   en: [
-    { w: 4, h: 12, x: 0, y: 0, i: 'en_ueb', minH: 4, minW: 2 },
-    { w: 4, h: 12, x: 4, y: 0, i: 'en_ust', minH: 4, minW: 2 },
-    { w: 4, h: 12, x: 8, y: 0, i: 'el-x-koine_ugnt', minH: 4, minW: 2 },
+    { w: 4, h: 12, x: 0, y: 0, i: 'en_ueb', minH: 3, minW: 1 },
+    { w: 4, h: 12, x: 4, y: 0, i: 'en_ust', minH: 3, minW: 1 },
+    { w: 4, h: 12, x: 8, y: 0, i: 'el-x-koine_ugnt', minH: 3, minW: 1 },
   ],
 };
 
@@ -20,9 +106,9 @@ export const defaultTplOBS = {
     { w: 4, h: 12, x: 8, y: 0, i: 'ru_obs-tq', minH: 4, minW: 2 },
   ],
   en: [
-    { w: 4, h: 12, x: 0, y: 0, i: 'en_obs', minH: 4, minW: 2 },
-    { w: 4, h: 12, x: 4, y: 0, i: 'en_obs-tn', minH: 4, minW: 2 },
-    { w: 4, h: 12, x: 8, y: 0, i: 'en_obs-tq', minH: 4, minW: 2 },
+    { w: 4, h: 12, x: 0, y: 0, i: 'en_obs', minH: 3, minW: 2 },
+    { w: 4, h: 12, x: 0, y: 0, i: 'en_obs-tn', minH: 3, minW: 2 },
+    { w: 4, h: 12, x: 0, y: 0, i: 'en_obs-tq', minH: 3, minW: 2 },
   ],
 };
 
@@ -57,7 +143,15 @@ export const languages = ['en', 'ru'];
 /* CORE */
 
 export const defaultCard = { w: 4, h: 4, x: 0, y: 99, minH: 2, minW: 2 };
+/**
+ * 
+export const defaultCard = {
+  lg:{ w: 4, h: 4, x: 0, y: 99, minH: 2, minW: 2},
+  md:{ w: 3, h: 4, x: 0, y: 99, minH: 2, minW: 2},
+  sm:{ w: 1, h: 4, x: 0, y: 99, minH: 2, minW: 1},
+};
 
+*/
 export const singleChaptersBookID = ['oba', '2jn', '3jn', 'jud', 'phm'];
 
 export const bibleList = [

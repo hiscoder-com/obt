@@ -48,6 +48,7 @@ export default function App() {
       ...oldAppConfig,
       [type]: newLayout,
     };
+    console.log(newLayout);
     localStorage.setItem('appConfig', JSON.stringify(newAppConfig));
     setAppConfig(_newLayout['lg']); //TODO - в такой конфигурации в локалсторедж сохрaняется только
     //значения ключа 'lg'. на десктопе - норм, на телефоне - не катит, высота скачет.
@@ -131,9 +132,9 @@ export default function App() {
         columns={{
           lg: 12,
           md: 6,
-          sm: 2,
-          xs: 2,
-          xxs: 2,
+          sm: 1,
+          xs: 1,
+          xxs: 1,
         }}
       >
         {cards}
