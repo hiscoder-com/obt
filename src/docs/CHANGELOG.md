@@ -6,8 +6,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.1.2] - 2021-10-01
 
-### Added (for new features)\
--OBS material in Tajik
+### Added (for new features)
+- OBS material in Tajik
+- Added new interface translations
 
 ## [1.1.1] - 2021-09-29
 
