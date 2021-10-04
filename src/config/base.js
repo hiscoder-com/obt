@@ -52,7 +52,7 @@ export const defaultOBSReference = {
   },
 };
 
-export const languages = ['en', 'ru'];
+export const languages = ['en', 'ru', 'uk', 'pl'];
 
 /* CORE */
 
