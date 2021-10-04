@@ -14,7 +14,6 @@ import { registerRoute } from 'workbox-routing';
 import { StaleWhileRevalidate } from 'workbox-strategies';
 
 import { CacheFirst } from 'workbox-strategies';
-import { CacheableResponsePlugin } from 'workbox-cacheable-response';
 
 clientsClaim();
 
@@ -53,7 +52,7 @@ registerRoute(
 // precache, in this case same-origin .png requests like those from in public/
 registerRoute(
   // Add in any other file extensions or routing criteria as needed.
-  ({ url }) => url.origin === self.location.origin && url.pathname.endsWith('.png'), // Customize this strategy as needed, e.g., by changing to CacheFirst.
+  ({ url }) => url.origin === self.location.origin,
   new StaleWhileRevalidate({
     cacheName: 'images',
     plugins: [
@@ -75,14 +74,9 @@ self.addEventListener('message', (event) => {
 // Any other custom service worker logic can go here.
 
 registerRoute(
-  ({ url }) => url.origin === 'https://qa.door43.org' && url.pathname.startsWith('/api/'),
+  ({ url }) => url.origin === 'https://qa.door43.org',
   new CacheFirst({
     cacheName: 'uw-api-cache',
-    plugins: [
-      new CacheableResponsePlugin({
-        statuses: [0, 200],
-      }),
-    ],
   })
 );
 
@@ -90,10 +84,5 @@ registerRoute(
   ({ url }) => url.origin === 'https://git.door43.org',
   new CacheFirst({
     cacheName: 'uw-resources-cache',
-    plugins: [
-      new CacheableResponsePlugin({
-        statuses: [0, 200],
-      }),
-    ],
   })
 );
