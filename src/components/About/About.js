@@ -3,6 +3,9 @@ import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import ReactMarkdown from 'react-markdown';
 
+import changeLog from '../../docs/CHANGELOG.md';
+import * as PACKAGE_JSON from '../../../package.json';
+
 import {
   Button,
   Dialog,
@@ -13,9 +16,6 @@ import {
   MenuList,
   MenuItem,
 } from '@material-ui/core';
-
-import changeLog from '../../docs/CHANGELOG.md';
-import * as PACKAGE_JSON from '../../../package.json';
 
 function About({ open, setOpen, handleClick }) {
   const { t } = useTranslation();
@@ -44,15 +44,10 @@ function About({ open, setOpen, handleClick }) {
           <div>{textLabel}</div>
         </MenuItem>
       </MenuList>
-      <Dialog
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        <DialogTitle id="alert-dialog-title">{'About'}</DialogTitle>
+      <Dialog open={open} onClose={handleClose}>
+        <DialogTitle id="about-title">{'About'}</DialogTitle>
         <DialogContent>
-          <DialogContentText id="alert-dialog-description">
+          <DialogContentText id="about-text">
             {`${PACKAGE_JSON?.default?.name.toUpperCase()} v ${
               PACKAGE_JSON?.default?.version
             }. 

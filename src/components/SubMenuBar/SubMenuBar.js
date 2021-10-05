@@ -134,7 +134,6 @@ function SubMenuBar() {
             <MenuItem onClick={handleOpenUsersGuide} divider={true}>
               {t('UsersGuide')}
             </MenuItem>
-            {/* <MenuItem onClick={handleClickOpenAbout}></MenuItem> */}
             <About
               open={openAbout}
               setOpen={setOpenAbout}
