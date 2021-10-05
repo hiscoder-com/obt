@@ -44,7 +44,7 @@ export default function App() {
       }
     });
     const newAppConfig = { ...oldAppConfig };
-    newAppConfig[type][breakpoint.name] = newLayout;
+    newAppConfig[type][breakpoint.name] = _newLayout[breakpoint.name];
     localStorage.setItem('appConfig', JSON.stringify(newAppConfig));
     setAppConfig(newAppConfig[type]);
   };
