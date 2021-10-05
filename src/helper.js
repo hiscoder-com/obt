@@ -1,7 +1,7 @@
 export const getResources = (appConfig, resourcesApp) => {
   const resources = [];
-  if (appConfig.length > 0) {
-    appConfig.forEach((el) => {
+  if (!appConfig?.lg || appConfig.lg.length > 0) {
+    appConfig.lg.forEach((el) => {
       resourcesApp.forEach((r_el) => {
         if (
           r_el?.subject &&
@@ -30,10 +30,10 @@ export const getBookList = (bibleList, t) => {
 };
 
 export const getUniqueResources = (appConfig, resourcesApp) => {
-  if (appConfig.length === 0) {
+  if (!appConfig?.lg || appConfig.lg.length === 0) {
     return resourcesApp;
   }
-  const opened = appConfig.map((el) => el.i);
+  const opened = appConfig.lg.map((el) => el.i);
   return resourcesApp.filter((el) => !opened.includes(el.name));
 };
 

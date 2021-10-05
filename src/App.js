@@ -17,7 +17,7 @@ import useStyles from './style';
 
 export default function App() {
   const {
-    state: { appConfig, resourcesApp, resources },
+    state: { appConfig, resourcesApp, resources, breakpoint },
     actions: { setAppConfig, setBreakpoint },
   } = useContext(AppContext);
 
@@ -29,13 +29,12 @@ export default function App() {
   } = useContext(ReferenceContext);
 
   const classes = useStyles();
-  const layout = {
-    lg: appConfig,
-  };
+  const layout = appConfig;
   const breakpoints = { lg: 900, md: 700, sm: 500 };
 
   Shortcut();
   Swipes();
+
   const onLayoutChange = (newLayout, _newLayout) => {
     const oldAppConfig = JSON.parse(localStorage.getItem('appConfig'));
     let type = 'bible';
@@ -44,18 +43,14 @@ export default function App() {
         type = 'obs';
       }
     });
-    const newAppConfig = {
-      ...oldAppConfig,
-      [type]: newLayout,
-    };
-    console.log(newLayout);
+    const newAppConfig = { ...oldAppConfig };
+    newAppConfig[type][breakpoint.name] = newLayout;
     localStorage.setItem('appConfig', JSON.stringify(newAppConfig));
-    setAppConfig(_newLayout['lg']); //TODO - в такой конфигурации в локалсторедж сохрaняется только
-    //значения ключа 'lg'. на десктопе - норм, на телефоне - не катит, высота скачет.
+    setAppConfig(newAppConfig[type]);
   };
 
   const mainResources = resourcesApp
-    .filter((e) => appConfig.map((e) => e.i).includes(e.name))
+    .filter((e) => appConfig.lg.map((e) => e.i).includes(e.name))
     .filter((e) =>
       [
         'Open Bible Stories',
@@ -75,11 +70,16 @@ export default function App() {
 
   const onClose = (index) => {
     if (compareMaterials(mainResources, index)) {
-      setAppConfig((prev) => prev.filter((el) => el.i !== index));
+      setAppConfig((prev) => {
+        const next = { ...prev };
+        next.lg = next.lg.filter((el) => el.i !== index);
+        next.md = next.md.filter((el) => el.i !== index);
+        next.sm = next.sm.filter((el) => el.i !== index);
+        return next;
+      });
     }
   };
-
-  const cards = appConfig.map((item) => (
+  const cards = (appConfig[breakpoint.name] ?? []).map((item) => (
     <Card key={item.i} classes={classes} onClose={() => onClose(item.i)} type={item.i} />
   ));
 
@@ -110,6 +110,7 @@ export default function App() {
   }, [availableBookList]);
 
   const onBreakpointChange = (name, cols) => {
+    console.log({ name, cols });
     setBreakpoint({ name, cols });
   };
 

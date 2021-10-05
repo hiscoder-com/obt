@@ -45,7 +45,10 @@ export function AppContextProvider({ children }) {
       )[referenceSelected.bookId === 'obs' ? 'obs' : 'bible']
   );
 
+  const [breakpoint, setBreakpoint] = useState({ name: 'lg', cols: 12 });
+
   const [resourcesApp, setResourcesApp] = useState(_resourcesApp);
+  console.log({ here: appConfig });
   const _resourceLinks = getResources(appConfig, resourcesApp);
   const [resourceLinks, setResourceLinks] = useState(_resourceLinks);
   const [resources, setResources] = useState([]);
@@ -58,8 +61,6 @@ export function AppContextProvider({ children }) {
 
   const [openMainMenu, setOpenMainMenu] = useState(false);
 
-  const [breakpoint, setBreakpoint] = useState({ name: 'lg', cols: 12 });
-
   const { t } = useTranslation();
 
   useEffect(() => {
@@ -67,8 +68,9 @@ export function AppContextProvider({ children }) {
   }, [fontSize]);
 
   useEffect(() => {
+    console.log({ useEffect: appConfig });
     setResourceLinks(getResources(appConfig, resourcesApp));
-  }, [appConfig, resourcesApp]);
+  }, [appConfig, resourcesApp, breakpoint]);
 
   useEffect(() => {
     setNewBookList(getBookList(bibleList, t), true);
