@@ -1,12 +1,11 @@
 import React, { useContext } from 'react';
 
-import { ReferenceContext, AppContext } from '../../context';
-import ButtonGroup from '@material-ui/core/ButtonGroup';
-import Button from '@material-ui/core/Button';
-
 import { useTranslation } from 'react-i18next';
+
+import { ReferenceContext, AppContext } from '../../context';
 import { getAbbr } from '../../config/base';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
+
+import { ButtonGroup, Button, useMediaQuery } from '@material-ui/core';
 
 function ShowReference() {
   const matches = useMediaQuery('(min-width:400px)');

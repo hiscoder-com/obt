@@ -1,4 +1,4 @@
-export const server = 'https://qa.door43.org';
+export const server = 'https://git.door43.org';
 
 export const defaultTplBible = {
   ru: [
@@ -52,7 +52,7 @@ export const defaultOBSReference = {
   },
 };
 
-export const languages = ['en', 'ru'];
+export const languages = ['en', 'ru', 'uk', 'pl'];
 
 /* CORE */
 
