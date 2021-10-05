@@ -119,5 +119,5 @@
   "introVerse": "You can work with each verse separately. When you click on it, the current reference changes, which allows you to change additional information in open cards with educational resources(TN, TQ, TA, TW)",
   "introContextMenu": "When you right-click or press and hold on any verse, the context menu opens. You can copy a verse or send an error message in this verse",
   "introReportDialog": "When you use the error sending element, you must specify a comment. After sending the message, a window will open with a link where you can see your message saved on git.door43.org",
-  "introHamburger": "The main menu of the application. Here you can:<br> - add a new card,<br> - reset the workspace state (the cards will open by default),<br> - change the font size in the cards,<br> - change the interface language<br> - and open user's guide"
+  "introHamburger": "The main menu of the application. Here you can:<br> - add a new card,<br> - reset the workspace state (the cards will open by default),<br> - change the font size in the cards,<br> - change the interface language<br> - open user's guide <br> - and view the app version. "
 }
