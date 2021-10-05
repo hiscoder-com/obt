@@ -18,7 +18,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Security (in case of vulnerabilities)
 - Updating dependencies
 
-
 ## [1.1.1] - 2021-09-29
 
 ### Added (for new features)
