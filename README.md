@@ -1,5 +1,10 @@
 https://develop--tt-bsa.netlify.app/
 
+[CHANGELOG]( /src/docs/CHANGELOG.md)
+
+[CODESTYLE]( /src/docs/CODESTYLE.md)
+
+
 ## 0.10.0 (old)
 
 Интерфейс приложения состоит из нескольких частей: AppBar (верхняя панель приложения) и Workspace (все остальное рабочее пространство).
