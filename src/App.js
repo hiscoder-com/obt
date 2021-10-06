@@ -71,7 +71,7 @@ export default function App() {
   const onClose = (index) => {
     if (compareMaterials(mainResources, index)) {
       setAppConfig((prev) => {
-        const next = { ...prev };
+        const next = { ...prev }; //* TODO - упростить код */
         next.lg = next.lg.filter((el) => el.i !== index);
         next.md = next.md.filter((el) => el.i !== index);
         next.sm = next.sm.filter((el) => el.i !== index);
@@ -79,9 +79,7 @@ export default function App() {
       });
     }
   };
-  console.log('appConfig under onClose in APP =', appConfig);
-  const valueappconfig = JSON.parse(localStorage.getItem('appConfig'));
-  console.log('valueappconfig', valueappconfig);
+
   const cards = (appConfig[breakpoint.name] ?? []).map((item) => (
     <Card key={item.i} classes={classes} onClose={() => onClose(item.i)} type={item.i} />
   ));

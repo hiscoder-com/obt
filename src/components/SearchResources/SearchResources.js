@@ -40,10 +40,36 @@ function SearchResources({ anchorEl, onClose, open }) {
   const uniqueResources = getUniqueResources(appConfig, resourcesApp);
 
   const handleAddMaterial = (item) => {
-    const pos = getXY(appConfig, breakpoint.cols, defaultCard.h, defaultCard.w);
-    setAppConfig((prev) =>
-      prev.concat({ ...defaultCard, x: pos.x, y: pos.y, i: item.name })
+    const pos = getXY(
+      appConfig[breakpoint.name],
+      breakpoint.cols,
+      defaultCard.h,
+      defaultCard.w
     );
+    setAppConfig((prev) => {
+      const next = { ...prev };
+      next.lg = next.lg.concat({ ...defaultCard.lg, x: pos.x, y: pos.y, i: item.name });
+      next.md = next.md.concat({ ...defaultCard.md, x: pos.x, y: pos.y, i: item.name });
+      next.sm = next.sm.concat({ ...defaultCard.sm, x: pos.x, y: pos.y, i: item.name });
+      return next;
+    });
+    /**
+    // setAppConfig((prev) => {
+    //   const next = { ...prev };
+
+    //   Object.keys(next).forEach((key) => {
+    //     next[key] = next[key].concat({
+    //       ...defaultCard[key],
+    //       x: pos.x,
+    //       y: pos.y,
+    //       i: item.name,
+    //     });
+
+    //     return next;
+    //   });
+    // });
+ */
+
     onClose();
   };
 
