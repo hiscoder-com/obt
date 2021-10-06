@@ -44,7 +44,7 @@ export default function App() {
       }
     });
     const newAppConfig = { ...oldAppConfig };
-    newAppConfig[type][breakpoint.name] = _newLayout[breakpoint.name];
+    newAppConfig[type] = _newLayout;
     localStorage.setItem('appConfig', JSON.stringify(newAppConfig));
     setAppConfig(newAppConfig[type]);
   };
@@ -79,6 +79,9 @@ export default function App() {
       });
     }
   };
+  console.log('appConfig under onClose in APP =', appConfig);
+  const valueappconfig = JSON.parse(localStorage.getItem('appConfig'));
+  console.log('valueappconfig', valueappconfig);
   const cards = (appConfig[breakpoint.name] ?? []).map((item) => (
     <Card key={item.i} classes={classes} onClose={() => onClose(item.i)} type={item.i} />
   ));
