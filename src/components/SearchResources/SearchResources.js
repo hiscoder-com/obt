@@ -48,27 +48,17 @@ function SearchResources({ anchorEl, onClose, open }) {
     );
     setAppConfig((prev) => {
       const next = { ...prev };
-      next.lg = next.lg.concat({ ...defaultCard.lg, x: pos.x, y: pos.y, i: item.name });
-      next.md = next.md.concat({ ...defaultCard.md, x: pos.x, y: pos.y, i: item.name });
-      next.sm = next.sm.concat({ ...defaultCard.sm, x: pos.x, y: pos.y, i: item.name });
+
+      for (let k in next) {
+        next[k] = next[k].concat({
+          ...defaultCard[k],
+          x: pos.x,
+          y: pos.y,
+          i: item.name,
+        });
+      }
       return next;
     });
-    /**
-    // setAppConfig((prev) => {
-    //   const next = { ...prev };
-
-    //   Object.keys(next).forEach((key) => {
-    //     next[key] = next[key].concat({
-    //       ...defaultCard[key],
-    //       x: pos.x,
-    //       y: pos.y,
-    //       i: item.name,
-    //     });
-
-    //     return next;
-    //   });
-    // });
- */
 
     onClose();
   };

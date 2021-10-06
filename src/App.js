@@ -72,9 +72,9 @@ export default function App() {
     if (compareMaterials(mainResources, index)) {
       setAppConfig((prev) => {
         const next = { ...prev }; //* TODO - упростить код */
-        next.lg = next.lg.filter((el) => el.i !== index);
-        next.md = next.md.filter((el) => el.i !== index);
-        next.sm = next.sm.filter((el) => el.i !== index);
+        for (let k in next) {
+          next[k] = next[k].filter((el) => el.i !== index);
+        }
         return next;
       });
     }
