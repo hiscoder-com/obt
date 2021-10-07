@@ -22,3 +22,4 @@ export * from './SupportTW';
 export * from './TypoReport';
 export * from './WorkspaceManager';
 export * from './Swipes';
+export * from './StartDialog';

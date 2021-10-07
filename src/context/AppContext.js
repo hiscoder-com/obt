@@ -17,7 +17,7 @@ export const AppContext = React.createContext();
 
 const _currentLanguage = checkLSVal('i18nextLng', languages[0]);
 const _resourcesApp = checkLSVal('resourcesApp', [], 'object');
-
+const _startDialog = checkLSVal('startDialog', true, 'boolean');
 const _loadIntro = checkLSVal('loadIntro', true, 'boolean');
 
 const _fontSize = parseInt(localStorage.getItem('fontSize'));
@@ -54,8 +54,8 @@ export function AppContextProvider({ children }) {
   const [showErrorReport, setShowErrorReport] = useState(false);
   const [errorFile, setErrorFile] = useState('');
   const [fontSize, setFontSize] = useState(_fontSize ? _fontSize : 100);
-  const [loadIntro, setLoadIntro] = useState(_loadIntro);
-
+  const [loadIntro, setLoadIntro] = useState(false);
+  const [openStartDialog, setOpenStartDialog] = useState(_startDialog);
   const [openMainMenu, setOpenMainMenu] = useState(false);
 
   const { t } = useTranslation();
@@ -89,6 +89,7 @@ export function AppContextProvider({ children }) {
       fontSize,
       loadIntro,
       openMainMenu,
+      openStartDialog,
       resourceLinks,
       resourcesApp,
       resources,
@@ -104,6 +105,7 @@ export function AppContextProvider({ children }) {
       setFontSize,
       setLoadIntro,
       setOpenMainMenu,
+      setOpenStartDialog,
       setResourceLinks,
       setResourcesApp,
       setResources,
