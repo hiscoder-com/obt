@@ -36,7 +36,12 @@ function ShowReference() {
   const handleClickChapter = () => setShowChapterSelect(true);
 
   return (
-    <ButtonGroup disableElevation variant="contained" color="primary">
+    <ButtonGroup
+      disableElevation
+      variant="contained"
+      color="primary"
+      className="intro-obsSelect"
+    >
       <Button onClick={handleClickBook}> {showBook && showBook.toUpperCase()} </Button>
       <Button onClick={handleClickChapter}>{showChapter}</Button>
     </ButtonGroup>

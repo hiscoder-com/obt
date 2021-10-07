@@ -40,9 +40,9 @@ function Intro() {
     state: { loadIntro, showChapterSelect },
   } = useContext(AppContext);
 
-  const openBible = () => {
-    switchModeBible('bible', goToBookChapterVerse, setAppConfig);
-  };
+  // const openBible = () => {
+  //   switchModeBible('bible', goToBookChapterVerse, setAppConfig);
+  // };
 
   const steps = [
     {
@@ -53,8 +53,8 @@ function Intro() {
       intro: t('introAppBar'),
     },
     {
-      element: '.intro-bookList',
-      intro: t('introBookList'),
+      element: bookId !== 'obs' ? '.intro-bookList' : '.intro-obsSelect',
+      intro: bookId !== 'obs' ? t('introBookList') : t('introObsSelect'),
     },
     {
       element: '.intro-chapterList',
@@ -97,7 +97,7 @@ function Intro() {
   }, [showChapterSelect]); //TODO надо придумать другую зависимость
 
   const onStart = () => {
-    bookId === 'obs' && openBible();
+    // bookId === 'obs' && openBible();
   };
 
   const onBeforeChange = (stepIndex) => {
@@ -106,11 +106,12 @@ function Intro() {
         break;
       case '1':
         setShowBookSelect(false);
-        setShowChapterSelect(false);
+
         stepsRef.current.updateStepElement(stepIndex);
         break;
       case '2':
-        setShowBookSelect(true);
+        bookId !== 'obs' && setShowBookSelect(true);
+        setShowChapterSelect(false);
         stepsRef.current.updateStepElement(stepIndex);
         break;
       case '3':
