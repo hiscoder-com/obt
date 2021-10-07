@@ -3,7 +3,7 @@ import React, { useContext, useRef, useState } from 'react';
 import { Steps } from 'intro.js-react';
 import { useTranslation } from 'react-i18next';
 import { ContextMenu } from '../../components';
-import { switchModeBible } from '../../helper';
+
 import { AppContext, ReferenceContext } from '../../context';
 
 import 'intro.js/introjs.css';
@@ -25,7 +25,6 @@ function Intro() {
     state: {
       referenceSelected: { bookId },
     },
-    actions: { goToBookChapterVerse },
   } = useContext(ReferenceContext);
 
   const {
@@ -35,14 +34,9 @@ function Intro() {
       setShowErrorReport,
       setLoadIntro,
       setOpenMainMenu,
-      setAppConfig,
     },
     state: { loadIntro, showChapterSelect },
   } = useContext(AppContext);
-
-  // const openBible = () => {
-  //   switchModeBible('bible', goToBookChapterVerse, setAppConfig);
-  // };
 
   const steps = [
     {
@@ -96,9 +90,7 @@ function Intro() {
     // eslint-disable-next-line
   }, [showChapterSelect]); //TODO надо придумать другую зависимость
 
-  const onStart = () => {
-    // bookId === 'obs' && openBible();
-  };
+  const onStart = () => {};
 
   const onBeforeChange = (stepIndex) => {
     switch (String(stepIndex)) {
