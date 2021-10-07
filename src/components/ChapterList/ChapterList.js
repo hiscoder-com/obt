@@ -9,7 +9,7 @@ import useStyles, { useButtonStyles } from './style';
 
 function ChapterList({ onClose }) {
   const {
-    state: { appConfig },
+    state: { appConfig, breakpoint },
   } = useContext(AppContext);
 
   const {
@@ -26,11 +26,12 @@ function ChapterList({ onClose }) {
     goToBookChapterVerse(bookId, chapterId, '1');
     onClose();
   };
+  console.log(bookId);
   return (
     <BibleChapterListRCL
       chapterClasses={chapterClasses}
       selectedChapter={chapter}
-      bookId={appConfig.length > 0 ? bookId : ''}
+      bookId={appConfig[breakpoint.name].length > 0 ? bookId : ''}
       chapterPrefix={
         bookId === 'psa' ? t('Psalm') : bookId === 'obs' ? t('Story') : t('Chapter')
       }
