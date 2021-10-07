@@ -18,7 +18,7 @@ export const AppContext = React.createContext();
 const _currentLanguage = checkLSVal('i18nextLng', languages[0]);
 const _resourcesApp = checkLSVal('resourcesApp', [], 'object');
 const _startDialog = checkLSVal('startDialog', true, 'boolean');
-const _loadIntro = checkLSVal('loadIntro', true, 'boolean');
+// const _loadIntro = checkLSVal('loadIntro', true, 'boolean');
 
 const _fontSize = parseInt(localStorage.getItem('fontSize'));
 
@@ -80,6 +80,9 @@ export function AppContextProvider({ children }) {
   useEffect(() => {
     localStorage.setItem('loadIntro', loadIntro);
   }, [loadIntro]);
+  useEffect(() => {
+    localStorage.setItem('startDialog', openStartDialog);
+  }, [openStartDialog]);
 
   const value = {
     state: {
