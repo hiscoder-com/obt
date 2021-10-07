@@ -58,10 +58,10 @@ function Intro() {
     },
     {
       element: '.intro-chapterList',
-      intro: t('introChapterList'),
+      intro: bookId !== 'obs' ? t('introChapterList') : t('introObsList'),
     },
     {
-      intro: t('introShortCuts'),
+      intro: bookId !== 'obs' ? t('introShortCuts') : t('introObsShortCuts'),
     },
     {
       element: '.react-grid-layout',
