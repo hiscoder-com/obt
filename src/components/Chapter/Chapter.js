@@ -17,6 +17,14 @@ const initialPosition = {
   top: null,
 };
 
+function Test() {
+  return (
+    <>
+      <div>Cached</div>
+    </>
+  );
+}
+
 export default function Chapter({ title, classes, onClose, type, reference }) {
   const { t } = useTranslation();
   const classesCircular = useCircularStyles();
@@ -145,9 +153,15 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
 
   return (
     <Card
-      closeable
-      onClose={() => onClose(type)}
+      onRemoveCard={() => onClose(type)}
+      hideMarkdownToggle={true}
       title={title}
+      getCustomComponent={Test}
+      setFilters={() => {}}
+      setFontSize={() => {}}
+      markdownView={false}
+      onShowMarkdown={() => {}}
+      disableFilters={true}
       type={type}
       classes={{ ...classes, root: classes.root + ' intro-card' }}
       id={type}
