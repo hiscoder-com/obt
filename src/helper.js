@@ -253,3 +253,48 @@ export const switchModeBible = (type, goToBookChapterVerse, setAppConfig) => {
   setAppConfig(appConfig);
   goToBookChapterVerse(curRef.bookId, curRef.chapter, curRef.verse);
 };
+
+export const resetWorkspace = (
+  workspaceType,
+  defaultBibleReference,
+  defaultOBSReference,
+  defaultTplBible,
+  defaultTplOBS,
+  setAppConfig,
+  goToBookChapterVerse,
+  currentLanguage
+) => {
+  const oldAppConfig = JSON.parse(localStorage.getItem('appConfig'));
+  switch (workspaceType) {
+    case 'bible':
+      const bibleAppConfig = {
+        ...oldAppConfig,
+        [workspaceType]: defaultTplBible[currentLanguage],
+      };
+      localStorage.setItem('appConfig', JSON.stringify(bibleAppConfig));
+      setAppConfig(defaultTplBible[currentLanguage]);
+      goToBookChapterVerse(
+        defaultBibleReference[currentLanguage].bookId,
+        defaultBibleReference[currentLanguage].chapter,
+        defaultBibleReference[currentLanguage].verse
+      );
+      break;
+
+    case 'obs':
+      const obsAppConfig = {
+        ...oldAppConfig,
+        [workspaceType]: defaultTplOBS[currentLanguage],
+      };
+      localStorage.setItem('appConfig', JSON.stringify(obsAppConfig));
+      setAppConfig(defaultTplOBS[currentLanguage]);
+      goToBookChapterVerse(
+        defaultOBSReference[currentLanguage].bookId,
+        defaultOBSReference[currentLanguage].chapter,
+        defaultOBSReference[currentLanguage].verse
+      );
+      break;
+
+    default:
+      break;
+  }
+};

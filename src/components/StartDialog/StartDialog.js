@@ -1,7 +1,15 @@
 import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { SelectLanguage } from '../../components/';
-import { AppContext } from '../../context';
+import { AppContext, ReferenceContext } from '../../context';
+
+import { resetWorkspace } from '../../helper';
+import {
+  defaultTplBible,
+  defaultTplOBS,
+  defaultBibleReference,
+  defaultOBSReference,
+} from '../../config/base';
 import {
   Dialog,
   DialogActions,
@@ -13,12 +21,29 @@ import {
 function StartDialog() {
   const { t } = useTranslation();
   const {
-    actions: { setOpenStartDialog, setLoadIntro },
-    state: { openStartDialog },
+    actions: { setOpenStartDialog, setLoadIntro, currentLanguage },
+    state: { openStartDialog, setAppConfig },
   } = useContext(AppContext);
+  const {
+    state: {
+      referenceSelected: { bookId },
+    },
+    actions: { goToBookChapterVerse },
+  } = useContext(ReferenceContext);
 
+  const workspaceType = bookId === 'obs' ? 'obs' : 'bible';
   const handleClose = () => {
     setOpenStartDialog(false);
+    resetWorkspace(
+      workspaceType,
+      defaultBibleReference,
+      defaultOBSReference,
+      defaultTplBible,
+      defaultTplOBS,
+      setAppConfig,
+      goToBookChapterVerse,
+      currentLanguage
+    );
     setLoadIntro(true);
   };
   return (
