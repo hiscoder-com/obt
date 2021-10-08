@@ -18,6 +18,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed (for any bug fixes)
 - Remove localization in pl and ukr, cause it breaks the app
 
+## [1.2.1] - 2021-10-07
+
+### Fixed (for any bug fixes)
+
+- Remove the UEB, replace it with ULT
+- Fix empty place when all materials added
+- Remove  interface translations
+
 ## [1.2.0] - 2021-10-05
 
 ### Added (for new features)

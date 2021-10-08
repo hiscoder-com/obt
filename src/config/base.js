@@ -7,7 +7,7 @@ export const defaultTplBible = {
     { w: 4, h: 12, x: 8, y: 0, i: 'ru_tn', minH: 4, minW: 2 },
   ],
   en: [
-    { w: 4, h: 12, x: 0, y: 0, i: 'en_ueb', minH: 4, minW: 2 },
+    { w: 4, h: 12, x: 0, y: 0, i: 'en_ult', minH: 4, minW: 2 },
     { w: 4, h: 12, x: 4, y: 0, i: 'en_ust', minH: 4, minW: 2 },
     { w: 4, h: 12, x: 8, y: 0, i: 'el-x-koine_ugnt', minH: 4, minW: 2 },
   ],
@@ -52,7 +52,7 @@ export const defaultOBSReference = {
   },
 };
 
-export const languages = ['en', 'ru' /** , 'uk', 'pl'*/];
+export const languages = ['en', 'ru' /**,'uk', 'pl'*/];
 
 /* CORE */
 

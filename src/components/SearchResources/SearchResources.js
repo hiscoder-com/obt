@@ -44,10 +44,12 @@ function SearchResources({ anchorEl, onClose, open }) {
     setAppConfig((prev) =>
       prev.concat({ ...defaultCard, x: pos.x, y: pos.y, i: item.name })
     );
+
     onClose();
     setTimeout(function () {
       window.scrollTo(0, 10000);
     }, 1000);
+
   };
 
   useEffect(() => {
@@ -109,7 +111,7 @@ function SearchResources({ anchorEl, onClose, open }) {
         );
       }
     });
-
+  const emptyMenuItems = <p className={classes.divider}>{t('No_resources')}</p>;
   return (
     <Menu
       color="transparent"
@@ -118,7 +120,7 @@ function SearchResources({ anchorEl, onClose, open }) {
       open={open}
       onClose={onClose}
     >
-      {menuItems}
+      {menuItems.length !== 0 ? menuItems : emptyMenuItems}
     </Menu>
   );
 }
