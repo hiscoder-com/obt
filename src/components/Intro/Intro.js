@@ -90,8 +90,6 @@ function Intro() {
     // eslint-disable-next-line
   }, [showChapterSelect]); //TODO надо придумать другую зависимость
 
-  const onStart = () => {};
-
   const onBeforeChange = (stepIndex) => {
     switch (String(stepIndex)) {
       case '0':
@@ -184,7 +182,6 @@ function Intro() {
         onBeforeChange={onBeforeChange}
         onExit={onExit}
         options={options}
-        onStart={onStart}
       />
       <ContextMenu
         PopoverClasses={{ paper: 'intro-contextMenu' }}

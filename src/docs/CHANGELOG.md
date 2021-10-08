@@ -4,6 +4,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.1] - 2021-10-...
+
+### Added (for new features)
+- Language selection on first boot
+
+
+### Changed (for changes in existing functionality)
+- User guide extended for OBS
+- User guide update about synchronization cards
+
+
+### Fixed (for any bug fixes)
+- Remove localization in pl and ukr, cause it breaks the app
 
 ## [1.2.0] - 2021-10-05
 

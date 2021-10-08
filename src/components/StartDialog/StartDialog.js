@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { SelectLanguage } from '../../components/';
 import { AppContext } from '../../context';
@@ -6,7 +6,6 @@ import {
   Dialog,
   DialogActions,
   DialogContent,
-  // DialogContentText,
   DialogTitle,
   Button,
 } from '@material-ui/core';
@@ -16,17 +15,16 @@ function StartDialog() {
   const {
     actions: { setOpenStartDialog, setLoadIntro },
     state: { openStartDialog },
-  } = React.useContext(AppContext);
+  } = useContext(AppContext);
 
   const handleClose = () => {
     setOpenStartDialog(false);
     setLoadIntro(true);
   };
   return (
-    <Dialog open={openStartDialog} onClose={handleClose}>
+    <Dialog open={openStartDialog} /**onClose={handleClose}*/>
       <DialogTitle id="about-title">{t('Choose_language')}</DialogTitle>
       <DialogContent>
-        {/* <DialogContentText id="about-text">{t('Choose_language')}</DialogContentText> */}
         <SelectLanguage />
       </DialogContent>
       <DialogActions>

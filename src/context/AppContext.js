@@ -18,7 +18,11 @@ export const AppContext = React.createContext();
 const _currentLanguage = checkLSVal('i18nextLng', languages[0]);
 const _resourcesApp = checkLSVal('resourcesApp', [], 'object');
 const _startDialog = checkLSVal('startDialog', true, 'boolean');
-// const _loadIntro = checkLSVal('loadIntro', true, 'boolean');
+/**
+ * This entry allows you to take the starting value of load Intro.
+ * It is used if the application is launched from the Intro component
+ */
+/**  const _loadIntro = checkLSVal('loadIntro', true, 'boolean');*/
 
 const _fontSize = parseInt(localStorage.getItem('fontSize'));
 
