@@ -49,7 +49,6 @@ function SearchResources({ anchorEl, onClose, open }) {
     setTimeout(function () {
       window.scrollTo(0, 10000);
     }, 1000);
-
   };
 
   useEffect(() => {

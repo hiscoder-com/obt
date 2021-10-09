@@ -21,8 +21,8 @@ import {
 function StartDialog() {
   const { t } = useTranslation();
   const {
-    actions: { setOpenStartDialog, setLoadIntro, currentLanguage },
-    state: { openStartDialog, setAppConfig },
+    actions: { setOpenStartDialog, setLoadIntro, currentLanguage, setAppConfig },
+    state: { openStartDialog },
   } = useContext(AppContext);
   const {
     state: {
