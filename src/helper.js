@@ -1,3 +1,5 @@
+import { object } from 'prop-types';
+
 export const getResources = (appConfig, resourcesApp) => {
   const resources = [];
   if (!appConfig?.lg || appConfig.lg.length > 0) {
@@ -178,6 +180,20 @@ export const checkLSVal = (el, val, type = 'string', ext = false) => {
     return val;
   } else {
     return value;
+  }
+};
+export const updateAppConfig = (appConfig) => {
+  const _appconfig = JSON.parse(localStorage.getItem(appConfig));
+  const keysAppConfig = _appconfig && Object.values(_appconfig);
+  let _keysAppConfig = [];
+  if (keysAppConfig) {
+    keysAppConfig.forEach((el) => _keysAppConfig.push(...Object.keys(el)));
+    let setKeysAppConfig = new Set(_keysAppConfig);
+    if (
+      ![...setKeysAppConfig].map((el) => ['lg', 'md', 'sm', 'xs', 'xxs'].includes(el))
+    ) {
+      JSON.parse(localStorage.removeItem(appConfig));
+    }
   }
 };
 

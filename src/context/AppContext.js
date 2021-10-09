@@ -4,7 +4,7 @@ import { ResourcesContextProvider } from 'scripture-resources-rcl';
 
 import { useTranslation } from 'react-i18next';
 import { ReferenceContext } from './ReferenceContext';
-import { getResources, getBookList, checkLSVal } from '../helper';
+import { getResources, getBookList, checkLSVal, updateAppConfig } from '../helper';
 import {
   server,
   defaultTplBible,
@@ -31,7 +31,7 @@ export function AppContextProvider({ children }) {
   } = useContext(ReferenceContext);
 
   const [currentLanguage, setCurrentLanguage] = useState(_currentLanguage);
-
+  updateAppConfig('appConfig');
   const [appConfig, setAppConfig] = useState(
     () =>
       checkLSVal(
