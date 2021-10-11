@@ -23,7 +23,13 @@ function WorkspaceManager({ onClose }) {
   const { t } = useTranslation();
 
   const handleReset = () => {
-    resetWorkspace(bookId, setAppConfig, goToBookChapterVerse, currentLanguage);
+    resetWorkspace({
+      bookId: bookId,
+      setAppConfig: setAppConfig,
+      goToBookChapterVerse: goToBookChapterVerse,
+      currentLanguage: currentLanguage,
+      resetAll: false,
+    });
     onClose();
   };
 

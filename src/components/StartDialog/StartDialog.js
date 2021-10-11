@@ -28,13 +28,13 @@ function StartDialog() {
 
   const handleClose = () => {
     setOpenStartDialog(false);
-    resetWorkspace(
-      bookId,
-      setAppConfig,
-      goToBookChapterVerse,
-      currentLanguage,
-      'resetAll'
-    );
+    resetWorkspace({
+      bookId: bookId,
+      setAppConfig: setAppConfig,
+      goToBookChapterVerse: goToBookChapterVerse,
+      currentLanguage: currentLanguage,
+      resetAll: true,
+    });
     setLoadIntro(true);
   };
   return (

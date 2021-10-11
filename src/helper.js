@@ -261,7 +261,7 @@ export const switchModeBible = (type, goToBookChapterVerse, setAppConfig) => {
   goToBookChapterVerse(curRef.bookId, curRef.chapter, curRef.verse);
 };
 
-export const reset = (
+const resetMode = (
   defaultTpl,
   defaultReference,
   currentLanguage,
@@ -276,15 +276,19 @@ export const reset = (
   );
 };
 
-export const resetWorkspace = (
+/**
+ *function reset layouts, resources and reference to default
+ * @param {boolean} resetAll reset layouts,reference to default in bible and obs
+ */
+
+export const resetWorkspace = ({
   bookId,
   setAppConfig,
   goToBookChapterVerse,
   currentLanguage,
-  resetAll
-) => {
-  const workspaceType =
-    resetAll === 'resetAll' ? 'all' : bookId === 'obs' ? 'obs' : 'bible';
+  resetAll,
+}) => {
+  const workspaceType = resetAll ? 'all' : bookId === 'obs' ? 'obs' : 'bible';
   const oldAppConfig = JSON.parse(localStorage.getItem('appConfig'));
   switch (workspaceType) {
     case 'bible':
@@ -293,7 +297,7 @@ export const resetWorkspace = (
         [workspaceType]: defaultTplBible[currentLanguage],
       };
       localStorage.setItem('appConfig', JSON.stringify(bibleAppConfig));
-      reset(
+      resetMode(
         defaultTplBible,
         defaultBibleReference,
         currentLanguage,
@@ -308,7 +312,7 @@ export const resetWorkspace = (
         [workspaceType]: defaultTplOBS[currentLanguage],
       };
       localStorage.setItem('appConfig', JSON.stringify(obsAppConfig));
-      reset(
+      resetMode(
         defaultTplOBS,
         defaultOBSReference,
         currentLanguage,
@@ -318,20 +322,19 @@ export const resetWorkspace = (
       break;
     case 'all':
       const allAppConfig = {
-        ...oldAppConfig,
         obs: defaultTplOBS[currentLanguage],
         bible: defaultTplBible[currentLanguage],
       };
       localStorage.setItem('appConfig', JSON.stringify(allAppConfig));
       bookId === 'obs'
-        ? reset(
+        ? resetMode(
             defaultTplOBS,
             defaultOBSReference,
             currentLanguage,
             setAppConfig,
             goToBookChapterVerse
           )
-        : reset(
+        : resetMode(
             defaultTplBible,
             defaultBibleReference,
             currentLanguage,
