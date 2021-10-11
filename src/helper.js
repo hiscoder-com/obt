@@ -1,3 +1,10 @@
+import {
+  defaultTplBible,
+  defaultTplOBS,
+  defaultBibleReference,
+  defaultOBSReference,
+} from './config/base';
+
 export const getResources = (appConfig, resourcesApp) => {
   const resources = [];
   if (appConfig.length > 0) {
@@ -254,16 +261,30 @@ export const switchModeBible = (type, goToBookChapterVerse, setAppConfig) => {
   goToBookChapterVerse(curRef.bookId, curRef.chapter, curRef.verse);
 };
 
+export const reset = (
+  defaultTpl,
+  defaultReference,
+  currentLanguage,
+  setAppConfig,
+  goToBookChapterVerse
+) => {
+  setAppConfig(defaultTpl[currentLanguage]);
+  goToBookChapterVerse(
+    defaultReference[currentLanguage].bookId,
+    defaultReference[currentLanguage].chapter,
+    defaultReference[currentLanguage].verse
+  );
+};
+
 export const resetWorkspace = (
-  workspaceType,
-  defaultBibleReference,
-  defaultOBSReference,
-  defaultTplBible,
-  defaultTplOBS,
+  bookId,
   setAppConfig,
   goToBookChapterVerse,
-  currentLanguage
+  currentLanguage,
+  resetAll
 ) => {
+  const workspaceType =
+    resetAll === 'resetAll' ? 'all' : bookId === 'obs' ? 'obs' : 'bible';
   const oldAppConfig = JSON.parse(localStorage.getItem('appConfig'));
   switch (workspaceType) {
     case 'bible':
@@ -272,11 +293,12 @@ export const resetWorkspace = (
         [workspaceType]: defaultTplBible[currentLanguage],
       };
       localStorage.setItem('appConfig', JSON.stringify(bibleAppConfig));
-      setAppConfig(defaultTplBible[currentLanguage]);
-      goToBookChapterVerse(
-        defaultBibleReference[currentLanguage].bookId,
-        defaultBibleReference[currentLanguage].chapter,
-        defaultBibleReference[currentLanguage].verse
+      reset(
+        defaultTplBible,
+        defaultBibleReference,
+        currentLanguage,
+        setAppConfig,
+        goToBookChapterVerse
       );
       break;
 
@@ -286,14 +308,37 @@ export const resetWorkspace = (
         [workspaceType]: defaultTplOBS[currentLanguage],
       };
       localStorage.setItem('appConfig', JSON.stringify(obsAppConfig));
-      setAppConfig(defaultTplOBS[currentLanguage]);
-      goToBookChapterVerse(
-        defaultOBSReference[currentLanguage].bookId,
-        defaultOBSReference[currentLanguage].chapter,
-        defaultOBSReference[currentLanguage].verse
+      reset(
+        defaultTplOBS,
+        defaultOBSReference,
+        currentLanguage,
+        setAppConfig,
+        goToBookChapterVerse
       );
       break;
-
+    case 'all':
+      const allAppConfig = {
+        ...oldAppConfig,
+        obs: defaultTplOBS[currentLanguage],
+        bible: defaultTplBible[currentLanguage],
+      };
+      localStorage.setItem('appConfig', JSON.stringify(allAppConfig));
+      bookId === 'obs'
+        ? reset(
+            defaultTplOBS,
+            defaultOBSReference,
+            currentLanguage,
+            setAppConfig,
+            goToBookChapterVerse
+          )
+        : reset(
+            defaultTplBible,
+            defaultBibleReference,
+            currentLanguage,
+            setAppConfig,
+            goToBookChapterVerse
+          );
+      break;
     default:
       break;
   }

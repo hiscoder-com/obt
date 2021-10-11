@@ -4,12 +4,6 @@ import { useTranslation } from 'react-i18next';
 
 import { AppContext, ReferenceContext } from '../../context';
 
-import {
-  defaultTplBible,
-  defaultTplOBS,
-  defaultBibleReference,
-  defaultOBSReference,
-} from '../../config/base';
 import { resetWorkspace } from '../../helper';
 import { MenuItem, MenuList } from '@material-ui/core';
 
@@ -27,19 +21,9 @@ function WorkspaceManager({ onClose }) {
   } = useContext(ReferenceContext);
 
   const { t } = useTranslation();
-  const workspaceType = bookId === 'obs' ? 'obs' : 'bible';
 
   const handleReset = () => {
-    resetWorkspace(
-      workspaceType,
-      defaultBibleReference,
-      defaultOBSReference,
-      defaultTplBible,
-      defaultTplOBS,
-      setAppConfig,
-      goToBookChapterVerse,
-      currentLanguage
-    );
+    resetWorkspace(bookId, setAppConfig, goToBookChapterVerse, currentLanguage);
     onClose();
   };
 

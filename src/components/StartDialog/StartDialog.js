@@ -4,12 +4,7 @@ import { SelectLanguage } from '../../components/';
 import { AppContext, ReferenceContext } from '../../context';
 
 import { resetWorkspace } from '../../helper';
-import {
-  defaultTplBible,
-  defaultTplOBS,
-  defaultBibleReference,
-  defaultOBSReference,
-} from '../../config/base';
+
 import {
   Dialog,
   DialogActions,
@@ -31,18 +26,14 @@ function StartDialog() {
     actions: { goToBookChapterVerse },
   } = useContext(ReferenceContext);
 
-  const workspaceType = bookId === 'obs' ? 'obs' : 'bible';
   const handleClose = () => {
     setOpenStartDialog(false);
     resetWorkspace(
-      workspaceType,
-      defaultBibleReference,
-      defaultOBSReference,
-      defaultTplBible,
-      defaultTplOBS,
+      bookId,
       setAppConfig,
       goToBookChapterVerse,
-      currentLanguage
+      currentLanguage,
+      'resetAll'
     );
     setLoadIntro(true);
   };
@@ -53,8 +44,8 @@ function StartDialog() {
         <SelectLanguage />
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleClose} color={'primary'}>
-          {t('Close')}
+        <Button onClick={handleClose} variant="outlined" color={'primary'}>
+          {t('Apply')}
         </Button>
       </DialogActions>
     </Dialog>
