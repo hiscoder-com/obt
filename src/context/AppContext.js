@@ -12,7 +12,7 @@ import {
   languages,
   bibleList,
 } from '../config/base';
-import { updateVer1_3_1 } from '../migration';
+import { updateVer1_3_1 } from '../updateVersion';
 export const AppContext = React.createContext();
 
 const _currentLanguage = checkLSVal('i18nextLng', languages[0]);

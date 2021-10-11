@@ -14,34 +14,34 @@ export const server = 'https://qa.door43.org';
 export const defaultTplBible = {
   ru: {
     lg: [
-      { w: 4, h: 12, x: 0, y: 0, i: 'ru_rob', minH: 3, minW: 1 },
-      { w: 4, h: 12, x: 4, y: 0, i: 'ru_rsb', minH: 3, minW: 1 },
+      { w: 4, h: 12, x: 0, y: 0, i: 'ru_rlob', minH: 3, minW: 1 },
+      { w: 4, h: 12, x: 4, y: 0, i: 'ru_rsob', minH: 3, minW: 1 },
       { w: 4, h: 12, x: 8, y: 0, i: 'ru_tn', minH: 3, minW: 1 },
     ],
     md: [
-      { w: 3, h: 12, x: 0, y: 0, i: 'ru_rob', minH: 3, minW: 1 },
-      { w: 3, h: 6, x: 3, y: 0, i: 'ru_rsb', minH: 3, minW: 1 },
+      { w: 3, h: 12, x: 0, y: 0, i: 'ru_rlob', minH: 3, minW: 1 },
+      { w: 3, h: 6, x: 3, y: 0, i: 'ru_rsob', minH: 3, minW: 1 },
       { w: 3, h: 6, x: 3, y: 6, i: 'ru_tn', minH: 3, minW: 1 },
     ],
     sm: [
-      { w: 1, h: 4, x: 0, y: 0, i: 'ru_rob', minH: 3, minW: 1 },
-      { w: 1, h: 4, x: 0, y: 4, i: 'ru_rsb', minH: 3, minW: 1 },
+      { w: 1, h: 4, x: 0, y: 0, i: 'ru_rlob', minH: 3, minW: 1 },
+      { w: 1, h: 4, x: 0, y: 4, i: 'ru_rsob', minH: 3, minW: 1 },
       { w: 1, h: 4, x: 0, y: 8, i: 'ru_tn', minH: 3, minW: 1 },
     ],
   },
   en: {
     lg: [
-      { w: 4, h: 12, x: 0, y: 0, i: 'en_ueb', minH: 3, minW: 1 },
+      { w: 4, h: 12, x: 0, y: 0, i: 'en_ult', minH: 3, minW: 1 },
       { w: 4, h: 12, x: 4, y: 0, i: 'en_ust', minH: 3, minW: 1 },
       { w: 4, h: 12, x: 8, y: 0, i: 'el-x-koine_ugnt', minH: 3, minW: 1 },
     ],
     md: [
-      { w: 3, h: 12, x: 0, y: 0, i: 'en_ueb', minH: 3, minW: 1 },
+      { w: 3, h: 12, x: 0, y: 0, i: 'en_ult', minH: 3, minW: 1 },
       { w: 3, h: 6, x: 3, y: 0, i: 'en_ust', minH: 3, minW: 1 },
       { w: 3, h: 6, x: 3, y: 6, i: 'el-x-koine_ugnt', minH: 3, minW: 1 },
     ],
     sm: [
-      { w: 1, h: 4, x: 0, y: 0, i: 'en_ueb', minH: 3, minW: 1 },
+      { w: 1, h: 4, x: 0, y: 0, i: 'en_ult', minH: 3, minW: 1 },
       { w: 1, h: 4, x: 0, y: 4, i: 'en_ust', minH: 3, minW: 1 },
       { w: 1, h: 4, x: 0, y: 8, i: 'el-x-koine_ugnt', minH: 3, minW: 1 },
     ],
