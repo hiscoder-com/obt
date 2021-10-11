@@ -15,9 +15,9 @@ import useStyles from './style';
 //const TypoReport = React.lazy(() => import('./components/TypoReport/TypoReport'));
 //const SubMenuBar = React.lazy(() => import('./components/SubMenuBar/SubMenuBar'));
 import { updateVer1_3_1 } from './migration';
-export default function App() {
-  updateVer1_3_1('appConfig');
 
+updateVer1_3_1('appConfig');
+export default function App() {
   const {
     state: { appConfig, resourcesApp, resources, breakpoint },
     actions: { setAppConfig, setBreakpoint },
