@@ -24,10 +24,10 @@ function WorkspaceManager({ onClose }) {
 
   const handleReset = () => {
     resetWorkspace({
-      bookId: bookId,
-      setAppConfig: setAppConfig,
-      goToBookChapterVerse: goToBookChapterVerse,
-      currentLanguage: currentLanguage,
+      bookId,
+      setAppConfig,
+      goToBookChapterVerse,
+      currentLanguage,
       resetAll: false,
     });
     onClose();

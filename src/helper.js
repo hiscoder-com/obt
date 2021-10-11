@@ -277,8 +277,14 @@ const resetMode = (
 };
 
 /**
- *function reset layouts, resources and reference to default
+ * A function that resets the value of layouts, resources and reference
+ *
+ * @param {string} bookId - Current bookId
+ * @param {function} setAppConfig - State function that changes appconfig
+ * @param {function} goToBookChapterVerse - Function that changes reference
+ * @param {string} currentLanguage - current language of app
  * @param {boolean} resetAll reset layouts,reference to default in bible and obs
+ *
  */
 
 export const resetWorkspace = ({

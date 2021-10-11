@@ -29,16 +29,16 @@ function StartDialog() {
   const handleClose = () => {
     setOpenStartDialog(false);
     resetWorkspace({
-      bookId: bookId,
-      setAppConfig: setAppConfig,
-      goToBookChapterVerse: goToBookChapterVerse,
-      currentLanguage: currentLanguage,
+      bookId,
+      setAppConfig,
+      goToBookChapterVerse,
+      currentLanguage,
       resetAll: true,
     });
     setLoadIntro(true);
   };
   return (
-    <Dialog open={openStartDialog} /**onClose={handleClose}*/>
+    <Dialog open={openStartDialog}>
       <DialogTitle id="about-title">{t('Choose_language')}</DialogTitle>
       <DialogContent>
         <SelectLanguage />
