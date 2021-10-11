@@ -1,7 +1,7 @@
 export const updateVer1_3_1 = (appConfig) => {
   const _appconfig = JSON.parse(localStorage.getItem(appConfig));
   const keysAppConfig = _appconfig && Object.values(_appconfig);
-  console.log(keysAppConfig);
+  console.log('keysAppConfig', keysAppConfig);
 };
 
 // export const updateAppConfig = (appConfig) => {
