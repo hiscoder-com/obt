@@ -44,6 +44,11 @@ function SearchResources({ anchorEl, onClose, open }) {
     setAppConfig((prev) =>
       prev.concat({ ...defaultCard, x: pos.x, y: pos.y, i: item.name })
     );
+
+    onClose();
+    setTimeout(function () {
+      window.scrollTo(0, 10000);
+    }, 1000);
   };
 
   useEffect(() => {

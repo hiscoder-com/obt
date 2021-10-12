@@ -4,12 +4,7 @@ import { useTranslation } from 'react-i18next';
 
 import { AppContext, ReferenceContext } from '../../context';
 
-import {
-  defaultTplBible,
-  defaultTplOBS,
-  defaultBibleReference,
-  defaultOBSReference,
-} from '../../config/base';
+import { resetWorkspace } from '../../helper';
 import { MenuItem, MenuList } from '@material-ui/core';
 
 function WorkspaceManager({ onClose }) {
@@ -26,41 +21,15 @@ function WorkspaceManager({ onClose }) {
   } = useContext(ReferenceContext);
 
   const { t } = useTranslation();
-  const workspaceType = bookId === 'obs' ? 'obs' : 'bible';
+
   const handleReset = () => {
-    const oldAppConfig = JSON.parse(localStorage.getItem('appConfig'));
-    switch (workspaceType) {
-      case 'bible':
-        const bibleAppConfig = {
-          ...oldAppConfig,
-          [workspaceType]: defaultTplBible[currentLanguage],
-        };
-        localStorage.setItem('appConfig', JSON.stringify(bibleAppConfig));
-        setAppConfig(defaultTplBible[currentLanguage]);
-        goToBookChapterVerse(
-          defaultBibleReference[currentLanguage].bookId,
-          defaultBibleReference[currentLanguage].chapter,
-          defaultBibleReference[currentLanguage].verse
-        );
-        break;
-
-      case 'obs':
-        const obsAppConfig = {
-          ...oldAppConfig,
-          [workspaceType]: defaultTplOBS[currentLanguage],
-        };
-        localStorage.setItem('appConfig', JSON.stringify(obsAppConfig));
-        setAppConfig(defaultTplOBS[currentLanguage]);
-        goToBookChapterVerse(
-          defaultOBSReference[currentLanguage].bookId,
-          defaultOBSReference[currentLanguage].chapter,
-          defaultOBSReference[currentLanguage].verse
-        );
-        break;
-
-      default:
-        break;
-    }
+    resetWorkspace({
+      bookId,
+      setAppConfig,
+      goToBookChapterVerse,
+      currentLanguage,
+      resetAll: false,
+    });
     onClose();
   };
 

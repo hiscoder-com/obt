@@ -5,7 +5,15 @@ import { Workspace } from 'resource-workspace-rcl';
 
 import { AppContext } from './context/AppContext';
 import { ReferenceContext } from './context/ReferenceContext';
-import { Shortcut, Swipes, Intro, Card, TypoReport, SubMenuBar } from './components';
+import {
+  Shortcut,
+  Swipes,
+  Intro,
+  Card,
+  TypoReport,
+  SubMenuBar,
+  StartDialog,
+} from './components';
 import { useWindowSize } from './hooks';
 
 import './styles/app.css';
@@ -116,6 +124,7 @@ export default function App() {
 
   return (
     <SnackbarProvider maxSnack={3}>
+      <StartDialog />
       <Intro />
       <SubMenuBar />
       <TypoReport />
