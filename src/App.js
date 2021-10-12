@@ -14,9 +14,9 @@ import useStyles from './style';
 //const Card = React.lazy(() => import('./components/Card/Card'));
 //const TypoReport = React.lazy(() => import('./components/TypoReport/TypoReport'));
 //const SubMenuBar = React.lazy(() => import('./components/SubMenuBar/SubMenuBar'));
-import { updateVer1_3_1 } from './updateVersion';
+import { updateVer1_3_0 } from './updateVersion';
 
-updateVer1_3_1('appConfig');
+updateVer1_3_0('appConfig');
 export default function App() {
   const {
     state: { appConfig, resourcesApp, resources, breakpoint },
