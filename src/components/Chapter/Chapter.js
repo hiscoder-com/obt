@@ -108,7 +108,9 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
             key === reference.verse && verseRef(ref);
           }}
           style={verseStyle}
-          className={'verse' + (key === reference.verse ? ' current' : '')}
+          className={
+            'verse' + (parseInt(key) === parseInt(reference.verse) ? ' current' : '')
+          }
           key={key}
           onContextMenu={(e) => {
             setReferenceBlock({
