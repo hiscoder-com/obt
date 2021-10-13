@@ -28,19 +28,22 @@ export function AppContextProvider({ children }) {
   } = useContext(ReferenceContext);
 
   const [currentLanguage, setCurrentLanguage] = useState(_currentLanguage);
+  const _appconfig = checkLSVal(
+    'appConfig',
+    {
+      bible: defaultTplBible[_currentLanguage],
+      obs: defaultTplOBS[_currentLanguage],
+    },
+    'object',
+    'bible'
+  )[referenceSelected.bookId === 'obs' ? 'obs' : 'bible'];
 
-  const [appConfig, setAppConfig] = useState(
-    () =>
-      checkLSVal(
-        'appConfig',
-        {
-          bible: defaultTplBible[_currentLanguage],
-          obs: defaultTplOBS[_currentLanguage],
-        },
-        'object',
-        'bible'
-      )[referenceSelected.bookId === 'obs' ? 'obs' : 'bible']
-  );
+  const [appConfig, setAppConfig] = useState(_appconfig);
+
+  useEffect(() => {
+    setAppConfig(_appconfig);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [referenceSelected.bookId]);
 
   const [resourcesApp, setResourcesApp] = useState(_resourcesApp);
   const _resourceLinks = getResources(appConfig, resourcesApp);
