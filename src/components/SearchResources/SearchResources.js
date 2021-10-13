@@ -45,7 +45,6 @@ function SearchResources({ anchorEl, onClose, open }) {
       prev.concat({ ...defaultCard, x: pos.x, y: pos.y, i: item.name })
     );
 
-    onClose();
     setTimeout(function () {
       window.scrollTo(0, 10000);
     }, 1000);
