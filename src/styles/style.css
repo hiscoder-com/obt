@@ -51,12 +51,12 @@ input {
 
 .tooltipClass .introjs-skipbutton{
   color: #fff;
-  font-size: 20px;
-  padding: 4px 10px;
+  font-size: 25px;
+  padding: 10px 17px;
   position: fixed;
   right: 5px;
   top: 5px;
-  background: #424242;
+  background: #c80000;
   border-radius: 3px;
 }
 .tooltipClass .introjs-tooltipbuttons{
