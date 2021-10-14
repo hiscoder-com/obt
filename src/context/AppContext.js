@@ -30,15 +30,16 @@ export function AppContextProvider({ children }) {
   const [currentLanguage, setCurrentLanguage] = useState(_currentLanguage);
 
   const [appConfig, setAppConfig] = useState(
-    checkLSVal(
-      'appConfig',
-      {
-        bible: defaultTplBible[_currentLanguage],
-        obs: defaultTplOBS[_currentLanguage],
-      },
-      'object',
-      'bible'
-    )[referenceSelected.bookId === 'obs' ? 'obs' : 'bible']
+    () =>
+      checkLSVal(
+        'appConfig',
+        {
+          bible: defaultTplBible[_currentLanguage],
+          obs: defaultTplOBS[_currentLanguage],
+        },
+        'object',
+        'bible'
+      )[referenceSelected.bookId === 'obs' ? 'obs' : 'bible']
   );
 
   const [resourcesApp, setResourcesApp] = useState(_resourcesApp);

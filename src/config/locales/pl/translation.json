@@ -1,6 +1,6 @@
 {
   "Add_resources": "Dodaj materiał",
-  "Apply":"Zastosować",
+  "Apply": "Zastosować",
   "Bible": "Biblia",
   "Bible_NT": "Nowy Testament",
   "Bible_OBS": "Inne",
@@ -17,12 +17,16 @@
   "No_content": "Brak dostępnych treści",
   "No_resources": "Wszystkie materiały dodane",
   "OBS": "OHB",
+  "Oops": "Oops! Something went wrong.",
   "Open_Bible": "Pokaż Biblię",
   "Open_OBS": "Pokaż otwarte historie biblijne",
   "Psalm": "Psalm",
   "Previous": "Plecy",
+  "Refresh": "Try refreshing the page.",
   "Report_typo": "Zgłoś literówkę",
-  "Reset": "Zresetuj karty",
+  "Reset": "Reset",
+  "Reset_button": "If this does not help, <b>click on the &quot;Reset&quot; button</b>",
+  "Reset_cards": "Zresetuj karty",
   "See_logs1": "Możesz zobaczyć wszystko",
   "See_logs2": "logi błędów tutaj",
   "Send_message": "wysłać wiadomość",
@@ -124,4 +128,5 @@
   "introHamburger": "Menu główne aplikacji. Tutaj możesz:<br> - dodać nową kartę,<br> - zresetować stan Workspace (będą otwarte karty domyślne),<br> - zmienić rozmiar czcionki na kartach,<br> - zmienić język interfejsu<br> - i otwórz podręcznik użytkownika",
   "introObsSelect": "Przycisk otwierający okno wyboru historii.",
   "introObsList": "Okno wyboru historii.",
-  "introObsShortCuts": "Możesz przełączać historię lub wiersz za pomocą skrótów klawiszowych:<br> <b>ctrl + right </b> - następny rozdział<br> <b>ctrl + left </b> - poprzedni rozdział<br> <b>ctrl + down </b> - następny wiersz<br> <b> ctrl + up </b> - poprzedni wiersz.<br>Na urządzeniach mobilnych można przełączać się między historiami:<br> <b>przesuń w lewo </b> - poprzedni historia,<br><b> przesuń w prawo </b> - następny historia."}
+  "introObsShortCuts": "Możesz przełączać historię lub wiersz za pomocą skrótów klawiszowych:<br> <b>ctrl + right </b> - następny rozdział<br> <b>ctrl + left </b> - poprzedni rozdział<br> <b>ctrl + down </b> - następny wiersz<br> <b> ctrl + up </b> - poprzedni wiersz.<br>Na urządzeniach mobilnych można przełączać się między historiami:<br> <b>przesuń w lewo </b> - poprzedni historia,<br><b> przesuń w prawo </b> - następny historia."
+}

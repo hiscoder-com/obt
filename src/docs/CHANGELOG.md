@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.2.2] - 2021-10-14
 
+### Added (for new features)
+- Error boudary, reset config
+- shortcut for clear localsotrage
+
 ### Fixed (for any bug fixes)
 - Highlight the first verse at the first launch
 - When switched the Bible or OBS mode, after pressing the back button, the reference switched, but the resources did not.
@@ -15,7 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added (for new features)
 - Language selection on first boot
-
+- Scrolldown when new card added
 
 ### Changed (for changes in existing functionality)
 - User guide extended for OBS
