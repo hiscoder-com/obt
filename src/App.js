@@ -15,6 +15,7 @@ import {
   StartDialog,
 } from './components';
 import { useWindowSize } from './hooks';
+import { getLayoutType } from './helper';
 
 import './styles/app.css';
 import useStyles from './style';
@@ -53,12 +54,7 @@ export default function App() {
   Swipes();
   const onLayoutChange = (newLayout) => {
     const oldAppConfig = JSON.parse(localStorage.getItem('appConfig'));
-    let type = 'bible';
-    newLayout.forEach((el) => {
-      if (el.i.split('_')[1].split('-')[0] === 'obs') {
-        type = 'obs';
-      }
-    });
+    const type = getLayoutType(newLayout);
     const newAppConfig = {
       ...oldAppConfig,
       [type]: newLayout,

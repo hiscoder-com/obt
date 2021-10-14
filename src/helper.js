@@ -352,3 +352,13 @@ export const resetWorkspace = ({
       break;
   }
 };
+
+export const getLayoutType = (layout) => {
+  let type = 'bible';
+  layout.forEach((el) => {
+    if (el.i.split('_')[1].split('-')[0] === 'obs') {
+      type = 'obs';
+    }
+  });
+  return type;
+};
