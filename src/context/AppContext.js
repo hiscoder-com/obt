@@ -97,6 +97,9 @@ export function AppContextProvider({ children }) {
       setCurrentLanguage,
     },
   };
+console.log('resourceLinks',resourceLinks);
+console.log('defaultResourceLinks', _resourceLinks);
+console.log('resources', resources);
 
   return (
     <AppContext.Provider value={value}>
