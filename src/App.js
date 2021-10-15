@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useMemo } from 'react';
 
 import { SnackbarProvider } from 'notistack';
-import { Workspace } from '@texttree/resource-workspace-rcl';
+import { Workspace } from 'resource-workspace-rcl';
 
 import { AppContext } from './context/AppContext';
 import { ReferenceContext } from './context/ReferenceContext';

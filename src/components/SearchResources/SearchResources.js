@@ -14,7 +14,7 @@ import {
   obsSubjects,
 } from '../../config/materials';
 import { defaultCard, server, columns } from '../../config/base';
-import { getXY } from '@texttree/resource-workspace-rcl';
+import { getXY } from 'resource-workspace-rcl';
 import { getUniqueResources } from '../../helper';
 
 import { MenuItem, Menu } from '@material-ui/core';
