@@ -6,6 +6,7 @@ import { Workspace } from '@texttree/resource-workspace-rcl';
 import { AppContext } from './context/AppContext';
 import { ReferenceContext } from './context/ReferenceContext';
 import { Shortcut, Swipes, Intro, Card, TypoReport, SubMenuBar } from './components';
+import { Migrate } from './Migrate';
 
 import './styles/app.css';
 import useStyles from './style';
@@ -14,9 +15,8 @@ import useStyles from './style';
 //const Card = React.lazy(() => import('./components/Card/Card'));
 //const TypoReport = React.lazy(() => import('./components/TypoReport/TypoReport'));
 //const SubMenuBar = React.lazy(() => import('./components/SubMenuBar/SubMenuBar'));
-import { updateVer1_3_0 } from './updateVersion';
 
-updateVer1_3_0('appConfig');
+Migrate();
 export default function App() {
   const {
     state: { appConfig, resourcesApp, resources, breakpoint },

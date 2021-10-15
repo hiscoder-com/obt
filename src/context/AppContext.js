@@ -12,7 +12,6 @@ import {
   languages,
   bibleList,
 } from '../config/base';
-import { updateVer1_3_0 } from '../updateVersion';
 export const AppContext = React.createContext();
 
 const _currentLanguage = checkLSVal('i18nextLng', languages[0]);
@@ -31,7 +30,6 @@ export function AppContextProvider({ children }) {
   } = useContext(ReferenceContext);
 
   const [currentLanguage, setCurrentLanguage] = useState(_currentLanguage);
-  updateVer1_3_0('appConfig');
   const [appConfig, setAppConfig] = useState(
     () =>
       checkLSVal(
