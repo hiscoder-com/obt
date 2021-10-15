@@ -78,35 +78,9 @@ export const defaultTplOBS = {
   },
 };
 
-/*export const defaultTplBible = {
-  ru: [
-    { w: 4, h: 12, x: 0, y: 0, i: 'ru_rob', minH: 3, minW: 1 },
-    { w: 4, h: 12, x: 4, y: 0, i: 'ru_rsb', minH: 3, minW: 1 },
-    { w: 4, h: 12, x: 8, y: 0, i: 'ru_tn', minH: 3, minW: 1 },
-  ],
-  en: [
-    { w: 4, h: 12, x: 0, y: 0, i: 'en_ueb', minH: 3, minW: 1 },
-    { w: 4, h: 12, x: 4, y: 0, i: 'en_ust', minH: 3, minW: 1 },
-    { w: 4, h: 12, x: 8, y: 0, i: 'el-x-koine_ugnt', minH: 3, minW: 1 },
-  ],
-};
-
-export const defaultTplOBS = {
-  ru: [
-    { w: 4, h: 12, x: 0, y: 0, i: 'ru_obs', minH: 3, minW: 1 },
-    { w: 4, h: 12, x: 4, y: 0, i: 'ru_obs-tn', minH: 3, minW: 1 },
-    { w: 4, h: 12, x: 8, y: 0, i: 'ru_obs-tq', minH: 3, minW: 1 },
-  ],
-  en: [
-    { w: 4, h: 12, x: 0, y: 0, i: 'en_obs', minH: 3, minW: 1 },
-    { w: 4, h: 12, x: 0, y: 0, i: 'en_obs-tn', minH: 3, minW: 1 },
-    { w: 4, h: 12, x: 0, y: 0, i: 'en_obs-tq', minH: 3, minW: 1 },
-  ],
-};*/
-
 export const defaultBibleReference = {
   ru: {
-    bookId: 'mat',
+    bookId: 'tit',
     chapter: 1,
     verse: 1,
   },
@@ -133,8 +107,6 @@ export const defaultOBSReference = {
 export const languages = ['en', 'ru'];
 
 /* CORE */
-
-//export const defaultCard = { w: 3, h: 3, x: 0, y: 99, minH: 3, minW: 1 };
 
 export const defaultCard = {
   lg: { w: 4, h: 3, x: 0, y: 99, minH: 3, minW: 1 },
