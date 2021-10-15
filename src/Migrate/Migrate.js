@@ -1,16 +1,16 @@
 import { migrate211015 } from './migrate211015';
 import * as package_json from '../../package.json';
-import { gt } from 'semver';
 
-const VERSION_KEY = 'version';
+export const VERSION_KEY = 'version';
 /**
  * start all migrations here
+ * We will create migration files in the migrate[yy][mm][dd] format (for example, migrate211006).
+ * The blank is in the folder.
+ * Internally, we manipulate localstorage.
  */
 export default function Migrate() {
   const v = getVersion();
-  if (gt('1.2.0', v)) {
-    migrate211015(v);
-  }
+  migrate211015(v);
 }
 
 /**
