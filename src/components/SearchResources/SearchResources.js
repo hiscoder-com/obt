@@ -42,13 +42,8 @@ function SearchResources({ anchorEl, onClose, open }) {
   const handleAddMaterial = (item) => {
     setAppConfig((prev) => {
       const next = { ...prev };
-      console.log({
-        prev: prev.lg,
-        ls: JSON.parse(localStorage.getItem('appConfig')).bible.lg,
-      });
       for (let k in next) {
-        const pos = getXY(appConfig[k], columns[k], defaultCard.h, defaultCard.w);
-        console.log({ k, pos });
+        const pos = getXY(appConfig[k], columns[k], defaultCard[k].h, defaultCard[k].w);
         next[k] = next[k].concat({
           ...defaultCard[k],
           x: pos.x,
