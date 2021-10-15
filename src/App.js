@@ -7,7 +7,7 @@ import { AppContext } from './context/AppContext';
 import { ReferenceContext } from './context/ReferenceContext';
 import { Shortcut, Swipes, Intro, Card, TypoReport, SubMenuBar } from './components';
 import { Migrate } from './Migrate';
-
+import { columns } from './config/base';
 import './styles/app.css';
 import useStyles from './style';
 
@@ -113,7 +113,6 @@ export default function App() {
   }, [availableBookList]);
 
   const onBreakpointChange = (name, cols) => {
-    console.log({ name, cols });
     setBreakpoint({ name, cols });
   };
 
@@ -133,13 +132,7 @@ export default function App() {
         correctHeight={64}
         onBreakpointChange={onBreakpointChange}
         onLayoutChange={onLayoutChange}
-        columns={{
-          lg: 12,
-          md: 6,
-          sm: 1,
-          xs: 1,
-          xxs: 1,
-        }}
+        columns={columns}
       >
         {cards}
       </Workspace>

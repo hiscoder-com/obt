@@ -26,7 +26,7 @@ function ChapterList({ onClose }) {
     goToBookChapterVerse(bookId, chapterId, '1');
     onClose();
   };
-  console.log(bookId);
+
   return (
     <BibleChapterListRCL
       chapterClasses={chapterClasses}

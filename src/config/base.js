@@ -1,16 +1,9 @@
 export const server = 'https://qa.door43.org';
-
-/**
- this default for next columns in Workspace:
- columns={{
-          lg: 12,
-          md: 6,
-          sm: 1,
-          xs: 1,
-          xxs: 1,
-        }}
- */
-
+export const columns = {
+  lg: 12,
+  md: 6,
+  sm: 1,
+};
 export const defaultTplBible = {
   ru: {
     lg: [

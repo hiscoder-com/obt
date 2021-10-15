@@ -13,7 +13,7 @@ import {
   bibleSubjects,
   obsSubjects,
 } from '../../config/materials';
-import { defaultCard, server } from '../../config/base';
+import { defaultCard, server, columns } from '../../config/base';
 import { getXY } from '@texttree/resource-workspace-rcl';
 import { getUniqueResources } from '../../helper';
 
@@ -22,7 +22,7 @@ import { useStyles } from './style';
 
 function SearchResources({ anchorEl, onClose, open }) {
   const {
-    state: { appConfig, resourcesApp, breakpoint },
+    state: { appConfig, resourcesApp },
     actions: { setAppConfig, setResourcesApp },
   } = useContext(AppContext);
 
@@ -40,16 +40,15 @@ function SearchResources({ anchorEl, onClose, open }) {
   const uniqueResources = getUniqueResources(appConfig, resourcesApp);
 
   const handleAddMaterial = (item) => {
-    const pos = getXY(
-      appConfig[breakpoint.name],
-      breakpoint.cols,
-      defaultCard.h,
-      defaultCard.w
-    );
     setAppConfig((prev) => {
       const next = { ...prev };
-
+      console.log({
+        prev: prev.lg,
+        ls: JSON.parse(localStorage.getItem('appConfig')).bible.lg,
+      });
       for (let k in next) {
+        const pos = getXY(appConfig[k], columns[k], defaultCard.h, defaultCard.w);
+        console.log({ k, pos });
         next[k] = next[k].concat({
           ...defaultCard[k],
           x: pos.x,

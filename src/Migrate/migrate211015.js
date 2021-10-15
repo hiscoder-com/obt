@@ -24,7 +24,6 @@ const fixUEB = () => {
           ult = index;
         }
       });
-      console.log({ ueb, ult, bible });
       if (ueb !== false) {
         if (ult !== false) {
           bible.splice(ueb, 1);
@@ -32,7 +31,6 @@ const fixUEB = () => {
           bible[ueb].i = 'en_ult';
         }
       }
-      console.log({ bible });
       localStorage.setItem(
         'appConfig',
         JSON.stringify({ obs: JSON.parse(appConfig).obs, bible })
