@@ -1,9 +1,11 @@
 import React, { useEffect, useState, useContext } from 'react';
+import { CircularProgress } from '@material-ui/core';
 import { Verse } from 'scripture-resources-rcl';
 import { getVerseText } from '../../helper';
 import { ReferenceContext } from '../../context';
 import { useTranslation } from 'react-i18next';
 import { useScrollToVerse } from '../../hooks/useScrollToVerse';
+import { useCircularStyles } from './style';
 
 function USFMContent({ reference, setPosition, content, type }) {
   const { t } = useTranslation();
@@ -11,6 +13,7 @@ function USFMContent({ reference, setPosition, content, type }) {
   const [chapter, setChapter] = useState();
   const [old, setOld] = useState(null);
   const [verseRef] = useScrollToVerse('center');
+  const classesCircular = useCircularStyles();
   /**
    * попробовать сохранить состояние, чтобы по сто раз не загружать контент с гита
    * так же использовать статус, идет загрузка, или получили ошибку
@@ -20,6 +23,8 @@ function USFMContent({ reference, setPosition, content, type }) {
     actions: { setReferenceBlock, goToBookChapterVerse },
   } = useContext(ReferenceContext);
   /** resourceStatus: contentNotFoundError, error, initialized, manifestNotFoundError */
+  const isLoading = content.resourceStatus.loading;
+
   const resource = content.resource;
   console.info('PARSE CONTENT ' + type);
   const resourceLink = resource?.resourceLink;
@@ -106,7 +111,15 @@ function USFMContent({ reference, setPosition, content, type }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [chapter, reference, type]);
 
-  return <>{chapter ? verses : t('No_content')}</>;
+  return <>{isLoading || chapter === undefined ? (
+        <div className={classesCircular.root}>
+          <CircularProgress color="primary" size={100} />
+        </div>
+      ) : chapter != null ? (
+        verses
+      ) : (
+        t('No_content')
+      )}</>;
 }
 
 export default USFMContent;
