@@ -14,12 +14,25 @@ const fixUEB = () => {
   if (appConfig !== null) {
     const bible = JSON.parse(appConfig).bible;
     if (Array.isArray(bible)) {
-      bible.map((el) => {
+      let ueb = false;
+      let ult = false;
+      bible.forEach((el, index) => {
         if (el.i === 'en_ueb') {
-          el.i = 'en_ult';
+          ueb = index;
         }
-        return el;
+        if (el.i === 'en_ult') {
+          ult = index;
+        }
       });
+      console.log({ ueb, ult, bible });
+      if (ueb !== false) {
+        if (ult !== false) {
+          bible.splice(ueb, 1);
+        } else {
+          bible[ueb].i = 'en_ult';
+        }
+      }
+      console.log({ bible });
       localStorage.setItem(
         'appConfig',
         JSON.stringify({ obs: JSON.parse(appConfig).obs, bible })
