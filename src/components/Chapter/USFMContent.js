@@ -1,11 +1,12 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { CircularProgress } from '@material-ui/core';
+
 import { Verse } from 'scripture-resources-rcl';
 import { getVerseText } from '../../helper';
 import { ReferenceContext } from '../../context';
 import { useTranslation } from 'react-i18next';
 import { useScrollToVerse } from '../../hooks/useScrollToVerse';
 import { useCircularStyles } from './style';
+import { CircularProgress } from '@material-ui/core';
 
 function USFMContent({ reference, setPosition, content, type }) {
   const { t } = useTranslation();

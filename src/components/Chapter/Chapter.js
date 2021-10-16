@@ -4,7 +4,7 @@ import { Card, useContent } from 'translation-helps-rcl';
 
 import USFMContent from './USFMContent';
 import VerseMenu from './VerseMenu';
-import { AppContext, ReferenceContext } from '../../context';
+import {  ReferenceContext } from '../../context';
 
 import { server } from '../../config/base';
 
@@ -13,19 +13,10 @@ const initialPosition = {
   mouseY: null,
 };
 
-export default function Chapter({ title, classes, onClose, resource, type, reference }) {
+export default function Chapter({ title, classes, onClose, resource, type, reference,fontSize }) {
   const [position, setPosition] = useState(initialPosition);
-  const {
-    state: { fontSize },
-  } = useContext(AppContext);
-
-  const {
-    state: {
-      referenceSelected: { bookId, chapter },
-    },
-  } = useContext(ReferenceContext);
-
-  const content = useContent({
+    const { bookId, chapter } =reference;
+    const content = useContent({
     chapter: chapter,
     projectId: bookId,
     branch: resource.branch,

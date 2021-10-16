@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 
 import { AppContext } from '../../context/AppContext';
 import { ReferenceContext } from '../../context/ReferenceContext';
-
+import { server } from '../../config/base';
 import {
   Chapter,
   SupportTQ,
@@ -17,8 +17,8 @@ function Card({ type, onClose, classes }) {
   let CurrentCard;
 
   const {
-    state: { resourcesApp, appConfig },
-    actions: { setAppConfig },
+    state: { resourcesApp, appConfig,fontSize},
+    actions: { setAppConfig},
   } = useContext(AppContext);
 
   const {
@@ -82,6 +82,8 @@ function Card({ type, onClose, classes }) {
       onClose={onClose}
       type={type}
       reference={referenceSelected}
+      fontSize={fontSize}
+      server={server}
     />
   );
 }

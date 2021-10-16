@@ -101,7 +101,10 @@ export function AppContextProvider({ children }) {
 
   return (
     <AppContext.Provider value={value}>
-      <ResourcesContextProvider
+
+      {/**Я так понял ResourcesContextProvider уже не нужен? */}
+      
+      {/* <ResourcesContextProvider
         reference={{
           bookId: referenceSelected.bookId,
           chapter: referenceSelected.chapter,
@@ -112,9 +115,9 @@ export function AppContextProvider({ children }) {
         resources={resources}
         onResources={setResources}
         config={config}
-      >
+      > */}
         {children}
-      </ResourcesContextProvider>
+      {/* </ResourcesContextProvider> */}
     </AppContext.Provider>
   );
 }

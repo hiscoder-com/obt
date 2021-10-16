@@ -2,29 +2,10 @@ import React, { useContext } from 'react';
 
 import { Card, CardContent, useContent, useCardState } from 'translation-helps-rcl';
 
-import { AppContext } from '../../context/AppContext';
-import { ReferenceContext } from '../../context/ReferenceContext';
-import { server } from '../../config/base';
 
 export default function SupportTQ(props) {
-  const { title, classes, onClose, type } = props;
-  const {
-    state: { fontSize, resourcesApp },
-  } = useContext(AppContext);
-
-  const {
-    state: { referenceSelected },
-  } = useContext(ReferenceContext);
-
-  const { bookId, chapter, verse } = referenceSelected;
-
-  let resource = false;
-  resourcesApp.forEach((el) => {
-    if (el.name === type) {
-      resource = el;
-    }
-  });
-
+  const { title, classes, onClose, type,resource,fontSize,reference,server } = props;
+  const { bookId, chapter, verse } = reference;
   const {
     markdown,
     items,

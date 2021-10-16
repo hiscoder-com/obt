@@ -25,7 +25,7 @@
     "resource-workspace-rcl": "^1.0",
     "scripture-resources-rcl": "5.2.0",
     "tc-ui-toolkit": "^6.0.0",
-    "translation-helps-rcl": "^3.1.0",
+    "translation-helps-rcl": "^2.3.2",
     "use-deep-compare-effect": "^1.6.1",
     "web-vitals": "^2.0.1",
     "word-aligner": "^1.0.0"
