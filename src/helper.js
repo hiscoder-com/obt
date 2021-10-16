@@ -7,7 +7,6 @@ import {
 
 export const getResources = (appConfig, resourcesApp) => {
   const resources = [];
-  console.log(appConfig);
   if (!appConfig?.lg || appConfig.lg.length > 0) {
     appConfig.lg.forEach((el) => {
       resourcesApp.forEach((r_el) => {
@@ -355,7 +354,6 @@ export const resetWorkspace = ({
 };
 
 export const getLayoutType = (layout) => {
-  console.log(layout);
   let type = 'bible';
   layout.forEach((el) => {
     if (el.i.split('_')[1].split('-')[0] === 'obs') {

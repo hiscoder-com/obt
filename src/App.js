@@ -49,7 +49,6 @@ export default function App() {
 
   const onLayoutChange = (newLayout, _newLayout) => {
     const oldAppConfig = JSON.parse(localStorage.getItem('appConfig'));
-    console.log({ onLayoutChange: newLayout });
     const type = getLayoutType(newLayout);
     const newAppConfig = {
       ...oldAppConfig,
