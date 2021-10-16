@@ -36,7 +36,7 @@ function WorkspaceManager({ onClose }) {
   return (
     <MenuList>
       <MenuItem divider={true} onClick={handleReset}>
-        {t('Reset')}
+        {t('Reset_cards')}
       </MenuItem>
     </MenuList>
   );

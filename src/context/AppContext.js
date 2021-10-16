@@ -4,7 +4,7 @@ import { ResourcesContextProvider } from 'scripture-resources-rcl';
 
 import { useTranslation } from 'react-i18next';
 import { ReferenceContext } from './ReferenceContext';
-import { getResources, getBookList, checkLSVal } from '../helper';
+import { getResources, getBookList, checkLSVal, getLayoutType } from '../helper';
 import {
   server,
   defaultTplBible,
@@ -60,6 +60,15 @@ export function AppContextProvider({ children }) {
   useEffect(() => {
     localStorage.setItem('fontSize', fontSize);
   }, [fontSize]);
+
+  useEffect(() => {
+    const type = getLayoutType(appConfig);
+    const newType = referenceSelected.bookId === 'obs' ? 'obs' : 'bible';
+    if (type !== newType) {
+      setAppConfig(JSON.parse(localStorage.getItem('appConfig'))[newType]);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [referenceSelected.bookId]);
 
   useEffect(() => {
     setResourceLinks(getResources(appConfig, resourcesApp));

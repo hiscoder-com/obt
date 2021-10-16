@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import App from './App';
+import ErrorBoundary from './ErrorBoundary';
 import './i18next';
 import ContextProviders from './context/ContextProviders';
 import './styles/style.css';
@@ -11,17 +12,19 @@ import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 // const App = React.lazy(() => import('./App.js'));
 
 ReactDOM.render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <Switch>
-        <ContextProviders>
-          <Route>
-            <App />
-          </Route>
-        </ContextProviders>
-      </Switch>
-    </BrowserRouter>
-  </React.StrictMode>,
+  <ErrorBoundary>
+    <React.StrictMode>
+      <BrowserRouter>
+        <Switch>
+          <ContextProviders>
+            <Route>
+              <App />
+            </Route>
+          </ContextProviders>
+        </Switch>
+      </BrowserRouter>
+    </React.StrictMode>
+  </ErrorBoundary>,
   document.getElementById('root')
 );
 
