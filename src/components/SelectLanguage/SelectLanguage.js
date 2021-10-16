@@ -35,7 +35,7 @@ export default function SelectLanguage() {
           icon: classes.icon,
         }}
         onChange={handleChange}
-        defaultValue={currentLanguage}
+        value={currentLanguage}
       >
         {languages.map((el) => (
           <option key={el} className={classes.option} value={el}>

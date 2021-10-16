@@ -5,9 +5,19 @@ import { Workspace } from 'resource-workspace-rcl';
 
 import { AppContext } from './context/AppContext';
 import { ReferenceContext } from './context/ReferenceContext';
-import { Shortcut, Swipes, Intro, Card, TypoReport, SubMenuBar } from './components';
+import {
+  Shortcut,
+  Swipes,
+  Intro,
+  Card,
+  TypoReport,
+  SubMenuBar,
+  StartDialog,
+} from './components';
 import { Migrate } from './Migrate';
 import { columns } from './config/base';
+import { getLayoutType } from './helper';
+
 import './styles/app.css';
 import useStyles from './style';
 
@@ -39,14 +49,11 @@ export default function App() {
 
   const onLayoutChange = (newLayout, _newLayout) => {
     const oldAppConfig = JSON.parse(localStorage.getItem('appConfig'));
-    let type = 'bible';
-    newLayout.forEach((el) => {
-      if (el.i.split('_')[1].split('-')[0] === 'obs') {
-        type = 'obs';
-      }
-    });
-    const newAppConfig = { ...oldAppConfig };
-    newAppConfig[type] = _newLayout;
+    const type = getLayoutType(newLayout);
+    const newAppConfig = {
+      ...oldAppConfig,
+      [type]: newLayout,
+    };
     localStorage.setItem('appConfig', JSON.stringify(newAppConfig));
     setAppConfig(newAppConfig[type]);
   };
@@ -118,6 +125,7 @@ export default function App() {
 
   return (
     <SnackbarProvider maxSnack={3}>
+      <StartDialog />
       <Intro />
       <SubMenuBar />
       <TypoReport />

@@ -12,6 +12,7 @@ import {
   SelectLanguage,
   ShowReference,
   SelectModeBible,
+  About,
 } from '../../components';
 
 import { AppBar, Toolbar, MenuItem, Menu, IconButton, Button } from '@material-ui/core';
@@ -32,6 +33,7 @@ function SubMenuBar() {
   const modalClasses = useModalStyles();
   const [anchorMainMenu, setAnchorMainMenu] = useState(null);
   const [anchorAddMaterial, setAnchorAddMaterial] = useState(null);
+  const [openAbout, setOpenAbout] = useState(false);
 
   const { t } = useTranslation();
 
@@ -52,6 +54,9 @@ function SubMenuBar() {
   const handleOpenUsersGuide = () => {
     setLoadIntro(true);
     handleCloseMainMenu();
+  };
+  const handleClickOpenAbout = () => {
+    setOpenAbout(true);
   };
 
   const anchorEl = loadIntro && anchorMainMenu ? anchorMainMenu : menuRef.current;
@@ -126,7 +131,14 @@ function SubMenuBar() {
             <MenuItem button={false} divider={true}>
               <SelectLanguage />
             </MenuItem>
-            <MenuItem onClick={handleOpenUsersGuide}>{t('UsersGuide')}</MenuItem>
+            <MenuItem onClick={handleOpenUsersGuide} divider={true}>
+              {t('UsersGuide')}
+            </MenuItem>
+            <About
+              open={openAbout}
+              setOpen={setOpenAbout}
+              handleClick={handleClickOpenAbout}
+            />
           </Menu>
           <SearchResources
             anchorEl={anchorAddMaterial}

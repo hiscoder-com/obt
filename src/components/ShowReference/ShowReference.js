@@ -1,11 +1,10 @@
 import React, { useContext } from 'react';
 
-import { ReferenceContext, AppContext } from '../../context';
-import ButtonGroup from '@material-ui/core/ButtonGroup';
-import Button from '@material-ui/core/Button';
-
 import { useTranslation } from 'react-i18next';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
+
+import { ReferenceContext, AppContext } from '../../context';
+
+import { ButtonGroup, Button, useMediaQuery } from '@material-ui/core';
 
 function ShowReference() {
   const matches = useMediaQuery('(min-width:400px)');
@@ -31,7 +30,12 @@ function ShowReference() {
   const handleClickChapter = () => setShowChapterSelect(true);
 
   return (
-    <ButtonGroup disableElevation variant="contained" color="primary">
+    <ButtonGroup
+      disableElevation
+      variant="contained"
+      color="primary"
+      className="intro-obsSelect"
+    >
       <Button onClick={handleClickBook}> {showBook && showBook.toUpperCase()} </Button>
       <Button onClick={handleClickChapter}>{showChapter}</Button>
     </ButtonGroup>

@@ -1,3 +1,4 @@
+export * from './About';
 export * from './BookList';
 export * from './BookSelect';
 export * from './Card';
@@ -21,3 +22,4 @@ export * from './SupportTW';
 export * from './TypoReport';
 export * from './WorkspaceManager';
 export * from './Swipes';
+export * from './StartDialog';

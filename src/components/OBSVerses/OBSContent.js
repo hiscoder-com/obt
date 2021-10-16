@@ -68,7 +68,7 @@ function OBSContent({ markdown, verse, chapter, fontSize, type, goToBookChapterV
             ref={(ref) => {
               key === verse && verseRef(ref);
             }}
-            className={'verse' + (key === verse ? ' current' : '')}
+            className={'verse' + (parseInt(key) === parseInt(verse) ? ' current' : '')}
             key={key}
             onClick={() => {
               goToBookChapterVerse('obs', chapter, key);

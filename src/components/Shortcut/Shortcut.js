@@ -83,5 +83,17 @@ export default function Shortcut() {
     [referenceSelected]
   );
 
+  useHotkeys(
+    'ctrl+shift+l',
+    (e) => {
+      localStorage.clear();
+      e.cancelBubble = true;
+      e.preventDefault();
+      e.stopImmediatePropagation();
+    },
+    {},
+    []
+  );
+
   return Shortcut;
 }
