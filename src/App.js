@@ -73,7 +73,7 @@ export default function App() {
   const onClose = (index) => {
     if (compareMaterials(mainResources, index)) {
       setAppConfig((prev) => {
-        const next = { ...prev }; //* TODO - упростить код */
+        const next = { ...prev };
         for (let k in next) {
           next[k] = next[k].filter((el) => el.i !== index);
         }
