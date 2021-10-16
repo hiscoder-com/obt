@@ -62,7 +62,7 @@ export function AppContextProvider({ children }) {
   }, [fontSize]);
 
   useEffect(() => {
-    const type = getLayoutType(appConfig);
+    const type = getLayoutType(appConfig.lg);
     const newType = referenceSelected.bookId === 'obs' ? 'obs' : 'bible';
     if (type !== newType) {
       setAppConfig(JSON.parse(localStorage.getItem('appConfig'))[newType]);

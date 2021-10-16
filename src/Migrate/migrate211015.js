@@ -1,6 +1,6 @@
 import { VERSION_KEY } from './Migrate';
 import { gt } from 'semver';
-const UPDATE_VERSION = '1.2.2';
+const UPDATE_VERSION = '1.3.1';
 export const migrate211015 = (v) => {
   if (gt(UPDATE_VERSION, v)) {
     fixUEB();
