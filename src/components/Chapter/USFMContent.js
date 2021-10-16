@@ -112,7 +112,9 @@ function USFMContent({ reference, setPosition, content, type }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [chapter, reference, type]);
 
-  return <>{isLoading || chapter === undefined ? (
+  return (
+    <>
+      {isLoading || chapter === undefined ? (
         <div className={classesCircular.root}>
           <CircularProgress color="primary" size={100} />
         </div>
@@ -120,7 +122,9 @@ function USFMContent({ reference, setPosition, content, type }) {
         verses
       ) : (
         t('No_content')
-      )}</>;
+      )}
+    </>
+  );
 }
 
 export default USFMContent;

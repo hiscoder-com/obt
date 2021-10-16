@@ -1,19 +1,17 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { Card, CardContent, useContent, useCardState } from 'translation-helps-rcl';
 
-import { server } from '../../config/base';
-
 export default function SupportTN(props) {
-  const { title, classes, onClose, type,resource,reference,fontSize,server } = props;
-  
+  const { title, classes, onClose, type, resource, reference, fontSize, server } = props;
+
   const [selectedQuote, setQuote] = useState({});
   const { bookId, chapter, verse } = reference;
 
   const {
     markdown,
     items,
-    isLoading,
+    resourceStatus,
     props: { languageId },
   } = useContent({
     verse: String(verse),
@@ -25,7 +23,7 @@ export default function SupportTN(props) {
     owner: resource.owner ?? 'door43-catalog',
     server,
   });
-
+  const isLoading = resourceStatus.loading;
   const {
     state: { item, headers, itemIndex, markdownView },
     actions: { setItemIndex, setMarkdownView },

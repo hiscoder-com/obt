@@ -1,34 +1,15 @@
-import React, { useContext } from 'react';
+import React from 'react';
 
 import { Card, CardContent, useContent, useCardState } from 'translation-helps-rcl';
 
-import { AppContext } from '../../context/AppContext';
-import { ReferenceContext } from '../../context/ReferenceContext';
-import { server } from '../../config/base';
-
 export default function SupportOBSTQ(props) {
-  const { title, classes, onClose, type } = props;
-  const {
-    state: { fontSize, resourcesApp },
-  } = useContext(AppContext);
-
-  const {
-    state: { referenceSelected },
-  } = useContext(ReferenceContext);
-
-  const { bookId, chapter, verse } = referenceSelected;
-
-  let resource = false;
-  resourcesApp.forEach((el) => {
-    if (el.name === type) {
-      resource = el;
-    }
-  });
+  const { title, classes, onClose, type, server, fontSize, reference, resource } = props;
+  const { bookId, chapter, verse } = reference;
 
   const {
     markdown,
     items,
-    isLoading,
+    resourceStatus,
     props: { languageId },
   } = useContent({
     projectId: bookId + '-tq',
@@ -46,6 +27,7 @@ export default function SupportOBSTQ(props) {
   } = useCardState({
     items,
   });
+  const isLoading = resourceStatus.loading;
 
   return (
     <Card

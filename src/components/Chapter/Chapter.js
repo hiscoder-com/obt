@@ -1,22 +1,28 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 
 import { Card, useContent } from 'translation-helps-rcl';
 
 import USFMContent from './USFMContent';
 import VerseMenu from './VerseMenu';
-import {  ReferenceContext } from '../../context';
-
-import { server } from '../../config/base';
 
 const initialPosition = {
   mouseX: null,
   mouseY: null,
 };
 
-export default function Chapter({ title, classes, onClose, resource, type, reference,fontSize }) {
+export default function Chapter({
+  title,
+  classes,
+  onClose,
+  resource,
+  type,
+  reference,
+  fontSize,
+  server,
+}) {
   const [position, setPosition] = useState(initialPosition);
-    const { bookId, chapter } =reference;
-    const content = useContent({
+  const { bookId, chapter } = reference;
+  const content = useContent({
     chapter: chapter,
     projectId: bookId,
     branch: resource.branch,

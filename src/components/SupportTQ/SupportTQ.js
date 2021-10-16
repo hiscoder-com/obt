@@ -1,15 +1,14 @@
-import React, { useContext } from 'react';
+import React from 'react';
 
 import { Card, CardContent, useContent, useCardState } from 'translation-helps-rcl';
 
-
 export default function SupportTQ(props) {
-  const { title, classes, onClose, type,resource,fontSize,reference,server } = props;
+  const { title, classes, onClose, type, server, fontSize, reference, resource } = props;
   const { bookId, chapter, verse } = reference;
   const {
     markdown,
     items,
-    isLoading,
+    resourceStatus,
     props: { languageId },
   } = useContent({
     projectId: bookId,
@@ -27,6 +26,7 @@ export default function SupportTQ(props) {
   } = useCardState({
     items,
   });
+  const isLoading = resourceStatus.loading;
 
   return (
     <Card
