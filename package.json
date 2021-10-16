@@ -1,6 +1,6 @@
 {
   "name": "bsa",
-  "version": "1.2.2",
+  "version": "1.2.1",
   "description": "An application for advanced Bible study using unfoldingWord materials.",
   "keywords": [
     "bible",
@@ -14,9 +14,9 @@
     "@material-ui/icons": "^4.11.2",
     "@material-ui/lab": "^4.0.0-alpha.60",
     "@material-ui/styles": "^4.11.4",
-    "@texttree/tt-reference-rcl": "^1.2.0",
+    "@texttree/tt-reference-rcl": "^1.2.1",
     "@texttree/user-notes-rcl": "0.5.4",
-    "axios": "^0.22.0",
+    "axios": "^0.23.0",
     "axios-cache-adapter": "^2.7.3",
     "bible-reference-rcl": "^1.1.0",
     "i18next": "^20.6.0",
