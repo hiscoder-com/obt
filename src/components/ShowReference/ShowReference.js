@@ -5,7 +5,6 @@ import ButtonGroup from '@material-ui/core/ButtonGroup';
 import Button from '@material-ui/core/Button';
 
 import { useTranslation } from 'react-i18next';
-import { getAbbr } from '../../config/base';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 function ShowReference() {
@@ -20,15 +19,10 @@ function ShowReference() {
       referenceSelected: { bookId, chapter, verse },
     },
   } = useContext(ReferenceContext);
-  const {
-    state: { currentLanguage },
-  } = useContext(AppContext);
 
   const { t } = useTranslation();
 
-  const abbr = getAbbr(bookId, currentLanguage === 'ru' ? currentLanguage : null);
-
-  const ismobile = matches ? t(bookId) : abbr;
+  const ismobile = matches ? t(bookId) : t(bookId + '_abbr');
   const showBook = bookId !== 'obs' ? ismobile : t('Story');
   const showChapter = chapter + ':' + verse;
 
