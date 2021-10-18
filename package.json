@@ -25,7 +25,7 @@
     "intro.js": "^4.2.2",
     "intro.js-react": "^0.5.0",
     "notistack": "^1.0.10",
-    "prop-types": "^15.7.2",  
+    "prop-types": "^15.7.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-hotkeys-hook": "^3.4.3",

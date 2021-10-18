@@ -29,10 +29,6 @@ input {
   margin: 0;
 }
 
-.current {
-  font-weight: bold;
-}
-
 .tqcard h1{
   font-size: inherit;
 }
