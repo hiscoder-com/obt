@@ -21,7 +21,7 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
   const { t } = useTranslation();
   const classesCircular = useCircularStyles();
   const [verseRef] = useScrollToVerse('center');
-  const { state } = React.useContext(ResourcesContext);
+  const { state } = useContext(ResourcesContext);
   const {
     state: { resourcesApp, fontSize },
   } = useContext(AppContext);
