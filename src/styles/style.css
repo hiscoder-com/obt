@@ -20,7 +20,7 @@ input {
   cursor: context-menu;
 }
 .verse.current {
-  background-color: rgb(253, 244, 190);
+  background-color: #e3f6ff;
 }
 .verse br {
   display: none;
