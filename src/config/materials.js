@@ -1,10 +1,13 @@
-export const langs = ['en', 'ru', 'el-x-koine', 'hbo', 'id'];
+export const langs = ['en', 'ru', 'el-x-koine', 'hbo', 'tg', 'id'];
 
 export const owners = ['BSA', 'unfoldingWord', 'ru_gl'];
 
 //resource, that have not manifest or others reason
 export const blackListResources = [
   { owner: 'unfoldingword', name: 'BHP' },
+  { owner: 'unfoldingword', name: 'en_obs-tq' },
+  { owner: 'unfoldingword', name: 'en_obs-tn' },
+  { owner: 'unfoldingword', name: 'en_ueb' },
   { owner: 'ru_gl', name: 'ru_rlob' },
   { owner: 'ru_gl', name: 'ru_rsob' },
 ];

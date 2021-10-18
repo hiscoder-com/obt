@@ -16,7 +16,12 @@ input {
   outline: none;
   border: none;
 }
-
+.verse {
+  cursor: context-menu;
+}
+.verse.current {
+  background-color: #e3f6ff;
+}
 .verse br {
   display: none;
 }
@@ -35,4 +40,42 @@ input {
 .obs img{
   height: auto;
   max-width: 100%;
+}
+
+.tooltipClass{
+  color: #f4f4f4;
+  text-shadow: 1px 1px 3px black;
+  background-color: #0008;
+  box-shadow: inherit;
+  font-size: 1.1em;
+  min-width: 320px;
+  line-height: 1.5;
+  max-width: 500px;
+}
+
+.tooltipClass .introjs-skipbutton{
+  color: #fff;
+  font-size: 25px;
+  padding: 10px 17px;
+  position: fixed;
+  right: 5px;
+  top: 5px;
+  background: #c80000;
+  border-radius: 3px;
+}
+.tooltipClass .introjs-tooltipbuttons{
+  border: none;
+}
+.tooltipClass .introjs-button{
+  border: none;
+  text-shadow: none;
+  color: #f4f4f4;
+  background-color: #424242;
+}
+
+.tooltipClass .introjs-arrow{
+  display: none !important;
+}
+div[id*="_title"]{
+  font-family:inherit;
 }

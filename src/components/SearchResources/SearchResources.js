@@ -2,14 +2,19 @@ import React, { useContext, useEffect, useState } from 'react';
 
 import { useTranslation } from 'react-i18next';
 import axios from 'axios';
-import { setupCache } from 'axios-cache-adapter';
 
 import { AppContext, ReferenceContext } from '../../context';
 
-import { langs, subjects, owners, blackListResources } from '../../config/materials';
-import { defaultCard } from '../../config/base';
-import { getXY } from '../../core/matrix';
-import { bibleSubjects, obsSubjects } from '../../config/materials';
+import {
+  langs,
+  subjects,
+  owners,
+  blackListResources,
+  bibleSubjects,
+  obsSubjects,
+} from '../../config/materials';
+import { defaultCard, server, columns } from '../../config/base';
+import { getXY } from 'resource-workspace-rcl';
 import { getUniqueResources } from '../../helper';
 
 import { MenuItem, Menu } from '@material-ui/core';
@@ -35,22 +40,31 @@ function SearchResources({ anchorEl, onClose, open }) {
   const uniqueResources = getUniqueResources(appConfig, resourcesApp);
 
   const handleAddMaterial = (item) => {
-    const pos = getXY(appConfig);
-    setAppConfig((prev) =>
-      prev.concat({ ...defaultCard, x: pos.x, y: pos.y, i: item.name })
-    );
+    setAppConfig((prev) => {
+      const next = { ...prev };
+      for (let k in next) {
+        const pos = getXY(appConfig[k], columns[k], defaultCard[k].h, defaultCard[k].w);
+        next[k] = next[k].concat({
+          ...defaultCard[k],
+          x: pos.x,
+          y: pos.y,
+          i: item.name,
+        });
+      }
+      return next;
+    });
+
     onClose();
+    setTimeout(function () {
+      window.scrollTo(0, 10000);
+    }, 1000);
   };
 
   useEffect(() => {
     axios
-      .create({
-        adapter: setupCache({
-          maxAge: 15 * 60 * 1000,
-        }).adapter,
-      })
       .get(
-        'https://git.door43.org/api/catalog/v5/search?sort=lang,title&owner=' +
+        server +
+          '/api/catalog/v5/search?sort=lang,title&owner=' +
           owners.join(',') +
           '&lang=' +
           langs.join(',') +
@@ -105,7 +119,7 @@ function SearchResources({ anchorEl, onClose, open }) {
         );
       }
     });
-
+  const emptyMenuItems = <p className={classes.divider}>{t('No_resources')}</p>;
   return (
     <Menu
       color="transparent"
@@ -114,7 +128,7 @@ function SearchResources({ anchorEl, onClose, open }) {
       open={open}
       onClose={onClose}
     >
-      {menuItems}
+      {menuItems.length !== 0 ? menuItems : emptyMenuItems}
     </Menu>
   );
 }

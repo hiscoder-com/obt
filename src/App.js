@@ -1,20 +1,36 @@
-import React, { useContext, useEffect, useState, useMemo } from 'react';
+import React, { useContext, useEffect, useMemo } from 'react';
 
-import { Workspace } from 'resource-workspace-rcl';
 import { SnackbarProvider } from 'notistack';
+import { Workspace } from 'resource-workspace-rcl';
 
 import { AppContext } from './context/AppContext';
 import { ReferenceContext } from './context/ReferenceContext';
-import { SubMenuBar, Card, TypoReport, Shortcut } from './components';
-import { useWindowSize } from './hooks';
+import {
+  Shortcut,
+  Swipes,
+  Intro,
+  Card,
+  TypoReport,
+  SubMenuBar,
+  StartDialog,
+} from './components';
+import { Migrate } from './Migrate';
+import { columns } from './config/base';
+import { getLayoutType } from './helper';
 
 import './styles/app.css';
 import useStyles from './style';
 
+//const Intro = React.lazy(() => import('./components/Intro/Intro'));
+//const Card = React.lazy(() => import('./components/Card/Card'));
+//const TypoReport = React.lazy(() => import('./components/TypoReport/TypoReport'));
+//const SubMenuBar = React.lazy(() => import('./components/SubMenuBar/SubMenuBar'));
+
+Migrate();
 export default function App() {
   const {
-    state: { appConfig, resourcesApp, resources },
-    actions: { setAppConfig },
+    state: { appConfig, resourcesApp, resources, breakpoint },
+    actions: { setAppConfig, setBreakpoint },
   } = useContext(AppContext);
 
   const {
@@ -25,45 +41,26 @@ export default function App() {
   } = useContext(ReferenceContext);
 
   const classes = useStyles();
-  const layout = {
-    lg: appConfig,
-  };
 
-  const [, height] = useWindowSize();
-  const [rowHeight, setRowHeight] = useState(30);
-
-  useEffect(() => {
-    setRowHeight((height - 64) / 10 - 17);
-  }, [height]);
+  const layout = appConfig;
+  const breakpoints = { lg: 900, md: 700, sm: 500 };
 
   Shortcut();
+  Swipes();
 
-  const onLayoutChange = (newLayout) => {
+  const onLayoutChange = (newLayout, _newLayout) => {
     const oldAppConfig = JSON.parse(localStorage.getItem('appConfig'));
-    let type = 'bible';
-    newLayout.forEach((el) => {
-      if (el.i.split('_')[1].split('-')[0] === 'obs') {
-        type = 'obs';
-      }
-    });
+    const type = getLayoutType(newLayout);
     const newAppConfig = {
       ...oldAppConfig,
-      [type]: newLayout,
+      [type]: _newLayout,
     };
     localStorage.setItem('appConfig', JSON.stringify(newAppConfig));
-    setAppConfig(newLayout);
+    setAppConfig(newAppConfig[type]);
   };
 
-  useEffect(() => {
-    const appConfig = JSON.parse(localStorage.getItem('appConfig'))[
-      bookId === 'obs' ? 'obs' : 'bible'
-    ];
-    setAppConfig(appConfig);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [bookId]);
-
   const mainResources = resourcesApp
-    .filter((e) => appConfig.map((e) => e.i).includes(e.name))
+    .filter((e) => appConfig.lg.map((e) => e.i).includes(e.name))
     .filter((e) =>
       [
         'Open Bible Stories',
@@ -83,12 +80,18 @@ export default function App() {
 
   const onClose = (index) => {
     if (compareMaterials(mainResources, index)) {
-      setAppConfig((prev) => prev.filter((el) => el.i !== index));
+      setAppConfig((prev) => {
+        const next = { ...prev };
+        for (let k in next) {
+          next[k] = next[k].filter((el) => el.i !== index);
+        }
+        return next;
+      });
     }
   };
 
-  const cards = appConfig.map((item) => (
-    <Card classes={classes} key={item.i} onClose={() => onClose(item.i)} type={item.i} />
+  const cards = (appConfig[breakpoint.name] ?? []).map((item) => (
+    <Card key={item.i} classes={classes} onClose={() => onClose(item.i)} type={item.i} />
   ));
 
   const availableBookList = useMemo(() => {
@@ -98,11 +101,13 @@ export default function App() {
     } else {
       if (resources.length > 0) {
         resources.forEach((resource) => {
-          resource.projects.forEach((project) => {
-            if (!newBookList.includes(project.identifier)) {
-              newBookList.push(project.identifier);
-            }
-          });
+          if (resource.projects) {
+            resource.projects.forEach((project) => {
+              if (!newBookList.includes(project.identifier)) {
+                newBookList.push(project.identifier);
+              }
+            });
+          }
         });
       }
     }
@@ -115,17 +120,28 @@ export default function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [availableBookList]);
 
+  const onBreakpointChange = (name, cols) => {
+    setBreakpoint({ name, cols });
+  };
+
   return (
     <SnackbarProvider maxSnack={3}>
+      <StartDialog />
+      <Intro />
       <SubMenuBar />
       <TypoReport />
       <Workspace
         gridMargin={[15, 15]}
-        rowHeight={rowHeight}
+        autoResize={true}
         totalGridUnits={12}
         classes={classes}
         layout={layout}
+        breakpoints={breakpoints}
+        rows={12}
+        correctHeight={64}
+        onBreakpointChange={onBreakpointChange}
         onLayoutChange={onLayoutChange}
+        columns={columns}
       >
         {cards}
       </Workspace>

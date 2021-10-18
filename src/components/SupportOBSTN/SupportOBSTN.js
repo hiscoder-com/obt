@@ -9,7 +9,7 @@ export default function SupportOBSTN(props) {
   const {
     markdown,
     items,
-    resourceStatus,
+    resourceStatus: { loading },
     props: { languageId },
   } = useContent({
     projectId: bookId + '-tn',
@@ -21,7 +21,6 @@ export default function SupportOBSTN(props) {
     owner: resource.owner ?? 'door43-catalog',
     server,
   });
-  const isLoading = resourceStatus.loading;
   const {
     state: { item, headers, filters, itemIndex, markdownView },
     actions: { setFilters, setItemIndex, setMarkdownView },
@@ -40,6 +39,7 @@ export default function SupportOBSTN(props) {
       title={title}
       onClose={() => onClose(type)}
       classes={{ ...classes, children: 'tqcard' }}
+      id={type}
       items={items}
       headers={headers}
       filters={filters}
@@ -56,7 +56,7 @@ export default function SupportOBSTN(props) {
         fontSize={fontSize}
         markdown={markdown}
         viewMode="question"
-        isLoading={isLoading}
+        isLoading={Boolean(loading)}
         languageId={languageId}
         markdownView={markdownView}
       />

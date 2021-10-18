@@ -1,15 +1,22 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ReferenceContext } from './ReferenceContext';
-import { getResources, getBookList, checkLSVal } from '../helper';
-import { defaultTplBible, defaultTplOBS, languages, bibleList } from '../config/base';
+import { getResources, getBookList, checkLSVal, getLayoutType } from '../helper';
+import {
+  server,
+  defaultTplBible,
+  defaultTplOBS,
+  languages,
+  bibleList,
+} from '../config/base';
 
 export const AppContext = React.createContext();
 
 const _currentLanguage = checkLSVal('i18nextLng', languages[0]);
-const _resourcesApp = checkLSVal('resourcesApp', [], false);
-
+const _resourcesApp = checkLSVal('resourcesApp', [], 'object');
+const _startDialog = checkLSVal('startDialog', true, 'boolean');
 const _fontSize = parseInt(localStorage.getItem('fontSize'));
+const config = { server };
 
 export function AppContextProvider({ children }) {
   const {
@@ -26,19 +33,25 @@ export function AppContextProvider({ children }) {
           bible: defaultTplBible[_currentLanguage],
           obs: defaultTplOBS[_currentLanguage],
         },
-        false,
+        'object',
         'bible'
       )[referenceSelected.bookId === 'obs' ? 'obs' : 'bible']
   );
+
+  const [breakpoint, setBreakpoint] = useState({ name: 'lg', cols: 12 });
+
   const [resourcesApp, setResourcesApp] = useState(_resourcesApp);
   const _resourceLinks = getResources(appConfig, resourcesApp);
   const [resourceLinks, setResourceLinks] = useState(_resourceLinks);
   const [resources, setResources] = useState([]);
-  const [showBookSelect, setShowBookSelect] = useState(true);
+  const [showBookSelect, setShowBookSelect] = useState(false);
   const [showChapterSelect, setShowChapterSelect] = useState(false);
   const [showErrorReport, setShowErrorReport] = useState(false);
   const [errorFile, setErrorFile] = useState('');
   const [fontSize, setFontSize] = useState(_fontSize ? _fontSize : 100);
+  const [loadIntro, setLoadIntro] = useState(false);
+  const [openStartDialog, setOpenStartDialog] = useState(_startDialog);
+  const [openMainMenu, setOpenMainMenu] = useState(false);
 
   const { t } = useTranslation();
 
@@ -47,8 +60,17 @@ export function AppContextProvider({ children }) {
   }, [fontSize]);
 
   useEffect(() => {
+    const type = getLayoutType(appConfig.lg);
+    const newType = referenceSelected.bookId === 'obs' ? 'obs' : 'bible';
+    if (type !== newType) {
+      setAppConfig(JSON.parse(localStorage.getItem('appConfig'))[newType]);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [referenceSelected.bookId]);
+
+  useEffect(() => {
     setResourceLinks(getResources(appConfig, resourcesApp));
-  }, [appConfig, resourcesApp]);
+  }, [appConfig, resourcesApp, breakpoint]);
 
   useEffect(() => {
     setNewBookList(getBookList(bibleList, t), true);
@@ -59,9 +81,23 @@ export function AppContextProvider({ children }) {
     localStorage.setItem('resourcesApp', JSON.stringify(resourcesApp));
   }, [resourcesApp]);
 
+  useEffect(() => {
+    localStorage.setItem('loadIntro', loadIntro);
+  }, [loadIntro]);
+  useEffect(() => {
+    localStorage.setItem('startDialog', openStartDialog);
+  }, [openStartDialog]);
+
   const value = {
     state: {
       appConfig,
+      breakpoint,
+      currentLanguage,
+      errorFile,
+      fontSize,
+      loadIntro,
+      openMainMenu,
+      openStartDialog,
       resourceLinks,
       resourcesApp,
       resources,
@@ -69,21 +105,22 @@ export function AppContextProvider({ children }) {
       showBookSelect,
       showChapterSelect,
       showErrorReport,
-      fontSize,
-      currentLanguage,
-      errorFile,
     },
     actions: {
       setAppConfig,
+      setBreakpoint,
+      setCurrentLanguage,
       setErrorFile,
+      setFontSize,
+      setLoadIntro,
+      setOpenMainMenu,
+      setOpenStartDialog,
       setResourceLinks,
       setResourcesApp,
       setResources,
       setShowBookSelect,
       setShowChapterSelect,
       setShowErrorReport,
-      setFontSize,
-      setCurrentLanguage,
     },
   };
 

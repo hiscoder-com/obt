@@ -1,18 +1,16 @@
 import React from 'react';
-
 import { Card, CardContent, useContent, useCardState } from 'translation-helps-rcl';
 
 export default function SupportOBSTQ(props) {
   const { title, classes, onClose, type, server, fontSize, reference, resource } = props;
   const { bookId, chapter, verse } = reference;
-
   const {
     markdown,
     items,
-    resourceStatus,
+    resourceStatus: { loading },
     props: { languageId },
   } = useContent({
-    projectId: bookId + '-tq',
+    projectId: bookId,
     ref: resource.branch ?? 'master',
     languageId: resource.languageId ?? 'ru',
     resourceId: 'obs-tq',
@@ -27,7 +25,6 @@ export default function SupportOBSTQ(props) {
   } = useCardState({
     items,
   });
-  const isLoading = resourceStatus.loading;
 
   return (
     <Card
@@ -35,6 +32,7 @@ export default function SupportOBSTQ(props) {
       title={title}
       onClose={() => onClose(type)}
       classes={{ ...classes, children: 'tqcard' }}
+      id={type}
       items={items}
       headers={headers}
       filters={filters}
@@ -51,7 +49,7 @@ export default function SupportOBSTQ(props) {
         fontSize={fontSize}
         markdown={markdown}
         viewMode="question"
-        isLoading={isLoading}
+        isLoading={Boolean(loading)}
         languageId={languageId}
         markdownView={markdownView}
       />

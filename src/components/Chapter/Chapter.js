@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
-
 import { Card, useContent } from 'translation-helps-rcl';
-
 import USFMContent from './USFMContent';
-import VerseMenu from './VerseMenu';
+import React, { useState, useEffect, useContext } from 'react';
+import { ContextMenu } from '../../components';
 
 const initialPosition = {
-  mouseX: null,
-  mouseY: null,
+  left: null,
+  top: null,
 };
 
 export default function Chapter({
@@ -20,7 +19,7 @@ export default function Chapter({
   fontSize,
   server,
 }) {
-  const [position, setPosition] = useState(initialPosition);
+  const [positionContextMenu, setPositionContextMenu] = React.useState(initialPosition);
   const { bookId, chapter } = reference;
   const content = useContent({
     chapter: chapter,
@@ -31,7 +30,6 @@ export default function Chapter({
     owner: resource.owner,
     server,
   });
-
   return (
     <Card
       closeable
@@ -41,11 +39,7 @@ export default function Chapter({
       classes={classes}
       fontSize={fontSize}
     >
-      <VerseMenu
-        position={position}
-        setPosition={setPosition}
-        initialPosition={initialPosition}
-      />
+      <ContextMenu position={positionContextMenu} setPosition={setPositionContextMenu} />
       <USFMContent
         setPosition={setPosition}
         content={content}

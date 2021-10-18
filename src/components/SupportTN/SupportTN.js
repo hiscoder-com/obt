@@ -11,7 +11,7 @@ export default function SupportTN(props) {
   const {
     markdown,
     items,
-    resourceStatus,
+    resourceStatus: { loading },
     props: { languageId },
   } = useContent({
     verse: String(verse),
@@ -23,7 +23,6 @@ export default function SupportTN(props) {
     owner: resource.owner ?? 'door43-catalog',
     server,
   });
-  const isLoading = resourceStatus.loading;
   const {
     state: { item, headers, itemIndex, markdownView },
     actions: { setItemIndex, setMarkdownView },
@@ -43,6 +42,7 @@ export default function SupportTN(props) {
       title={title}
       onClose={() => onClose(type)}
       classes={classes}
+      id={type}
       items={items}
       fontSize={fontSize}
       headers={headers}
@@ -58,7 +58,7 @@ export default function SupportTN(props) {
         filters={filterArray}
         markdown={markdown}
         fontSize={fontSize}
-        isLoading={isLoading}
+        isLoading={Boolean(loading)}
         languageId={languageId}
         markdownView={markdownView}
         selectedQuote={selectedQuote}

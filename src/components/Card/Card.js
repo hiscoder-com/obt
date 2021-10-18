@@ -1,8 +1,7 @@
 import React, { useContext } from 'react';
 
-import { AppContext } from '../../context/AppContext';
-import { ReferenceContext } from '../../context/ReferenceContext';
 import { server } from '../../config/base';
+import { AppContext, ReferenceContext } from '../../context';
 import {
   Chapter,
   SupportTQ,

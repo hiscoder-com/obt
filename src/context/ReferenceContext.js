@@ -1,7 +1,8 @@
-import { useBibleReference } from '@texttree/bible-reference-rcl';
+import { useBibleReference } from 'bible-reference-rcl';
 import { useHistory, useLocation } from 'react-router-dom';
 import React, { useState, createContext, useEffect } from 'react';
 
+import { useTranslation } from 'react-i18next';
 import { checkLSVal } from '../helper';
 import { defaultBibleReference, defaultOBSReference, languages } from '../config/base';
 
@@ -14,11 +15,13 @@ const _reference = checkLSVal(
     bible: defaultBibleReference[_currentLanguage],
     obs: defaultOBSReference[_currentLanguage],
   },
-  false,
+  'object',
   'bible'
 )['bible'];
+const addOBS = true;
 
 export function ReferenceContextProvider({ children }) {
+  const { t } = useTranslation();
   let history = useHistory();
   let location = useLocation();
   const currentLocation = location.pathname.split('/');
@@ -33,7 +36,11 @@ export function ReferenceContextProvider({ children }) {
   const initialChapter = String(locationReference.chapter);
   const initialVerse = String(locationReference.verse);
 
-  const [referenceBlock, setReferenceBlock] = useState(locationReference);
+  const [referenceBlock, setReferenceBlock] = useState({
+    ...locationReference,
+    resource: 'ult',
+    text: t('Default_verse'),
+  });
 
   const {
     state: { chapter, verse, bookList, chapterList, verseList, bookName, bookId },
@@ -57,6 +64,7 @@ export function ReferenceContextProvider({ children }) {
     initialBook,
     initialChapter,
     initialVerse,
+    addOBS,
   });
 
   useEffect(() => {
@@ -100,13 +108,13 @@ export function ReferenceContextProvider({ children }) {
     },
     actions: {
       goToBookChapterVerse,
+      goToNextBook,
+      goToPrevBook,
       goToNextChapter,
       goToPrevChapter,
-      onChangeBook,
-      goToNextBook,
       goToNextVerse,
       goToPrevVerse,
-      goToPrevBook,
+      onChangeBook,
       onChangeChapter,
       onChangeVerse,
       applyBooksFilter,
