@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Card, CardContent, useContent, useCardState } from 'translation-helps-rcl';
 
 export default function SupportTN(props) {
-  const { title, classes, onClose, type, resource, reference, fontSize, server } = props;
+  const { title, classes, onClose, type, server, fontSize, reference, resource } = props;
 
   const [selectedQuote, setQuote] = useState({});
   const { bookId, chapter, verse } = reference;
