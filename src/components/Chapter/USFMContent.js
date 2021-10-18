@@ -18,19 +18,10 @@ function USFMContent({ reference, setPosition, content, type }) {
   const resource = content.resource;
   const resourceLink = resource?.resourceLink;
   const { contentNotFoundError, error, loading } = content.resourceStatus;
-  /**
-   * попробовать сохранить состояние, чтобы по сто раз не загружать контент с гита
-   * Если вдруг тут не получится использовать, то может быть попробовать глобально использовать хук useRsrc из scripture-resources-rcl
-   */
+
   const {
     actions: { setReferenceBlock, goToBookChapterVerse },
   } = useContext(ReferenceContext);
-
-  // useEffect(() => {
-  //   if (manifestNotFoundError && resourceLink)
-  //     console.log(`Manifest of ${resourceLink} is not founded`);
-  // }, [manifestNotFoundError]);
-  // TODO  - I thought to catch resources without a manifest here, but they don't reach this place, they destroy our appconfig earlier
 
   useEffect(() => {
     let isMounted = true;
