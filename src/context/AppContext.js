@@ -1,7 +1,4 @@
 import React, { useState, useEffect, useContext } from 'react';
-
-import { ResourcesContextProvider } from 'scripture-resources-rcl';
-
 import { useTranslation } from 'react-i18next';
 import { ReferenceContext } from './ReferenceContext';
 import { getResources, getBookList, checkLSVal, getLayoutType } from '../helper';
@@ -12,6 +9,7 @@ import {
   languages,
   bibleList,
 } from '../config/base';
+
 export const AppContext = React.createContext();
 
 const _currentLanguage = checkLSVal('i18nextLng', languages[0]);
@@ -126,22 +124,5 @@ export function AppContextProvider({ children }) {
     },
   };
 
-  return (
-    <AppContext.Provider value={value}>
-      <ResourcesContextProvider
-        reference={{
-          bookId: referenceSelected.bookId,
-          chapter: referenceSelected.chapter,
-        }}
-        resourceLinks={resourceLinks}
-        defaultResourceLinks={_resourceLinks}
-        onResourceLinks={setResourceLinks}
-        resources={resources}
-        onResources={setResources}
-        config={config}
-      >
-        {children}
-      </ResourcesContextProvider>
-    </AppContext.Provider>
-  );
+  return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 }

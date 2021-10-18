@@ -1,29 +1,10 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useEffect } from 'react';
 
 import { Card, CardContent, useContent, useCardState } from 'translation-helps-rcl';
 
-import { AppContext, ReferenceContext } from '../../context';
-
-import { server } from '../../config/base';
-
 export default function SupportOBSTN(props) {
-  const { title, classes, onClose, type } = props;
-  const {
-    state: { fontSize, resourcesApp },
-  } = useContext(AppContext);
-
-  const {
-    state: { referenceSelected },
-  } = useContext(ReferenceContext);
-
-  const { bookId, chapter, verse } = referenceSelected;
-
-  let resource = false;
-  resourcesApp.forEach((el) => {
-    if (el.name === type) {
-      resource = el;
-    }
-  });
+  const { title, classes, onClose, type, server, fontSize, reference, resource } = props;
+  const { bookId, chapter, verse } = reference;
 
   const {
     markdown,
@@ -50,7 +31,7 @@ export default function SupportOBSTN(props) {
   useEffect(() => {
     setItemIndex(0);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [referenceSelected]);
+  }, [reference]);
 
   return (
     <Card

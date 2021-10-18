@@ -41,6 +41,7 @@ export default function App() {
   } = useContext(ReferenceContext);
 
   const classes = useStyles();
+
   const layout = appConfig;
   const breakpoints = { lg: 900, md: 700, sm: 500 };
 
