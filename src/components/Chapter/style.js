@@ -16,7 +16,6 @@ export const useNoContentStyles = makeStyles(() => ({
     fontWeight: 'bold',
     height: '100%',
     fontSize: '1.3rem',
-   
   },
 }));
 export default useCircularStyles;

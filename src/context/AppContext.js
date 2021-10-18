@@ -2,13 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ReferenceContext } from './ReferenceContext';
 import { getResources, getBookList, checkLSVal, getLayoutType } from '../helper';
-import {
-  server,
-  defaultTplBible,
-  defaultTplOBS,
-  languages,
-  bibleList,
-} from '../config/base';
+import { defaultTplBible, defaultTplOBS, languages, bibleList } from '../config/base';
 
 export const AppContext = React.createContext();
 
@@ -16,7 +10,6 @@ const _currentLanguage = checkLSVal('i18nextLng', languages[0]);
 const _resourcesApp = checkLSVal('resourcesApp', [], 'object');
 const _startDialog = checkLSVal('startDialog', true, 'boolean');
 const _fontSize = parseInt(localStorage.getItem('fontSize'));
-const config = { server };
 
 export function AppContextProvider({ children }) {
   const {

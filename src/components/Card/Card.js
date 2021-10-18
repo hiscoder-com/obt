@@ -16,8 +16,8 @@ function Card({ type, onClose, classes }) {
   let CurrentCard;
 
   const {
-    state: { resourcesApp, appConfig,fontSize},
-    actions: { setAppConfig},
+    state: { resourcesApp, appConfig, fontSize },
+    actions: { setAppConfig },
   } = useContext(AppContext);
 
   const {
