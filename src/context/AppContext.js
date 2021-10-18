@@ -12,7 +12,6 @@ import {
   languages,
   bibleList,
 } from '../config/base';
-
 export const AppContext = React.createContext();
 
 const _currentLanguage = checkLSVal('i18nextLng', languages[0]);
@@ -28,7 +27,6 @@ export function AppContextProvider({ children }) {
   } = useContext(ReferenceContext);
 
   const [currentLanguage, setCurrentLanguage] = useState(_currentLanguage);
-
   const [appConfig, setAppConfig] = useState(
     () =>
       checkLSVal(
@@ -41,6 +39,8 @@ export function AppContextProvider({ children }) {
         'bible'
       )[referenceSelected.bookId === 'obs' ? 'obs' : 'bible']
   );
+
+  const [breakpoint, setBreakpoint] = useState({ name: 'lg', cols: 12 });
 
   const [resourcesApp, setResourcesApp] = useState(_resourcesApp);
   const _resourceLinks = getResources(appConfig, resourcesApp);
@@ -62,7 +62,7 @@ export function AppContextProvider({ children }) {
   }, [fontSize]);
 
   useEffect(() => {
-    const type = getLayoutType(appConfig);
+    const type = getLayoutType(appConfig.lg);
     const newType = referenceSelected.bookId === 'obs' ? 'obs' : 'bible';
     if (type !== newType) {
       setAppConfig(JSON.parse(localStorage.getItem('appConfig'))[newType]);
@@ -72,7 +72,7 @@ export function AppContextProvider({ children }) {
 
   useEffect(() => {
     setResourceLinks(getResources(appConfig, resourcesApp));
-  }, [appConfig, resourcesApp]);
+  }, [appConfig, resourcesApp, breakpoint]);
 
   useEffect(() => {
     setNewBookList(getBookList(bibleList, t), true);
@@ -93,6 +93,7 @@ export function AppContextProvider({ children }) {
   const value = {
     state: {
       appConfig,
+      breakpoint,
       currentLanguage,
       errorFile,
       fontSize,
@@ -109,6 +110,7 @@ export function AppContextProvider({ children }) {
     },
     actions: {
       setAppConfig,
+      setBreakpoint,
       setCurrentLanguage,
       setErrorFile,
       setFontSize,

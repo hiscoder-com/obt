@@ -1,34 +1,86 @@
 export const server = 'https://git.door43.org';
-
+export const columns = {
+  lg: 12,
+  md: 6,
+  sm: 1,
+};
 export const defaultTplBible = {
-  ru: [
-    { w: 4, h: 12, x: 0, y: 0, i: 'ru_rob', minH: 4, minW: 2 },
-    { w: 4, h: 12, x: 4, y: 0, i: 'ru_rsb', minH: 4, minW: 2 },
-    { w: 4, h: 12, x: 8, y: 0, i: 'ru_tn', minH: 4, minW: 2 },
-  ],
-  en: [
-    { w: 4, h: 12, x: 0, y: 0, i: 'en_ult', minH: 4, minW: 2 },
-    { w: 4, h: 12, x: 4, y: 0, i: 'en_ust', minH: 4, minW: 2 },
-    { w: 4, h: 12, x: 8, y: 0, i: 'el-x-koine_ugnt', minH: 4, minW: 2 },
-  ],
+  ru: {
+    lg: [
+      { w: 4, h: 12, x: 0, y: 0, i: 'ru_rlob', minH: 3, minW: 1 },
+      { w: 4, h: 12, x: 4, y: 0, i: 'ru_rsob', minH: 3, minW: 1 },
+      { w: 4, h: 12, x: 8, y: 0, i: 'ru_tn', minH: 3, minW: 1 },
+    ],
+    md: [
+      { w: 3, h: 12, x: 0, y: 0, i: 'ru_rlob', minH: 3, minW: 1 },
+      { w: 3, h: 6, x: 3, y: 0, i: 'ru_rsob', minH: 3, minW: 1 },
+      { w: 3, h: 6, x: 3, y: 6, i: 'ru_tn', minH: 3, minW: 1 },
+    ],
+    sm: [
+      { w: 1, h: 4, x: 0, y: 0, i: 'ru_rlob', minH: 3, minW: 1 },
+      { w: 1, h: 4, x: 0, y: 4, i: 'ru_rsob', minH: 3, minW: 1 },
+      { w: 1, h: 4, x: 0, y: 8, i: 'ru_tn', minH: 3, minW: 1 },
+    ],
+  },
+  en: {
+    lg: [
+      { w: 4, h: 12, x: 0, y: 0, i: 'en_ult', minH: 3, minW: 1 },
+      { w: 4, h: 12, x: 4, y: 0, i: 'en_ust', minH: 3, minW: 1 },
+      { w: 4, h: 12, x: 8, y: 0, i: 'el-x-koine_ugnt', minH: 3, minW: 1 },
+    ],
+    md: [
+      { w: 3, h: 12, x: 0, y: 0, i: 'en_ult', minH: 3, minW: 1 },
+      { w: 3, h: 6, x: 3, y: 0, i: 'en_ust', minH: 3, minW: 1 },
+      { w: 3, h: 6, x: 3, y: 6, i: 'el-x-koine_ugnt', minH: 3, minW: 1 },
+    ],
+    sm: [
+      { w: 1, h: 4, x: 0, y: 0, i: 'en_ult', minH: 3, minW: 1 },
+      { w: 1, h: 4, x: 0, y: 4, i: 'en_ust', minH: 3, minW: 1 },
+      { w: 1, h: 4, x: 0, y: 8, i: 'el-x-koine_ugnt', minH: 3, minW: 1 },
+    ],
+  },
 };
 
 export const defaultTplOBS = {
-  ru: [
-    { w: 4, h: 12, x: 0, y: 0, i: 'ru_obs', minH: 4, minW: 2 },
-    { w: 4, h: 12, x: 4, y: 0, i: 'ru_obs-tn', minH: 4, minW: 2 },
-    { w: 4, h: 12, x: 8, y: 0, i: 'ru_obs-tq', minH: 4, minW: 2 },
-  ],
-  en: [
-    { w: 4, h: 12, x: 0, y: 0, i: 'en_obs', minH: 4, minW: 2 },
-    { w: 4, h: 12, x: 4, y: 0, i: 'en_obs-tn', minH: 4, minW: 2 },
-    { w: 4, h: 12, x: 8, y: 0, i: 'en_obs-tq', minH: 4, minW: 2 },
-  ],
+  ru: {
+    lg: [
+      { w: 4, h: 12, x: 0, y: 0, i: 'ru_obs', minH: 3, minW: 1 },
+      { w: 4, h: 12, x: 4, y: 0, i: 'ru_obs-tn', minH: 3, minW: 1 },
+      { w: 4, h: 12, x: 8, y: 0, i: 'ru_obs-tq', minH: 3, minW: 1 },
+    ],
+    md: [
+      { w: 3, h: 12, x: 0, y: 0, i: 'ru_obs', minH: 3, minW: 1 },
+      { w: 3, h: 6, x: 3, y: 0, i: 'ru_obs-tn', minH: 3, minW: 1 },
+      { w: 3, h: 6, x: 3, y: 6, i: 'ru_obs-tq', minH: 3, minW: 1 },
+    ],
+    sm: [
+      { w: 1, h: 5, x: 0, y: 0, i: 'ru_obs', minH: 3, minW: 1 },
+      { w: 1, h: 4, x: 0, y: 5, i: 'ru_obs-tn', minH: 3, minW: 1 },
+      { w: 1, h: 3, x: 0, y: 9, i: 'ru_obs-tq', minH: 3, minW: 1 },
+    ],
+  },
+  en: {
+    lg: [
+      { w: 4, h: 12, x: 0, y: 0, i: 'en_obs', minH: 3, minW: 1 },
+      { w: 4, h: 12, x: 4, y: 0, i: 'en_obs-tn', minH: 3, minW: 1 },
+      { w: 4, h: 12, x: 8, y: 0, i: 'en_obs-tq', minH: 3, minW: 1 },
+    ],
+    md: [
+      { w: 3, h: 12, x: 0, y: 0, i: 'en_obs', minH: 3, minW: 1 },
+      { w: 3, h: 6, x: 3, y: 0, i: 'en_obs-tn', minH: 3, minW: 1 },
+      { w: 3, h: 6, x: 3, y: 6, i: 'en_obs-tq', minH: 3, minW: 1 },
+    ],
+    sm: [
+      { w: 1, h: 5, x: 0, y: 0, i: 'en_obs', minH: 3, minW: 1 },
+      { w: 1, h: 4, x: 0, y: 5, i: 'en_obs-tn', minH: 3, minW: 1 },
+      { w: 1, h: 3, x: 0, y: 9, i: 'en_obs-tq', minH: 3, minW: 1 },
+    ],
+  },
 };
 
 export const defaultBibleReference = {
   ru: {
-    bookId: 'mat',
+    bookId: 'tit',
     chapter: 1,
     verse: 1,
   },
@@ -56,7 +108,11 @@ export const languages = ['en', 'ru' /**,'uk', 'pl'*/];
 
 /* CORE */
 
-export const defaultCard = { w: 4, h: 4, x: 0, y: 99, minH: 2, minW: 2 };
+export const defaultCard = {
+  lg: { w: 4, h: 3, x: 0, y: 99, minH: 3, minW: 1 },
+  md: { w: 3, h: 3, x: 0, y: 99, minH: 3, minW: 1 },
+  sm: { w: 1, h: 3, x: 0, y: 99, minH: 3, minW: 1 },
+};
 
 export const singleChaptersBookID = ['oba', '2jn', '3jn', 'jud', 'phm'];
 
@@ -66,9 +122,6 @@ export const bibleList = [
     isset: false,
     sort: 1,
     categories: 'bible-ot',
-    short: {
-      ru: '',
-    },
   },
   {
     identifier: 'exo',
@@ -329,48 +382,6 @@ export const bibleList = [
     categories: 'bible-nt',
   },
   {
-    identifier: 'jas',
-    isset: false,
-    sort: 59,
-    categories: 'bible-nt',
-  },
-  {
-    identifier: '1pe',
-    isset: false,
-    sort: 60,
-    categories: 'bible-nt',
-  },
-  {
-    identifier: '2pe',
-    isset: false,
-    sort: 61,
-    categories: 'bible-nt',
-  },
-  {
-    identifier: '1jn',
-    isset: false,
-    sort: 62,
-    categories: 'bible-nt',
-  },
-  {
-    identifier: '2jn',
-    isset: false,
-    sort: 63,
-    categories: 'bible-nt',
-  },
-  {
-    identifier: '3jn',
-    isset: false,
-    sort: 64,
-    categories: 'bible-nt',
-  },
-  {
-    identifier: 'jud',
-    isset: false,
-    sort: 65,
-    categories: 'bible-nt',
-  },
-  {
     identifier: 'rom',
     isset: false,
     sort: 45,
@@ -455,6 +466,48 @@ export const bibleList = [
     categories: 'bible-nt',
   },
   {
+    identifier: 'jas',
+    isset: false,
+    sort: 59,
+    categories: 'bible-nt',
+  },
+  {
+    identifier: '1pe',
+    isset: false,
+    sort: 60,
+    categories: 'bible-nt',
+  },
+  {
+    identifier: '2pe',
+    isset: false,
+    sort: 61,
+    categories: 'bible-nt',
+  },
+  {
+    identifier: '1jn',
+    isset: false,
+    sort: 62,
+    categories: 'bible-nt',
+  },
+  {
+    identifier: '2jn',
+    isset: false,
+    sort: 63,
+    categories: 'bible-nt',
+  },
+  {
+    identifier: '3jn',
+    isset: false,
+    sort: 64,
+    categories: 'bible-nt',
+  },
+  {
+    identifier: 'jud',
+    isset: false,
+    sort: 65,
+    categories: 'bible-nt',
+  },
+  {
     identifier: 'rev',
     isset: false,
     sort: 66,
@@ -467,75 +520,3 @@ export const bibleList = [
     categories: 'obs',
   },
 ];
-export const bibles_abbrv = {
-  gen: { ru: 'Быт' },
-  exo: { ru: 'Исх' },
-  lev: { ru: 'Лев' },
-  num: { ru: 'Чис' },
-  deu: { ru: 'Втор' },
-  jos: { ru: 'Нав' },
-  jdg: { ru: 'Суд' },
-  rut: { ru: 'Руфь' },
-  '1sa': { ru: '1Цар' },
-  '2sa': { ru: '2Цар' },
-  '1ki': { ru: '3Цар' },
-  '2ki': { ru: '4Цар' },
-  '1ch': { ru: '1Пар' },
-  '2ch': { ru: '2Пар' },
-  ezr: { ru: 'Эзр' },
-  neh: { ru: 'Неем' },
-  est: { ru: 'Эсф' },
-  job: { ru: 'Иов' },
-  psa: { ru: 'Пс' },
-  pro: { ru: 'Притч' },
-  ecc: { ru: 'Эккл' },
-  sng: { ru: 'Песн' },
-  jer: { ru: 'Иер' },
-  lam: { ru: 'Плач' },
-  isa: { ru: 'Ис' },
-  ezk: { ru: 'Иез' },
-  dan: { ru: 'Дан' },
-  hos: { ru: 'Ос' },
-  jol: { ru: 'Иоил' },
-  amo: { ru: 'Амос' },
-  oba: { ru: 'Авд' },
-  jon: { ru: 'Ион' },
-  mic: { ru: 'Мих' },
-  nam: { ru: 'Наум' },
-  hab: { ru: 'Авв' },
-  zep: { ru: 'Соф' },
-  hag: { ru: 'Агг' },
-  zec: { ru: 'Зах' },
-  mal: { ru: 'Мал' },
-  mat: { ru: 'Мф' },
-  mrk: { ru: 'Мк' },
-  luk: { ru: 'Лк' },
-  jhn: { ru: 'Ин' },
-  act: { ru: 'Деян' },
-  rom: { ru: 'Рим' },
-  '1co': { ru: '1Кор' },
-  '2co': { ru: '2Кор' },
-  gal: { ru: 'Гал' },
-  eph: { ru: 'Еф' },
-  php: { ru: 'Флп' },
-  col: { ru: 'Кол' },
-  '1th': { ru: '1Фес' },
-  '2th': { ru: '2Фес' },
-  '1ti': { ru: '1Тим' },
-  '2ti': { ru: '2Тим' },
-  tit: { ru: 'Тит' },
-  phm: { ru: 'Флм' },
-  heb: { ru: 'Евр' },
-  jas: { ru: 'Иак' },
-  '1pe': { ru: '1Петр' },
-  '2pe': { ru: '2Петр' },
-  '1jn': { ru: '1Ин' },
-  '2jn': { ru: '2Ин' },
-  '3jn': { ru: '3Ин' },
-  jud: { ru: 'Иуд' },
-  rev: { ru: 'Откр' },
-};
-
-export const getAbbr = (bookId, lang) => {
-  return lang && bookId !== 'obs' ? bibles_abbrv[bookId][lang] : bookId;
-};

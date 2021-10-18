@@ -3,7 +3,6 @@ import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { ReferenceContext, AppContext } from '../../context';
-import { getAbbr } from '../../config/base';
 
 import { ButtonGroup, Button, useMediaQuery } from '@material-ui/core';
 
@@ -19,15 +18,10 @@ function ShowReference() {
       referenceSelected: { bookId, chapter, verse },
     },
   } = useContext(ReferenceContext);
-  const {
-    state: { currentLanguage },
-  } = useContext(AppContext);
 
   const { t } = useTranslation();
 
-  const abbr = getAbbr(bookId, currentLanguage === 'ru' ? currentLanguage : null);
-
-  const ismobile = matches ? t(bookId) : abbr;
+  const ismobile = matches ? t(bookId) : t(bookId + '_abbr');
   const showBook = bookId !== 'obs' ? ismobile : t('Story');
   const showChapter = chapter + ':' + verse;
 
