@@ -29,7 +29,7 @@ function OBSContent({ markdown, verse, chapter, fontSize, type, goToBookChapterV
   const { t } = useTranslation();
   const [verses, setVerses] = useState();
 
-  const [verseRef] = useScrollToVerse();
+  const [verseRef] = useScrollToVerse('center');
 
   const mdToVerses = (md) => {
     let _markdown = md.split(/\n[\s]*/);
@@ -66,9 +66,9 @@ function OBSContent({ markdown, verse, chapter, fontSize, type, goToBookChapterV
         return (
           <div
             ref={(ref) => {
-              key === verse && verseRef(ref);
+              key.toString() === verse.toString() && verseRef(ref);
             }}
-            className={'verse' + (parseInt(key) === parseInt(verse) ? ' current' : '')}
+            className={'verse' + (key.toString() === verse.toString() ? ' current' : '')}
             key={key}
             onClick={() => {
               goToBookChapterVerse('obs', chapter, key);
@@ -84,6 +84,9 @@ function OBSContent({ markdown, verse, chapter, fontSize, type, goToBookChapterV
             )}
             {text.split('\n').map((el, index) => (
               <p
+                className={
+                  'verse' + (key.toString() === verse.toString() ? ' current' : '')
+                }
                 style={verseStyle}
                 key={index}
                 onContextMenu={(e) => {
