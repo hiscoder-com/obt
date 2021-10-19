@@ -9,6 +9,7 @@ export * from './ContextMenu';
 export * from './Intro';
 export * from './OBSVerses';
 export * from './SelectModeBible';
+export * from './SelectResourcesLanguages';
 export * from './SearchResources';
 export * from './SelectLanguage';
 export * from './ShowReference';

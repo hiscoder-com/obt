@@ -16,7 +16,7 @@ import {
 import { defaultCard, server, columns } from '../../config/base';
 import { getXY } from 'resource-workspace-rcl';
 import { getUniqueResources } from '../../helper';
-
+import { SelectResourcesLanguages } from '../SelectResourcesLanguages';
 import { MenuItem, Menu } from '@material-ui/core';
 import { useStyles } from './style';
 
@@ -128,6 +128,7 @@ function SearchResources({ anchorEl, onClose, open }) {
       open={open}
       onClose={onClose}
     >
+      <SelectResourcesLanguages />
       {menuItems.length !== 0 ? menuItems : emptyMenuItems}
     </Menu>
   );
