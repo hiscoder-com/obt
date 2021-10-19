@@ -54,6 +54,14 @@ export function AppContextProvider({ children }) {
   const [loadIntro, setLoadIntro] = useState(false);
   const [openStartDialog, setOpenStartDialog] = useState(_startDialog);
   const [openMainMenu, setOpenMainMenu] = useState(false);
+  const [languageResources, setLanguageResources] = useState([
+    'en',
+    'ru',
+    'el-x-koine',
+    'hbo',
+    'tg',
+    'id',
+  ]);
 
   const { t } = useTranslation();
 
@@ -98,6 +106,7 @@ export function AppContextProvider({ children }) {
       errorFile,
       fontSize,
       loadIntro,
+      languageResources,
       openMainMenu,
       openStartDialog,
       resourceLinks,
@@ -115,6 +124,7 @@ export function AppContextProvider({ children }) {
       setErrorFile,
       setFontSize,
       setLoadIntro,
+      setLanguageResources,
       setOpenMainMenu,
       setOpenStartDialog,
       setResourceLinks,

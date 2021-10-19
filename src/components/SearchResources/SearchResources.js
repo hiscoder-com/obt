@@ -22,7 +22,7 @@ import { useStyles } from './style';
 
 function SearchResources({ anchorEl, onClose, open }) {
   const {
-    state: { appConfig, resourcesApp },
+    state: { appConfig, resourcesApp, languageResources },
     actions: { setAppConfig, setResourcesApp },
   } = useContext(AppContext);
 
@@ -59,7 +59,7 @@ function SearchResources({ anchorEl, onClose, open }) {
       window.scrollTo(0, 10000);
     }, 1000);
   };
-
+  console.log({ languageResources });
   useEffect(() => {
     axios
       .get(
@@ -67,7 +67,7 @@ function SearchResources({ anchorEl, onClose, open }) {
           '/api/catalog/v5/search?sort=lang,title&owner=' +
           owners.join(',') +
           '&lang=' +
-          langs.join(',') +
+          languageResources.join(',') +
           '&subject=' +
           subjects.join(',')
       )
@@ -97,7 +97,7 @@ function SearchResources({ anchorEl, onClose, open }) {
       })
       .catch((err) => console.log(err));
     return () => {};
-  }, [currentLang, setResourcesApp]);
+  }, [currentLang, setResourcesApp, languageResources]);
   let blockLang = '';
   const currentSubjects = bookId === 'obs' ? obsSubjects : bibleSubjects;
   const menuItems = uniqueResources

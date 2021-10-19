@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { AppContext } from '../../context';
 import { makeStyles } from '@material-ui/core/styles';
 import {
   Input,
@@ -43,9 +44,13 @@ const MenuProps = {
 function SelectResourcesLanguages() {
   const classes = useStyles();
 
-  const [language, setLanguage] = React.useState([]);
+  const {
+    state: { languageResources },
+    actions: { setLanguageResources },
+  } = useContext(AppContext);
+
   const handleChange = (event) => {
-    setLanguage(event.target.value);
+    setLanguageResources(event.target.value);
   };
 
   return (
@@ -57,7 +62,7 @@ function SelectResourcesLanguages() {
             labelId="demo-mutiple-checkbox-label"
             id="demo-mutiple-checkbox"
             multiple
-            value={language}
+            value={languageResources}
             onChange={handleChange}
             input={<Input />}
             renderValue={(selected) => (
@@ -71,7 +76,7 @@ function SelectResourcesLanguages() {
           >
             {langs.map((lang) => (
               <MenuItem key={lang} value={lang}>
-                <Checkbox checked={language.indexOf(lang) > -1} />
+                <Checkbox checked={languageResources.indexOf(lang) > -1} />
                 <ListItemText primary={lang} />
               </MenuItem>
             ))}
