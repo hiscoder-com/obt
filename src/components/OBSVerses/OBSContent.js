@@ -66,7 +66,9 @@ function OBSContent({ markdown, verse, chapter, fontSize, type, goToBookChapterV
         return (
           <div
             ref={(ref) => {
-              key.toString() === verse.toString() && verseRef(ref);
+              key.toString() === verse.toString() &&
+                verse.toString() !== '1' &&
+                verseRef(ref);
             }}
             className={'verse' + (key.toString() === verse.toString() ? ' current' : '')}
             key={key}
@@ -84,9 +86,6 @@ function OBSContent({ markdown, verse, chapter, fontSize, type, goToBookChapterV
             )}
             {text.split('\n').map((el, index) => (
               <p
-                className={
-                  'verse' + (key.toString() === verse.toString() ? ' current' : '')
-                }
                 style={verseStyle}
                 key={index}
                 onContextMenu={(e) => {
@@ -107,7 +106,13 @@ function OBSContent({ markdown, verse, chapter, fontSize, type, goToBookChapterV
       });
       const versesOBS = (
         <>
-          <h1>{headerMd}</h1>
+          <h1
+            ref={(ref) => {
+              '1' === verse.toString() && verseRef(ref);
+            }}
+          >
+            {headerMd}
+          </h1>
           {contentMd}
           <br />
           <i>{linkMd}</i>
