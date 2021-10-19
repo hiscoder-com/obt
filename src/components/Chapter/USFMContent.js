@@ -29,7 +29,7 @@ function USFMContent({ reference, setPosition, content, type }) {
       resource.project
         .parseUsfm()
         .then((result) => {
-          //console.log({ result: result });
+          // console.log({ result: result });
           if (isMounted) {
             if (Object.keys(result.json.chapters).length > 0) {
               setChapter(result.json.chapters[reference.chapter]);
