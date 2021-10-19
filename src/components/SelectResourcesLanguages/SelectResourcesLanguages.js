@@ -28,6 +28,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(3),
   },
 }));
+
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
 const MenuProps = {
@@ -56,7 +57,7 @@ function SelectResourcesLanguages() {
             labelId="demo-mutiple-checkbox-label"
             id="demo-mutiple-checkbox"
             multiple
-            value={langs}
+            value={language}
             onChange={handleChange}
             input={<Input />}
             renderValue={(selected) => (
