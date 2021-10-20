@@ -1,8 +1,17 @@
 import React, { useState, useEffect, useContext } from 'react';
+
+import { ResourcesContextProvider } from 'scripture-resources-rcl';
+
 import { useTranslation } from 'react-i18next';
 import { ReferenceContext } from './ReferenceContext';
 import { getResources, getBookList, checkLSVal, getLayoutType } from '../helper';
-import { defaultTplBible, defaultTplOBS, languages, bibleList } from '../config/base';
+import {
+  defaultTplBible,
+  defaultTplOBS,
+  languages,
+  bibleList,
+  server,
+} from '../config/base';
 
 export const AppContext = React.createContext();
 
@@ -45,7 +54,7 @@ export function AppContextProvider({ children }) {
   const [loadIntro, setLoadIntro] = useState(false);
   const [openStartDialog, setOpenStartDialog] = useState(_startDialog);
   const [openMainMenu, setOpenMainMenu] = useState(false);
-
+  const config = { server };
   const { t } = useTranslation();
 
   useEffect(() => {
@@ -117,5 +126,22 @@ export function AppContextProvider({ children }) {
     },
   };
 
-  return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
+  return (
+    <AppContext.Provider value={value}>
+      <ResourcesContextProvider
+        reference={{
+          bookId: referenceSelected.bookId,
+          chapter: referenceSelected.chapter,
+        }}
+        resourceLinks={resourceLinks}
+        defaultResourceLinks={_resourceLinks}
+        onResourceLinks={setResourceLinks}
+        resources={resources}
+        onResources={setResources}
+        config={config}
+      >
+        {children}
+      </ResourcesContextProvider>
+    </AppContext.Provider>
+  );
 }
