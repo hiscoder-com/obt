@@ -1,7 +1,14 @@
+import {
+  defaultTplBible,
+  defaultTplOBS,
+  defaultBibleReference,
+  defaultOBSReference,
+} from './config/base';
+
 export const getResources = (appConfig, resourcesApp) => {
   const resources = [];
-  if (appConfig.length > 0) {
-    appConfig.forEach((el) => {
+  if (!appConfig?.lg || appConfig.lg.length > 0) {
+    appConfig.lg.forEach((el) => {
       resourcesApp.forEach((r_el) => {
         if (
           r_el?.subject &&
@@ -30,10 +37,10 @@ export const getBookList = (bibleList, t) => {
 };
 
 export const getUniqueResources = (appConfig, resourcesApp) => {
-  if (appConfig.length === 0) {
+  if (!appConfig?.lg || appConfig.lg.length === 0) {
     return resourcesApp;
   }
-  const opened = appConfig.map((el) => el.i);
+  const opened = appConfig.lg.map((el) => el.i);
   return resourcesApp.filter((el) => !opened.includes(el.name));
 };
 
@@ -252,4 +259,106 @@ export const switchModeBible = (type, goToBookChapterVerse, setAppConfig) => {
   const appConfig = JSON.parse(localStorage.getItem('appConfig'))[type];
   setAppConfig(appConfig);
   goToBookChapterVerse(curRef.bookId, curRef.chapter, curRef.verse);
+};
+
+const resetMode = (
+  defaultTpl,
+  defaultReference,
+  currentLanguage,
+  setAppConfig,
+  goToBookChapterVerse
+) => {
+  setAppConfig(defaultTpl[currentLanguage]);
+  goToBookChapterVerse(
+    defaultReference[currentLanguage].bookId,
+    defaultReference[currentLanguage].chapter,
+    defaultReference[currentLanguage].verse
+  );
+};
+
+/**
+ * A function that resets the value of layouts, resources and reference
+ *
+ * @param {string} bookId - Current bookId
+ * @param {function} setAppConfig - State function that changes appconfig
+ * @param {function} goToBookChapterVerse - Function that changes reference
+ * @param {string} currentLanguage - current language of app
+ * @param {boolean} resetAll reset layouts,reference to default in bible and obs
+ *
+ */
+
+export const resetWorkspace = ({
+  bookId,
+  setAppConfig,
+  goToBookChapterVerse,
+  currentLanguage,
+  resetAll,
+}) => {
+  const workspaceType = resetAll ? 'all' : bookId === 'obs' ? 'obs' : 'bible';
+  const oldAppConfig = JSON.parse(localStorage.getItem('appConfig'));
+  switch (workspaceType) {
+    case 'bible':
+      const bibleAppConfig = {
+        ...oldAppConfig,
+        [workspaceType]: defaultTplBible[currentLanguage],
+      };
+      localStorage.setItem('appConfig', JSON.stringify(bibleAppConfig));
+      resetMode(
+        defaultTplBible,
+        defaultBibleReference,
+        currentLanguage,
+        setAppConfig,
+        goToBookChapterVerse
+      );
+      break;
+
+    case 'obs':
+      const obsAppConfig = {
+        ...oldAppConfig,
+        [workspaceType]: defaultTplOBS[currentLanguage],
+      };
+      localStorage.setItem('appConfig', JSON.stringify(obsAppConfig));
+      resetMode(
+        defaultTplOBS,
+        defaultOBSReference,
+        currentLanguage,
+        setAppConfig,
+        goToBookChapterVerse
+      );
+      break;
+    case 'all':
+      const allAppConfig = {
+        obs: defaultTplOBS[currentLanguage],
+        bible: defaultTplBible[currentLanguage],
+      };
+      localStorage.setItem('appConfig', JSON.stringify(allAppConfig));
+      bookId === 'obs'
+        ? resetMode(
+            defaultTplOBS,
+            defaultOBSReference,
+            currentLanguage,
+            setAppConfig,
+            goToBookChapterVerse
+          )
+        : resetMode(
+            defaultTplBible,
+            defaultBibleReference,
+            currentLanguage,
+            setAppConfig,
+            goToBookChapterVerse
+          );
+      break;
+    default:
+      break;
+  }
+};
+
+export const getLayoutType = (layout) => {
+  let type = 'bible';
+  layout.forEach((el) => {
+    if (el.i.split('_')[1].split('-')[0] === 'obs') {
+      type = 'obs';
+    }
+  });
+  return type;
 };
