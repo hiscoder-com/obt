@@ -67,7 +67,7 @@ function USFMContent({ reference, content, type }) {
         top: e.clientY - 4,
       });
     };
-    console.log(positionContextMenu);
+
     let _verses = [];
     for (let key in chapter) {
       if (parseInt(key).toString() !== key.toString()) {
@@ -82,9 +82,11 @@ function USFMContent({ reference, content, type }) {
       const verse = (
         <div
           ref={(ref) => {
-            key === reference.verse && verseRef(ref);
+            key.toString() === reference.verse.toString() && verseRef(ref);
           }}
-          className={'verse' + (key === reference.verse ? ' current' : '')}
+          className={
+            'verse' + (key.toString() === reference.verse.toString() ? ' current' : '')
+          }
           key={key}
           onContextMenu={(e) => handleContextMenu(e, key, verseObjects)}
           onClick={handleClick}
