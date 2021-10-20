@@ -23,6 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Update resource-workspace-rcl [#207](https://github.com/texttree/bsa/issues/207)
 - For ru project set default ref tit 1:1 [#208](https://github.com/texttree/bsa/issues/208)
 - Color for current verse
+- Color theme
 
 ### Fixed (for any bug fixes)
 - Highlight the first verse at the first launch
