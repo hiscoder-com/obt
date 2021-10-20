@@ -105,11 +105,11 @@ export default function Chapter({ title, classes, onClose, type, reference }) {
       const verse = (
         <div
           ref={(ref) => {
-            key === reference.verse && verseRef(ref);
+            key.toString() === reference.verse.toString() && verseRef(ref);
           }}
           style={verseStyle}
           className={
-            'verse' + (parseInt(key) === parseInt(reference.verse) ? ' current' : '')
+            'verse' + (key.toString() === reference.verse.toString() ? ' current' : '')
           }
           key={key}
           onContextMenu={(e) => {

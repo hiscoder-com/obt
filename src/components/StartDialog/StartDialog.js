@@ -26,7 +26,7 @@ function StartDialog() {
     actions: { goToBookChapterVerse },
   } = useContext(ReferenceContext);
 
-  const handleClose = () => {
+  const handleApply = () => {
     setOpenStartDialog(false);
     resetWorkspace({
       bookId,
@@ -44,7 +44,16 @@ function StartDialog() {
         <SelectLanguage />
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleClose} variant="outlined" color={'primary'}>
+        <Button
+          onClick={() => {
+            setOpenStartDialog(false);
+          }}
+          variant="outlined"
+          color={'secondary'}
+        >
+          {t('Cancel')}
+        </Button>
+        <Button onClick={handleApply} variant="outlined" color={'primary'}>
           {t('Apply')}
         </Button>
       </DialogActions>
