@@ -14,7 +14,7 @@ const initialPosition = {
   top: null,
 };
 
-function USFMContent({ reference, content, type }) {
+function USFMContent({ reference, content, type, fontSize }) {
   const { t } = useTranslation();
   const [verses, setVerses] = useState();
   const [chapter, setChapter] = useState();
@@ -74,6 +74,9 @@ function USFMContent({ reference, content, type }) {
         continue;
       }
       const { verseObjects } = chapter[key];
+      const verseStyle = {
+        fontSize: fontSize + '%',
+      };
       const handleClick = () =>
         reference.verse !== key
           ? goToBookChapterVerse(reference.bookId, reference.chapter, key)
@@ -84,6 +87,7 @@ function USFMContent({ reference, content, type }) {
           ref={(ref) => {
             key.toString() === reference.verse.toString() && verseRef(ref);
           }}
+          style={verseStyle}
           className={
             'verse' + (key.toString() === reference.verse.toString() ? ' current' : '')
           }
@@ -107,7 +111,7 @@ function USFMContent({ reference, content, type }) {
     }
     setVerses(_verses);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [chapter, reference, type]);
+  }, [chapter, reference, type, fontSize]);
 
   const loadingContent = (
     <div className={classesCircular.root}>

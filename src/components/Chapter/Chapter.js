@@ -31,7 +31,12 @@ export default function Chapter({
       classes={classes}
       fontSize={fontSize}
     >
-      <USFMContent content={content} type={type} reference={reference} />
+      <USFMContent
+        fontSize={fontSize}
+        content={content}
+        type={type}
+        reference={reference}
+      />
     </Card>
   );
 }
