@@ -9,7 +9,11 @@ export const ResourceContext = React.createContext();
 let _resourcesApp = localStorage.getItem('resourcesApp')
   ? JSON.parse(localStorage.getItem('resourcesApp'))
   : [];
-
+/** TODO
+ * 1. Get information about resources ( like available bookId) from /Chapter  - content.resources.project.
+ * 2. Put all states about resources here.
+ * 3. Maybe make availableBookList here
+ */
 /** должен содержать данные репозиториев открытых проектов, еще мы его используем чтобы получать список книг которые есть в репо */
 export function ResourceContextProvider({ children }) {
   const [resourcesApp, setResourcesApp] = useState(_resourcesApp);

@@ -14,7 +14,9 @@ import {
 
 function Card({ type, onClose, classes }) {
   let CurrentCard;
-
+  /**TODO
+   *Move  all repeated code from Chapter,all Support* like const {*}=useContent({*}) to here
+   */
   const {
     state: { resourcesApp, appConfig, fontSize },
     actions: { setAppConfig },
