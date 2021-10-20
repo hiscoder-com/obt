@@ -62,7 +62,7 @@ function SearchResources({ anchorEl, onClose, open }) {
     axios
       .get(
         server +
-          '/api/catalog/v5/search?sort=lang,title&owner=' +
+          '/api/catalog/v5/search?limit=1000&sort=lang,title&owner=' +
           owners.join(',') +
           '&lang=' +
           langs.join(',') +
