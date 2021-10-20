@@ -10,7 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Language selection on first boot
 - Scrolldown when new card added
 - Catch error with reset config
-- Shortcut for clear localsotrage (ctrl+shift+L)
+- Shortcut for clear localstorage (ctrl+shift+L)
 - Migration mechanizm [#203](https://github.com/texttree/bsa/issues/203)
 - Copy reference to clipboard [#218](https://github.com/texttree/bsa/issues/218)
 - Tajik localisation
