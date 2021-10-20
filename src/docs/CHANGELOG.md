@@ -12,7 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Catch error with reset config
 - Shortcut for clear localsotrage (ctrl+shift+L)
 - Migration mechanizm [#203](https://github.com/texttree/bsa/issues/203)
-
+- Copy reference to clipboard [#218](https://github.com/texttree/bsa/issues/218)
 
 ### Changed (for changes in existing functionality)
 - User guide extended for OBS
@@ -32,6 +32,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Remove the UEB, replace it with ULT
 - Fix empty place when all materials added
 - Order of NT books [#205](https://github.com/texttree/bsa/issues/205)
+- Show OBS header when 1st verse opened
+- Scroll to verse when reset layout
 
 ## [1.2.0] - 2021-10-05
 

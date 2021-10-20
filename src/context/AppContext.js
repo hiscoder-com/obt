@@ -41,7 +41,11 @@ export function AppContextProvider({ children }) {
   );
 
   const [breakpoint, setBreakpoint] = useState({ name: 'lg', cols: 12 });
-
+  /** TODO Create ResourceContext
+   * 1. Get information about resources ( like available bookId) from /Chapter  - content.resources.project.
+   * 2. Put all states about resources in ResourceContext.
+   * 3. Maybe make availableBookList in ResourceContext
+   */
   const [resourcesApp, setResourcesApp] = useState(_resourcesApp);
   const _resourceLinks = getResources(appConfig, resourcesApp);
   const [resourceLinks, setResourceLinks] = useState(_resourceLinks);

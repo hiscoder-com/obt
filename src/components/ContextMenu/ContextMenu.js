@@ -37,15 +37,7 @@ function ContextMenu({ position, setPosition, PopoverClasses }) {
   };
 
   const copyToClipboard = (text) => {
-    return navigator.clipboard.writeText(text);
-  };
-
-  const handleToClipboard = () => {
-    copyToClipboard(
-      `${referenceBlock.text} (${t(referenceBlock.bookId)} ${referenceBlock.chapter}:${
-        referenceBlock.verse
-      })`
-    ).then(
+    return navigator.clipboard.writeText(text).then(
       () => {
         handleContextClose();
         enqueueSnackbar(t('copied_success'), { variant: 'success' });
@@ -54,6 +46,20 @@ function ContextMenu({ position, setPosition, PopoverClasses }) {
         handleContextClose();
         enqueueSnackbar(t('copied_error'), { variant: 'error' });
       }
+    );
+  };
+
+  const handleReferenceToClipboard = () => {
+    copyToClipboard(
+      `${t(referenceBlock.bookId)} ${referenceBlock.chapter}:${referenceBlock.verse}`
+    );
+  };
+
+  const handleVerseToClipboard = () => {
+    copyToClipboard(
+      `${referenceBlock.text} (${t(referenceBlock.bookId)} ${referenceBlock.chapter}:${
+        referenceBlock.verse
+      })`
     );
   };
 
@@ -67,7 +73,10 @@ function ContextMenu({ position, setPosition, PopoverClasses }) {
       anchorReference="anchorPosition"
     >
       <MenuItem onClick={handleOpenError}>{t('Error_report')}</MenuItem>
-      <MenuItem onClick={handleToClipboard}>{t('Copy_to_clipboard')}</MenuItem>
+      <MenuItem onClick={handleVerseToClipboard}>{t('Copy_verse_to_clipboard')}</MenuItem>
+      <MenuItem onClick={handleReferenceToClipboard}>
+        {t('Copy_reference_to_clipboard')}
+      </MenuItem>
     </Menu>
   );
 }

@@ -53,7 +53,6 @@ function SearchResources({ anchorEl, onClose, open }) {
       }
       return next;
     });
-
     setTimeout(function () {
       window.scrollTo(0, 10000);
     }, 1000);

@@ -66,9 +66,11 @@ function OBSContent({ markdown, verse, chapter, fontSize, type, goToBookChapterV
         return (
           <div
             ref={(ref) => {
-              key === verse && verseRef(ref);
+              key.toString() === verse.toString() &&
+                verse.toString() !== '1' &&
+                verseRef(ref);
             }}
-            className={'verse' + (parseInt(key) === parseInt(verse) ? ' current' : '')}
+            className={'verse' + (key.toString() === verse.toString() ? ' current' : '')}
             key={key}
             onClick={() => {
               goToBookChapterVerse('obs', chapter, key);
@@ -104,7 +106,13 @@ function OBSContent({ markdown, verse, chapter, fontSize, type, goToBookChapterV
       });
       const versesOBS = (
         <>
-          <h1>{headerMd}</h1>
+          <h1
+            ref={(ref) => {
+              '1' === verse.toString() && verseRef(ref);
+            }}
+          >
+            {headerMd}
+          </h1>
           {contentMd}
           <br />
           <i>{linkMd}</i>
