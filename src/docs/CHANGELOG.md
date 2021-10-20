@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.3.0] - 2021-10-18
+## [1.3.0] - 2021-10-20
 
 ### Added (for new features)
 - Language selection on first boot
@@ -13,6 +13,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Shortcut for clear localsotrage (ctrl+shift+L)
 - Migration mechanizm [#203](https://github.com/texttree/bsa/issues/203)
 - Copy reference to clipboard [#218](https://github.com/texttree/bsa/issues/218)
+- Tajik localisation
+- More language support
 
 ### Changed (for changes in existing functionality)
 - User guide extended for OBS
