@@ -29,7 +29,7 @@ function OBSContent({ markdown, verse, chapter, fontSize, type, goToBookChapterV
   const { t } = useTranslation();
   const [verses, setVerses] = useState();
 
-  const [verseRef] = useScrollToVerse();
+  const [verseRef] = useScrollToVerse('center');
 
   const mdToVerses = (md) => {
     let _markdown = md.split(/\n[\s]*/);
