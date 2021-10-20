@@ -7,11 +7,18 @@ import { ReferenceContext } from '../../context';
 import { useScrollToVerse } from '../../hooks/useScrollToVerse';
 import { CircularProgress } from '@material-ui/core';
 import { useCircularStyles, useNoContentStyles } from './style';
+import { ContextMenu } from '../../components';
 
-function USFMContent({ reference, setPosition, content, type }) {
+const initialPosition = {
+  left: null,
+  top: null,
+};
+
+function USFMContent({ reference, content, type }) {
   const { t } = useTranslation();
   const [verses, setVerses] = useState();
   const [chapter, setChapter] = useState();
+  const [positionContextMenu, setPositionContextMenu] = useState(initialPosition);
   const [verseRef] = useScrollToVerse('center');
   const classesCircular = useCircularStyles();
   const classesNoContent = useNoContentStyles();
@@ -55,12 +62,12 @@ function USFMContent({ reference, setPosition, content, type }) {
         verse: key,
         text: getVerseText(verseObjects),
       });
-      setPosition({
-        mouseX: e.clientX - 2,
-        mouseY: e.clientY - 4,
+      setPositionContextMenu({
+        left: e.clientX - 2,
+        top: e.clientY - 4,
       });
     };
-
+    console.log(positionContextMenu);
     let _verses = [];
     for (let key in chapter) {
       if (parseInt(key).toString() !== key.toString()) {
@@ -113,7 +120,12 @@ function USFMContent({ reference, setPosition, content, type }) {
     ? verses
     : noContent;
 
-  return <>{usfmContent}</>;
+  return (
+    <>
+      {usfmContent}
+      <ContextMenu position={positionContextMenu} setPosition={setPositionContextMenu} />
+    </>
+  );
 }
 
 export default USFMContent;

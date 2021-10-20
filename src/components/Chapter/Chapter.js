@@ -1,13 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Card, useContent } from 'translation-helps-rcl';
 import USFMContent from './USFMContent';
-
-import { ContextMenu } from '../../components';
-
-const initialPosition = {
-  left: null,
-  top: null,
-};
 
 export default function Chapter({
   title,
@@ -19,7 +12,6 @@ export default function Chapter({
   fontSize,
   server,
 }) {
-  const [positionContextMenu, setPositionContextMenu] = useState(initialPosition);
   const { bookId, chapter } = reference;
   const content = useContent({
     chapter: chapter,
@@ -39,13 +31,7 @@ export default function Chapter({
       classes={classes}
       fontSize={fontSize}
     >
-      <ContextMenu position={positionContextMenu} setPosition={setPositionContextMenu} />
-      <USFMContent
-        setPosition={setPositionContextMenu}
-        content={content}
-        type={type}
-        reference={reference}
-      />
+      <USFMContent content={content} type={type} reference={reference} />
     </Card>
   );
 }
