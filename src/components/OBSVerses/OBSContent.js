@@ -116,6 +116,7 @@ function OBSContent({ markdown, verse, chapter, fontSize, type, goToBookChapterV
           {contentMd}
           <br />
           <i>{linkMd}</i>
+          <br />
         </div>
       );
       setVerses(versesOBS);
