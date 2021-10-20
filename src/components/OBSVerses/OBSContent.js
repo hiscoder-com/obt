@@ -60,9 +60,7 @@ function OBSContent({ markdown, verse, chapter, fontSize, type, goToBookChapterV
       const { versesObject, headerMd, linkMd } = mdToVerses(markdown);
       const contentMd = versesObject.map((item) => {
         const { key, urlImage, text } = item;
-        const verseStyle = {
-          fontSize: fontSize + '%',
-        };
+
         return (
           <div
             ref={(ref) => {
@@ -86,7 +84,6 @@ function OBSContent({ markdown, verse, chapter, fontSize, type, goToBookChapterV
             )}
             {text.split('\n').map((el, index) => (
               <p
-                style={verseStyle}
                 key={index}
                 onContextMenu={(e) => {
                   setReferenceBlock({
@@ -104,8 +101,11 @@ function OBSContent({ markdown, verse, chapter, fontSize, type, goToBookChapterV
           </div>
         );
       });
+      const verseStyle = {
+        fontSize: fontSize + '%',
+      };
       const versesOBS = (
-        <>
+        <div style={verseStyle}>
           <h1
             ref={(ref) => {
               '1' === verse.toString() && verseRef(ref);
@@ -116,7 +116,7 @@ function OBSContent({ markdown, verse, chapter, fontSize, type, goToBookChapterV
           {contentMd}
           <br />
           <i>{linkMd}</i>
-        </>
+        </div>
       );
       setVerses(versesOBS);
     } else {
