@@ -9,7 +9,7 @@ import { languages } from '../../config/base';
 import { FormControl, NativeSelect, InputLabel } from '@material-ui/core';
 import { useStyles } from './style';
 
-export default function SelectLanguage() {
+export default function SelectLanguage({ label }) {
   const {
     state: { currentLanguage },
     actions: { setCurrentLanguage },
@@ -25,7 +25,7 @@ export default function SelectLanguage() {
 
   return (
     <FormControl className={classes.formControl}>
-      <InputLabel id="lang-select-label">{t('Interface_lang')}</InputLabel>
+      {label && <InputLabel id="lang-select-label">{label}</InputLabel>}
       <NativeSelect
         labelid="lang-select-label"
         disableUnderline={true}
