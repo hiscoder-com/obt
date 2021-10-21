@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
   divider: { margin: `${theme.spacing(2)}px 0` },
 }));
 function StartDialog() {
-  // const { t } = useTranslation();
+  const { t } = useTranslation();
   const {
     actions: { setOpenStartDialog, setLoadIntro, setAppConfig },
     state: { openStartDialog, currentLanguage },
@@ -39,24 +39,23 @@ function StartDialog() {
 
   const handleClose = () => {
     setOpenStartDialog(false);
-    resetWorkspace({
-      bookId,
-      setAppConfig,
-      goToBookChapterVerse,
-      currentLanguage,
-      resetAll: true,
-    });
+    setOpenDialog(false);
+    // resetWorkspace({
+    //   bookId,
+    //   setAppConfig,
+    //   goToBookChapterVerse,
+    //   currentLanguage,
+    //   resetAll: true,
+    // });
     setLoadIntro(true);
   };
-  // const stepContent = { 0: <SelectLanguage />, 1: <SelectResourcesLanguages /> };
+  const [openDialog, setOpenDialog] = React.useState(openStartDialog);
   function getStepContent(stepIndex) {
     switch (stepIndex) {
       case 0:
         return <SelectLanguage />;
       case 1:
         return <SelectResourcesLanguages />;
-      // case 2:
-      //   return 'Будете знакомиться с приложением? Yes/no?';
       default:
         return '';
     }
@@ -65,30 +64,40 @@ function StartDialog() {
   const widthBase = 100;
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
-  // const steps = [
-  //   'Выберите язык интерфейса',
-  //   'Выберите языки доступных ресурсов',
-  //   // 'Познакомиться с приложением',
-  // ];
+
   const steps = [
-    { label: 'Язык интерфейса', instruction: 'Выберите язык интерфейса' },
+    { label: t('Interface_lang'), instruction: t('Choose_language') },
     {
-      label: 'Языки  ресурсов',
-      instruction: 'Выберите языки доступных ресурсов',
+      label: t('Resource_langs'),
+      instruction: t('Choose_languages_resources'),
     },
   ];
+  React.useEffect(() => {
+    if (activeStep > steps.length - 1) {
+      console.log(steps.length - 1);
+      handleClose();
+    }
+  }, [activeStep, setOpenStartDialog, steps.length]);
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
-
+  console.log({ openDialog });
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
   console.log({ activeStep });
   return (
-    <DialogUI openDialog={openStartDialog} closeDialog={activeStep > steps.length - 1}>
-      <Base widthBase={widthBase}>
+    <DialogUI open={openDialog} onClose={handleClose}>
+      <Base
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+
+          alignItems: 'center',
+        }}
+        widthBase={widthBase}
+      >
         <div
           style={{
             display: 'flex',
@@ -98,7 +107,9 @@ function StartDialog() {
           }}
         >
           <div>
-            <Typography variant="h5">{steps[activeStep].label} </Typography>
+            {activeStep < steps.length && (
+              <Typography variant="h5">{steps[activeStep].label} </Typography>
+            )}
           </div>
           <Divider className={classes.divider} />
           <div
@@ -109,7 +120,7 @@ function StartDialog() {
             {getStepContent(activeStep)}
           </div>
         </div>
-        <div className={classes.root}>
+        <div className={classes.root} style={{ textAlign: 'center' }}>
           <div style={{ position: 'absolute', bottom: '0px', paddingBottom: '30px' }}>
             <div>
               <Stepper activeStep={activeStep} alternativeLabel>

@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import axios from 'axios';
 
 import { AppContext, ReferenceContext } from '../../context';
-
+import { DialogUI } from '../DialogUI';
 import {
   langs,
   subjects,
@@ -34,7 +34,7 @@ function SearchResources({ anchorEl, onClose, open }) {
 
   const { t } = useTranslation();
   const classes = useStyles();
-
+  const [openDialog, setOpenDialog] = useState(false);
   const [currentLang] = useState(langs[0]);
 
   const uniqueResources = getUniqueResources(appConfig, resourcesApp);
@@ -59,7 +59,11 @@ function SearchResources({ anchorEl, onClose, open }) {
       window.scrollTo(0, 10000);
     }, 1000);
   };
-  console.log({ languageResources });
+
+  const handleOpenDialog = () => {
+    setOpenDialog(true);
+  };
+
   useEffect(() => {
     axios
       .get(
@@ -120,17 +124,31 @@ function SearchResources({ anchorEl, onClose, open }) {
       }
     });
   const emptyMenuItems = <p className={classes.divider}>{t('No_resources')}</p>;
+  const handleCloseDialog = () => {
+    setOpenDialog(false);
+  };
+
   return (
-    <Menu
-      color="transparent"
-      anchorEl={anchorEl}
-      keepMounted
-      open={open}
-      onClose={onClose}
-    >
-      <SelectResourcesLanguages />
-      {menuItems.length !== 0 ? menuItems : emptyMenuItems}
-    </Menu>
+    <>
+      <Menu
+        color="transparent"
+        anchorEl={anchorEl}
+        keepMounted
+        open={open}
+        onClose={onClose}
+      >
+        <MenuItem onClick={handleOpenDialog}>Добавить язык</MenuItem>
+        {menuItems.length !== 0 ? menuItems : emptyMenuItems}
+      </Menu>
+      <DialogUI
+        titleDialog={t('Choose_languages_resources')}
+        open={openDialog}
+        closeButton={t('Close')}
+        onClose={handleCloseDialog}
+      >
+        <SelectResourcesLanguages />
+      </DialogUI>
+    </>
   );
 }
 

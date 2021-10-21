@@ -58,9 +58,7 @@ export function AppContextProvider({ children }) {
     'en',
     'ru',
     'el-x-koine',
-    'hbo',
     'tg',
-    'id',
   ]);
 
   const { t } = useTranslation();

@@ -8,23 +8,17 @@ import {
   Button,
 } from '@material-ui/core';
 
-function DialogUI({ openDialog, titleDialog, closeButton, children, closeDialog }) {
-  const [open, setOpen] = React.useState(openDialog);
-  React.useEffect(() => {
-    closeDialog && setOpen(false);
-  }, [closeDialog]);
-  // const handleClose = () => {
-  //   setOpen(false);
-  // };
-
+function DialogUI({ open, titleDialog, closeButton, children, onClose }) {
+  console.log({
+    open,
+  });
   return (
-    <Dialog open={open}>
+    <Dialog open={open} onClose={onClose}>
       {titleDialog && <DialogTitle>{titleDialog}</DialogTitle>}
-
       <DialogContent>{children}</DialogContent>
       <DialogActions>
         {closeButton && (
-          <Button variant="outlined" color={'primary'}>
+          <Button onClick={onClose} variant="outlined" color={'primary'}>
             {closeButton}
           </Button>
         )}

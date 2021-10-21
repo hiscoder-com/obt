@@ -1,9 +1,10 @@
 import React, { useContext } from 'react';
+
+import { useTranslation } from 'react-i18next';
 import { AppContext } from '../../context';
 import { makeStyles } from '@material-ui/core/styles';
 import {
   Input,
-  InputLabel,
   MenuItem,
   FormControl,
   ListItemText,
@@ -12,6 +13,7 @@ import {
   Chip,
 } from '@material-ui/core';
 import { langs } from '../../config/materials';
+
 const useStyles = makeStyles((theme) => ({
   formControl: {
     margin: theme.spacing(1),
@@ -41,6 +43,7 @@ const MenuProps = {
 };
 
 function SelectResourcesLanguages() {
+  const { t } = useTranslation();
   const classes = useStyles();
 
   const {
@@ -56,7 +59,6 @@ function SelectResourcesLanguages() {
     <div>
       <div>
         <FormControl className={classes.formControl}>
-          <InputLabel id="demo-mutiple-checkbox-label">Languages</InputLabel>
           <Select
             labelId="demo-mutiple-checkbox-label"
             id="demo-mutiple-checkbox"
@@ -67,7 +69,7 @@ function SelectResourcesLanguages() {
             renderValue={(selected) => (
               <div className={classes.chips}>
                 {selected.map((value) => (
-                  <Chip key={value} label={value} className={classes.chip} />
+                  <Chip key={value} label={t(value)} className={classes.chip} />
                 ))}
               </div>
             )}
@@ -76,7 +78,7 @@ function SelectResourcesLanguages() {
             {langs.map((lang) => (
               <MenuItem key={lang} value={lang}>
                 <Checkbox checked={languageResources.indexOf(lang) > -1} />
-                <ListItemText primary={lang} />
+                <ListItemText primary={t(lang)} />
               </MenuItem>
             ))}
           </Select>

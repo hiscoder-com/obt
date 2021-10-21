@@ -56,14 +56,14 @@ export const owners = [
   'door43-catalog',
   'bsa',
   'unfoldingword',
-  'photonomad1',
-  'wycliffeassociates',
+  // 'photonomad1',
+  // 'wycliffeassociates',
   'ru_gl',
-  'demo',
-  'richmahn',
-  'joel',
-  'exegetical-bcs',
-  'pcet',
+  // 'demo',
+  // 'richmahn',
+  // 'joel',
+  // 'exegetical-bcs',
+  // 'pcet',
 ];
 
 //resource, that have not manifest or others reason
