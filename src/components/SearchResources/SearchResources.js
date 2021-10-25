@@ -17,8 +17,10 @@ import { defaultCard, server, columns } from '../../config/base';
 import { getXY } from 'resource-workspace-rcl';
 import { getUniqueResources } from '../../helper';
 import { SelectResourcesLanguages } from '../SelectResourcesLanguages';
-import { MenuItem, Menu } from '@material-ui/core';
-import { useStyles } from './style';
+import { MenuItem, Menu, Button } from '@material-ui/core';
+import AddIcon from '@material-ui/icons/Add';
+import LanguageIcon from '@material-ui/icons/Language';
+import { useStyles, useAddStyles } from './style';
 
 function SearchResources({ anchorEl, onClose, open }) {
   const {
@@ -34,6 +36,7 @@ function SearchResources({ anchorEl, onClose, open }) {
 
   const { t } = useTranslation();
   const classes = useStyles();
+  const addClasses = useAddStyles();
   const [openDialog, setOpenDialog] = useState(false);
   const [currentLang] = useState(langs[0]);
 
@@ -137,13 +140,26 @@ function SearchResources({ anchorEl, onClose, open }) {
         open={open}
         onClose={onClose}
       >
-        <MenuItem onClick={handleOpenDialog}>Добавить язык</MenuItem>
+        <MenuItem>
+          <Button
+            ckasses={addClasses}
+            onClick={handleOpenDialog}
+            startIcon={<LanguageIcon size={'small'} />}
+            classes={addClasses}
+            variant="outlined"
+            color="primary"
+            size="small"
+            fullWidth
+          >
+            Добавить язык
+          </Button>
+        </MenuItem>
         {menuItems.length !== 0 ? menuItems : emptyMenuItems}
       </Menu>
       <DialogUI
         titleDialog={t('Choose_languages_resources')}
         open={openDialog}
-        closeButton={t('Close')}
+        closeButton={t('Apply')}
         onClose={handleCloseDialog}
       >
         <SelectResourcesLanguages />

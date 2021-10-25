@@ -48,12 +48,8 @@
   "ru": "Russian",
   "pl": "Polish",
   "uk": "Ukrainian",
-  "el-x-koine": "Ancient greek",
-  "hbo": "Hebrew",
-  "id": "Indonesian",
-  "tg": "Tajik",
-  "fr": "French",
-  "am": "Amharic",
+  "el-x-koine": "Koine Greek",
+  "hbo": "Ancient Hebrew",
   "introStart": "Here is an interactive guide to the Bible Study App(BSA).<br>We want to show you the functionality of BSA.<br>Let's go!",
   "introAppBar": "In the upper part there is an application bar (app bar). On the left is a choice between the Bible and Open Bible Stories (OBS).<br> In the center there are buttons that display the current address and by click them in the 'Bible' mode you can select a book and a chapter, and in the OBS mode - a history. On the right there is a button that opens the main menu (hamburger menu)",
   "introBookList": "The book selection dialog. After selecting a book, the chapter selection window will automatically open",
@@ -201,5 +197,12 @@
   "3jn_abbr": "3jn",
   "jud_abbr": "jud",
   "rev_abbr": "rev",
-  "obs_abbr": "obs"
+  "obs_abbr": "obs",
+  "am": "አማርኛ", 
+  "as": "অসমীয়া",
+  "bn": "বাংলা",
+  "ceb": "Cebuano",
+  "es": "Español",
+  "es-419": "Español Latin America","fa": "فارسی","fr": "Français","gof": "Gofa", "gu": "ગુજરાતી","guq": "Aché","ha": "(Hausa) هَوُسَ","hi": "हिन्दी, हिंदी","hmr": "Hmar","hr": "hrvatski jezik","id": "Bahasa Indonesia","ilo": "Iloko","kn": "ಕನ್ನಡ","lo": "ພາສາລາວ","lpx": "Lopit","lus": "Lushai","ml": "മലയാളം","mr": "मराठी","nag": "Naga Pidgin","ne": "नेपाली","or": "ଓଡ଼ିଆ","pa": "ਪੰਜਾਬੀ, پنجابی‎","pt-br": "Português","rmy-x-vc": "Vlach Čergarski","rmy-x-vg": "Vlach Gurbert","rmy-x-vwa": "Vlach Western Arli", "sgj": "Surgujia","shu": "Chadian Arabic","sr-Latn": "Serbian","sw": "Kiswahili","ta": "தமிழ்","tdj": "Tajio","te": "తెలుగు","tg": "Тоҷикӣ","tl": "Wikang Tagalog","tpi": "Tok Pisin","tr": "Türkçe","ur": "اردو",
+  "vi": "Tiếng Việt"
 }

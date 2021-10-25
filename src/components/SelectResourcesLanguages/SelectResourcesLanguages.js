@@ -4,16 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { AppContext } from '../../context';
 import { makeStyles } from '@material-ui/core/styles';
 import Autocomplete from '@material-ui/lab/Autocomplete';
-import {
-  TextField,
-  Input,
-  MenuItem,
-  FormControl,
-  ListItemText,
-  Select,
-  Checkbox,
-  Chip,
-} from '@material-ui/core';
+import { TextField, FormControl } from '@material-ui/core';
 import { langs } from '../../config/materials';
 
 const useStyles = makeStyles((theme) => ({
@@ -32,17 +23,6 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(3),
   },
 }));
-
-const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
-const MenuProps = {
-  PaperProps: {
-    style: {
-      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-      width: 250,
-    },
-  },
-};
 
 function SelectResourcesLanguages() {
   const { t } = useTranslation();
@@ -65,16 +45,11 @@ function SelectResourcesLanguages() {
             multiple
             id="tags-standard"
             options={langs}
-            getOptionLabel={(option) => option}
+            getOptionLabel={(option) => t(option)}
             value={languageResources}
             onChange={handleChange}
             renderInput={(params) => (
-              <TextField
-                {...params}
-                variant="standard"
-                // label="Multiple values"
-                placeholder="Favorites"
-              />
+              <TextField {...params} variant="standard" placeholder="Favorites" />
             )}
           />
         </FormControl>
