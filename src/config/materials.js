@@ -3,7 +3,6 @@ export const langs = [
   'as',
   'bn',
   'ceb',
-  'demo',
   'el-x-koine',
   'en',
   'es',

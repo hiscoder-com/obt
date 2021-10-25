@@ -151,7 +151,7 @@ function SearchResources({ anchorEl, onClose, open }) {
             size="small"
             fullWidth
           >
-            Добавить язык
+            {t('Add_resource_languages')}
           </Button>
         </MenuItem>
         {menuItems.length !== 0 ? menuItems : emptyMenuItems}
