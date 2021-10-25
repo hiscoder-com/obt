@@ -132,11 +132,10 @@ function StartDialog() {
             <Divider className={classes.divider} />
             <div style={{ display: 'flex', justifyContent: 'space-around' }}>
               <Button
-                disabled={activeStep === 0}
-                onClick={handleBack}
+                onClick={activeStep === 0 ? handleClose : handleBack}
                 className={classes.backButton}
               >
-                Back
+                {activeStep === 0 ? 'Cancel' : 'Back'}
               </Button>
               <Button variant="contained" color="primary" onClick={handleNext}>
                 {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
