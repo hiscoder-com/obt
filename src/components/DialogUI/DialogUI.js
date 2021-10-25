@@ -9,9 +9,6 @@ import {
 } from '@material-ui/core';
 
 function DialogUI({ open, titleDialog, closeButton, children, onClose }) {
-  console.log({
-    open,
-  });
   return (
     <Dialog open={open} onClose={onClose}>
       {titleDialog && <DialogTitle>{titleDialog}</DialogTitle>}

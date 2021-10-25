@@ -3,7 +3,9 @@ import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { AppContext } from '../../context';
 import { makeStyles } from '@material-ui/core/styles';
+import Autocomplete from '@material-ui/lab/Autocomplete';
 import {
+  TextField,
   Input,
   MenuItem,
   FormControl,
@@ -51,37 +53,30 @@ function SelectResourcesLanguages() {
     actions: { setLanguageResources },
   } = useContext(AppContext);
 
-  const handleChange = (event) => {
-    setLanguageResources(event.target.value);
+  const handleChange = (event, value) => {
+    setLanguageResources(value);
   };
 
   return (
     <div>
       <div>
         <FormControl className={classes.formControl}>
-          <Select
-            labelId="demo-mutiple-checkbox-label"
-            id="demo-mutiple-checkbox"
+          <Autocomplete
             multiple
+            id="tags-standard"
+            options={langs}
+            getOptionLabel={(option) => option}
             value={languageResources}
             onChange={handleChange}
-            input={<Input />}
-            renderValue={(selected) => (
-              <div className={classes.chips}>
-                {selected.map((value) => (
-                  <Chip key={value} label={t(value)} className={classes.chip} />
-                ))}
-              </div>
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                variant="standard"
+                // label="Multiple values"
+                placeholder="Favorites"
+              />
             )}
-            MenuProps={MenuProps}
-          >
-            {langs.map((lang) => (
-              <MenuItem key={lang} value={lang}>
-                <Checkbox checked={languageResources.indexOf(lang) > -1} />
-                <ListItemText primary={t(lang)} />
-              </MenuItem>
-            ))}
-          </Select>
+          />
         </FormControl>
       </div>
     </div>

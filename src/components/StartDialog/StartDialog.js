@@ -74,19 +74,17 @@ function StartDialog() {
   ];
   React.useEffect(() => {
     if (activeStep > steps.length - 1) {
-      console.log(steps.length - 1);
       handleClose();
     }
   }, [activeStep, setOpenStartDialog, steps.length]);
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
-  console.log({ openDialog });
+
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
-  console.log({ activeStep });
   return (
     <DialogUI open={openDialog} onClose={handleClose}>
       <Base
