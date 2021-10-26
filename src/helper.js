@@ -293,7 +293,12 @@ export const resetWorkspace = ({
   goToBookChapterVerse,
   currentLanguage,
   resetAll,
+  languageResources,
+  setLanguageResources,
 }) => {
+  if (!languageResources.includes(currentLanguage)) {
+    setLanguageResources((prev) => prev.concat(currentLanguage));
+  }
   const workspaceType = resetAll ? 'all' : bookId === 'obs' ? 'obs' : 'bible';
   const oldAppConfig = JSON.parse(localStorage.getItem('appConfig'));
   switch (workspaceType) {

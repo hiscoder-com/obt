@@ -54,12 +54,7 @@ export function AppContextProvider({ children }) {
   const [loadIntro, setLoadIntro] = useState(false);
   const [openStartDialog, setOpenStartDialog] = useState(_startDialog);
   const [openMainMenu, setOpenMainMenu] = useState(false);
-  const [languageResources, setLanguageResources] = useState([
-    'en',
-    'ru',
-    'el-x-koine',
-    'tg',
-  ]);
+  const [languageResources, setLanguageResources] = useState(['en', 'el-x-koine']);
 
   const { t } = useTranslation();
 

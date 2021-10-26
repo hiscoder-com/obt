@@ -9,8 +9,8 @@ import { MenuItem, MenuList } from '@material-ui/core';
 
 function WorkspaceManager({ onClose }) {
   const {
-    state: { currentLanguage },
-    actions: { setAppConfig },
+    state: { currentLanguage, languageResources },
+    actions: { setAppConfig, setLanguageResources },
   } = useContext(AppContext);
 
   const {
@@ -29,7 +29,10 @@ function WorkspaceManager({ onClose }) {
       goToBookChapterVerse,
       currentLanguage,
       resetAll: false,
+      languageResources,
+      setLanguageResources,
     });
+
     onClose();
   };
 

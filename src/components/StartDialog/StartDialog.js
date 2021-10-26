@@ -138,7 +138,7 @@ function StartDialog() {
                 {activeStep === 0 ? 'Cancel' : 'Back'}
               </Button>
               <Button variant="contained" color="primary" onClick={handleNext}>
-                {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
+                {activeStep < steps.length - 1 ? 'Next' : 'Finish'}
               </Button>
             </div>
           </div>

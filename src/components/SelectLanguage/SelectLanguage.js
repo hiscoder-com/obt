@@ -11,8 +11,8 @@ import { useStyles } from './style';
 
 export default function SelectLanguage({ label }) {
   const {
-    state: { currentLanguage },
-    actions: { setCurrentLanguage },
+    state: { currentLanguage, languageResources },
+    actions: { setCurrentLanguage, setLanguageResources },
   } = useContext(AppContext);
   const classes = useStyles();
 
@@ -21,6 +21,9 @@ export default function SelectLanguage({ label }) {
   const handleChange = (e) => {
     i18n.changeLanguage(e.target.value);
     setCurrentLanguage(e.target.value);
+    if (!languageResources.includes(currentLanguage)) {
+      setLanguageResources((prev) => prev.concat(currentLanguage));
+    }
   };
 
   return (
