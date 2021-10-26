@@ -8,18 +8,64 @@ import {
   Button,
 } from '@material-ui/core';
 
-function DialogUI({ open, titleDialog, closeButton, children, onClose }) {
+function DialogUI({
+  open,
+  titleDialog,
+  labelClose,
+  labelApply,
+  children,
+  onClose,
+  onApply,
+  styleClose,
+  styleApply,
+}) {
+  // const { classClose, variantClose, colorClose } =  styleClose;
+  // const { classApply, variantApply, colorApply } = styleApply;
+
   return (
     <Dialog open={open} onClose={onClose}>
       {titleDialog && <DialogTitle>{titleDialog}</DialogTitle>}
       <DialogContent>{children}</DialogContent>
-      <DialogActions>
-        {closeButton && (
-          <Button onClick={onClose} variant="outlined" color={'primary'}>
-            {closeButton}
-          </Button>
-        )}
-      </DialogActions>
+      {(labelClose || labelApply) && (
+        <DialogActions>
+          {labelClose && (
+            <Button
+              onClick={onClose}
+              class={styleClose.classClose}
+              variant={
+                styleClose && styleClose?.variantClose && !styleClose?.classClose
+                  ? styleClose.variantClose
+                  : 'outlined'
+              }
+              color={
+                styleClose && styleClose?.colorClose && !styleClose?.classClose
+                  ? styleClose.colorClose
+                  : 'secondary'
+              }
+            >
+              {labelClose}
+            </Button>
+          )}
+          {labelApply && (
+            <Button
+              onClick={onApply}
+              class={styleApply.classApply}
+              variant={
+                styleApply.variantApply && !styleApply.classApply
+                  ? styleApply.variantApply
+                  : 'outlined'
+              }
+              color={
+                styleApply.colorApply && !styleApply.classApply
+                  ? styleApply.colorApply
+                  : 'secondary'
+              }
+            >
+              {labelApply}
+            </Button>
+          )}
+        </DialogActions>
+      )}
     </Dialog>
   );
 }

@@ -6,7 +6,6 @@ import { matchSorter } from 'match-sorter';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { TextField, Chip } from '@material-ui/core';
 import { langs } from '../../config/materials';
-import { defaultTplBible, defaultTplOBS } from '../../config/base';
 
 function SelectResourcesLanguages() {
   const { t } = useTranslation();
@@ -20,11 +19,7 @@ function SelectResourcesLanguages() {
     });
   const getLanguageId = (appConfig) => {
     let oldAppConfig = JSON.parse(localStorage.getItem('appConfig'));
-    const allValues = [
-      ...Object.values(oldAppConfig),
-      ...Object.values(defaultTplOBS),
-      ...Object.values(defaultTplBible),
-    ];
+    const allValues = [...Object.values(oldAppConfig)];
     allValues.push(appConfig);
     let currentLangs = new Set();
     if (appConfig && allValues) {
