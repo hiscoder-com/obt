@@ -17,6 +17,11 @@ export const AppContext = React.createContext();
 const _currentLanguage = checkLSVal('i18nextLng', languages[0]);
 const _resourcesApp = checkLSVal('resourcesApp', [], 'object');
 const _startDialog = checkLSVal('startDialog', true, 'boolean');
+const _languageResources = checkLSVal(
+  'languageResources',
+  ['en', 'el-x-koine'],
+  'object'
+);
 const _fontSize = parseInt(localStorage.getItem('fontSize'));
 const config = { server };
 
@@ -54,7 +59,8 @@ export function AppContextProvider({ children }) {
   const [loadIntro, setLoadIntro] = useState(false);
   const [openStartDialog, setOpenStartDialog] = useState(_startDialog);
   const [openMainMenu, setOpenMainMenu] = useState(false);
-  const [languageResources, setLanguageResources] = useState(['en', 'el-x-koine']);
+  const [languageResources, setLanguageResources] = useState(_languageResources);
+  // ['en', 'el-x-koine'];
 
   const { t } = useTranslation();
 
