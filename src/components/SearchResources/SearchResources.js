@@ -18,7 +18,7 @@ import { getXY } from 'resource-workspace-rcl';
 import { getUniqueResources } from '../../helper';
 import { SelectResourcesLanguages } from '../SelectResourcesLanguages';
 import { MenuItem, Menu, Button } from '@material-ui/core';
-import AddIcon from '@material-ui/icons/Add';
+
 import LanguageIcon from '@material-ui/icons/Language';
 import { useStyles, useAddStyles } from './style';
 

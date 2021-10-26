@@ -10,7 +10,7 @@ function Base({ children, widthBase }) {
       '& > *': {
         margin: theme.spacing(1),
         width: theme.spacing(widthBase),
-        height: theme.spacing(50),
+        minHeight: theme.spacing(50),
       },
     },
   }));

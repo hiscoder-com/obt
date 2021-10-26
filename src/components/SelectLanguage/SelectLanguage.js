@@ -21,11 +21,12 @@ export default function SelectLanguage({ label }) {
   const handleChange = (e) => {
     i18n.changeLanguage(e.target.value);
     setCurrentLanguage(e.target.value);
+  };
+  React.useEffect(() => {
     if (!languageResources.includes(currentLanguage)) {
       setLanguageResources((prev) => prev.concat(currentLanguage));
     }
-  };
-
+  }, [currentLanguage]);
   return (
     <FormControl className={classes.formControl}>
       {label && <InputLabel id="lang-select-label">{label}</InputLabel>}

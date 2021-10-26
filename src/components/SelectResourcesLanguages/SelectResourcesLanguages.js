@@ -10,9 +10,10 @@ import { langs } from '../../config/materials';
 function SelectResourcesLanguages() {
   const { t } = useTranslation();
   const {
-    state: { languageResources, appConfig },
+    state: { languageResources, appConfig, currentLanguage },
     actions: { setLanguageResources },
   } = useContext(AppContext);
+  console.log(currentLanguage);
   const filterOptions = (options, { inputValue }) =>
     matchSorter(options, inputValue, {
       threshold: matchSorter.rankings.WORD_STARTS_WITH,
@@ -29,6 +30,7 @@ function SelectResourcesLanguages() {
         });
       });
     }
+    currentLangs.add(currentLanguage);
     return Array.from(currentLangs);
   };
 
