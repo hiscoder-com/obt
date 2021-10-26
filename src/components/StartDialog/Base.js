@@ -1,6 +1,5 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
+import { makeStyles, Paper } from '@material-ui/core';
 
 function Base({ children, widthBase }) {
   const useStyles = makeStyles((theme) => ({

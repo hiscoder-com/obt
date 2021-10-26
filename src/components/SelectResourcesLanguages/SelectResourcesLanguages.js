@@ -13,7 +13,7 @@ function SelectResourcesLanguages() {
     state: { languageResources, appConfig, currentLanguage },
     actions: { setLanguageResources },
   } = useContext(AppContext);
-  console.log(currentLanguage);
+
   const filterOptions = (options, { inputValue }) =>
     matchSorter(options, inputValue, {
       threshold: matchSorter.rankings.WORD_STARTS_WITH,

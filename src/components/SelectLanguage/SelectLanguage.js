@@ -1,11 +1,7 @@
 import React, { useContext } from 'react';
-
 import { useTranslation } from 'react-i18next';
-
 import { AppContext } from '../../context/AppContext';
-
 import { languages } from '../../config/base';
-
 import { FormControl, NativeSelect, InputLabel } from '@material-ui/core';
 import { useStyles } from './style';
 
@@ -21,12 +17,15 @@ export default function SelectLanguage({ label }) {
   const handleChange = (e) => {
     i18n.changeLanguage(e.target.value);
     setCurrentLanguage(e.target.value);
-  };
-  React.useEffect(() => {
     if (!languageResources.includes(currentLanguage)) {
       setLanguageResources((prev) => prev.concat(currentLanguage));
     }
-  }, [currentLanguage]);
+  };
+  // React.useEffect(() => {
+  //   if (!languageResources.includes(currentLanguage)) {
+  //     setLanguageResources((prev) => prev.concat(currentLanguage));
+  //   }
+  // }, [currentLanguage]);
   return (
     <FormControl className={classes.formControl}>
       {label && <InputLabel id="lang-select-label">{label}</InputLabel>}

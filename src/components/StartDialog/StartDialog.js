@@ -1,16 +1,22 @@
 import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
-import { SelectLanguage, SelectResourcesLanguages } from '../../components/';
-import { makeStyles } from '@material-ui/core/styles';
-import Stepper from '@material-ui/core/Stepper';
-import Step from '@material-ui/core/Step';
-import StepLabel from '@material-ui/core/StepLabel';
-import { Button, Divider } from '@material-ui/core';
-import Typography from '@material-ui/core/Typography';
+import { SelectLanguage, SelectResourcesLanguages, DialogUI } from '../../components/';
+
+import {
+  Button,
+  Divider,
+  Stepper,
+  Step,
+  StepLabel,
+  Typography,
+  makeStyles,
+} from '@material-ui/core';
+
 import Base from './Base';
 import { AppContext, ReferenceContext } from '../../context';
-import { DialogUI } from '../DialogUI';
+
 import { resetWorkspace } from '../../helper';
+
 const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
@@ -24,6 +30,7 @@ const useStyles = makeStyles((theme) => ({
   },
   divider: { margin: `${theme.spacing(2)}px 0` },
 }));
+
 function StartDialog() {
   const { t } = useTranslation();
   const {
@@ -40,13 +47,6 @@ function StartDialog() {
   const handleClose = () => {
     setOpenStartDialog(false);
     setOpenDialog(false);
-    // resetWorkspace({
-    //   bookId,
-    //   setAppConfig,
-    //   goToBookChapterVerse,
-    //   currentLanguage,
-    //   resetAll: true,
-    // });
     setLoadIntro(true);
   };
   const [openDialog, setOpenDialog] = React.useState(openStartDialog);
@@ -74,8 +74,16 @@ function StartDialog() {
   ];
   React.useEffect(() => {
     if (activeStep > steps.length - 1) {
+      resetWorkspace({
+        bookId,
+        setAppConfig,
+        goToBookChapterVerse,
+        currentLanguage,
+        resetAll: true,
+      });
       handleClose();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeStep, setOpenStartDialog, steps.length]);
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
