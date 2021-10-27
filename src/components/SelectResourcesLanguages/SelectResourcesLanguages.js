@@ -44,12 +44,14 @@ function SelectResourcesLanguages() {
         options={langs}
         filterOptions={filterOptions}
         getOptionLabel={(option) => t(option)}
-        value={languageResources}
+        value={languageResources} //TODO search can't work, i think need to build  array with t(language) and put into value new ar
         onChange={(event, newValue) => {
-          setLanguageResources([
+          const _languageResources = [
             ...fixedOptions,
             ...newValue.filter((option) => fixedOptions.indexOf(option) === -1),
-          ]);
+          ];
+          setLanguageResources(_languageResources);
+          localStorage.setItem('languageResources', JSON.stringify(_languageResources));
         }}
         renderTags={(tagValue, getTagProps) =>
           tagValue.map((option, index) => (

@@ -130,6 +130,7 @@ function StartDialog() {
           <div style={{ position: 'absolute', bottom: '0px', paddingBottom: '30px' }}>
             <div>
               <Stepper activeStep={activeStep} alternativeLabel>
+                {/** TODO i tried to remove stepper to other component, but i can't raised state to up  */}
                 {steps.map((step) => (
                   <Step key={step.label}>
                     <StepLabel>{step.instruction}</StepLabel>
@@ -139,6 +140,7 @@ function StartDialog() {
             </div>
             <Divider className={classes.divider} />
             <div style={{ display: 'flex', justifyContent: 'space-around' }}>
+              {/**TODO Make normel CSS */}
               <Button
                 onClick={activeStep === 0 ? handleClose : handleBack}
                 className={classes.backButton}

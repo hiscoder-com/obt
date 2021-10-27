@@ -9,7 +9,7 @@ function Base({ children, widthBase }) {
       '& > *': {
         margin: theme.spacing(1),
         width: theme.spacing(widthBase),
-        minHeight: theme.spacing(50),
+        minHeight: theme.spacing(50), // TODO When languageResources have more items - make hight flexible or use Vertical Stepper
       },
     },
   }));

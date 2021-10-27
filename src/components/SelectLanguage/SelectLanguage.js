@@ -17,15 +17,17 @@ export default function SelectLanguage({ label }) {
   const handleChange = (e) => {
     i18n.changeLanguage(e.target.value);
     setCurrentLanguage(e.target.value);
+    // if (!languageResources.includes(currentLanguage)) {
+    //   setLanguageResources((prev) => prev.concat(currentLanguage));
+    // }
+  };
+  React.useEffect(() => {
     if (!languageResources.includes(currentLanguage)) {
       setLanguageResources((prev) => prev.concat(currentLanguage));
     }
-  };
-  // React.useEffect(() => {
-  //   if (!languageResources.includes(currentLanguage)) {
-  //     setLanguageResources((prev) => prev.concat(currentLanguage));
-  //   }
-  // }, [currentLanguage]);
+    //TODO When i change currentLanguage - in languageResource concat currentLanguage twice
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentLanguage]);
   return (
     <FormControl className={classes.formControl}>
       {label && <InputLabel id="lang-select-label">{label}</InputLabel>}

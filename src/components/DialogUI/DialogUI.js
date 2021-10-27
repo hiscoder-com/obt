@@ -19,6 +19,7 @@ function DialogUI({
   styleClose,
   styleApply,
 }) {
+  //TODO I can't destructed object like this:
   // const { classClose, variantClose, colorClose } =  styleClose;
   // const { classApply, variantApply, colorApply } = styleApply;
 
