@@ -5,7 +5,7 @@ import { languages } from '../../config/base';
 import { FormControl, NativeSelect, InputLabel } from '@material-ui/core';
 import { useStyles } from './style';
 
-export default function SelectLanguage({ label }) {
+export default function SelectLanguage({ label, style }) {
   const {
     state: { currentLanguage },
     actions: { setCurrentLanguage, setLanguageResources },
@@ -23,13 +23,12 @@ export default function SelectLanguage({ label }) {
       if (!prev.includes(currentLanguage)) {
         prev.push(currentLanguage);
       }
-      console.log({ prev });
       return prev;
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentLanguage]);
   return (
-    <FormControl className={classes.formControl}>
+    <FormControl className={classes.formControl} style={style}>
       {label && <InputLabel id="lang-select-label">{label}</InputLabel>}
       <NativeSelect
         labelid="lang-select-label"

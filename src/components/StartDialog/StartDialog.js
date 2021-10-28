@@ -8,6 +8,7 @@ import {
   Stepper,
   Step,
   StepLabel,
+  StepContent,
   Typography,
   makeStyles,
 } from '@material-ui/core';
@@ -28,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(1),
   },
-  divider: { margin: `${theme.spacing(2)}px 0` },
+  divider: { marginTop: theme.spacing(2), marginBottom: theme.spacing(2) },
 }));
 
 function StartDialog() {
@@ -53,7 +54,7 @@ function StartDialog() {
   function getStepContent(stepIndex) {
     switch (stepIndex) {
       case 0:
-        return <SelectLanguage />;
+        return <SelectLanguage style={{ maxWidth: '250px' }} />;
       case 1:
         return <SelectResourcesLanguages />;
       default:
@@ -61,7 +62,6 @@ function StartDialog() {
     }
   }
 
-  const widthBase = 100;
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
 
@@ -95,62 +95,34 @@ function StartDialog() {
 
   return (
     <DialogUI open={openDialog} onClose={handleClose}>
-      <Base
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-
-          alignItems: 'center',
-        }}
-        widthBase={widthBase}
-      >
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-
-            alignItems: 'center',
-          }}
-        >
-          <div>
-            {activeStep < steps.length && (
-              <Typography variant="h5">{steps[activeStep].label} </Typography>
-            )}
-          </div>
-          <Divider className={classes.divider} />
-          <div
-            style={{
-              marginTop: '20px',
-            }}
-          >
-            {getStepContent(activeStep)}
-          </div>
+      <Base>
+        <div style={{ textAlign: 'center' }}>
+          {activeStep < steps.length && (
+            <Typography variant="h5">{steps[activeStep].label}</Typography>
+          )}
         </div>
+        <Divider className={classes.divider} />
         <div className={classes.root} style={{ textAlign: 'center' }}>
-          <div style={{ position: 'absolute', bottom: '0px', paddingBottom: '30px' }}>
-            <div>
-              <Stepper activeStep={activeStep} alternativeLabel>
-                {/** TODO i tried to remove stepper to other component, but i can't raised state to up  */}
-                {steps.map((step) => (
-                  <Step key={step.label}>
-                    <StepLabel>{step.instruction}</StepLabel>
-                  </Step>
-                ))}
-              </Stepper>
-            </div>
-            <Divider className={classes.divider} />
-            <div style={{ display: 'flex', justifyContent: 'space-around' }}>
-              {/**TODO Make normel CSS */}
-              <Button
-                onClick={activeStep === 0 ? handleClose : handleBack}
-                className={classes.backButton}
-              >
-                {activeStep === 0 ? 'Cancel' : 'Back'}
-              </Button>
-              <Button variant="contained" color="primary" onClick={handleNext}>
-                {activeStep < steps.length - 1 ? 'Next' : 'Finish'}
-              </Button>
-            </div>
+          <Stepper activeStep={activeStep} style={{}} orientation={'vertical'}>
+            {/** TODO i tried to remove stepper to other component, but i can't raised state to up  */}
+            {steps.map((step) => (
+              <Step key={step.label}>
+                <StepLabel>{step.instruction}</StepLabel>
+                <StepContent>{getStepContent(activeStep)}</StepContent>
+              </Step>
+            ))}
+          </Stepper>
+          <Divider className={classes.divider} />
+          <div style={{ display: 'flex', justifyContent: 'space-around' }}>
+            <Button
+              onClick={activeStep === 0 ? handleClose : handleBack}
+              className={classes.backButton}
+            >
+              {activeStep === 0 ? 'Cancel' : 'Back'}
+            </Button>
+            <Button variant="contained" color="primary" onClick={handleNext}>
+              {activeStep < steps.length - 1 ? 'Next' : 'Finish'}
+            </Button>
           </div>
         </div>
       </Base>

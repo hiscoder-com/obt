@@ -8,6 +8,15 @@ import {
   Button,
 } from '@material-ui/core';
 
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme) => ({
+  paperFullWidth: {
+    margin: '8px',
+    width: 'calc(100% - 8px)',
+  },
+}));
+
 function DialogUI({
   open,
   titleDialog,
@@ -22,11 +31,18 @@ function DialogUI({
   //TODO I can't destructed object like this:
   // const { classClose, variantClose, colorClose } =  styleClose;
   // const { classApply, variantApply, colorApply } = styleApply;
+  const classes = useStyles();
 
   return (
-    <Dialog open={open} onClose={onClose}>
+    <Dialog
+      classes={classes}
+      open={open}
+      fullWidth={true}
+      maxWidth={'sm'}
+      onClose={onClose}
+    >
       {titleDialog && <DialogTitle>{titleDialog}</DialogTitle>}
-      <DialogContent>{children}</DialogContent>
+      <DialogContent style={{ padding: 0 }}>{children}</DialogContent>
       {(labelClose || labelApply) && (
         <DialogActions>
           {labelClose && (
