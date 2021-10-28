@@ -29,7 +29,7 @@ function OBSContent({ markdown, verse, chapter, fontSize, type, goToBookChapterV
   const { t } = useTranslation();
   const [verses, setVerses] = useState();
 
-  const [verseRef] = useScrollToVerse();
+  const [verseRef] = useScrollToVerse('center');
 
   const mdToVerses = (md) => {
     let _markdown = md.split(/\n[\s]*/);
@@ -60,15 +60,15 @@ function OBSContent({ markdown, verse, chapter, fontSize, type, goToBookChapterV
       const { versesObject, headerMd, linkMd } = mdToVerses(markdown);
       const contentMd = versesObject.map((item) => {
         const { key, urlImage, text } = item;
-        const verseStyle = {
-          fontSize: fontSize + '%',
-        };
+
         return (
           <div
             ref={(ref) => {
-              key === verse && verseRef(ref);
+              key.toString() === verse.toString() &&
+                verse.toString() !== '1' &&
+                verseRef(ref);
             }}
-            className={'verse' + (parseInt(key) === parseInt(verse) ? ' current' : '')}
+            className={'verse' + (key.toString() === verse.toString() ? ' current' : '')}
             key={key}
             onClick={() => {
               goToBookChapterVerse('obs', chapter, key);
@@ -84,7 +84,6 @@ function OBSContent({ markdown, verse, chapter, fontSize, type, goToBookChapterV
             )}
             {text.split('\n').map((el, index) => (
               <p
-                style={verseStyle}
                 key={index}
                 onContextMenu={(e) => {
                   setReferenceBlock({
@@ -102,13 +101,23 @@ function OBSContent({ markdown, verse, chapter, fontSize, type, goToBookChapterV
           </div>
         );
       });
+      const verseStyle = {
+        fontSize: fontSize + '%',
+      };
       const versesOBS = (
-        <>
-          <h1>{headerMd}</h1>
+        <div style={verseStyle}>
+          <h1
+            ref={(ref) => {
+              '1' === verse.toString() && verseRef(ref);
+            }}
+          >
+            {headerMd}
+          </h1>
           {contentMd}
           <br />
           <i>{linkMd}</i>
-        </>
+          <br />
+        </div>
       );
       setVerses(versesOBS);
     } else {

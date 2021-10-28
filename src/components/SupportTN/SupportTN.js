@@ -1,29 +1,12 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { Card, CardContent, useContent, useCardState } from 'translation-helps-rcl';
 
-import { AppContext, ReferenceContext } from '../../context';
-import { server } from '../../config/base';
-
 export default function SupportTN(props) {
-  const { title, classes, onClose, type } = props;
-  const {
-    state: { resourcesApp, fontSize },
-  } = useContext(AppContext);
+  const { title, classes, onClose, type, server, fontSize, reference, resource } = props;
+
   const [selectedQuote, setQuote] = useState({});
-
-  const {
-    state: { referenceSelected },
-  } = useContext(ReferenceContext);
-
-  const { bookId, chapter, verse } = referenceSelected;
-
-  let resource = false;
-  resourcesApp.forEach((el) => {
-    if (el.name === type) {
-      resource = el;
-    }
-  });
+  const { bookId, chapter, verse } = reference;
 
   const {
     markdown,
@@ -40,18 +23,16 @@ export default function SupportTN(props) {
     owner: resource.owner ?? 'door43-catalog',
     server,
   });
-
   const {
     state: { item, headers, itemIndex, markdownView },
     actions: { setItemIndex, setMarkdownView },
   } = useCardState({
     items,
   });
-
   useEffect(() => {
     setItemIndex(0);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [referenceSelected]);
+  }, [reference]);
 
   const filterArray = ['OrigQuote', 'GLQuote', 'OccurrenceNote'];
 

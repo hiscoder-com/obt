@@ -54,8 +54,6 @@ function SearchResources({ anchorEl, onClose, open }) {
       }
       return next;
     });
-
-    onClose();
     setTimeout(function () {
       window.scrollTo(0, 10000);
     }, 1000);
@@ -69,7 +67,7 @@ function SearchResources({ anchorEl, onClose, open }) {
     axios
       .get(
         server +
-          '/api/catalog/v5/search?sort=lang,title&owner=' +
+          '/api/catalog/v5/search?limit=1000&sort=lang,title&owner=' +
           owners.join(',') +
           '&lang=' +
           languageResources.join(',') +

@@ -5,6 +5,23 @@ export const columns = {
   sm: 1,
 };
 export const defaultTplBible = {
+  tg: {
+    lg: [
+      { w: 4, h: 12, x: 0, y: 0, i: 'ru_rlob', minH: 3, minW: 1 },
+      { w: 4, h: 12, x: 4, y: 0, i: 'ru_rsob', minH: 3, minW: 1 },
+      { w: 4, h: 12, x: 8, y: 0, i: 'ru_tn', minH: 3, minW: 1 },
+    ],
+    md: [
+      { w: 3, h: 12, x: 0, y: 0, i: 'ru_rlob', minH: 3, minW: 1 },
+      { w: 3, h: 6, x: 3, y: 0, i: 'ru_rsob', minH: 3, minW: 1 },
+      { w: 3, h: 6, x: 3, y: 6, i: 'ru_tn', minH: 3, minW: 1 },
+    ],
+    sm: [
+      { w: 1, h: 4, x: 0, y: 0, i: 'ru_rlob', minH: 3, minW: 1 },
+      { w: 1, h: 4, x: 0, y: 4, i: 'ru_rsob', minH: 3, minW: 1 },
+      { w: 1, h: 4, x: 0, y: 8, i: 'ru_tn', minH: 3, minW: 1 },
+    ],
+  },
   ru: {
     lg: [
       { w: 4, h: 12, x: 0, y: 0, i: 'ru_rlob', minH: 3, minW: 1 },
@@ -42,6 +59,23 @@ export const defaultTplBible = {
 };
 
 export const defaultTplOBS = {
+  tg: {
+    lg: [
+      { w: 4, h: 12, x: 0, y: 0, i: 'tg_obs', minH: 3, minW: 1 },
+      { w: 4, h: 12, x: 4, y: 0, i: 'ru_obs', minH: 3, minW: 1 },
+      { w: 4, h: 12, x: 8, y: 0, i: 'ru_obs-tn', minH: 3, minW: 1 },
+    ],
+    md: [
+      { w: 3, h: 12, x: 0, y: 0, i: 'tg_obs', minH: 3, minW: 1 },
+      { w: 3, h: 6, x: 3, y: 0, i: 'ru_obs', minH: 3, minW: 1 },
+      { w: 3, h: 6, x: 3, y: 6, i: 'ru_obs-tn', minH: 3, minW: 1 },
+    ],
+    sm: [
+      { w: 1, h: 5, x: 0, y: 0, i: 'tg_obs', minH: 3, minW: 1 },
+      { w: 1, h: 4, x: 0, y: 5, i: 'ru_obs', minH: 3, minW: 1 },
+      { w: 1, h: 3, x: 0, y: 9, i: 'ru_obs-tn', minH: 3, minW: 1 },
+    ],
+  },
   ru: {
     lg: [
       { w: 4, h: 12, x: 0, y: 0, i: 'ru_obs', minH: 3, minW: 1 },
@@ -79,6 +113,11 @@ export const defaultTplOBS = {
 };
 
 export const defaultBibleReference = {
+  tg: {
+    bookId: 'tit',
+    chapter: 1,
+    verse: 1,
+  },
   ru: {
     bookId: 'tit',
     chapter: 1,
@@ -92,6 +131,11 @@ export const defaultBibleReference = {
 };
 
 export const defaultOBSReference = {
+  tg: {
+    bookId: 'obs',
+    chapter: 1,
+    verse: 1,
+  },
   ru: {
     bookId: 'obs',
     chapter: 1,
@@ -104,7 +148,7 @@ export const defaultOBSReference = {
   },
 };
 
-export const languages = ['en', 'ru' /**,'uk', 'pl'*/];
+export const languages = ['en', 'ru', 'tg' /**,'uk', 'pl'*/];
 
 /* CORE */
 

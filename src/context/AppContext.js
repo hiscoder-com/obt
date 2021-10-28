@@ -6,12 +6,13 @@ import { useTranslation } from 'react-i18next';
 import { ReferenceContext } from './ReferenceContext';
 import { getResources, getBookList, checkLSVal, getLayoutType } from '../helper';
 import {
-  server,
   defaultTplBible,
   defaultTplOBS,
   languages,
   bibleList,
+  server,
 } from '../config/base';
+
 export const AppContext = React.createContext();
 
 const _currentLanguage = checkLSVal('i18nextLng', languages[0]);
@@ -23,7 +24,6 @@ const _languageResources = checkLSVal(
   'object'
 );
 const _fontSize = parseInt(localStorage.getItem('fontSize'));
-const config = { server };
 
 export function AppContextProvider({ children }) {
   const {
@@ -46,7 +46,11 @@ export function AppContextProvider({ children }) {
   );
 
   const [breakpoint, setBreakpoint] = useState({ name: 'lg', cols: 12 });
-
+  /** TODO Create ResourceContext
+   * 1. Get information about resources ( like available bookId) from /Chapter  - content.resources.project.
+   * 2. Put all states about resources in ResourceContext.
+   * 3. Maybe make availableBookList in ResourceContext
+   */
   const [resourcesApp, setResourcesApp] = useState(_resourcesApp);
   const _resourceLinks = getResources(appConfig, resourcesApp);
   const [resourceLinks, setResourceLinks] = useState(_resourceLinks);
@@ -61,6 +65,7 @@ export function AppContextProvider({ children }) {
   const [openMainMenu, setOpenMainMenu] = useState(false);
   const [languageResources, setLanguageResources] = useState(_languageResources);
 
+  const config = { server };
   const { t } = useTranslation();
 
   useEffect(() => {

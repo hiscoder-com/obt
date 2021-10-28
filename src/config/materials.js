@@ -51,19 +51,7 @@ export const langs = [
   'vi',
 ];
 
-export const owners = [
-  'door43-catalog',
-  'bsa',
-  'unfoldingword',
-  // 'photonomad1',
-  // 'wycliffeassociates',
-  'ru_gl',
-  // 'demo',
-  // 'richmahn',
-  // 'joel',
-  // 'exegetical-bcs',
-  // 'pcet',
-];
+export const owners = ['door43-catalog', 'bsa', 'unfoldingword', 'ru_gl'];
 
 //resource, that have not manifest or others reason
 export const blackListResources = [
