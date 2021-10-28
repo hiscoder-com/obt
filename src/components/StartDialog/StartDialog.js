@@ -103,7 +103,11 @@ function StartDialog() {
         </div>
         <Divider className={classes.divider} />
         <div className={classes.root} style={{ textAlign: 'center' }}>
-          <Stepper activeStep={activeStep} style={{}} orientation={'vertical'}>
+          <Stepper
+            activeStep={activeStep}
+            style={{ padding: '20px 6px' }}
+            orientation={'vertical'}
+          >
             {/** TODO i tried to remove stepper to other component, but i can't raised state to up  */}
             {steps.map((step) => (
               <Step key={step.label}>

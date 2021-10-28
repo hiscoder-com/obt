@@ -34,7 +34,10 @@ function Card({ type, onClose, classes }) {
   });
 
   if (!resource && resourcesApp.length > 0) {
-    const _appConfig = appConfig.filter((el) => el.i !== type);
+    let _appConfig = {};
+    _appConfig.lg = appConfig.lg.filter((el) => el.i !== type);
+    _appConfig.md = appConfig.md.filter((el) => el.i !== type);
+    _appConfig.sm = appConfig.sm.filter((el) => el.i !== type);
     setAppConfig(_appConfig);
     return false;
   }

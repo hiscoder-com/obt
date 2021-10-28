@@ -48,10 +48,6 @@
   "not_set": "--",
   "el-x-koine": "Ancient greek",
   "hbo": "Hebrew",
-  "en": "English",
-  "ru": "Русский",
-  "pl": "Polskie",
-  "uk": "Український",
   "introStart": "Here is an interactive guide to the App.<br>We want to show you the functionality.<br>Let's go!",
   "introAppBar": "In the upper part there is an application bar (app bar). On the left is a choice between the Bible and Open Bible Stories (OBS).<br> In the center there are buttons that display the current address and by click them in the 'Bible' mode you can select a book and a chapter, and in the OBS mode - a history. On the right there is a button that opens the main menu (hamburger menu)",
   "introBookList": "The book selection dialog. After selecting a book, the chapter selection window will automatically open",
@@ -228,6 +224,7 @@
   "or": "ଓଡ଼ିଆ",
   "pa": "ਪੰਜਾਬੀ, پنجابی‎",
   "pt-br": "Português",
+  "rmy-x-bsa": "South Slavic Ardilean Bayash",
   "rmy-x-vc": "Vlach Čergarski",
   "rmy-x-vg": "Vlach Gurbert",
   "rmy-x-vwa": "Vlach Western Arli",
@@ -243,5 +240,6 @@
   "tpi": "Tok Pisin",
   "tr": "Türkçe",
   "ur": "اردو",
+  "ur-deva": "Urdu Devanagari script",
   "vi": "Tiếng Việt"
 }
