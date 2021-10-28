@@ -9,20 +9,26 @@ import { langs } from '../../config/materials';
 
 function SelectResourcesLanguages() {
   const { t } = useTranslation();
+
   const {
     state: { languageResources, appConfig, currentLanguage },
     actions: { setLanguageResources },
   } = useContext(AppContext);
 
-  const filterOptions = (options, { inputValue }) =>
-    matchSorter(options, inputValue, {
+  const filterOptions = (options, { inputValue }) => {
+    return matchSorter(options, inputValue, {
+      keys: ['title', 'id'],
       threshold: matchSorter.rankings.WORD_STARTS_WITH,
     });
+  };
+
+  // круто сделал
   const getLanguageId = (appConfig) => {
     let oldAppConfig = JSON.parse(localStorage.getItem('appConfig'));
     const allValues = [...Object.values(oldAppConfig)];
     allValues.push(appConfig);
     let currentLangs = new Set();
+    // нужно ли тут проверять appConfig если мы его добавили в allValues
     if (appConfig && allValues) {
       allValues.forEach((value) => {
         value.lg.forEach((el) => {
@@ -36,30 +42,42 @@ function SelectResourcesLanguages() {
 
   const fixedOptions = getLanguageId(appConfig);
 
+  let options = [];
+  langs.forEach((el) => {
+    options.push({ title: t(el), id: el });
+  });
+
+  let value = [];
+  languageResources.forEach((el) => {
+    value.push({ title: t(el), id: el });
+  });
+
   return (
     <div>
       <Autocomplete
         multiple
-        id="tags-standard"
-        options={langs}
+        options={options}
+        filterSelectedOptions={true}
         filterOptions={filterOptions}
-        getOptionLabel={(option) => t(option)}
-        value={languageResources} //TODO search can't work, i think need to build  array with t(language) and put into value new ar
+        getOptionLabel={(option) => option.title}
+        value={value}
+        getOptionSelected={(option, value) => option.id === value.id}
         onChange={(event, newValue) => {
           const _languageResources = [
             ...fixedOptions,
-            ...newValue.filter((option) => fixedOptions.indexOf(option) === -1),
+            ...newValue
+              .filter((option) => fixedOptions.indexOf(option.id) === -1)
+              .map((el) => el.id),
           ];
           setLanguageResources(_languageResources);
-          localStorage.setItem('languageResources', JSON.stringify(_languageResources));
         }}
         renderTags={(tagValue, getTagProps) =>
           tagValue.map((option, index) => (
             <Chip
-              key={option}
-              label={t(option)}
+              key={option.id}
+              label={t(option.title)}
               {...getTagProps({ index })}
-              disabled={fixedOptions.indexOf(option) !== -1}
+              disabled={fixedOptions.indexOf(option.id) !== -1}
             />
           ))
         }
