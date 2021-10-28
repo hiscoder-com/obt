@@ -45,7 +45,7 @@ function StartDialog() {
     actions: { goToBookChapterVerse },
   } = useContext(ReferenceContext);
 
-  const handleApply = () => {
+  const handleClose = () => {
     setOpenStartDialog(false);
     setOpenDialog(false);
     setLoadIntro(true);
