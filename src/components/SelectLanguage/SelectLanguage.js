@@ -4,6 +4,7 @@ import { AppContext } from '../../context/AppContext';
 import { languages } from '../../config/base';
 import { FormControl, NativeSelect, InputLabel } from '@material-ui/core';
 import { useStyles } from './style';
+import { cloneDeep } from 'lodash';
 
 export default function SelectLanguage({ label, style }) {
   const {
@@ -20,10 +21,11 @@ export default function SelectLanguage({ label, style }) {
   };
   useEffect(() => {
     setLanguageResources((prev) => {
-      if (!prev.includes(currentLanguage)) {
-        prev.push(currentLanguage);
+      const new_val = cloneDeep(prev);
+      if (!new_val.includes(currentLanguage)) {
+        new_val.push(currentLanguage);
       }
-      return prev;
+      return new_val;
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentLanguage]);
