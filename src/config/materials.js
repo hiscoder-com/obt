@@ -69,8 +69,8 @@ export const subjects = [
   'Open Bible Stories',
   'OBS Translation Notes',
   'OBS Translation Questions',
-  //'OBS Study Notes',
-  //'OBS Study Questions',
+  'OBS Study Notes',
+  'OBS Study Questions',
   //'TSV OBS Translation Words Links',
   //'Translation Academy',
   //'Translation Notes',
@@ -82,7 +82,7 @@ export const subjects = [
   'Aligned Bible',
   'Hebrew Old Testament',
   'Greek New Testament',
-  //'',
+  // 'TSV OBS Study Questions',
 ];
 export const bibleSubjects = [
   'TSV Translation Notes',
@@ -97,4 +97,7 @@ export const obsSubjects = [
   'Open Bible Stories',
   'OBS Translation Notes',
   'OBS Translation Questions',
+  // 'TSV OBS Study Questions',
+  'OBS Study Questions',
+  'OBS Study Notes',
 ];
