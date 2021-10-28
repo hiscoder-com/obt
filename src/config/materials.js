@@ -77,7 +77,7 @@ export const subjects = [
   'TSV Translation Notes',
   'Translation Questions',
   //'Translation Words',
-  //'TSV Translation Words Links',
+  'TSV Translation Words Links',
   'Bible',
   'Aligned Bible',
   'Hebrew Old Testament',
@@ -87,6 +87,7 @@ export const subjects = [
 export const bibleSubjects = [
   'TSV Translation Notes',
   'Translation Questions',
+  'TSV Translation Words Links',
   'Bible',
   'Aligned Bible',
   'Hebrew Old Testament',

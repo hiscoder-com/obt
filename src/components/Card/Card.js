@@ -6,7 +6,7 @@ import {
   Chapter,
   SupportTQ,
   SupportTN,
-  SupportTW,
+  SupportTWL,
   OBSVerses,
   SupportOBSTN,
   SupportOBSTQ,
@@ -50,8 +50,8 @@ function Card({ type, onClose, classes }) {
       CurrentCard = SupportTQ;
       break;
 
-    case 'Translation Words':
-      CurrentCard = SupportTW;
+    case 'TSV Translation Words Links':
+      CurrentCard = SupportTWL;
       break;
 
     case 'Open Bible Stories':

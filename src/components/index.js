@@ -20,7 +20,7 @@ export * from './SupportOBSSQ';
 export * from './SupportOBSSN';
 export * from './SupportTN';
 export * from './SupportTQ';
-export * from './SupportTW';
+export * from './SupportTWL';
 export * from './TypoReport';
 export * from './WorkspaceManager';
 export * from './Swipes';

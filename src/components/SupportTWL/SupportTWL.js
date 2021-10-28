@@ -1,28 +1,11 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { Card, CardContent, useContent, useCardState } from 'translation-helps-rcl';
 
-import { AppContext, ReferenceContext } from '../../context';
-import { server } from '../../config/base';
+export default function SupportTWL(props) {
+  const { title, classes, onClose, type, server, fontSize, reference, resource } = props;
 
-export default function SupportTW(props) {
-  const { title, classes, onClose, type } = props;
-  const {
-    state: { resourcesApp, fontSize },
-  } = useContext(AppContext);
-
-  const {
-    state: { referenceSelected },
-  } = useContext(ReferenceContext);
-
-  const { bookId, chapter, verse } = referenceSelected;
-
-  let resource = false;
-  resourcesApp.forEach((el) => {
-    if (el.name === type) {
-      resource = el;
-    }
-  });
+  const { bookId, chapter, verse } = reference;
 
   const [selectedQuote, setQuote] = useState({});
   const {
@@ -36,7 +19,7 @@ export default function SupportTW(props) {
     projectId: bookId,
     ref: resource.branch ?? 'master',
     languageId: resource.languageId ?? 'ru',
-    resourceId: 'tw',
+    resourceId: 'twl',
     owner: resource.owner ?? 'door43-catalog',
     server,
   });
@@ -47,6 +30,10 @@ export default function SupportTW(props) {
   } = useCardState({
     items,
   });
+  useEffect(() => {
+    setItemIndex(0);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [reference]);
 
   return (
     <Card
