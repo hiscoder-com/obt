@@ -6,7 +6,6 @@ import axios from 'axios';
 import { AppContext, ReferenceContext } from '../../context';
 import { DialogUI } from '../DialogUI';
 import {
-  langs,
   subjects,
   owners,
   blackListResources,
@@ -38,7 +37,6 @@ function SearchResources({ anchorEl, onClose, open }) {
   const classes = useStyles();
   const addClasses = useAddStyles();
   const [openDialog, setOpenDialog] = useState(false);
-  const [currentLang] = useState(langs[0]);
 
   const uniqueResources = getUniqueResources(appConfig, resourcesApp);
 
@@ -104,7 +102,8 @@ function SearchResources({ anchorEl, onClose, open }) {
       })
       .catch((err) => console.log(err));
     return () => {};
-  }, [currentLang, setResourcesApp, languageResources]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [languageResources]);
   let blockLang = '';
   const currentSubjects = bookId === 'obs' ? obsSubjects : bibleSubjects;
   const menuItems = uniqueResources

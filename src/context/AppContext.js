@@ -19,7 +19,7 @@ const _resourcesApp = checkLSVal('resourcesApp', [], 'object');
 const _startDialog = checkLSVal('startDialog', true, 'boolean');
 const _languageResources = checkLSVal(
   'languageResources',
-  ['en', 'el-x-koine'],
+  ['en', 'el-x-koine', 'hbo'],
   'object'
 );
 const _fontSize = parseInt(localStorage.getItem('fontSize'));
@@ -60,7 +60,6 @@ export function AppContextProvider({ children }) {
   const [openStartDialog, setOpenStartDialog] = useState(_startDialog);
   const [openMainMenu, setOpenMainMenu] = useState(false);
   const [languageResources, setLanguageResources] = useState(_languageResources);
-  // ['en', 'el-x-koine'];
 
   const { t } = useTranslation();
 
@@ -91,8 +90,13 @@ export function AppContextProvider({ children }) {
   }, [resourcesApp]);
 
   useEffect(() => {
+    localStorage.setItem('languageResources', JSON.stringify(languageResources));
+  }, [languageResources]);
+
+  useEffect(() => {
     localStorage.setItem('loadIntro', loadIntro);
   }, [loadIntro]);
+
   useEffect(() => {
     localStorage.setItem('startDialog', openStartDialog);
   }, [openStartDialog]);

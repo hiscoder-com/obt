@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { AppContext } from '../../context/AppContext';
 import { languages } from '../../config/base';
@@ -7,7 +7,7 @@ import { useStyles } from './style';
 
 export default function SelectLanguage({ label }) {
   const {
-    state: { currentLanguage, languageResources },
+    state: { currentLanguage },
     actions: { setCurrentLanguage, setLanguageResources },
   } = useContext(AppContext);
   const classes = useStyles();
@@ -17,15 +17,15 @@ export default function SelectLanguage({ label }) {
   const handleChange = (e) => {
     i18n.changeLanguage(e.target.value);
     setCurrentLanguage(e.target.value);
-    // if (!languageResources.includes(currentLanguage)) {
-    //   setLanguageResources((prev) => prev.concat(currentLanguage));
-    // }
   };
-  React.useEffect(() => {
-    if (!languageResources.includes(currentLanguage)) {
-      setLanguageResources((prev) => prev.concat(currentLanguage));
-    }
-    //TODO When i change currentLanguage - in languageResource concat currentLanguage twice
+  useEffect(() => {
+    setLanguageResources((prev) => {
+      if (!prev.includes(currentLanguage)) {
+        prev.push(currentLanguage);
+      }
+      console.log({ prev });
+      return prev;
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentLanguage]);
   return (
