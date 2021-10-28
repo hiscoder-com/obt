@@ -25,14 +25,20 @@ function DialogUI({
   children,
   onClose,
   onApply,
-  styleClose,
-  styleApply,
+  styleClose = { classClose: {}, variantClose: 'outlined', colorClose: 'secondary' },
+  styleApply = { classApply: {}, variantApply: 'outlined', colorApply: 'secondary' },
 }) {
-  //TODO I can't destructed object like this:
-  // const { classClose, variantClose, colorClose } =  styleClose;
-  // const { classApply, variantApply, colorApply } = styleApply;
   const classes = useStyles();
-
+  const {
+    classClose = {},
+    variantClose = 'outlined',
+    colorClose = 'secondary',
+  } = styleClose;
+  const {
+    classApply = {},
+    variantApply = 'outlined',
+    colorApply = 'secondary',
+  } = styleApply;
   return (
     <Dialog
       classes={classes}
@@ -42,23 +48,15 @@ function DialogUI({
       onClose={onClose}
     >
       {titleDialog && <DialogTitle>{titleDialog}</DialogTitle>}
-      <DialogContent style={{ padding: 0 }}>{children}</DialogContent>
+      <DialogContent>{children}</DialogContent>
       {(labelClose || labelApply) && (
         <DialogActions>
           {labelClose && (
             <Button
               onClick={onClose}
-              class={styleClose.classClose}
-              variant={
-                styleClose && styleClose?.variantClose && !styleClose?.classClose
-                  ? styleClose.variantClose
-                  : 'outlined'
-              }
-              color={
-                styleClose && styleClose?.colorClose && !styleClose?.classClose
-                  ? styleClose.colorClose
-                  : 'secondary'
-              }
+              class={classClose}
+              variant={variantClose}
+              color={colorClose}
             >
               {labelClose}
             </Button>
@@ -66,17 +64,9 @@ function DialogUI({
           {labelApply && (
             <Button
               onClick={onApply}
-              class={styleApply.classApply}
-              variant={
-                styleApply.variantApply && !styleApply.classApply
-                  ? styleApply.variantApply
-                  : 'outlined'
-              }
-              color={
-                styleApply.colorApply && !styleApply.classApply
-                  ? styleApply.colorApply
-                  : 'secondary'
-              }
+              class={classApply}
+              variant={variantApply}
+              color={colorApply}
             >
               {labelApply}
             </Button>
