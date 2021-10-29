@@ -7,11 +7,13 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 import { TextField, Chip } from '@material-ui/core';
 import { langs } from '../../config/materials';
 
+import { getLanguageIds } from '../../helper';
+
 function SelectResourcesLanguages() {
   const { t } = useTranslation();
 
   const {
-    state: { languageResources, appConfig, currentLanguage },
+    state: { languageResources, appConfig },
     actions: { setLanguageResources },
   } = useContext(AppContext);
 
@@ -22,25 +24,7 @@ function SelectResourcesLanguages() {
     });
   };
 
-  // круто сделал
-  const getLanguageId = (appConfig) => {
-    let oldAppConfig = JSON.parse(localStorage.getItem('appConfig'));
-    const allValues = [...Object.values(oldAppConfig)];
-    allValues.push(appConfig);
-    let currentLangs = new Set();
-    // нужно ли тут проверять appConfig если мы его добавили в allValues
-    if (appConfig && allValues) {
-      allValues.forEach((value) => {
-        value.lg.forEach((el) => {
-          currentLangs.add(el.i.split('_')[0]);
-        });
-      });
-    }
-    currentLangs.add(currentLanguage);
-    return Array.from(currentLangs);
-  };
-
-  const fixedOptions = getLanguageId(appConfig);
+  const fixedOptions = getLanguageIds(appConfig);
 
   let options = [];
   langs.forEach((el) => {
