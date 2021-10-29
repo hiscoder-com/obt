@@ -61,6 +61,9 @@ export const blackListResources = [
   { owner: 'unfoldingword', name: 'en_ueb' },
   { owner: 'ru_gl', name: 'ru_rlob' },
   { owner: 'ru_gl', name: 'ru_rsob' },
+  { owner: 'door43-catalog', name: 'ru_obs' },
+  { owner: 'door43-catalog', name: 'fr_obs-tn' },
+  { owner: 'door43-catalog', name: 'fr_obs-tq' },
 ];
 
 /* CORE */
