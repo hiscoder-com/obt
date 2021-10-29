@@ -13,17 +13,15 @@ import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 
 ReactDOM.render(
   <ErrorBoundary>
-    <React.StrictMode>
-      <BrowserRouter>
-        <Switch>
-          <ContextProviders>
-            <Route>
-              <App />
-            </Route>
-          </ContextProviders>
-        </Switch>
-      </BrowserRouter>
-    </React.StrictMode>
+    <BrowserRouter>
+      <Switch>
+        <ContextProviders>
+          <Route>
+            <App />
+          </Route>
+        </ContextProviders>
+      </Switch>
+    </BrowserRouter>
   </ErrorBoundary>,
   document.getElementById('root')
 );
