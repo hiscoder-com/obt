@@ -158,7 +158,6 @@ function SearchResources({ anchorEl, onClose, open }) {
         open={openDialog}
         labelApply={t('Apply')}
         onApply={handleCloseDialog}
-        styleApply={{ colorApply: 'primary' }}
       >
         <SelectResourcesLanguages />
       </DialogUI>

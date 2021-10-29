@@ -25,20 +25,12 @@ function DialogUI({
   children,
   onClose,
   onApply,
-  styleClose = { classClose: {}, variantClose: 'outlined', colorClose: 'secondary' },
-  styleApply = { classApply: {}, variantApply: 'outlined', colorApply: 'secondary' },
+  styleClose = { variantClose: 'outlined', colorClose: 'secondary' },
+  styleApply = { variantApply: 'outlined', colorApply: 'primary' },
 }) {
   const classes = useStyles();
-  const {
-    classClose = {},
-    variantClose = 'outlined',
-    colorClose = 'secondary',
-  } = styleClose;
-  const {
-    classApply = {},
-    variantApply = 'outlined',
-    colorApply = 'secondary',
-  } = styleApply;
+  const { variantClose = 'outlined', colorClose = 'secondary' } = styleClose;
+  const { variantApply = 'outlined', colorApply = 'primary' } = styleApply;
   return (
     <Dialog
       classes={classes}
@@ -52,22 +44,12 @@ function DialogUI({
       {(labelClose || labelApply) && (
         <DialogActions>
           {labelClose && (
-            <Button
-              onClick={onClose}
-              class={classClose}
-              variant={variantClose}
-              color={colorClose}
-            >
+            <Button onClick={onClose} variant={variantClose} color={colorClose}>
               {labelClose}
             </Button>
           )}
           {labelApply && (
-            <Button
-              onClick={onApply}
-              class={classApply}
-              variant={variantApply}
-              color={colorApply}
-            >
+            <Button onClick={onApply} variant={variantApply} color={colorApply}>
               {labelApply}
             </Button>
           )}
