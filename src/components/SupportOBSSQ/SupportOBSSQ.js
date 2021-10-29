@@ -33,15 +33,15 @@ export default function SupportOBSSQ(props) {
     items,
   });
 
-  // const [content, setContent] = React.useState();
-  // const { onTsvEdit } = useTsvMerger({
+  const [content, setContent] = React.useState();
+  // const onTsvEdit = useTsvMerger({
   //   tsvs,
   //   verse,
   //   chapter,
   //   itemIndex,
   //   setContent: setContent,
   // });
-  // console.log(content);
+  console.log(tsvs);
   return (
     <Card
       closeable

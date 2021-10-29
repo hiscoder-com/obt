@@ -28,7 +28,14 @@ export default function SupportTN(props) {
     actions: { setItemIndex, setMarkdownView },
   } = useCardState({
     items,
+    setQuote,
+    selectedQuote,
+    verse,
+    chapter,
+    projectId: bookId,
+    resourceId: 'tn',
   });
+  console.log(selectedQuote);
   useEffect(() => {
     setItemIndex(0);
     // eslint-disable-next-line react-hooks/exhaustive-deps
