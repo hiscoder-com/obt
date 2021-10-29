@@ -91,7 +91,7 @@ export default function App() {
         return next;
       });
     } else {
-      enqueueSnackbar(t('closeLastResource'), { variant: 'error' });
+      enqueueSnackbar(t('closeLastResource'), { variant: 'warning' });
     }
   };
 
