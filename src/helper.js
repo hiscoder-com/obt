@@ -363,7 +363,6 @@ export const getLayoutType = (layout) => {
   return type;
 };
 
-// круто сделал
 export const getLanguageIds = () => {
   let oldAppConfig = JSON.parse(localStorage.getItem('appConfig'));
   const allValues = [...Object.values(oldAppConfig)];

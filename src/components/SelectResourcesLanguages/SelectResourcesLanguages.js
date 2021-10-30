@@ -13,7 +13,7 @@ function SelectResourcesLanguages() {
   const { t } = useTranslation();
 
   const {
-    state: { languageResources, appConfig },
+    state: { languageResources },
     actions: { setLanguageResources },
   } = useContext(AppContext);
 
@@ -24,7 +24,7 @@ function SelectResourcesLanguages() {
     });
   };
 
-  const fixedOptions = getLanguageIds(appConfig);
+  const fixedOptions = getLanguageIds();
 
   let options = [];
   langs.forEach((el) => {

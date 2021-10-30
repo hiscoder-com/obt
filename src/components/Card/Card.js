@@ -18,8 +18,7 @@ function Card({ type, onClose, classes }) {
    *Move  all repeated code from Chapter,all Support* like const {*}=useContent({*}) to here
    */
   const {
-    state: { resourcesApp, appConfig, fontSize },
-    actions: { setAppConfig },
+    state: { resourcesApp, fontSize },
   } = useContext(AppContext);
 
   const {
@@ -34,11 +33,6 @@ function Card({ type, onClose, classes }) {
   });
 
   if (!resource && resourcesApp.length > 0) {
-    let _appConfig = {};
-    _appConfig.lg = appConfig.lg.filter((el) => el.i !== type);
-    _appConfig.md = appConfig.md.filter((el) => el.i !== type);
-    _appConfig.sm = appConfig.sm.filter((el) => el.i !== type);
-    setAppConfig(_appConfig);
     return false;
   }
 

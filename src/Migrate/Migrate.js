@@ -17,14 +17,14 @@ export default function Migrate() {
 
 /**
  * get current version of app
- * If there is nothing in the repository, then install the latest version.
- * Otherwise, install version 1.2.1, since it was in it that we introduced versioning.
+ * If there is nothing in the localstorage, then install the latest version.
+ * Otherwise, install version 1.1.0, since it was in it that we introduced versioning.
  * @returns current version of app
  */
 const getVersion = () => {
   let lsVersion = localStorage.getItem(VERSION_KEY);
   if (lsVersion === null) {
-    if (localStorage.getItem('i18nextLng') === null) {
+    if (localStorage.getItem('appConfig') === null) {
       lsVersion = package_json.version;
     } else {
       lsVersion = '1.1.0';

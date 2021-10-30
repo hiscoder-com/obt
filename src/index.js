@@ -4,6 +4,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import App from './App';
 import ErrorBoundary from './ErrorBoundary';
 import './i18next';
+import { Migrate } from './Migrate';
 import ContextProviders from './context/ContextProviders';
 import './styles/style.css';
 
@@ -11,6 +12,7 @@ import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 // import reportWebVitals from './reportWebVitals';
 // const App = React.lazy(() => import('./App.js'));
 
+Migrate();
 ReactDOM.render(
   <ErrorBoundary>
     <BrowserRouter>

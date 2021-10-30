@@ -137,7 +137,7 @@ function SearchResources({ anchorEl, onClose, open }) {
         open={open}
         onClose={onClose}
       >
-        <MenuItem>
+        <MenuItem button={false}>
           <Button
             ckasses={addClasses}
             onClick={handleOpenDialog}
