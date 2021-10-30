@@ -16,13 +16,6 @@ import {
 export const AppContext = React.createContext();
 
 const _currentLanguage = checkLSVal('i18nextLng', languages[0]);
-const _resourcesApp = checkLSVal('resourcesApp', [], 'object');
-const _startDialog = checkLSVal('startDialog', true, 'boolean');
-const _languageResources = checkLSVal(
-  'languageResources',
-  ['en', 'el-x-koine', 'hbo'],
-  'object'
-);
 const _fontSize = parseInt(localStorage.getItem('fontSize'));
 
 export function AppContextProvider({ children }) {
@@ -51,7 +44,9 @@ export function AppContextProvider({ children }) {
    * 2. Put all states about resources in ResourceContext.
    * 3. Maybe make availableBookList in ResourceContext
    */
-  const [resourcesApp, setResourcesApp] = useState(_resourcesApp);
+  const [resourcesApp, setResourcesApp] = useState(() => {
+    return checkLSVal('resourcesApp', [], 'object');
+  });
   const _resourceLinks = getResources(appConfig, resourcesApp);
   const [resourceLinks, setResourceLinks] = useState(_resourceLinks);
   const [resources, setResources] = useState([]);
@@ -61,9 +56,13 @@ export function AppContextProvider({ children }) {
   const [errorFile, setErrorFile] = useState('');
   const [fontSize, setFontSize] = useState(_fontSize ? _fontSize : 100);
   const [loadIntro, setLoadIntro] = useState(false);
-  const [openStartDialog, setOpenStartDialog] = useState(_startDialog);
+  const [openStartDialog, setOpenStartDialog] = useState(() => {
+    return checkLSVal('startDialog', true, 'boolean');
+  });
   const [openMainMenu, setOpenMainMenu] = useState(false);
-  const [languageResources, setLanguageResources] = useState(_languageResources);
+  const [languageResources, setLanguageResources] = useState(() => {
+    return checkLSVal('languageResources', ['en', 'el-x-koine', 'hbo'], 'object');
+  });
 
   const config = { server };
   const { t } = useTranslation();
