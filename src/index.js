@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { SnackbarProvider } from 'notistack';
 import App from './App';
 import ErrorBoundary from './ErrorBoundary';
 import './i18next';
@@ -19,7 +20,9 @@ ReactDOM.render(
       <Switch>
         <ContextProviders>
           <Route>
-            <App />
+            <SnackbarProvider maxSnack={3}>
+              <App />
+            </SnackbarProvider>
           </Route>
         </ContextProviders>
       </Switch>
