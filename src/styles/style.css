@@ -73,5 +73,5 @@ input {
   display: none !important;
 }
 div[id*="_title"]{
-  font-family:inherit;
+  font-family: inherit;
 }

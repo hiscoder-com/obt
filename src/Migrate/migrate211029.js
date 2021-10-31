@@ -6,6 +6,7 @@ const UPDATE_VERSION = '1.4.0';
 export const migrate211029 = (v) => {
   if (gt(UPDATE_VERSION, v)) {
     addLangs();
+    localStorage.setItem('startDialog', true);
     localStorage.setItem(VERSION_KEY, UPDATE_VERSION);
   }
 };
