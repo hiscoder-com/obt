@@ -112,12 +112,18 @@ function SearchResources({ anchorEl, onClose, open }) {
         return (
           <div key={el.id}>
             <p className={classes.divider}>{t(el.languageId)}</p>
-            <MenuItem onClick={() => handleAddMaterial(el)}>{el.title}</MenuItem>
+            <MenuItem className={classes.menu} onClick={() => handleAddMaterial(el)}>
+              {el.title}
+            </MenuItem>
           </div>
         );
       } else {
         return (
-          <MenuItem key={el.id} onClick={() => handleAddMaterial(el)}>
+          <MenuItem
+            className={classes.menu}
+            key={el.id}
+            onClick={() => handleAddMaterial(el)}
+          >
             {el.title}
           </MenuItem>
         );
