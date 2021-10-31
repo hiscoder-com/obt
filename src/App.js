@@ -123,20 +123,22 @@ export default function App() {
   const onBreakpointChange = (name, cols) => {
     setBreakpoint({ name, cols });
   };
+
   const [selections, setSelections] = React.useState([]);
   return (
+    // <SelectionsContextProvider
+    //   selections={selections}
+    //   onSelections={setSelections}
+    //   // quote={selectedQuote?.quote}
+    //   // occurrence={selectedQuote?.occurrence?.toString()}
+    //   // verseObjects={originalScriptureConfig.verseObjects || []}
+    // >
     <SnackbarProvider maxSnack={3}>
       <StartDialog />
       <Intro />
       <SubMenuBar />
       <TypoReport />
-      {/* <SelectionsContextProvider
-        selections={selections}
-        onSelections={setSelections}
-        quote={selectedQuote?.quote}
-        occurrence={selectedQuote?.occurrence?.toString()}
-        verseObjects={originalScriptureConfig.verseObjects || []}
-      > */}
+
       <Workspace
         gridMargin={[15, 15]}
         autoResize={true}
@@ -152,7 +154,7 @@ export default function App() {
       >
         {cards}
       </Workspace>
-      {/* </SelectionsContextProvider> */}
     </SnackbarProvider>
+    // </SelectionsContextProvider>
   );
 }

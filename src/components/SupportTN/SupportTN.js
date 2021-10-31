@@ -23,6 +23,7 @@ export default function SupportTN(props) {
     owner: resource.owner ?? 'door43-catalog',
     server,
   });
+
   const {
     state: { item, headers, itemIndex, markdownView },
     actions: { setItemIndex, setMarkdownView },
@@ -35,7 +36,7 @@ export default function SupportTN(props) {
     projectId: bookId,
     resourceId: 'tn',
   });
-  console.log(selectedQuote);
+
   useEffect(() => {
     setItemIndex(0);
     // eslint-disable-next-line react-hooks/exhaustive-deps

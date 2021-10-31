@@ -1,47 +1,39 @@
 import React from 'react';
-import {
-  Card,
-  CardContent,
-  useContent,
-  useCardState,
-  useTsvMerger,
-} from 'translation-helps-rcl';
+import { Card, CardContent, useContent, useCardState } from 'translation-helps-rcl';
 
 export default function SupportOBSSQ(props) {
   const { title, classes, onClose, type, server, fontSize, reference, resource } = props;
   const { bookId, chapter, verse } = reference;
   const {
-    tsvs,
-    markdown,
     items,
-    resourceStatus: { loading },
+    resourceStatus,
     props: { languageId },
   } = useContent({
     projectId: bookId,
     ref: resource.branch ?? 'master',
     languageId: resource.languageId ?? 'ru',
     resourceId: 'obs-sq',
-    filePath: null,
+    verse,
+    chapter,
     owner: resource.owner ?? 'door43-catalog',
     server,
   });
 
   const {
-    state: { item, headers, filters, itemIndex, markdownView },
-    actions: { setFilters, setItemIndex, setMarkdownView },
+    state: { item, headers, filters, itemIndex },
+    actions: { setFilters, setItemIndex },
   } = useCardState({
     items,
+    verse,
+    chapter,
+    projectId: bookId,
+    resourceId: 'obs-sq',
   });
 
-  const [content, setContent] = React.useState();
-  // const onTsvEdit = useTsvMerger({
-  //   tsvs,
-  //   verse,
-  //   chapter,
-  //   itemIndex,
-  //   setContent: setContent,
-  // });
-  console.log(tsvs);
+  React.useEffect(() => {
+    setItemIndex(0);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [reference]);
   return (
     <Card
       closeable
@@ -49,26 +41,21 @@ export default function SupportOBSSQ(props) {
       onClose={() => onClose(type)}
       classes={{ ...classes, children: 'tqcard' }}
       id={type}
-      items={tsvs}
+      items={items}
       headers={headers}
       filters={filters}
       fontSize={fontSize}
       itemIndex={itemIndex}
       setFilters={setFilters}
       setItemIndex={setItemIndex}
-      markdownView={markdownView}
-      setMarkdownView={setMarkdownView}
     >
       <CardContent
         item={item}
         filters={filters}
-        // onTsvEdit={onTsvEdit}
         fontSize={fontSize}
-        markdown={markdown}
         viewMode="question"
-        isLoading={Boolean(loading)}
+        isLoading={Boolean(resourceStatus.loading)}
         languageId={languageId}
-        markdownView={markdownView}
       />
     </Card>
   );
