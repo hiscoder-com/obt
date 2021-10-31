@@ -7,10 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.4.0] - 2021-10-28
 
 ### Added (for new features)
+ - choice of languages for resources
+ - migration for language selection
+ - component for dialogs
+ - selection of resource languages to the first launch window
 
 ### Changed (for changes in existing functionality)
  - message about the inability to close the last resource
+ - scrolling to a new card
+ - removed StrictMode as there were errors in the console
+
 ### Fixed (for any bug fixes)
+ - minor fixes in the code
+ - removed the removal of cards if they are not in the list of resources, as there was a bug with the asynchronous creation of a list of available resources
+ - scrolling to verses in obs
+ - line break if the resource name is too long
+ - duplicate resources are hidden
 
 ## [1.3.0] - 2021-10-20
 
