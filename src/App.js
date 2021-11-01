@@ -17,7 +17,6 @@ import {
 import { Migrate } from './Migrate';
 import { columns } from './config/base';
 import { getLayoutType } from './helper';
-import { SelectionsContextProvider } from 'scripture-resources-rcl';
 import './styles/app.css';
 import useStyles from './style';
 
@@ -123,16 +122,8 @@ export default function App() {
   const onBreakpointChange = (name, cols) => {
     setBreakpoint({ name, cols });
   };
-  console.log({ resourcesApp });
-  const [selections, setSelections] = React.useState([]);
+
   return (
-    // <SelectionsContextProvider
-    //   selections={selections}
-    //   onSelections={setSelections}
-    //   // quote={selectedQuote?.quote}
-    //   // occurrence={selectedQuote?.occurrence?.toString()}
-    //   // verseObjects={originalScriptureConfig.verseObjects || []}
-    // >
     <SnackbarProvider maxSnack={3}>
       <StartDialog />
       <Intro />
@@ -155,6 +146,5 @@ export default function App() {
         {cards}
       </Workspace>
     </SnackbarProvider>
-    // </SelectionsContextProvider>
   );
 }

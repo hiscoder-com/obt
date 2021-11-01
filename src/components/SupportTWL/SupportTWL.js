@@ -21,7 +21,7 @@ export default function SupportTWL(props) {
     owner: resource.owner ?? 'door43-catalog',
     server,
   });
-  console.log(selectedQuote);
+
   const {
     state: { item, headers, filters, itemIndex, markdownView },
     actions: { setFilters, setItemIndex, setMarkdownView },
@@ -37,7 +37,7 @@ export default function SupportTWL(props) {
     setItemIndex(0);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [reference]);
-  console.log(item);
+
   return (
     <Card
       closeable
