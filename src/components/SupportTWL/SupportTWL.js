@@ -4,9 +4,7 @@ import { Card, CardContent, useContent, useCardState } from 'translation-helps-r
 
 export default function SupportTWL(props) {
   const { title, classes, onClose, type, server, fontSize, reference, resource } = props;
-
   const { bookId, chapter, verse } = reference;
-
   const [selectedQuote, setQuote] = useState({});
   const {
     markdown,
@@ -39,7 +37,7 @@ export default function SupportTWL(props) {
     setItemIndex(0);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [reference]);
-  // console.log(item);
+  console.log(item);
   return (
     <Card
       closeable

@@ -74,7 +74,7 @@ function USFMContent({ reference, content, type, fontSize }) {
         continue;
       }
       const { verseObjects } = chapter[key];
-
+      console.log(verseObjects);
       const verseStyle = {
         fontSize: fontSize + '%',
       };
@@ -103,7 +103,7 @@ function USFMContent({ reference, content, type, fontSize }) {
             verseObjects={verseObjects}
             paragraphs={false}
             showUnsupported={false}
-            disableWordPopover={false}
+            disableWordPopover={true}
             reference={{ ...reference, verse: key }}
             renderOffscreen={false}
           />

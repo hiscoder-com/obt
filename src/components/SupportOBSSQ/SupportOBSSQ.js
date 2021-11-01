@@ -5,6 +5,7 @@ export default function SupportOBSSQ(props) {
   const { title, classes, onClose, type, server, fontSize, reference, resource } = props;
   const { bookId, chapter, verse } = reference;
   const {
+    tsvs,
     items,
     resourceStatus,
     props: { languageId },

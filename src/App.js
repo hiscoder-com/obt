@@ -123,7 +123,7 @@ export default function App() {
   const onBreakpointChange = (name, cols) => {
     setBreakpoint({ name, cols });
   };
-
+  console.log({ resourcesApp });
   const [selections, setSelections] = React.useState([]);
   return (
     // <SelectionsContextProvider
