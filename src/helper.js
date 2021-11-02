@@ -362,3 +362,18 @@ export const getLayoutType = (layout) => {
   });
   return type;
 };
+
+export const getLanguageIds = () => {
+  let oldAppConfig = JSON.parse(localStorage.getItem('appConfig'));
+  const allValues = [...Object.values(oldAppConfig)];
+  let currentLangs = new Set();
+  if (allValues) {
+    allValues.forEach((value) => {
+      value.lg.forEach((el) => {
+        currentLangs.add(el.i.split('_')[0]);
+      });
+    });
+  }
+  currentLangs.add(localStorage.getItem('i18nextLng'));
+  return Array.from(currentLangs);
+};

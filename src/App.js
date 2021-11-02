@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useMemo } from 'react';
 
-import { SnackbarProvider } from 'notistack';
+import { useSnackbar } from 'notistack';
 import { Workspace } from 'resource-workspace-rcl';
 
 import { AppContext } from './context/AppContext';
@@ -14,9 +14,9 @@ import {
   SubMenuBar,
   StartDialog,
 } from './components';
-import { Migrate } from './Migrate';
 import { columns } from './config/base';
 import { getLayoutType } from './helper';
+import { useTranslation } from 'react-i18next';
 import './styles/app.css';
 import useStyles from './style';
 
@@ -25,13 +25,13 @@ import useStyles from './style';
 //const TypoReport = React.lazy(() => import('./components/TypoReport/TypoReport'));
 //const SubMenuBar = React.lazy(() => import('./components/SubMenuBar/SubMenuBar'));
 
-Migrate();
 export default function App() {
   const {
     state: { appConfig, resourcesApp, resources, breakpoint },
     actions: { setAppConfig, setBreakpoint },
   } = useContext(AppContext);
 
+  const { t } = useTranslation();
   const {
     state: {
       referenceSelected: { bookId },
@@ -40,8 +40,8 @@ export default function App() {
   } = useContext(ReferenceContext);
 
   const classes = useStyles();
-
-  const layout = appConfig;
+  const { enqueueSnackbar } = useSnackbar();
+  const layout = { ...appConfig };
   const breakpoints = { lg: 900, md: 700, sm: 500 };
 
   Shortcut();
@@ -84,8 +84,11 @@ export default function App() {
         for (let k in next) {
           next[k] = next[k].filter((el) => el.i !== index);
         }
+
         return next;
       });
+    } else {
+      enqueueSnackbar(t('closeLastResource'), { variant: 'warning' });
     }
   };
 
@@ -124,7 +127,7 @@ export default function App() {
   };
 
   return (
-    <SnackbarProvider maxSnack={3}>
+    <>
       <StartDialog />
       <Intro />
       <SubMenuBar />
@@ -145,6 +148,6 @@ export default function App() {
       >
         {cards}
       </Workspace>
-    </SnackbarProvider>
+    </>
   );
 }

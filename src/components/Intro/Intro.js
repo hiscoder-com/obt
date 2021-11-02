@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState } from 'react';
+import React, { useContext, useRef, useState, useEffect } from 'react';
 
 import { Steps } from 'intro.js-react';
 import { useTranslation } from 'react-i18next';
@@ -82,7 +82,7 @@ function Intro() {
       intro: t('introHamburger'),
     },
   ];
-  React.useEffect(() => {
+  useEffect(() => {
     if (document.querySelector('.current')) {
       const { top, left } = document.querySelector('.current').getBoundingClientRect();
       setCurrentVersePosition({ top, left });

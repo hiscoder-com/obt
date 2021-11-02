@@ -16,8 +16,6 @@ import {
 export const AppContext = React.createContext();
 
 const _currentLanguage = checkLSVal('i18nextLng', languages[0]);
-const _resourcesApp = checkLSVal('resourcesApp', [], 'object');
-const _startDialog = checkLSVal('startDialog', true, 'boolean');
 const _fontSize = parseInt(localStorage.getItem('fontSize'));
 
 export function AppContextProvider({ children }) {
@@ -46,7 +44,9 @@ export function AppContextProvider({ children }) {
    * 2. Put all states about resources in ResourceContext.
    * 3. Maybe make availableBookList in ResourceContext
    */
-  const [resourcesApp, setResourcesApp] = useState(_resourcesApp);
+  const [resourcesApp, setResourcesApp] = useState(() => {
+    return checkLSVal('resourcesApp', [], 'object');
+  });
   const _resourceLinks = getResources(appConfig, resourcesApp);
   const [resourceLinks, setResourceLinks] = useState(_resourceLinks);
   const [resources, setResources] = useState([]);
@@ -56,8 +56,14 @@ export function AppContextProvider({ children }) {
   const [errorFile, setErrorFile] = useState('');
   const [fontSize, setFontSize] = useState(_fontSize ? _fontSize : 100);
   const [loadIntro, setLoadIntro] = useState(false);
-  const [openStartDialog, setOpenStartDialog] = useState(_startDialog);
+  const [openStartDialog, setOpenStartDialog] = useState(() => {
+    return checkLSVal('startDialog', true, 'boolean');
+  });
   const [openMainMenu, setOpenMainMenu] = useState(false);
+  const [languageResources, setLanguageResources] = useState(() => {
+    return checkLSVal('languageResources', ['en', 'el-x-koine', 'hbo'], 'object');
+  });
+
   const config = { server };
   const { t } = useTranslation();
 
@@ -88,8 +94,13 @@ export function AppContextProvider({ children }) {
   }, [resourcesApp]);
 
   useEffect(() => {
+    localStorage.setItem('languageResources', JSON.stringify(languageResources));
+  }, [languageResources]);
+
+  useEffect(() => {
     localStorage.setItem('loadIntro', loadIntro);
   }, [loadIntro]);
+
   useEffect(() => {
     localStorage.setItem('startDialog', openStartDialog);
   }, [openStartDialog]);
@@ -102,6 +113,7 @@ export function AppContextProvider({ children }) {
       errorFile,
       fontSize,
       loadIntro,
+      languageResources,
       openMainMenu,
       openStartDialog,
       resourceLinks,
@@ -119,6 +131,7 @@ export function AppContextProvider({ children }) {
       setErrorFile,
       setFontSize,
       setLoadIntro,
+      setLanguageResources,
       setOpenMainMenu,
       setOpenStartDialog,
       setResourceLinks,

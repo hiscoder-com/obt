@@ -4,9 +4,8 @@ import { useTranslation } from 'react-i18next';
 import axios from 'axios';
 
 import { AppContext, ReferenceContext } from '../../context';
-
+import { DialogUI } from '../DialogUI';
 import {
-  langs,
   subjects,
   owners,
   blackListResources,
@@ -16,13 +15,15 @@ import {
 import { defaultCard, server, columns } from '../../config/base';
 import { getXY } from 'resource-workspace-rcl';
 import { getUniqueResources } from '../../helper';
+import { SelectResourcesLanguages } from '../SelectResourcesLanguages';
+import { MenuItem, Menu, Button } from '@material-ui/core';
 
-import { MenuItem, Menu } from '@material-ui/core';
-import { useStyles } from './style';
+import LanguageIcon from '@material-ui/icons/Language';
+import { useStyles, useAddStyles } from './style';
 
 function SearchResources({ anchorEl, onClose, open }) {
   const {
-    state: { appConfig, resourcesApp },
+    state: { appConfig, resourcesApp, languageResources },
     actions: { setAppConfig, setResourcesApp },
   } = useContext(AppContext);
 
@@ -34,8 +35,8 @@ function SearchResources({ anchorEl, onClose, open }) {
 
   const { t } = useTranslation();
   const classes = useStyles();
-
-  const [currentLang] = useState(langs[0]);
+  const addClasses = useAddStyles();
+  const [openDialog, setOpenDialog] = useState(false);
 
   const uniqueResources = getUniqueResources(appConfig, resourcesApp);
 
@@ -54,8 +55,12 @@ function SearchResources({ anchorEl, onClose, open }) {
       return next;
     });
     setTimeout(function () {
-      window.scrollTo(0, 10000);
+      document.querySelector('#' + item.name + '_title').scrollIntoView();
     }, 1000);
+  };
+
+  const handleOpenDialog = () => {
+    setOpenDialog(true);
   };
 
   useEffect(() => {
@@ -65,7 +70,7 @@ function SearchResources({ anchorEl, onClose, open }) {
           '/api/catalog/v5/search?limit=1000&sort=lang,title&owner=' +
           owners.join(',') +
           '&lang=' +
-          langs.join(',') +
+          languageResources.join(',') +
           '&subject=' +
           subjects.join(',')
       )
@@ -95,7 +100,8 @@ function SearchResources({ anchorEl, onClose, open }) {
       })
       .catch((err) => console.log(err));
     return () => {};
-  }, [currentLang, setResourcesApp]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [languageResources]);
   let blockLang = '';
   const currentSubjects = bookId === 'obs' ? obsSubjects : bibleSubjects;
   const menuItems = uniqueResources
@@ -106,28 +112,62 @@ function SearchResources({ anchorEl, onClose, open }) {
         return (
           <div key={el.id}>
             <p className={classes.divider}>{t(el.languageId)}</p>
-            <MenuItem onClick={() => handleAddMaterial(el)}>{el.title}</MenuItem>
+            <MenuItem className={classes.menu} onClick={() => handleAddMaterial(el)}>
+              {el.title}
+            </MenuItem>
           </div>
         );
       } else {
         return (
-          <MenuItem key={el.id} onClick={() => handleAddMaterial(el)}>
+          <MenuItem
+            className={classes.menu}
+            key={el.id}
+            onClick={() => handleAddMaterial(el)}
+          >
             {el.title}
           </MenuItem>
         );
       }
     });
   const emptyMenuItems = <p className={classes.divider}>{t('No_resources')}</p>;
+  const handleCloseDialog = () => {
+    setOpenDialog(false);
+  };
+
   return (
-    <Menu
-      color="transparent"
-      anchorEl={anchorEl}
-      keepMounted
-      open={open}
-      onClose={onClose}
-    >
-      {menuItems.length !== 0 ? menuItems : emptyMenuItems}
-    </Menu>
+    <>
+      <Menu
+        color="transparent"
+        anchorEl={anchorEl}
+        keepMounted
+        open={open}
+        onClose={onClose}
+      >
+        <MenuItem button={false}>
+          <Button
+            onClick={handleOpenDialog}
+            startIcon={<LanguageIcon size={'small'} />}
+            classes={addClasses}
+            variant="outlined"
+            color="primary"
+            size="small"
+            fullWidth
+          >
+            {t('Add_resource_languages')}
+          </Button>
+        </MenuItem>
+        {menuItems.length !== 0 ? menuItems : emptyMenuItems}
+      </Menu>
+      <DialogUI
+        titleDialog={t('Choose_languages_resources')}
+        open={openDialog}
+        labelApply={t('Apply')}
+        onApply={handleCloseDialog}
+        onClose={handleCloseDialog}
+      >
+        <SelectResourcesLanguages />
+      </DialogUI>
+    </>
   );
 }
 

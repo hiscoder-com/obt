@@ -63,6 +63,10 @@ export const blackListResources = [
   { owner: 'ru_gl', name: 'ru_rsob' },
   { owner: 'ru_gl', name: 'ru_obs-sn' },
   { owner: 'ru_gl', name: 'ru_twl' },
+  { owner: 'door43-catalog', name: 'ru_obs' },
+  { owner: 'door43-catalog', name: 'ru_obs-tn' },
+  { owner: 'door43-catalog', name: 'fr_obs-tn' },
+  { owner: 'door43-catalog', name: 'fr_obs-tq' },
 ];
 
 /* CORE */
