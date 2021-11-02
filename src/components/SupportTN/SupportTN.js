@@ -29,12 +29,6 @@ export default function SupportTN(props) {
     actions: { setItemIndex, setMarkdownView },
   } = useCardState({
     items,
-    setQuote,
-    selectedQuote,
-    verse,
-    chapter,
-    projectId: bookId,
-    resourceId: 'tn',
   });
 
   useEffect(() => {

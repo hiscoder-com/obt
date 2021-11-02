@@ -74,14 +74,13 @@ function USFMContent({ reference, content, type, fontSize }) {
         continue;
       }
       const { verseObjects } = chapter[key];
-      console.log(verseObjects);
+
       const verseStyle = {
         fontSize: fontSize + '%',
       };
       const handleClick = () => {
         if (reference.verse !== key) {
           goToBookChapterVerse(reference.bookId, reference.chapter, key);
-          console.log(verseObjects);
         }
       };
 
@@ -103,7 +102,7 @@ function USFMContent({ reference, content, type, fontSize }) {
             verseObjects={verseObjects}
             paragraphs={false}
             showUnsupported={false}
-            disableWordPopover={true}
+            disableWordPopover={false}
             reference={{ ...reference, verse: key }}
             renderOffscreen={false}
           />
