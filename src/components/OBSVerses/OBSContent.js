@@ -56,6 +56,12 @@ function OBSContent({ markdown, verse, chapter, fontSize, type, goToBookChapterV
   };
 
   useEffect(() => {
+    const verseStyle = {
+      fontSize: fontSize + '%',
+    };
+    const headerStyle = {
+      fontSize: fontSize * 1.4 + '%',
+    };
     if (markdown) {
       const { versesObject, headerMd, linkMd } = mdToVerses(markdown);
       const contentMd = versesObject.map((item) => {
@@ -68,6 +74,7 @@ function OBSContent({ markdown, verse, chapter, fontSize, type, goToBookChapterV
                 verse.toString() !== '1' &&
                 verseRef(ref);
             }}
+            style={verseStyle}
             className={'verse' + (key.toString() === verse.toString() ? ' current' : '')}
             key={key}
             onClick={() => {
@@ -101,12 +108,10 @@ function OBSContent({ markdown, verse, chapter, fontSize, type, goToBookChapterV
           </div>
         );
       });
-      const verseStyle = {
-        fontSize: fontSize + '%',
-      };
       const versesOBS = (
-        <div style={verseStyle}>
+        <>
           <h1
+            style={headerStyle}
             ref={(ref) => {
               '1' === verse.toString() && verseRef(ref);
             }}
@@ -117,14 +122,14 @@ function OBSContent({ markdown, verse, chapter, fontSize, type, goToBookChapterV
           <br />
           <i>{linkMd}</i>
           <br />
-        </div>
+        </>
       );
       setVerses(versesOBS);
     } else {
       setVerses(<>{t('No_content')}</>);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [markdown, verse, verseRef, t, fontSize, goToBookChapterVerse]);
+  }, [markdown, verse, fontSize]);
 
   return (
     <>

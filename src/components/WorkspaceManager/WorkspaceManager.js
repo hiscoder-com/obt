@@ -30,6 +30,7 @@ function WorkspaceManager({ onClose }) {
       currentLanguage,
       resetAll: false,
     });
+
     onClose();
   };
 

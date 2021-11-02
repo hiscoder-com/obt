@@ -28,6 +28,7 @@ export default function Chapter({
       onClose={() => onClose(type)}
       title={title}
       type={type}
+      id={type}
       classes={classes}
       fontSize={fontSize}
     >

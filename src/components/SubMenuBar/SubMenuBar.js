@@ -129,7 +129,7 @@ function SubMenuBar() {
             </MenuItem>
             <WorkspaceManager onClose={handleCloseMainMenu} />
             <MenuItem button={false} divider={true}>
-              <SelectLanguage />
+              <SelectLanguage label={t('Interface_lang')} />
             </MenuItem>
             <MenuItem onClick={handleOpenUsersGuide} divider={true}>
               {t('UsersGuide')}

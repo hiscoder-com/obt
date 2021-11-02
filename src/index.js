@@ -5,6 +5,7 @@ import { SnackbarProvider } from 'notistack';
 import App from './App';
 import ErrorBoundary from './ErrorBoundary';
 import './i18next';
+import { Migrate } from './Migrate';
 import ContextProviders from './context/ContextProviders';
 import './styles/style.css';
 
@@ -12,21 +13,20 @@ import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 // import reportWebVitals from './reportWebVitals';
 // const App = React.lazy(() => import('./App.js'));
 
+Migrate();
 ReactDOM.render(
   <ErrorBoundary>
-    <React.StrictMode>
-      <BrowserRouter>
-        <Switch>
-          <ContextProviders>
-            <Route>
-              <SnackbarProvider maxSnack={3}>
-                <App />
-              </SnackbarProvider>
-            </Route>
-          </ContextProviders>
-        </Switch>
-      </BrowserRouter>
-    </React.StrictMode>
+    <BrowserRouter>
+      <Switch>
+        <ContextProviders>
+          <Route>
+            <SnackbarProvider maxSnack={3}>
+              <App />
+            </SnackbarProvider>
+          </Route>
+        </ContextProviders>
+      </Switch>
+    </BrowserRouter>
   </ErrorBoundary>,
   document.getElementById('root')
 );

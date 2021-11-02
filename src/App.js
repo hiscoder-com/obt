@@ -14,7 +14,6 @@ import {
   SubMenuBar,
   StartDialog,
 } from './components';
-import { Migrate } from './Migrate';
 import { columns } from './config/base';
 import { getLayoutType } from './helper';
 import { useTranslation } from 'react-i18next';
@@ -27,7 +26,6 @@ import useStyles from './style';
 //const TypoReport = React.lazy(() => import('./components/TypoReport/TypoReport'));
 //const SubMenuBar = React.lazy(() => import('./components/SubMenuBar/SubMenuBar'));
 
-Migrate();
 export default function App() {
   const {
     state: { appConfig, resourcesApp, resources, breakpoint },
@@ -44,7 +42,7 @@ export default function App() {
 
   const classes = useStyles();
   const { enqueueSnackbar } = useSnackbar();
-  const layout = appConfig;
+  const layout = { ...appConfig };
   const breakpoints = { lg: 900, md: 700, sm: 500 };
 
   Shortcut();
