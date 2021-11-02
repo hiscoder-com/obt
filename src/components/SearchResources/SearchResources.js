@@ -145,7 +145,6 @@ function SearchResources({ anchorEl, onClose, open }) {
       >
         <MenuItem button={false}>
           <Button
-            ckasses={addClasses}
             onClick={handleOpenDialog}
             startIcon={<LanguageIcon size={'small'} />}
             classes={addClasses}
@@ -164,6 +163,7 @@ function SearchResources({ anchorEl, onClose, open }) {
         open={openDialog}
         labelApply={t('Apply')}
         onApply={handleCloseDialog}
+        onClose={handleCloseDialog}
       >
         <SelectResourcesLanguages />
       </DialogUI>
