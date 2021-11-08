@@ -112,10 +112,10 @@ function StartDialog() {
               onClick={activeStep === 0 ? handleClose : handleBack}
               className={classes.backButton}
             >
-              {activeStep === 0 ? 'Cancel' : 'Back'}
+              {activeStep === 0 ? t('Cancel') : t('Previous')}
             </Button>
             <Button variant="contained" color="primary" onClick={handleNext}>
-              {activeStep < steps.length - 1 ? 'Next' : 'Finish'}
+              {activeStep < steps.length - 1 ? t('Next') : t('Finish')}
             </Button>
           </div>
         </div>
