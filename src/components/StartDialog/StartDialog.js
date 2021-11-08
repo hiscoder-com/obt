@@ -23,7 +23,7 @@ function StartDialog() {
   const classes = useStyles();
 
   const {
-    actions: { setOpenStartDialog, setLoadIntro, setAppConfig },
+    actions: { setOpenStartDialog, setLoadIntro, setAppConfig, setLanguageResources },
     state: { openStartDialog, currentLanguage },
   } = useContext(AppContext);
 
@@ -67,6 +67,7 @@ function StartDialog() {
       resetWorkspace({
         bookId,
         setAppConfig,
+        setLanguageResources,
         goToBookChapterVerse,
         currentLanguage,
         resetAll: true,

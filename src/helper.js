@@ -4,6 +4,7 @@ import {
   defaultBibleReference,
   defaultOBSReference,
 } from './config/base';
+import { cloneDeep } from 'lodash';
 
 export const getResources = (appConfig, resourcesApp) => {
   const resources = [];
@@ -266,9 +267,21 @@ const resetMode = (
   defaultReference,
   currentLanguage,
   setAppConfig,
+  setLanguageResources,
   goToBookChapterVerse
 ) => {
   setAppConfig(defaultTpl[currentLanguage]);
+
+  setLanguageResources((prev) => {
+    const new_val = cloneDeep(prev);
+    defaultTpl[currentLanguage].lg.forEach((el) => {
+      if (!new_val.includes(el.i.split('_')[0])) {
+        new_val.push(el.i.split('_')[0]);
+      }
+    });
+    return new_val;
+  });
+
   goToBookChapterVerse(
     defaultReference[currentLanguage].bookId,
     defaultReference[currentLanguage].chapter,
@@ -290,6 +303,7 @@ const resetMode = (
 export const resetWorkspace = ({
   bookId,
   setAppConfig,
+  setLanguageResources,
   goToBookChapterVerse,
   currentLanguage,
   resetAll,
@@ -308,6 +322,7 @@ export const resetWorkspace = ({
         defaultBibleReference,
         currentLanguage,
         setAppConfig,
+        setLanguageResources,
         goToBookChapterVerse
       );
       break;
@@ -323,6 +338,7 @@ export const resetWorkspace = ({
         defaultOBSReference,
         currentLanguage,
         setAppConfig,
+        setLanguageResources,
         goToBookChapterVerse
       );
       break;
@@ -338,6 +354,7 @@ export const resetWorkspace = ({
             defaultOBSReference,
             currentLanguage,
             setAppConfig,
+            setLanguageResources,
             goToBookChapterVerse
           )
         : resetMode(
@@ -345,6 +362,7 @@ export const resetWorkspace = ({
             defaultBibleReference,
             currentLanguage,
             setAppConfig,
+            setLanguageResources,
             goToBookChapterVerse
           );
       break;
