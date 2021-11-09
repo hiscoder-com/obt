@@ -20,25 +20,14 @@ export default function ButtonGroupUI({ onBookClick, onChapterClick }) {
   return (
     <div className={classes.root}>
       <ButtonGroup
-        orientation="vertical"
+        variant="text"
+        // orientation="vertical"
         color="black"
         aria-label="outlined primary button group"
       >
         <Button onClick={onBookClick}>Book front</Button>
         <Button onClick={onChapterClick}>Chapter front</Button>
       </ButtonGroup>
-      {/* <ButtonGroup
-        variant="contained"
-        color="primary"
-        aria-label="contained primary button group"
-      >
-        <Button>One</Button>
-        <Button>Two</Button>
-      </ButtonGroup>
-      <ButtonGroup variant="text" color="primary" aria-label="text primary button group">
-        <Button>One</Button>
-        <Button>Two</Button>
-      </ButtonGroup> */}
     </div>
   );
 }
