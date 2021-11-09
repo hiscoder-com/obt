@@ -1,21 +1,17 @@
 import React, { useState, useEffect } from 'react';
 
 import { Card, CardContent, useContent, useCardState } from 'translation-helps-rcl';
+import { ButtonGroupUI } from '../ButtonGroupUI';
 
 import { FrontModal } from '../FrontModal';
 
 export default function SupportTN(props) {
   const { title, classes, onClose, type, server, fontSize, reference, resource } = props;
-
+  const [openDialog, setOpenDialog] = useState(false);
   const [selectedQuote, setQuote] = useState({});
+  const [configFront, setConfigFront] = useState({});
   const { bookId, chapter, verse } = reference;
-
-  const {
-    markdown,
-    items,
-    resourceStatus: { loading },
-    props: { languageId },
-  } = useContent({
+  const config = {
     verse: String(verse),
     chapter: String(chapter),
     projectId: bookId,
@@ -24,7 +20,28 @@ export default function SupportTN(props) {
     resourceId: 'tn',
     owner: resource.owner ?? 'door43-catalog',
     server,
+  };
+
+  const {
+    markdown,
+    items,
+    resourceStatus: { loading },
+    props: { languageId },
+  } = useContent({
+    ...config,
   });
+
+  const onFirstButtonClick = () => {
+    setConfigFront({ ...config, verse: 'intro', chapter: 'front' });
+    setOpenDialog(true);
+  };
+  const onSecondButtonClick = () => {
+    setConfigFront({ ...config, verse: 'intro' });
+    setOpenDialog(true);
+  };
+  const onCloseDialog = () => {
+    setOpenDialog(false);
+  };
 
   const {
     state: { item, headers, itemIndex, markdownView },
@@ -56,7 +73,13 @@ export default function SupportTN(props) {
       markdownView={markdownView}
       setMarkdownView={setMarkdownView}
     >
-      <FrontModal type={type} server={server} resource={resource} reference={reference} />
+      <ButtonGroupUI
+        titleFirst={'Book front'}
+        titleSecond={'Chapter front'}
+        onFirstButtonClick={onFirstButtonClick}
+        onSecondButtonClick={onSecondButtonClick}
+      />
+      <FrontModal onCloseDialog={onCloseDialog} open={openDialog} config={configFront} />
       <CardContent
         item={item}
         viewMode="table"
