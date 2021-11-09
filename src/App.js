@@ -17,7 +17,6 @@ import {
 import { columns } from './config/base';
 import { getLayoutType } from './helper';
 import { useTranslation } from 'react-i18next';
-
 import './styles/app.css';
 import useStyles from './style';
 
@@ -133,6 +132,7 @@ export default function App() {
       <Intro />
       <SubMenuBar />
       <TypoReport />
+
       <Workspace
         gridMargin={[15, 15]}
         autoResize={true}

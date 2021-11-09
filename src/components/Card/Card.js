@@ -6,10 +6,12 @@ import {
   Chapter,
   SupportTQ,
   SupportTN,
-  SupportTW,
+  SupportTWL,
   OBSVerses,
   SupportOBSTN,
   SupportOBSTQ,
+  SupportOBSSQ,
+  SupportOBSSN,
 } from '../../components';
 
 function Card({ type, onClose, classes }) {
@@ -45,8 +47,8 @@ function Card({ type, onClose, classes }) {
       CurrentCard = SupportTQ;
       break;
 
-    case 'Translation Words':
-      CurrentCard = SupportTW;
+    case 'TSV Translation Words Links':
+      CurrentCard = SupportTWL;
       break;
 
     case 'Open Bible Stories':
@@ -59,6 +61,14 @@ function Card({ type, onClose, classes }) {
 
     case 'OBS Translation Notes':
       CurrentCard = SupportOBSTN;
+      break;
+
+    case 'OBS Study Questions':
+      CurrentCard = SupportOBSSQ;
+      break;
+
+    case 'OBS Study Notes':
+      CurrentCard = SupportOBSSN;
       break;
 
     case 'Bible':
