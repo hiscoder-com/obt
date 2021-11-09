@@ -1,4 +1,5 @@
 export * from './About';
+export * from './AccordionUI';
 export * from './BookList';
 export * from './BookSelect';
 export * from './Card';
