@@ -14,11 +14,7 @@ export default function ButtonGroupUI({
 
   return (
     <div className={classes.root}>
-      <ButtonGroup
-        variant="text"
-        color="black"
-        aria-label="outlined primary button group"
-      >
+      <ButtonGroup variant="text" aria-label="outlined primary button group">
         <Button className={classesButton.root} onClick={onFirstButtonClick}>
           {titleFirst}
         </Button>
