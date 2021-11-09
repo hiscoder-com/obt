@@ -1,32 +1,25 @@
 import React from 'react';
-import Button from '@material-ui/core/Button';
-import ButtonGroup from '@material-ui/core/ButtonGroup';
-import { makeStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    '& > *': {
-      margin: theme.spacing(1),
-    },
-  },
-}));
+import useStyles, { useButtonStyles } from './style';
+import { ButtonGroup, Button } from '@material-ui/core';
 
 export default function ButtonGroupUI({ onBookClick, onChapterClick }) {
   const classes = useStyles();
+  const classesButton = useButtonStyles();
 
   return (
     <div className={classes.root}>
       <ButtonGroup
         variant="text"
-        // orientation="vertical"
         color="black"
         aria-label="outlined primary button group"
       >
-        <Button onClick={onBookClick}>Book front</Button>
-        <Button onClick={onChapterClick}>Chapter front</Button>
+        <Button className={classesButton.root} onClick={onBookClick}>
+          Book front
+        </Button>
+        <Button className={classesButton.root} onClick={onChapterClick}>
+          Chapter front
+        </Button>
       </ButtonGroup>
     </div>
   );
