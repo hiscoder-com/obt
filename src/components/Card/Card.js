@@ -12,6 +12,7 @@ import {
   SupportOBSTQ,
   SupportOBSSQ,
   SupportOBSSN,
+  SupportOBSTWL,
 } from '../../components';
 
 function Card({ type, onClose, classes }) {
@@ -69,6 +70,10 @@ function Card({ type, onClose, classes }) {
 
     case 'OBS Study Notes':
       CurrentCard = SupportOBSSN;
+      break;
+
+    case 'TSV OBS Translation Words Links':
+      CurrentCard = SupportOBSTWL;
       break;
 
     case 'Bible':
