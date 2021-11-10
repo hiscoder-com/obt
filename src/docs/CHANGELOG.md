@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.4.0] - 2021-11-09
+## [1.4.0] - 2021-11-10
 
 ### Added (for new features)
  - choice of languages for resources
@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
  - OBS Study Notes
  - Translation Words Links
  - OBS Translation Words Links
+ - tool for showing introduction and general notes in Translation Notes
 
 ### Changed (for changes in existing functionality)
  - message about the inability to close the last resource
@@ -27,7 +28,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
  - scrolling to verses in obs
  - line break if the resource name is too long
  - duplicate resources are hidden
-
 
 ## [1.3.0] - 2021-10-20
 
