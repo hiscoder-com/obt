@@ -1,30 +1,18 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { Card, CardContent, useContent, useCardState } from 'translation-helps-rcl';
 
-import { AppContext, ReferenceContext } from '../../context';
-import { server } from '../../config/base';
-
-export default function SupportTW(props) {
-  const { title, classes, onClose, type } = props;
-  const {
-    state: { resourcesApp, fontSize },
-  } = useContext(AppContext);
-
-  const {
-    state: { referenceSelected },
-  } = useContext(ReferenceContext);
-
-  const { bookId, chapter, verse } = referenceSelected;
-
-  let resource = false;
-  resourcesApp.forEach((el) => {
-    if (el.name === type) {
-      resource = el;
-    }
-  });
-
-  const [selectedQuote, setQuote] = useState({});
+export default function SupportOBSTWL({
+  title,
+  classes,
+  onClose,
+  type,
+  server,
+  fontSize,
+  reference: { bookId, chapter, verse },
+  resource,
+}) {
+  const [selectedQuote, setQuote] = useState(null);
   const {
     markdown,
     items,
@@ -36,7 +24,7 @@ export default function SupportTW(props) {
     projectId: bookId,
     ref: resource.branch ?? 'master',
     languageId: resource.languageId ?? 'ru',
-    resourceId: 'tw',
+    resourceId: 'obs-twl',
     owner: resource.owner ?? 'door43-catalog',
     server,
   });
@@ -46,7 +34,13 @@ export default function SupportTW(props) {
     actions: { setFilters, setItemIndex, setMarkdownView },
   } = useCardState({
     items,
+    setQuote,
+    selectedQuote,
   });
+  useEffect(() => {
+    setItemIndex(0);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [bookId, chapter, verse]);
 
   return (
     <Card

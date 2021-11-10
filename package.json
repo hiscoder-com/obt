@@ -1,11 +1,13 @@
 {
   "name": "bsa",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "description": "An application for advanced Bible study using unfoldingWord materials.",
   "keywords": [
     "bible",
     "bsa",
-    "study app"
+    "study app",
+    "obt",
+    "open bible text"
   ],
   "author": "TextTree (https://texttree.org)",
   "private": true,
@@ -25,6 +27,7 @@
     "i18next-http-backend": "^1.3.1",
     "intro.js": "^4.2.2",
     "intro.js-react": "^0.5.0",
+    "match-sorter": "^6.3.1",
     "notistack": "^1.0.10",
     "prop-types": "^15.7.2",
     "react": "^17.0.2",

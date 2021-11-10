@@ -74,13 +74,15 @@ function USFMContent({ reference, content, type, fontSize }) {
         continue;
       }
       const { verseObjects } = chapter[key];
+
       const verseStyle = {
         fontSize: fontSize + '%',
       };
-      const handleClick = () =>
-        reference.verse !== key
-          ? goToBookChapterVerse(reference.bookId, reference.chapter, key)
-          : false;
+      const handleClick = () => {
+        if (reference.verse !== key) {
+          goToBookChapterVerse(reference.bookId, reference.chapter, key);
+        }
+      };
 
       const verse = (
         <div

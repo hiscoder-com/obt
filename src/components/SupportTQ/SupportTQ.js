@@ -20,6 +20,7 @@ export default function SupportTQ(props) {
     owner: resource.owner ?? 'door43-catalog',
     server,
   });
+
   const {
     state: { item, headers, filters, itemIndex, markdownView },
     actions: { setFilters, setItemIndex, setMarkdownView },
