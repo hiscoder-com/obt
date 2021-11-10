@@ -34,7 +34,7 @@ function About({ open, setOpen, handleClick }) {
   };
 
   const textLabel = PACKAGE_JSON
-    ? `${PACKAGE_JSON?.default?.name.toUpperCase()} v${PACKAGE_JSON?.default?.version}`
+    ? `v${PACKAGE_JSON?.default?.version}`
     : `Information about application`;
 
   return (
@@ -45,14 +45,12 @@ function About({ open, setOpen, handleClick }) {
         </MenuItem>
       </MenuList>
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle id="about-title">{'About'}</DialogTitle>
+        <DialogTitle id="about-title">
+          {'About'} v{PACKAGE_JSON?.default?.version}
+        </DialogTitle>
         <DialogContent>
           <DialogContentText id="about-text">
-            {`${PACKAGE_JSON?.default?.name.toUpperCase()} v ${
-              PACKAGE_JSON?.default?.version
-            }. 
-            ${PACKAGE_JSON?.default?.description}`}
-
+            {PACKAGE_JSON?.default?.description}
             <ReactMarkdown>{log ? log.text : 'Version of application'}</ReactMarkdown>
           </DialogContentText>
         </DialogContent>
