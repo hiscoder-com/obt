@@ -7,9 +7,9 @@ import ReactMarkdown from 'react-markdown';
 
 function FrontModal({ config, open, onCloseDialog }) {
   const { items, resourceStatus } = useContent(config);
-
+  console.log(config.languageId, resourceStatus, items);
   const content =
-    resourceStatus.contentNotFoundError || resourceStatus.error
+    resourceStatus.contentNotFoundError || resourceStatus.error || items === null
       ? 'No content available'
       : items &&
         items.length > 0 &&
