@@ -74,13 +74,17 @@ export default function SupportTN(props) {
       markdownView={markdownView}
       setMarkdownView={setMarkdownView}
     >
-      <ButtonGroupUI
-        titleFirst={t('Introduction')}
-        titleSecond={t('General_notes')}
-        onFirstButtonClick={onFirstButtonClick}
-        onSecondButtonClick={onSecondButtonClick}
-      />
+      {items && (
+        <ButtonGroupUI
+          titleFirst={t('Introduction')}
+          titleSecond={t('General_notes')}
+          onFirstButtonClick={onFirstButtonClick}
+          onSecondButtonClick={onSecondButtonClick}
+        />
+      )}
+
       <FrontModal onCloseDialog={onCloseDialog} open={openDialog} config={configFront} />
+
       <CardContent
         item={item}
         viewMode="table"
