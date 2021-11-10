@@ -21,6 +21,7 @@ export * from './SupportOBSTN';
 export * from './SupportOBSTQ';
 export * from './SupportOBSSQ';
 export * from './SupportOBSSN';
+export * from './SupportOBSTWL';
 export * from './SupportTN';
 export * from './SupportTQ';
 export * from './SupportTWL';

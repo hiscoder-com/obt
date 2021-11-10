@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
  - OBS Study Questions
  - OBS Study Notes
  - Translation Words Links
+ - OBS Translation Words Links
  - tool for showing introduction and general notes in Translation Notes
 
 ### Changed (for changes in existing functionality)
@@ -27,7 +28,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
  - scrolling to verses in obs
  - line break if the resource name is too long
  - duplicate resources are hidden
-
 
 ## [1.3.0] - 2021-10-20
 
