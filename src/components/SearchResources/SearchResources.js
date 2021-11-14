@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 
 import { useTranslation } from 'react-i18next';
 import axios from 'axios';
+import { useSnackbar } from 'notistack';
 
 import { AppContext, ReferenceContext } from '../../context';
 import { DialogUI } from '../DialogUI';
@@ -37,9 +38,9 @@ function SearchResources({ anchorEl, onClose, open }) {
   const classes = useStyles();
   const addClasses = useAddStyles();
   const [openDialog, setOpenDialog] = useState(false);
-
+  const [newResources, setNewResources] = useState([]);
   const uniqueResources = getUniqueResources(appConfig, resourcesApp);
-
+  const { enqueueSnackbar } = useSnackbar();
   const handleAddMaterial = (item) => {
     setAppConfig((prev) => {
       const next = { ...prev };
@@ -61,6 +62,11 @@ function SearchResources({ anchorEl, onClose, open }) {
 
   const handleOpenDialog = () => {
     setOpenDialog(true);
+  };
+  const findNewResources = (prev, result) => {
+    if (result.length > prev.length) {
+      setNewResources(result.filter((res) => !prev.map((el) => el.id).includes(res.id)));
+    }
   };
 
   useEffect(() => {
@@ -96,12 +102,34 @@ function SearchResources({ anchorEl, onClose, open }) {
                   JSON.stringify({ owner: el.owner, name: el.name })
               )
           );
-        setResourcesApp(result);
+
+        setResourcesApp((prev) => {
+          prev && findNewResources(prev, result);
+          return result;
+        });
       })
       .catch((err) => console.log(err));
     return () => {};
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [languageResources]);
+
+  React.useEffect(() => {
+    const listOBS = newResources
+      .filter((res) => obsSubjects.includes(res.subject))
+      .map((res) => res.title)
+      .join(',');
+    const listBible = newResources
+      .filter((res) => bibleSubjects.includes(res.subject))
+      .map((res) => res.title)
+      .join(',');
+    const list = `${t('Added_new_resources')}. \n${
+      listBible ? 'Bible: ' + listBible : ''
+    } \n${listOBS ? 'OBS: ' + listOBS : ''}`;
+    if (newResources.length !== 0) {
+      enqueueSnackbar(list, { variant: 'success' });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [newResources.length]);
   let blockLang = '';
   const currentSubjects = bookId === 'obs' ? obsSubjects : bibleSubjects;
   const menuItems = uniqueResources
