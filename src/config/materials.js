@@ -80,6 +80,7 @@ export const subjects = [
   'TSV OBS Translation Words Links',
   //'Translation Academy',
   //'Translation Notes',
+  'TSV Translation Questions',
   'TSV Translation Notes',
   'Translation Questions',
   //'Translation Words',
@@ -93,6 +94,7 @@ export const subjects = [
 export const bibleSubjects = [
   'TSV Translation Notes',
   'Translation Questions',
+  'TSV Translation Questions',
   'TSV Translation Words Links',
   'Bible',
   'Aligned Bible',
