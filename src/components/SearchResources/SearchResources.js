@@ -113,7 +113,7 @@ function SearchResources({ anchorEl, onClose, open }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [languageResources]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const listOBS = newResources
       .filter((res) => obsSubjects.includes(res.subject))
       .map((res) => res.title)
@@ -129,7 +129,7 @@ function SearchResources({ anchorEl, onClose, open }) {
       enqueueSnackbar(list, { variant: 'success' });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [newResources.length]);
+  }, [newResources]);
   let blockLang = '';
   const currentSubjects = bookId === 'obs' ? obsSubjects : bibleSubjects;
   const menuItems = uniqueResources
