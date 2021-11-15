@@ -34,7 +34,7 @@ export default function SupportTQ(props) {
   } = useContent(
     subject === 'TSV Translation Questions' ? { ...tsvContent } : { ...mdContent }
   );
-  console.log(resource);
+
   const {
     state: { item, headers, filters, itemIndex, markdownView },
     actions: { setFilters, setItemIndex, setMarkdownView },
