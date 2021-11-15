@@ -1,5 +1,5 @@
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import {
   Dialog,
   DialogActions,
@@ -108,3 +108,40 @@ function DialogUI({
 }
 
 export default DialogUI;
+
+DialogUI.propTypes = {
+  /** className of Dialog */
+  classesMain: PropTypes.string,
+  /** className of first Button (Close) in DialogActions */
+  classesClose: PropTypes.string,
+  /** className of second Button (Apply) in DialogActions*/
+  classesApply: PropTypes.string,
+  /** className of DialogActions */
+  classesActions: PropTypes.string,
+  /** className of DialogTitle */
+  classesTitle: PropTypes.string,
+  /** disabled of first Button (Close) */
+  disabledClose: PropTypes.bool,
+  /** disabled of second Button (Apply) */
+  disabledApply: PropTypes.bool,
+  /** opening Dialog */
+  open: PropTypes.bool,
+  /** children of DialogTitle */
+  titleDialog: PropTypes.string,
+  /** showing close button in title, working with onClose*/
+  titleDialogClose: PropTypes.bool,
+  /** label of first Button (Close)*/
+  labelClose: PropTypes.string,
+  /** label of first Button (Close)*/
+  labelApply: PropTypes.string,
+  /** children of DialogContent */
+  children: PropTypes.string,
+  /** func onClose & func onClick of first Button */
+  onClose: PropTypes.func,
+  /** func onClick of second Button */
+  onApply: PropTypes.string,
+  /** style of first Button */
+  styleClose: PropTypes.object,
+  /** style of second Button */
+  styleApply: PropTypes.object,
+};
