@@ -6,19 +6,11 @@ import {
   DialogContent,
   Button,
   DialogTitle as MuiDialogTitle,
-  Typography,
   IconButton,
   withStyles,
 } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
-import { makeStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles((theme) => ({
-  paperFullWidth: {
-    margin: '8px',
-    width: 'calc(100% - 8px)',
-  },
-}));
 const styles = (theme) => ({
   root: {
     margin: 0,
@@ -31,20 +23,13 @@ const styles = (theme) => ({
     color: theme.palette.grey[500],
   },
 });
-const DialogTitle = withStyles(styles)((props) => {
-  const { children, classes, onClose, ...other } = props;
-  return (
-    <MuiDialogTitle disableTypography className={classes.root} {...other}>
-      <Typography variant="h6">{children}</Typography>
-      {onClose ? (
-        <IconButton aria-label="close" className={classes.closeButton} onClick={onClose}>
-          <CloseIcon />
-        </IconButton>
-      ) : null}
-    </MuiDialogTitle>
-  );
-});
+
 function DialogUI({
+  classesMain,
+  classesClose,
+  classesApply,
+  disabledClose,
+  disabledApply,
   open,
   titleDialog,
   titleDialogClose,
@@ -55,31 +40,64 @@ function DialogUI({
   onApply,
   styleClose = { variantClose: 'outlined', colorClose: 'secondary' },
   styleApply = { variantApply: 'outlined', colorApply: 'primary' },
+  classesActions,
+  classesTitle,
 }) {
-  const classes = useStyles();
   const { variantClose = 'outlined', colorClose = 'secondary' } = styleClose;
   const { variantApply = 'outlined', colorApply = 'primary' } = styleApply;
+
+  const DialogTitle = withStyles(styles)((props) => {
+    const { children, classes, onClose, ...other } = props;
+    return (
+      <MuiDialogTitle className={classes.root} {...other}>
+        {children}
+        {onClose ? (
+          <IconButton
+            aria-label="close"
+            className={classes.closeButton}
+            onClick={onClose}
+          >
+            <CloseIcon />
+          </IconButton>
+        ) : null}
+      </MuiDialogTitle>
+    );
+  });
   return (
     <Dialog
-      classes={classes}
+      classes={classesMain}
       open={open}
       fullWidth={true}
       maxWidth={'sm'}
       onClose={onClose}
     >
       {(titleDialog || titleDialogClose) && (
-        <DialogTitle onClose={titleDialogClose && onClose}>{titleDialog}</DialogTitle>
+        <DialogTitle className={classesTitle} onClose={titleDialogClose && onClose}>
+          {titleDialog}
+        </DialogTitle>
       )}
       <DialogContent>{children}</DialogContent>
       {(labelClose || labelApply) && (
-        <DialogActions>
+        <DialogActions className={classesActions}>
           {labelClose && (
-            <Button onClick={onClose} variant={variantClose} color={colorClose}>
+            <Button
+              disabled={disabledClose}
+              onClick={onClose}
+              variant={variantClose}
+              color={colorClose}
+              className={classesClose}
+            >
               {labelClose}
             </Button>
           )}
           {labelApply && (
-            <Button onClick={onApply} variant={variantApply} color={colorApply}>
+            <Button
+              disabled={disabledApply}
+              onClick={onApply}
+              variant={variantApply}
+              className={classesApply}
+              color={colorApply}
+            >
               {labelApply}
             </Button>
           )}

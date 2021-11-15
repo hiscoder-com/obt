@@ -1,19 +1,10 @@
 import React, { useContext } from 'react';
 
 import { useTranslation } from 'react-i18next';
-
+import DialogUI from '../DialogUI/DialogUI';
 import { ReferenceContext } from '../../context';
 
-import {
-  Box,
-  Button,
-  Dialog,
-  DialogTitle,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  TextField,
-} from '@material-ui/core';
+import { Box, DialogContentText, TextField } from '@material-ui/core';
 import useStyles from './style';
 
 function ReportDialog({
@@ -38,9 +29,23 @@ function ReportDialog({
   const showReferenceText = text;
 
   return (
-    <Dialog open={open} onClose={handleCancel} classes={{ paper: 'intro-reportDialog' }}>
-      <DialogTitle className={classes.title}>{t('Report_typo')}</DialogTitle>
-      <DialogContent>
+    <>
+      <DialogUI
+        disabledApply={valueComment === '' || referenceBlock?.text === ''}
+        labelApply={t('Send_message')}
+        labelClose={t('Cancel')}
+        onApply={handleSend}
+        onClose={handleCancel}
+        open={open}
+        classesMain={{ paper: 'intro-reportDialog' }}
+        classesTitle={classes.title}
+        classesActions={classes.actions}
+        titleDialog={t('Report_typo')}
+        styleClose={{ variantClose: 'contained', colorClose: 'primary' }}
+        styleApply={{ variantApply: 'contained', colorApply: 'secondary' }}
+        classesClose={classes.cancel}
+        classesApply={classes.send}
+      >
         <DialogContentText>{t('Text_to_editors')}</DialogContentText>
         <DialogContentText className={classes.select}>
           {showReferenceText}
@@ -61,27 +66,8 @@ function ReportDialog({
         <DialogContentText className={classes.errorMessage}>
           {errorMessage}
         </DialogContentText>
-      </DialogContent>
-      <DialogActions className={classes.actions}>
-        <Button
-          onClick={handleCancel}
-          variant="contained"
-          color="primary"
-          className={classes.cancel}
-        >
-          {t('Cancel')}
-        </Button>
-        <Button
-          disabled={valueComment === '' || referenceBlock?.text === ''}
-          onClick={handleSend}
-          variant="contained"
-          color="secondary"
-          className={classes.send}
-        >
-          {t('Send_message')}
-        </Button>
-      </DialogActions>
-    </Dialog>
+      </DialogUI>
+    </>
   );
 }
 

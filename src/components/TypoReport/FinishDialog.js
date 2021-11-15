@@ -3,9 +3,9 @@ import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { AppContext } from '../../context/AppContext';
-
+import DialogUI from '../DialogUI/DialogUI';
 import logo from './friends.png';
-import { Button, Dialog, DialogActions, DialogContent, Link } from '@material-ui/core';
+import { Link } from '@material-ui/core';
 import useStyles from './style';
 
 function FinishDialog({ open, onClose }) {
@@ -16,8 +16,8 @@ function FinishDialog({ open, onClose }) {
   } = useContext(AppContext);
 
   return (
-    <Dialog open={open} onClose={onClose}>
-      <DialogContent className={classes.center}>
+    <DialogUI labelApply={t('Apply')} onApply={onClose} onClose={onClose} open={open}>
+      <div className={classes.center}>
         <div>
           <img alt="logo friends" src={logo} />
         </div>
@@ -27,13 +27,8 @@ function FinishDialog({ open, onClose }) {
         <Link href={errorFile} target="_blank">
           {t('See_logs2')}
         </Link>
-      </DialogContent>
-      <DialogActions className={classes.secondActions}>
-        <Button onClick={onClose} variant="contained" color="primary">
-          {t('Close')}
-        </Button>
-      </DialogActions>
-    </Dialog>
+      </div>
+    </DialogUI>
   );
 }
 
