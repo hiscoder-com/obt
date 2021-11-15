@@ -4,10 +4,13 @@ import {
   Dialog,
   DialogActions,
   DialogContent,
-  DialogTitle,
   Button,
+  DialogTitle as MuiDialogTitle,
+  Typography,
+  IconButton,
+  withStyles,
 } from '@material-ui/core';
-
+import CloseIcon from '@material-ui/icons/Close';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
@@ -16,10 +19,35 @@ const useStyles = makeStyles((theme) => ({
     width: 'calc(100% - 8px)',
   },
 }));
-
+const styles = (theme) => ({
+  root: {
+    margin: 0,
+    padding: theme.spacing(2),
+  },
+  closeButton: {
+    position: 'absolute',
+    right: theme.spacing(1),
+    top: theme.spacing(1),
+    color: theme.palette.grey[500],
+  },
+});
+const DialogTitle = withStyles(styles)((props) => {
+  const { children, classes, onClose, ...other } = props;
+  return (
+    <MuiDialogTitle disableTypography className={classes.root} {...other}>
+      <Typography variant="h6">{children}</Typography>
+      {onClose ? (
+        <IconButton aria-label="close" className={classes.closeButton} onClick={onClose}>
+          <CloseIcon />
+        </IconButton>
+      ) : null}
+    </MuiDialogTitle>
+  );
+});
 function DialogUI({
   open,
   titleDialog,
+  titleDialogClose,
   labelClose,
   labelApply,
   children,
@@ -39,7 +67,9 @@ function DialogUI({
       maxWidth={'sm'}
       onClose={onClose}
     >
-      {titleDialog && <DialogTitle>{titleDialog}</DialogTitle>}
+      {(titleDialog || titleDialogClose) && (
+        <DialogTitle onClose={titleDialogClose && onClose}>{titleDialog}</DialogTitle>
+      )}
       <DialogContent>{children}</DialogContent>
       {(labelClose || labelApply) && (
         <DialogActions>
