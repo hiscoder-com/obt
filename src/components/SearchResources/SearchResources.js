@@ -104,7 +104,9 @@ function SearchResources({ anchorEl, onClose, open }) {
           );
 
         setResourcesApp((prev) => {
-          prev && findNewResources(prev, result);
+          if (prev && result) {
+            findNewResources(prev, result);
+          }
           return result;
         });
       })
@@ -114,19 +116,18 @@ function SearchResources({ anchorEl, onClose, open }) {
   }, [languageResources]);
 
   useEffect(() => {
-    const listOBS = newResources
-      .filter((res) => obsSubjects.includes(res.subject))
-      .map((res) => res.title)
-      .join(',');
-    const listBible = newResources
-      .filter((res) => bibleSubjects.includes(res.subject))
-      .map((res) => res.title)
-      .join(',');
-    const list = `${t('Added_new_resources')}. \n${
-      listBible ? 'Bible: ' + listBible : ''
-    } \n${listOBS ? 'OBS: ' + listOBS : ''}`;
     if (newResources.length !== 0) {
-      enqueueSnackbar(list, { variant: 'success' });
+      const listOBS = newResources
+        .filter((res) => obsSubjects.includes(res.subject))
+        .map((res) => res).length;
+      const listBible = newResources
+        .filter((res) => bibleSubjects.includes(res.subject))
+        .map((res) => res).length;
+      const list = `${t('Added_resources')}.
+     ${listBible ? `Bible: ${listBible}.` : ''}    
+    ${listOBS ? `OBS:  ${listOBS}.` : ''}`;
+
+      enqueueSnackbar(list, { variant: 'info' });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [newResources]);
