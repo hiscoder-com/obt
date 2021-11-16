@@ -76,10 +76,10 @@ export default function SupportTN(props) {
     >
       {items && (
         <ButtonGroupUI
-          titleFirst={t('Introduction')}
-          titleSecond={t('General_notes')}
-          onFirstButtonClick={onFirstButtonClick}
-          onSecondButtonClick={onSecondButtonClick}
+          buttons={[
+            { title: t('Introduction'), onClick: onFirstButtonClick },
+            { title: t('General_notes'), onClick: onSecondButtonClick },
+          ]}
         />
       )}
 
