@@ -25,27 +25,14 @@ const styles = (theme) => ({
 });
 
 function DialogUI({
-  classesMain,
-  classesClose,
-  classesApply,
-  disabledClose,
-  disabledApply,
+  buttons = [],
   open,
-  titleDialog,
-  titleDialogClose,
-  labelClose,
-  labelApply,
+  classes = {},
+  style = {},
+  title = {},
   children,
   onClose,
-  onApply,
-  styleClose = { variantClose: 'outlined', colorClose: 'secondary' },
-  styleApply = { variantApply: 'outlined', colorApply: 'primary' },
-  classesActions,
-  classesTitle,
 }) {
-  const { variantClose = 'outlined', colorClose = 'secondary' } = styleClose;
-  const { variantApply = 'outlined', colorApply = 'primary' } = styleApply;
-
   const DialogTitle = withStyles(styles)((props) => {
     const { children, classes, onClose, ...other } = props;
     return (
@@ -63,44 +50,38 @@ function DialogUI({
       </MuiDialogTitle>
     );
   });
+
   return (
     <Dialog
-      classes={classesMain}
+      classes={classes.root}
       open={open}
-      fullWidth={true}
-      maxWidth={'sm'}
+      fullWidth={style.fullWidth}
+      maxWidth={style.maxWidth}
       onClose={onClose}
     >
-      {(titleDialog || titleDialogClose) && (
-        <DialogTitle className={classesTitle} onClose={titleDialogClose && onClose}>
-          {titleDialog}
+      {title && (
+        <DialogTitle
+          className={title.classesTitle}
+          onClose={title.titleDialogClose && onClose}
+        >
+          {title.text}
         </DialogTitle>
       )}
-      <DialogContent>{children}</DialogContent>
-      {(labelClose || labelApply) && (
-        <DialogActions className={classesActions}>
-          {labelClose && (
+      <DialogContent className={classes.content}>{children}</DialogContent>
+      {buttons && (
+        <DialogActions className={classes.actions}>
+          {buttons.map((el, index) => (
             <Button
-              disabled={disabledClose}
-              onClick={onClose}
-              variant={variantClose}
-              color={colorClose}
-              className={classesClose}
+              key={index}
+              disabled={el.disabled}
+              variant={el.variant}
+              color={el.color}
+              className={el.classesButton}
+              onClick={el.onClick}
             >
-              {labelClose}
+              {el.label}
             </Button>
-          )}
-          {labelApply && (
-            <Button
-              disabled={disabledApply}
-              onClick={onApply}
-              variant={variantApply}
-              className={classesApply}
-              color={colorApply}
-            >
-              {labelApply}
-            </Button>
-          )}
+          ))}
         </DialogActions>
       )}
     </Dialog>
@@ -110,38 +91,37 @@ function DialogUI({
 export default DialogUI;
 
 DialogUI.propTypes = {
-  /** className of Dialog */
-  classesMain: PropTypes.string,
-  /** className of first Button (Close) in DialogActions */
-  classesClose: PropTypes.string,
-  /** className of second Button (Apply) in DialogActions*/
-  classesApply: PropTypes.string,
-  /** className of DialogActions */
-  classesActions: PropTypes.string,
-  /** className of DialogTitle */
-  classesTitle: PropTypes.string,
-  /** disabled of first Button (Close) */
-  disabledClose: PropTypes.bool,
-  /** disabled of second Button (Apply) */
-  disabledApply: PropTypes.bool,
-  /** opening Dialog */
-  open: PropTypes.bool,
-  /** children of DialogTitle */
-  titleDialog: PropTypes.string,
-  /** showing close button in title, working with onClose*/
-  titleDialogClose: PropTypes.bool,
-  /** label of first Button (Close)*/
-  labelClose: PropTypes.string,
-  /** label of first Button (Close)*/
-  labelApply: PropTypes.string,
+  /** array of buttons in  DialogActions
+   props:
+    disabled - bool,
+    variant - string,
+    color - string,
+    classeseButton - string
+    onClick - func
+   */
+  buttons: PropTypes.array,
+  /** object of classes in  DialogActions,DialogContent,Dialog
+   props:
+    content - string,
+    actions - string,
+    root - string,
+       */
+  classes: PropTypes.object,
   /** children of DialogContent */
   children: PropTypes.string,
-  /** func onClose & func onClick of first Button */
+  /** func onClose  */
   onClose: PropTypes.func,
-  /** func onClick of second Button */
-  onApply: PropTypes.string,
-  /** style of first Button */
-  styleClose: PropTypes.object,
-  /** style of second Button */
-  styleApply: PropTypes.object,
+  /** open  */
+  open: PropTypes.bool,
+  /** style of Dialog 
+    fullWidth - bool
+    maxWidth - string
+     */
+  style: PropTypes.object,
+  /** title
+   * classesTitle - string
+   * titleDialogClose - bool
+   * text = string
+   */
+  title: PropTypes.object,
 };

@@ -3,7 +3,7 @@ import React, { useContext } from 'react';
 import { AppContext } from '../../context';
 import { BookList } from '../../components';
 
-import { Dialog, DialogContent } from '@material-ui/core';
+import DialogUI from '../DialogUI/DialogUI';
 
 function BookSelect() {
   const {
@@ -13,16 +13,14 @@ function BookSelect() {
 
   return (
     <>
-      <Dialog
-        fullWidth={true}
-        maxWidth="lg"
+      <DialogUI
+        style={{ fullWidth: true, maxWidth: 'lg' }}
         open={showBookSelect}
         onClose={() => setShowBookSelect(false)}
+        classes={{ content: 'intro-bookList' }}
       >
-        <DialogContent className={'intro-bookList'}>
-          <BookList />
-        </DialogContent>
-      </Dialog>
+        <BookList />
+      </DialogUI>
     </>
   );
 }

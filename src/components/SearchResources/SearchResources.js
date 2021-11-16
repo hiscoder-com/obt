@@ -159,11 +159,17 @@ function SearchResources({ anchorEl, onClose, open }) {
         {menuItems.length !== 0 ? menuItems : emptyMenuItems}
       </Menu>
       <DialogUI
-        titleDialog={t('Choose_languages_resources')}
+        title={{ text: t('Choose_languages_resources') }}
         open={openDialog}
-        labelApply={t('Apply')}
-        onApply={handleCloseDialog}
         onClose={handleCloseDialog}
+        buttons={[
+          {
+            label: t('Apply'),
+            variant: 'contained',
+            color: 'primary',
+            onClick: handleCloseDialog,
+          },
+        ]}
       >
         <SelectResourcesLanguages />
       </DialogUI>

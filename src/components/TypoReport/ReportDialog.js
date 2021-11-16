@@ -31,20 +31,27 @@ function ReportDialog({
   return (
     <>
       <DialogUI
-        disabledApply={valueComment === '' || referenceBlock?.text === ''}
-        labelApply={t('Send_message')}
-        labelClose={t('Cancel')}
-        onApply={handleSend}
-        onClose={handleCancel}
+        buttons={[
+          {
+            label: t('Cancel'),
+            variant: 'contained',
+            color: 'primary',
+            classesButton: classes.cancel,
+            onClick: handleCancel,
+          },
+          {
+            label: t('Send_message'),
+            variant: 'contained',
+            color: 'secondary',
+            classesButton: classes.send,
+            onClick: handleSend,
+            disabled: valueComment === '' || referenceBlock?.text === '',
+          },
+        ]}
         open={open}
-        classesMain={{ paper: 'intro-reportDialog' }}
-        classesTitle={classes.title}
-        classesActions={classes.actions}
-        titleDialog={t('Report_typo')}
-        styleClose={{ variantClose: 'contained', colorClose: 'primary' }}
-        styleApply={{ variantApply: 'contained', colorApply: 'secondary' }}
-        classesClose={classes.cancel}
-        classesApply={classes.send}
+        onClose={handleCancel}
+        classes={{ root: { paper: 'intro-reportDialog' }, actions: classes.actions }}
+        title={{ text: t('Report_typo'), classesTitle: classes.title }}
       >
         <DialogContentText>{t('Text_to_editors')}</DialogContentText>
         <DialogContentText className={classes.select}>

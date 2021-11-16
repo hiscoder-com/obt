@@ -16,18 +16,27 @@ function FinishDialog({ open, onClose }) {
   } = useContext(AppContext);
 
   return (
-    <DialogUI labelApply={t('Apply')} onApply={onClose} onClose={onClose} open={open}>
-      <div className={classes.center}>
-        <div>
-          <img alt="logo friends" src={logo} />
-        </div>
-        {t('Thanks_report1')} <br />
-        {t('Thanks_report2')} <br /> <br />
-        {t('See_logs1')} <br />
-        <Link href={errorFile} target="_blank">
-          {t('See_logs2')}
-        </Link>
+    <DialogUI
+      classes={{ actions: classes.secondActions, content: classes.center }}
+      buttons={[
+        {
+          label: t('Apply'),
+          variant: 'contained',
+          color: 'primary',
+          onClick: onClose,
+        },
+      ]}
+      open={open}
+    >
+      <div>
+        <img alt="logo friends" src={logo} />
       </div>
+      {t('Thanks_report1')} <br />
+      {t('Thanks_report2')} <br /> <br />
+      {t('See_logs1')} <br />
+      <Link href={errorFile} target="_blank">
+        {t('See_logs2')}
+      </Link>
     </DialogUI>
   );
 }
