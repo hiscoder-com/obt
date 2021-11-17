@@ -32,11 +32,11 @@ export default function SupportTN(props) {
     ...config,
   });
 
-  const onFirstButtonClick = () => {
+  const onIntroClick = () => {
     setConfigFront({ ...config, verse: 'intro', chapter: 'front' });
     setOpenDialog(true);
   };
-  const onSecondButtonClick = () => {
+  const onNotesClick = () => {
     setConfigFront({ ...config, verse: 'intro' });
     setOpenDialog(true);
   };
@@ -77,8 +77,8 @@ export default function SupportTN(props) {
       {items && (
         <ButtonGroupUI
           buttons={[
-            { title: t('Introduction'), onClick: onFirstButtonClick },
-            { title: t('General_notes'), onClick: onSecondButtonClick },
+            { title: t('Introduction'), onClick: onIntroClick },
+            { title: t('General_notes'), onClick: onNotesClick },
           ]}
         />
       )}

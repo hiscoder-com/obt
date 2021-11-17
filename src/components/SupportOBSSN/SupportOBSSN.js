@@ -1,14 +1,16 @@
 import React from 'react';
-import { FrontModal } from '../FrontModal';
 import { Card, CardContent, useContent, useCardState } from 'translation-helps-rcl';
-import { ButtonGroupUI } from '../ButtonGroupUI';
 
-export default function SupportOBSSN(props) {
-  const { title, classes, onClose, type, server, fontSize, reference, resource } = props;
-  const [openDialog, setOpenDialog] = React.useState(false);
-  const [configFront, setConfigFront] = React.useState({});
-  const { bookId, chapter, verse } = reference;
-
+export default function SupportOBSSN({
+  title,
+  classes,
+  onClose,
+  type,
+  server,
+  fontSize,
+  reference: { bookId, chapter, verse },
+  resource,
+}) {
   const config = {
     projectId: bookId,
     ref: resource.branch ?? 'master',
@@ -23,7 +25,7 @@ export default function SupportOBSSN(props) {
     items,
     resourceStatus: { loading },
     props: { languageId },
-  } = useContent({ ...config });
+  } = useContent(config);
 
   const {
     state: { item, headers, itemIndex, markdownView },
@@ -36,18 +38,6 @@ export default function SupportOBSSN(props) {
     resourceId: 'sn',
   });
   const filterArray = ['Quote', 'Note'];
-
-  const onFirstButtonClick = () => {
-    setConfigFront({ ...config, verse: 'intro', chapter: 'front' });
-    setOpenDialog(true);
-  };
-  const onSecondButtonClick = () => {
-    setConfigFront({ ...config, verse: 'intro' });
-    setOpenDialog(true);
-  };
-  const onCloseDialog = () => {
-    setOpenDialog(false);
-  };
 
   return (
     <Card
@@ -66,23 +56,6 @@ export default function SupportOBSSN(props) {
       markdownView={markdownView}
       setMarkdownView={setMarkdownView}
     >
-      {items && false && (
-        <ButtonGroupUI
-          buttons={[
-            { title: 'Introduction', onClick: onFirstButtonClick },
-            { title: 'General_notes', onClick: onSecondButtonClick },
-          ]}
-        />
-      )}
-
-      {configFront.projectId && (
-        <FrontModal
-          onCloseDialog={onCloseDialog}
-          open={openDialog}
-          config={configFront}
-        />
-      )}
-
       <CardContent
         item={item}
         filters={filterArray}

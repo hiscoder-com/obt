@@ -11,7 +11,6 @@ import {
   Dialog,
   DialogActions,
   DialogContent,
-  DialogContentText,
   DialogTitle,
   MenuList,
   MenuItem,
@@ -49,10 +48,8 @@ function About({ open, setOpen, handleClick }) {
           {'About'} v{PACKAGE_JSON?.default?.version}
         </DialogTitle>
         <DialogContent>
-          <DialogContentText id="about-text">
-            {PACKAGE_JSON?.default?.description}
-            <ReactMarkdown>{log ? log.text : 'Version of application'}</ReactMarkdown>
-          </DialogContentText>
+          {PACKAGE_JSON?.default?.description}
+          <ReactMarkdown>{log ? log.text : 'Version of application'}</ReactMarkdown>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="primary" autoFocus>
