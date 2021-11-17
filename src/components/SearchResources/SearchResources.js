@@ -124,8 +124,8 @@ function SearchResources({ anchorEl, onClose, open }) {
         .filter((res) => bibleSubjects.includes(res.subject))
         .map((res) => res).length;
       const list = `${t('Added_resources')}.
-     ${listBible ? `Bible: ${listBible}.` : ''}    
-    ${listOBS ? `OBS:  ${listOBS}.` : ''}`;
+     ${listBible ? `${t('Bible')}: ${listBible}.` : ''}
+    ${listOBS ? `${t('OBS')}: ${listOBS}.` : ''}`;
 
       enqueueSnackbar(list, { variant: 'info' });
     }
