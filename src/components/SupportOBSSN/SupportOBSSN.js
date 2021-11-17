@@ -1,15 +1,15 @@
 import React from 'react';
+import { FrontModal } from '../FrontModal';
 import { Card, CardContent, useContent, useCardState } from 'translation-helps-rcl';
+import { ButtonGroupUI } from '../ButtonGroupUI';
 
 export default function SupportOBSSN(props) {
   const { title, classes, onClose, type, server, fontSize, reference, resource } = props;
+  const [openDialog, setOpenDialog] = React.useState(false);
+  const [configFront, setConfigFront] = React.useState({});
   const { bookId, chapter, verse } = reference;
 
-  const {
-    items,
-    resourceStatus: { loading },
-    props: { languageId },
-  } = useContent({
+  const config = {
     projectId: bookId,
     ref: resource.branch ?? 'master',
     languageId: resource.languageId ?? 'ru',
@@ -18,11 +18,16 @@ export default function SupportOBSSN(props) {
     chapter,
     owner: resource.owner ?? 'door43-catalog',
     server,
-  });
+  };
+  const {
+    items,
+    resourceStatus: { loading },
+    props: { languageId },
+  } = useContent({ ...config });
 
   const {
-    state: { item, headers, itemIndex },
-    actions: { setFilters, setItemIndex },
+    state: { item, headers, itemIndex, markdownView },
+    actions: { setFilters, setItemIndex, setMarkdownView },
   } = useCardState({
     items,
     verse,
@@ -31,6 +36,19 @@ export default function SupportOBSSN(props) {
     resourceId: 'sn',
   });
   const filterArray = ['Quote', 'Note'];
+
+  const onFirstButtonClick = () => {
+    setConfigFront({ ...config, verse: 'intro', chapter: 'front' });
+    setOpenDialog(true);
+  };
+  const onSecondButtonClick = () => {
+    setConfigFront({ ...config, verse: 'intro' });
+    setOpenDialog(true);
+  };
+  const onCloseDialog = () => {
+    setOpenDialog(false);
+  };
+
   return (
     <Card
       closeable
@@ -45,7 +63,26 @@ export default function SupportOBSSN(props) {
       itemIndex={itemIndex}
       setFilters={setFilters}
       setItemIndex={setItemIndex}
+      markdownView={markdownView}
+      setMarkdownView={setMarkdownView}
     >
+      {items && false && (
+        <ButtonGroupUI
+          buttons={[
+            { title: 'Introduction', onClick: onFirstButtonClick },
+            { title: 'General_notes', onClick: onSecondButtonClick },
+          ]}
+        />
+      )}
+
+      {configFront.projectId && (
+        <FrontModal
+          onCloseDialog={onCloseDialog}
+          open={openDialog}
+          config={configFront}
+        />
+      )}
+
       <CardContent
         item={item}
         filters={filterArray}
@@ -53,6 +90,7 @@ export default function SupportOBSSN(props) {
         viewMode="table"
         isLoading={Boolean(loading)}
         languageId={languageId}
+        markdownView={markdownView}
       />
     </Card>
   );

@@ -12,7 +12,7 @@ export default function SupportOBSTN(props) {
     resourceStatus: { loading },
     props: { languageId },
   } = useContent({
-    projectId: bookId + '-tn',
+    projectId: bookId,
     ref: resource.branch ?? 'master',
     languageId: resource.languageId ?? 'ru',
     resourceId: 'obs-tn',

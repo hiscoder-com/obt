@@ -83,16 +83,22 @@ export default function SupportTN(props) {
         />
       )}
 
-      <FrontModal onCloseDialog={onCloseDialog} open={openDialog} config={configFront} />
+      {configFront.projectId && (
+        <FrontModal
+          onCloseDialog={onCloseDialog}
+          open={openDialog}
+          config={configFront}
+        />
+      )}
 
       <CardContent
         item={item}
         viewMode="table"
         filters={filterArray}
-        markdown={markdown}
         fontSize={fontSize}
         isLoading={Boolean(loading)}
         languageId={languageId}
+        markdown={markdown}
         markdownView={markdownView}
         selectedQuote={selectedQuote}
         setQuote={setQuote}
