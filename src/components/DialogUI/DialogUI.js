@@ -5,51 +5,22 @@ import {
   DialogActions,
   DialogContent,
   Button,
-  DialogTitle as MuiDialogTitle,
+  DialogTitle,
   IconButton,
-  withStyles,
 } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
-
-const styles = (theme) => ({
-  root: {
-    margin: 0,
-    padding: theme.spacing(2),
-  },
-  closeButton: {
-    position: 'absolute',
-    right: theme.spacing(1),
-    top: theme.spacing(1),
-    color: theme.palette.grey[500],
-  },
-});
+import useLocalTitleStyles from './style';
 
 function DialogUI({
   buttons = [],
-  open,
   classes = {},
   style = {},
   title = {},
   children,
+  open,
   onClose,
 }) {
-  const DialogTitle = withStyles(styles)((props) => {
-    const { children, classes, onClose, ...other } = props;
-    return (
-      <MuiDialogTitle className={classes.root} {...other}>
-        {children}
-        {onClose ? (
-          <IconButton
-            aria-label="close"
-            className={classes.closeButton}
-            onClick={onClose}
-          >
-            <CloseIcon />
-          </IconButton>
-        ) : null}
-      </MuiDialogTitle>
-    );
-  });
+  const classesLocalTitle = useLocalTitleStyles();
 
   return (
     <Dialog
@@ -59,26 +30,25 @@ function DialogUI({
       maxWidth={style.maxWidth}
       onClose={onClose}
     >
-      {title && (
-        <DialogTitle
-          className={title.classesTitle}
-          onClose={title.titleDialogClose && onClose}
-        >
+      {Object.keys(title).length > 0 && (
+        <DialogTitle className={classes.title}>
           {title.text}
+          {title.close ? (
+            <IconButton
+              aria-label="close"
+              className={classesLocalTitle.closeButton}
+              onClick={onClose}
+            >
+              <CloseIcon />
+            </IconButton>
+          ) : null}
         </DialogTitle>
       )}
       <DialogContent className={classes.content}>{children}</DialogContent>
-      {buttons && (
+      {buttons?.length > 0 && (
         <DialogActions className={classes.actions}>
           {buttons.map((el, index) => (
-            <Button
-              key={index}
-              disabled={el.disabled}
-              variant={el.variant}
-              color={el.color}
-              className={el.classesButton}
-              onClick={el.onClick}
-            >
+            <Button key={index} {...el}>
               {el.label}
             </Button>
           ))}
@@ -108,7 +78,7 @@ DialogUI.propTypes = {
        */
   classes: PropTypes.object,
   /** children of DialogContent */
-  children: PropTypes.string,
+  // children: PropTypes.string,
   /** func onClose  */
   onClose: PropTypes.func,
   /** open  */

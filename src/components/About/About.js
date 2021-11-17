@@ -38,7 +38,7 @@ function About({ open, setOpen, handleClick }) {
         onClose={handleClose}
         title={{
           text: `About v${PACKAGE_JSON?.default?.version}`,
-          titleDialogClose: true,
+          close: true,
         }}
       >
         <DialogContentText id="about-text">

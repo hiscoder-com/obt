@@ -36,22 +36,26 @@ function ReportDialog({
             label: t('Cancel'),
             variant: 'contained',
             color: 'primary',
-            classesButton: classes.cancel,
+            className: classes.cancel,
             onClick: handleCancel,
           },
           {
             label: t('Send_message'),
             variant: 'contained',
             color: 'secondary',
-            classesButton: classes.send,
+            className: classes.send,
             onClick: handleSend,
             disabled: valueComment === '' || referenceBlock?.text === '',
           },
         ]}
         open={open}
         onClose={handleCancel}
-        classes={{ root: { paper: 'intro-reportDialog' }, actions: classes.actions }}
-        title={{ text: t('Report_typo'), classesTitle: classes.title }}
+        classes={{
+          root: { paper: 'intro-reportDialog' },
+          title: classes.title,
+          actions: classes.actions,
+        }}
+        title={{ text: t('Report_typo') }}
       >
         <DialogContentText>{t('Text_to_editors')}</DialogContentText>
         <DialogContentText className={classes.select}>
