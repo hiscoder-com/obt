@@ -72,7 +72,10 @@ export default function SupportOBSSQ({
       setItemIndex={setItemIndex}
     >
       {items && (
-        <ButtonGroupUI buttons={[{ title: t('Summary'), onClick: onSummaryClick }]} />
+        <ButtonGroupUI
+          style={{ marginTop: '5px' }}
+          buttons={[{ title: t('Summary'), onClick: onSummaryClick }]}
+        />
       )}
 
       {configFront.projectId && (

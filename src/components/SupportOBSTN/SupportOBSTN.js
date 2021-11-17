@@ -78,7 +78,10 @@ export default function SupportOBSTN({
       setMarkdownView={setMarkdownView}
     >
       {markdown && (
-        <ButtonGroupUI buttons={[{ title: t('StoryTitle'), onClick: titleClick }]} />
+        <ButtonGroupUI
+          style={{ marginTop: '5px' }}
+          buttons={[{ title: t('StoryTitle'), onClick: titleClick }]}
+        />
       )}
 
       {configFront.projectId && (
