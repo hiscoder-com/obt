@@ -86,7 +86,7 @@ function StartDialog() {
   };
 
   return (
-    <DialogUI open={openDialog} onClose={handleClose}>
+    <DialogUI style={{ fullWidth: true }} open={openDialog} onClose={handleClose}>
       <Base>
         <div className={classes.positionCenter}>
           {activeStep < steps.length && (
