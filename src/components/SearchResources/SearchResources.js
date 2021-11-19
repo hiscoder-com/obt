@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import axios from 'axios';
 
 import { AppContext, ReferenceContext } from '../../context';
-import { DialogUI } from '../DialogUI';
+import { SelectResourcesLanguages, DialogUI } from '../../components';
 import {
   subjects,
   owners,
@@ -15,7 +15,6 @@ import {
 import { defaultCard, server, columns } from '../../config/base';
 import { getXY } from 'resource-workspace-rcl';
 import { getUniqueResources } from '../../helper';
-import { SelectResourcesLanguages } from '../SelectResourcesLanguages';
 import { MenuItem, Menu, Button } from '@material-ui/core';
 
 import LanguageIcon from '@material-ui/icons/Language';
@@ -159,11 +158,10 @@ function SearchResources({ anchorEl, onClose, open }) {
         {menuItems.length !== 0 ? menuItems : emptyMenuItems}
       </Menu>
       <DialogUI
-        titleDialog={t('Choose_languages_resources')}
+        title={t('Choose_languages_resources')}
         open={openDialog}
-        labelApply={t('Apply')}
-        onApply={handleCloseDialog}
         onClose={handleCloseDialog}
+        primary={{ text: t('Ok'), onClick: handleCloseDialog }}
       >
         <SelectResourcesLanguages />
       </DialogUI>

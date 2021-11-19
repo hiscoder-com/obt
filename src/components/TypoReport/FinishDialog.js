@@ -2,22 +2,25 @@ import React, { useContext } from 'react';
 
 import { useTranslation } from 'react-i18next';
 
-import { AppContext } from '../../context/AppContext';
-
+import { AppContext } from '../../context';
+import { DialogUI } from '../../components';
 import logo from './friends.png';
-import { Button, Dialog, DialogActions, DialogContent, Link } from '@material-ui/core';
-import useStyles from './style';
+import { Link } from '@material-ui/core';
 
 function FinishDialog({ open, onClose }) {
   const { t } = useTranslation();
-  const classes = useStyles();
   const {
     state: { errorFile },
   } = useContext(AppContext);
 
   return (
-    <Dialog open={open} onClose={onClose}>
-      <DialogContent className={classes.center}>
+    <DialogUI
+      primary={{ text: t('Ok'), onClick: onClose }}
+      onClose={onClose}
+      title={t('Done')}
+      open={open}
+    >
+      <div style={{ textAlign: 'center' }}>
         <div>
           <img alt="logo friends" src={logo} />
         </div>
@@ -27,13 +30,8 @@ function FinishDialog({ open, onClose }) {
         <Link href={errorFile} target="_blank">
           {t('See_logs2')}
         </Link>
-      </DialogContent>
-      <DialogActions className={classes.secondActions}>
-        <Button onClick={onClose} variant="contained" color="primary">
-          {t('Close')}
-        </Button>
-      </DialogActions>
-    </Dialog>
+      </div>
+    </DialogUI>
   );
 }
 
