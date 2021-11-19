@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles((theme) => ({
+export const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
     flexDirection: 'column',
@@ -16,5 +16,3 @@ export const useButtonStyles = makeStyles((theme) => ({
     textTransform: 'none',
   },
 }));
-
-export default useStyles;

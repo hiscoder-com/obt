@@ -90,20 +90,20 @@ DialogUI.defaultProps = {
 
 DialogUI.propTypes = {
   primary: PropTypes.shape({
-    text: PropTypes.string,
-    onClick: PropTypes.func,
+    text: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
+    onClick: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
     disabled: PropTypes.bool,
   }),
   secondary: PropTypes.shape({
-    text: PropTypes.string,
-    onClick: PropTypes.func,
+    text: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
+    onClick: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
     disabled: PropTypes.bool,
   }),
   maxWidth: PropTypes.oneOf(['sm', 'md', 'lg', 'xl']),
   isClosable: PropTypes.bool,
   classes: PropTypes.object,
-  children: PropTypes.element,
+  children: PropTypes.any,
   onClose: PropTypes.func,
   open: PropTypes.bool,
-  title: PropTypes.string,
+  title: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
 };

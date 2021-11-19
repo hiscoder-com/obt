@@ -1,15 +1,17 @@
 import React from 'react';
 import { Card, CardContent, useContent, useCardState } from 'translation-helps-rcl';
 
-export default function SupportOBSSN(props) {
-  const { title, classes, onClose, type, server, fontSize, reference, resource } = props;
-  const { bookId, chapter, verse } = reference;
-
-  const {
-    items,
-    resourceStatus: { loading },
-    props: { languageId },
-  } = useContent({
+export default function SupportOBSSN({
+  title,
+  classes,
+  onClose,
+  type,
+  server,
+  fontSize,
+  reference: { bookId, chapter, verse },
+  resource,
+}) {
+  const config = {
     projectId: bookId,
     ref: resource.branch ?? 'master',
     languageId: resource.languageId ?? 'ru',
@@ -18,11 +20,16 @@ export default function SupportOBSSN(props) {
     chapter,
     owner: resource.owner ?? 'door43-catalog',
     server,
-  });
+  };
+  const {
+    items,
+    resourceStatus: { loading },
+    props: { languageId },
+  } = useContent(config);
 
   const {
-    state: { item, headers, itemIndex },
-    actions: { setFilters, setItemIndex },
+    state: { item, headers, itemIndex, markdownView },
+    actions: { setFilters, setItemIndex, setMarkdownView },
   } = useCardState({
     items,
     verse,
@@ -31,6 +38,7 @@ export default function SupportOBSSN(props) {
     resourceId: 'sn',
   });
   const filterArray = ['Quote', 'Note'];
+
   return (
     <Card
       closeable
@@ -45,6 +53,8 @@ export default function SupportOBSSN(props) {
       itemIndex={itemIndex}
       setFilters={setFilters}
       setItemIndex={setItemIndex}
+      markdownView={markdownView}
+      setMarkdownView={setMarkdownView}
     >
       <CardContent
         item={item}
@@ -53,6 +63,7 @@ export default function SupportOBSSN(props) {
         viewMode="table"
         isLoading={Boolean(loading)}
         languageId={languageId}
+        markdownView={markdownView}
       />
     </Card>
   );
