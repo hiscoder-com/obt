@@ -37,7 +37,6 @@ function SearchResources({ anchorEl, onClose, open }) {
   const classes = useStyles();
   const addClasses = useAddStyles();
   const [openDialog, setOpenDialog] = useState(false);
-  const [newResources, setNewResources] = useState([]);
   const prevResources = useRef([]);
   const uniqueResources = getUniqueResources(appConfig, resourcesApp);
   const { enqueueSnackbar } = useSnackbar();
@@ -69,7 +68,9 @@ function SearchResources({ anchorEl, onClose, open }) {
       const result = [..._result];
       const prev = [..._prev];
       const flatPrev = prev.map((el) => el.id);
-      setNewResources(result.filter((res) => !flatPrev.includes(res.id)));
+      return result.filter((res) => !flatPrev.includes(res.id));
+    } else {
+      return [];
     }
   };
 
@@ -119,10 +120,7 @@ function SearchResources({ anchorEl, onClose, open }) {
   }, [languageResources]);
 
   useEffect(() => {
-    findNewResources(prevResources.current, resourcesApp);
-  }, [resourcesApp]);
-
-  useEffect(() => {
+    const newResources = findNewResources(prevResources.current, resourcesApp);
     if (newResources.length > 0) {
       const listOBS = newResources.filter((res) =>
         obsSubjects.includes(res.subject)
@@ -137,7 +135,7 @@ function SearchResources({ anchorEl, onClose, open }) {
       enqueueSnackbar(list, { variant: 'info' });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [newResources]);
+  }, [resourcesApp]);
 
   let blockLang = '';
   const currentSubjects = bookId === 'obs' ? obsSubjects : bibleSubjects;
