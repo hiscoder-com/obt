@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
 import {
   Dialog,
   DialogActions,
@@ -12,28 +13,31 @@ import CloseIcon from '@material-ui/icons/Close';
 import useLocalTitleStyles from './style';
 
 function DialogUI({
-  buttons = [],
+  primary = { text: false, onClick: false, disabled: false },
+  secondary = { text: false, onClick: false, disabled: false },
   classes = {},
-  style = {},
-  title = {},
+  maxWidth = 'md',
+  title = false,
   children,
   open,
   onClose,
+  isClosable = true,
 }) {
   const classesLocalTitle = useLocalTitleStyles();
+  const { t } = useTranslation();
 
   return (
     <Dialog
       classes={classes.root}
       open={open}
-      fullWidth={style.fullWidth}
-      maxWidth={style.maxWidth}
+      fullWidth={true}
+      maxWidth={maxWidth}
       onClose={onClose}
     >
-      {Object.keys(title).length > 0 && (
-        <DialogTitle className={classes.title}>
-          {title.text}
-          {title.close ? (
+      {title && (
+        <DialogTitle>
+          {title}
+          {isClosable && (
             <IconButton
               aria-label="close"
               className={classesLocalTitle.closeButton}
@@ -41,17 +45,31 @@ function DialogUI({
             >
               <CloseIcon />
             </IconButton>
-          ) : null}
+          )}
         </DialogTitle>
       )}
-      <DialogContent className={classes.content}>{children}</DialogContent>
-      {buttons?.length > 0 && (
-        <DialogActions className={classes.actions}>
-          {buttons.map((el, index) => (
-            <Button key={index} {...el}>
-              {el.label}
+      <DialogContent>{children}</DialogContent>
+      {(primary?.onClick || secondary?.onClick) && (
+        <DialogActions>
+          {secondary?.onClick && (
+            <Button
+              onClick={secondary.onClick}
+              variant={'contained'}
+              disabled={secondary.disabled ?? false}
+            >
+              {secondary?.text ?? t('Cancel')}
             </Button>
-          ))}
+          )}
+          {primary?.onClick && (
+            <Button
+              onClick={primary.onClick}
+              color={'primary'}
+              variant={'contained'}
+              disabled={primary.disabled ?? false}
+            >
+              {primary?.text ?? t('Apply')}
+            </Button>
+          )}
         </DialogActions>
       )}
     </Dialog>
@@ -60,38 +78,32 @@ function DialogUI({
 
 export default DialogUI;
 
+DialogUI.defaultProps = {
+  primary: { text: false, onClick: false, disabled: false },
+  secondary: { text: false, onClick: false, disabled: false },
+  classes: {},
+  maxWidth: 'md',
+  title: false,
+  open: false,
+  isClosable: true,
+};
+
 DialogUI.propTypes = {
-  /** array of buttons in  DialogActions
-   props:
-    disabled - bool,
-    variant - string,
-    color - string,
-    classeseButton - string
-    onClick - func
-   */
-  buttons: PropTypes.array,
-  /** object of classes in  DialogActions,DialogContent,Dialog
-   props:
-    content - string,
-    actions - string,
-    root - string,
-       */
+  primary: PropTypes.shape({
+    text: PropTypes.string,
+    onClick: PropTypes.func,
+    disabled: PropTypes.bool,
+  }),
+  secondary: PropTypes.shape({
+    text: PropTypes.string,
+    onClick: PropTypes.func,
+    disabled: PropTypes.bool,
+  }),
+  maxWidth: PropTypes.oneOf(['sm', 'md', 'lg', 'xl']),
+  isClosable: PropTypes.bool,
   classes: PropTypes.object,
-  /** children of DialogContent */
-  // children: PropTypes.string,
-  /** func onClose  */
+  children: PropTypes.element,
   onClose: PropTypes.func,
-  /** open  */
   open: PropTypes.bool,
-  /** style of Dialog 
-    fullWidth - bool
-    maxWidth - string
-     */
-  style: PropTypes.object,
-  /** title
-   * classesTitle - string
-   * titleDialogClose - bool
-   * text = string
-   */
-  title: PropTypes.object,
+  title: PropTypes.string,
 };

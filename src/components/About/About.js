@@ -4,8 +4,8 @@ import ReactMarkdown from 'react-markdown';
 
 import changeLog from '../../docs/CHANGELOG.md';
 import * as PACKAGE_JSON from '../../../package.json';
-import DialogUI from '../DialogUI/DialogUI';
-import { DialogContentText, MenuList, MenuItem } from '@material-ui/core';
+import { DialogUI } from '../../components';
+import { MenuList, MenuItem } from '@material-ui/core';
 
 function About({ open, setOpen, handleClick }) {
   const [log, setLog] = useState();
@@ -16,7 +16,7 @@ function About({ open, setOpen, handleClick }) {
       .then((text) => {
         setLog({ text: text });
       });
-  }, [open]);
+  }, []);
 
   const handleClose = () => {
     setOpen(false);
@@ -36,15 +36,10 @@ function About({ open, setOpen, handleClick }) {
       <DialogUI
         open={open}
         onClose={handleClose}
-        title={{
-          text: `About v${PACKAGE_JSON?.default?.version}`,
-          close: true,
-        }}
+        title={`About v${PACKAGE_JSON?.default?.version}`}
       >
-        <DialogContentText id="about-text">
-          {PACKAGE_JSON?.default?.description}
-          <ReactMarkdown>{log ? log.text : 'Version of application'}</ReactMarkdown>
-        </DialogContentText>
+        {PACKAGE_JSON?.default?.description}
+        <ReactMarkdown>{log ? log.text : 'Version of application'}</ReactMarkdown>
       </DialogUI>
     </>
   );

@@ -2,7 +2,7 @@ import React from 'react';
 
 import { useContent } from 'translation-helps-rcl';
 import { CircularProgress } from '@material-ui/core';
-import { DialogUI } from '../DialogUI';
+import { DialogUI } from '../../components';
 import ReactMarkdown from 'react-markdown';
 
 function FrontModal({ config, open, onCloseDialog }) {
@@ -20,7 +20,7 @@ function FrontModal({ config, open, onCloseDialog }) {
   );
   return (
     <div>
-      <DialogUI open={open} onClose={onCloseDialog} title={{ close: true }}>
+      <DialogUI open={open} onClose={onCloseDialog}>
         {resourceStatus.loading ? (
           loadingContent
         ) : (

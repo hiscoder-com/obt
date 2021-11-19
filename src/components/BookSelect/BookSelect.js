@@ -1,9 +1,7 @@
 import React, { useContext } from 'react';
 
 import { AppContext } from '../../context';
-import { BookList } from '../../components';
-
-import DialogUI from '../DialogUI/DialogUI';
+import { DialogUI, BookList } from '../../components';
 
 function BookSelect() {
   const {
@@ -14,7 +12,7 @@ function BookSelect() {
   return (
     <>
       <DialogUI
-        style={{ fullWidth: true, maxWidth: 'lg' }}
+        maxWidth={'lg'}
         open={showBookSelect}
         onClose={() => setShowBookSelect(false)}
         classes={{ content: 'intro-bookList' }}

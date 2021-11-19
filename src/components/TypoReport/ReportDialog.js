@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 
 import { useTranslation } from 'react-i18next';
-import DialogUI from '../DialogUI/DialogUI';
+import { DialogUI } from '../../components';
 import { ReferenceContext } from '../../context';
 
 import { Box, DialogContentText, TextField } from '@material-ui/core';
@@ -31,34 +31,23 @@ function ReportDialog({
   return (
     <>
       <DialogUI
-        buttons={[
-          {
-            label: t('Cancel'),
-            variant: 'contained',
-            color: 'primary',
-            className: classes.cancel,
-            onClick: handleCancel,
-          },
-          {
-            label: t('Send_message'),
-            variant: 'contained',
-            color: 'secondary',
-            className: classes.send,
-            onClick: handleSend,
-            disabled: valueComment === '' || referenceBlock?.text === '',
-          },
-        ]}
+        primary={{
+          text: t('Send_message'),
+          onClick: handleSend,
+          disabled: valueComment === '' || referenceBlock?.text === '',
+        }}
+        secondary={{
+          onClick: handleCancel,
+        }}
         open={open}
         onClose={handleCancel}
         classes={{
           root: { paper: 'intro-reportDialog' },
-          title: classes.title,
-          actions: classes.actions,
         }}
-        title={{ text: t('Report_typo') }}
+        title={t('Report_typo')}
       >
         <DialogContentText>{t('Text_to_editors')}</DialogContentText>
-        <DialogContentText className={classes.select}>
+        <DialogContentText>
           {showReferenceText}
           <Box component="span" className={classes.ref}>
             ({showReference})
