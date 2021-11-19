@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState, useRef } from 'react';
 
 import { useTranslation } from 'react-i18next';
 import axios from 'axios';
@@ -38,6 +38,7 @@ function SearchResources({ anchorEl, onClose, open }) {
   const addClasses = useAddStyles();
   const [openDialog, setOpenDialog] = useState(false);
   const [newResources, setNewResources] = useState([]);
+  const prevResources = useRef([]);
   const uniqueResources = getUniqueResources(appConfig, resourcesApp);
   const { enqueueSnackbar } = useSnackbar();
   const handleAddMaterial = (item) => {
@@ -62,9 +63,13 @@ function SearchResources({ anchorEl, onClose, open }) {
   const handleOpenDialog = () => {
     setOpenDialog(true);
   };
-  const findNewResources = (prev, result) => {
-    if (result.length > prev.length) {
-      setNewResources(result.filter((res) => !prev.map((el) => el.id).includes(res.id)));
+
+  const findNewResources = (_prev, _result) => {
+    if (_result.length > _prev.length) {
+      const result = [..._result];
+      const prev = [..._prev];
+      const flatPrev = prev.map((el) => el.id);
+      setNewResources(result.filter((res) => !flatPrev.includes(res.id)));
     }
   };
 
@@ -88,9 +93,9 @@ function SearchResources({ anchorEl, onClose, open }) {
               name: el.name,
               subject: el.subject,
               title: el.title,
-              ref: el.default_branch,
+              ref: el.branch_or_tag_name,
               owner: el.owner.toString().toLowerCase(),
-              link: el.full_name + '/' + el.default_branch,
+              link: el.full_name + '/' + el.branch_or_tag_name,
             };
           })
           .filter(
@@ -101,10 +106,9 @@ function SearchResources({ anchorEl, onClose, open }) {
                   JSON.stringify({ owner: el.owner, name: el.name })
               )
           );
-
         setResourcesApp((prev) => {
           if (prev && result) {
-            findNewResources(prev, result);
+            prevResources.current = prev;
           }
           return result;
         });
@@ -115,13 +119,17 @@ function SearchResources({ anchorEl, onClose, open }) {
   }, [languageResources]);
 
   useEffect(() => {
-    if (newResources.length !== 0) {
-      const listOBS = newResources
-        .filter((res) => obsSubjects.includes(res.subject))
-        .map((res) => res).length;
-      const listBible = newResources
-        .filter((res) => bibleSubjects.includes(res.subject))
-        .map((res) => res).length;
+    findNewResources(prevResources.current, resourcesApp);
+  }, [resourcesApp]);
+
+  useEffect(() => {
+    if (newResources.length > 0) {
+      const listOBS = newResources.filter((res) =>
+        obsSubjects.includes(res.subject)
+      ).length;
+      const listBible = newResources.filter((res) =>
+        bibleSubjects.includes(res.subject)
+      ).length;
       const list = `${t('Added_resources')}.
      ${listBible ? `${t('Bible')}: ${listBible}.` : ''}
     ${listOBS ? `${t('OBS')}: ${listOBS}.` : ''}`;
@@ -130,6 +138,7 @@ function SearchResources({ anchorEl, onClose, open }) {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [newResources]);
+
   let blockLang = '';
   const currentSubjects = bookId === 'obs' ? obsSubjects : bibleSubjects;
   const menuItems = uniqueResources
@@ -157,7 +166,9 @@ function SearchResources({ anchorEl, onClose, open }) {
         );
       }
     });
+
   const emptyMenuItems = <p className={classes.divider}>{t('No_resources')}</p>;
+
   const handleCloseDialog = () => {
     setOpenDialog(false);
   };
