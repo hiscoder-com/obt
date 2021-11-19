@@ -40,7 +40,7 @@ function FrontModal({
   );
   return (
     <div>
-      <DialogUI titleDialog={title} open={open} onClose={onCloseDialog}>
+      <DialogUI title={title} open={open} onClose={onCloseDialog}>
         {resourceStatus.loading ? (
           loadingContent
         ) : (

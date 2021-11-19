@@ -88,6 +88,7 @@ export default function SupportTN(props) {
         <FrontModal
           onCloseDialog={onCloseDialog}
           open={openDialog}
+          title={' '}
           config={configFront}
         />
       )}
