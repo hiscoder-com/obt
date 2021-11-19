@@ -2,7 +2,7 @@ import React from 'react';
 
 import { useContent } from 'translation-helps-rcl';
 import { CircularProgress } from '@material-ui/core';
-import { DialogUI } from '../DialogUI';
+import { DialogUI } from '../../components';
 import ReactMarkdown from 'react-markdown';
 
 function FrontModal({
@@ -44,7 +44,7 @@ function FrontModal({
         {resourceStatus.loading ? (
           loadingContent
         ) : (
-          <ReactMarkdown>{content}</ReactMarkdown>
+          <ReactMarkdown className={'md'}>{content}</ReactMarkdown>
         )}
       </DialogUI>
     </div>

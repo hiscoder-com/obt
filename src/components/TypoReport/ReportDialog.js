@@ -1,19 +1,10 @@
 import React, { useContext } from 'react';
 
 import { useTranslation } from 'react-i18next';
-
+import { DialogUI } from '../../components';
 import { ReferenceContext } from '../../context';
 
-import {
-  Box,
-  Button,
-  Dialog,
-  DialogTitle,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  TextField,
-} from '@material-ui/core';
+import { Box, DialogContentText, TextField } from '@material-ui/core';
 import useStyles from './style';
 
 function ReportDialog({
@@ -38,11 +29,23 @@ function ReportDialog({
   const showReferenceText = text;
 
   return (
-    <Dialog open={open} onClose={handleCancel} classes={{ paper: 'intro-reportDialog' }}>
-      <DialogTitle className={classes.title}>{t('Report_typo')}</DialogTitle>
-      <DialogContent>
+    <>
+      <DialogUI
+        primary={{
+          text: t('Send_message'),
+          onClick: handleSend,
+          disabled: valueComment === '' || referenceBlock?.text === '',
+        }}
+        maxWidth={'sm'}
+        open={open}
+        onClose={handleCancel}
+        classes={{
+          root: { paper: 'intro-reportDialog' },
+        }}
+        title={t('Report_typo')}
+      >
         <DialogContentText>{t('Text_to_editors')}</DialogContentText>
-        <DialogContentText className={classes.select}>
+        <DialogContentText>
           {showReferenceText}
           <Box component="span" className={classes.ref}>
             ({showReference})
@@ -61,27 +64,8 @@ function ReportDialog({
         <DialogContentText className={classes.errorMessage}>
           {errorMessage}
         </DialogContentText>
-      </DialogContent>
-      <DialogActions className={classes.actions}>
-        <Button
-          onClick={handleCancel}
-          variant="contained"
-          color="primary"
-          className={classes.cancel}
-        >
-          {t('Cancel')}
-        </Button>
-        <Button
-          disabled={valueComment === '' || referenceBlock?.text === ''}
-          onClick={handleSend}
-          variant="contained"
-          color="secondary"
-          className={classes.send}
-        >
-          {t('Send_message')}
-        </Button>
-      </DialogActions>
-    </Dialog>
+      </DialogUI>
+    </>
   );
 }
 

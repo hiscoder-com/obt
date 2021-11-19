@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
  - show obs-sq summary comment
 
 ### Changed (for changes in existing functionality)
+ - update DialogUI
  - removed StrictMode as there were errors in the console
 
 ### Fixed (for any bug fixes)
