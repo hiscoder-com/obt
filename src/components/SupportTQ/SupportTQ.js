@@ -5,12 +5,8 @@ import { Card, CardContent, useContent, useCardState } from 'translation-helps-r
 export default function SupportTQ(props) {
   const { title, classes, onClose, type, server, fontSize, reference, resource } = props;
   const { bookId, chapter, verse } = reference;
-  const {
-    markdown,
-    items,
-    resourceStatus: { loading },
-    props: { languageId },
-  } = useContent({
+  const { subject } = resource;
+  const mdContent = {
     projectId: bookId,
     ref: resource.branch ?? 'master',
     languageId: resource.languageId ?? 'ru',
@@ -19,7 +15,25 @@ export default function SupportTQ(props) {
       String(chapter).padStart(2, '0') + '/' + String(verse).padStart(2, '0') + '.md',
     owner: resource.owner ?? 'door43-catalog',
     server,
-  });
+  };
+  const tsvContent = {
+    verse: String(verse),
+    chapter: String(chapter),
+    projectId: bookId,
+    ref: resource.branch ?? 'master',
+    languageId: resource.languageId ?? 'ru',
+    resourceId: 'tq',
+    owner: resource.owner ?? 'door43-catalog',
+    server,
+  };
+  const {
+    markdown,
+    items,
+    resourceStatus: { loading },
+    props: { languageId },
+  } = useContent(
+    subject === 'TSV Translation Questions' ? { ...tsvContent } : { ...mdContent }
+  );
 
   const {
     state: { item, headers, filters, itemIndex, markdownView },

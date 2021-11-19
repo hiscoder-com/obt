@@ -2,17 +2,37 @@ import React from 'react';
 
 import { useContent } from 'translation-helps-rcl';
 import { CircularProgress } from '@material-ui/core';
-import { DialogUI } from '../DialogUI';
+import { DialogUI } from '../../components';
 import ReactMarkdown from 'react-markdown';
 
-function FrontModal({ config, open, onCloseDialog }) {
-  const { items, resourceStatus } = useContent(config);
-  const content =
-    resourceStatus.contentNotFoundError || resourceStatus.error || items === null
-      ? 'No content available'
-      : items &&
-        items.length > 0 &&
-        items[0].OccurrenceNote.replace(/(<(\/?[^>]+)>)/g, '\n');
+function FrontModal({
+  config,
+  open,
+  onCloseDialog,
+  field = 'OccurrenceNote',
+  title = false,
+  isTSV = true,
+}) {
+  const data = useContent(config);
+  const { items, resourceStatus, markdown } = data;
+  let content = 'No content available';
+  if (isTSV) {
+    content =
+      resourceStatus.contentNotFoundError ||
+      resourceStatus.error ||
+      items === null ||
+      items.length === 0
+        ? 'No content available'
+        : items[0][field].replace(/(<\/?br( ?\/)?>)/g, '\n');
+  } else {
+    content =
+      resourceStatus.contentNotFoundError ||
+      resourceStatus.error ||
+      markdown === null ||
+      markdown.length === 0
+        ? 'No content available'
+        : markdown.replace(/(<\/?br( ?\/)?>)/g, '\n');
+  }
   const loadingContent = (
     <div>
       <CircularProgress color="primary" size={50} />
@@ -20,11 +40,11 @@ function FrontModal({ config, open, onCloseDialog }) {
   );
   return (
     <div>
-      <DialogUI open={open} onClose={onCloseDialog}>
+      <DialogUI title={title} open={open} onClose={onCloseDialog}>
         {resourceStatus.loading ? (
           loadingContent
         ) : (
-          <ReactMarkdown>{content}</ReactMarkdown>
+          <ReactMarkdown className={'md'}>{content}</ReactMarkdown>
         )}
       </DialogUI>
     </div>

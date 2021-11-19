@@ -75,3 +75,7 @@ input {
 div[id*="_title"]{
   font-family: inherit;
 }
+.md {
+    color: #424242;
+    line-height: 1.45;
+}

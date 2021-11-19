@@ -1,9 +1,7 @@
 import React, { useContext } from 'react';
 
 import { AppContext } from '../../context';
-import { ChapterList } from '../../components';
-
-import { Dialog, DialogContent } from '@material-ui/core';
+import { DialogUI, ChapterList } from '../../components';
 
 function ChapterSelect() {
   const {
@@ -17,16 +15,14 @@ function ChapterSelect() {
 
   return (
     <>
-      <Dialog
-        fullWidth={true}
-        maxWidth="lg"
+      <DialogUI
+        maxWidth={'lg'}
         open={showChapterSelect}
-        onClose={() => setShowChapterSelect(false)}
+        onClose={onClose}
+        classes={{ content: 'intro-chapterList' }}
       >
-        <DialogContent className={'intro-chapterList'}>
-          <ChapterList onClose={onClose} />
-        </DialogContent>
-      </Dialog>
+        <ChapterList onClose={onClose} />
+      </DialogUI>
     </>
   );
 }

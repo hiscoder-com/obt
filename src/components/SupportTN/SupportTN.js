@@ -32,11 +32,11 @@ export default function SupportTN(props) {
     ...config,
   });
 
-  const onFirstButtonClick = () => {
+  const onIntroClick = () => {
     setConfigFront({ ...config, verse: 'intro', chapter: 'front' });
     setOpenDialog(true);
   };
-  const onSecondButtonClick = () => {
+  const onNotesClick = () => {
     setConfigFront({ ...config, verse: 'intro' });
     setOpenDialog(true);
   };
@@ -76,23 +76,31 @@ export default function SupportTN(props) {
     >
       {items && (
         <ButtonGroupUI
-          titleFirst={t('Introduction')}
-          titleSecond={t('General_notes')}
-          onFirstButtonClick={onFirstButtonClick}
-          onSecondButtonClick={onSecondButtonClick}
+          style={{ marginTop: '5px' }}
+          buttons={[
+            { title: t('Introduction'), onClick: onIntroClick },
+            { title: t('General_notes'), onClick: onNotesClick },
+          ]}
         />
       )}
 
-      <FrontModal onCloseDialog={onCloseDialog} open={openDialog} config={configFront} />
+      {configFront.projectId && (
+        <FrontModal
+          onCloseDialog={onCloseDialog}
+          open={openDialog}
+          title={' '}
+          config={configFront}
+        />
+      )}
 
       <CardContent
         item={item}
         viewMode="table"
         filters={filterArray}
-        markdown={markdown}
         fontSize={fontSize}
         isLoading={Boolean(loading)}
         languageId={languageId}
+        markdown={markdown}
         markdownView={markdownView}
         selectedQuote={selectedQuote}
         setQuote={setQuote}
