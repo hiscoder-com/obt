@@ -35,11 +35,14 @@ function About({ open, setOpen, handleClick }) {
       </MenuList>
       <DialogUI
         open={open}
+        maxWidth={'sm'}
         onClose={handleClose}
         title={`About v${PACKAGE_JSON?.default?.version}`}
       >
         {PACKAGE_JSON?.default?.description}
-        <ReactMarkdown>{log ? log.text : 'Version of application'}</ReactMarkdown>
+        <ReactMarkdown className={'md'}>
+          {log ? log.text : 'Version of application'}
+        </ReactMarkdown>
       </DialogUI>
     </>
   );

@@ -24,7 +24,7 @@ function FrontModal({ config, open, onCloseDialog }) {
         {resourceStatus.loading ? (
           loadingContent
         ) : (
-          <ReactMarkdown>{content}</ReactMarkdown>
+          <ReactMarkdown className={'md'}>{content}</ReactMarkdown>
         )}
       </DialogUI>
     </div>

@@ -36,9 +36,7 @@ function ReportDialog({
           onClick: handleSend,
           disabled: valueComment === '' || referenceBlock?.text === '',
         }}
-        secondary={{
-          onClick: handleCancel,
-        }}
+        maxWidth={'sm'}
         open={open}
         onClose={handleCancel}
         classes={{
