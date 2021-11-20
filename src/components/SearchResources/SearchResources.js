@@ -64,13 +64,15 @@ function SearchResources({ anchorEl, onClose, open }) {
   };
 
   const findNewResources = (_prev, _result) => {
-    if (_result.length > _prev.length) {
-      const result = [..._result];
-      const prev = [..._prev];
-      const flatPrev = prev.map((el) => el.id);
-      return result.filter((res) => !flatPrev.includes(res.id));
-    } else {
-      return [];
+    if (_prev?.length > 0) {
+      if (_result.length > _prev.length) {
+        const result = [..._result];
+        const prev = [..._prev];
+        const flatPrev = prev.map((el) => el.id);
+        return result.filter((res) => !flatPrev.includes(res.id));
+      } else {
+        return [];
+      }
     }
   };
 
@@ -121,7 +123,7 @@ function SearchResources({ anchorEl, onClose, open }) {
 
   useEffect(() => {
     const newResources = findNewResources(prevResources.current, resourcesApp);
-    if (newResources.length > 0) {
+    if (newResources?.length > 0) {
       const listOBS = newResources.filter((res) =>
         obsSubjects.includes(res.subject)
       ).length;
