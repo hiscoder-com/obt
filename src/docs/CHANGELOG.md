@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.4.1] - 2021-11-22
 
 ### Added (for new features)
- - tool for showing introduction and general notes in Translation Notes
+ - show adding resources when adding languages
  - show obs-tn title comment
  - show obs-sq summary comment
  - support TSV Translation Questions

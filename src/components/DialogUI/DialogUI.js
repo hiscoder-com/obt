@@ -48,7 +48,7 @@ function DialogUI({
           )}
         </DialogTitle>
       )}
-      <DialogContent>{children}</DialogContent>
+      <DialogContent className={classes.content}>{children}</DialogContent>
       {(primary?.onClick || secondary?.onClick) && (
         <DialogActions>
           {secondary?.onClick && (
