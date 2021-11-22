@@ -4,12 +4,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.4.1] - 2021-11-??
+## [1.4.1] - 2021-11-22
 
 ### Added (for new features)
  - tool for showing introduction and general notes in Translation Notes
  - show obs-tn title comment
  - show obs-sq summary comment
+ - support TSV Translation Questions
 
 ### Changed (for changes in existing functionality)
  - update DialogUI
@@ -18,6 +19,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed (for any bug fixes)
  - minor fixes in the code
  - clean console errors
+ - update dependencies
+ - colors for PWA
 
 ## [1.4.0] - 2021-11-10
 
