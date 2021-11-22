@@ -70,6 +70,11 @@ export default function SupportOBSSQ({
       itemIndex={itemIndex}
       setFilters={setFilters}
       setItemIndex={setItemIndex}
+      showSaveChangesPrompt={() => {
+        return new Promise((resolve, reject) => {
+          resolve();
+        });
+      }}
     >
       {items && (
         <ButtonGroupUI

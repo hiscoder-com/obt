@@ -76,6 +76,11 @@ export default function SupportOBSTN({
       setItemIndex={setItemIndex}
       markdownView={markdownView}
       setMarkdownView={setMarkdownView}
+      showSaveChangesPrompt={() => {
+        return new Promise((resolve, reject) => {
+          resolve();
+        });
+      }}
     >
       {markdown && (
         <ButtonGroupUI

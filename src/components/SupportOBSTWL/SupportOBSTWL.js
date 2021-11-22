@@ -58,6 +58,11 @@ export default function SupportOBSTWL({
       setItemIndex={setItemIndex}
       markdownView={markdownView}
       setMarkdownView={setMarkdownView}
+      showSaveChangesPrompt={() => {
+        return new Promise((resolve, reject) => {
+          resolve();
+        });
+      }}
     >
       <CardContent
         item={item}
