@@ -4,7 +4,8 @@ import { useTranslation } from 'react-i18next';
 
 import { ReferenceContext, AppContext } from '../../context';
 
-import { ButtonGroup, Button, useMediaQuery } from '@material-ui/core';
+import { useMediaQuery } from '@material-ui/core';
+import { ButtonGroupUI } from '../ButtonGroupUI';
 
 function ShowReference() {
   const matches = useMediaQuery('(min-width:400px)');
@@ -30,15 +31,18 @@ function ShowReference() {
   const handleClickChapter = () => setShowChapterSelect(true);
 
   return (
-    <ButtonGroup
-      disableElevation
-      variant="contained"
-      color="primary"
-      className="intro-obsSelect"
-    >
-      <Button onClick={handleClickBook}> {showBook && showBook.toUpperCase()} </Button>
-      <Button onClick={handleClickChapter}>{showChapter}</Button>
-    </ButtonGroup>
+    <ButtonGroupUI
+      buttons={[
+        { title: showBook && showBook.toUpperCase(), onClick: handleClickBook },
+        { title: showChapter, onClick: handleClickChapter },
+      ]}
+      buttonGroupProps={{
+        disableElevation: true,
+        variant: 'contained',
+        color: 'primary',
+        className: 'intro-obsSelect',
+      }}
+    />
   );
 }
 

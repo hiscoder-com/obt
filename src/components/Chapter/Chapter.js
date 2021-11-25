@@ -29,7 +29,7 @@ export default function Chapter({
       title={title}
       type={type}
       id={type}
-      classes={classes}
+      classes={{ ...classes, root: classes.root + ' intro-card' }}
       fontSize={fontSize}
     >
       <USFMContent

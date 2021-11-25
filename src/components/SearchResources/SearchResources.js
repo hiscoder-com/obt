@@ -1,10 +1,11 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState, useRef } from 'react';
 
 import { useTranslation } from 'react-i18next';
 import axios from 'axios';
+import { useSnackbar } from 'notistack';
 
 import { AppContext, ReferenceContext } from '../../context';
-import { DialogUI } from '../DialogUI';
+import { SelectResourcesLanguages, DialogUI } from '../../components';
 import {
   subjects,
   owners,
@@ -15,7 +16,6 @@ import {
 import { defaultCard, server, columns } from '../../config/base';
 import { getXY } from 'resource-workspace-rcl';
 import { getUniqueResources } from '../../helper';
-import { SelectResourcesLanguages } from '../SelectResourcesLanguages';
 import { MenuItem, Menu, Button } from '@material-ui/core';
 
 import LanguageIcon from '@material-ui/icons/Language';
@@ -37,9 +37,9 @@ function SearchResources({ anchorEl, onClose, open }) {
   const classes = useStyles();
   const addClasses = useAddStyles();
   const [openDialog, setOpenDialog] = useState(false);
-
+  const prevResources = useRef([]);
   const uniqueResources = getUniqueResources(appConfig, resourcesApp);
-
+  const { enqueueSnackbar } = useSnackbar();
   const handleAddMaterial = (item) => {
     setAppConfig((prev) => {
       const next = { ...prev };
@@ -63,6 +63,19 @@ function SearchResources({ anchorEl, onClose, open }) {
     setOpenDialog(true);
   };
 
+  const findNewResources = (_prev, _result) => {
+    if (_prev?.length > 0) {
+      if (_result.length > _prev.length) {
+        const result = [..._result];
+        const prev = [..._prev];
+        const flatPrev = prev.map((el) => el.id);
+        return result.filter((res) => !flatPrev.includes(res.id));
+      } else {
+        return [];
+      }
+    }
+  };
+
   useEffect(() => {
     axios
       .get(
@@ -83,9 +96,9 @@ function SearchResources({ anchorEl, onClose, open }) {
               name: el.name,
               subject: el.subject,
               title: el.title,
-              ref: el.default_branch,
+              ref: el.branch_or_tag_name,
               owner: el.owner.toString().toLowerCase(),
-              link: el.full_name + '/' + el.default_branch,
+              link: el.full_name + '/' + el.branch_or_tag_name,
             };
           })
           .filter(
@@ -96,12 +109,36 @@ function SearchResources({ anchorEl, onClose, open }) {
                   JSON.stringify({ owner: el.owner, name: el.name })
               )
           );
-        setResourcesApp(result);
+        setResourcesApp((prev) => {
+          if (prev && result) {
+            prevResources.current = prev;
+          }
+          return result;
+        });
       })
       .catch((err) => console.log(err));
     return () => {};
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [languageResources]);
+
+  useEffect(() => {
+    const newResources = findNewResources(prevResources.current, resourcesApp);
+    if (newResources?.length > 0) {
+      const listOBS = newResources.filter((res) =>
+        obsSubjects.includes(res.subject)
+      ).length;
+      const listBible = newResources.filter((res) =>
+        bibleSubjects.includes(res.subject)
+      ).length;
+      const list = `${t('Added_resources')}.
+     ${listBible ? `${t('Bible')}: ${listBible}.` : ''}
+    ${listOBS ? `${t('OBS')}: ${listOBS}.` : ''}`;
+
+      enqueueSnackbar(list, { variant: 'info' });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [resourcesApp]);
+
   let blockLang = '';
   const currentSubjects = bookId === 'obs' ? obsSubjects : bibleSubjects;
   const menuItems = uniqueResources
@@ -129,7 +166,9 @@ function SearchResources({ anchorEl, onClose, open }) {
         );
       }
     });
+
   const emptyMenuItems = <p className={classes.divider}>{t('No_resources')}</p>;
+
   const handleCloseDialog = () => {
     setOpenDialog(false);
   };
@@ -159,11 +198,10 @@ function SearchResources({ anchorEl, onClose, open }) {
         {menuItems.length !== 0 ? menuItems : emptyMenuItems}
       </Menu>
       <DialogUI
-        titleDialog={t('Choose_languages_resources')}
+        title={t('Choose_languages_resources')}
         open={openDialog}
-        labelApply={t('Apply')}
-        onApply={handleCloseDialog}
         onClose={handleCloseDialog}
+        primary={{ text: t('Ok'), onClick: handleCloseDialog }}
       >
         <SelectResourcesLanguages />
       </DialogUI>

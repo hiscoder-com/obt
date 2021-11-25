@@ -71,34 +71,18 @@ export const blackListResources = [
 
 /* CORE */
 
-export const subjects = [
-  'Open Bible Stories',
-  'OBS Translation Notes',
-  'OBS Translation Questions',
-  'OBS Study Notes',
-  'OBS Study Questions',
-  'TSV OBS Translation Words Links',
-  //'Translation Academy',
-  //'Translation Notes',
-  'TSV Translation Notes',
-  'Translation Questions',
-  //'Translation Words',
-  'TSV Translation Words Links',
-  'Bible',
-  'Aligned Bible',
-  'Hebrew Old Testament',
-  'Greek New Testament',
-  // 'TSV OBS Study Questions',
-];
 export const bibleSubjects = [
   'TSV Translation Notes',
   'Translation Questions',
+  'TSV Translation Questions',
   'TSV Translation Words Links',
   'Bible',
   'Aligned Bible',
   'Hebrew Old Testament',
   'Greek New Testament',
-  //'',
+  //'Translation Academy',
+  //'Translation Notes',
+  //'Translation Words',
 ];
 export const obsSubjects = [
   'Open Bible Stories',
@@ -109,3 +93,4 @@ export const obsSubjects = [
   'OBS Study Questions',
   'OBS Study Notes',
 ];
+export const subjects = [...obsSubjects, ...bibleSubjects];

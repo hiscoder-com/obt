@@ -36,6 +36,26 @@ function SelectResourcesLanguages() {
     value.push({ title: t(el), id: el });
   });
 
+  const onChange = (event, newValue) => {
+    const _languageResources = [
+      ...fixedOptions,
+      ...newValue
+        .filter((option) => fixedOptions.indexOf(option.id) === -1)
+        .map((el) => el.id),
+    ];
+    setLanguageResources(_languageResources);
+  };
+
+  const renderTags = (tagValue, getTagProps) =>
+    tagValue.map((option, index) => (
+      <Chip
+        key={option.id}
+        label={t(option.title)}
+        {...getTagProps({ index })}
+        disabled={fixedOptions.indexOf(option.id) !== -1}
+      />
+    ));
+
   return (
     <div>
       <Autocomplete
@@ -46,25 +66,8 @@ function SelectResourcesLanguages() {
         getOptionLabel={(option) => option.title}
         value={value}
         getOptionSelected={(option, value) => option.id === value.id}
-        onChange={(event, newValue) => {
-          const _languageResources = [
-            ...fixedOptions,
-            ...newValue
-              .filter((option) => fixedOptions.indexOf(option.id) === -1)
-              .map((el) => el.id),
-          ];
-          setLanguageResources(_languageResources);
-        }}
-        renderTags={(tagValue, getTagProps) =>
-          tagValue.map((option, index) => (
-            <Chip
-              key={option.id}
-              label={t(option.title)}
-              {...getTagProps({ index })}
-              disabled={fixedOptions.indexOf(option.id) !== -1}
-            />
-          ))
-        }
+        onChange={onChange}
+        renderTags={renderTags}
         renderInput={(params) => <TextField {...params} variant="standard" />}
       />
     </div>

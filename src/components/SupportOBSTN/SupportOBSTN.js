@@ -1,18 +1,27 @@
 import React, { useEffect } from 'react';
 
 import { Card, CardContent, useContent, useCardState } from 'translation-helps-rcl';
+import { useTranslation } from 'react-i18next';
 
-export default function SupportOBSTN(props) {
-  const { title, classes, onClose, type, server, fontSize, reference, resource } = props;
-  const { bookId, chapter, verse } = reference;
+import { FrontModal } from '../FrontModal';
+import { ButtonGroupUI } from '../ButtonGroupUI';
 
-  const {
-    markdown,
-    items,
-    resourceStatus: { loading },
-    props: { languageId },
-  } = useContent({
-    projectId: bookId + '-tn',
+// TODO TSV format support
+export default function SupportOBSTN({
+  title,
+  classes,
+  onClose,
+  type,
+  server,
+  fontSize,
+  reference: { bookId, chapter, verse },
+  resource,
+}) {
+  const [openDialog, setOpenDialog] = React.useState(false);
+  const [configFront, setConfigFront] = React.useState({});
+  const { t } = useTranslation();
+  const config = {
+    projectId: bookId,
     ref: resource.branch ?? 'master',
     languageId: resource.languageId ?? 'ru',
     resourceId: 'obs-tn',
@@ -20,7 +29,14 @@ export default function SupportOBSTN(props) {
       String(chapter).padStart(2, '0') + '/' + String(verse).padStart(2, '0') + '.md',
     owner: resource.owner ?? 'door43-catalog',
     server,
-  });
+  };
+
+  const {
+    markdown,
+    items,
+    resourceStatus: { loading },
+    props: { languageId },
+  } = useContent(config);
   const {
     state: { item, headers, filters, itemIndex, markdownView },
     actions: { setFilters, setItemIndex, setMarkdownView },
@@ -28,10 +44,21 @@ export default function SupportOBSTN(props) {
     items,
   });
 
+  const titleClick = () => {
+    setConfigFront({
+      ...config,
+      filePath: String(chapter).padStart(2, '0') + '/00.md',
+    });
+    setOpenDialog(true);
+  };
+  const onCloseDialog = () => {
+    setOpenDialog(false);
+  };
+
   useEffect(() => {
     setItemIndex(0);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [reference]);
+  }, [bookId, chapter, verse]);
 
   return (
     <Card
@@ -49,13 +76,34 @@ export default function SupportOBSTN(props) {
       setItemIndex={setItemIndex}
       markdownView={markdownView}
       setMarkdownView={setMarkdownView}
+      showSaveChangesPrompt={() => {
+        return new Promise((resolve, reject) => {
+          resolve();
+        });
+      }}
     >
+      {markdown && (
+        <ButtonGroupUI
+          style={{ marginTop: '5px' }}
+          buttons={[{ title: t('StoryTitle'), onClick: titleClick }]}
+        />
+      )}
+
+      {configFront.projectId && (
+        <FrontModal
+          onCloseDialog={onCloseDialog}
+          open={openDialog}
+          config={configFront}
+          field={'Response'}
+          title={t('StoryTitle')}
+          isTSV={false}
+        />
+      )}
       <CardContent
         item={item}
         filters={filters}
         fontSize={fontSize}
         markdown={markdown}
-        viewMode="question"
         isLoading={Boolean(loading)}
         languageId={languageId}
         markdownView={markdownView}

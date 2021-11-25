@@ -1,56 +1,73 @@
 import React from 'react';
-
+import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
 import {
   Dialog,
   DialogActions,
   DialogContent,
-  DialogTitle,
   Button,
+  DialogTitle,
+  IconButton,
 } from '@material-ui/core';
-
-import { makeStyles } from '@material-ui/core/styles';
-
-const useStyles = makeStyles((theme) => ({
-  paperFullWidth: {
-    margin: '8px',
-    width: 'calc(100% - 8px)',
-  },
-}));
+import CloseIcon from '@material-ui/icons/Close';
+import useLocalTitleStyles from './style';
 
 function DialogUI({
-  open,
-  titleDialog,
-  labelClose,
-  labelApply,
+  primary = { text: false, onClick: false, disabled: false },
+  secondary = { text: false, onClick: false, disabled: false },
+  classes = {},
+  maxWidth = 'md',
+  title = false,
   children,
+  open,
   onClose,
-  onApply,
-  styleClose = { variantClose: 'outlined', colorClose: 'secondary' },
-  styleApply = { variantApply: 'outlined', colorApply: 'primary' },
+  isClosable = true,
 }) {
-  const classes = useStyles();
-  const { variantClose = 'outlined', colorClose = 'secondary' } = styleClose;
-  const { variantApply = 'outlined', colorApply = 'primary' } = styleApply;
+  const classesLocalTitle = useLocalTitleStyles();
+  const { t } = useTranslation();
+
   return (
     <Dialog
-      classes={classes}
+      classes={classes.root}
       open={open}
       fullWidth={true}
-      maxWidth={'sm'}
+      maxWidth={maxWidth}
       onClose={onClose}
     >
-      {titleDialog && <DialogTitle>{titleDialog}</DialogTitle>}
-      <DialogContent>{children}</DialogContent>
-      {(labelClose || labelApply) && (
+      {title && (
+        <DialogTitle>
+          {title}
+          {isClosable && (
+            <IconButton
+              aria-label="close"
+              className={classesLocalTitle.closeButton}
+              onClick={onClose}
+            >
+              <CloseIcon />
+            </IconButton>
+          )}
+        </DialogTitle>
+      )}
+      <DialogContent className={classes.content}>{children}</DialogContent>
+      {(primary?.onClick || secondary?.onClick) && (
         <DialogActions>
-          {labelClose && (
-            <Button onClick={onClose} variant={variantClose} color={colorClose}>
-              {labelClose}
+          {secondary?.onClick && (
+            <Button
+              onClick={secondary.onClick}
+              variant={'contained'}
+              disabled={secondary.disabled ?? false}
+            >
+              {secondary?.text ?? t('Cancel')}
             </Button>
           )}
-          {labelApply && (
-            <Button onClick={onApply} variant={variantApply} color={colorApply}>
-              {labelApply}
+          {primary?.onClick && (
+            <Button
+              onClick={primary.onClick}
+              color={'primary'}
+              variant={'contained'}
+              disabled={primary.disabled ?? false}
+            >
+              {primary?.text ?? t('Apply')}
             </Button>
           )}
         </DialogActions>
@@ -60,3 +77,33 @@ function DialogUI({
 }
 
 export default DialogUI;
+
+DialogUI.defaultProps = {
+  primary: { text: false, onClick: false, disabled: false },
+  secondary: { text: false, onClick: false, disabled: false },
+  classes: {},
+  maxWidth: 'md',
+  title: false,
+  open: false,
+  isClosable: true,
+};
+
+DialogUI.propTypes = {
+  primary: PropTypes.shape({
+    text: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
+    onClick: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
+    disabled: PropTypes.bool,
+  }),
+  secondary: PropTypes.shape({
+    text: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
+    onClick: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
+    disabled: PropTypes.bool,
+  }),
+  maxWidth: PropTypes.oneOf(['sm', 'md', 'lg', 'xl']),
+  isClosable: PropTypes.bool,
+  classes: PropTypes.object,
+  children: PropTypes.any,
+  onClose: PropTypes.func,
+  open: PropTypes.bool,
+  title: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
+};

@@ -47,6 +47,7 @@ export function AppContextProvider({ children }) {
   const [resourcesApp, setResourcesApp] = useState(() => {
     return checkLSVal('resourcesApp', [], 'object');
   });
+
   const _resourceLinks = getResources(appConfig, resourcesApp);
   const [resourceLinks, setResourceLinks] = useState(_resourceLinks);
   const [resources, setResources] = useState([]);

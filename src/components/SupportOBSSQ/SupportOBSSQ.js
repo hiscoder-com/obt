@@ -1,39 +1,61 @@
-import React from 'react';
-import { Card, CardContent, useContent, useCardState } from 'translation-helps-rcl';
+import React, { useEffect } from 'react';
 
-export default function SupportOBSSQ(props) {
-  const { title, classes, onClose, type, server, fontSize, reference, resource } = props;
-  const { bookId, chapter, verse } = reference;
+import { Card, CardContent, useContent, useCardState } from 'translation-helps-rcl';
+import { ReferenceUtils } from 'bible-reference-rcl';
+import { useTranslation } from 'react-i18next';
+
+import { FrontModal } from '../FrontModal';
+import { ButtonGroupUI } from '../ButtonGroupUI';
+
+export default function SupportOBSSQ({
+  title,
+  classes,
+  onClose,
+  type,
+  server,
+  fontSize,
+  reference: { bookId, chapter, verse },
+  resource,
+}) {
+  const [openDialog, setOpenDialog] = React.useState(false);
+  const [configFront, setConfigFront] = React.useState({});
+  const { t } = useTranslation();
+
+  const config = {
+    projectId: bookId,
+    ref: resource.branch ?? 'master',
+    languageId: resource.languageId ?? 'en',
+    resourceId: 'obs-sq',
+    verse,
+    chapter,
+    owner: resource.owner ?? 'unfoldingword',
+    server,
+  };
+
   const {
     items,
     resourceStatus,
     props: { languageId },
-  } = useContent({
-    projectId: bookId,
-    ref: resource.branch ?? 'master',
-    languageId: resource.languageId ?? 'ru',
-    resourceId: 'obs-sq',
-    verse,
-    chapter,
-    owner: resource.owner ?? 'door43-catalog',
-    server,
-  });
+  } = useContent(config);
 
   const {
     state: { item, headers, filters, itemIndex },
     actions: { setFilters, setItemIndex },
   } = useCardState({
     items,
-    verse,
-    chapter,
-    projectId: bookId,
-    resourceId: 'obs-sq',
   });
-
-  React.useEffect(() => {
+  const onSummaryClick = () => {
+    const lastVerse = ReferenceUtils.getVerseList('obs', chapter).pop().key;
+    setConfigFront({ ...config, verse: '1-' + lastVerse, chapter });
+    setOpenDialog(true);
+  };
+  const onCloseDialog = () => {
+    setOpenDialog(false);
+  };
+  useEffect(() => {
     setItemIndex(0);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [reference]);
+  }, [bookId, chapter, verse]);
   return (
     <Card
       closeable
@@ -48,7 +70,29 @@ export default function SupportOBSSQ(props) {
       itemIndex={itemIndex}
       setFilters={setFilters}
       setItemIndex={setItemIndex}
+      showSaveChangesPrompt={() => {
+        return new Promise((resolve, reject) => {
+          resolve();
+        });
+      }}
     >
+      {items && (
+        <ButtonGroupUI
+          style={{ marginTop: '5px' }}
+          buttons={[{ title: t('Summary'), onClick: onSummaryClick }]}
+        />
+      )}
+
+      {configFront.projectId && (
+        <FrontModal
+          onCloseDialog={onCloseDialog}
+          open={openDialog}
+          config={configFront}
+          field={'Response'}
+          title={t('Summary')}
+        />
+      )}
+
       <CardContent
         item={item}
         filters={filters}

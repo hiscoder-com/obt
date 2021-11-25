@@ -44,6 +44,7 @@ function Card({ type, onClose, classes }) {
       CurrentCard = SupportTN;
       break;
 
+    case 'TSV Translation Questions':
     case 'Translation Questions':
       CurrentCard = SupportTQ;
       break;
