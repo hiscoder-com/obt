@@ -1,8 +1,10 @@
 import React from 'react';
 
 import { Card, CardContent, useContent, useCardState } from 'translation-helps-rcl';
+import { useTranslation } from 'react-i18next';
 
 export default function SupportTQ(props) {
+  const { t } = useTranslation();
   const { title, classes, onClose, type, server, fontSize, reference, resource } = props;
   const { bookId, chapter, verse } = reference;
   const { subject } = resource;
@@ -44,7 +46,7 @@ export default function SupportTQ(props) {
   return (
     <Card
       closeable
-      title={title}
+      title={title + ' (' + t(resource.languageId) + ')'}
       onClose={() => onClose(type)}
       classes={{ ...classes, children: 'tqcard' }}
       id={type}

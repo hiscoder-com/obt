@@ -61,7 +61,7 @@ export default function SupportTN(props) {
   return (
     <Card
       closeable
-      title={title}
+      title={title + ' (' + t(resource.languageId) + ')'}
       onClose={() => onClose(type)}
       classes={classes}
       id={type}
