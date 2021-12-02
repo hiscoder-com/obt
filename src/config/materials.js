@@ -186,15 +186,15 @@ export const langNames = {
     lang: 'South Slavic Ardilean Bayash',
   },
   'rmy-x-vc': {
-    eng: '',
+    eng: 'Vlach Čergarski',
     lang: 'Vlach Čergarski',
   },
   'rmy-x-vg': {
-    eng: '',
+    eng: 'Vlach Gurbert',
     lang: 'Vlach Gurbert',
   },
   'rmy-x-vwa': {
-    eng: '',
+    eng: 'Vlach Western Arli',
     lang: 'Vlach Western Arli',
   },
   ru: {
@@ -210,7 +210,7 @@ export const langNames = {
     lang: 'Chadian Arabic',
   },
   'sr-Latn': {
-    eng: '',
+    eng: 'Serbian',
     lang: 'Serbian',
   },
   sw: {
