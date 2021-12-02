@@ -4,8 +4,9 @@ import { Card, CardContent, useContent, useCardState } from 'translation-helps-r
 import { ReferenceUtils } from 'bible-reference-rcl';
 import { useTranslation } from 'react-i18next';
 
-import { FrontModal } from '../FrontModal';
-import { ButtonGroupUI } from '../ButtonGroupUI';
+import { ButtonGroupUI, FrontModal } from '../../components';
+
+import { langNames } from '../../config/materials';
 
 export default function SupportOBSSQ({
   title,
@@ -59,7 +60,7 @@ export default function SupportOBSSQ({
   return (
     <Card
       closeable
-      title={title}
+      title={title + ' (' + langNames[resource.languageId].eng + ')'}
       onClose={() => onClose(type)}
       classes={{ ...classes, children: 'tqcard' }}
       id={type}

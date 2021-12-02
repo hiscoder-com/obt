@@ -1,17 +1,14 @@
 import React, { useContext } from 'react';
 
-import { useTranslation } from 'react-i18next';
 import { AppContext } from '../../context';
 import { matchSorter } from 'match-sorter';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { TextField, Chip } from '@material-ui/core';
-import { langs } from '../../config/materials';
+import { langNames } from '../../config/materials';
 
-import { getLanguageIds } from '../../helper';
+import { getLanguageIds, packageLangs } from '../../helper';
 
 function SelectResourcesLanguages() {
-  const { t } = useTranslation();
-
   const {
     state: { languageResources },
     actions: { setLanguageResources },
@@ -27,13 +24,19 @@ function SelectResourcesLanguages() {
   const fixedOptions = getLanguageIds();
 
   let options = [];
-  langs.forEach((el) => {
-    options.push({ title: t(el), id: el });
-  });
+  for (let key in langNames) {
+    options.push({
+      title: packageLangs(langNames[key]),
+      id: key,
+    });
+  }
 
   let value = [];
   languageResources.forEach((el) => {
-    value.push({ title: t(el), id: el });
+    value.push({
+      title: packageLangs(langNames[el]),
+      id: el,
+    });
   });
 
   const onChange = (event, newValue) => {
@@ -50,7 +53,7 @@ function SelectResourcesLanguages() {
     tagValue.map((option, index) => (
       <Chip
         key={option.id}
-        label={t(option.title)}
+        label={option.title}
         {...getTagProps({ index })}
         disabled={fixedOptions.indexOf(option.id) !== -1}
       />

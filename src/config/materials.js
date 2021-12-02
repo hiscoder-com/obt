@@ -1,5 +1,6 @@
 export const langs = [
   'am',
+  'apd',
   'as',
   'bn',
   'ceb',
@@ -51,7 +52,214 @@ export const langs = [
   'vi',
 ];
 
-export const owners = ['door43-catalog', 'bsa', 'unfoldingword', 'ru_gl'];
+export const langNames = {
+  am: {
+    eng: 'Amharic',
+    lang: 'አማርኛ',
+  },
+  apd: {
+    eng: 'Arabic, Sudanese Spoken',
+    lang: 'لهجة سودانية',
+  },
+  as: {
+    eng: 'Assamese',
+    lang: 'অসমীয়া',
+  },
+  bn: {
+    eng: 'Bengali, Bangla',
+    lang: 'বাংলা',
+  },
+  ceb: {
+    eng: 'Cebuano',
+    lang: 'Cebuano',
+  },
+  'el-x-koine': {
+    eng: 'Koine Greek',
+    lang: 'Koine Greek',
+  },
+  en: {
+    eng: 'English',
+    lang: 'English',
+  },
+  es: {
+    eng: 'Spanish',
+    lang: 'Español',
+  },
+  'es-419': {
+    eng: 'Latin American Spanish',
+    lang: 'Español Latin America',
+  },
+  fa: {
+    eng: 'Persian (Farsi)',
+    lang: 'فارسی',
+  },
+  fr: {
+    eng: 'French',
+    lang: 'Français, langue française',
+  },
+  gof: {
+    eng: 'Gofa',
+    lang: 'Gofa',
+  },
+  gu: {
+    eng: 'Gujarati',
+    lang: 'ગુજરાતી',
+  },
+  guq: {
+    eng: 'Aché',
+    lang: 'Aché',
+  },
+  ha: {
+    eng: 'Hausa',
+    lang: '(Hausa) هَوُسَ',
+  },
+  hbo: {
+    eng: 'Hebrew, Ancient',
+    lang: 'Ancient Hebrew',
+  },
+  hi: {
+    eng: 'Hindi',
+    lang: 'हिन्दी, हिंदी',
+  },
+  hmr: {
+    eng: 'Hmar',
+    lang: 'Hmar',
+  },
+  hr: {
+    eng: 'Croatian',
+    lang: 'Hrvatski jezik',
+  },
+  id: {
+    eng: 'Indonesian',
+    lang: 'Bahasa Indonesia',
+  },
+  ilo: {
+    eng: 'Ilocano',
+    lang: 'Iloko',
+  },
+  kn: {
+    eng: 'Kannada',
+    lang: 'ಕನ್ನಡ',
+  },
+  lo: {
+    eng: 'Laotian',
+    lang: 'ພາສາລາວ',
+  },
+  lpx: {
+    eng: 'Lopit',
+    lang: 'Lopit',
+  },
+  lus: {
+    eng: 'Mizo',
+    lang: 'Lushai',
+  },
+  ml: {
+    eng: 'Malayalam',
+    lang: 'മലയാളം',
+  },
+  mr: {
+    eng: 'Marathi (Marāṭhī)',
+    lang: 'मराठी',
+  },
+  nag: {
+    eng: 'Naga Pidgin',
+    lang: 'Naga Pidgin',
+  },
+  ne: {
+    eng: 'Nepali',
+    lang: 'नेपाली',
+  },
+  or: {
+    eng: 'Odia',
+    lang: 'ଓଡ଼ିଆ',
+  },
+  pa: {
+    eng: 'Punjabi, Eastern',
+    lang: 'ਪੰਜਾਬੀ, پنجابی‎',
+  },
+  'pt-br': {
+    eng: 'Brazilian Portuguese',
+    lang: 'Português',
+  },
+  'rmy-x-bsa': {
+    eng: 'South Slavic Ardilean Bayash',
+    lang: 'South Slavic Ardilean Bayash',
+  },
+  'rmy-x-vc': {
+    eng: 'Vlach Čergarski',
+    lang: 'Vlach Čergarski',
+  },
+  'rmy-x-vg': {
+    eng: 'Vlach Gurbert',
+    lang: 'Vlach Gurbert',
+  },
+  'rmy-x-vwa': {
+    eng: 'Vlach Western Arli',
+    lang: 'Vlach Western Arli',
+  },
+  ru: {
+    eng: 'Russian',
+    lang: 'Русский',
+  },
+  sgj: {
+    eng: 'Surgujia',
+    lang: 'Surgujia',
+  },
+  shu: {
+    eng: 'Arabic, Chadian Spoken',
+    lang: 'Chadian Arabic',
+  },
+  'sr-Latn': {
+    eng: 'Serbian',
+    lang: 'Serbian',
+  },
+  sw: {
+    eng: 'Swahili',
+    lang: 'Kiswahili',
+  },
+  ta: {
+    eng: 'Tamil',
+    lang: 'தமிழ்',
+  },
+  tdj: {
+    eng: 'Tajio',
+    lang: 'Tajio',
+  },
+  te: {
+    eng: 'Telugu',
+    lang: 'తెలుగు',
+  },
+  tg: {
+    eng: 'Tajik',
+    lang: 'Тоҷикӣ, toçikī, تاجیکی‎',
+  },
+  tl: {
+    eng: 'Tagalog',
+    lang: 'Wikang Tagalog',
+  },
+  tpi: {
+    eng: 'Tok Pisin',
+    lang: 'Tok Pisin',
+  },
+  tr: {
+    eng: 'Turkish',
+    lang: 'Türkçe',
+  },
+  ur: {
+    eng: 'Urdu',
+    lang: 'اردو',
+  },
+  'ur-deva': {
+    eng: 'Urdu Devanagari script',
+    lang: 'اردو',
+  },
+  vi: {
+    eng: 'Vietnamese',
+    lang: 'Tiếng Việt',
+  },
+};
+
+export const owners = ['door43-catalog', 'bsa', 'unfoldingword', 'ru_gl', 'gra'];
 
 //resource, that have not manifest or others reason
 export const blackListResources = [

@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 
-import { useTranslation } from 'react-i18next';
-import { FrontModal } from '../FrontModal';
 import { Card, CardContent, useContent, useCardState } from 'translation-helps-rcl';
-import { ButtonGroupUI } from '../ButtonGroupUI';
 
+import { useTranslation } from 'react-i18next';
+
+import { FrontModal, ButtonGroupUI } from '../../components';
+
+import { langNames } from '../../config/materials';
 export default function SupportTN(props) {
   const { title, classes, onClose, type, server, fontSize, reference, resource } = props;
   const [openDialog, setOpenDialog] = useState(false);
@@ -61,7 +63,7 @@ export default function SupportTN(props) {
   return (
     <Card
       closeable
-      title={title}
+      title={title + ' (' + langNames[resource.languageId].eng + ')'}
       onClose={() => onClose(type)}
       classes={classes}
       id={type}
