@@ -149,7 +149,7 @@ function SearchResources({ anchorEl, onClose, open }) {
         blockLang = el.languageId;
         return (
           <div key={el.id}>
-            <p className={classes.divider}>{packageLangs(langNames, el.languageId)}</p>
+            <p className={classes.divider}>{packageLangs(langNames[el.languageId])}</p>
             <MenuItem className={classes.menu} onClick={() => handleAddMaterial(el)}>
               {el.title}
             </MenuItem>

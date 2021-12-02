@@ -26,21 +26,17 @@ function SelectResourcesLanguages() {
   let options = [];
   for (let key in langNames) {
     options.push({
-      title: packageLangs(langNames, key),
+      title: packageLangs(langNames[key]),
       id: key,
     });
   }
 
   let value = [];
   languageResources.forEach((el) => {
-    for (let key in langNames) {
-      if (key === el) {
-        value.push({
-          title: packageLangs(langNames, key),
-          id: key,
-        });
-      }
-    }
+    value.push({
+      title: packageLangs(langNames[el]),
+      id: el,
+    });
   });
 
   const onChange = (event, newValue) => {
