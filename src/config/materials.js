@@ -50,6 +50,7 @@ export const langs = [
   'ur-deva',
   'vi',
 ];
+
 export const langNames = {
   am: {
     eng: 'Amharic',
@@ -77,7 +78,7 @@ export const langNames = {
   },
   es: {
     eng: 'Spanish',
-    lang: 'español',
+    lang: 'Español',
   },
   'es-419': {
     eng: 'Latin American Spanish',
@@ -89,7 +90,7 @@ export const langNames = {
   },
   fr: {
     eng: 'French',
-    lang: 'français, langue française',
+    lang: 'Français, langue française',
   },
   gof: {
     eng: 'Gofa',
@@ -121,7 +122,7 @@ export const langNames = {
   },
   hr: {
     eng: 'Croatian',
-    lang: 'hrvatski jezik',
+    lang: 'Hrvatski jezik',
   },
   id: {
     eng: 'Indonesian',
@@ -175,6 +176,10 @@ export const langNames = {
     eng: 'Brazilian Portuguese',
     lang: 'Português',
   },
+  'rmy-x-bsa': {
+    eng: 'South Slavic Ardilean Bayash',
+    lang: 'South Slavic Ardilean Bayash',
+  },
   'rmy-x-vc': {
     eng: '',
     lang: 'Vlach Čergarski',
@@ -221,7 +226,7 @@ export const langNames = {
   },
   tg: {
     eng: 'Tajik',
-    lang: 'тоҷикӣ, toçikī, تاجیکی‎',
+    lang: 'Тоҷикӣ, toçikī, تاجیکی‎',
   },
   tl: {
     eng: 'Tagalog',

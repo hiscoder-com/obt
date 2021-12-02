@@ -1,18 +1,14 @@
 import React, { useContext } from 'react';
 
-import { useTranslation } from 'react-i18next';
-
 import { AppContext } from '../../context';
 import { matchSorter } from 'match-sorter';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { TextField, Chip } from '@material-ui/core';
-import { langs, langNames } from '../../config/materials';
+import { langNames } from '../../config/materials';
 
-import { getLanguageIds } from '../../helper';
+import { getLanguageIds, packageLangs } from '../../helper';
 
 function SelectResourcesLanguages() {
-  const { t } = useTranslation();
-
   const {
     state: { languageResources },
     actions: { setLanguageResources },
@@ -30,23 +26,17 @@ function SelectResourcesLanguages() {
   let options = [];
   for (let key in langNames) {
     options.push({
-      title:
-        langNames[key].lang !== langNames[key].eng && langNames[key].eng !== ''
-          ? `${langNames[key].lang} (${langNames[key].eng})`
-          : `${langNames[key].lang}`,
+      title: packageLangs(langNames, key),
       id: key,
     });
   }
-  console.log(languageResources);
+
   let value = [];
   languageResources.forEach((el) => {
     for (let key in langNames) {
       if (key === el) {
         value.push({
-          title:
-            langNames[key].lang !== langNames[key].eng && langNames[key].eng !== ''
-              ? `${langNames[key].lang} (${langNames[key].eng})`
-              : `${langNames[key].lang}`,
+          title: packageLangs(langNames, key),
           id: key,
         });
       }
