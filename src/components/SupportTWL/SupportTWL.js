@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 
 import { Card, CardContent, useContent, useCardState } from 'translation-helps-rcl';
-import { useTranslation } from 'react-i18next';
+
+import { langNames } from '../../config/materials';
 
 export default function SupportTWL(props) {
-  const { t } = useTranslation();
   const { title, classes, onClose, type, server, fontSize, reference, resource } = props;
   const { bookId, chapter, verse } = reference;
   const [selectedQuote, setQuote] = useState({});
@@ -43,7 +43,7 @@ export default function SupportTWL(props) {
   return (
     <Card
       closeable
-      title={title + ' (' + t(resource.languageId) + ')'}
+      title={title + ' (' + langNames[resource.languageId].eng + ')'}
       onClose={() => onClose(type)}
       classes={classes}
       id={type}

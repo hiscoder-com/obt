@@ -1,5 +1,6 @@
 export const langs = [
   'am',
+  'apd',
   'as',
   'bn',
   'ceb',
@@ -55,6 +56,10 @@ export const langNames = {
   am: {
     eng: 'Amharic',
     lang: 'አማርኛ',
+  },
+  apd: {
+    eng: 'Arabic, Sudanese Spoken',
+    lang: 'لهجة سودانية',
   },
   as: {
     eng: 'Assamese',
@@ -244,13 +249,17 @@ export const langNames = {
     eng: 'Urdu',
     lang: 'اردو',
   },
+  'ur-deva': {
+    eng: 'Urdu Devanagari script',
+    lang: 'اردو',
+  },
   vi: {
     eng: 'Vietnamese',
     lang: 'Tiếng Việt',
   },
 };
 
-export const owners = ['door43-catalog', 'bsa', 'unfoldingword', 'ru_gl'];
+export const owners = ['door43-catalog', 'bsa', 'unfoldingword', 'ru_gl', 'gra'];
 
 //resource, that have not manifest or others reason
 export const blackListResources = [
