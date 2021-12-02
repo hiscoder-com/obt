@@ -12,10 +12,11 @@ import {
   blackListResources,
   bibleSubjects,
   obsSubjects,
+  langNames,
 } from '../../config/materials';
 import { defaultCard, server, columns } from '../../config/base';
 import { getXY } from 'resource-workspace-rcl';
-import { getUniqueResources } from '../../helper';
+import { getUniqueResources, packageLangs } from '../../helper';
 import { MenuItem, Menu, Button } from '@material-ui/core';
 
 import LanguageIcon from '@material-ui/icons/Language';
@@ -148,7 +149,7 @@ function SearchResources({ anchorEl, onClose, open }) {
         blockLang = el.languageId;
         return (
           <div key={el.id}>
-            <p className={classes.divider}>{t(el.languageId)}</p>
+            <p className={classes.divider}>{packageLangs(langNames[el.languageId])}</p>
             <MenuItem className={classes.menu} onClick={() => handleAddMaterial(el)}>
               {el.title}
             </MenuItem>

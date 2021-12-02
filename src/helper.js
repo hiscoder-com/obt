@@ -395,3 +395,19 @@ export const getLanguageIds = () => {
   currentLangs.add(localStorage.getItem('i18nextLng'));
   return Array.from(currentLangs);
 };
+const equalNames = (langObj) => {
+  const { lang, eng } = langObj;
+  if (lang !== eng || eng === '') {
+    return eng;
+  } else {
+    return null;
+  }
+};
+export const packageLangs = (langObj) => {
+  const eng = equalNames(langObj);
+  if (eng) {
+    return `${langObj.lang} (${eng})`;
+  } else {
+    return langObj.lang;
+  }
+};
