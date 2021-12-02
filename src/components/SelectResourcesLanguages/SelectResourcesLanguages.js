@@ -1,11 +1,12 @@
 import React, { useContext } from 'react';
 
 import { useTranslation } from 'react-i18next';
+
 import { AppContext } from '../../context';
 import { matchSorter } from 'match-sorter';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { TextField, Chip } from '@material-ui/core';
-import { langs } from '../../config/materials';
+import { langs, langNames } from '../../config/materials';
 
 import { getLanguageIds } from '../../helper';
 
@@ -27,13 +28,29 @@ function SelectResourcesLanguages() {
   const fixedOptions = getLanguageIds();
 
   let options = [];
-  langs.forEach((el) => {
-    options.push({ title: t(el), id: el });
-  });
-
+  for (let key in langNames) {
+    options.push({
+      title:
+        langNames[key].lang !== langNames[key].eng && langNames[key].eng !== ''
+          ? `${langNames[key].lang} (${langNames[key].eng})`
+          : `${langNames[key].lang}`,
+      id: key,
+    });
+  }
+  console.log(languageResources);
   let value = [];
   languageResources.forEach((el) => {
-    value.push({ title: t(el), id: el });
+    for (let key in langNames) {
+      if (key === el) {
+        value.push({
+          title:
+            langNames[key].lang !== langNames[key].eng && langNames[key].eng !== ''
+              ? `${langNames[key].lang} (${langNames[key].eng})`
+              : `${langNames[key].lang}`,
+          id: key,
+        });
+      }
+    }
   });
 
   const onChange = (event, newValue) => {
@@ -50,7 +67,7 @@ function SelectResourcesLanguages() {
     tagValue.map((option, index) => (
       <Chip
         key={option.id}
-        label={t(option.title)}
+        label={option.title}
         {...getTagProps({ index })}
         disabled={fixedOptions.indexOf(option.id) !== -1}
       />

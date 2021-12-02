@@ -50,6 +50,200 @@ export const langs = [
   'ur-deva',
   'vi',
 ];
+export const langNames = {
+  am: {
+    eng: 'Amharic',
+    lang: 'አማርኛ',
+  },
+  as: {
+    eng: 'Assamese',
+    lang: 'অসমীয়া',
+  },
+  bn: {
+    eng: 'Bengali, Bangla',
+    lang: 'বাংলা',
+  },
+  ceb: {
+    eng: 'Cebuano',
+    lang: 'Cebuano',
+  },
+  'el-x-koine': {
+    eng: 'Koine Greek',
+    lang: 'Koine Greek',
+  },
+  en: {
+    eng: 'English',
+    lang: 'English',
+  },
+  es: {
+    eng: 'Spanish',
+    lang: 'español',
+  },
+  'es-419': {
+    eng: 'Latin American Spanish',
+    lang: 'Español Latin America',
+  },
+  fa: {
+    eng: 'Persian (Farsi)',
+    lang: 'فارسی',
+  },
+  fr: {
+    eng: 'French',
+    lang: 'français, langue française',
+  },
+  gof: {
+    eng: 'Gofa',
+    lang: 'Gofa',
+  },
+  gu: {
+    eng: 'Gujarati',
+    lang: 'ગુજરાતી',
+  },
+  guq: {
+    eng: 'Aché',
+    lang: 'Aché',
+  },
+  ha: {
+    eng: 'Hausa',
+    lang: '(Hausa) هَوُسَ',
+  },
+  hbo: {
+    eng: 'Hebrew, Ancient',
+    lang: 'Ancient Hebrew',
+  },
+  hi: {
+    eng: 'Hindi',
+    lang: 'हिन्दी, हिंदी',
+  },
+  hmr: {
+    eng: 'Hmar',
+    lang: 'Hmar',
+  },
+  hr: {
+    eng: 'Croatian',
+    lang: 'hrvatski jezik',
+  },
+  id: {
+    eng: 'Indonesian',
+    lang: 'Bahasa Indonesia',
+  },
+  ilo: {
+    eng: 'Ilocano',
+    lang: 'Iloko',
+  },
+  kn: {
+    eng: 'Kannada',
+    lang: 'ಕನ್ನಡ',
+  },
+  lo: {
+    eng: 'Laotian',
+    lang: 'ພາສາລາວ',
+  },
+  lpx: {
+    eng: 'Lopit',
+    lang: 'Lopit',
+  },
+  lus: {
+    eng: 'Mizo',
+    lang: 'Lushai',
+  },
+  ml: {
+    eng: 'Malayalam',
+    lang: 'മലയാളം',
+  },
+  mr: {
+    eng: 'Marathi (Marāṭhī)',
+    lang: 'मराठी',
+  },
+  nag: {
+    eng: 'Naga Pidgin',
+    lang: 'Naga Pidgin',
+  },
+  ne: {
+    eng: 'Nepali',
+    lang: 'नेपाली',
+  },
+  or: {
+    eng: 'Odia',
+    lang: 'ଓଡ଼ିଆ',
+  },
+  pa: {
+    eng: 'Punjabi, Eastern',
+    lang: 'ਪੰਜਾਬੀ, پنجابی‎',
+  },
+  'pt-br': {
+    eng: 'Brazilian Portuguese',
+    lang: 'Português',
+  },
+  'rmy-x-vc': {
+    eng: '',
+    lang: 'Vlach Čergarski',
+  },
+  'rmy-x-vg': {
+    eng: '',
+    lang: 'Vlach Gurbert',
+  },
+  'rmy-x-vwa': {
+    eng: '',
+    lang: 'Vlach Western Arli',
+  },
+  ru: {
+    eng: 'Russian',
+    lang: 'Русский',
+  },
+  sgj: {
+    eng: 'Surgujia',
+    lang: 'Surgujia',
+  },
+  shu: {
+    eng: 'Arabic, Chadian Spoken',
+    lang: 'Chadian Arabic',
+  },
+  'sr-Latn': {
+    eng: '',
+    lang: 'Serbian',
+  },
+  sw: {
+    eng: 'Swahili',
+    lang: 'Kiswahili',
+  },
+  ta: {
+    eng: 'Tamil',
+    lang: 'தமிழ்',
+  },
+  tdj: {
+    eng: 'Tajio',
+    lang: 'Tajio',
+  },
+  te: {
+    eng: 'Telugu',
+    lang: 'తెలుగు',
+  },
+  tg: {
+    eng: 'Tajik',
+    lang: 'тоҷикӣ, toçikī, تاجیکی‎',
+  },
+  tl: {
+    eng: 'Tagalog',
+    lang: 'Wikang Tagalog',
+  },
+  tpi: {
+    eng: 'Tok Pisin',
+    lang: 'Tok Pisin',
+  },
+  tr: {
+    eng: 'Turkish',
+    lang: 'Türkçe',
+  },
+  ur: {
+    eng: 'Urdu',
+    lang: 'اردو',
+  },
+  vi: {
+    eng: 'Vietnamese',
+    lang: 'Tiếng Việt',
+  },
+};
 
 export const owners = ['door43-catalog', 'bsa', 'unfoldingword', 'ru_gl'];
 
