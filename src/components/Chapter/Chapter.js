@@ -37,6 +37,7 @@ export default function Chapter({
         content={content}
         type={type}
         reference={reference}
+        languageId={resource.languageId}
       />
     </Card>
   );
