@@ -16,7 +16,7 @@ function SelectResourcesLanguages() {
 
   const filterOptions = (options, { inputValue }) => {
     return matchSorter(options, inputValue, {
-      keys: ['title', 'id'],
+      keys: ['title', 'eng', 'id'],
       threshold: matchSorter.rankings.WORD_STARTS_WITH,
     });
   };
@@ -28,6 +28,7 @@ function SelectResourcesLanguages() {
     options.push({
       title: packageLangs(langNames[key]),
       id: key,
+      eng: langNames[key].eng,
     });
   }
 
@@ -36,6 +37,7 @@ function SelectResourcesLanguages() {
     value.push({
       title: packageLangs(langNames[el]),
       id: el,
+      eng: langNames[el].eng,
     });
   });
 

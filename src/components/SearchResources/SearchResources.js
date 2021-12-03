@@ -89,10 +89,8 @@ function SearchResources({ anchorEl, onClose, open }) {
           subjects.join(',')
       )
       .then((res) => {
-        console.log({ languageResources });
         const result = res.data.data
           .map((el) => {
-            console.log({ lang: el.language });
             return {
               id: el.id,
               languageId: el.language,
