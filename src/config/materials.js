@@ -111,10 +111,10 @@ export const langNames = {
   },
   ha: {
     eng: 'Hausa',
-    lang: '(Hausa) هَوُسَ',
+    lang: 'هَوُسَ',
   },
   hbo: {
-    eng: 'Hebrew, Ancient',
+    eng: 'Ancient Hebrew',
     lang: 'Ancient Hebrew',
   },
   hi: {
@@ -206,7 +206,7 @@ export const langNames = {
     lang: 'Surgujia',
   },
   shu: {
-    eng: 'Arabic, Chadian Spoken',
+    eng: 'Chadian Arabic',
     lang: 'Chadian Arabic',
   },
   'sr-Latn': {
@@ -251,7 +251,7 @@ export const langNames = {
   },
   'ur-deva': {
     eng: 'Urdu Devanagari script',
-    lang: 'اردو',
+    lang: 'देवनागरी',
   },
   vi: {
     eng: 'Vietnamese',
