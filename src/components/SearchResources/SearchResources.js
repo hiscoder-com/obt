@@ -108,7 +108,7 @@ function SearchResources({ anchorEl, onClose, open }) {
                 (value) =>
                   JSON.stringify(value) ===
                   JSON.stringify({ owner: el.owner, name: el.name })
-              )
+              ) && languageResources.some((lang) => lang === el.languageId)
           );
         setResourcesApp((prev) => {
           if (prev && result) {
