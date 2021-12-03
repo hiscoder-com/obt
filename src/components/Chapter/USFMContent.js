@@ -34,12 +34,20 @@ function USFMContent({ reference, content, type, fontSize, languageId }) {
   } = useContext(ReferenceContext);
 
   useEffect(() => {
-    if (reference) {
+    if (languageId === 'ru' && reference) {
       axios
         .get(`https://api.unfoldingword.org/bible/txt/1/${reference.bookId}/chunks.json`)
-        .then((res) => setChunks(res.data))
+        .then((res) =>
+          setChunks(
+            res.data
+              .filter((el) => parseInt(el.chp).toString() === reference.chapter)
+              .map((el) => parseInt(el.firstvs).toString())
+              .filter((el) => el !== '1')
+          )
+        )
         .catch((err) => console.log(err));
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [reference]);
 
   useEffect(() => {
@@ -64,10 +72,6 @@ function USFMContent({ reference, content, type, fontSize, languageId }) {
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [resourceLink, reference.chapter]);
-
-  const chapterChunks = chunks
-    ?.filter((el) => parseInt(el.chp).toString() === reference.chapter)
-    .map((el) => parseInt(el.firstvs).toString());
 
   useEffect(() => {
     const handleContextMenu = (e, key, verseObjects) => {
@@ -113,7 +117,7 @@ function USFMContent({ reference, content, type, fontSize, languageId }) {
           onContextMenu={(e) => handleContextMenu(e, key, verseObjects)}
           onClick={handleClick}
         >
-          {chapterChunks.includes(key.toString()) && languageId === 'ru' && <p />}
+          {chunks.includes(key.toString()) && <p />}
           <Verse
             verseKey={key}
             verseObjects={verseObjects}
