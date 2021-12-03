@@ -23,6 +23,7 @@ export default function SupportTN(props) {
     resourceId: 'tn',
     owner: resource.owner ?? 'door43-catalog',
     server,
+    httpConfig: { noCache: true },
   };
 
   const {
