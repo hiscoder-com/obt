@@ -7,8 +7,8 @@ import axios from 'axios';
 import { getVerseText } from '../../helper';
 import { ReferenceContext } from '../../context';
 import { useScrollToVerse } from '../../hooks/useScrollToVerse';
-import { CircularProgress } from '@material-ui/core';
-import { useCircularStyles, useNoContentStyles } from './style';
+
+import { useNoContentStyles } from './style';
 import { ContextMenu } from '../../components';
 
 const initialPosition = {
@@ -22,11 +22,11 @@ function USFMContent({ reference, content, type, fontSize, languageId }) {
   const [chapter, setChapter] = useState();
   const [positionContextMenu, setPositionContextMenu] = useState(initialPosition);
   const [verseRef] = useScrollToVerse('center');
-  const classesCircular = useCircularStyles();
+
   const classesNoContent = useNoContentStyles();
   const resource = content.resource;
   const resourceLink = resource?.resourceLink;
-  const { contentNotFoundError, error, loading } = content.resourceStatus;
+  const { contentNotFoundError, error } = content.resourceStatus;
   const [chunks, setChunks] = useState([]);
 
   const {
@@ -136,11 +136,6 @@ function USFMContent({ reference, content, type, fontSize, languageId }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [chapter, reference, type, fontSize]);
 
-  const loadingContent = (
-    <div className={classesCircular.root}>
-      <CircularProgress color="primary" size={100} />
-    </div>
-  );
   const noContent = <div className={classesNoContent.root}>{t('No_content')}</div>;
 
   const usfmContent = !contentNotFoundError || !error ? verses : noContent;

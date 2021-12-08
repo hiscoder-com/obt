@@ -16,7 +16,7 @@ export default function useSearch({
   const [cvMatching, setCvMatching] = useState([]);
   const [matches, setMatches] = useState([]);
   const [verseObjects, setVerseObjects] = useState({});
-  const searchT = 'благо';
+  const search = searchText;
 
   async function getBookText() {
     const response = await axios.get(
@@ -71,7 +71,7 @@ export default function useSearch({
   } = useSearchForPassages({
     proskomma,
     stateId,
-    text: searchT,
+    text: searchText,
     docSetId,
     bookCode,
     // blocks: true,
@@ -104,6 +104,6 @@ export default function useSearch({
       });
     setVerseObjects(_verseObjects);
   }, [cvMatching]);
-
-  return { passages, cvMatching, data, matches, verseObjects };
+  console.log(matches);
+  return { passages, cvMatching, data, matches, verseObjects, search };
 }

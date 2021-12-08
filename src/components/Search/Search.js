@@ -51,7 +51,7 @@ const useStyles = makeStyles((theme) => ({
 function Search() {
   const [value, setValue] = React.useState('');
   const [open, setOpen] = React.useState(false);
-  const [search, setSearch] = React.useState('благ');
+  const [search, setSearch] = React.useState('учении');
 
   const {
     state: { referenceSelected },
@@ -64,15 +64,15 @@ function Search() {
     state: { appConfig, resourcesApp },
   } = React.useContext(AppContext);
 
-  // const currentResources =
-  //   resourcesApp &&
-  //   appConfig &&
-  //   resourcesApp.filter((e) => appConfig.lg.map((e) => e.i).includes(e.name));
-  // const { languageId,name , owner } = currentResources && currentResources[0];
+  const currentResources =
+    resourcesApp &&
+    appConfig &&
+    resourcesApp.filter((e) => appConfig.lg.map((e) => e.i).includes(e.name));
+  const { languageId, name, owner } = currentResources && currentResources[0];
   const classes = useStyles();
-  const languageId = 'ru';
-  const name = 'ru_rlob';
-  const owner = 'ru_gl';
+  // const languageId = 'ru';
+  // const name = 'ru_rlob';
+  // const owner = 'ru_gl';
 
   const handleKeyPress = (e) => {
     if (e.charCode === 13) {
@@ -83,6 +83,7 @@ function Search() {
   const handleClose = React.useCallback(() => {
     setOpen(false);
   }, []);
+
   return (
     <>
       <div className={classes.search}>

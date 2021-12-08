@@ -1,6 +1,6 @@
 import React from 'react';
+import DrawerUI from './DrawerUI';
 
-import { DialogUI } from '../DialogUI';
 import useSearch from './useSearch';
 
 function ProscommaSearch({
@@ -14,8 +14,8 @@ function ProscommaSearch({
   owner,
   goToBookChapterVerse,
 }) {
-  const { chapter, bookId, verse } = referenceSelected;
-  const { verseObjects } = useSearch({
+  const { chapter, bookId } = referenceSelected;
+  const { verseObjects, matches, search } = useSearch({
     languageId,
     name,
     owner,
@@ -55,14 +55,19 @@ function ProscommaSearch({
       }
       setFindVerse(find);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [verseObjects]);
   // console.log(findVerse);
 
   return (
     <div>
-      <DialogUI open={open} onClose={handleClose}>
+      <DrawerUI open={open} onClose={handleClose}>
+        <div style={{ fontWeight: 'bold' }}>{`Finded ${
+          Object.keys(verseObjects).length
+        } verses and ${matches ? matches.length : 0} matches for the "${search}":`}</div>
+        <br />
         {verseObjects ? findVerse : 'No content'}
-      </DialogUI>
+      </DrawerUI>
     </div>
   );
 }
