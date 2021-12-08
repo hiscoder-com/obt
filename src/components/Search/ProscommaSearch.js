@@ -12,9 +12,10 @@ function ProscommaSearch({
   languageId,
   name,
   owner,
+  goToBookChapterVerse,
 }) {
-  const { chapter, bookId } = referenceSelected;
-  const { passages, tokens, data } = useSearch({
+  const { chapter, bookId, verse } = referenceSelected;
+  const { verseObjects } = useSearch({
     languageId,
     name,
     owner,
@@ -24,30 +25,43 @@ function ProscommaSearch({
     usfm,
   });
   const [findVerse, setFindVerse] = React.useState('');
+  const handleClick = (chapter, verse) => {
+    console.log('глава', chapter, 'стих', verse);
+    goToBookChapterVerse(bookId, chapter, verse);
+  };
   React.useEffect(() => {
-    if (tokens && tokens.length > 0) {
-      console.log('tokens', tokens);
-      console.log('data', data);
+    if (verseObjects) {
+      console.log('data', verseObjects);
+      let find = [];
+      for (let key in verseObjects) {
+        const { keyChapter, keyVerse, match } = verseObjects[key];
+        const tokens = verseObjects[key].tokens.map((tok) => {
+          return (
+            <span
+              style={match.includes(tok.payload) ? { color: 'blue' } : null}
+              key={tok.index}
+            >
+              {tok.payload}
+            </span>
+          );
+        });
 
-      setFindVerse(
-        tokens[0].tokens.map((el) => {
-          return <span key={el.index}>{el.payload}</span>;
-        })
-      );
+        find.push(
+          <div key={key} onClick={() => handleClick(keyChapter, keyVerse)}>
+            {`${keyChapter}:${keyVerse} - `}
+            {tokens}
+          </div>
+        );
+      }
+      setFindVerse(find);
     }
-  }, [tokens]);
+  }, [verseObjects]);
   // console.log(findVerse);
-  const findVerses =
-    passages && passages.length > 0
-      ? passages.map((e) => {
-          return <span key={e.index}> {`${e.reference} ${e.text}`}</span>;
-        })
-      : null;
 
   return (
     <div>
       <DialogUI open={open} onClose={handleClose}>
-        {tokens ? findVerse : 'No content'}
+        {verseObjects ? findVerse : 'No content'}
       </DialogUI>
     </div>
   );

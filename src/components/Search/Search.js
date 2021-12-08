@@ -55,7 +55,10 @@ function Search() {
 
   const {
     state: { referenceSelected },
+    actions: { goToBookChapterVerse },
   } = React.useContext(ReferenceContext);
+
+  const { bookId, chapter } = referenceSelected;
 
   const {
     state: { appConfig, resourcesApp },
@@ -107,6 +110,7 @@ function Search() {
         languageId={languageId}
         name={name}
         owner={owner}
+        goToBookChapterVerse={goToBookChapterVerse}
       />
     </>
   );

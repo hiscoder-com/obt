@@ -13,7 +13,9 @@ export default function useSearch({
   usfm,
 }) {
   const [bookData, setBookData] = useState({});
-  const [tokens, setTokens] = useState([]);
+  const [cvMatching, setCvMatching] = useState([]);
+  const [matches, setMatches] = useState([]);
+  const [verseObjects, setVerseObjects] = useState({});
   const searchT = 'благо';
 
   async function getBookText() {
@@ -77,8 +79,31 @@ export default function useSearch({
   });
 
   useEffect(() => {
-    setTokens(data?.docSet?.document?.cvMatching);
+    setCvMatching(data?.docSet?.document?.cvMatching);
+  }, [data]);
+  useEffect(() => {
+    setMatches(data?.docSet?.matches);
   }, [data]);
 
-  return { passages, tokens, data };
+  useEffect(() => {
+    let _verseObjects = {};
+    console.log(cvMatching);
+    cvMatching &&
+      cvMatching.forEach((el, index) => {
+        const keyChapter = el.scopeLabels[0].split('/')[1];
+        const keyVerse = el.scopeLabels[1].split('/')[1];
+        const key = index;
+        const tok = el.tokens.map((e) => e.payload);
+
+        const match = matches
+          .filter((e) => tok.includes(e.matched))
+          .map((e) => e.matched);
+        const tokens = el.tokens;
+
+        _verseObjects[key] = { keyChapter, keyVerse, match, tokens };
+      });
+    setVerseObjects(_verseObjects);
+  }, [cvMatching]);
+
+  return { passages, cvMatching, data, matches, verseObjects };
 }
