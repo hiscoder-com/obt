@@ -143,11 +143,7 @@ function USFMContent({ reference, content, type, fontSize, languageId }) {
   );
   const noContent = <div className={classesNoContent.root}>{t('No_content')}</div>;
 
-  const usfmContent = loading
-    ? loadingContent
-    : !contentNotFoundError || !error
-    ? verses
-    : noContent;
+  const usfmContent = !contentNotFoundError || !error ? verses : noContent;
 
   return (
     <>

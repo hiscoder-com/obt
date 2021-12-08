@@ -13,6 +13,7 @@ import {
   ShowReference,
   SelectModeBible,
   About,
+  Search,
 } from '../../components';
 
 import { AppBar, Toolbar, MenuItem, Menu, IconButton, Button } from '@material-ui/core';
@@ -73,6 +74,7 @@ function SubMenuBar() {
             <ChapterSelect />
             <BookSelect />
           </div>
+          <Search />
           <IconButton
             ref={menuRef}
             edge="start"
