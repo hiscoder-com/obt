@@ -9,14 +9,19 @@ export default function useSearch({
   owner,
   bookId,
   chapter,
-  searchText,
+  search,
   usfm,
 }) {
+  const [st, setSt] = useState('');
   const [bookData, setBookData] = useState({});
   const [cvMatching, setCvMatching] = useState([]);
   const [matches, setMatches] = useState([]);
   const [verseObjects, setVerseObjects] = useState({});
-  const search = searchText;
+  // const [search, setSearch] = useState('');
+  console.log({ st });
+  useEffect(() => {
+    setSt(search);
+  }, [search]);
 
   async function getBookText() {
     const response = await axios.get(
@@ -71,7 +76,7 @@ export default function useSearch({
   } = useSearchForPassages({
     proskomma,
     stateId,
-    text: searchText,
+    text: st,
     docSetId,
     bookCode,
     // blocks: true,
@@ -87,7 +92,7 @@ export default function useSearch({
 
   useEffect(() => {
     let _verseObjects = {};
-    console.log(cvMatching);
+
     cvMatching &&
       cvMatching.forEach((el, index) => {
         const keyChapter = el.scopeLabels[0].split('/')[1];
@@ -103,7 +108,8 @@ export default function useSearch({
         _verseObjects[key] = { keyChapter, keyVerse, match, tokens };
       });
     setVerseObjects(_verseObjects);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cvMatching]);
-  console.log(matches);
-  return { passages, cvMatching, data, matches, verseObjects, search };
+
+  return { passages, cvMatching, data, matches, verseObjects, st };
 }

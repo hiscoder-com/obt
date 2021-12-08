@@ -51,7 +51,7 @@ const useStyles = makeStyles((theme) => ({
 function Search() {
   const [value, setValue] = React.useState('');
   const [open, setOpen] = React.useState(false);
-  const [search, setSearch] = React.useState('учении');
+  const [search, setSearch] = React.useState(null);
 
   const {
     state: { referenceSelected },
@@ -103,16 +103,18 @@ function Search() {
           onKeyPress={(e) => handleKeyPress(e)}
         />
       </div>
-      <ProscommaSearch
-        referenceSelected={referenceSelected}
-        searchText={search}
-        open={open}
-        handleClose={handleClose}
-        languageId={languageId}
-        name={name}
-        owner={owner}
-        goToBookChapterVerse={goToBookChapterVerse}
-      />
+      {search ? (
+        <ProscommaSearch
+          referenceSelected={referenceSelected}
+          searchText={search}
+          open={open}
+          handleClose={handleClose}
+          languageId={languageId}
+          name={name}
+          owner={owner}
+          goToBookChapterVerse={goToBookChapterVerse}
+        />
+      ) : null}
     </>
   );
 }
