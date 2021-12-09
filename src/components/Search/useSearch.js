@@ -1,40 +1,35 @@
 import { useState, useEffect } from 'react';
 
 import { useProskomma, useImport, useSearchForPassages } from 'proskomma-react-hooks';
-import axios from 'axios';
 
-export default function useSearch({
-  languageId,
-  name,
-  owner,
-  bookId,
-  chapter,
-  search,
-  usfm,
-}) {
+import { useContent } from 'translation-helps-rcl/dist/hooks';
+export default function useSearch({ languageId, name, owner, bookId, chapter, search }) {
   const [st, setSt] = useState('');
-  const [bookData, setBookData] = useState({});
+
   const [cvMatching, setCvMatching] = useState([]);
   const [matches, setMatches] = useState([]);
   const [verseObjects, setVerseObjects] = useState({});
-  // const [search, setSearch] = useState('');
-  console.log({ st });
+  const [usfm, setUsfm] = useState(null);
+
   useEffect(() => {
     setSt(search);
   }, [search]);
 
-  async function getBookText() {
-    const response = await axios.get(
-      `https://git.door43.org/${owner}/${name}/raw/branch/master/57-TIT.usfm`
-    );
-    return response.data;
-  }
+  const content = useContent({
+    chapter: chapter,
+    projectId: bookId,
+    branch: 'master',
+    languageId: languageId,
+    resourceId: name.split('_')[1],
+    owner: owner,
+    server: 'https://git.door43.org',
+  });
 
   useEffect(() => {
-    getBookText().then((bookData) => {
-      setBookData(bookData);
-    });
-  }, []);
+    if (content) {
+      setUsfm(content.markdown);
+    }
+  }, [content]);
 
   const docSetId = `${owner}/${name}`;
   const bookCode = bookId.toUpperCase();
@@ -47,16 +42,11 @@ export default function useSearch({
         abbr: name.split('_')[1],
       },
       bookCode: bookId.toUpperCase(),
-      data: bookData,
+      data: usfm,
     },
   ];
 
-  const {
-    stateId,
-    newStateId,
-    proskomma,
-    errors: proskommaErrors,
-  } = useProskomma({
+  const { stateId, newStateId, proskomma } = useProskomma({
     verbose,
   });
   const { errors: importErrors } = useImport({
@@ -68,10 +58,8 @@ export default function useSearch({
   });
 
   const {
-    stateId: searchStateId,
-    query,
     passages,
-    errors: searchErrors,
+
     data,
   } = useSearchForPassages({
     proskomma,

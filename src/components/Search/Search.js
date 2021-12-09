@@ -1,5 +1,5 @@
 import React from 'react';
-import { useContent } from 'translation-helps-rcl';
+
 import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
 import { alpha, makeStyles } from '@material-ui/core/styles';
@@ -58,8 +58,6 @@ function Search() {
     actions: { goToBookChapterVerse },
   } = React.useContext(ReferenceContext);
 
-  const { bookId, chapter } = referenceSelected;
-
   const {
     state: { appConfig, resourcesApp },
   } = React.useContext(AppContext);
@@ -70,9 +68,6 @@ function Search() {
     resourcesApp.filter((e) => appConfig.lg.map((e) => e.i).includes(e.name));
   const { languageId, name, owner } = currentResources && currentResources[0];
   const classes = useStyles();
-  // const languageId = 'ru';
-  // const name = 'ru_rlob';
-  // const owner = 'ru_gl';
 
   const handleKeyPress = (e) => {
     if (e.charCode === 13) {
@@ -80,7 +75,14 @@ function Search() {
       setOpen(true);
     }
   };
+
+  React.useEffect(() => {
+    if (value === '') {
+      setSearch(null);
+    }
+  }, [value]);
   const handleClose = React.useCallback(() => {
+    setSearch(null);
     setOpen(false);
   }, []);
 

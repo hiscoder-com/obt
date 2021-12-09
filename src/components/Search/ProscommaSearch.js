@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import DrawerUI from './DrawerUI';
-import localforage from 'localforage';
+
 import useSearch from './useSearch';
+import Progress from './Progress';
+import { DialogUI } from '..';
 
 function ProscommaSearch({
   usfm,
@@ -70,17 +72,24 @@ function ProscommaSearch({
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [verseObjects, chapter, verse]);
-  // console.log(findVerse);
 
   return (
     <div>
-      <DrawerUI open={open} onClose={handleClose}>
-        <div style={{ fontWeight: 'bold' }}>{`Finded ${
-          Object.keys(verseObjects).length
-        } verses and ${matches ? matches.length : 0} matches for the "${search}":`}</div>
-        <br />
-        {verseObjects ? findVerse : 'No content'}
-      </DrawerUI>
+      <DialogUI open={open} onClose={handleClose} maxWidth={'lg'}>
+        {Object.keys(verseObjects).length ? (
+          <>
+            <div style={{ fontWeight: 'bold' }}>
+              {`Finded ${Object.keys(verseObjects).length} verses and ${
+                matches ? matches.length : 0
+              } matches for the "${search}":`}
+            </div>
+            <br />
+            {verseObjects ? findVerse : 'No content'}
+          </>
+        ) : (
+          <Progress />
+        )}
+      </DialogUI>
     </div>
   );
 }
