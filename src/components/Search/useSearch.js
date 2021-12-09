@@ -3,17 +3,18 @@ import { useState, useEffect } from 'react';
 import { useProskomma, useImport, useSearchForPassages } from 'proskomma-react-hooks';
 
 import { useContent } from 'translation-helps-rcl/dist/hooks';
-export default function useSearch({ languageId, name, owner, bookId, chapter, search }) {
-  const [st, setSt] = useState('');
-
+export default function useSearch({
+  languageId,
+  name,
+  owner,
+  bookId,
+  chapter,
+  searchText,
+}) {
   const [cvMatching, setCvMatching] = useState([]);
   const [matches, setMatches] = useState([]);
   const [verseObjects, setVerseObjects] = useState({});
   const [usfm, setUsfm] = useState(null);
-
-  useEffect(() => {
-    setSt(search);
-  }, [search]);
 
   const content = useContent({
     chapter: chapter,
@@ -64,7 +65,7 @@ export default function useSearch({ languageId, name, owner, bookId, chapter, se
   } = useSearchForPassages({
     proskomma,
     stateId,
-    text: st,
+    text: searchText,
     docSetId,
     bookCode,
     // blocks: true,
@@ -99,5 +100,5 @@ export default function useSearch({ languageId, name, owner, bookId, chapter, se
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cvMatching]);
 
-  return { passages, cvMatching, data, matches, verseObjects, st };
+  return { passages, cvMatching, data, matches, verseObjects };
 }

@@ -108,6 +108,8 @@ function Search() {
       {search ? (
         <ProscommaSearch
           referenceSelected={referenceSelected}
+          setValue={setValue}
+          setSearch={setSearch}
           searchText={search}
           open={open}
           handleClose={handleClose}

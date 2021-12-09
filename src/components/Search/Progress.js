@@ -16,7 +16,8 @@ export default function Progress() {
 
   return (
     <div className={classes.root}>
-      <LinearProgress />
+      <div>Searching</div>
+      <LinearProgress size={1} thickness={1} variant={'indeterminate'} />
     </div>
   );
 }
