@@ -5,15 +5,15 @@ import SearchIcon from '@material-ui/icons/Search';
 import SettingsIcon from '@material-ui/icons/Settings';
 import { FormControl, NativeSelect } from '@material-ui/core';
 
-import { Button, Paper, Divider, TextField } from '@material-ui/core';
+import { Button, Divider, TextField } from '@material-ui/core';
 import { useStyles } from './style';
 import ProscommaSearch from './ProscommaSearch';
 import { ReferenceContext, AppContext } from '../../context';
 function SearchDialog() {
   const [open, setOpen] = useState(false);
-  const [value, setValue] = React.useState('');
+  const [value, setValue] = useState('');
 
-  const [search, setSearch] = React.useState(null);
+  const [search, setSearch] = useState(null);
   const {
     state: { referenceSelected },
     actions: { goToBookChapterVerse },
@@ -38,6 +38,7 @@ function SearchDialog() {
   ];
   const onClose = () => {
     setOpen(false);
+    setValue('');
   };
   const handleOpen = () => {
     setOpen(true);
@@ -52,18 +53,28 @@ function SearchDialog() {
     setSearch(value);
     setOpen(true);
   };
-  React.useEffect(() => {
+  useEffect(() => {
     if (value === '') {
       setSearch(null);
     }
   }, [value]);
-  const handleClose = React.useCallback(() => {
-    setSearch(null);
+  const handleClose = () => {
+    setValue('');
+
     setOpen(false);
-  }, []);
+  };
   const handleChange = (e) => {
     console.log(e.target.value);
   };
+
+  const handleClickWord = (word) => {
+    setValue('');
+    setTimeout(() => {
+      setValue(word);
+      setSearch(word);
+    }, 1000);
+  };
+
   return (
     <div>
       <Button
@@ -107,6 +118,7 @@ function SearchDialog() {
               setValue(e.target.value);
             }}
             onKeyPress={(e) => handleKeyPress(e)}
+            value={value}
           />
           <Button color={'primary'} disableElevation={true} onClick={handleOpen}>
             <SearchIcon onClick={handleSearch} style={{ fontSize: 20 }} />
@@ -125,6 +137,7 @@ function SearchDialog() {
               owner={owner}
               goToBookChapterVerse={goToBookChapterVerse}
               dialog
+              handleClickWord={handleClickWord}
             />
           ) : null}
         </div>

@@ -18,6 +18,7 @@ function ProscommaSearch({
   setSearch,
   setValue,
   dialog,
+  handleClickWord,
 }) {
   const { chapter, bookId, verse } = referenceSelected;
 
@@ -49,10 +50,9 @@ function ProscommaSearch({
     setVerseCount(Object.keys(verseObjects).length);
   }, [verseObjects]);
 
-  const [findVerse, setFindVerse] = React.useState('');
   const handleClick = (chapter, verse) => {
-    // setValue('');
-    // goToBookChapterVerse(bookId, chapter, verse);
+    setValue('');
+    goToBookChapterVerse(bookId, chapter, verse);
 
     setSearch(null);
 
@@ -60,7 +60,6 @@ function ProscommaSearch({
   };
   React.useEffect(() => {
     if (verseObjects) {
-      let find = [];
       let table = [];
       for (let key in verseObjects) {
         const { keyChapter, keyVerse, match } = verseObjects[key];
@@ -69,29 +68,16 @@ function ProscommaSearch({
             <span
               style={match.includes(tok.payload) ? { color: 'blue' } : null}
               key={tok.index}
+              onClick={() => handleClickWord(tok.payload)}
             >
               {tok.payload}
             </span>
           );
         });
-        find.push(
-          <div
-            className={
-              keyChapter.toString() === chapter.toString() &&
-              keyVerse.toString() === verse.toString()
-                ? 'verse current'
-                : 'verse'
-            }
-            key={key}
-            onClick={() => handleClick(keyChapter, keyVerse)}
-          >
-            {`${keyChapter}:${keyVerse} - `}
-            {tokens}
-          </div>
-        );
-        table.push({ keyChapter, keyVerse, tokens });
+
+        table.push({ keyChapter, keyVerse, tokens, bookId });
       }
-      setFindVerse(find);
+
       setTableVerse(table);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -112,7 +98,7 @@ function ProscommaSearch({
     <div>
       <div>
         <div>
-          {Object.keys(verseObjects).length ? (
+          {Object.keys(verseObjects).length && !show ? (
             <>
               <div
                 style={{
@@ -122,28 +108,44 @@ function ProscommaSearch({
                   justifyContent: 'center',
                 }}
               >
-                <div>
+                <div
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'space-between',
+                    height: '300px',
+                  }}
+                >
                   <div style={{ fontWeight: 'bold', marginTop: '10px' }}>
                     {`There are ${
                       Object.keys(verseObjects).length
                     } matches  for the "${searchText}":`}
                   </div>
                   <br />
-                  {/* {verseObjects ? findVerse.slice(firstIndex, lastIndex) : 'No content'} */}
-                  <TableMatches
-                    tableVerse={tableVerse}
-                    firstIndex={firstIndex}
-                    lastIndex={lastIndex}
-                    handleClick={() => handleClick()}
-                  />
+                  <div style={{ marginTop: '10px' }}>
+                    <TableMatches
+                      tableVerse={tableVerse}
+                      firstIndex={firstIndex}
+                      lastIndex={lastIndex}
+                      handleClick={handleClick}
+                    />
+                  </div>
 
                   {Object.keys(verseObjects).length > 3 ? (
-                    <div style={{ paddingTop: '10px' }}>
+                    <div
+                      style={{
+                        paddingTop: '10px',
+                        flexGrow: '1',
+                        margin: '0 auto',
+                      }}
+                    >
                       <Pagination
                         count={count}
                         color="primary"
                         page={page}
                         onChange={handleChange}
+                        variant="outlined"
+                        shape="rounded"
                       />
                     </div>
                   ) : null}
@@ -151,7 +153,7 @@ function ProscommaSearch({
               </div>
             </>
           ) : (
-            <Progress show={show} />
+            <Progress />
           )}
         </div>
       </div>

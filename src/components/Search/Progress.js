@@ -10,17 +10,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Progress(show) {
+export default function Progress() {
   const classes = useStyles();
 
   return (
     <>
-      {show ? (
-        <div className={classes.root}>
-          <div>Searching</div>
-          <LinearProgress style={{ height: 20 }} variant={'indeterminate'} />
-        </div>
-      ) : null}
+      <div className={classes.root}>
+        <div>Searching</div>
+        <LinearProgress style={{ height: 20 }} variant={'indeterminate'} />
+      </div>
     </>
   );
 }
