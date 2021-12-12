@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import DrawerUI from './DrawerUI';
+
 import { makeStyles } from '@material-ui/core/styles';
 
 import useSearch from './useSearch';
 import Progress from './Progress';
-import { DialogUI } from '..';
+import TableMatches from './TableMatches';
 import { Pagination } from '@material-ui/lab';
-import Slider from '@material-ui/core/Slider';
 
 function ProscommaSearch({
-  open,
   handleClose,
   searchText,
   referenceSelected,
@@ -19,12 +17,14 @@ function ProscommaSearch({
   goToBookChapterVerse,
   setSearch,
   setValue,
+  dialog,
 }) {
   const { chapter, bookId, verse } = referenceSelected;
 
   const [verseCount, setVerseCount] = useState(0);
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(5);
+  const [tableVerse, setTableVerse] = React.useState([]);
 
   const lastIndex = page * limit;
   const firstIndex = lastIndex - limit;
@@ -36,7 +36,7 @@ function ProscommaSearch({
   }));
 
   const classes = useStyles();
-  const { verseObjects, matches } = useSearch({
+  const { verseObjects } = useSearch({
     languageId,
     name,
     owner,
@@ -51,8 +51,8 @@ function ProscommaSearch({
 
   const [findVerse, setFindVerse] = React.useState('');
   const handleClick = (chapter, verse) => {
-    setValue('');
-    goToBookChapterVerse(bookId, chapter, verse);
+    // setValue('');
+    // goToBookChapterVerse(bookId, chapter, verse);
 
     setSearch(null);
 
@@ -61,6 +61,7 @@ function ProscommaSearch({
   React.useEffect(() => {
     if (verseObjects) {
       let find = [];
+      let table = [];
       for (let key in verseObjects) {
         const { keyChapter, keyVerse, match } = verseObjects[key];
         const tokens = verseObjects[key].tokens.map((tok) => {
@@ -88,8 +89,10 @@ function ProscommaSearch({
             {tokens}
           </div>
         );
+        table.push({ keyChapter, keyVerse, tokens });
       }
       setFindVerse(find);
+      setTableVerse(table);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [verseObjects, chapter, verse]);
@@ -98,16 +101,16 @@ function ProscommaSearch({
   const handleChange = (event, value) => {
     setPage(value);
   };
-
-  const handleChangeSlider = (event, value) => {
-    setLimit(value);
-    setPage(1);
-  };
-  console.log({ limit });
-
+  const [show, setShow] = useState(true);
+  useEffect(() => {
+    if (Object.keys(verseObjects).length > 0) {
+      setShow(false);
+    }
+    return () => {};
+  }, [verseObjects]);
   return (
     <div>
-      <DialogUI open={open} onClose={handleClose} maxWidth={'lg'}>
+      <div>
         <div>
           {Object.keys(verseObjects).length ? (
             <>
@@ -120,16 +123,22 @@ function ProscommaSearch({
                 }}
               >
                 <div>
-                  <div style={{ fontWeight: 'bold' }}>
-                    {`Finded ${Object.keys(verseObjects).length} verses and ${
-                      matches ? matches.length : 0
-                    } matches for the "${searchText}":`}
+                  <div style={{ fontWeight: 'bold', marginTop: '10px' }}>
+                    {`There are ${
+                      Object.keys(verseObjects).length
+                    } matches  for the "${searchText}":`}
                   </div>
                   <br />
-                  {verseObjects ? findVerse.slice(firstIndex, lastIndex) : 'No content'}
+                  {/* {verseObjects ? findVerse.slice(firstIndex, lastIndex) : 'No content'} */}
+                  <TableMatches
+                    tableVerse={tableVerse}
+                    firstIndex={firstIndex}
+                    lastIndex={lastIndex}
+                    handleClick={() => handleClick()}
+                  />
 
                   {Object.keys(verseObjects).length > 3 ? (
-                    <div>
+                    <div style={{ paddingTop: '10px' }}>
                       <Pagination
                         count={count}
                         color="primary"
@@ -139,36 +148,13 @@ function ProscommaSearch({
                     </div>
                   ) : null}
                 </div>
-                {Object.keys(verseObjects).length > 3 ? (
-                  <>
-                    <div>Verses on page</div>
-                    <div className={classes.root}>
-                      <Slider
-                        orientation="vertical"
-                        aria-labelledby="vertical-slider"
-                        step={2}
-                        track={false}
-                        marks={[
-                          { value: 3, label: '3' },
-                          { value: 5, label: '5' },
-                          { value: 7, label: '7' },
-                          { value: 9, label: '9' },
-                        ]}
-                        min={3}
-                        max={9}
-                        onChange={handleChangeSlider}
-                        defaultValue={5}
-                      />
-                    </div>
-                  </>
-                ) : null}
               </div>
             </>
           ) : (
-            <Progress />
+            <Progress show={show} />
           )}
         </div>
-      </DialogUI>
+      </div>
     </div>
   );
 }
