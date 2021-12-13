@@ -4,7 +4,7 @@ export const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
     textAlign: 'center',
-    height: '400px',
+    height: '500px',
   },
   formControl: {
     marginRight: '10px',

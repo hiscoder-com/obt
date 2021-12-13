@@ -57,7 +57,7 @@ export default function useSearch({
     documents,
     verbose,
   });
-
+  console.log(importErrors);
   const {
     passages,
 

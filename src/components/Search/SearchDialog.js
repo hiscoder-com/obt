@@ -2,18 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { DialogUI } from '..';
 import SearchIcon from '@material-ui/icons/Search';
 
-import SettingsIcon from '@material-ui/icons/Settings';
-import { FormControl, NativeSelect } from '@material-ui/core';
+import { FormControl, NativeSelect, Button, Divider, TextField } from '@material-ui/core';
 
-import { Button, Divider, TextField } from '@material-ui/core';
 import { useStyles } from './style';
 import ProscommaSearch from './ProscommaSearch';
 import { ReferenceContext, AppContext } from '../../context';
 function SearchDialog() {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState('');
-
   const [search, setSearch] = useState(null);
+
   const {
     state: { referenceSelected },
     actions: { goToBookChapterVerse },
@@ -27,7 +25,11 @@ function SearchDialog() {
     resourcesApp &&
     appConfig &&
     resourcesApp.filter((e) => appConfig.lg.map((e) => e.i).includes(e.name));
+
   const { languageId, name, owner } = currentResources && currentResources[0];
+  /** TODO
+   * Нужно подумать - как организовать поиск в нескольких ресурсах. Я здесь беру значения первого в массиве
+   */
 
   const classes = useStyles();
   const options = [
@@ -45,13 +47,14 @@ function SearchDialog() {
   };
   const handleKeyPress = (e) => {
     if (e.charCode === 13) {
-      setSearch(value);
-      setOpen(true);
+      if (search !== value) {
+        setSearch(null);
+        setSearch(value);
+      }
     }
   };
   const handleSearch = () => {
     setSearch(value);
-    setOpen(true);
   };
   useEffect(() => {
     if (value === '') {
@@ -60,7 +63,6 @@ function SearchDialog() {
   }, [value]);
   const handleClose = () => {
     setValue('');
-
     setOpen(false);
   };
   const handleChange = (e) => {
@@ -73,7 +75,11 @@ function SearchDialog() {
       setValue(word);
       setSearch(word);
     }, 1000);
-  };
+  }; /** TODO решить проблему с ассинхронностью и сапуском поиска.
+  Сейчас, чтобы запусить поиск заново, мне нужно обнулить setSearch либо очистить опле ввода,
+  тогда опять работает эта операция setSearch(null) - 63 строка, тогда запустится заново ProscommaSearch.
+  а я бы хотел ввести слобо благо, потом дождаться поиска, изменить пару букв и запустить заново, так не работает
+  */
 
   return (
     <div>

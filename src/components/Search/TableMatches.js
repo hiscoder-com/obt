@@ -36,7 +36,7 @@ export default function TableMatches({ tableVerse, firstIndex, lastIndex, handle
                 <TableCell size={'small'}>
                   <LaunchIcon
                     onClick={() => handleClick(row.keyChapter, row.keyVerse)}
-                    style={{ cursor: 'pointer' }}
+                    style={{ cursor: 'pointer', fontSize: 20 }}
                   />
                 </TableCell>
               </TableRow>

@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 
-import { makeStyles } from '@material-ui/core/styles';
-
 import useSearch from './useSearch';
 import Progress from './Progress';
 import TableMatches from './TableMatches';
 import { Pagination } from '@material-ui/lab';
+
+const limit = 5;
 
 function ProscommaSearch({
   handleClose,
@@ -18,26 +18,22 @@ function ProscommaSearch({
   setSearch,
   setValue,
   dialog,
+  book,
   handleClickWord,
 }) {
   const { chapter, bookId, verse } = referenceSelected;
 
   const [verseCount, setVerseCount] = useState(0);
   const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(5);
+
   const [tableVerse, setTableVerse] = React.useState([]);
 
   const lastIndex = page * limit;
   const firstIndex = lastIndex - limit;
 
-  const useStyles = makeStyles((theme) => ({
-    root: {
-      height: theme.spacing(10),
-    },
-  }));
-
-  const classes = useStyles();
   const { verseObjects } = useSearch({
+    /** TODO Как написать этот компонент, чтобы он брал массив книг и возвращал массив 
+    verseObjects, в котором не одна книга , а несколько. Если надо, я перепишу всё заново. */
     languageId,
     name,
     owner,
@@ -87,18 +83,13 @@ function ProscommaSearch({
   const handleChange = (event, value) => {
     setPage(value);
   };
-  const [show, setShow] = useState(true);
-  useEffect(() => {
-    if (Object.keys(verseObjects).length > 0) {
-      setShow(false);
-    }
-    return () => {};
-  }, [verseObjects]);
+
   return (
     <div>
       <div>
         <div>
-          {Object.keys(verseObjects).length && !show ? (
+          {Object.keys(verseObjects).length ? ( //**TODO здесь нужно проверку на null , чтобы не делать бесконечную
+            // крутилку, Если не будет совпадений. Как вариант - я в useSearch возвращаю matches -кол-во слов совпадений, можно к нему прицепиться */
             <>
               <div
                 style={{
@@ -112,7 +103,7 @@ function ProscommaSearch({
                   style={{
                     display: 'flex',
                     flexDirection: 'column',
-                    justifyContent: 'space-between',
+
                     height: '300px',
                   }}
                 >
