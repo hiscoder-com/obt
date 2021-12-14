@@ -2,7 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { DialogUI } from '..';
 import SearchIcon from '@material-ui/icons/Search';
 
-import { FormControl, NativeSelect, Button, Divider, TextField } from '@material-ui/core';
+import {
+  FormControl,
+  NativeSelect,
+  Button,
+  Divider,
+  TextField,
+  Checkbox,
+  FormControlLabel,
+} from '@material-ui/core';
 
 import { useStyles } from './style';
 import ProscommaSearch from './ProscommaSearch';
@@ -11,7 +19,10 @@ function SearchDialog() {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState('');
   const [search, setSearch] = useState(null);
-
+  const [resourcesBible, setResourcesBible] = useState([]);
+  const [resourceSearch, setResourceSearch] = useState([]);
+  const [optionsBible, setOptionsBible] = useState([]);
+  const [clickOnWord, setClickOnWord] = useState(false);
   const {
     state: { referenceSelected },
     actions: { goToBookChapterVerse },
@@ -21,29 +32,36 @@ function SearchDialog() {
     state: { appConfig, resourcesApp },
   } = React.useContext(AppContext);
 
-  const currentResources =
-    resourcesApp &&
-    appConfig &&
-    resourcesApp.filter((e) => appConfig.lg.map((e) => e.i).includes(e.name));
+  useEffect(() => {
+    const currentResources =
+      resourcesApp &&
+      appConfig &&
+      resourcesApp.filter((e) => appConfig.lg.map((e) => e.i).includes(e.name));
+    const _resources = currentResources.filter((e) => {
+      return (
+        /bible/.test(e.subject.toLowerCase()) || /testament/.test(e.subject.toLowerCase())
+      );
+    });
 
-  const { languageId, name, owner } = currentResources && currentResources[0];
-  /** TODO
-   * Нужно подумать - как организовать поиск в нескольких ресурсах. Я здесь беру значения первого в массиве
-   */
+    setResourcesBible(_resources);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [appConfig]);
 
   const classes = useStyles();
-  const options = [
+  const bookOptions = [
     { key: 'current', label: 'Current book' },
     { key: 'nt', label: 'New Testament' },
     { key: 'ot', label: 'Old Testament' },
     { key: 'select', label: 'Select book' },
   ];
+
   const onClose = () => {
     setOpen(false);
     setValue('');
   };
   const handleOpen = () => {
     setOpen(true);
+    setResourceSearch(resourcesBible[0]);
   };
   const handleKeyPress = (e) => {
     if (e.charCode === 13) {
@@ -68,6 +86,27 @@ function SearchDialog() {
   const handleChange = (e) => {
     console.log(e.target.value);
   };
+  const handleChangeResources = (e) => {
+    setResourceSearch(JSON.parse(e.target.value));
+    setValue('');
+  };
+  useEffect(() => {
+    const options = resourcesBible.map((el) => {
+      const { languageId, name, owner } = el;
+
+      return (
+        <option
+          key={el.id}
+          value={JSON.stringify({ languageId, name, owner })}
+          className={classes.option}
+        >
+          {el.title}
+        </option>
+      );
+    });
+    setOptionsBible(options);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [resourcesBible]);
 
   const handleClickWord = (word) => {
     setValue('');
@@ -81,6 +120,9 @@ function SearchDialog() {
   а я бы хотел ввести слобо благо, потом дождаться поиска, изменить пару букв и запустить заново, так не работает
   */
 
+  const handleChangeCheck = () => {
+    setClickOnWord((prev) => !prev);
+  };
   return (
     <div>
       <Button
@@ -104,9 +146,23 @@ function SearchDialog() {
 
                 select: classes.select,
               }}
+              onChange={handleChangeResources}
+            >
+              {optionsBible}
+            </NativeSelect>
+          </FormControl>
+          <FormControl className={classes.formControl}>
+            <NativeSelect
+              labelid="workSpace-select-label"
+              disableUnderline={true}
+              classes={{
+                icon: classes.icon,
+
+                select: classes.select,
+              }}
               onChange={handleChange}
             >
-              {options.map((el) => (
+              {bookOptions.map((el) => (
                 <option key={el.key} value={el.key} className={classes.option}>
                   {el.label}
                 </option>
@@ -115,10 +171,6 @@ function SearchDialog() {
           </FormControl>
           <TextField
             placeholder="Search…"
-            classes={{
-              root: classes.inputRoot,
-              input: classes.inputInput,
-            }}
             inputProps={{ 'aria-label': 'search' }}
             onChange={(e) => {
               setValue(e.target.value);
@@ -129,6 +181,16 @@ function SearchDialog() {
           <Button color={'primary'} disableElevation={true} onClick={handleOpen}>
             <SearchIcon onClick={handleSearch} style={{ fontSize: 20 }} />
           </Button>
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={clickOnWord}
+                onChange={handleChangeCheck}
+                color="primary"
+              />
+            }
+            label="Search by word"
+          />
           <Divider style={{ marginTop: '10px' }} />
           {search ? (
             <ProscommaSearch
@@ -138,12 +200,10 @@ function SearchDialog() {
               searchText={search}
               open={open}
               handleClose={handleClose}
-              languageId={languageId}
-              name={name}
-              owner={owner}
+              resourceSearch={resourceSearch}
               goToBookChapterVerse={goToBookChapterVerse}
-              dialog
               handleClickWord={handleClickWord}
+              clickOnWord={clickOnWord}
             />
           ) : null}
         </div>

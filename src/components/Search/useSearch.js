@@ -12,7 +12,7 @@ export default function useSearch({
   searchText,
 }) {
   const [cvMatching, setCvMatching] = useState([]);
-  const [matches, setMatches] = useState([]);
+  const [matches, setMatches] = useState(null);
   const [verseObjects, setVerseObjects] = useState({});
   const [usfm, setUsfm] = useState(null);
 

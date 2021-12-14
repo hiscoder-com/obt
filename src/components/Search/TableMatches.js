@@ -26,15 +26,18 @@ export default function TableMatches({ tableVerse, firstIndex, lastIndex, handle
           {tableVerse
             .map((row) => (
               <TableRow key={row.key}>
-                <TableCell size={'small'}>
+                <TableCell key={row.key} size={'small'}>
                   {t(row.bookId + '_abbr').toUpperCase()}
                 </TableCell>
-                <TableCell size={'small'}>
+                <TableCell key={row.key} size={'small'}>
                   {row.keyChapter + ':' + row.keyVerse}
                 </TableCell>
-                <TableCell size={'small'}>{row.tokens}</TableCell>
-                <TableCell size={'small'}>
+                <TableCell key={row.key} size={'small'}>
+                  {row.tokens}
+                </TableCell>
+                <TableCell key={row.key} size={'small'}>
                   <LaunchIcon
+                    key={row.key}
                     onClick={() => handleClick(row.keyChapter, row.keyVerse)}
                     style={{ cursor: 'pointer', fontSize: 20 }}
                   />
