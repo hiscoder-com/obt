@@ -1,12 +1,14 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import LinearProgress from '@material-ui/core/LinearProgress';
+import { makeStyles, LinearProgress } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
 
     marginTop: theme.spacing(10),
+  },
+  linear: {
+    height: 20,
   },
 }));
 
@@ -17,7 +19,7 @@ export default function Progress() {
     <>
       <div className={classes.root}>
         <div>Searching</div>
-        <LinearProgress style={{ height: 20 }} variant={'indeterminate'} />
+        <LinearProgress className={classes.linear} variant={'indeterminate'} />
       </div>
     </>
   );

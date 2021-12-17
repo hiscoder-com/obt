@@ -22,6 +22,23 @@ export const useStyles = makeStyles((theme) => ({
   divider: {
     marginTop: '10px',
   },
+  tableMatches: {
+    marginTop: '10px',
+  },
+  pagination: {
+    paddingTop: '10px',
+    flexGrow: '1',
+    margin: '0 auto',
+  },
+  wrapperMatchesBlock: {
+    display: 'flex',
+    flexDirection: 'column',
+    height: '300px',
+  },
+  matchesResultString: {
+    fontWeight: 'bold',
+    marginTop: '10px',
+  },
 }));
 
 export default useStyles;

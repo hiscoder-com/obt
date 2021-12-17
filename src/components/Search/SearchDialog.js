@@ -1,7 +1,10 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { DialogUI } from '..';
-import SearchIcon from '@material-ui/icons/Search';
 
+import { DialogUI } from '..';
+import Search from './Search';
+import { ReferenceContext, AppContext } from '../../context';
+
+import SearchIcon from '@material-ui/icons/Search';
 import {
   FormControl,
   NativeSelect,
@@ -11,10 +14,7 @@ import {
   Checkbox,
   FormControlLabel,
 } from '@material-ui/core';
-
 import { useStyles } from './style';
-import Search from './Search';
-import { ReferenceContext, AppContext } from '../../context';
 
 const bookOptions = [
   { key: 'current', label: 'Current book' },
@@ -31,6 +31,7 @@ function SearchDialog() {
   const [resourceSearch, setResourceSearch] = useState([]);
   const [optionsBible, setOptionsBible] = useState([]);
   const [clickOnWord, setClickOnWord] = useState(false);
+
   const {
     state: { referenceSelected },
     actions: { goToBookChapterVerse },
@@ -73,7 +74,7 @@ function SearchDialog() {
     setValue('');
   };
 
-  const handleChangeCheckBox = () => {
+  const handleWordBox = () => {
     setClickOnWord((prev) => !prev);
   };
 
@@ -164,14 +165,11 @@ function SearchDialog() {
           </Button>
           <FormControlLabel
             control={
-              <Checkbox
-                checked={clickOnWord}
-                onChange={handleChangeCheckBox}
-                color="primary"
-              />
+              <Checkbox checked={clickOnWord} onChange={handleWordBox} color="primary" />
             }
             label="Search by word"
           />
+
           <Divider className={classes.divider} />
           {search ? (
             <Search

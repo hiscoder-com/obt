@@ -3,14 +3,9 @@ import { useState, useEffect } from 'react';
 import { useProskomma, useImport, useSearchForPassages } from 'proskomma-react-hooks';
 
 import { useContent } from 'translation-helps-rcl/dist/hooks';
-export default function useSearch({
-  languageId,
-  name,
-  owner,
-  bookId,
-  chapter,
-  searchText,
-}) {
+export default function useSearch({ resourceSearch, referenceSelected, searchText }) {
+  const { chapter, bookId } = referenceSelected;
+  const { languageId, name, owner } = resourceSearch;
   const [cvMatching, setCvMatching] = useState([]);
   const [matches, setMatches] = useState(null);
   const [verseObjects, setVerseObjects] = useState({});
