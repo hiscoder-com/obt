@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { DialogUI } from '..';
 import SearchIcon from '@material-ui/icons/Search';
 
@@ -13,8 +13,16 @@ import {
 } from '@material-ui/core';
 
 import { useStyles } from './style';
-import ProscommaSearch from './ProscommaSearch';
+import Search from './Search';
 import { ReferenceContext, AppContext } from '../../context';
+
+const bookOptions = [
+  { key: 'current', label: 'Current book' },
+  { key: 'nt', label: 'New Testament' },
+  { key: 'ot', label: 'Old Testament' },
+  { key: 'select', label: 'Select book' },
+];
+
 function SearchDialog() {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState('');
@@ -26,12 +34,54 @@ function SearchDialog() {
   const {
     state: { referenceSelected },
     actions: { goToBookChapterVerse },
-  } = React.useContext(ReferenceContext);
+  } = useContext(ReferenceContext);
 
   const {
     state: { appConfig, resourcesApp },
-  } = React.useContext(AppContext);
+  } = useContext(AppContext);
+  const classes = useStyles();
 
+  const onCloseDialogUI = () => {
+    setOpen(false);
+    setValue('');
+  };
+  const handleOpenDialogUI = () => {
+    setOpen(true);
+    setResourceSearch(resourcesBible[0]);
+  };
+  const handleKeyPress = (e) => {
+    if (e.charCode === 13) {
+      setSearch(value);
+    }
+  };
+  const handleClickWord = (word) => {
+    setValue('');
+    setTimeout(() => {
+      setValue(word);
+      setSearch(word);
+    }, 1000);
+  };
+  const handleClickSearch = () => {
+    setSearch(value);
+  };
+
+  const handleChangeBooks = (e) => {
+    console.log(e.target.value);
+  };
+  const handleChangeResources = (e) => {
+    setResourceSearch(JSON.parse(e.target.value));
+    setValue('');
+  };
+
+  const handleChangeCheckBox = () => {
+    setClickOnWord((prev) => !prev);
+  };
+
+  useEffect(() => {
+    if (value === '') {
+      setSearch(null);
+    }
+  }, [value]);
   useEffect(() => {
     const currentResources =
       resourcesApp &&
@@ -42,58 +92,13 @@ function SearchDialog() {
         /bible/.test(e.subject.toLowerCase()) || /testament/.test(e.subject.toLowerCase())
       );
     });
-
     setResourcesBible(_resources);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [appConfig]);
 
-  const classes = useStyles();
-  const bookOptions = [
-    { key: 'current', label: 'Current book' },
-    { key: 'nt', label: 'New Testament' },
-    { key: 'ot', label: 'Old Testament' },
-    { key: 'select', label: 'Select book' },
-  ];
-
-  const onClose = () => {
-    setOpen(false);
-    setValue('');
-  };
-  const handleOpen = () => {
-    setOpen(true);
-    setResourceSearch(resourcesBible[0]);
-  };
-  const handleKeyPress = (e) => {
-    if (e.charCode === 13) {
-      if (search !== value) {
-        setSearch(null);
-        setSearch(value);
-      }
-    }
-  };
-  const handleSearch = () => {
-    setSearch(value);
-  };
-  useEffect(() => {
-    if (value === '') {
-      setSearch(null);
-    }
-  }, [value]);
-  const handleClose = () => {
-    setValue('');
-    setOpen(false);
-  };
-  const handleChange = (e) => {
-    console.log(e.target.value);
-  };
-  const handleChangeResources = (e) => {
-    setResourceSearch(JSON.parse(e.target.value));
-    setValue('');
-  };
   useEffect(() => {
     const options = resourcesBible.map((el) => {
       const { languageId, name, owner } = el;
-
       return (
         <option
           key={el.id}
@@ -108,44 +113,24 @@ function SearchDialog() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [resourcesBible]);
 
-  const handleClickWord = (word) => {
-    setValue('');
-    setTimeout(() => {
-      setValue(word);
-      setSearch(word);
-    }, 1000);
-  }; /** TODO решить проблему с ассинхронностью и сапуском поиска.
-  Сейчас, чтобы запусить поиск заново, мне нужно обнулить setSearch либо очистить опле ввода,
-  тогда опять работает эта операция setSearch(null) - 63 строка, тогда запустится заново ProscommaSearch.
-  а я бы хотел ввести слобо благо, потом дождаться поиска, изменить пару букв и запустить заново, так не работает
-  */
-
-  const handleChangeCheck = () => {
-    setClickOnWord((prev) => !prev);
-  };
   return (
     <div>
       <Button
         color={'primary'}
         variant={'contained'}
         disableElevation={true}
-        onClick={handleOpen}
+        onClick={handleOpenDialogUI}
       >
-        <SearchIcon style={{ fontSize: 20 }} />
+        <SearchIcon className={classes.searchIcon} />
         Search
       </Button>
 
-      <DialogUI open={open} onClose={onClose} title={' '}>
+      <DialogUI open={open} onClose={onCloseDialogUI} title={' '}>
         <div className={classes.root}>
           <FormControl className={classes.formControl}>
             <NativeSelect
               labelid="workSpace-select-label"
               disableUnderline={true}
-              classes={{
-                icon: classes.icon,
-
-                select: classes.select,
-              }}
               onChange={handleChangeResources}
             >
               {optionsBible}
@@ -155,12 +140,7 @@ function SearchDialog() {
             <NativeSelect
               labelid="workSpace-select-label"
               disableUnderline={true}
-              classes={{
-                icon: classes.icon,
-
-                select: classes.select,
-              }}
-              onChange={handleChange}
+              onChange={handleChangeBooks}
             >
               {bookOptions.map((el) => (
                 <option key={el.key} value={el.key} className={classes.option}>
@@ -173,33 +153,34 @@ function SearchDialog() {
             placeholder="Search…"
             inputProps={{ 'aria-label': 'search' }}
             onChange={(e) => {
+              setSearch(null);
               setValue(e.target.value);
             }}
             onKeyPress={(e) => handleKeyPress(e)}
             value={value}
           />
-          <Button color={'primary'} disableElevation={true} onClick={handleOpen}>
-            <SearchIcon onClick={handleSearch} style={{ fontSize: 20 }} />
+          <Button color={'primary'} disableElevation={true} onClick={handleOpenDialogUI}>
+            <SearchIcon onClick={handleClickSearch} className={classes.searchIcon} />
           </Button>
           <FormControlLabel
             control={
               <Checkbox
                 checked={clickOnWord}
-                onChange={handleChangeCheck}
+                onChange={handleChangeCheckBox}
                 color="primary"
               />
             }
             label="Search by word"
           />
-          <Divider style={{ marginTop: '10px' }} />
+          <Divider className={classes.divider} />
           {search ? (
-            <ProscommaSearch
+            <Search
               referenceSelected={referenceSelected}
               setValue={setValue}
               setSearch={setSearch}
               searchText={search}
               open={open}
-              handleClose={handleClose}
+              handleCloseDialogUI={onCloseDialogUI}
               resourceSearch={resourceSearch}
               goToBookChapterVerse={goToBookChapterVerse}
               handleClickWord={handleClickWord}

@@ -5,10 +5,10 @@ import Progress from './Progress';
 import TableMatches from './TableMatches';
 import { Pagination } from '@material-ui/lab';
 
-const limit = 5;
+const limitVersesOnPage = 5;
 
-function ProscommaSearch({
-  handleClose,
+function Search({
+  handleCloseDialogUI,
   searchText,
   referenceSelected,
   resourceSearch,
@@ -18,15 +18,17 @@ function ProscommaSearch({
   handleClickWord,
   clickOnWord,
 }) {
-  const { chapter, bookId, verse } = referenceSelected;
-  console.log(clickOnWord);
-  const [verseCount, setVerseCount] = useState(0);
   const [page, setPage] = useState(1);
 
-  const [tableVerse, setTableVerse] = React.useState([]);
+  const { chapter, bookId, verse } = referenceSelected;
 
-  const lastIndex = page * limit;
-  const firstIndex = lastIndex - limit;
+  const [versesCount, setVersesCount] = useState(0);
+  const [pages, setPages] = useState(0);
+  const [tableVerse, setTableVerse] = useState([]);
+
+  const lastIndex = page * limitVersesOnPage;
+  const firstIndex = lastIndex - limitVersesOnPage;
+
   const { languageId, name, owner } = resourceSearch;
   const { verseObjects, matches } = useSearch({
     languageId,
@@ -38,18 +40,17 @@ function ProscommaSearch({
   });
 
   useEffect(() => {
-    setVerseCount(Object.keys(verseObjects).length);
+    setVersesCount(Object.keys(verseObjects).length);
   }, [verseObjects]);
 
   const handleClick = (chapter, verse) => {
     setValue('');
     goToBookChapterVerse(bookId, chapter, verse);
-
     setSearch(null);
-
-    handleClose();
+    handleCloseDialogUI();
   };
-  React.useEffect(() => {
+
+  useEffect(() => {
     if (verseObjects) {
       let table = [];
       for (let key in verseObjects) {
@@ -73,7 +74,10 @@ function ProscommaSearch({
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [verseObjects, chapter, verse, clickOnWord]);
-  const count = Math.ceil(verseCount / limit);
+
+  useEffect(() => {
+    setPages(Math.ceil(versesCount / limitVersesOnPage));
+  }, [versesCount]);
 
   const handleChange = (event, value) => {
     setPage(value);
@@ -98,7 +102,7 @@ function ProscommaSearch({
           }}
         >
           <Pagination
-            count={count}
+            count={pages}
             color="primary"
             page={page}
             onChange={handleChange}
@@ -151,4 +155,4 @@ function ProscommaSearch({
   );
 }
 
-export default React.memo(ProscommaSearch);
+export default React.memo(Search);
