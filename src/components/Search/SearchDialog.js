@@ -71,6 +71,7 @@ function SearchDialog() {
   };
   const handleChangeResources = (e) => {
     setResourceSearch(JSON.parse(e.target.value));
+    setSearch(null);
     setValue('');
   };
 

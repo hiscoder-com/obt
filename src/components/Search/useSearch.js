@@ -1,10 +1,6 @@
 import { useState, useEffect } from 'react';
 
-import {
-  useProskomma,
-  useImport,
-  useSearchForPassagesByBookCode,
-} from 'proskomma-react-hooks';
+import { useProskomma, useImport, useSearchForPassages } from 'proskomma-react-hooks';
 
 import { useContent } from 'translation-helps-rcl/dist/hooks';
 export default function useSearch({ resourceSearch, referenceSelected, searchText }) {
@@ -61,7 +57,7 @@ export default function useSearch({ resourceSearch, referenceSelected, searchTex
     passages,
 
     data,
-  } = useSearchForPassagesByBookCode({
+  } = useSearchForPassages({
     proskomma,
     stateId,
     text: searchText,
