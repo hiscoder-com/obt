@@ -2,7 +2,6 @@ import React, { useState, useContext, useRef } from 'react';
 
 import { FontSizeSlider } from 'translation-helps-rcl';
 import { useTranslation } from 'react-i18next';
-import localforage from 'localforage';
 
 import { AppContext } from '../../context';
 import {
@@ -14,50 +13,13 @@ import {
   ShowReference,
   SelectModeBible,
   About,
+  UploadResources,
 } from '../../components';
 
 import { AppBar, Toolbar, MenuItem, Menu, IconButton, Button } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import MenuIcon from '@material-ui/icons/Menu';
 import { useStyles, useModalStyles, useAddStyles } from './style';
-
-function Upload() {
-  const onChange = (evt) => {
-    var file = evt.target.files[0];
-    var reader = new FileReader();
-    reader.onload = function (e) {
-      caches.open('uw-git-cache').then(function (cache) {
-        let blob = new Blob([reader.result]);
-        var init = { status: 200, statusText: 'OK' };
-        let res = new Response(blob, init);
-        const uri =
-          'https://git.door43.org/api/v1/repos/ru_gl/ru_rlob/contents/57-TIT.usfm?ref=master';
-        let req = new Request(uri);
-        cache.put(req, res);
-        const cacheStore = localforage.createInstance({
-          driver: [localforage.INDEXEDDB],
-          name: 'web-cache',
-        });
-        blob.text().then((res) => {
-          cacheStore.setItem(uri, { expiries: '1999999999999', data: { data: res } });
-        });
-      });
-    };
-
-    reader.readAsArrayBuffer(file);
-  };
-  return (
-    <>
-      <input
-        type="file"
-        onChange={onChange}
-        name="file"
-        className="file"
-        accept=".usfm"
-      />
-    </>
-  );
-}
 
 function SubMenuBar() {
   const {
@@ -111,7 +73,7 @@ function SubMenuBar() {
             <ShowReference />
             <ChapterSelect />
             <BookSelect />
-            <Upload />
+            <UploadResources />
           </div>
           <IconButton
             ref={menuRef}

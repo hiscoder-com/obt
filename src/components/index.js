@@ -29,4 +29,5 @@ export * from './SupportTQ';
 export * from './SupportTWL';
 export * from './Swipes';
 export * from './TypoReport';
+export * from './UploadResources';
 export * from './WorkspaceManager';
