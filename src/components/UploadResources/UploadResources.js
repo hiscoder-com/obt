@@ -46,8 +46,12 @@ function UploadResources() {
                   cache.put(req, res);
                   blob.text().then((res) => {
                     cacheStore.setItem(uri, {
-                      expiries: '1999999999999',
-                      data: { data: res },
+                      expires: 1,
+                      data: {
+                        data: res,
+                        status: 200,
+                        statusText: 'OK',
+                      },
                     });
                   });
                 });
@@ -66,6 +70,30 @@ function UploadResources() {
   return (
     <>
       <input type="file" onChange={onChange} name="file" className="file" accept=".zip" />
+      <button
+        onClick={() => {
+          cacheStore
+            .keys()
+            .then(function (keys) {
+              keys.forEach((el) => {
+                cacheStore.removeItem(el);
+                /*if (['qa', 'bg'].includes(el.split('/')[2].split('.')[0])) {
+                  cacheStore.removeItem(el);
+                } else {
+                  cacheStore.getItem(el).then((val) => {
+                    console.log(val);
+                  });
+                }*/
+              });
+            })
+            .catch(function (err) {
+              // This code runs if there were any errors
+              console.log(err);
+            });
+        }}
+      >
+        test
+      </button>
     </>
   );
 }
