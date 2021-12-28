@@ -10,7 +10,15 @@ const cacheStore = localforage.createInstance({
   driver: [localforage.INDEXEDDB],
   name: 'web-cache',
 });
-
+/**
+ *
+ * https://github.com/react-native-webview/react-native-webview/blob/master/docs/Getting-Started.md
+ * https://github.com/futurepress/react-native-static-server
+ * https://gist.github.com/paldepind/8cbc430575cd075144d291b0eff463fc
+ * https://github.com/react-native-webview/react-native-webview/issues/428
+ * https://github.com/react-native-webview/react-native-webview/blob/master/docs/Guide.md
+ * Попробовать сделать на реакт натив через веб вью. Если нет интернета то загружать локальную страницу, которая добавит в кеш все необходимые файлы чтобы сайт смог работать без интернета. После этого перезагружается страница, если файлы добавлены то переходить на сайт обт. Сейчас там через вебвью не работает сервис воркер, переделать чтобы работал тогда с локалфоредж.
+ */
 function UploadResources() {
   const onChange = (evt) => {
     var file = evt.target.files[0];
