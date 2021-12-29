@@ -16,7 +16,7 @@
  - нужно создать папку ComponentName внутри `src\components` с названием компонента с заглавной буквы
  - внутри с таким же именем файл `ComponentName.js` где и будет вестись основная работа
  - добавить `index.js` с содержимым `export { default as ComponentName } from './ComponentName';`
- - в `src\components.index.js` добавить `export * from './ComponentName';`
+ - в `src/components/index.js` добавить `export * from './ComponentName';`
 
 Так как мы разделяем стили и логику, то для стилей можно создать файл `style.js`
 
@@ -28,14 +28,14 @@
 
     - components
 
-        - NewComponent
+        - ComponentName
 
-            - SubComponent
+            - SubComponentName
                 index.js
-                SubComponent.js
+                SubComponentName.js
                 style.css
 
-          NewComponent.js
+          ComponentName.js
           style.js
           index.js
 ```
