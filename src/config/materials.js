@@ -31,10 +31,14 @@ export const langs = [
   'or',
   'pa',
   'pt-br',
+  'rml',
+  'rmn',
+  'rmn-ua',
   'rmy-x-bsa',
   'rmy-x-vc',
   'rmy-x-vg',
   'rmy-x-vwa',
+  'rmy-ua',
   'ru',
   'sgj',
   'shu',
@@ -181,6 +185,18 @@ export const langNames = {
     eng: 'Brazilian Portuguese',
     lang: 'Português',
   },
+  rml: {
+    eng: 'Romani, Baltic',
+    lang: 'Baltic Romani',
+  },
+  rmn: {
+    eng: 'Romani, Balkan',
+    lang: 'Balkan Romani',
+  },
+  'rmn-ua': {
+    eng: 'Romani, Balkan',
+    lang: 'Romani Balkan',
+  },
   'rmy-x-bsa': {
     eng: 'South Slavic Ardilean Bayash',
     lang: 'South Slavic Ardilean Bayash',
@@ -196,6 +212,10 @@ export const langNames = {
   'rmy-x-vwa': {
     eng: 'Vlach Western Arli',
     lang: 'Vlach Western Arli',
+  },
+  'rmy-ua': {
+    eng: 'Romani Vlax',
+    lang: 'Romani Vlax',
   },
   ru: {
     eng: 'Russian',
@@ -259,7 +279,14 @@ export const langNames = {
   },
 };
 
-export const owners = ['door43-catalog', 'bsa', 'unfoldingword', 'ru_gl', 'gra'];
+export const owners = [
+  'door43-catalog',
+  'bsa',
+  'unfoldingword',
+  'ru_gl',
+  'gra',
+  'DevleskoDrom',
+];
 
 //resource, that have not manifest or others reason
 export const blackListResources = [
