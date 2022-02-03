@@ -189,10 +189,10 @@ export const langNames = {
     eng: 'Romani, Baltic',
     lang: 'Baltic Romani',
   },
-  rmn: {
-    eng: 'Romani, Balkan',
-    lang: 'Balkan Romani',
-  },
+  // rmn: {
+  //   eng: 'Romani, Balkan',
+  //   lang: 'Balkan Romani',
+  // },
   'rmn-ua': {
     eng: 'Romani, Balkan',
     lang: 'Romani Balkan',
@@ -286,6 +286,7 @@ export const owners = [
   'ru_gl',
   'gra',
   'DevleskoDrom',
+  'es-419_obt',
 ];
 
 //resource, that have not manifest or others reason
@@ -296,7 +297,9 @@ export const blackListResources = [
   { owner: 'unfoldingword', name: 'en_ueb' },
   { owner: 'ru_gl', name: 'ru_obs-sn' },
   { owner: 'bsa', name: 'ru_twl' },
+  //  { owner: 'DevleskoDrom', name: 'rml_obs' },
   { owner: 'door43-catalog', name: 'ru_obs' },
+  { owner: 'door43-catalog', name: 'es-419_obs' },
   { owner: 'door43-catalog', name: 'ru_obs-tn' },
   { owner: 'door43-catalog', name: 'fr_obs-tn' },
   { owner: 'door43-catalog', name: 'fr_obs-tq' },

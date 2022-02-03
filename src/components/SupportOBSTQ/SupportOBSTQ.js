@@ -1,17 +1,21 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+
 import { Card, CardContent, useContent, useCardState } from 'translation-helps-rcl';
 
 import { langNames } from '../../config/materials';
 
-export default function SupportOBSTQ(props) {
-  const { title, classes, onClose, type, server, fontSize, reference, resource } = props;
-  const { bookId, chapter, verse } = reference;
-  const {
-    markdown,
-    items,
-    resourceStatus: { loading },
-    props: { languageId },
-  } = useContent({
+export default function SupportOBSTQ({
+  title,
+  classes,
+  onClose,
+  type,
+  server,
+  fontSize,
+  reference: { bookId, chapter, verse },
+  resource,
+}) {
+  const [repoType, setRepoType] = useState('tsv');
+  const mdContent = {
     projectId: bookId,
     ref: resource.branch ?? 'master',
     languageId: resource.languageId ?? 'ru',
@@ -20,7 +24,34 @@ export default function SupportOBSTQ(props) {
       String(chapter).padStart(2, '0') + '/' + String(verse).padStart(2, '0') + '.md',
     owner: resource.owner ?? 'door43-catalog',
     server,
-  });
+  };
+  const tsvContent = {
+    verse: String(verse),
+    chapter: String(chapter),
+    projectId: bookId,
+    ref: resource.branch ?? 'master',
+    languageId: resource.languageId ?? 'ru',
+    resourceId: 'obs-tq',
+    owner: resource.owner ?? 'door43-catalog',
+    server,
+  };
+  const {
+    markdown,
+    items,
+    resource: { ...resourceData },
+    resourceStatus: { loading },
+    props: { languageId },
+  } = useContent(repoType === 'tsv' ? { ...tsvContent } : { ...mdContent });
+  useEffect(() => {
+    if (resourceData?.project?.path) {
+      const path = resourceData.project.path;
+      if (path.substring(path.length - 3) === 'tsv') {
+        setRepoType('tsv');
+      } else {
+        setRepoType('md');
+      }
+    }
+  }, [resourceData?.project?.path]);
   const {
     state: { item, headers, filters, itemIndex, markdownView },
     actions: { setFilters, setItemIndex, setMarkdownView },
