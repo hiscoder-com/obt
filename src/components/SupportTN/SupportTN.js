@@ -7,13 +7,22 @@ import { useTranslation } from 'react-i18next';
 import { FrontModal, ButtonGroupUI } from '../../components';
 
 import { langNames } from '../../config/materials';
-export default function SupportTN(props) {
-  const { title, classes, onClose, type, server, fontSize, reference, resource } = props;
+
+export default function SupportTN({
+  title,
+  classes,
+  onClose,
+  type,
+  server,
+  fontSize,
+  reference: { bookId, chapter, verse },
+  resource,
+}) {
   const [openDialog, setOpenDialog] = useState(false);
   const [selectedQuote, setQuote] = useState({});
   const [configFront, setConfigFront] = useState({});
-  const { bookId, chapter, verse } = reference;
   const { t } = useTranslation();
+
   const config = {
     verse: String(verse),
     chapter: String(chapter),
@@ -57,7 +66,7 @@ export default function SupportTN(props) {
   useEffect(() => {
     setItemIndex(0);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [reference]);
+  }, [bookId, chapter, verse]);
 
   const filterArray = ['OrigQuote', 'GLQuote', 'OccurrenceNote'];
 
