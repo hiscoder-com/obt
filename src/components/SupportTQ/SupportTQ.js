@@ -4,10 +4,16 @@ import { Card, CardContent, useContent, useCardState } from 'translation-helps-r
 
 import { langNames } from '../../config/materials';
 
-export default function SupportTQ(props) {
-  const { title, classes, onClose, type, server, fontSize, reference, resource } = props;
-  const { bookId, chapter, verse } = reference;
-  const { subject } = resource;
+export default function SupportTQ({
+  title,
+  classes,
+  onClose,
+  type,
+  server,
+  fontSize,
+  reference: { bookId, chapter, verse },
+  resource,
+}) {
   const mdContent = {
     projectId: bookId,
     ref: resource.branch ?? 'master',
@@ -34,7 +40,9 @@ export default function SupportTQ(props) {
     resourceStatus: { loading },
     props: { languageId },
   } = useContent(
-    subject === 'TSV Translation Questions' ? { ...tsvContent } : { ...mdContent }
+    resource.subject === 'TSV Translation Questions'
+      ? { ...tsvContent }
+      : { ...mdContent }
   );
 
   const {

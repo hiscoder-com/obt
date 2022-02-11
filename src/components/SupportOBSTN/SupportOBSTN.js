@@ -1,13 +1,13 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { Card, CardContent, useContent, useCardState } from 'translation-helps-rcl';
+
 import { useTranslation } from 'react-i18next';
 
 import { ButtonGroupUI, FrontModal } from '../../components';
 
 import { langNames } from '../../config/materials';
 
-// TODO TSV format support
 export default function SupportOBSTN({
   title,
   classes,
@@ -18,10 +18,12 @@ export default function SupportOBSTN({
   reference: { bookId, chapter, verse },
   resource,
 }) {
-  const [openDialog, setOpenDialog] = React.useState(false);
-  const [configFront, setConfigFront] = React.useState({});
+  const [openDialog, setOpenDialog] = useState(false);
+  const [configFront, setConfigFront] = useState({});
   const { t } = useTranslation();
-  const config = {
+  const [repoType, setRepoType] = useState('md');
+
+  const mdContent = {
     projectId: bookId,
     ref: resource.branch ?? 'master',
     languageId: resource.languageId ?? 'ru',
@@ -30,14 +32,40 @@ export default function SupportOBSTN({
       String(chapter).padStart(2, '0') + '/' + String(verse).padStart(2, '0') + '.md',
     owner: resource.owner ?? 'door43-catalog',
     server,
+    httpConfig: { noCache: true },
   };
+
+  const tsvContent = {
+    verse: String(verse),
+    chapter: String(chapter),
+    projectId: bookId,
+    ref: resource.branch ?? 'master',
+    languageId: resource.languageId ?? 'ru',
+    resourceId: 'obs-tn',
+    owner: resource.owner ?? 'door43-catalog',
+    server,
+    httpConfig: { noCache: true },
+  };
+
+  const config = repoType === 'tsv' ? { ...tsvContent } : { ...mdContent };
 
   const {
     markdown,
     items,
+    resource: { ...resourceData },
     resourceStatus: { loading },
     props: { languageId },
   } = useContent(config);
+  useEffect(() => {
+    if (resourceData?.project?.path) {
+      const path = resourceData.project.path;
+      if (path.substring(path.length - 3) === 'tsv') {
+        setRepoType('tsv');
+      } else {
+        setRepoType('md');
+      }
+    }
+  }, [resourceData?.project?.path]);
   const {
     state: { item, headers, filters, itemIndex, markdownView },
     actions: { setFilters, setItemIndex, setMarkdownView },
@@ -46,10 +74,17 @@ export default function SupportOBSTN({
   });
 
   const titleClick = () => {
-    setConfigFront({
-      ...config,
-      filePath: String(chapter).padStart(2, '0') + '/00.md',
-    });
+    if (repoType === 'tsv') {
+      setConfigFront({
+        ...config,
+        verse: '0',
+      });
+    } else {
+      setConfigFront({
+        ...config,
+        filePath: String(chapter).padStart(2, '0') + '/00.md',
+      });
+    }
     setOpenDialog(true);
   };
   const onCloseDialog = () => {
@@ -83,21 +118,19 @@ export default function SupportOBSTN({
         });
       }}
     >
-      {markdown && (
-        <ButtonGroupUI
-          style={{ marginTop: '5px' }}
-          buttons={[{ title: t('StoryTitle'), onClick: titleClick }]}
-        />
-      )}
+      <ButtonGroupUI
+        style={{ marginTop: '5px' }}
+        buttons={[{ title: t('StoryTitle'), onClick: titleClick }]}
+      />
 
       {configFront.projectId && (
         <FrontModal
           onCloseDialog={onCloseDialog}
           open={openDialog}
           config={configFront}
-          field={'Response'}
+          field={'Note'}
           title={t('StoryTitle')}
-          isTSV={false}
+          isTSV={repoType === 'tsv'}
         />
       )}
       <CardContent
