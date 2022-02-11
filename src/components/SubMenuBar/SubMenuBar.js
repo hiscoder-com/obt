@@ -15,15 +15,24 @@ import {
   About,
 } from '../../components';
 
-import { AppBar, Toolbar, MenuItem, Menu, IconButton, Button } from '@material-ui/core';
+import {
+  AppBar,
+  Toolbar,
+  MenuItem,
+  Menu,
+  IconButton,
+  Button,
+  Checkbox,
+  FormControlLabel,
+} from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import MenuIcon from '@material-ui/icons/Menu';
 import { useStyles, useModalStyles, useAddStyles } from './style';
 
 function SubMenuBar() {
   const {
-    state: { fontSize, loadIntro, openMainMenu },
-    actions: { setFontSize, setLoadIntro },
+    state: { fontSize, loadIntro, openMainMenu, showObsImage },
+    actions: { setFontSize, setLoadIntro, setShowObsImage },
   } = useContext(AppContext);
 
   const menuRef = useRef(null);
@@ -65,10 +74,9 @@ function SubMenuBar() {
     <>
       <AppBar className={'intro-appBar'} position="relative">
         <Toolbar className={classes.grow}>
-          <div className={classes.reference}>
-            <SelectModeBible />
-          </div>
+          <div className={classes.reference}>OBT</div>
           <div className={classes.centerButtons}>
+            <SelectModeBible />
             <ShowReference />
             <ChapterSelect />
             <BookSelect />
@@ -76,7 +84,7 @@ function SubMenuBar() {
           <IconButton
             ref={menuRef}
             edge="start"
-            color="inherit"
+            color="secondary"
             aria-label="menu"
             onClick={handleClickMainMenu}
           >
@@ -139,6 +147,19 @@ function SubMenuBar() {
               setOpen={setOpenAbout}
               handleClick={handleClickOpenAbout}
             />
+            <MenuItem button={false}>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={showObsImage}
+                    onChange={(e) => {
+                      setShowObsImage((prev) => !prev);
+                    }}
+                  />
+                }
+                label="Show images from OBS"
+              />
+            </MenuItem>
           </Menu>
           <SearchResources
             anchorEl={anchorAddMaterial}

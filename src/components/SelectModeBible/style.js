@@ -10,11 +10,11 @@ export const useStyles = makeStyles((theme) => ({
   },
 
   icon: {
-    color: 'white',
+    color: theme.palette.secondary.main,
   },
 
   select: {
-    color: 'white',
+    color: theme.palette.secondary.main,
     fontSize: '0.875rem',
     fontWeight: '500',
   },

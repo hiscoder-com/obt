@@ -10,12 +10,15 @@ export const useStyles = makeStyles((theme) => ({
   centerButtons: {
     display: 'flex',
     flexDirection: 'row',
+    alignItems: 'center',
   },
   reference: {
     margin: theme.spacing(1),
     display: 'flex',
     borderRadius: 6,
-    color: 'white',
+    fontWeight: 'bold',
+    fontSize: '1.4em',
+    color: theme.palette.secondary.main,
   },
 }));
 

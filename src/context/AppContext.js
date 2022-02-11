@@ -39,6 +39,9 @@ export function AppContextProvider({ children }) {
   );
 
   const [breakpoint, setBreakpoint] = useState({ name: 'lg', cols: 12 });
+  const [showObsImage, setShowObsImage] = useState(() => {
+    return checkLSVal('showObsImage', true, 'boolean');
+  });
   /** TODO Create ResourceContext
    * 1. Get information about resources ( like available bookId) from /Chapter  - content.resources.project.
    * 2. Put all states about resources in ResourceContext.
@@ -71,6 +74,10 @@ export function AppContextProvider({ children }) {
   useEffect(() => {
     localStorage.setItem('fontSize', fontSize);
   }, [fontSize]);
+
+  useEffect(() => {
+    localStorage.setItem('showObsImage', showObsImage);
+  }, [showObsImage]);
 
   useEffect(() => {
     const type = getLayoutType(appConfig.lg);
@@ -124,6 +131,7 @@ export function AppContextProvider({ children }) {
       showBookSelect,
       showChapterSelect,
       showErrorReport,
+      showObsImage,
     },
     actions: {
       setAppConfig,
@@ -141,6 +149,7 @@ export function AppContextProvider({ children }) {
       setShowBookSelect,
       setShowChapterSelect,
       setShowErrorReport,
+      setShowObsImage,
     },
   };
 
