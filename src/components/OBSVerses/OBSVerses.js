@@ -30,7 +30,7 @@ export default function OBSVerses({ title, classes, onClose, type }) {
   let resource = false;
 
   resourcesApp.forEach((el) => {
-    if (el.name === type) {
+    if (el.owner + '/' + el.name === type) {
       resource = el;
     }
   });

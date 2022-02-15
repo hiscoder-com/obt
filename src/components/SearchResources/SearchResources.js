@@ -50,13 +50,15 @@ function SearchResources({ anchorEl, onClose, open }) {
           ...defaultCard[k],
           x: pos.x,
           y: pos.y,
-          i: item.name,
+          i: item.owner + '/' + item.name,
         });
       }
       return next;
     });
     setTimeout(function () {
-      document.querySelector('#' + item.name + '_title').scrollIntoView();
+      document
+        .querySelector('#' + item.owner + '/' + item.name + '_title')
+        .scrollIntoView();
     }, 1000);
   };
 

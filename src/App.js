@@ -57,9 +57,12 @@ export default function App() {
     localStorage.setItem('appConfig', JSON.stringify(newAppConfig));
     setAppConfig(newAppConfig[type]);
   };
-
   const mainResources = resourcesApp
-    .filter((e) => appConfig.lg.map((e) => e.i).includes(e.name))
+    .filter((e) =>
+      appConfig.lg
+        .map((e) => e.i.toLowerCase())
+        .includes((e.owner + '/' + e.name).toLowerCase())
+    )
     .filter((e) =>
       [
         'Open Bible Stories',

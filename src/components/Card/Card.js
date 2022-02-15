@@ -30,7 +30,7 @@ function Card({ type, onClose, classes }) {
 
   let resource = false;
   resourcesApp.forEach((el) => {
-    if (el.name === type) {
+    if (el.owner + '/' + el.name === type) {
       resource = el;
     }
   });
