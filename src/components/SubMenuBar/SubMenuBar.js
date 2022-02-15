@@ -27,7 +27,8 @@ import {
 } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import MenuIcon from '@material-ui/icons/Menu';
-import { useStyles, useModalStyles, useAddStyles } from './style';
+import { useStyles, useModalStyles } from './style';
+import { SelectTheme } from '../SelectTheme';
 
 function SubMenuBar() {
   const {
@@ -38,7 +39,6 @@ function SubMenuBar() {
   const menuRef = useRef(null);
 
   const classes = useStyles();
-  const addClasses = useAddStyles();
   const modalClasses = useModalStyles();
   const [anchorMainMenu, setAnchorMainMenu] = useState(null);
   const [anchorAddMaterial, setAnchorAddMaterial] = useState(null);
@@ -84,7 +84,7 @@ function SubMenuBar() {
           <IconButton
             ref={menuRef}
             edge="start"
-            color="secondary"
+            color="inherit"
             aria-label="menu"
             onClick={handleClickMainMenu}
           >
@@ -113,9 +113,8 @@ function SubMenuBar() {
               <Button
                 startIcon={<AddIcon size={'small'} />}
                 onClick={handleClickAddMaterial}
-                classes={addClasses}
-                variant="outlined"
-                color="primary"
+                variant="contained"
+                color="secondary"
                 size="small"
                 fullWidth
               >
@@ -138,6 +137,9 @@ function SubMenuBar() {
             <WorkspaceManager onClose={handleCloseMainMenu} />
             <MenuItem button={false} divider={true}>
               <SelectLanguage label={t('Interface_lang')} />
+            </MenuItem>
+            <MenuItem button={false} divider={true}>
+              <SelectTheme label={t('Select_theme')} />
             </MenuItem>
             <MenuItem onClick={handleOpenUsersGuide} divider={true}>
               {t('UsersGuide')}

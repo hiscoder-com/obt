@@ -14,6 +14,7 @@ export * from './OBSVerses';
 export * from './SearchResources';
 export * from './SelectLanguage';
 export * from './SelectModeBible';
+export * from './SelectTheme';
 export * from './SelectResourcesLanguages';
 export * from './Shortcut';
 export * from './ShowReference';

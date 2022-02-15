@@ -18,9 +18,6 @@ input {
 .verse {
   cursor: context-menu;
 }
-.verse.current {
-  background-color: #e3f6ff;
-}
 .verse br {
   display: none;
 }

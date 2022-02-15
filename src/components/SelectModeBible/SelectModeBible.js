@@ -38,10 +38,11 @@ function SelectModeBible() {
   };
 
   return (
-    <FormControl className={classes.formControl}>
+    <FormControl className={{ root: classes.formControl }}>
       <Select
         disableUnderline={true}
         classes={{
+          root: classes.selectRoot2,
           icon: classes.icon,
           select: classes.select,
         }}

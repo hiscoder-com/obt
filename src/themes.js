@@ -1,20 +1,45 @@
 import { createTheme } from '@material-ui/core/styles';
 
-export const themeDefault = createTheme({
-  type: 'light',
+const obt = createTheme({
   palette: {
     type: 'light',
+    primary: {
+      main: '#3f51b5',
+      select: '#e3f6ff',
+    },
     secondary: {
-      main: '#f1f1f1',
-    },
-    subcolor: {
-      main: '#555555',
-    },
-    bgcolor: {
-      main: '#ffffff',
+      main: '#3F691F',
     },
     background: {
       default: '#ebecf0',
+      paper: '#ffffff',
+    },
+    cardHeaderText: {
+      main: '#555555',
+    },
+    cardHeaderBg: {
+      main: '#ffffff',
+    },
+  },
+  overrides: {
+    current: {
+      color: '#ff0000',
+    },
+    MuiAppBar: {
+      colorInherit: {
+        backgroundColor: '#3f51b5',
+        color: '#ffffff',
+      },
+    },
+    MuiInputBase: {
+      root: {
+        color: 'inherit',
+      },
+    },
+  },
+  props: {
+    MuiAppBar: {
+      color: 'inherit',
     },
   },
   shape: {
@@ -23,23 +48,43 @@ export const themeDefault = createTheme({
   spacing: 8,
 });
 
-export const themeTt = createTheme({
+const textTree = createTheme({
   palette: {
     type: 'light',
     primary: {
       main: '#023047',
-    },
-    subcolor: {
-      main: '#023047',
+      select: '#dbe1e5',
     },
     secondary: {
       main: '#ffb732',
     },
-    bgcolor: {
-      main: '#ffffff',
-    },
     background: {
       default: '#ebecf0',
+      paper: '#ffffff',
+    },
+    cardHeaderText: {
+      main: '#023047',
+    },
+    cardHeaderBg: {
+      main: '#ffb732',
+    },
+  },
+  overrides: {
+    MuiAppBar: {
+      colorInherit: {
+        backgroundColor: '#023047',
+        color: '#ffb732',
+      },
+    },
+    MuiInputBase: {
+      root: {
+        color: 'inherit',
+      },
+    },
+  },
+  props: {
+    MuiAppBar: {
+      color: 'inherit',
     },
   },
   shape: {
@@ -48,28 +93,49 @@ export const themeTt = createTheme({
   spacing: 8,
 });
 
-export const themeDark = createTheme({
+const dark = createTheme({
   palette: {
     type: 'dark',
     primary: {
       main: '#023047',
-    },
-    subcolor: {
-      main: '#023047',
+      select: '#3f5a68',
     },
     secondary: {
       main: '#8dc9e5',
-    },
-    bgcolor: {
-      main: '#023047',
     },
     text: {
       primary: '#ffffff',
       secondary: '#ffffff',
       disabled: '#cccccc',
+      hint: '#cccccc',
     },
     background: {
-      default: '#153647',
+      default: '#17212b',
+      paper: '#153647',
+    },
+    cardHeaderText: {
+      main: '#023047',
+    },
+    cardHeaderBg: {
+      main: '#8dc9e5',
+    },
+  },
+  overrides: {
+    MuiAppBar: {
+      colorInherit: {
+        backgroundColor: '#023047',
+        color: '#8dc9e5',
+      },
+    },
+    MuiInputBase: {
+      root: {
+        color: 'inherit',
+      },
+    },
+  },
+  props: {
+    MuiAppBar: {
+      color: 'inherit',
     },
   },
   shape: {
@@ -77,3 +143,5 @@ export const themeDark = createTheme({
   },
   spacing: 8,
 });
+
+export const themes = { obt, dark, textTree };

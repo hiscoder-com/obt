@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { ContextMenu } from '../ContextMenu';
 import { ReferenceContext, AppContext } from '../../context';
 import { useScrollToVerse } from '../../hooks';
+import { Box } from '@material-ui/core';
 
 const initialPositionContextMenu = {
   left: null,
@@ -72,14 +73,15 @@ function OBSContent({ markdown, verse, chapter, fontSize, type, goToBookChapterV
         const { key, urlImage, text } = item;
 
         return (
-          <div
+          <Box
             ref={(ref) => {
               key.toString() === verse.toString() &&
                 verse.toString() !== '1' &&
                 verseRef(ref);
             }}
             style={verseStyle}
-            className={'verse' + (key.toString() === verse.toString() ? ' current' : '')}
+            className={'verse'}
+            bgcolor={key.toString() === verse.toString() ? 'primary.select' : ''}
             key={key}
             onClick={() => {
               goToBookChapterVerse('obs', chapter, key);
@@ -109,7 +111,7 @@ function OBSContent({ markdown, verse, chapter, fontSize, type, goToBookChapterV
                 <b>{key.toString()}.</b> {el}
               </p>
             ))}
-          </div>
+          </Box>
         );
       });
       const versesOBS = (

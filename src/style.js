@@ -1,7 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => {
-  console.log(theme.palette.primary.main);
   return {
     root: {
       padding: '6px !important',
@@ -12,23 +11,23 @@ const useStyles = makeStyles((theme) => {
       borderRadius: '8px !important',
       borderBottomRightRadius: '0px !important',
       overflow: 'hidden',
-      backgroundColor: `${theme.palette.bgcolor.main} !important`,
+      backgroundColor: `${theme.palette.background.paper} !important`,
     },
     title: {
-      color: `${theme.palette.subcolor.main} !important`,
+      color: `${theme.palette.cardHeaderText.main} !important`,
     },
     header: {
-      background: theme.palette.secondary.main,
+      background: theme.palette.cardHeaderBg.main,
       padding: '4px',
-      color: `${theme.palette.subcolor.main} !important`,
+      color: `${theme.palette.cardHeaderText.main} !important`,
     },
     children: {
       marginTop: '6px',
-      lineeHeight: '1.25',
+      lineHeight: '1.25',
     },
     dragIndicator: {
       marginRight: '4px',
-      color: theme.palette.subcolor.main,
+      color: theme.palette.cardHeaderText.main,
     },
   };
 });

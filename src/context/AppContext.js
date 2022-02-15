@@ -24,6 +24,8 @@ export function AppContextProvider({ children }) {
     actions: { setNewBookList },
   } = useContext(ReferenceContext);
 
+  const [theme, setTheme] = useState(() => checkLSVal('theme', 'obt'));
+
   const [currentLanguage, setCurrentLanguage] = useState(_currentLanguage);
   const [appConfig, setAppConfig] = useState(
     () =>
@@ -74,6 +76,10 @@ export function AppContextProvider({ children }) {
   useEffect(() => {
     localStorage.setItem('fontSize', fontSize);
   }, [fontSize]);
+
+  useEffect(() => {
+    localStorage.setItem('theme', theme);
+  }, [theme]);
 
   useEffect(() => {
     localStorage.setItem('showObsImage', showObsImage);
@@ -132,6 +138,7 @@ export function AppContextProvider({ children }) {
       showChapterSelect,
       showErrorReport,
       showObsImage,
+      theme,
     },
     actions: {
       setAppConfig,
@@ -150,6 +157,7 @@ export function AppContextProvider({ children }) {
       setShowChapterSelect,
       setShowErrorReport,
       setShowObsImage,
+      setTheme,
     },
   };
 
