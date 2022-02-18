@@ -13,6 +13,7 @@ import {
   ShowReference,
   SelectModeBible,
   About,
+  Settings,
 } from '../../components';
 
 import {
@@ -32,8 +33,8 @@ import { SelectTheme } from '../SelectTheme';
 
 function SubMenuBar() {
   const {
-    state: { fontSize, loadIntro, openMainMenu, showObsImage },
-    actions: { setFontSize, setLoadIntro, setShowObsImage },
+    state: { fontSize, loadIntro, openMainMenu },
+    actions: { setFontSize, setLoadIntro },
   } = useContext(AppContext);
 
   const menuRef = useRef(null);
@@ -138,9 +139,7 @@ function SubMenuBar() {
             <MenuItem button={false} divider={true}>
               <SelectLanguage label={t('Interface_lang')} />
             </MenuItem>
-            <MenuItem button={false} divider={true}>
-              <SelectTheme label={t('Select_theme')} />
-            </MenuItem>
+
             <MenuItem onClick={handleOpenUsersGuide} divider={true}>
               {t('UsersGuide')}
             </MenuItem>
@@ -149,18 +148,9 @@ function SubMenuBar() {
               setOpen={setOpenAbout}
               handleClick={handleClickOpenAbout}
             />
-            <MenuItem button={false}>
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={showObsImage}
-                    onChange={(e) => {
-                      setShowObsImage((prev) => !prev);
-                    }}
-                  />
-                }
-                label="Show images from OBS"
-              />
+
+            <MenuItem>
+              <Settings />
             </MenuItem>
           </Menu>
           <SearchResources

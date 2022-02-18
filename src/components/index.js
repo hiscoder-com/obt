@@ -16,6 +16,7 @@ export * from './SelectLanguage';
 export * from './SelectModeBible';
 export * from './SelectTheme';
 export * from './SelectResourcesLanguages';
+export * from './Settings';
 export * from './Shortcut';
 export * from './ShowReference';
 export * from './StartDialog';
