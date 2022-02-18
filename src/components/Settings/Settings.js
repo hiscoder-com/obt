@@ -44,10 +44,10 @@ function Settings({ setAnchorMainMenu }) {
       >
         <SelectTheme label={t('Select_theme')} />
         <Divider className={classes.divider} light />
-        <InputLabel>{t('SwitchWordPopover')}</InputLabel>
+        <InputLabel>{t('WordPopoverLabel')}</InputLabel>
         <SwitchWordPopover />
         <Divider className={classes.divider} light />
-        <InputLabel>{t('SwitchChunks')}</InputLabel> <SwitchChunks />
+        <InputLabel>{t('ChunksLabel')}</InputLabel> <SwitchChunks />
         <Divider className={classes.divider} light />
         <InputLabel>{t('OBSImages')}</InputLabel>
         <FormControlLabel

@@ -108,7 +108,7 @@ function OBSContent({ markdown, verse, chapter, fontSize, type, goToBookChapterV
                   handleContextOpen(e);
                 }}
               >
-                <b>{key.toString()}.</b> {el}
+                <sup>{key.toString()}</sup> {el}
               </p>
             ))}
           </Box>
