@@ -6,8 +6,6 @@ import { useTranslation } from 'react-i18next';
 
 import { FrontModal, ButtonGroupUI } from '../../components';
 
-import { langNames } from '../../config/materials';
-
 export default function SupportTN({
   title,
   classes,
@@ -73,7 +71,7 @@ export default function SupportTN({
   return (
     <Card
       closeable
-      title={title + ' (' + langNames[resource.languageId].eng + ')'}
+      title={title}
       onClose={() => onClose(type)}
       classes={classes}
       id={type}

@@ -8,7 +8,6 @@ import { AppContext, ReferenceContext } from '../../context';
 import { SelectResourcesLanguages, DialogUI } from '../../components';
 import {
   subjects,
-  owners,
   blackListResources,
   bibleSubjects,
   obsSubjects,
@@ -50,14 +49,14 @@ function SearchResources({ anchorEl, onClose, open }) {
           ...defaultCard[k],
           x: pos.x,
           y: pos.y,
-          i: item.owner + '/' + item.name,
+          i: item.owner + '__' + item.name,
         });
       }
       return next;
     });
     setTimeout(function () {
       document
-        .querySelector('#' + item.owner + '/' + item.name + '_title')
+        .querySelector('#' + item.owner + '__' + item.name + '_title')
         .scrollIntoView();
     }, 1000);
   };
@@ -83,10 +82,7 @@ function SearchResources({ anchorEl, onClose, open }) {
     axios
       .get(
         server +
-          '/api/catalog/v5/search?limit=1000&sort=lang,title&owner=' +
-          owners.join(',') +
-          '&lang=' +
-          languageResources.join(',') +
+          '/api/catalog/v5/search?limit=1000&sort=lang,title' +
           '&subject=' +
           subjects.join(',')
       )
@@ -153,7 +149,7 @@ function SearchResources({ anchorEl, onClose, open }) {
           <div key={el.id}>
             <p className={classes.divider}>{packageLangs(langNames[el.languageId])}</p>
             <MenuItem className={classes.menu} onClick={() => handleAddMaterial(el)}>
-              {el.title}
+              {el.title} ({el.owner})
             </MenuItem>
           </div>
         );
@@ -164,7 +160,7 @@ function SearchResources({ anchorEl, onClose, open }) {
             key={el.id}
             onClick={() => handleAddMaterial(el)}
           >
-            {el.title}
+            {el.title} ({el.owner})
           </MenuItem>
         );
       }

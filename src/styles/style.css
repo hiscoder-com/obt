@@ -32,7 +32,9 @@ input {
 .tqcard h1{
   font-size: inherit;
 }
-
+.tqcard > div {
+  height: auto;
+}
 .obs img{
   height: auto;
   max-width: 100%;

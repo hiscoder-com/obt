@@ -61,7 +61,7 @@ export default function App() {
     .filter((e) =>
       appConfig.lg
         .map((e) => e.i.toLowerCase())
-        .includes((e.owner + '/' + e.name).toLowerCase())
+        .includes((e.owner + '__' + e.name).toLowerCase())
     )
     .filter((e) =>
       [
@@ -75,8 +75,10 @@ export default function App() {
 
   const compareMaterials = (resources, type) => {
     return (
-      (resources.length >= 1 && !resources.map((e) => e.name).includes(type)) ||
-      (resources.length > 1 && resources.map((e) => e.name).includes(type))
+      (resources.length >= 1 &&
+        !resources.map((e) => e.owner + '__' + e.name).includes(type)) ||
+      (resources.length > 1 &&
+        resources.map((e) => e.owner + '__' + e.name).includes(type))
     );
   };
 
