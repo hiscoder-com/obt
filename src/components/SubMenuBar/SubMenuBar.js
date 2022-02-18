@@ -1,35 +1,31 @@
-import React, { useState, useContext, useRef } from 'react';
-
-import { FontSizeSlider } from 'translation-helps-rcl';
-import { useTranslation } from 'react-i18next';
-
-import { AppContext } from '../../context';
-import {
-  BookSelect,
-  WorkspaceManager,
-  SearchResources,
-  ChapterSelect,
-  SelectLanguage,
-  ShowReference,
-  SelectModeBible,
-  About,
-} from '../../components';
-
-import { AppBar, Toolbar, MenuItem, Menu, IconButton, Button } from '@material-ui/core';
+import { AppBar, Button, IconButton, Menu, MenuItem, Toolbar } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import MenuIcon from '@material-ui/icons/Menu';
-import { useStyles, useModalStyles, useAddStyles } from './style';
+import React, { useContext, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import {
+  About,
+  BookSelect,
+  ChapterSelect,
+  SearchResources,
+  SelectLanguage,
+  SelectModeBible,
+  Settings,
+  ShowReference,
+  WorkspaceManager,
+} from '../../components';
+import { AppContext } from '../../context';
+import { useModalStyles, useStyles } from './style';
 
 function SubMenuBar() {
   const {
-    state: { fontSize, loadIntro, openMainMenu },
-    actions: { setFontSize, setLoadIntro },
+    state: { loadIntro, openMainMenu },
+    actions: { setLoadIntro },
   } = useContext(AppContext);
 
   const menuRef = useRef(null);
 
   const classes = useStyles();
-  const addClasses = useAddStyles();
   const modalClasses = useModalStyles();
   const [anchorMainMenu, setAnchorMainMenu] = useState(null);
   const [anchorAddMaterial, setAnchorAddMaterial] = useState(null);
@@ -65,10 +61,9 @@ function SubMenuBar() {
     <>
       <AppBar className={'intro-appBar'} position="relative">
         <Toolbar className={classes.grow}>
-          <div className={classes.reference}>
-            <SelectModeBible />
-          </div>
+          <div className={classes.reference}>OBT</div>
           <div className={classes.centerButtons}>
+            <SelectModeBible />
             <ShowReference />
             <ChapterSelect />
             <BookSelect />
@@ -105,24 +100,13 @@ function SubMenuBar() {
               <Button
                 startIcon={<AddIcon size={'small'} />}
                 onClick={handleClickAddMaterial}
-                classes={addClasses}
-                variant="outlined"
-                color="primary"
+                variant="contained"
+                color="secondary"
                 size="small"
                 fullWidth
               >
                 {t('Add_resources')}
               </Button>
-            </MenuItem>
-            <MenuItem button={false} divider={true}>
-              <FontSizeSlider
-                onChange={setFontSize}
-                marks={false}
-                max={150}
-                min={50}
-                step={10}
-                value={fontSize}
-              />
             </MenuItem>
             <MenuItem button={false} divider={true}>
               <p className={classes.menu}>{t('Text_under_checkbox_error')}</p>
@@ -131,6 +115,7 @@ function SubMenuBar() {
             <MenuItem button={false} divider={true}>
               <SelectLanguage label={t('Interface_lang')} />
             </MenuItem>
+
             <MenuItem onClick={handleOpenUsersGuide} divider={true}>
               {t('UsersGuide')}
             </MenuItem>
@@ -139,6 +124,8 @@ function SubMenuBar() {
               setOpen={setOpenAbout}
               handleClick={handleClickOpenAbout}
             />
+
+            <Settings setAnchorMainMenu={setAnchorMainMenu} />
           </Menu>
           <SearchResources
             anchorEl={anchorAddMaterial}

@@ -93,7 +93,8 @@ export default function SupportTN({
     >
       {items && (
         <ButtonGroupUI
-          style={{ marginTop: '5px' }}
+          buttonGroupProps={{ size: 'small', color: 'primary' }}
+          style={{ marginTop: '10px' }}
           buttons={[
             { title: t('Introduction'), onClick: onIntroClick },
             { title: t('General_notes'), onClick: onNotesClick },
