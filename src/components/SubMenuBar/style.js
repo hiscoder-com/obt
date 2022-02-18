@@ -11,6 +11,7 @@ export const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
+    whiteSpace: 'nowrap',
   },
   reference: {
     margin: theme.spacing(1),
