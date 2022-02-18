@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import axios from 'axios';
 
 import { getVerseText } from '../../helper';
-import { ReferenceContext } from '../../context';
+import { AppContext, ReferenceContext } from '../../context';
 import { useScrollToVerse } from '../../hooks/useScrollToVerse';
 import { Box, CircularProgress } from '@material-ui/core';
 import { useCircularStyles, useNoContentStyles } from './style';
@@ -33,8 +33,12 @@ function USFMContent({ reference, content, type, fontSize, languageId }) {
     actions: { setReferenceBlock, goToBookChapterVerse },
   } = useContext(ReferenceContext);
 
+  const {
+    state: { switchChunks, switchWordPopover },
+  } = useContext(AppContext);
+
   useEffect(() => {
-    if (languageId === 'ru' && reference) {
+    if (reference) {
       axios
         .get(`https://api.unfoldingword.org/bible/txt/1/${reference.bookId}/chunks.json`)
         .then((res) =>
@@ -116,13 +120,13 @@ function USFMContent({ reference, content, type, fontSize, languageId }) {
           onContextMenu={(e) => handleContextMenu(e, key, verseObjects)}
           onClick={handleClick}
         >
-          {chunks.includes(key.toString()) && <p />}
+          {switchChunks && chunks.includes(key.toString()) && <p />}
           <Verse
             verseKey={key}
             verseObjects={verseObjects}
             paragraphs={false}
             showUnsupported={false}
-            disableWordPopover={false}
+            disableWordPopover={switchWordPopover}
             reference={{ ...reference, verse: key }}
             renderOffscreen={false}
           />
@@ -133,7 +137,7 @@ function USFMContent({ reference, content, type, fontSize, languageId }) {
     }
     setVerses(_verses);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [chapter, reference, type, fontSize]);
+  }, [chapter, reference, type, fontSize, switchChunks, switchWordPopover]);
 
   const loadingContent = (
     <div className={classesCircular.root}>

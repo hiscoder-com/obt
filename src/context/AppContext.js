@@ -41,8 +41,14 @@ export function AppContextProvider({ children }) {
   );
 
   const [breakpoint, setBreakpoint] = useState({ name: 'lg', cols: 12 });
+  const [switchChunks, setSwitchChunks] = useState(() => {
+    return checkLSVal('switchChunks', false, 'boolean');
+  });
   const [showObsImage, setShowObsImage] = useState(() => {
     return checkLSVal('showObsImage', true, 'boolean');
+  });
+  const [switchWordPopover, setSwitchWordPopover] = useState(() => {
+    return checkLSVal('switchWordPopover', false, 'boolean');
   });
   /** TODO Create ResourceContext
    * 1. Get information about resources ( like available bookId) from /Chapter  - content.resources.project.
@@ -84,6 +90,14 @@ export function AppContextProvider({ children }) {
   useEffect(() => {
     localStorage.setItem('showObsImage', showObsImage);
   }, [showObsImage]);
+
+  useEffect(() => {
+    localStorage.setItem('switchChunks', switchChunks);
+  }, [switchChunks]);
+
+  useEffect(() => {
+    localStorage.setItem('switchWordPopover', switchWordPopover);
+  }, [switchWordPopover]);
 
   useEffect(() => {
     const type = getLayoutType(appConfig.lg);
@@ -138,6 +152,8 @@ export function AppContextProvider({ children }) {
       showChapterSelect,
       showErrorReport,
       showObsImage,
+      switchChunks,
+      switchWordPopover,
       theme,
     },
     actions: {
@@ -157,6 +173,8 @@ export function AppContextProvider({ children }) {
       setShowChapterSelect,
       setShowErrorReport,
       setShowObsImage,
+      setSwitchChunks,
+      setSwitchWordPopover,
       setTheme,
     },
   };

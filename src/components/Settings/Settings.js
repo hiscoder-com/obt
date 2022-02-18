@@ -1,5 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { DialogUI, SelectTheme } from '..';
+import SwitchChunks from './SwitchChunks';
 import { AppContext } from '../../context';
 import {
   Checkbox,
@@ -11,6 +12,7 @@ import {
 import { useTranslation } from 'react-i18next';
 import { FontSizeSlider } from 'translation-helps-rcl';
 import { useStyles } from './style';
+import SwitchWordPopover from './SwitchWordPopover';
 
 function Settings({ setAnchorMainMenu }) {
   const classes = useStyles();
@@ -42,10 +44,12 @@ function Settings({ setAnchorMainMenu }) {
       >
         <SelectTheme label={t('Select_theme')} />
         <Divider className={classes.divider} light />
-
-        <InputLabel shrink id="themeId">
-          {t('OBSImages')}
-        </InputLabel>
+        <InputLabel>{t('SwitchWordPopover')}</InputLabel>
+        <SwitchWordPopover />
+        <Divider className={classes.divider} light />
+        <InputLabel>{t('SwitchChunks')}</InputLabel> <SwitchChunks />
+        <Divider className={classes.divider} light />
+        <InputLabel>{t('OBSImages')}</InputLabel>
         <FormControlLabel
           control={
             <Checkbox
