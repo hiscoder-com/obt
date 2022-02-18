@@ -1,12 +1,18 @@
 import React, { useState, useContext } from 'react';
 import { DialogUI, SelectTheme } from '..';
 import { AppContext } from '../../context';
-import { Checkbox, Divider, FormControlLabel, MenuItem } from '@material-ui/core';
+import {
+  Checkbox,
+  Divider,
+  FormControlLabel,
+  InputLabel,
+  MenuItem,
+} from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { FontSizeSlider } from 'translation-helps-rcl';
 import { useStyles } from './style';
 
-function Settings() {
+function Settings({ setAnchorMainMenu }) {
   const classes = useStyles();
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);
@@ -20,6 +26,7 @@ function Settings() {
       <MenuItem
         onClick={() => {
           setOpen(true);
+          setAnchorMainMenu(null);
         }}
       >
         Settings
@@ -35,15 +42,10 @@ function Settings() {
       >
         <SelectTheme label={t('Select_theme')} />
         <Divider className={classes.divider} light />
-        <FontSizeSlider
-          onChange={setFontSize}
-          marks={false}
-          max={150}
-          min={50}
-          step={10}
-          value={fontSize}
-        />
-        <Divider className={classes.divider} light />
+
+        <InputLabel shrink id="themeId">
+          {t('OBSImages')}
+        </InputLabel>
         <FormControlLabel
           control={
             <Checkbox
@@ -54,6 +56,18 @@ function Settings() {
             />
           }
           label={t('showObsLabel')}
+        />
+        <Divider className={classes.divider} light />
+        <InputLabel shrink id="themeId">
+          {t('FontLabel')}
+        </InputLabel>
+        <FontSizeSlider
+          onChange={setFontSize}
+          marks={false}
+          max={150}
+          min={50}
+          step={10}
+          value={fontSize}
         />
       </DialogUI>
     </>

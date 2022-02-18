@@ -125,7 +125,7 @@ function SubMenuBar() {
               handleClick={handleClickOpenAbout}
             />
 
-            <Settings />
+            <Settings setAnchorMainMenu={setAnchorMainMenu} />
           </Menu>
           <SearchResources
             anchorEl={anchorAddMaterial}
