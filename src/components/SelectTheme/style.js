@@ -1,14 +1,20 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 export const useStyles = makeStyles((theme) => ({
-  formControl: {
-    width: '100%',
-    marginRight: theme.spacing(2),
+  option: {
+    color: 'black',
   },
 
-  icon: { color: 'inherit' },
+  formControl: {
+    width: '100%',
+  },
+
+  icon: {
+    color: theme.palette.secondary.main,
+  },
 
   select: {
+    color: theme.palette.secondary.main,
     fontSize: '0.875rem',
     fontWeight: '500',
   },

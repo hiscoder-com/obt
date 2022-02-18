@@ -3,7 +3,7 @@ import React, { useContext, useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ReferenceContext, AppContext } from '../../context';
 import { switchModeBible } from '../../helper';
-import { FormControl, NativeSelect } from '@material-ui/core';
+import { FormControl, MenuItem, Select } from '@material-ui/core';
 import { useStyles } from './style';
 
 function SelectModeBible() {
@@ -38,9 +38,11 @@ function SelectModeBible() {
   };
 
   return (
-    <FormControl className={classes.formControl}>
-      <NativeSelect
-        labelid="workSpace-select-label"
+    <FormControl
+      className={classes.formControl}
+      // style={{ marginRight: '10px' }}
+    >
+      <Select
         disableUnderline={true}
         classes={{
           icon: classes.icon,
@@ -50,11 +52,11 @@ function SelectModeBible() {
         value={selectedValue}
       >
         {options.map((el) => (
-          <option key={el.key} value={el.key} className={classes.option}>
+          <MenuItem key={el.key} value={el.key}>
             {t(el.label).toUpperCase()}
-          </option>
+          </MenuItem>
         ))}
-      </NativeSelect>
+      </Select>
     </FormControl>
   );
 }
