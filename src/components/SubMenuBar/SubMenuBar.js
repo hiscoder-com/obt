@@ -1,40 +1,26 @@
-import React, { useState, useContext, useRef } from 'react';
-
-import { FontSizeSlider } from 'translation-helps-rcl';
-import { useTranslation } from 'react-i18next';
-
-import { AppContext } from '../../context';
-import {
-  BookSelect,
-  WorkspaceManager,
-  SearchResources,
-  ChapterSelect,
-  SelectLanguage,
-  ShowReference,
-  SelectModeBible,
-  About,
-  Settings,
-} from '../../components';
-
-import {
-  AppBar,
-  Toolbar,
-  MenuItem,
-  Menu,
-  IconButton,
-  Button,
-  Checkbox,
-  FormControlLabel,
-} from '@material-ui/core';
+import { AppBar, Button, IconButton, Menu, MenuItem, Toolbar } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import MenuIcon from '@material-ui/icons/Menu';
-import { useStyles, useModalStyles } from './style';
-import { SelectTheme } from '../SelectTheme';
+import React, { useContext, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import {
+  About,
+  BookSelect,
+  ChapterSelect,
+  SearchResources,
+  SelectLanguage,
+  SelectModeBible,
+  Settings,
+  ShowReference,
+  WorkspaceManager,
+} from '../../components';
+import { AppContext } from '../../context';
+import { useModalStyles, useStyles } from './style';
 
 function SubMenuBar() {
   const {
-    state: { fontSize, loadIntro, openMainMenu },
-    actions: { setFontSize, setLoadIntro },
+    state: { loadIntro, openMainMenu },
+    actions: { setLoadIntro },
   } = useContext(AppContext);
 
   const menuRef = useRef(null);
@@ -123,16 +109,6 @@ function SubMenuBar() {
               </Button>
             </MenuItem>
             <MenuItem button={false} divider={true}>
-              <FontSizeSlider
-                onChange={setFontSize}
-                marks={false}
-                max={150}
-                min={50}
-                step={10}
-                value={fontSize}
-              />
-            </MenuItem>
-            <MenuItem button={false} divider={true}>
               <p className={classes.menu}>{t('Text_under_checkbox_error')}</p>
             </MenuItem>
             <WorkspaceManager onClose={handleCloseMainMenu} />
@@ -149,9 +125,7 @@ function SubMenuBar() {
               handleClick={handleClickOpenAbout}
             />
 
-            <MenuItem>
-              <Settings />
-            </MenuItem>
+            <Settings />
           </Menu>
           <SearchResources
             anchorEl={anchorAddMaterial}

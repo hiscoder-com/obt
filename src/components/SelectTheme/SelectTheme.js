@@ -2,12 +2,12 @@ import React, { useContext } from 'react';
 
 import { useTranslation } from 'react-i18next';
 import { AppContext } from '../../context';
-import { FormControl, MenuItem, Select } from '@material-ui/core';
+import { FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
 
 const options = [
   { key: 'textTree', label: 'ThemeTextTree' },
   { key: 'obt', label: 'ThemeObt' },
-  { key: 'dark', label: 'ThemeDark' },
+  // { key: 'dark', label: 'ThemeDark' },
 ];
 
 function SelectTheme() {
@@ -22,7 +22,15 @@ function SelectTheme() {
 
   return (
     <FormControl>
-      <Select disableUnderline={true} onChange={handleChange} value={theme}>
+      <InputLabel shrink id="themeId">
+        {t('ThemeLabel')}
+      </InputLabel>
+      <Select
+        disableUnderline={true}
+        onChange={handleChange}
+        value={theme}
+        labelId="themeId"
+      >
         {options.map((el) => (
           <MenuItem key={el.key} value={el.key}>
             {t(el.label).toUpperCase()}
