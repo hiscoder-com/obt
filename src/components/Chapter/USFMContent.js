@@ -52,7 +52,7 @@ function USFMContent({ reference, content, type, fontSize, languageId }) {
         .catch((err) => console.log(err));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [reference]);
+  }, [reference, switchChunks]);
 
   useEffect(() => {
     let isMounted = true;
@@ -115,7 +115,7 @@ function USFMContent({ reference, content, type, fontSize, languageId }) {
           }}
           style={verseStyle}
           className={'verse'}
-          bgcolor={key.toString() === reference.verse.toString() ? ' primary.select' : ''}
+          bgcolor={key.toString() === reference.verse.toString() ? 'primary.select' : ''}
           key={key}
           onContextMenu={(e) => handleContextMenu(e, key, verseObjects)}
           onClick={handleClick}

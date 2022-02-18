@@ -38,11 +38,13 @@ function SelectModeBible() {
   };
 
   return (
-    <FormControl className={{ root: classes.formControl }}>
+    <FormControl
+      className={classes.formControl}
+      // style={{ marginRight: '10px' }}
+    >
       <Select
         disableUnderline={true}
         classes={{
-          root: classes.selectRoot2,
           icon: classes.icon,
           select: classes.select,
         }}
@@ -50,7 +52,7 @@ function SelectModeBible() {
         value={selectedValue}
       >
         {options.map((el) => (
-          <MenuItem key={el.key} value={el.key} className={classes.option}>
+          <MenuItem key={el.key} value={el.key}>
             {t(el.label).toUpperCase()}
           </MenuItem>
         ))}

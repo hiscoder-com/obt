@@ -8,7 +8,7 @@ const obt = createTheme({
       select: '#e3f6ff',
     },
     secondary: {
-      main: '#3F691F',
+      main: '#023047',
     },
     background: {
       default: '#ebecf0',
@@ -18,7 +18,7 @@ const obt = createTheme({
       main: '#555555',
     },
     cardHeaderBg: {
-      main: '#ffffff',
+      main: '#f1f1f1',
     },
   },
   overrides: {
