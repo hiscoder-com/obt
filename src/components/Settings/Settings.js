@@ -31,7 +31,7 @@ function Settings({ setAnchorMainMenu }) {
           setAnchorMainMenu(null);
         }}
       >
-        Settings
+        {t('Settings')}
       </MenuItem>
       <DialogUI
         open={open}
@@ -44,12 +44,12 @@ function Settings({ setAnchorMainMenu }) {
       >
         <SelectTheme label={t('Select_theme')} />
         <Divider className={classes.divider} light />
-        <InputLabel>{t('WordPopoverLabel')}</InputLabel>
+        <InputLabel shrink>{t('WordPopoverLabel')}</InputLabel>
         <SwitchWordPopover />
         <Divider className={classes.divider} light />
-        <InputLabel>{t('ChunksLabel')}</InputLabel> <SwitchChunks />
+        <InputLabel shrink>{t('ChunksLabel')}</InputLabel> <SwitchChunks />
         <Divider className={classes.divider} light />
-        <InputLabel>{t('OBSImages')}</InputLabel>
+        <InputLabel shrink>{t('OBSImages')}</InputLabel>
         <FormControlLabel
           control={
             <Checkbox
@@ -62,9 +62,7 @@ function Settings({ setAnchorMainMenu }) {
           label={t('showObsLabel')}
         />
         <Divider className={classes.divider} light />
-        <InputLabel shrink id="themeId">
-          {t('FontLabel')}
-        </InputLabel>
+        <InputLabel shrink>{t('FontLabel')}</InputLabel>
         <FontSizeSlider
           onChange={setFontSize}
           marks={false}
