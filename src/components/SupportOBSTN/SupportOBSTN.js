@@ -119,7 +119,8 @@ export default function SupportOBSTN({
       }}
     >
       <ButtonGroupUI
-        style={{ marginTop: '5px' }}
+        buttonGroupProps={{ size: 'small', color: 'primary' }}
+        style={{ marginTop: '10px' }}
         buttons={[{ title: t('StoryTitle'), onClick: titleClick }]}
       />
 

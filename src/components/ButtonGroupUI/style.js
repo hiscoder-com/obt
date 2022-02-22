@@ -13,6 +13,6 @@ export const useStyles = makeStyles((theme) => ({
 
 export const useButtonStyles = makeStyles((theme) => ({
   root: {
-    textTransform: 'none',
+    fontWeight: 'bold',
   },
 }));

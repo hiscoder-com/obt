@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { useHotkeys } from 'react-hotkeys-hook';
 
-import { ReferenceContext } from '../../context';
+import { AppContext, ReferenceContext } from '../../context';
 
 export default function Shortcut() {
   const {
@@ -15,6 +15,9 @@ export default function Shortcut() {
       goToNextBook,
     },
   } = useContext(ReferenceContext);
+  const {
+    actions: { setShowObsImage },
+  } = useContext(AppContext);
 
   useHotkeys(
     'ctrl+right',
@@ -87,6 +90,17 @@ export default function Shortcut() {
     'ctrl+shift+l',
     (e) => {
       localStorage.clear();
+      e.cancelBubble = true;
+      e.preventDefault();
+      e.stopImmediatePropagation();
+    },
+    {},
+    []
+  );
+  useHotkeys(
+    'alt+o',
+    (e) => {
+      setShowObsImage((prev) => !prev);
       e.cancelBubble = true;
       e.preventDefault();
       e.stopImmediatePropagation();
