@@ -56,6 +56,23 @@ export const defaultTplBible = {
       { w: 1, h: 4, x: 0, y: 8, i: 'el-x-koine_ugnt', minH: 3, minW: 1 },
     ],
   },
+  'es-419': {
+    lg: [
+      { w: 4, h: 12, x: 0, y: 0, i: 'en_ult', minH: 3, minW: 1 },
+      { w: 4, h: 12, x: 4, y: 0, i: 'es-419_glt', minH: 3, minW: 1 },
+      { w: 4, h: 12, x: 8, y: 0, i: 'el-x-koine_ugnt', minH: 3, minW: 1 },
+    ],
+    md: [
+      { w: 3, h: 12, x: 0, y: 0, i: 'en_ult', minH: 3, minW: 1 },
+      { w: 3, h: 6, x: 3, y: 0, i: 'es-419_glt', minH: 3, minW: 1 },
+      { w: 3, h: 6, x: 3, y: 6, i: 'el-x-koine_ugnt', minH: 3, minW: 1 },
+    ],
+    sm: [
+      { w: 1, h: 4, x: 0, y: 0, i: 'en_ult', minH: 3, minW: 1 },
+      { w: 1, h: 4, x: 0, y: 4, i: 'es-419_glt', minH: 3, minW: 1 },
+      { w: 1, h: 4, x: 0, y: 8, i: 'el-x-koine_ugnt', minH: 3, minW: 1 },
+    ],
+  },
 };
 
 export const defaultTplOBS = {
@@ -110,9 +127,31 @@ export const defaultTplOBS = {
       { w: 1, h: 3, x: 0, y: 9, i: 'en_obs-tq', minH: 3, minW: 1 },
     ],
   },
+  'es-419': {
+    lg: [
+      { w: 4, h: 12, x: 0, y: 0, i: 'es-419_obs', minH: 3, minW: 1 },
+      { w: 4, h: 12, x: 4, y: 0, i: 'es-419_obs-tn', minH: 3, minW: 1 },
+      { w: 4, h: 12, x: 8, y: 0, i: 'es-419_obs-tq', minH: 3, minW: 1 },
+    ],
+    md: [
+      { w: 3, h: 12, x: 0, y: 0, i: 'es-419_obs', minH: 3, minW: 1 },
+      { w: 3, h: 6, x: 3, y: 0, i: 'es-419_obs-tn', minH: 3, minW: 1 },
+      { w: 3, h: 6, x: 3, y: 6, i: 'es-419_obs-tq', minH: 3, minW: 1 },
+    ],
+    sm: [
+      { w: 1, h: 5, x: 0, y: 0, i: 'es-419_obs', minH: 3, minW: 1 },
+      { w: 1, h: 4, x: 0, y: 5, i: 'es-419_obs-tn', minH: 3, minW: 1 },
+      { w: 1, h: 3, x: 0, y: 9, i: 'es-419_obs-tq', minH: 3, minW: 1 },
+    ],
+  },
 };
 
 export const defaultBibleReference = {
+  'es-419': {
+    bookId: 'tit',
+    chapter: 1,
+    verse: 1,
+  },
   tg: {
     bookId: 'tit',
     chapter: 1,
@@ -146,9 +185,14 @@ export const defaultOBSReference = {
     chapter: 1,
     verse: 1,
   },
+  'es-419': {
+    bookId: 'obs',
+    chapter: 1,
+    verse: 1,
+  },
 };
 
-export const languages = ['en', 'ru', 'tg' /**,'uk', 'pl'*/];
+export const languages = ['es-419', 'en', 'ru', 'tg' /**,'uk', 'pl'*/];
 
 /* CORE */
 
