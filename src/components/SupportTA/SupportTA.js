@@ -56,8 +56,6 @@ export default function SupportTN({
     actions: { setItemIndex, setMarkdownView, setFilters },
   } = useCardState({
     items,
-    setQuote: setTaRef,
-    selectedQuote: taRef,
     verse,
     chapter,
     projectId: bookId,

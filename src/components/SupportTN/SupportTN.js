@@ -21,13 +21,12 @@ export default function SupportTN({
   resource,
 }) {
   const [openDialog, setOpenDialog] = useState(false);
-
+  const [selectedQuote, setQuote] = useState({});
   const [configFront, setConfigFront] = useState({});
   const { t } = useTranslation();
 
   const {
     actions: { setTaRef },
-    state: { taRef },
   } = useContext(AppContext);
 
   const config = {
@@ -68,9 +67,27 @@ export default function SupportTN({
     actions: { setItemIndex, setMarkdownView },
   } = useCardState({
     items,
-    setQuote: setTaRef,
-    selectedQuote: taRef,
   });
+
+  useEffect(() => {
+    if (item && setTaRef) {
+      const { OrigQuote, SupportReference, Occurrence, ID } = item;
+      const quote = {
+        OrigQuote,
+        SupportReference,
+        Occurrence,
+        ID,
+      };
+
+      setTaRef(
+        Object.keys(quote).reduce(
+          (prev, current) =>
+            !!quote[current] ? { ...prev, [current]: quote[current] } : { ...prev },
+          {}
+        )
+      );
+    }
+  }, [item, setTaRef]);
 
   useEffect(() => {
     setItemIndex(0);
@@ -129,8 +146,8 @@ export default function SupportTN({
         languageId={languageId}
         markdown={markdown}
         markdownView={markdownView}
-        selectedQuote={taRef}
-        setQuote={setTaRef}
+        selectedQuote={selectedQuote}
+        setQuote={setQuote}
       />
     </Card>
   );
