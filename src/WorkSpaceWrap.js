@@ -39,7 +39,7 @@ export default function WorkSpaceWrap() {
   };
 
   const mainResources = resourcesApp
-    .filter((e) => appConfig.lg.map((e) => e.i).includes(e.name))
+    .filter((e) => appConfig.lg.map((e) => e.i).includes(e.owner + '__' + e.name))
     .filter((e) =>
       [
         'Open Bible Stories',
@@ -52,8 +52,10 @@ export default function WorkSpaceWrap() {
 
   const compareMaterials = (resources, type) => {
     return (
-      (resources.length >= 1 && !resources.map((e) => e.name).includes(type)) ||
-      (resources.length > 1 && resources.map((e) => e.name).includes(type))
+      (resources.length >= 1 &&
+        !resources.map((e) => e.owner + '__' + e.name).includes(type)) ||
+      (resources.length > 1 &&
+        resources.map((e) => e.owner + '__' + e.name).includes(type))
     );
   };
 

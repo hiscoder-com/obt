@@ -1,5 +1,6 @@
 import { migrate211015 } from './migrate211015';
 import { migrate211029 } from './migrate211029';
+import { migrate220222 } from './migrate220222';
 import * as package_json from '../../package.json';
 
 export const VERSION_KEY = 'version';
@@ -13,6 +14,7 @@ export default function Migrate() {
   const v = getVersion();
   migrate211015(v);
   migrate211029(v);
+  migrate220222(v);
 }
 
 /**
