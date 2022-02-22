@@ -25,6 +25,7 @@ export function AppContextProvider({ children }) {
   } = useContext(ReferenceContext);
 
   const [theme, setTheme] = useState(() => checkLSVal('theme', 'obt'));
+  const [taRef, setTaRef] = useState();
 
   const [currentLanguage, setCurrentLanguage] = useState(_currentLanguage);
   const [appConfig, setAppConfig] = useState(
@@ -135,6 +136,7 @@ export function AppContextProvider({ children }) {
 
   const value = {
     state: {
+      taRef,
       appConfig,
       breakpoint,
       currentLanguage,
@@ -157,6 +159,7 @@ export function AppContextProvider({ children }) {
       theme,
     },
     actions: {
+      setTaRef,
       setAppConfig,
       setBreakpoint,
       setCurrentLanguage,

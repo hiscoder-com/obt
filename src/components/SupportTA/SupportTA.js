@@ -1,10 +1,6 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useEffect, useContext, useMemo } from 'react';
 
 import { Card, CardContent, useContent, useCardState } from 'translation-helps-rcl';
-
-import { useTranslation } from 'react-i18next';
-
-import { FrontModal, ButtonGroupUI } from '../../components';
 
 import { langNames } from '../../config/materials';
 
@@ -20,23 +16,27 @@ export default function SupportTN({
   reference: { bookId, chapter, verse },
   resource,
 }) {
-  const [openDialog, setOpenDialog] = useState(false);
-
-  const [configFront, setConfigFront] = useState({});
-  const { t } = useTranslation();
-
   const {
     actions: { setTaRef },
     state: { taRef },
   } = useContext(AppContext);
 
+  const path = useMemo(() => {
+    if (taRef?.SupportReference) {
+      const ref = taRef.SupportReference?.replace('rc://*/ta/man/', '');
+      return `/${ref.includes('translate') ? ref : 'translate/' + ref}/01.md`;
+    }
+    return null;
+  }, [taRef]);
+
   const config = {
     verse: String(verse),
     chapter: String(chapter),
-    projectId: bookId,
+    projectId: 'translate',
     ref: resource.branch ?? 'master',
     languageId: resource.languageId ?? 'ru',
-    resourceId: 'tn',
+    resourceId: 'ta',
+    filePath: [path],
     owner: resource.owner ?? 'door43-catalog',
     server,
     httpConfig: { noCache: true },
@@ -51,33 +51,22 @@ export default function SupportTN({
     ...config,
   });
 
-  const onIntroClick = () => {
-    setConfigFront({ ...config, verse: 'intro', chapter: 'front' });
-    setOpenDialog(true);
-  };
-  const onNotesClick = () => {
-    setConfigFront({ ...config, verse: 'intro' });
-    setOpenDialog(true);
-  };
-  const onCloseDialog = () => {
-    setOpenDialog(false);
-  };
-
   const {
-    state: { item, headers, itemIndex, markdownView },
-    actions: { setItemIndex, setMarkdownView },
+    state: { item, headers, itemIndex, markdownView, filters },
+    actions: { setItemIndex, setMarkdownView, setFilters },
   } = useCardState({
     items,
     setQuote: setTaRef,
     selectedQuote: taRef,
+    verse,
+    chapter,
+    projectId: bookId,
   });
 
   useEffect(() => {
     setItemIndex(0);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [bookId, chapter, verse]);
-
-  const filterArray = ['OrigQuote', 'GLQuote', 'OccurrenceNote'];
 
   return (
     <Card
@@ -89,8 +78,9 @@ export default function SupportTN({
       items={items}
       fontSize={fontSize}
       headers={headers}
-      filters={filterArray}
+      filters={filters}
       itemIndex={itemIndex}
+      setFilters={setFilters}
       setItemIndex={setItemIndex}
       markdownView={markdownView}
       setMarkdownView={setMarkdownView}
@@ -100,30 +90,10 @@ export default function SupportTN({
         });
       }}
     >
-      {items && (
-        <ButtonGroupUI
-          buttonGroupProps={{ size: 'small', color: 'primary' }}
-          style={{ marginTop: '10px' }}
-          buttons={[
-            { title: t('Introduction'), onClick: onIntroClick },
-            { title: t('General_notes'), onClick: onNotesClick },
-          ]}
-        />
-      )}
-
-      {configFront.projectId && (
-        <FrontModal
-          onCloseDialog={onCloseDialog}
-          open={openDialog}
-          title={' '}
-          config={configFront}
-        />
-      )}
-
       <CardContent
         item={item}
-        viewMode="table"
-        filters={filterArray}
+        viewMode={'markdown'}
+        filters={filters}
         fontSize={fontSize}
         isLoading={Boolean(loading)}
         languageId={languageId}
