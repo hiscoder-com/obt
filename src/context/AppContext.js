@@ -73,7 +73,7 @@ export function AppContextProvider({ children }) {
   });
   const [openMainMenu, setOpenMainMenu] = useState(false);
   const [languageResources, setLanguageResources] = useState(() => {
-    return checkLSVal('languageResources', ['en', 'el-x-koine', 'hbo'], 'object');
+    return checkLSVal('languageResources', ['en'], 'object');
   });
 
   const config = { server };

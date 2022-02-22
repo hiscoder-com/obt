@@ -2,8 +2,6 @@ import React, { useEffect, useState } from 'react';
 
 import { Card, CardContent, useContent, useCardState } from 'translation-helps-rcl';
 
-import { langNames } from '../../config/materials';
-
 export default function SupportOBSTQ({
   title,
   classes,
@@ -62,7 +60,7 @@ export default function SupportOBSTQ({
   return (
     <Card
       closeable
-      title={title + ' (' + langNames[resource.languageId].eng + ')'}
+      title={title}
       onClose={() => onClose(type)}
       classes={{ ...classes, children: 'tqcard' }}
       id={type}

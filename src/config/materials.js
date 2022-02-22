@@ -293,14 +293,10 @@ export const owners = [
 export const blackListResources = [
   { owner: 'unfoldingword', name: 'BHP' },
   { owner: 'unfoldingword', name: 'en_ueb' },
-  { owner: 'ru_gl', name: 'ru_obs-sn' },
-  { owner: 'bsa', name: 'ru_twl' },
+  { owner: 'wycliffeassociates', name: 'en_ulb' },
+  { owner: 'wycliffeassociates', name: 'en_udb' },
+  { owner: 'wycliffeassociates', name: 'en_tw' },
   //  { owner: 'DevleskoDrom', name: 'rml_obs' },
-  { owner: 'door43-catalog', name: 'ru_obs' },
-  { owner: 'door43-catalog', name: 'es-419_obs' },
-  { owner: 'door43-catalog', name: 'ru_obs-tn' },
-  { owner: 'door43-catalog', name: 'fr_obs-tn' },
-  { owner: 'door43-catalog', name: 'fr_obs-tq' },
 ];
 
 /* CORE */

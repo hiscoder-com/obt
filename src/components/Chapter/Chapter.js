@@ -18,7 +18,7 @@ export default function Chapter({
     projectId: bookId,
     branch: resource.branch,
     languageId: resource.languageId,
-    resourceId: type.split('_')[1],
+    resourceId: resource.name.split('_')[1],
     owner: resource.owner,
     server,
   });

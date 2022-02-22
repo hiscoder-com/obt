@@ -7,7 +7,6 @@ import OBSContent from './OBSContent';
 import { AppContext, ReferenceContext } from '../../context';
 
 import { server } from '../../config/base';
-import { langNames } from '../../config/materials';
 
 import { CircularProgress } from '@material-ui/core';
 import { useCircularStyles } from './style';
@@ -30,7 +29,7 @@ export default function OBSVerses({ title, classes, onClose, type }) {
   let resource = false;
 
   resourcesApp.forEach((el) => {
-    if (el.name === type) {
+    if (el.owner + '__' + el.name === type) {
       resource = el;
     }
   });
@@ -52,7 +51,7 @@ export default function OBSVerses({ title, classes, onClose, type }) {
     <>
       <Card
         closeable
-        title={title + ' (' + langNames[resource.languageId].eng + ')'}
+        title={title}
         onClose={() => onClose(type)}
         classes={{ ...classes, children: 'obs', root: classes.root + ' intro-card' }}
         id={type}

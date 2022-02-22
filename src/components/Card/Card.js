@@ -14,6 +14,7 @@ import {
   SupportOBSSN,
   SupportOBSTWL,
 } from '../../components';
+import { langNames } from '../../config/materials';
 
 function Card({ type, onClose, classes }) {
   let CurrentCard;
@@ -30,7 +31,7 @@ function Card({ type, onClose, classes }) {
 
   let resource = false;
   resourcesApp.forEach((el) => {
-    if (el.name === type) {
+    if (el.owner + '__' + el.name === type) {
       resource = el;
     }
   });
@@ -95,7 +96,14 @@ function Card({ type, onClose, classes }) {
   return (
     <CurrentCard
       classes={classes}
-      title={resource.title}
+      title={
+        resource.title +
+        ' (' +
+        langNames[resource.languageId].eng +
+        '|' +
+        resource.owner +
+        ')'
+      }
       resource={resource}
       onClose={onClose}
       type={type}
