@@ -58,18 +58,22 @@ function Card({ type, onClose, classes }) {
       break;
 
     case 'OBS Translation Questions':
+    case 'TSV OBS Translation Questions':
       CurrentCard = SupportOBSTQ;
       break;
 
     case 'OBS Translation Notes':
+    case 'TSV OBS Translation Notes':
       CurrentCard = SupportOBSTN;
       break;
 
     case 'OBS Study Questions':
+    case 'TSV OBS Study Questions':
       CurrentCard = SupportOBSSQ;
       break;
 
     case 'OBS Study Notes':
+    case 'TSV OBS Study Notes':
       CurrentCard = SupportOBSSN;
       break;
 

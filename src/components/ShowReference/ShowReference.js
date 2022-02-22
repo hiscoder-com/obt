@@ -38,8 +38,8 @@ function ShowReference() {
       ]}
       buttonGroupProps={{
         disableElevation: true,
-        variant: 'contained',
-        color: 'primary',
+        variant: 'outlined',
+        color: 'inherit',
         className: 'intro-obsSelect',
       }}
     />

@@ -284,8 +284,6 @@ export const owners = ['door43-catalog', 'unfoldingword', 'es-419_obt'];
 //resource, that have not manifest or others reason
 export const blackListResources = [
   { owner: 'unfoldingword', name: 'BHP' },
-  { owner: 'unfoldingword', name: 'en_obs-tq' },
-  { owner: 'unfoldingword', name: 'en_obs-tn' },
   { owner: 'unfoldingword', name: 'en_ueb' },
   { owner: 'ru_gl', name: 'ru_obs-sn' },
   { owner: 'bsa', name: 'ru_twl' },
@@ -317,7 +315,9 @@ export const obsSubjects = [
   'OBS Translation Notes',
   'OBS Translation Questions',
   'TSV OBS Translation Words Links',
-  // 'TSV OBS Study Questions',
+  'TSV OBS Translation Questions',
+  'TSV OBS Translation Notes',
+  'TSV OBS Study Questions',
   'OBS Study Questions',
   'OBS Study Notes',
 ];

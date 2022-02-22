@@ -5,9 +5,9 @@ import { useTranslation } from 'react-i18next';
 import axios from 'axios';
 
 import { getVerseText } from '../../helper';
-import { ReferenceContext } from '../../context';
+import { AppContext, ReferenceContext } from '../../context';
 import { useScrollToVerse } from '../../hooks/useScrollToVerse';
-import { CircularProgress } from '@material-ui/core';
+import { Box, CircularProgress } from '@material-ui/core';
 import { useCircularStyles, useNoContentStyles } from './style';
 import { ContextMenu } from '../../components';
 
@@ -33,8 +33,12 @@ function USFMContent({ reference, content, type, fontSize, languageId }) {
     actions: { setReferenceBlock, goToBookChapterVerse },
   } = useContext(ReferenceContext);
 
+  const {
+    state: { switchChunks, switchWordPopover },
+  } = useContext(AppContext);
+
   useEffect(() => {
-    if (languageId === 'ru' && reference) {
+    if (reference) {
       axios
         .get(`https://api.unfoldingword.org/bible/txt/1/${reference.bookId}/chunks.json`)
         .then((res) =>
@@ -48,7 +52,7 @@ function USFMContent({ reference, content, type, fontSize, languageId }) {
         .catch((err) => console.log(err));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [reference]);
+  }, [reference, switchChunks]);
 
   useEffect(() => {
     let isMounted = true;
@@ -105,36 +109,35 @@ function USFMContent({ reference, content, type, fontSize, languageId }) {
       };
 
       const verse = (
-        <div
+        <Box
           ref={(ref) => {
             key.toString() === reference.verse.toString() && verseRef(ref);
           }}
           style={verseStyle}
-          className={
-            'verse' + (key.toString() === reference.verse.toString() ? ' current' : '')
-          }
+          className={'verse'}
+          bgcolor={key.toString() === reference.verse.toString() ? 'primary.select' : ''}
           key={key}
           onContextMenu={(e) => handleContextMenu(e, key, verseObjects)}
           onClick={handleClick}
         >
-          {chunks.includes(key.toString()) && <p />}
+          {switchChunks && chunks.includes(key.toString()) && <p />}
           <Verse
             verseKey={key}
             verseObjects={verseObjects}
             paragraphs={false}
             showUnsupported={false}
-            disableWordPopover={false}
+            disableWordPopover={switchWordPopover}
             reference={{ ...reference, verse: key }}
             renderOffscreen={false}
           />
-        </div>
+        </Box>
       );
 
       _verses.push(verse);
     }
     setVerses(_verses);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [chapter, reference, type, fontSize]);
+  }, [chapter, reference, type, fontSize, switchChunks, switchWordPopover]);
 
   const loadingContent = (
     <div className={classesCircular.root}>

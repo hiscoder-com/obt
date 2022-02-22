@@ -79,7 +79,8 @@ export default function SupportOBSSQ({
     >
       {items && (
         <ButtonGroupUI
-          style={{ marginTop: '5px' }}
+          buttonGroupProps={{ size: 'small', color: 'primary' }}
+          style={{ marginTop: '10px' }}
           buttons={[{ title: t('Summary'), onClick: onSummaryClick }]}
         />
       )}

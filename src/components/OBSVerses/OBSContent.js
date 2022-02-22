@@ -1,8 +1,9 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ContextMenu } from '../ContextMenu';
-import { ReferenceContext } from '../../context';
+import { ReferenceContext, AppContext } from '../../context';
 import { useScrollToVerse } from '../../hooks';
+import { Box } from '@material-ui/core';
 
 const initialPositionContextMenu = {
   left: null,
@@ -17,6 +18,10 @@ function OBSContent({ markdown, verse, chapter, fontSize, type, goToBookChapterV
     state: { referenceSelected },
     actions: { setReferenceBlock },
   } = useContext(ReferenceContext);
+
+  const {
+    state: { showObsImage },
+  } = useContext(AppContext);
 
   const handleContextOpen = (event) => {
     event.preventDefault();
@@ -68,20 +73,21 @@ function OBSContent({ markdown, verse, chapter, fontSize, type, goToBookChapterV
         const { key, urlImage, text } = item;
 
         return (
-          <div
+          <Box
             ref={(ref) => {
               key.toString() === verse.toString() &&
                 verse.toString() !== '1' &&
                 verseRef(ref);
             }}
             style={verseStyle}
-            className={'verse' + (key.toString() === verse.toString() ? ' current' : '')}
+            className={'verse'}
+            bgcolor={key.toString() === verse.toString() ? 'primary.select' : ''}
             key={key}
             onClick={() => {
               goToBookChapterVerse('obs', chapter, key);
             }}
           >
-            {urlImage ? (
+            {urlImage && showObsImage ? (
               <>
                 <img src={urlImage} alt={`OBS verse #${key}`} />
                 <br />
@@ -102,10 +108,10 @@ function OBSContent({ markdown, verse, chapter, fontSize, type, goToBookChapterV
                   handleContextOpen(e);
                 }}
               >
-                {el}
+                <sup>{key.toString()}</sup> {el}
               </p>
             ))}
-          </div>
+          </Box>
         );
       });
       const versesOBS = (
@@ -129,7 +135,7 @@ function OBSContent({ markdown, verse, chapter, fontSize, type, goToBookChapterV
       setVerses(<>{t('No_content')}</>);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [markdown, verse, fontSize]);
+  }, [markdown, verse, fontSize, showObsImage]);
 
   return (
     <>
