@@ -77,7 +77,7 @@ export default function SupportTN({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [bookId, chapter, verse]);
 
-  const filterArray = ['OrigQuote', 'GLQuote', 'OccurrenceNote'];
+  const filterArray = ['OrigQuote', 'GLQuote', 'OccurrenceNote', 'SupportReference'];
 
   return (
     <Card
