@@ -23,8 +23,8 @@ export default function SupportTN({
 
   const path = useMemo(() => {
     if (taRef?.SupportReference) {
-      const ref = taRef.SupportReference?.replace('rc://*/ta/man/', '');
-      return `/${ref.includes('translate') ? ref : 'translate/' + ref}/01.md`;
+      const ref = taRef.SupportReference?.replace('rc://*/ta/man/translate/', '');
+      return `${ref}/01.md`;
     }
     return null;
   }, [taRef]);
@@ -36,7 +36,7 @@ export default function SupportTN({
     ref: resource.branch ?? 'master',
     languageId: resource.languageId ?? 'ru',
     resourceId: 'ta',
-    filePath: [path],
+    filePath: path,
     owner: resource.owner ?? 'door43-catalog',
     server,
     httpConfig: { noCache: true },
