@@ -24,6 +24,8 @@ export function AppContextProvider({ children }) {
     actions: { setNewBookList },
   } = useContext(ReferenceContext);
 
+  const [theme, setTheme] = useState(() => checkLSVal('theme', 'obt'));
+
   const [currentLanguage, setCurrentLanguage] = useState(_currentLanguage);
   const [appConfig, setAppConfig] = useState(
     () =>
@@ -39,6 +41,15 @@ export function AppContextProvider({ children }) {
   );
 
   const [breakpoint, setBreakpoint] = useState({ name: 'lg', cols: 12 });
+  const [switchChunks, setSwitchChunks] = useState(() => {
+    return checkLSVal('switchChunks', false, 'boolean');
+  });
+  const [showObsImage, setShowObsImage] = useState(() => {
+    return checkLSVal('showObsImage', true, 'boolean');
+  });
+  const [switchWordPopover, setSwitchWordPopover] = useState(() => {
+    return checkLSVal('switchWordPopover', false, 'boolean');
+  });
   /** TODO Create ResourceContext
    * 1. Get information about resources ( like available bookId) from /Chapter  - content.resources.project.
    * 2. Put all states about resources in ResourceContext.
@@ -71,6 +82,22 @@ export function AppContextProvider({ children }) {
   useEffect(() => {
     localStorage.setItem('fontSize', fontSize);
   }, [fontSize]);
+
+  useEffect(() => {
+    localStorage.setItem('theme', theme);
+  }, [theme]);
+
+  useEffect(() => {
+    localStorage.setItem('showObsImage', showObsImage);
+  }, [showObsImage]);
+
+  useEffect(() => {
+    localStorage.setItem('switchChunks', switchChunks);
+  }, [switchChunks]);
+
+  useEffect(() => {
+    localStorage.setItem('switchWordPopover', switchWordPopover);
+  }, [switchWordPopover]);
 
   useEffect(() => {
     const type = getLayoutType(appConfig.lg);
@@ -124,6 +151,10 @@ export function AppContextProvider({ children }) {
       showBookSelect,
       showChapterSelect,
       showErrorReport,
+      showObsImage,
+      switchChunks,
+      switchWordPopover,
+      theme,
     },
     actions: {
       setAppConfig,
@@ -141,6 +172,10 @@ export function AppContextProvider({ children }) {
       setShowBookSelect,
       setShowChapterSelect,
       setShowErrorReport,
+      setShowObsImage,
+      setSwitchChunks,
+      setSwitchWordPopover,
+      setTheme,
     },
   };
 

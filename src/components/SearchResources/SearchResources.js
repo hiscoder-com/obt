@@ -19,7 +19,7 @@ import { getUniqueResources, packageLangs } from '../../helper';
 import { MenuItem, Menu, Button } from '@material-ui/core';
 
 import LanguageIcon from '@material-ui/icons/Language';
-import { useStyles, useAddStyles } from './style';
+import { useStyles } from './style';
 
 function SearchResources({ anchorEl, onClose, open }) {
   const {
@@ -35,7 +35,6 @@ function SearchResources({ anchorEl, onClose, open }) {
 
   const { t } = useTranslation();
   const classes = useStyles();
-  const addClasses = useAddStyles();
   const [openDialog, setOpenDialog] = useState(false);
   const prevResources = useRef([]);
   const uniqueResources = getUniqueResources(appConfig, resourcesApp);
@@ -185,9 +184,8 @@ function SearchResources({ anchorEl, onClose, open }) {
           <Button
             onClick={handleOpenDialog}
             startIcon={<LanguageIcon size={'small'} />}
-            classes={addClasses}
-            variant="outlined"
-            color="primary"
+            variant="contained"
+            color="secondary"
             size="small"
             fullWidth
           >

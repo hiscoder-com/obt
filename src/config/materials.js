@@ -319,7 +319,9 @@ export const obsSubjects = [
   'OBS Translation Notes',
   'OBS Translation Questions',
   'TSV OBS Translation Words Links',
-  // 'TSV OBS Study Questions',
+  'TSV OBS Translation Questions',
+  'TSV OBS Translation Notes',
+  'TSV OBS Study Questions',
   'OBS Study Questions',
   'OBS Study Notes',
 ];

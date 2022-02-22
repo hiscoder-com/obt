@@ -9,7 +9,6 @@ html {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #ebecf0;
 }
 
 input {
@@ -18,9 +17,6 @@ input {
 }
 .verse {
   cursor: context-menu;
-}
-.verse.current {
-  background-color: #e3f6ff;
 }
 .verse br {
   display: none;
@@ -80,4 +76,12 @@ div[id*="_title"]{
 .md {
     color: #424242;
     line-height: 1.45;
+}
+
+h1 {
+  font-size: 1.5em;
+}
+h2 {
+  font-size: 1.1em;
+  margin: 5px;
 }
