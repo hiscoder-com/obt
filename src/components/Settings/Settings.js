@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import { DialogUI, SelectTheme } from '..';
 import SwitchChunks from './SwitchChunks';
 import { AppContext } from '../../context';
@@ -17,27 +17,27 @@ import SwitchWordPopover from './SwitchWordPopover';
 function Settings({ setAnchorMainMenu }) {
   const classes = useStyles();
   const { t } = useTranslation();
-  const [open, setOpen] = useState(false);
   const {
-    state: { fontSize, showObsImage },
-    actions: { setFontSize, setShowObsImage },
+    state: { fontSize, showObsImage, showSettingsMenu },
+    actions: { setFontSize, setShowObsImage, setShowSettingsMenu },
   } = useContext(AppContext);
 
   return (
     <>
       <MenuItem
         onClick={() => {
-          setOpen(true);
+          setShowSettingsMenu(true);
           setAnchorMainMenu(null);
         }}
       >
         {t('Settings')}
       </MenuItem>
       <DialogUI
-        open={open}
+        open={showSettingsMenu}
         onClose={() => {
-          setOpen(false);
+          setShowSettingsMenu(false);
         }}
+        className="intro-settings"
         isClosable
         title={' '}
         maxWidth="sm"

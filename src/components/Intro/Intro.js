@@ -34,6 +34,7 @@ function Intro() {
       setShowErrorReport,
       setLoadIntro,
       setOpenMainMenu,
+      setShowSettingsMenu,
     },
     state: { loadIntro, showChapterSelect },
   } = useContext(AppContext);
@@ -80,6 +81,10 @@ function Intro() {
     {
       element: '.intro-hamburger',
       intro: t('introHamburger'),
+    },
+    {
+      element: '.intro-settings',
+      intro: t('introSettings'),
     },
   ];
   useEffect(() => {
@@ -144,11 +149,18 @@ function Intro() {
         document.querySelector('.intro-hamburger').style.opacity = 1;
         stepsRef.current.updateStepElement(stepIndex);
         break;
+      case '11':
+        document.querySelector('.intro-hamburger').style.opacity = 0;
+        setShowSettingsMenu(true);
+        setIntroContextMenuPosition(currentVersePosition);
+        stepsRef.current.updateStepElement(stepIndex);
+        break;
       default:
         break;
     }
   };
   const onExit = () => {
+    setShowSettingsMenu(false);
     setLoadIntro(false);
     setOpenMainMenu(false);
     setIntroContextMenuOpen(false);
