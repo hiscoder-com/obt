@@ -138,7 +138,8 @@ function Intro() {
         break;
       case '9':
         setShowErrorReport(true);
-        setOpenMainMenu(false);
+        setOpenMainMenu(true);
+        document.querySelector('.intro-hamburger').style.opacity = 0;
         setIntroContextMenuPosition(currentVersePosition);
         document.querySelector('.intro-contextMenu').style.opacity = 0;
         stepsRef.current.updateStepElement(stepIndex);
@@ -147,13 +148,13 @@ function Intro() {
       case '10':
         setIntroContextMenuPosition(initialPosition);
         setShowErrorReport(false);
-        setOpenMainMenu(true);
+        document.querySelector('.intro-hamburger').style.opacity = 1;
         stepsRef.current.updateStepElement(stepIndex);
         setShowSettingsMenu(false);
         break;
       case '11':
         setShowSettingsMenu(true);
-        setOpenMainMenu(false);
+        document.querySelector('.intro-hamburger').style.opacity = 0;
         setIntroContextMenuPosition(currentVersePosition);
         stepsRef.current.updateStepElement(stepIndex);
         break;
