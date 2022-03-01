@@ -17,7 +17,6 @@ function Intro() {
   const [introContextMenuPosition, setIntroContextMenuPosition] =
     useState(initialPosition);
   const [currentVersePosition, setCurrentVersePosition] = useState(initialPosition);
-  const [, setIntroContextMenuOpen] = useState(false);
   const { t } = useTranslation();
   const stepsRef = useRef();
 
@@ -155,7 +154,6 @@ function Intro() {
       case '11':
         setShowSettingsMenu(true);
         document.querySelector('.intro-hamburger').style.opacity = 0;
-        setIntroContextMenuPosition(currentVersePosition);
         stepsRef.current.updateStepElement(stepIndex);
         break;
       default:
@@ -163,14 +161,13 @@ function Intro() {
     }
   };
   const onExit = () => {
-    setShowSettingsMenu(false);
     setLoadIntro(false);
     setIntroContextMenuPosition(initialPosition);
     setOpenMainMenu(false);
-    setIntroContextMenuOpen(false);
     setShowErrorReport(false);
     setShowChapterSelect(false);
     setShowBookSelect(false);
+    setShowSettingsMenu(false);
   };
   const options = {
     nextLabel: t('Next'),
@@ -182,7 +179,7 @@ function Intro() {
     nextToDone: true,
     hidePrev: true,
     overlayOpacity: 0.6,
-    exitOnEsc: false,
+    exitOnEsc: true,
     exitOnOverlayClick: false,
     showBullets: false,
     disableInteraction: true,

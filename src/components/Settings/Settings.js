@@ -38,9 +38,11 @@ function Settings({ setAnchorMainMenu }) {
         onClose={() => {
           setShowSettingsMenu(false);
         }}
-        classes={{ content: 'intro-settings' }}
+        classes={{
+          root: { paper: 'intro-settings' },
+        }}
         // isClosable
-        // title={t('Settings')}
+        title={t('Settings')}
         maxWidth="sm"
       >
         <SelectTheme label={t('Select_theme')} />
