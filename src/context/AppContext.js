@@ -65,6 +65,7 @@ export function AppContextProvider({ children }) {
   const [showBookSelect, setShowBookSelect] = useState(false);
   const [showChapterSelect, setShowChapterSelect] = useState(false);
   const [showErrorReport, setShowErrorReport] = useState(false);
+  const [showSettingsMenu, setShowSettingsMenu] = useState(false);
   const [errorFile, setErrorFile] = useState('');
   const [fontSize, setFontSize] = useState(_fontSize ? _fontSize : 100);
   const [loadIntro, setLoadIntro] = useState(false);
@@ -155,6 +156,7 @@ export function AppContextProvider({ children }) {
       switchChunks,
       switchWordPopover,
       theme,
+      showSettingsMenu,
     },
     actions: {
       setAppConfig,
@@ -176,6 +178,7 @@ export function AppContextProvider({ children }) {
       setSwitchChunks,
       setSwitchWordPopover,
       setTheme,
+      setShowSettingsMenu,
     },
   };
 
