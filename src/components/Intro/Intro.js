@@ -88,8 +88,8 @@ function Intro() {
     },
   ];
   useEffect(() => {
-    if (document.querySelector('.current')) {
-      const { top, left } = document.querySelector('.current').getBoundingClientRect();
+    if (document.querySelector('.verse')) {
+      const { top, left } = document.querySelector('.verse').getBoundingClientRect();
       setCurrentVersePosition({ top, left });
     }
     // eslint-disable-next-line
@@ -134,24 +134,26 @@ function Intro() {
         setShowErrorReport(false);
         document.querySelector('.intro-contextMenu').style.opacity = 1;
         stepsRef.current.updateStepElement(stepIndex);
+        setOpenMainMenu(false);
         break;
       case '9':
         setShowErrorReport(true);
-        setOpenMainMenu(true);
-        document.querySelector('.intro-hamburger').style.opacity = 0;
+        setOpenMainMenu(false);
         setIntroContextMenuPosition(currentVersePosition);
         document.querySelector('.intro-contextMenu').style.opacity = 0;
         stepsRef.current.updateStepElement(stepIndex);
+
         break;
       case '10':
         setIntroContextMenuPosition(initialPosition);
         setShowErrorReport(false);
-        document.querySelector('.intro-hamburger').style.opacity = 1;
+        setOpenMainMenu(true);
         stepsRef.current.updateStepElement(stepIndex);
+        setShowSettingsMenu(false);
         break;
       case '11':
-        document.querySelector('.intro-hamburger').style.opacity = 0;
         setShowSettingsMenu(true);
+        setOpenMainMenu(false);
         setIntroContextMenuPosition(currentVersePosition);
         stepsRef.current.updateStepElement(stepIndex);
         break;
@@ -162,6 +164,7 @@ function Intro() {
   const onExit = () => {
     setShowSettingsMenu(false);
     setLoadIntro(false);
+    setIntroContextMenuPosition(initialPosition);
     setOpenMainMenu(false);
     setIntroContextMenuOpen(false);
     setShowErrorReport(false);

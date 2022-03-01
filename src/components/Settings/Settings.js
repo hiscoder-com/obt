@@ -33,11 +33,12 @@ function Settings({ setAnchorMainMenu }) {
         {t('Settings')}
       </MenuItem>
       <DialogUI
+        className="dialog-settings"
         open={showSettingsMenu}
         onClose={() => {
           setShowSettingsMenu(false);
         }}
-        className="intro-settings"
+        classes={{ content: 'intro-settings' }}
         isClosable
         title={' '}
         maxWidth="sm"
