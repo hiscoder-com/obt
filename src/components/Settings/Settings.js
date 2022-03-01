@@ -39,8 +39,8 @@ function Settings({ setAnchorMainMenu }) {
           setShowSettingsMenu(false);
         }}
         classes={{ content: 'intro-settings' }}
-        isClosable
-        title={' '}
+        // isClosable
+        // title={t('Settings')}
         maxWidth="sm"
       >
         <SelectTheme label={t('Select_theme')} />
