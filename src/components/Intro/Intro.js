@@ -142,7 +142,6 @@ function Intro() {
         setIntroContextMenuPosition(currentVersePosition);
         document.querySelector('.intro-contextMenu').style.opacity = 0;
         stepsRef.current.updateStepElement(stepIndex);
-
         break;
       case '10':
         setIntroContextMenuPosition(initialPosition);

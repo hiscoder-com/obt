@@ -16,7 +16,6 @@ function DialogUI({
   primary = { text: false, onClick: false, disabled: false },
   secondary = { text: false, onClick: false, disabled: false },
   classes = {},
-  className = '',
   maxWidth = 'md',
   title = false,
   children,
@@ -30,7 +29,6 @@ function DialogUI({
   return (
     <Dialog
       classes={classes.root}
-      className={className}
       open={open}
       fullWidth={true}
       maxWidth={maxWidth}
