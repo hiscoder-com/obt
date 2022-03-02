@@ -9,7 +9,6 @@ import {
   FormControlLabel,
   InputLabel,
   MenuItem,
-  Button,
 } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { FontSizeSlider } from 'translation-helps-rcl';

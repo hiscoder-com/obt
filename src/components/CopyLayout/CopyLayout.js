@@ -1,11 +1,19 @@
 import React, { useContext } from 'react';
+
 import { useSnackbar } from 'notistack';
 import { useTranslation } from 'react-i18next';
+
+import { AppContext } from '../../context';
+
 import { Button } from '@material-ui/core';
 
 export default function CopyLayout() {
   const { t } = useTranslation();
   const { enqueueSnackbar } = useSnackbar();
+  const {
+    state: { appConfig },
+  } = useContext(AppContext);
+
   const copyToClipboard = (text) => {
     return navigator.clipboard.writeText(text).then(
       () => {
@@ -17,8 +25,7 @@ export default function CopyLayout() {
     );
   };
   const pamagite = () => {
-    copyToClipboard('marvel');
-    enqueueSnackbar('privet', { variant: 'error' });
+    copyToClipboard(appConfig);
   };
   return (
     <>

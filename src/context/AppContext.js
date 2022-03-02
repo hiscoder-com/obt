@@ -133,7 +133,7 @@ export function AppContextProvider({ children }) {
   useEffect(() => {
     localStorage.setItem('startDialog', openStartDialog);
   }, [openStartDialog]);
-
+  console.log(appConfig);
   const value = {
     state: {
       appConfig,
