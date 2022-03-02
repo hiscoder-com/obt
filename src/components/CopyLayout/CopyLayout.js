@@ -25,11 +25,11 @@ export default function CopyLayout() {
     );
   };
   const pamagite = () => {
-    copyToClipboard(appConfig);
+    copyToClipboard(JSON.stringify(appConfig));
   };
   return (
     <>
-      <Button onClick={pamagite}> Copy</Button>
+      <Button onClick={pamagite}>Copy</Button>
     </>
   );
 }
