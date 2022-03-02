@@ -111,6 +111,7 @@ export function AppContextProvider({ children }) {
 
   useEffect(() => {
     setResourceLinks(getResources(appConfig, resourcesApp));
+    console.log(resourcesApp);
   }, [appConfig, resourcesApp, breakpoint]);
 
   useEffect(() => {
@@ -121,7 +122,6 @@ export function AppContextProvider({ children }) {
   useEffect(() => {
     localStorage.setItem('resourcesApp', JSON.stringify(resourcesApp));
   }, [resourcesApp]);
-
   useEffect(() => {
     localStorage.setItem('languageResources', JSON.stringify(languageResources));
   }, [languageResources]);

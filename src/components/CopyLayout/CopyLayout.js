@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { encode, decode } from 'js-base64';
 
 import { useSnackbar } from 'notistack';
 import { useTranslation } from 'react-i18next';
@@ -24,12 +25,23 @@ export default function CopyLayout() {
       }
     );
   };
-  const pamagite = () => {
-    copyToClipboard(JSON.stringify(appConfig));
+  const encodedLayout = () => {
+    const test1 = encode(JSON.stringify(appConfig));
+    copyToClipboard(test1);
+    console.log(test1);
+    return test1;
+    // const test2 = decode(test1);
+    // console.log(test2);
   };
+  const decodedLayout = () => {
+    const test2 = decode(encodedLayout());
+    console.log(test2);
+  };
+
   return (
     <>
-      <Button onClick={pamagite}>Copy</Button>
+      <Button onClick={encodedLayout}>Copy</Button>
+      <Button onClick={decodedLayout}>Copy de</Button>
     </>
   );
 }
