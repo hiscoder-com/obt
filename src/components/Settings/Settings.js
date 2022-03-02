@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { DialogUI, SelectTheme } from '..';
+import { CopyLayout } from '../../components';
 import SwitchChunks from './SwitchChunks';
 import { AppContext } from '../../context';
 import {
@@ -8,6 +9,7 @@ import {
   FormControlLabel,
   InputLabel,
   MenuItem,
+  Button,
 } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { FontSizeSlider } from 'translation-helps-rcl';
@@ -62,6 +64,9 @@ function Settings({ setAnchorMainMenu }) {
           }
           label={t('showObsLabel')}
         />
+        <Divider className={classes.divider} light />
+        <InputLabel shrink>Скопировать Лаяут</InputLabel>
+        <CopyLayout />
         <Divider className={classes.divider} light />
         <InputLabel shrink>{t('FontLabel')}</InputLabel>
         <FontSizeSlider
