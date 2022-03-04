@@ -17,6 +17,7 @@ export const AppContext = React.createContext();
 
 const _currentLanguage = checkLSVal('i18nextLng', languages[0]);
 const _fontSize = parseInt(localStorage.getItem('fontSize'));
+const _saveLayout = localStorage.getItem('saveLayout');
 
 export function AppContextProvider({ children }) {
   const {
@@ -69,6 +70,9 @@ export function AppContextProvider({ children }) {
   const [errorFile, setErrorFile] = useState('');
   const [fontSize, setFontSize] = useState(_fontSize ? _fontSize : 100);
   const [loadIntro, setLoadIntro] = useState(false);
+  const [saveLayout, setSaveLayout] = useState(
+    _saveLayout ? _saveLayout : JSON.stringify(appConfig)
+  );
   const [openStartDialog, setOpenStartDialog] = useState(() => {
     return checkLSVal('startDialog', true, 'boolean');
   });
@@ -83,6 +87,11 @@ export function AppContextProvider({ children }) {
   useEffect(() => {
     localStorage.setItem('fontSize', fontSize);
   }, [fontSize]);
+
+  useEffect(() => {
+    localStorage.setItem('saveLayout', saveLayout);
+    console.log(saveLayout);
+  }, [saveLayout]);
 
   useEffect(() => {
     localStorage.setItem('theme', theme);
@@ -111,7 +120,6 @@ export function AppContextProvider({ children }) {
 
   useEffect(() => {
     setResourceLinks(getResources(appConfig, resourcesApp));
-    console.log(resourcesApp);
   }, [appConfig, resourcesApp, breakpoint]);
 
   useEffect(() => {
@@ -156,6 +164,7 @@ export function AppContextProvider({ children }) {
       switchWordPopover,
       theme,
       showSettingsMenu,
+      saveLayout,
     },
     actions: {
       setAppConfig,
@@ -178,6 +187,7 @@ export function AppContextProvider({ children }) {
       setSwitchWordPopover,
       setTheme,
       setShowSettingsMenu,
+      setSaveLayout,
     },
   };
 
