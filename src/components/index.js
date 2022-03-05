@@ -11,7 +11,6 @@ export * from './DialogUI';
 export * from './FrontModal';
 export * from './Intro';
 export * from './OBSVerses';
-export * from './Search';
 export * from './SearchResources';
 export * from './SelectLanguage';
 export * from './SelectModeBible';

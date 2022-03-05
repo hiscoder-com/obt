@@ -15,6 +15,7 @@ import {
   WorkspaceManager,
 } from '../../components';
 import { AppContext } from '../../context';
+import Search from '../Search/Search';
 import { useModalStyles, useStyles } from './style';
 
 function SubMenuBar() {
@@ -67,6 +68,7 @@ function SubMenuBar() {
             <ShowReference />
             <ChapterSelect />
             <BookSelect />
+            <Search />
           </div>
           <IconButton
             ref={menuRef}
