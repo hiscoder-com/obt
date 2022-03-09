@@ -1,78 +1,60 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { AppContext } from '../../context';
 import { Button, FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
+import { element } from 'prop-types';
 
 export default function CopyLayout() {
   const {
-    state: { appConfig, saveLayout },
+    state: { appConfig, saveLayout, languageResources },
     actions: { setAppConfig, setSaveLayout },
   } = useContext(AppContext);
-  // const [saveLayout, setSaveLayout] = useState();
-  const [stValue, setStValue] = useState(JSON.stringify(appConfig));
+
   const [nameLayout, setNameLayout] = useState('Название лэяута');
-  const [arr, setArr] = useState([]);
-  const layout = {
-    name: nameLayout,
-    value: stValue,
+  const [value, setValue] = useState(appConfig);
+  const [arr, setArr] = useState(saveLayout ? saveLayout : []);
+
+  const create = () => {
+    setSaveLayout(arr);
+    setArr([...arr, { name: nameLayout, value: value }]);
   };
-  // console.log(layout);
-  console.log(arr);
-  console.log(saveLayout);
-  const CopyLayout = () => {
-    setSaveLayout(layout);
-  };
-  const getLayout = () => {
-    setAppConfig(JSON.parse(saveLayout.value));
-  };
-  const onClick = (event) => {
-    setStValue(event.target.value);
-  };
-  const onClicks = (event) => {
-    setNameLayout(event.target.value);
+  const utilize = (event) => {
+    console.log(event.target);
   };
   const result = arr.map((element, index) => {
     return (
-      <button key={index} onClick={getLayout} onDoubleClick={() => remove(index)}>
+      <button key={index} onClick={utilize}>
         {element.name}
       </button>
     );
   });
-  function remove(index) {
-    setArr([...arr.slice(0, index), ...arr.slice(index + 1)]);
-  }
-  // return (
-  //   <div>
-  //     {result}
-  //     {/* <button value={value} onChange={(event) => setValue(event.target.value)} /> */}
-  //     <button onClick={() => setArr([...arr, value])}>Добавить элемент</button>
-  //   </div>
-  // );
   return (
     <>
       <FormControl>
         <InputLabel shrink id="themeId">
           Layouts
         </InputLabel>
-        <Select disableUnderline={true} labelId="themeId">
-          {<MenuItem>{result}</MenuItem>}
-        </Select>
+        <Select disableUnderline={true}>{<MenuItem>{result}</MenuItem>}</Select>
       </FormControl>
       <form name="test" method="post">
         <p>
-          <input type="text" onChange={onClicks} placeholder={nameLayout} size="40" />
+          <input
+            type="text"
+            onChange={(event) => setNameLayout(event.target.value)}
+            placeholder={nameLayout}
+            size="40"
+          />
         </p>
         <p>
           <textarea
             name="comment"
             cols="60"
             rows="7"
-            onChange={onClick}
-            defaultValue={stValue}
+            onChange={(event) => setValue(event.target.value)}
+            defaultValue={JSON.stringify(appConfig)}
           ></textarea>
         </p>
       </form>
-      <Button onClick={(CopyLayout, () => setArr([...arr, layout]))}>saveLayout</Button>
-      {/* <Button onClick={getLayout}>{nameLayout}</Button> */}
+      <Button onClick={create}> saveLayout</Button>
     </>
   );
 }

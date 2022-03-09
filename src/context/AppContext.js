@@ -71,7 +71,7 @@ export function AppContextProvider({ children }) {
   const [fontSize, setFontSize] = useState(_fontSize ? _fontSize : 100);
   const [loadIntro, setLoadIntro] = useState(false);
   const [saveLayout, setSaveLayout] = useState(
-    _saveLayout ? _saveLayout : JSON.stringify(appConfig)
+    _saveLayout ? JSON.parse(_saveLayout) : false
   );
   const [openStartDialog, setOpenStartDialog] = useState(() => {
     return checkLSVal('startDialog', true, 'boolean');
@@ -89,8 +89,7 @@ export function AppContextProvider({ children }) {
   }, [fontSize]);
 
   useEffect(() => {
-    localStorage.setItem('saveLayout', saveLayout);
-    console.log(saveLayout);
+    localStorage.setItem('saveLayout', JSON.stringify(saveLayout));
   }, [saveLayout]);
 
   useEffect(() => {
