@@ -1,14 +1,25 @@
 import React, { useContext, useState, useEffect, useMemo } from 'react';
 import { AppContext } from '../../context';
-import { Button, FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
+import {
+  Button,
+  FormControl,
+  Input,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField,
+} from '@material-ui/core';
+import { useStyles } from './style';
 
 export default function CopyLayout() {
+  const classes = useStyles();
+
   const {
     state: { appConfig, saveLayout, languageResources },
     actions: { setAppConfig, setSaveLayout, setLanguageResources },
   } = useContext(AppContext);
 
-  const [nameLayout, setNameLayout] = useState('default Name');
+  const [nameLayout, setNameLayout] = useState('');
   const [value, setValue] = useState(appConfig);
 
   const create = () => {
@@ -16,8 +27,9 @@ export default function CopyLayout() {
       ...prev,
       { name: nameLayout, value: value, language: languageResources },
     ]);
+    setNameLayout('');
   };
-  const utilize = (event) => {
+  const buttonsFunc = (event) => {
     let val = saveLayout[event.target.value];
     setLanguageResources(val.language);
     setAppConfig(val.value);
@@ -37,27 +49,32 @@ export default function CopyLayout() {
   );
   return (
     <>
-      <FormControl>
+      <FormControl className={classes.formControl}>
         <InputLabel shrink id="themeId">
           Layouts
         </InputLabel>
-        <Select onChange={utilize} disableUnderline={true}>
+        <Select onChange={buttonsFunc} disableUnderline={true}>
           {result}
         </Select>
       </FormControl>
-      <input
-        type="text"
+      <TextField
+        className={classes.layoutName}
         onChange={(event) => setNameLayout(event.target.value)}
-        placeholder={'layout name'}
-        size="40"
+        id="outlined-basic"
+        label="Layout Name"
+        variant="outlined"
         value={nameLayout}
+        // defaultValue={nameLayout}
       />
-      <textarea
+      <TextField
+        multiline={true}
+        rows={3}
         name="comment"
-        cols="60"
-        rows="7"
         onChange={(event) => setValue(event.target.value)}
-        value={JSON.stringify(value)}
+        defaultValue={JSON.stringify(value)}
+        fullWidth={true}
+        size="small"
+        variant="outlined"
       />
       <Button onClick={create}> saveLayout</Button>
     </>
