@@ -1,30 +1,40 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState, useEffect, useMemo } from 'react';
 import { AppContext } from '../../context';
 import { Button, FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
 
 export default function CopyLayout() {
   const {
     state: { appConfig, saveLayout, languageResources },
-    actions: { setAppConfig, setSaveLayout },
+    actions: { setAppConfig, setSaveLayout, setLanguageResources },
   } = useContext(AppContext);
 
   const [nameLayout, setNameLayout] = useState('default Name');
   const [value, setValue] = useState(appConfig);
+
   const create = () => {
-    setSaveLayout((prev) => [...prev, { name: nameLayout, value: value }]);
+    setSaveLayout((prev) => [
+      ...prev,
+      { name: nameLayout, value: value, language: languageResources },
+    ]);
   };
   const utilize = (event) => {
-    console.log(saveLayout[event.target.value]);
+    let val = saveLayout[event.target.value];
+    setLanguageResources(val.language);
+    setAppConfig(val.value);
   };
   // useMemo(зависит от saveLayout)
-  const result = saveLayout.map((element, index) => {
-    console.log(index);
-    return (
-      <MenuItem value={index} key={index}>
-        {element.name}
-      </MenuItem>
-    );
-  });
+  const result = useMemo(
+    () =>
+      saveLayout.map((element, index) => {
+        console.log(index);
+        return (
+          <MenuItem value={index} key={index}>
+            {element.name}
+          </MenuItem>
+        );
+      }),
+    [saveLayout]
+  );
   return (
     <>
       <FormControl>
