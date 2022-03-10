@@ -71,7 +71,7 @@ export function AppContextProvider({ children }) {
   const [fontSize, setFontSize] = useState(_fontSize ? _fontSize : 100);
   const [loadIntro, setLoadIntro] = useState(false);
   const [saveLayout, setSaveLayout] = useState(
-    _saveLayout ? JSON.parse(_saveLayout) : false
+    _saveLayout ? JSON.parse(_saveLayout) : []
   );
   const [openStartDialog, setOpenStartDialog] = useState(() => {
     return checkLSVal('startDialog', true, 'boolean');

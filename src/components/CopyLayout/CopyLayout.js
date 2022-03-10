@@ -1,7 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { AppContext } from '../../context';
 import { Button, FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
-import { element } from 'prop-types';
 
 export default function CopyLayout() {
   const {
@@ -9,22 +8,21 @@ export default function CopyLayout() {
     actions: { setAppConfig, setSaveLayout },
   } = useContext(AppContext);
 
-  const [nameLayout, setNameLayout] = useState('Название лэяута');
+  const [nameLayout, setNameLayout] = useState('default Name');
   const [value, setValue] = useState(appConfig);
-  const [arr, setArr] = useState(saveLayout ? saveLayout : []);
-
   const create = () => {
-    setSaveLayout(arr);
-    setArr([...arr, { name: nameLayout, value: value }]);
+    setSaveLayout((prev) => [...prev, { name: nameLayout, value: value }]);
   };
   const utilize = (event) => {
-    console.log(event.target);
+    console.log(saveLayout[event.target.value]);
   };
-  const result = arr.map((element, index) => {
+  // useMemo(зависит от saveLayout)
+  const result = saveLayout.map((element, index) => {
+    console.log(index);
     return (
-      <button key={index} onClick={utilize}>
+      <MenuItem value={index} key={index}>
         {element.name}
-      </button>
+      </MenuItem>
     );
   });
   return (
@@ -33,27 +31,24 @@ export default function CopyLayout() {
         <InputLabel shrink id="themeId">
           Layouts
         </InputLabel>
-        <Select disableUnderline={true}>{<MenuItem>{result}</MenuItem>}</Select>
+        <Select onChange={utilize} disableUnderline={true}>
+          {result}
+        </Select>
       </FormControl>
-      <form name="test" method="post">
-        <p>
-          <input
-            type="text"
-            onChange={(event) => setNameLayout(event.target.value)}
-            placeholder={nameLayout}
-            size="40"
-          />
-        </p>
-        <p>
-          <textarea
-            name="comment"
-            cols="60"
-            rows="7"
-            onChange={(event) => setValue(event.target.value)}
-            defaultValue={JSON.stringify(appConfig)}
-          ></textarea>
-        </p>
-      </form>
+      <input
+        type="text"
+        onChange={(event) => setNameLayout(event.target.value)}
+        placeholder={'layout name'}
+        size="40"
+        value={nameLayout}
+      />
+      <textarea
+        name="comment"
+        cols="60"
+        rows="7"
+        onChange={(event) => setValue(event.target.value)}
+        value={JSON.stringify(value)}
+      />
       <Button onClick={create}> saveLayout</Button>
     </>
   );
