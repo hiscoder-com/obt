@@ -1,4 +1,6 @@
 import React, { useContext, useState, useEffect, useMemo } from 'react';
+import { useSnackbar } from 'notistack';
+import { useTranslation } from 'react-i18next';
 import { AppContext } from '../../context';
 import {
   Button,
@@ -12,33 +14,45 @@ import {
 import { useStyles } from './style';
 
 export default function CopyLayout() {
-  const classes = useStyles();
-
   const {
     state: { appConfig, saveLayout, languageResources },
     actions: { setAppConfig, setSaveLayout, setLanguageResources },
   } = useContext(AppContext);
+  const classes = useStyles();
+  const { t } = useTranslation();
+  const { enqueueSnackbar } = useSnackbar();
 
   const [nameLayout, setNameLayout] = useState('');
   const [value, setValue] = useState(appConfig);
 
-  const create = () => {
-    setSaveLayout((prev) => [
-      ...prev,
-      { name: nameLayout, value: value, language: languageResources },
-    ]);
-    setNameLayout('');
+  const saveNewLayout = () => {
+    const checkingNameLayout = saveLayout.every((item, i) => {
+      if (item.name === nameLayout) {
+        return false;
+      } else {
+        return true;
+      }
+    });
+    if (checkingNameLayout && nameLayout !== '') {
+      setSaveLayout((prev) => [
+        ...prev,
+        { name: nameLayout, value: value, language: languageResources },
+      ]);
+      setNameLayout('');
+    } else if (nameLayout === '') {
+      enqueueSnackbar(t('warningNoNameLayout'), { variant: 'warning' });
+    } else {
+      enqueueSnackbar(t('WarningLayoutNameExists'), { variant: 'warning' });
+    }
   };
-  const buttonsFunc = (event) => {
+  const loadSavedLayout = (event) => {
     let val = saveLayout[event.target.value];
     setLanguageResources(val.language);
     setAppConfig(val.value);
   };
-  // useMemo(зависит от saveLayout)
-  const result = useMemo(
+  const listOfSavedLayouts = useMemo(
     () =>
       saveLayout.map((element, index) => {
-        console.log(index);
         return (
           <MenuItem value={index} key={index}>
             {element.name}
@@ -53,8 +67,8 @@ export default function CopyLayout() {
         <InputLabel shrink id="themeId">
           Layouts
         </InputLabel>
-        <Select onChange={buttonsFunc} disableUnderline={true}>
-          {result}
+        <Select onChange={loadSavedLayout} disableUnderline={true}>
+          {listOfSavedLayouts}
         </Select>
       </FormControl>
       <TextField
@@ -76,7 +90,7 @@ export default function CopyLayout() {
         size="small"
         variant="outlined"
       />
-      <Button onClick={create}> saveLayout</Button>
+      <Button onClick={saveNewLayout}> saveLayout</Button>
     </>
   );
 }

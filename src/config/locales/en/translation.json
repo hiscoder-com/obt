@@ -83,6 +83,8 @@
   "introObsList": "History selection dialog.",
   "introObsShortCuts": "You can switch the story or verse using hotkeys (shortcuts):<br><b>ctrl + right</b> - next chapter<br><b>ctrl +left</b> - previous chapter<br><b>ctrl + down</b> - next verse<br><b>ctrl + up</b> - previous verse<br><b>alt + O</b> - Show/Hide images from OBS<br> <br>In mobile devices, you can switch between stories:<br><b>swipe left</b> - previous story,<br><b>swipe right</b> - next story.",
   "closeLastResource": "You cannot close the last resource",
+  "warningNoNameLayout": "You need to write the name of the saved layout",
+  "WarningLayoutNameExists": "the name of the saved layout must not be repeated",
   "gen": "Genesis",
   "exo": "Exodus",
   "lev": "Leviticus",
