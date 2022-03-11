@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect, useMemo } from 'react';
 import { useSnackbar } from 'notistack';
 import { useTranslation } from 'react-i18next';
-import { AppContext } from '../../context';
+import { AppContext, ReferenceContext } from '../../context';
 import { isJson } from '../../helper';
 import {
   Button,
@@ -19,13 +19,15 @@ export default function CopyLayout() {
     state: { appConfig, saveLayout, languageResources },
     actions: { setAppConfig, setSaveLayout, setLanguageResources },
   } = useContext(AppContext);
+  const {
+    state: { referenceSelected },
+  } = useContext(ReferenceContext);
   const classes = useStyles();
   const { t } = useTranslation();
   const { enqueueSnackbar } = useSnackbar();
 
   const [nameLayout, setNameLayout] = useState('');
-  const [value, setValue] = useState(appConfig);
-
+  const [value, setValue] = useState(JSON.stringify(appConfig));
   const saveNewLayout = () => {
     const checkingNameLayout = saveLayout.every((item, i) => {
       if (item.name === nameLayout) {
@@ -35,22 +37,40 @@ export default function CopyLayout() {
       }
     });
 
+    const refSelected = referenceSelected.bookId;
+
     if (checkingNameLayout && nameLayout !== '' && isJson(value)) {
       setSaveLayout((prev) => [
         ...prev,
-        { name: nameLayout, value: value, language: languageResources },
+        {
+          name: nameLayout,
+          value: value,
+          language: languageResources,
+          sourse: refSelected,
+        },
       ]);
       setNameLayout('');
     } else if (nameLayout === '') {
       enqueueSnackbar(t('warningNoNameLayout'), { variant: 'warning' });
+    } else if (!isJson(value)) {
+      enqueueSnackbar(t('WarningNonCorrectLayout'), { variant: 'warning' });
     } else {
       enqueueSnackbar(t('WarningLayoutNameExists'), { variant: 'warning' });
     }
   };
   const loadSavedLayout = (event) => {
     let val = saveLayout[event.target.value];
-    setLanguageResources(val.language);
-    setAppConfig(val.value);
+    if (referenceSelected.bookId === 'obs' && val.sourse === 'obs') {
+      setLanguageResources(val.language);
+      setAppConfig(val.value);
+    } else if (referenceSelected.bookId !== 'obs' && val.sourse !== 'obs') {
+      setLanguageResources(val.language);
+      setAppConfig(val.value);
+    } else if (referenceSelected.bookId !== 'obs' && val.sourse === 'obs') {
+      enqueueSnackbar(t('WarningGoToObs'), { variant: 'warning' });
+    } else {
+      enqueueSnackbar(t('WarningGoToBible'), { variant: 'warning' });
+    }
   };
   const listOfSavedLayouts = useMemo(
     () =>
@@ -70,7 +90,7 @@ export default function CopyLayout() {
         <InputLabel shrink id="themeId">
           Layouts
         </InputLabel>
-        <Select onChange={loadSavedLayout} disableUnderline={true}>
+        <Select value="" onChange={loadSavedLayout} disableUnderline={true}>
           {listOfSavedLayouts}
         </Select>
       </FormControl>
@@ -88,10 +108,12 @@ export default function CopyLayout() {
         rows={3}
         name="comment"
         onChange={(event) => setValue(event.target.value)}
-        defaultValue={JSON.stringify(value)}
+        defaultValue={value}
         fullWidth={true}
         size="small"
         variant="outlined"
+        label="Layout"
+        id="outlined-basic"
       />
       <Button onClick={saveNewLayout}> saveLayout</Button>
     </>
