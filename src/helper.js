@@ -411,3 +411,11 @@ export const packageLangs = (langObj) => {
     return langObj.lang;
   }
 };
+export const isJson = (str) => {
+  try {
+    JSON.parse(str);
+  } catch (e) {
+    return false;
+  }
+  return true;
+};

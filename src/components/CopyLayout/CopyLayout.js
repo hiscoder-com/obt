@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect, useMemo } from 'react';
 import { useSnackbar } from 'notistack';
 import { useTranslation } from 'react-i18next';
 import { AppContext } from '../../context';
+import { isJson } from '../../helper';
 import {
   Button,
   FormControl,
@@ -33,7 +34,8 @@ export default function CopyLayout() {
         return true;
       }
     });
-    if (checkingNameLayout && nameLayout !== '') {
+
+    if (checkingNameLayout && nameLayout !== '' && isJson(value)) {
       setSaveLayout((prev) => [
         ...prev,
         { name: nameLayout, value: value, language: languageResources },
@@ -56,6 +58,7 @@ export default function CopyLayout() {
         return (
           <MenuItem value={index} key={index}>
             {element.name}
+            <Button>123</Button>
           </MenuItem>
         );
       }),
