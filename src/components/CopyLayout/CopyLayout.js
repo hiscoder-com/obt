@@ -1,17 +1,17 @@
-import React, { useContext, useState, useEffect, useMemo } from 'react';
-import { useSnackbar } from 'notistack';
-import { useTranslation } from 'react-i18next';
-import { AppContext, ReferenceContext } from '../../context';
-import { isJson } from '../../helper';
 import {
   Button,
   FormControl,
-  Input,
   InputLabel,
   MenuItem,
   Select,
   TextField,
 } from '@material-ui/core';
+import DeleteIcon from '@material-ui/icons/Delete';
+import { useSnackbar } from 'notistack';
+import React, { useContext, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { AppContext, ReferenceContext } from '../../context';
+import { isJson } from '../../helper';
 import { useStyles } from './style';
 
 export default function CopyLayout() {
@@ -76,9 +76,11 @@ export default function CopyLayout() {
     () =>
       saveLayout.map((element, index) => {
         return (
-          <MenuItem value={index} key={index}>
+          <MenuItem className={classes.Select} value={index} key={index}>
             {element.name}
-            <Button>123</Button>
+            <Button>
+              <DeleteIcon fontSize="small" />
+            </Button>
           </MenuItem>
         );
       }),
@@ -100,8 +102,7 @@ export default function CopyLayout() {
         id="outlined-basic"
         label="Layout Name"
         variant="outlined"
-        value={nameLayout}
-        // defaultValue={nameLayout}
+        value={nameLayout.slice(0, 2)}
       />
       <TextField
         multiline={true}

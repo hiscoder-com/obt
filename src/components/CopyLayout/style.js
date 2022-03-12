@@ -9,4 +9,8 @@ export const useStyles = makeStyles((theme) => ({
   layoutName: {
     marginBottom: '10px',
   },
+  Select: {
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
 }));
