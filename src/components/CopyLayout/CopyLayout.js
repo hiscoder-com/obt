@@ -44,7 +44,7 @@ export default function CopyLayout() {
         ...prev,
         {
           name: nameLayout,
-          value: value,
+          value: JSON.parse(value),
           language: languageResources,
           sourse: refSelected,
         },
@@ -59,14 +59,15 @@ export default function CopyLayout() {
     }
   };
   const loadSavedLayout = (event) => {
-    let val = saveLayout[event.target.value];
-    if (referenceSelected.bookId === 'obs' && val.sourse === 'obs') {
-      setLanguageResources(val.language);
-      setAppConfig(val.value);
-    } else if (referenceSelected.bookId !== 'obs' && val.sourse !== 'obs') {
-      setLanguageResources(val.language);
-      setAppConfig(val.value);
-    } else if (referenceSelected.bookId !== 'obs' && val.sourse === 'obs') {
+    let currentLayout = saveLayout[event.target.value];
+
+    if (referenceSelected.bookId === 'obs' && currentLayout.sourse === 'obs') {
+      setLanguageResources(currentLayout.language);
+      setAppConfig(currentLayout.value);
+    } else if (referenceSelected.bookId !== 'obs' && currentLayout.sourse !== 'obs') {
+      setLanguageResources(currentLayout.language);
+      setAppConfig(currentLayout.value);
+    } else if (referenceSelected.bookId !== 'obs' && currentLayout.sourse === 'obs') {
       enqueueSnackbar(t('WarningGoToObs'), { variant: 'warning' });
     } else {
       enqueueSnackbar(t('WarningGoToBible'), { variant: 'warning' });
@@ -78,13 +79,17 @@ export default function CopyLayout() {
         return (
           <MenuItem className={classes.Select} value={index} key={index}>
             {element.name}
-            <Button>
-              <DeleteIcon fontSize="small" />
-            </Button>
+
+            <DeleteIcon
+              fontSize="small"
+              onClick={(e) => {
+                e.stopPropagation();
+              }}
+            />
           </MenuItem>
         );
       }),
-    [saveLayout]
+    [classes.Select, saveLayout]
   );
   return (
     <>
@@ -102,7 +107,7 @@ export default function CopyLayout() {
         id="outlined-basic"
         label="Layout Name"
         variant="outlined"
-        value={nameLayout.slice(0, 2)}
+        value={nameLayout.slice(0, 100)}
       />
       <TextField
         multiline={true}
