@@ -1,4 +1,4 @@
-import React, { useContext, useMemo, useState } from 'react';
+import React, { useCallback, useContext, useMemo, useState } from 'react';
 import {
   Button,
   FormControl,
@@ -75,9 +75,15 @@ export default function CopyLayout() {
     }
   };
 
-  const deleteLayout = () => {
-    
-  };
+  const deleteLayout = useCallback(
+    (index) => {
+      console.log(index);
+      let currentLayout = saveLayout;
+      currentLayout.splice(index, 1);
+      setSaveLayout(currentLayout);
+    },
+    [saveLayout, setSaveLayout]
+  );
 
   const listOfSavedLayouts = useMemo(
     () =>
@@ -89,6 +95,7 @@ export default function CopyLayout() {
               className={classes.deleteIcon}
               onClick={(e) => {
                 e.stopPropagation();
+                deleteLayout(index);
               }}
             >
               <DeleteIcon fontSize="small" />
@@ -96,13 +103,13 @@ export default function CopyLayout() {
           </MenuItem>
         );
       }),
-    [classes.deleteIcon, classes.select, saveLayout]
+    [classes.deleteIcon, classes.select, deleteLayout, saveLayout]
   );
   return (
     <>
       <FormControl className={classes.formControl}>
         <InputLabel shrink id="themeId">
-          Layouts
+          {t('Layout_List')}
         </InputLabel>
         <Select value="" onChange={loadSavedLayout} disableUnderline={true}>
           {listOfSavedLayouts}
@@ -112,7 +119,7 @@ export default function CopyLayout() {
         className={classes.layoutName}
         onChange={(event) => setNameLayout(event.target.value)}
         id="outlined-basic"
-        label="Layout Name"
+        label={t('Layout_Name')}
         variant="outlined"
         value={nameLayout.slice(0, 100)}
       />
@@ -125,10 +132,10 @@ export default function CopyLayout() {
         fullWidth={true}
         size="small"
         variant="outlined"
-        label="Layout"
+        label={t('Layout')}
         id="outlined-basic"
       />
-      <Button onClick={saveNewLayout}> saveLayout</Button>
+      <Button onClick={saveNewLayout}>{t('SaveLayout')}</Button>
     </>
   );
 }

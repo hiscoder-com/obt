@@ -64,8 +64,7 @@ function Settings({ setAnchorMainMenu }) {
           label={t('showObsLabel')}
         />
         <Divider className={classes.divider} light />
-        <InputLabel shrink>Скопировать Лаяут</InputLabel>
-        <CopyLayout />
+        <CopyLayout label={t('Select_Layout')} />
         <Divider className={classes.divider} light />
         <InputLabel shrink>{t('FontLabel')}</InputLabel>
         <FontSizeSlider

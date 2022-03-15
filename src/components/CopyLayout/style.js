@@ -17,6 +17,7 @@ export const useStyles = makeStyles((theme) => ({
   },
 
   deleteIcon: {
+    marginLeft: '10px',
     '&:hover': {
       color: 'red',
     },
