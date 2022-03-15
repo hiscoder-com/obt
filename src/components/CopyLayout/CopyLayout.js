@@ -78,11 +78,13 @@ export default function CopyLayout() {
   const deleteLayout = useCallback(
     (index) => {
       console.log(index);
-      let currentLayout = saveLayout;
-      currentLayout.splice(index, 1);
-      setSaveLayout(currentLayout);
+      setSaveLayout((prev) => {
+        let currentLayout = [...prev];
+        currentLayout.splice(index, 1);
+        return currentLayout;
+      });
     },
-    [saveLayout, setSaveLayout]
+    [setSaveLayout]
   );
 
   const listOfSavedLayouts = useMemo(
@@ -108,12 +110,16 @@ export default function CopyLayout() {
   return (
     <>
       <FormControl className={classes.formControl}>
-        <InputLabel shrink id="themeId">
-          {t('Layout_List')}
-        </InputLabel>
-        <Select value="" onChange={loadSavedLayout} disableUnderline={true}>
-          {listOfSavedLayouts}
-        </Select>
+        {listOfSavedLayouts.length > 0 && (
+          <>
+            <InputLabel shrink id="themeId">
+              {t('Layout_List')}
+            </InputLabel>
+            <Select value="0" onChange={loadSavedLayout} disableUnderline={true}>
+              {listOfSavedLayouts}
+            </Select>
+          </>
+        )}
       </FormControl>
       <TextField
         className={classes.layoutName}
