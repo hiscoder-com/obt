@@ -1,17 +1,18 @@
+import React, { useContext, useMemo, useState } from 'react';
 import {
   Button,
   FormControl,
+  IconButton,
   InputLabel,
   MenuItem,
   Select,
   TextField,
 } from '@material-ui/core';
-import DeleteIcon from '@material-ui/icons/Delete';
-import { useSnackbar } from 'notistack';
-import React, { useContext, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useSnackbar } from 'notistack';
 import { AppContext, ReferenceContext } from '../../context';
 import { isJson } from '../../helper';
+import DeleteIcon from '@material-ui/icons/Delete';
 import { useStyles } from './style';
 
 export default function CopyLayout() {
@@ -28,6 +29,7 @@ export default function CopyLayout() {
 
   const [nameLayout, setNameLayout] = useState('');
   const [value, setValue] = useState(JSON.stringify(appConfig));
+
   const saveNewLayout = () => {
     const checkingNameLayout = saveLayout.every((item, i) => {
       if (item.name === nameLayout) {
@@ -36,7 +38,6 @@ export default function CopyLayout() {
         return true;
       }
     });
-
     const refSelected = referenceSelected.bookId;
 
     if (checkingNameLayout && nameLayout !== '' && isJson(value)) {
@@ -73,23 +74,29 @@ export default function CopyLayout() {
       enqueueSnackbar(t('WarningGoToBible'), { variant: 'warning' });
     }
   };
+
+  const deleteLayout = () => {
+    
+  };
+
   const listOfSavedLayouts = useMemo(
     () =>
       saveLayout.map((element, index) => {
         return (
-          <MenuItem className={classes.Select} value={index} key={index}>
+          <MenuItem className={classes.select} value={index} key={index}>
             {element.name}
-
-            <DeleteIcon
-              fontSize="small"
+            <IconButton
+              className={classes.deleteIcon}
               onClick={(e) => {
                 e.stopPropagation();
               }}
-            />
+            >
+              <DeleteIcon fontSize="small" />
+            </IconButton>
           </MenuItem>
         );
       }),
-    [classes.Select, saveLayout]
+    [classes.deleteIcon, classes.select, saveLayout]
   );
   return (
     <>

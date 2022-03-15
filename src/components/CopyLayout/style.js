@@ -1,3 +1,4 @@
+import { red } from '@material-ui/core/colors';
 import { makeStyles } from '@material-ui/core/styles';
 
 export const useStyles = makeStyles((theme) => ({
@@ -9,8 +10,15 @@ export const useStyles = makeStyles((theme) => ({
   layoutName: {
     marginBottom: '10px',
   },
-  Select: {
+
+  select: {
     display: 'flex',
     justifyContent: 'space-between',
+  },
+
+  deleteIcon: {
+    '&:hover': {
+      color: 'red',
+    },
   },
 }));
