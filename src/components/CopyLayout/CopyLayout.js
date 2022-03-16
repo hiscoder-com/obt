@@ -50,7 +50,7 @@ export default function CopyLayout() {
           name: nameLayout,
           value: JSON.parse(value),
           language: languageResources,
-          sourse: refSelected,
+          source: refSelected,
         },
       ]);
       setNameLayout('');
@@ -65,13 +65,13 @@ export default function CopyLayout() {
   const loadSavedLayout = (event) => {
     let currentLayout = saveLayout[event.target.value];
 
-    if (referenceSelected.bookId === 'obs' && currentLayout.sourse === 'obs') {
+    if (referenceSelected.bookId === 'obs' && currentLayout.source === 'obs') {
       setLanguageResources(currentLayout.language);
       setAppConfig(currentLayout.value);
-    } else if (referenceSelected.bookId !== 'obs' && currentLayout.sourse !== 'obs') {
+    } else if (referenceSelected.bookId !== 'obs' && currentLayout.source !== 'obs') {
       setLanguageResources(currentLayout.language);
       setAppConfig(currentLayout.value);
-    } else if (referenceSelected.bookId !== 'obs' && currentLayout.sourse === 'obs') {
+    } else if (referenceSelected.bookId !== 'obs' && currentLayout.source === 'obs') {
       enqueueSnackbar(t('WarningGoToObs'), { variant: 'warning' });
     } else {
       enqueueSnackbar(t('WarningGoToBible'), { variant: 'warning' });

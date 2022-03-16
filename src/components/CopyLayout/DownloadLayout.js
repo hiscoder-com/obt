@@ -21,7 +21,7 @@ function DownloadLayout({ setAnchorMainMenu }) {
   const importLayout = () => {
     if (value.length > 0 && isJson(value)) {
       const currValue = JSON.parse(value);
-      if (currValue.name && currValue.value && currValue.language && currValue.sourse) {
+      if (currValue.name && currValue.value && currValue.language && currValue.source) {
         setSaveLayout((prev) => [...prev, currValue]);
         enqueueSnackbar(t('copied_success'), { variant: 'success' });
         setShowDownloadLayout(false);
