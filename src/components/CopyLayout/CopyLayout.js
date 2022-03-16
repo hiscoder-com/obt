@@ -89,7 +89,20 @@ export default function CopyLayout() {
     },
     [setSaveLayout]
   );
-
+  const copyToClipboard = useCallback(
+    (text) => {
+      console.log(text);
+      return navigator.clipboard.writeText(text).then(
+        () => {
+          enqueueSnackbar(t('copied_success'), { variant: 'success' });
+        },
+        (err) => {
+          enqueueSnackbar(t('copied_error'), { variant: 'error' });
+        }
+      );
+    },
+    [enqueueSnackbar, t]
+  );
   const listOfSavedLayouts = useMemo(
     () =>
       saveLayout.map((element, index) => {
@@ -105,7 +118,8 @@ export default function CopyLayout() {
               <IconButton
                 className={classes.fileCopyIcon}
                 onClick={(e) => {
-                  copyToClipboard(JSON.stringify(appConfig));
+                  e.stopPropagation();
+                  copyToClipboard(JSON.stringify(element));
                 }}
               >
                 <FileCopyIcon />
@@ -140,20 +154,16 @@ export default function CopyLayout() {
           </MenuItem>
         );
       }),
-    [classes.deleteIcon, classes.select, deleteLayout, saveLayout]
+    [
+      classes.deleteIcon,
+      classes.fileCopyIcon,
+      classes.select,
+      copyToClipboard,
+      deleteLayout,
+      saveLayout,
+    ]
   );
-
-  const copyToClipboard = (text) => {
-    return navigator.clipboard.writeText(text).then(
-      () => {
-        enqueueSnackbar(t('copied_success'), { variant: 'success' });
-      },
-      (err) => {
-        enqueueSnackbar(t('copied_error'), { variant: 'error' });
-      }
-    );
-  };
-
+  const downloadLayout = () => {};
   return (
     <>
       <FormControl variant="outlined" className={classes.formControl}>
@@ -163,7 +173,7 @@ export default function CopyLayout() {
               {t('Layout_List')}
             </InputLabel>
             <Select
-              value="0"
+              value={'0'}
               label={t('Layout_List')}
               onChange={loadSavedLayout}
               disableUnderline={true}
@@ -183,6 +193,9 @@ export default function CopyLayout() {
       />
       <Button variant="contained" className={classes.button} onClick={saveNewLayout}>
         {t('SaveLayout')}
+      </Button>
+      <Button variant="contained" className={classes.button} onClick={downloadLayout}>
+        Download Layout
       </Button>
       <TextField
         className={classes.layout}
