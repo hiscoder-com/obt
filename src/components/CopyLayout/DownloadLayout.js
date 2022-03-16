@@ -4,19 +4,33 @@ import { DialogUI } from '..';
 import { AppContext } from '../../context';
 import { Button, MenuItem, TextField } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
+import { useSnackbar } from 'notistack';
 import { useStyles } from './style';
+import { isJson } from '../../helper';
 
 function DownloadLayout({ setAnchorMainMenu }) {
   const classes = useStyles();
   const { t } = useTranslation();
   const {
-    state: { showDownloadLayout, saveLayout, appConfig },
+    state: { showDownloadLayout },
     actions: { setShowDownloadLayout, setSaveLayout },
   } = useContext(AppContext);
-  const [value, setValue] = useState(JSON.stringify(appConfig));
+  const [value, setValue] = useState();
+  const { enqueueSnackbar } = useSnackbar();
 
   const importLayout = () => {
-    setSaveLayout((prev) => [...prev, value]);
+    if (value.length > 0 && isJson(value)) {
+      const currValue = JSON.parse(value);
+      if (currValue.name && currValue.value && currValue.language && currValue.sourse) {
+        setSaveLayout((prev) => [...prev, currValue]);
+        enqueueSnackbar(t('copied_success'), { variant: 'success' });
+        setShowDownloadLayout(false);
+      } else {
+        alert('no resourses!');
+      }
+    } else {
+      alert('uncorrect format');
+    }
   };
 
   return (
@@ -45,7 +59,6 @@ function DownloadLayout({ setAnchorMainMenu }) {
           rows={3}
           name="comment"
           onChange={(event) => setValue(event.target.value)}
-          defaultValue={JSON.stringify(saveLayout)}
           fullWidth={true}
           size="small"
           variant="outlined"
