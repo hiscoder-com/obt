@@ -33,7 +33,6 @@ function SelectResourcesLanguages() {
   }
 
   let value = [];
-  console.log({ languageResources });
   languageResources.forEach((el) => {
     value.push({
       title: packageLangs(langNames[el]),

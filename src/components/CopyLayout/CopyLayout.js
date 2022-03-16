@@ -2,7 +2,6 @@ import React, { useCallback, useContext, useMemo, useState } from 'react';
 import {
   Box,
   Button,
-  ButtonGroup,
   FormControl,
   IconButton,
   InputLabel,
@@ -13,6 +12,7 @@ import {
 import { useTranslation } from 'react-i18next';
 import { useSnackbar } from 'notistack';
 import { AppContext, ReferenceContext } from '../../context';
+import DownloadLayout from './DownloadLayout';
 import { isJson } from '../../helper';
 import DeleteIcon from '@material-ui/icons/Delete';
 import FileCopyIcon from '@material-ui/icons/FileCopy';
@@ -107,16 +107,12 @@ export default function CopyLayout() {
     () =>
       saveLayout.map((element, index) => {
         return (
-          <MenuItem className={classes.select} value={index} key={index}>
-            {element.name}
-            <ButtonGroup
-              size="small"
-              variant="text"
-              color="black"
-              aria-label="text primary button group"
-            >
+          <MenuItem className={classes.menuItem} value={index} key={index}>
+            <>{element.name}</>
+            <>
               <IconButton
                 className={classes.fileCopyIcon}
+                size="small"
                 onClick={(e) => {
                   e.stopPropagation();
                   copyToClipboard(JSON.stringify(element));
@@ -126,42 +122,19 @@ export default function CopyLayout() {
               </IconButton>
               <IconButton
                 className={classes.deleteIcon}
+                size="small"
                 onClick={(e) => {
                   e.stopPropagation();
                   deleteLayout(index);
                 }}
               >
                 <DeleteIcon fontSize="small" />
-              </IconButton>{' '}
-            </ButtonGroup>
-            {/* <IconButton
-              className={classes.fileCopyIcon}
-              onClick={(e) => {
-                copyToClipboard(JSON.stringify(appConfig));
-              }}
-            >
-              <FileCopyIcon />
-            </IconButton>
-            <IconButton
-              className={classes.deleteIcon}
-              onClick={(e) => {
-                e.stopPropagation();
-                deleteLayout(index);
-              }}
-            >
-              <DeleteIcon fontSize="small" />
-            </IconButton> */}
+              </IconButton>
+            </>
           </MenuItem>
         );
       }),
-    [
-      classes.deleteIcon,
-      classes.fileCopyIcon,
-      classes.select,
-      copyToClipboard,
-      deleteLayout,
-      saveLayout,
-    ]
+    [classes, copyToClipboard, deleteLayout, saveLayout]
   );
   const downloadLayout = () => {};
   return (
@@ -173,10 +146,10 @@ export default function CopyLayout() {
               {t('Layout_List')}
             </InputLabel>
             <Select
+              // className={classes.test}
               value={'0'}
               label={t('Layout_List')}
               onChange={loadSavedLayout}
-              disableUnderline={true}
             >
               {listOfSavedLayouts}
             </Select>
@@ -195,21 +168,8 @@ export default function CopyLayout() {
         {t('SaveLayout')}
       </Button>
       <Button variant="contained" className={classes.button} onClick={downloadLayout}>
-        Download Layout
+        <DownloadLayout />
       </Button>
-      <TextField
-        className={classes.layout}
-        multiline={true}
-        rows={3}
-        name="comment"
-        onChange={(event) => setValue(event.target.value)}
-        defaultValue={JSON.stringify(saveLayout)}
-        fullWidth={true}
-        size="small"
-        variant="outlined"
-        label={t('Layout')}
-        id="outlined-basic"
-      />
     </>
   );
 }

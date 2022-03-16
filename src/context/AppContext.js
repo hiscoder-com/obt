@@ -67,6 +67,7 @@ export function AppContextProvider({ children }) {
   const [showChapterSelect, setShowChapterSelect] = useState(false);
   const [showErrorReport, setShowErrorReport] = useState(false);
   const [showSettingsMenu, setShowSettingsMenu] = useState(false);
+  const [showDownloadLayout, setShowDownloadLayout] = useState(false);
   const [errorFile, setErrorFile] = useState('');
   const [fontSize, setFontSize] = useState(_fontSize ? _fontSize : 100);
   const [loadIntro, setLoadIntro] = useState(false);
@@ -164,6 +165,7 @@ export function AppContextProvider({ children }) {
       theme,
       showSettingsMenu,
       saveLayout,
+      showDownloadLayout,
     },
     actions: {
       setAppConfig,
@@ -187,6 +189,7 @@ export function AppContextProvider({ children }) {
       setTheme,
       setShowSettingsMenu,
       setSaveLayout,
+      setShowDownloadLayout,
     },
   };
 

@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 export const useStyles = makeStyles((theme) => ({
   formControl: {
     display: 'block',
-    marginRight: theme.spacing(2),
+    minWidth: '200px',
   },
 
   layoutName: {
@@ -15,10 +15,9 @@ export const useStyles = makeStyles((theme) => ({
     paddingBottom: '5px',
   },
 
-  select: {
-    display: 'flex',
-    minWidth: 190,
-    justifyContent: 'space-between',
+  menuItem: {
+    minWidth: '190px',
+    // justifyContent: 'flex-end',
   },
 
   button: {
@@ -27,14 +26,21 @@ export const useStyles = makeStyles((theme) => ({
   },
 
   fileCopyIcon: {
+    // justifySelf: 'right',
+    marginLeft: '10px',
     '&:hover': {
       color: 'blue',
     },
   },
 
   deleteIcon: {
+    marginLeft: 'auto',
     '&:hover': {
       color: 'brown',
     },
   },
+
+  // test: {
+  //   height: '55px',
+  // },
 }));
