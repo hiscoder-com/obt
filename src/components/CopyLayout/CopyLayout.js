@@ -3,6 +3,7 @@ import {
   Box,
   Button,
   FormControl,
+  Grid,
   IconButton,
   InputLabel,
   MenuItem,
@@ -59,7 +60,6 @@ export default function CopyLayout() {
     setCurrentSelected(event.target.value);
 
     const isCurrentOBS = bookId === 'obs';
-    console.log(isCurrentOBS);
 
     if (isCurrentOBS && source === 'obs') {
       setLanguageResources(language);
@@ -68,7 +68,7 @@ export default function CopyLayout() {
       setLanguageResources(language);
       setAppConfig(value);
     } else {
-      enqueueSnackbar(bookId !== 'obs' ? t('WarningGoToObs') : t('WarningGoToBible'), {
+      enqueueSnackbar(!isCurrentOBS ? t('WarningGoToObs') : t('WarningGoToBible'), {
         variant: 'warning',
       });
     }
@@ -101,11 +101,11 @@ export default function CopyLayout() {
     () =>
       saveLayout.map((element, index) => {
         return (
-          <MenuItem className={classes.menuItem} value={index} key={index}>
-            <div className={classes.elementName}>{element.name}</div>
+          <MenuItem className={classes.menuItemLayoutList} value={index} key={index}>
+            <div className={classes.elementNameLayoutList}>{element.name}</div>
             <div>
               <IconButton
-                className={classes.fileCopyIcon}
+                className={classes.copyIcon}
                 size="small"
                 onClick={(e) => {
                   e.stopPropagation();
@@ -132,40 +132,42 @@ export default function CopyLayout() {
   );
 
   return (
-    <>
-      <FormControl variant="outlined" className={classes.formControl}>
-        {listOfSavedLayouts.length > 0 && (
-          <Box pb={2}>
-            <InputLabel shrink id="themeId">
-              {t('Layout_List')}
-            </InputLabel>
-            <Select
-              style={{ width: '210px' }}
-              value={currentSelected}
-              renderValue={(selected) => saveLayout[selected].name}
-              label={t('Layout_List')}
-              onChange={loadSavedLayout}
-            >
-              {listOfSavedLayouts}
-            </Select>
-          </Box>
-        )}
-      </FormControl>
-      <TextField
-        className={classes.layoutName}
-        onChange={(event) => setNameLayout(event.target.value)}
-        label={t('Layout_Name')}
-        variant="outlined"
-        value={nameLayout.slice(0, 100)}
-      />
-      <Button
-        size="small"
-        variant="contained"
-        className={classes.button}
-        onClick={saveNewLayout}
-      >
-        {t('SaveLayout')}
-      </Button>
-    </>
+    <Grid container alignItems="flex-end" spacing={2}>
+      <Grid container justifyContent="flex-end" xs={5}>
+        <Grid item>
+          <FormControl variant="outlined">
+            {listOfSavedLayouts.length > 0 && (
+              <Box pb={2}>
+                <InputLabel shrink id="themeId">
+                  {t('Layout_List')}
+                </InputLabel>
+                <Select
+                  style={{ width: '210px' }}
+                  value={currentSelected}
+                  renderValue={(selected) => saveLayout[selected].name}
+                  label={t('Layout_List')}
+                  onChange={loadSavedLayout}
+                >
+                  {listOfSavedLayouts}
+                </Select>
+              </Box>
+            )}
+          </FormControl>
+        </Grid>
+        <Grid item>
+          <TextField
+            onChange={(event) => setNameLayout(event.target.value)}
+            label={t('Layout_Name')}
+            variant="outlined"
+            value={nameLayout.slice(0, 100)}
+          />
+        </Grid>
+      </Grid>
+      <Grid item xs={7}>
+        <Button size="small" variant="contained" onClick={saveNewLayout}>
+          {t('SaveLayout')}
+        </Button>
+      </Grid>
+    </Grid>
   );
 }

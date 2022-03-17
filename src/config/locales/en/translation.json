@@ -1,4 +1,5 @@
 {
+  "Add_layout": "Add Layout",
   "Add_resources": "Add Resources",
   "Added_resources": "Added resources",
   "Add_resource_languages": "Add resource languages",
@@ -17,7 +18,6 @@
   "Copy_reference_to_clipboard": "Copy reference",
   "Default_verse": "The book of the genealogy of Jesus Christ, son of David, son of Abraham.",
   "Done": "Done",
-  "Download_Layout": "Download Layout",
   "Error_report": "Report an error",
   "Interface_lang": "Interface language",
   "Introduction": "Introduction",

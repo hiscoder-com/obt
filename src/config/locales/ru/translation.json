@@ -1,4 +1,5 @@
 {
+  "Add_layout": "Добавить макет",
   "Add_resources": "Выбрать ресурс",
   "Added_resources": "Добавлены ресурсы",
   "Add_resource_languages": "Добавить языки ресурсов",
@@ -17,7 +18,6 @@
   "Copy_reference_to_clipboard": "Скопировать адрес стиха",
   "Default_verse": "Родословие Иисуса Христа, Сына Давидова, Сына Авраамова.",
   "Done": "Готово",
-  "Download_Layout": "Загрузить макет",
   "Error_report": "Сообщить об ошибке",
   "Interface_lang": "Язык интерфейса",
   "Introduction": "Введение",

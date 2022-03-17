@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect } from 'react';
 import { DialogUI } from '..';
 
 import { AppContext } from '../../context';
-import { Box, Button, TextField } from '@material-ui/core';
+import { Box, Button, Grid, TextField } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { useSnackbar } from 'notistack';
 import { useStyles } from './style';
@@ -28,6 +28,7 @@ function DownloadLayout() {
   const importLayout = () => {
     if (value && isJson(value)) {
       const currValue = JSON.parse(value);
+
       if (currValue.name && currValue.value && currValue.language && currValue.source) {
         setSaveLayout((prev) => [...prev, currValue]);
         setShowDownloadLayout(false);
@@ -41,7 +42,7 @@ function DownloadLayout() {
 
   return (
     <>
-      <Box style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+      <Box className={classes.addButton}>
         <Button
           size="small"
           variant="contained"
@@ -49,7 +50,7 @@ function DownloadLayout() {
             setShowDownloadLayout(true);
           }}
         >
-          {t('Download_Layout')}
+          {t('Add_layout')}
         </Button>
       </Box>
       <DialogUI
@@ -60,32 +61,39 @@ function DownloadLayout() {
         classes={{
           root: { paper: 'intro-settings' },
         }}
-        title={t('Download_Layout')}
-        maxWidth="sm"
+        title={t('Add_layout')}
+        maxWidth="xs"
       >
-        <TextField
-          className={classes.layoutName}
-          // onChange={(event) => setNameLayout(event.target.value)}
-          id="outlined-basic"
-          label={t('Layout_Name')}
-          variant="outlined"
-          value={newNameLayout}
-        />
-        <TextField
-          className={classes.layout}
-          multiline={true}
-          rows={3}
-          name="comment"
-          onChange={(event) => setValue(event.target.value)}
-          fullWidth={true}
-          size="small"
-          variant="outlined"
-          label={t('Layout')}
-          id="outlined-basic"
-        />
-        <Button variant="contained" onClick={importLayout}>
-          {t('SaveLayout')}
-        </Button>
+        <Grid container justifyContent="center" spacing={1}>
+          <Grid item>
+            <TextField
+              className={classes.layoutName}
+              label={t('Layout_Name')}
+              variant="outlined"
+              size="small"
+              value={newNameLayout}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              className={classes.layout}
+              multiline={true}
+              rows={3}
+              name="comment"
+              onChange={(event) => setValue(event.target.value)}
+              fullWidth={true}
+              size="small"
+              variant="outlined"
+              label={t('Layout')}
+              id="outlined-basic"
+            />
+          </Grid>
+          <Grid item>
+            <Button variant="contained" onClick={importLayout}>
+              {t('SaveLayout')}
+            </Button>
+          </Grid>
+        </Grid>
       </DialogUI>
     </>
   );
