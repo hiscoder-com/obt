@@ -94,6 +94,8 @@
   "WarningNonCorrectLayout": "Incorrectly filled Layout input field",
   "WarningGoToObs": "In AppBar change BIBLE to OBS",
   "WarningGoToBible": "In AppBar change OBS to BIBLE",
+  "Warning_Not_all_resources":"Not all resources loaded",
+  "Warning_invalid_format": "invalid format (check if you copied correctly)",
   "gen": "Genesis",
   "exo": "Exodus",
   "lev": "Leviticus",

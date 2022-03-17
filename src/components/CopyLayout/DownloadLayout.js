@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { DialogUI } from '..';
 
 import { AppContext } from '../../context';
@@ -8,7 +8,7 @@ import { useSnackbar } from 'notistack';
 import { useStyles } from './style';
 import { isJson } from '../../helper';
 
-function DownloadLayout({ setAnchorMainMenu }) {
+function DownloadLayout() {
   const classes = useStyles();
   const { t } = useTranslation();
   const {
@@ -16,20 +16,26 @@ function DownloadLayout({ setAnchorMainMenu }) {
     actions: { setShowDownloadLayout, setSaveLayout },
   } = useContext(AppContext);
   const [value, setValue] = useState();
+  const { newNameLayout, setNewNameLayout } = useState('');
   const { enqueueSnackbar } = useSnackbar();
 
+  useEffect(() => {
+    if (value && isJson(value).name) {
+      setNewNameLayout(JSON.parse(value).name);
+    }
+  }, [value, setNewNameLayout]);
+
   const importLayout = () => {
-    if (value.length > 0 && isJson(value)) {
+    if (value && isJson(value)) {
       const currValue = JSON.parse(value);
       if (currValue.name && currValue.value && currValue.language && currValue.source) {
         setSaveLayout((prev) => [...prev, currValue]);
-        enqueueSnackbar(t('copied_success'), { variant: 'success' });
         setShowDownloadLayout(false);
       } else {
-        alert('no resourses!');
+        enqueueSnackbar(t('Warning_Not_all_resources'), { variant: 'warning' });
       }
     } else {
-      alert('uncorrect format');
+      enqueueSnackbar(t('Warning_invalid_format'), { variant: 'warning' });
     }
   };
 
@@ -53,6 +59,14 @@ function DownloadLayout({ setAnchorMainMenu }) {
         title={t('Download_Layout')}
         maxWidth="sm"
       >
+        <TextField
+          className={classes.layoutName}
+          // onChange={(event) => setNameLayout(event.target.value)}
+          id="outlined-basic"
+          label={t('Layout_Name')}
+          variant="outlined"
+          value={newNameLayout}
+        />
         <TextField
           className={classes.layout}
           multiline={true}
