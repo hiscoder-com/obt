@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect } from 'react';
 import { DialogUI } from '..';
 
 import { AppContext } from '../../context';
-import { Button, MenuItem, TextField } from '@material-ui/core';
+import { Box, Button, TextField } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { useSnackbar } from 'notistack';
 import { useStyles } from './style';
@@ -41,13 +41,17 @@ function DownloadLayout() {
 
   return (
     <>
-      <MenuItem
-        onClick={() => {
-          setShowDownloadLayout(true);
-        }}
-      >
-        {t('Download_Layout')}
-      </MenuItem>
+      <Box style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+        <Button
+          size="small"
+          variant="contained"
+          onClick={() => {
+            setShowDownloadLayout(true);
+          }}
+        >
+          {t('Download_Layout')}
+        </Button>
+      </Box>
       <DialogUI
         open={showDownloadLayout}
         onClose={() => {
@@ -79,7 +83,7 @@ function DownloadLayout() {
           label={t('Layout')}
           id="outlined-basic"
         />
-        <Button variant="contained" className={classes.button} onClick={importLayout}>
+        <Button variant="contained" onClick={importLayout}>
           {t('SaveLayout')}
         </Button>
       </DialogUI>

@@ -12,8 +12,6 @@ import {
 import { useTranslation } from 'react-i18next';
 import { useSnackbar } from 'notistack';
 import { AppContext, ReferenceContext } from '../../context';
-import DownloadLayout from './DownloadLayout';
-import { isJson } from '../../helper';
 import DeleteIcon from '@material-ui/icons/Delete';
 import FileCopyIcon from '@material-ui/icons/FileCopy';
 import { useStyles } from './style';
@@ -24,63 +22,60 @@ export default function CopyLayout() {
     actions: { setAppConfig, setSaveLayout, setLanguageResources },
   } = useContext(AppContext);
   const {
-    state: { referenceSelected },
+    state: {
+      referenceSelected: { bookId },
+    },
   } = useContext(ReferenceContext);
   const classes = useStyles();
   const { t } = useTranslation();
   const { enqueueSnackbar } = useSnackbar();
 
   const [nameLayout, setNameLayout] = useState('');
-  const [value, setValue] = useState(JSON.stringify(appConfig));
+  const [currentSelected, setCurrentSelected] = useState(0);
 
   const saveNewLayout = () => {
-    const checkingNameLayout = saveLayout.every((item, i) => {
-      if (item.name === nameLayout) {
-        return false;
-      } else {
-        return true;
-      }
-    });
-    const refSelected = referenceSelected.bookId;
+    const checkingNameLayout = saveLayout.every((item) => item.name !== nameLayout);
 
-    if (checkingNameLayout && nameLayout !== '' && isJson(value)) {
+    if (checkingNameLayout && nameLayout !== '') {
       setSaveLayout((prev) => [
         ...prev,
         {
           name: nameLayout,
-          value: JSON.parse(value),
+          value: appConfig,
           language: languageResources,
-          source: refSelected,
+          source: bookId,
         },
       ]);
       setNameLayout('');
-    } else if (nameLayout === '') {
-      enqueueSnackbar(t('warningNoNameLayout'), { variant: 'warning' });
-    } else if (!isJson(value)) {
-      enqueueSnackbar(t('WarningNonCorrectLayout'), { variant: 'warning' });
     } else {
-      enqueueSnackbar(t('WarningLayoutNameExists'), { variant: 'warning' });
+      enqueueSnackbar(
+        nameLayout === '' ? t('warningNoNameLayout') : t('WarningLayoutNameExists'),
+        { variant: 'warning' }
+      );
     }
   };
   const loadSavedLayout = (event) => {
-    let currentLayout = saveLayout[event.target.value];
+    const { source, value, language } = saveLayout[event.target.value];
+    setCurrentSelected(event.target.value);
 
-    if (referenceSelected.bookId === 'obs' && currentLayout.source === 'obs') {
-      setLanguageResources(currentLayout.language);
-      setAppConfig(currentLayout.value);
-    } else if (referenceSelected.bookId !== 'obs' && currentLayout.source !== 'obs') {
-      setLanguageResources(currentLayout.language);
-      setAppConfig(currentLayout.value);
-    } else if (referenceSelected.bookId !== 'obs' && currentLayout.source === 'obs') {
-      enqueueSnackbar(t('WarningGoToObs'), { variant: 'warning' });
+    const isCurrentOBS = bookId === 'obs';
+    console.log(isCurrentOBS);
+
+    if (isCurrentOBS && source === 'obs') {
+      setLanguageResources(language);
+      setAppConfig(value);
+    } else if (!isCurrentOBS && source !== 'obs') {
+      setLanguageResources(language);
+      setAppConfig(value);
     } else {
-      enqueueSnackbar(t('WarningGoToBible'), { variant: 'warning' });
+      enqueueSnackbar(bookId !== 'obs' ? t('WarningGoToObs') : t('WarningGoToBible'), {
+        variant: 'warning',
+      });
     }
   };
 
   const deleteLayout = useCallback(
     (index) => {
-      console.log(index);
       setSaveLayout((prev) => {
         let currentLayout = [...prev];
         currentLayout.splice(index, 1);
@@ -91,7 +86,6 @@ export default function CopyLayout() {
   );
   const copyToClipboard = useCallback(
     (text) => {
-      console.log(text);
       return navigator.clipboard.writeText(text).then(
         () => {
           enqueueSnackbar(t('copied_success'), { variant: 'success' });
@@ -108,8 +102,8 @@ export default function CopyLayout() {
       saveLayout.map((element, index) => {
         return (
           <MenuItem className={classes.menuItem} value={index} key={index}>
-            <>{element.name}</>
-            <>
+            <div className={classes.elementName}>{element.name}</div>
+            <div>
               <IconButton
                 className={classes.fileCopyIcon}
                 size="small"
@@ -130,13 +124,13 @@ export default function CopyLayout() {
               >
                 <DeleteIcon fontSize="small" />
               </IconButton>
-            </>
+            </div>
           </MenuItem>
         );
       }),
     [classes, copyToClipboard, deleteLayout, saveLayout]
   );
-  const downloadLayout = () => {};
+
   return (
     <>
       <FormControl variant="outlined" className={classes.formControl}>
@@ -146,8 +140,9 @@ export default function CopyLayout() {
               {t('Layout_List')}
             </InputLabel>
             <Select
-              // className={classes.test}
-              value={'0'}
+              style={{ width: '210px' }}
+              value={currentSelected}
+              renderValue={(selected) => saveLayout[selected].name}
               label={t('Layout_List')}
               onChange={loadSavedLayout}
             >
@@ -159,16 +154,17 @@ export default function CopyLayout() {
       <TextField
         className={classes.layoutName}
         onChange={(event) => setNameLayout(event.target.value)}
-        id="outlined-basic"
         label={t('Layout_Name')}
         variant="outlined"
         value={nameLayout.slice(0, 100)}
       />
-      <Button variant="contained" className={classes.button} onClick={saveNewLayout}>
+      <Button
+        size="small"
+        variant="contained"
+        className={classes.button}
+        onClick={saveNewLayout}
+      >
         {t('SaveLayout')}
-      </Button>
-      <Button variant="contained" className={classes.button} onClick={downloadLayout}>
-        <DownloadLayout />
       </Button>
     </>
   );

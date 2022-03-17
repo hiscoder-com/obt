@@ -14,6 +14,7 @@ import { useTranslation } from 'react-i18next';
 import { FontSizeSlider } from 'translation-helps-rcl';
 import { useStyles } from './style';
 import SwitchWordPopover from './SwitchWordPopover';
+import DownloadLayout from '../CopyLayout/DownloadLayout';
 
 function Settings({ setAnchorMainMenu }) {
   const classes = useStyles();
@@ -65,6 +66,8 @@ function Settings({ setAnchorMainMenu }) {
         />
         <Divider className={classes.divider} light />
         <CopyLayout label={t('Select_Layout')} />
+        <Divider className={classes.divider} light />
+        <DownloadLayout />
         <Divider className={classes.divider} light />
         <InputLabel shrink>{t('FontLabel')}</InputLabel>
         <FontSizeSlider

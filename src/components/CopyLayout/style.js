@@ -4,6 +4,7 @@ export const useStyles = makeStyles((theme) => ({
   formControl: {
     display: 'block',
     minWidth: '200px',
+    maxWidth: '400px',
   },
 
   layoutName: {
@@ -16,17 +17,21 @@ export const useStyles = makeStyles((theme) => ({
   },
 
   menuItem: {
-    minWidth: '190px',
-    // justifyContent: 'flex-end',
+    display: 'flex',
+    justifyContent: 'space-between',
   },
 
   button: {
-    marginLeft: '10px',
-    marginTop: '10px',
+    marginLeft: '14px',
+    marginTop: '12px',
+  },
+
+  elementName: {
+    whiteSpace: 'normal',
+    maxWidth: '400px',
   },
 
   fileCopyIcon: {
-    // justifySelf: 'right',
     marginLeft: '10px',
     '&:hover': {
       color: 'blue',
@@ -34,13 +39,8 @@ export const useStyles = makeStyles((theme) => ({
   },
 
   deleteIcon: {
-    marginLeft: 'auto',
     '&:hover': {
       color: 'brown',
     },
   },
-
-  // test: {
-  //   height: '55px',
-  // },
 }));
