@@ -1,36 +1,30 @@
-import React, { useContext, useState, useEffect } from 'react';
-import { DialogUI } from '..';
-
-import { AppContext } from '../../context';
 import { Box, Button, Grid, TextField } from '@material-ui/core';
-import { useTranslation } from 'react-i18next';
 import { useSnackbar } from 'notistack';
-import { useStyles } from './style';
+import React, { useContext, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { DialogUI } from '..';
+import { AppContext } from '../../context';
 import { isJson } from '../../helper';
+import { useStyles } from './style';
 
 function DownloadLayout() {
   const classes = useStyles();
   const { t } = useTranslation();
   const {
     state: { showDownloadLayout },
-    actions: { setShowDownloadLayout, setSaveLayout },
+    actions: { setShowDownloadLayout, setLayoutStorage },
   } = useContext(AppContext);
-  const [value, setValue] = useState();
-  const { newNameLayout, setNewNameLayout } = useState('');
+  const [insertedLayout, setInsertedLayout] = useState('');
+  const [newNameLayout, setNewNameLayout] = useState('');
   const { enqueueSnackbar } = useSnackbar();
 
-  useEffect(() => {
-    if (value && isJson(value).name) {
-      setNewNameLayout(JSON.parse(value).name);
-    }
-  }, [value, setNewNameLayout]);
-
   const importLayout = () => {
-    if (value && isJson(value)) {
-      const currValue = JSON.parse(value);
+    if (insertedLayout !== '' && isJson(insertedLayout)) {
+      const addLayout = JSON.parse(insertedLayout);
+      setNewNameLayout('');
 
-      if (currValue.name && currValue.value && currValue.language && currValue.source) {
-        setSaveLayout((prev) => [...prev, currValue]);
+      if (addLayout.name && addLayout.value && addLayout.language && addLayout.source) {
+        setLayoutStorage((prev) => [...prev, addLayout]);
         setShowDownloadLayout(false);
       } else {
         enqueueSnackbar(t('Warning_Not_all_resources'), { variant: 'warning' });
@@ -48,6 +42,7 @@ function DownloadLayout() {
           variant="contained"
           onClick={() => {
             setShowDownloadLayout(true);
+            setNewNameLayout('');
           }}
         >
           {t('Add_layout')}
@@ -71,7 +66,8 @@ function DownloadLayout() {
               label={t('Layout_Name')}
               variant="outlined"
               size="small"
-              value={newNameLayout}
+              value={newNameLayout.slice(0, 100)}
+              onChange={(event) => setNewNameLayout(event.target.value)}
             />
           </Grid>
           <Grid item xs={12}>
@@ -80,7 +76,7 @@ function DownloadLayout() {
               multiline={true}
               rows={3}
               name="comment"
-              onChange={(event) => setValue(event.target.value)}
+              onChange={(event) => setInsertedLayout(event.target.value)}
               fullWidth={true}
               size="small"
               variant="outlined"
@@ -90,7 +86,7 @@ function DownloadLayout() {
           </Grid>
           <Grid item>
             <Button variant="contained" onClick={importLayout}>
-              {t('SaveLayout')}
+              {t('SaveLayoutBtn')}
             </Button>
           </Grid>
         </Grid>
