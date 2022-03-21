@@ -42,6 +42,7 @@ export default function CopyLayout() {
           source: bookId,
         },
       ]);
+      enqueueSnackbar(t('New_layout_saved'), { variant: 'success' });
       setNameLayout('');
     } else {
       enqueueSnackbar(

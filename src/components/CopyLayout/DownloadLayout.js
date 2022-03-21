@@ -1,6 +1,6 @@
 import { Box, Button, Grid, TextField } from '@material-ui/core';
 import { useSnackbar } from 'notistack';
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { DialogUI } from '..';
 import { AppContext } from '../../context';
@@ -11,20 +11,40 @@ function DownloadLayout() {
   const classes = useStyles();
   const { t } = useTranslation();
   const {
-    state: { showDownloadLayout },
+    state: { showDownloadLayout, layoutStorage },
     actions: { setShowDownloadLayout, setLayoutStorage },
   } = useContext(AppContext);
   const [insertedLayout, setInsertedLayout] = useState('');
-  const [newNameLayout, setNewNameLayout] = useState('');
+  const [newLayoutName, setNewLayoutName] = useState('');
   const { enqueueSnackbar } = useSnackbar();
+
+  useEffect(() => {
+    isJson(insertedLayout)
+      ? setNewLayoutName(insertedLayout ? JSON.parse(insertedLayout).name : '')
+      : console.log('newLayoutName');
+  }, [insertedLayout]);
+  console.log(newLayoutName);
 
   const importLayout = () => {
     if (insertedLayout !== '' && isJson(insertedLayout)) {
       const addLayout = JSON.parse(insertedLayout);
-      setNewNameLayout('');
+      if (newLayoutName) {
+        addLayout.name = newLayoutName;
+      }
+      const coincidence = layoutStorage.some(
+        (element) => element.name === addLayout.name
+      );
+
+      if (coincidence) {
+        addLayout.name = addLayout.name + '_copy';
+        enqueueSnackbar(t('New_layout_saved'), { variant: 'success' });
+      }
 
       if (addLayout.name && addLayout.value && addLayout.language && addLayout.source) {
         setLayoutStorage((prev) => [...prev, addLayout]);
+        setNewLayoutName('');
+        setInsertedLayout('');
+
         setShowDownloadLayout(false);
       } else {
         enqueueSnackbar(t('Warning_Not_all_resources'), { variant: 'warning' });
@@ -42,7 +62,7 @@ function DownloadLayout() {
           variant="contained"
           onClick={() => {
             setShowDownloadLayout(true);
-            setNewNameLayout('');
+            // setNewLayoutName('');
           }}
         >
           {t('Add_layout')}
@@ -52,6 +72,8 @@ function DownloadLayout() {
         open={showDownloadLayout}
         onClose={() => {
           setShowDownloadLayout(false);
+          setNewLayoutName('');
+          setInsertedLayout('');
         }}
         classes={{
           root: { paper: 'intro-settings' },
@@ -66,8 +88,8 @@ function DownloadLayout() {
               label={t('Layout_Name')}
               variant="outlined"
               size="small"
-              value={newNameLayout.slice(0, 100)}
-              onChange={(event) => setNewNameLayout(event.target.value)}
+              value={newLayoutName.slice(0, 100)}
+              onChange={(event) => setNewLayoutName(event.target.value)}
             />
           </Grid>
           <Grid item xs={12}>
