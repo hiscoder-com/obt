@@ -19,38 +19,38 @@ function DownloadLayout() {
   const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
-    isJson(insertedLayout)
-      ? setNewLayoutName(insertedLayout ? JSON.parse(insertedLayout).name : '')
-      : console.log('newLayoutName');
+    if (isJson(insertedLayout)) {
+      setNewLayoutName(insertedLayout ? JSON.parse(insertedLayout).name : '');
+    }
   }, [insertedLayout]);
-  console.log(newLayoutName);
 
   const importLayout = () => {
-    if (insertedLayout !== '' && isJson(insertedLayout)) {
-      const addLayout = JSON.parse(insertedLayout);
-      if (newLayoutName) {
-        addLayout.name = newLayoutName;
-      }
-      const coincidence = layoutStorage.some(
-        (element) => element.name === addLayout.name
-      );
-
-      if (coincidence) {
-        addLayout.name = addLayout.name + '_copy';
-        enqueueSnackbar(t('New_layout_saved'), { variant: 'success' });
-      }
-
-      if (addLayout.name && addLayout.value && addLayout.language && addLayout.source) {
-        setLayoutStorage((prev) => [...prev, addLayout]);
-        setNewLayoutName('');
-        setInsertedLayout('');
-
-        setShowDownloadLayout(false);
-      } else {
-        enqueueSnackbar(t('Warning_Not_all_resources'), { variant: 'warning' });
-      }
-    } else {
+    if (insertedLayout === '' || !isJson(insertedLayout)) {
       enqueueSnackbar(t('Warning_invalid_format'), { variant: 'warning' });
+      return false;
+    }
+    if (newLayoutName === '') {
+      enqueueSnackbar(t('имя не может быть пустым полем'), { variant: 'warning' });
+      return false;
+    }
+    const coincidence = layoutStorage.some((element) => element.name === newLayoutName);
+
+    if (coincidence) {
+      enqueueSnackbar(t('такое имя уже существует'), { variant: 'error' });
+      return false;
+    }
+
+    const addLayout = JSON.parse(insertedLayout);
+    addLayout.name = newLayoutName;
+
+    if (addLayout.value && addLayout.language && addLayout.source) {
+      setLayoutStorage((prev) => [...prev, addLayout]);
+      setNewLayoutName('');
+      setInsertedLayout('');
+      setShowDownloadLayout(false);
+      enqueueSnackbar(t('New_layout_saved'), { variant: 'success' });
+    } else {
+      enqueueSnackbar(t('Warning_Not_all_resources'), { variant: 'warning' });
     }
   };
 
@@ -58,11 +58,9 @@ function DownloadLayout() {
     <>
       <Box className={classes.addButton}>
         <Button
-          size="small"
           variant="contained"
           onClick={() => {
             setShowDownloadLayout(true);
-            // setNewLayoutName('');
           }}
         >
           {t('Add_layout')}
@@ -79,7 +77,7 @@ function DownloadLayout() {
           root: { paper: 'intro-settings' },
         }}
         title={t('Add_layout')}
-        maxWidth="xs"
+        maxWidth="sm"
       >
         <Grid container justifyContent="center" spacing={1}>
           <Grid item>
@@ -107,7 +105,7 @@ function DownloadLayout() {
             />
           </Grid>
           <Grid item>
-            <Button variant="contained" onClick={importLayout}>
+            <Button size="small" variant="contained" onClick={importLayout}>
               {t('SaveLayoutBtn')}
             </Button>
           </Grid>

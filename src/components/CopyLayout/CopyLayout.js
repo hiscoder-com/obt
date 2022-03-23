@@ -54,7 +54,6 @@ export default function CopyLayout() {
   const loadSavedLayout = (event) => {
     const { source, value, language } = layoutStorage[event.target.value];
     setCurrentSelected(event.target.value);
-
     const isCurrentOBS = bookId === 'obs';
 
     if (isCurrentOBS && source === 'obs') {
@@ -70,8 +69,8 @@ export default function CopyLayout() {
     }
   };
   return (
-    <Grid container alignItems="flex-end" spacing={2}>
-      <Grid container justifyContent="flex-end" xs={5}>
+    <Grid container alignItems="flex-end" spacing={2} item xs={12}>
+      <Grid container direction="column" alignItems="center" item xs={12} sm={5}>
         <Grid item>
           <FormControl variant="outlined">
             {layoutStorage.length > 0 && (
@@ -101,7 +100,7 @@ export default function CopyLayout() {
           />
         </Grid>
       </Grid>
-      <Grid item xs={7}>
+      <Grid container item xs={12} sm={7}>
         <Button size="small" variant="contained" onClick={saveNewLayout}>
           {t('SaveLayoutBtn')}
         </Button>
