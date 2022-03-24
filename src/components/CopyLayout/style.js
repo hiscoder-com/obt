@@ -24,6 +24,10 @@ export const useStyles = makeStyles((theme) => ({
     },
   },
 
+  select: {
+    width: '210px',
+  },
+
   addButton: {
     display: 'flex',
     justifyContent: 'center',
