@@ -8,6 +8,7 @@ import { columns } from './config/base';
 import { AppContext, ReferenceContext } from './context';
 import { getLayoutType } from './helper';
 
+const breakpoints = { lg: 900, md: 700, sm: 500 };
 export default function WorkSpaceWrap() {
   const {
     state: { appConfig, resourcesApp, resources, breakpoint },
@@ -24,8 +25,7 @@ export default function WorkSpaceWrap() {
 
   const classes = useStyles();
   const { enqueueSnackbar } = useSnackbar();
-  const layout = { ...appConfig };
-  const breakpoints = { lg: 900, md: 700, sm: 500 };
+  const layout = useMemo(() => ({ ...appConfig }), [appConfig]);
 
   const onLayoutChange = (newLayout, _newLayout) => {
     const oldAppConfig = JSON.parse(localStorage.getItem('appConfig'));
