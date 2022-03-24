@@ -4,7 +4,7 @@ const UPDATE_VERSION = '1.6.0';
 export const migrate220222 = (v) => {
   if (gt(UPDATE_VERSION, v)) {
     fixFunction();
-    localStorage.setItem(VERSION_KEY, UPDATE_VERSION);
+    //localStorage.setItem(VERSION_KEY, UPDATE_VERSION);
   }
 };
 
