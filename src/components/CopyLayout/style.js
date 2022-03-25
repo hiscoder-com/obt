@@ -14,13 +14,13 @@ export const useStyles = makeStyles((theme) => ({
   copyIcon: {
     marginLeft: '10px',
     '&:hover': {
-      color: 'blue',
+      color: theme.palette.buttonCopy.main,
     },
   },
 
   deleteIcon: {
     '&:hover': {
-      color: 'brown',
+      color: theme.palette.buttonDelete.main,
     },
   },
 
