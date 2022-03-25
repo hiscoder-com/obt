@@ -36,7 +36,7 @@ function DownloadLayout() {
     const coincidence = layoutStorage.some((element) => element.name === newLayoutName);
 
     if (coincidence) {
-      enqueueSnackbar(t('NAMEERROR'), { variant: 'error' });
+      enqueueSnackbar(t('NAMEERROR'), { variant: 'warning' });
       return false;
     }
 
