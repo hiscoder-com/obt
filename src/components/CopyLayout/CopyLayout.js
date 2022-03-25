@@ -33,6 +33,7 @@ export default function CopyLayout() {
   const [nameLayout, setNameLayout] = useState('');
   const [currentSelected, setCurrentSelected] = useState(0);
   const classes = useStyles();
+  const isOBS = bookId === 'obs';
 
   const saveNewLayout = useCallback(() => {
     const checkingNameLayout = layoutStorage.every((item) => item.name !== nameLayout);
@@ -44,7 +45,7 @@ export default function CopyLayout() {
           name: nameLayout,
           value: appConfig,
           language: languageResources,
-          source: bookId,
+          isOBS: isOBS,
         },
       ]);
       enqueueSnackbar(t('NEWLAYOUTSAVED'), { variant: 'success' });
@@ -56,8 +57,8 @@ export default function CopyLayout() {
     }
   }, [
     appConfig,
-    bookId,
     enqueueSnackbar,
+    isOBS,
     languageResources,
     layoutStorage,
     nameLayout,
@@ -66,14 +67,14 @@ export default function CopyLayout() {
   ]);
   const loadSavedLayout = useCallback(
     (event) => {
-      const { source, value, language } = layoutStorage[event.target.value];
+      const { isOBS, value, language } = layoutStorage[event.target.value];
       setCurrentSelected(event.target.value);
       const isCurrentOBS = bookId === 'obs';
 
-      if (isCurrentOBS && source === 'obs') {
+      if (isCurrentOBS && isOBS) {
         setLanguageResources(language);
         setAppConfig(value);
-      } else if (!isCurrentOBS && source !== 'obs') {
+      } else if (!isCurrentOBS && !isOBS) {
         setLanguageResources(language);
         setAppConfig(value);
       } else {
