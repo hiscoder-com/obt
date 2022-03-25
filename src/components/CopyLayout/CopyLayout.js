@@ -1,3 +1,4 @@
+import React, { useCallback, useContext, useMemo, useState } from 'react';
 import {
   Box,
   Button,
@@ -9,9 +10,8 @@ import {
   Select,
   TextField,
 } from '@material-ui/core';
-import { useSnackbar } from 'notistack';
-import React, { useCallback, useContext, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useSnackbar } from 'notistack';
 import { AppContext, ReferenceContext } from '../../context';
 import FileCopyIcon from '@material-ui/icons/FileCopy';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -34,7 +34,7 @@ export default function CopyLayout() {
   const [currentSelected, setCurrentSelected] = useState(0);
   const classes = useStyles();
 
-  const saveNewLayout = () => {
+  const saveNewLayout = useCallback(() => {
     const checkingNameLayout = layoutStorage.every((item) => item.name !== nameLayout);
 
     if (checkingNameLayout && nameLayout !== '') {
@@ -47,32 +47,44 @@ export default function CopyLayout() {
           source: bookId,
         },
       ]);
-      enqueueSnackbar(t('New_layout_saved'), { variant: 'success' });
+      enqueueSnackbar(t('NEWLAYOUTSAVED'), { variant: 'success' });
       setNameLayout('');
     } else {
       enqueueSnackbar(
-        nameLayout === '' ? t('warningNoNameLayout') : t('WarningLayoutNameExists'),
+        nameLayout === '' ? t('WARNINGNONAMELAYOUT') : t('WARNINGLAYOUTNAMEEXISTS'),
         { variant: 'warning' }
       );
     }
-  };
-  const loadSavedLayout = (event) => {
-    const { source, value, language } = layoutStorage[event.target.value];
-    setCurrentSelected(event.target.value);
-    const isCurrentOBS = bookId === 'obs';
+  }, [
+    appConfig,
+    bookId,
+    enqueueSnackbar,
+    languageResources,
+    layoutStorage,
+    nameLayout,
+    setLayoutStorage,
+    t,
+  ]);
+  const loadSavedLayout = useCallback(
+    (event) => {
+      const { source, value, language } = layoutStorage[event.target.value];
+      setCurrentSelected(event.target.value);
+      const isCurrentOBS = bookId === 'obs';
 
-    if (isCurrentOBS && source === 'obs') {
-      setLanguageResources(language);
-      setAppConfig(value);
-    } else if (!isCurrentOBS && source !== 'obs') {
-      setLanguageResources(language);
-      setAppConfig(value);
-    } else {
-      enqueueSnackbar(!isCurrentOBS ? t('WarningGoToObs') : t('WarningGoToBible'), {
-        variant: 'warning',
-      });
-    }
-  };
+      if (isCurrentOBS && source === 'obs') {
+        setLanguageResources(language);
+        setAppConfig(value);
+      } else if (!isCurrentOBS && source !== 'obs') {
+        setLanguageResources(language);
+        setAppConfig(value);
+      } else {
+        enqueueSnackbar(!isCurrentOBS ? t('WARNINGGOTOOBS') : t('WARNINGGOTOBIBLE'), {
+          variant: 'warning',
+        });
+      }
+    },
+    [bookId, enqueueSnackbar, layoutStorage, setAppConfig, setLanguageResources, t]
+  );
 
   const deleteLayout = useCallback(
     (index) => {
@@ -88,10 +100,10 @@ export default function CopyLayout() {
     (text) => {
       return navigator.clipboard.writeText(text).then(
         () => {
-          enqueueSnackbar(t('copied_success'), { variant: 'success' });
+          enqueueSnackbar(t('COPIEDSUCCESS'), { variant: 'success' });
         },
         (err) => {
-          enqueueSnackbar(t('copied_error'), { variant: 'error' });
+          enqueueSnackbar(t('COPIEDERROR'), { variant: 'error' });
         }
       );
     },
@@ -138,14 +150,12 @@ export default function CopyLayout() {
           <FormControl variant="outlined">
             {layoutStorage.length > 0 && (
               <Box pb={2}>
-                <InputLabel shrink id="themeId">
-                  {t('Layout_List')}
-                </InputLabel>
+                <InputLabel shrink>{t('LAYOUTLIST')}</InputLabel>
                 <Select
                   className={classes.select}
                   value={currentSelected}
                   renderValue={(selected) => layoutStorage[selected].name}
-                  label={t('Layout_List')}
+                  label={t('LAYOUTLIST')}
                   onChange={loadSavedLayout}
                 >
                   {listOfSavedLayouts}
@@ -157,15 +167,20 @@ export default function CopyLayout() {
         <Grid item>
           <TextField
             onChange={(event) => setNameLayout(event.target.value)}
-            label={t('Layout_Name')}
+            label={t('LAYOUTNAME')}
             variant="outlined"
             value={nameLayout.slice(0, 100)}
           />
         </Grid>
       </Grid>
       <Grid container item xs={12} sm={7}>
-        <Button size="small" variant="contained" onClick={saveNewLayout}>
-          {t('SaveLayoutBtn')}
+        <Button
+          color="secondary"
+          size="small"
+          variant="contained"
+          onClick={saveNewLayout}
+        >
+          {t('SAVELAYOUTBUTTON')}
         </Button>
       </Grid>
     </Grid>

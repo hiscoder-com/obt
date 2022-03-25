@@ -1,7 +1,7 @@
-import { Box, Button, Grid, TextField } from '@material-ui/core';
-import { useSnackbar } from 'notistack';
 import React, { useContext, useEffect, useState } from 'react';
+import { Box, Button, Grid, TextField } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
+import { useSnackbar } from 'notistack';
 import { DialogUI } from '..';
 import { AppContext } from '../../context';
 import { isJson } from '../../helper';
@@ -26,17 +26,17 @@ function DownloadLayout() {
 
   const importLayout = () => {
     if (insertedLayout === '' || !isJson(insertedLayout)) {
-      enqueueSnackbar(t('Warning_invalid_format'), { variant: 'warning' });
+      enqueueSnackbar(t('INVALIDFORMAT'), { variant: 'warning' });
       return false;
     }
     if (newLayoutName === '') {
-      enqueueSnackbar(t('имя не может быть пустым полем'), { variant: 'warning' });
+      enqueueSnackbar(t('NONAMEERROR'), { variant: 'warning' });
       return false;
     }
     const coincidence = layoutStorage.some((element) => element.name === newLayoutName);
 
     if (coincidence) {
-      enqueueSnackbar(t('такое имя уже существует'), { variant: 'error' });
+      enqueueSnackbar(t('NAMEERROR'), { variant: 'error' });
       return false;
     }
 
@@ -48,9 +48,9 @@ function DownloadLayout() {
       setNewLayoutName('');
       setInsertedLayout('');
       setShowDownloadLayout(false);
-      enqueueSnackbar(t('New_layout_saved'), { variant: 'success' });
+      enqueueSnackbar(t('NEWLAYOUTSAVED'), { variant: 'success' });
     } else {
-      enqueueSnackbar(t('Warning_Not_all_resources'), { variant: 'warning' });
+      enqueueSnackbar(t('NOTALLRESOURCES'), { variant: 'warning' });
     }
   };
 
@@ -58,12 +58,13 @@ function DownloadLayout() {
     <>
       <Box className={classes.addButton}>
         <Button
+          color="secondary"
           variant="contained"
           onClick={() => {
             setShowDownloadLayout(true);
           }}
         >
-          {t('Add_layout')}
+          {t('ADDLAYOUT')}
         </Button>
       </Box>
       <DialogUI
@@ -76,14 +77,14 @@ function DownloadLayout() {
         classes={{
           root: { paper: 'intro-settings' },
         }}
-        title={t('Add_layout')}
+        title={t('ADDLAYOUT')}
         maxWidth="sm"
       >
         <Grid container justifyContent="center" spacing={1}>
           <Grid item>
             <TextField
               className={classes.layoutName}
-              label={t('Layout_Name')}
+              label={t('LAYOUTNAME')}
               variant="outlined"
               size="small"
               value={newLayoutName.slice(0, 100)}
@@ -100,13 +101,18 @@ function DownloadLayout() {
               fullWidth={true}
               size="small"
               variant="outlined"
-              label={t('Layout')}
+              label={t('LAYOUT')}
               id="outlined-basic"
             />
           </Grid>
           <Grid item>
-            <Button size="small" variant="contained" onClick={importLayout}>
-              {t('SaveLayoutBtn')}
+            <Button
+              color="secondary"
+              size="small"
+              variant="contained"
+              onClick={importLayout}
+            >
+              {t('SAVELAYOUTBUTTON')}
             </Button>
           </Grid>
         </Grid>

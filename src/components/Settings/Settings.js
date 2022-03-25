@@ -1,6 +1,5 @@
 import React, { useContext } from 'react';
-import { DialogUI, SelectTheme } from '..';
-import { CopyLayout } from '../../components';
+import { DialogUI, SelectTheme, CopyLayout, DownloadLayout, SwitchWordPopover } from '..';
 import SwitchChunks from './SwitchChunks';
 import { AppContext } from '../../context';
 import {
@@ -13,8 +12,6 @@ import {
 import { useTranslation } from 'react-i18next';
 import { FontSizeSlider } from 'translation-helps-rcl';
 import { useStyles } from './style';
-import SwitchWordPopover from './SwitchWordPopover';
-import DownloadLayout from '../CopyLayout/DownloadLayout';
 
 function Settings({ setAnchorMainMenu }) {
   const classes = useStyles();
