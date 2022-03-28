@@ -37,7 +37,7 @@ function SearchResources({ anchorEl, onClose, open }) {
   const { t } = useTranslation();
   const classes = useStyles();
   const [openDialog, setOpenDialog] = useState(false);
-  const [openFeedbackDialog, setOpenFeedbackDialog] = useState('false');
+  const [openFeedbackDialog, setOpenFeedbackDialog] = useState(false);
 
   const prevResources = useRef([]);
   const uniqueResources = getUniqueResources(appConfig, resourcesApp);
@@ -203,17 +203,6 @@ function SearchResources({ anchorEl, onClose, open }) {
           </Button>
         </MenuItem>
         {menuItems.length !== 0 ? menuItems : emptyMenuItems}
-        <MenuItem button={false}>
-          <Button
-            onClick={handleOpenFeedbackDialog}
-            variant="contained"
-            color="primary"
-            size="small"
-            fullWidth
-          >
-            {t('Если вашего ресурса здесь нет - свяжитесь с нами')}
-          </Button>
-        </MenuItem>
       </Menu>
       <FeedbackDialog
         handleCloseDialog={handleCloseFeedbackDialog}
@@ -224,6 +213,10 @@ function SearchResources({ anchorEl, onClose, open }) {
         open={openDialog}
         onClose={handleCloseDialog}
         primary={{ text: t('Ok'), onClick: handleCloseDialog }}
+        secondary={{
+          text: t('Если вашего языка здесь нет - свяжитесь с нами'),
+          onClick: handleOpenFeedbackDialog,
+        }}
       >
         <SelectResourcesLanguages />
       </DialogUI>
