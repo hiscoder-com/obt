@@ -39,17 +39,16 @@ function USFMContent({ reference, content, type, fontSize, languageId }) {
   } = useContext(AppContext);
 
   useEffect(() => {
-    if (reference && switchChunks) {
+    if (reference?.bookId && switchChunks) {
       axios
         .get(`https://api.unfoldingword.org/bible/txt/1/${reference.bookId}/chunks.json`)
         .then((res) => setBookChunks(res.data))
         .catch((err) => console.log(err));
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [switchChunks, reference?.bookId]);
 
   useEffect(() => {
-    if (bookChunks) {
+    if (reference?.chapter && bookChunks) {
       setChunks(
         bookChunks
           .filter((el) => parseInt(el.chp).toString() === reference.chapter.toString())
@@ -57,7 +56,7 @@ function USFMContent({ reference, content, type, fontSize, languageId }) {
           .filter((el) => el !== '1')
       );
     }
-  }, [bookChunks, reference.chapter]);
+  }, [bookChunks, reference?.chapter]);
 
   useEffect(() => {
     let isMounted = true;
