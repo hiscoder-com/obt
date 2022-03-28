@@ -60,9 +60,9 @@
   },
   "scripts": {
     "analyze": "source-map-explorer 'build/static/js/*.js'",
-    "start": "craco start",
+    "start": "craco --max_old_space_size=8192 start",
     "serve": "serve -s build",
-    "build": "craco build",
+    "build": "craco --max_old_space_size=8192 build",
     "test": "craco test",
     "eject": "react-scripts eject"
   },

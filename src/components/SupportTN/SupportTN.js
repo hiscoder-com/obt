@@ -1,10 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 
 import { Card, CardContent, useContent, useCardState } from 'translation-helps-rcl';
 
 import { useTranslation } from 'react-i18next';
 
 import { FrontModal, ButtonGroupUI } from '../../components';
+
+import { langNames } from '../../config/materials';
+
+import { AppContext } from '../../context';
 
 export default function SupportTN({
   title,
@@ -20,6 +24,10 @@ export default function SupportTN({
   const [selectedQuote, setQuote] = useState({});
   const [configFront, setConfigFront] = useState({});
   const { t } = useTranslation();
+
+  const {
+    actions: { setTaRef },
+  } = useContext(AppContext);
 
   const config = {
     verse: String(verse),
@@ -62,11 +70,31 @@ export default function SupportTN({
   });
 
   useEffect(() => {
+    if (item && setTaRef) {
+      const { OrigQuote, SupportReference, Occurrence, ID } = item;
+      const quote = {
+        OrigQuote,
+        SupportReference,
+        Occurrence,
+        ID,
+      };
+
+      setTaRef(
+        Object.keys(quote).reduce(
+          (prev, current) =>
+            !!quote[current] ? { ...prev, [current]: quote[current] } : { ...prev },
+          {}
+        )
+      );
+    }
+  }, [item, setTaRef]);
+
+  useEffect(() => {
     setItemIndex(0);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [bookId, chapter, verse]);
 
-  const filterArray = ['OrigQuote', 'GLQuote', 'OccurrenceNote'];
+  const filterArray = ['OrigQuote', 'GLQuote', 'OccurrenceNote', 'SupportReference'];
 
   return (
     <Card

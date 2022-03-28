@@ -27,6 +27,7 @@ export * from './SupportOBSTN';
 export * from './SupportOBSTQ';
 export * from './SupportOBSTWL';
 export * from './SupportTN';
+export * from './SupportTA';
 export * from './SupportTQ';
 export * from './SupportTWL';
 export * from './Swipes';

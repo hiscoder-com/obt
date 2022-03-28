@@ -13,6 +13,7 @@ import {
   SupportOBSSQ,
   SupportOBSSN,
   SupportOBSTWL,
+  SupportTA,
 } from '../../components';
 import { langNames } from '../../config/materials';
 
@@ -44,7 +45,9 @@ function Card({ type, onClose, classes }) {
     case 'TSV Translation Notes':
       CurrentCard = SupportTN;
       break;
-
+    case 'Translation Academy':
+      CurrentCard = SupportTA;
+      break;
     case 'TSV Translation Questions':
     case 'Translation Questions':
       CurrentCard = SupportTQ;
