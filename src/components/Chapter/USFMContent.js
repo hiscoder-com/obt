@@ -38,13 +38,15 @@ function USFMContent({ reference, content, type, fontSize, languageId }) {
   } = useContext(AppContext);
 
   useEffect(() => {
-    if (reference) {
+    if (reference && switchChunks) {
       axios
         .get(`https://api.unfoldingword.org/bible/txt/1/${reference.bookId}/chunks.json`)
         .then((res) =>
           setChunks(
             res.data
-              .filter((el) => parseInt(el.chp).toString() === reference.chapter)
+              .filter(
+                (el) => parseInt(el.chp).toString() === reference.chapter.toString()
+              )
               .map((el) => parseInt(el.firstvs).toString())
               .filter((el) => el !== '1')
           )
@@ -52,7 +54,7 @@ function USFMContent({ reference, content, type, fontSize, languageId }) {
         .catch((err) => console.log(err));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [reference, switchChunks]);
+  }, [switchChunks]);
 
   useEffect(() => {
     let isMounted = true;
@@ -137,7 +139,7 @@ function USFMContent({ reference, content, type, fontSize, languageId }) {
     }
     setVerses(_verses);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [chapter, reference, type, fontSize, switchChunks, switchWordPopover]);
+  }, [chapter, reference, type, fontSize, switchChunks, chunks, switchWordPopover]);
 
   const loadingContent = (
     <div className={classesCircular.root}>
