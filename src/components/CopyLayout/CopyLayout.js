@@ -31,13 +31,18 @@ export default function CopyLayout() {
   const { enqueueSnackbar } = useSnackbar();
 
   const [nameLayout, setNameLayout] = useState('');
-  const [currentSelected, setCurrentSelected] = useState(0);
+  const [currentSelected, setCurrentSelected] = useState(-1);
   const classes = useStyles();
-  const isOBS = bookId === 'obs';
+  const isCurrentOBS = bookId === 'obs';
 
   const saveNewLayout = useCallback(() => {
     const checkingNameLayout = layoutStorage.every((item) => item.name !== nameLayout);
+    const checkingLayoutContent = layoutStorage.every((item) => item.value !== appConfig);
 
+    if (!checkingLayoutContent) {
+      enqueueSnackbar(t('такой макет уже существует'), { variant: 'warning' });
+      return false;
+    }
     if (nameLayout.trim() !== '' && checkingNameLayout) {
       setLayoutStorage((prev) => [
         ...prev,
@@ -45,7 +50,7 @@ export default function CopyLayout() {
           name: nameLayout,
           value: appConfig,
           language: languageResources,
-          isOBS: isOBS,
+          isOBS: isCurrentOBS,
         },
       ]);
       enqueueSnackbar(t('NEWLAYOUTSAVED'), { variant: 'success' });
@@ -58,7 +63,7 @@ export default function CopyLayout() {
   }, [
     appConfig,
     enqueueSnackbar,
-    isOBS,
+    isCurrentOBS,
     languageResources,
     layoutStorage,
     nameLayout,
@@ -69,12 +74,8 @@ export default function CopyLayout() {
     (event) => {
       const { isOBS, value, language } = layoutStorage[event.target.value];
       setCurrentSelected(event.target.value);
-      const isCurrentOBS = bookId === 'obs';
 
-      if (isCurrentOBS && isOBS) {
-        setLanguageResources(language);
-        setAppConfig(value);
-      } else if (!isCurrentOBS && !isOBS) {
+      if (isCurrentOBS === isOBS) {
         setLanguageResources(language);
         setAppConfig(value);
       } else {
@@ -83,9 +84,8 @@ export default function CopyLayout() {
         });
       }
     },
-    [bookId, enqueueSnackbar, layoutStorage, setAppConfig, setLanguageResources, t]
+    [enqueueSnackbar, isCurrentOBS, layoutStorage, setAppConfig, setLanguageResources, t]
   );
-
   const deleteLayout = useCallback(
     (index) => {
       setLayoutStorage((prev) => {
@@ -109,39 +109,41 @@ export default function CopyLayout() {
     },
     [enqueueSnackbar, t]
   );
-  const listOfSavedLayouts = useMemo(
-    () =>
-      layoutStorage.map((element, index) => {
-        return (
-          <MenuItem className={classes.menuItemLayoutList} value={index} key={index}>
-            <div className={classes.elementNameLayoutList}>{element.name}</div>
-            <div>
-              <IconButton
-                className={classes.copyIcon}
-                size="small"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  copyToClipboard(JSON.stringify(element));
-                }}
-              >
-                <FileCopyIcon />
-              </IconButton>
-              <IconButton
-                className={classes.deleteIcon}
-                size="small"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  deleteLayout(index);
-                }}
-              >
-                <DeleteIcon fontSize="small" />
-              </IconButton>
-            </div>
-          </MenuItem>
-        );
-      }),
-    [classes, copyToClipboard, deleteLayout, layoutStorage]
-  );
+  const listOfSavedLayouts = useMemo(() => {
+    setCurrentSelected(-1);
+    return layoutStorage.map((element, index) => {
+      if (JSON.stringify(element.value) === JSON.stringify(appConfig)) {
+        setCurrentSelected(index);
+      }
+      return (
+        <MenuItem className={classes.menuItemLayoutList} value={index} key={index}>
+          <div className={classes.elementNameLayoutList}>{element.name}</div>
+          <div>
+            <IconButton
+              className={classes.copyIcon}
+              size="small"
+              onClick={(e) => {
+                e.stopPropagation();
+                copyToClipboard(JSON.stringify(element));
+              }}
+            >
+              <FileCopyIcon />
+            </IconButton>
+            <IconButton
+              className={classes.deleteIcon}
+              size="small"
+              onClick={(e) => {
+                e.stopPropagation();
+                deleteLayout(index);
+              }}
+            >
+              <DeleteIcon fontSize="small" />
+            </IconButton>
+          </div>
+        </MenuItem>
+      );
+    });
+  }, [appConfig, classes, copyToClipboard, deleteLayout, layoutStorage]);
 
   return (
     <Grid container alignItems="flex-end" spacing={2} item xs={12}>
@@ -154,10 +156,21 @@ export default function CopyLayout() {
                 <Select
                   className={classes.select}
                   value={currentSelected}
-                  renderValue={(selected) => layoutStorage[selected].name}
+                  renderValue={(selected) =>
+                    layoutStorage[selected]?.name ?? 'не сохранено'
+                  }
                   label={t('LAYOUTLIST')}
                   onChange={loadSavedLayout}
                 >
+                  {currentSelected === -1 ? (
+                    <MenuItem className={classes.menuItemLayoutList} value={-1}>
+                      <div className={classes.elementNameLayoutList}>
+                        {'не сохранено'}
+                      </div>
+                    </MenuItem>
+                  ) : (
+                    ''
+                  )}
                   {listOfSavedLayouts}
                 </Select>
               </Box>
@@ -174,12 +187,7 @@ export default function CopyLayout() {
         </Grid>
       </Grid>
       <Grid container item xs={12} sm={7}>
-        <Button
-          color="secondary"
-          size="small"
-          variant="contained"
-          onClick={saveNewLayout}
-        >
+        <Button color="primary" variant="contained" onClick={saveNewLayout}>
           {t('SAVELAYOUTBUTTON')}
         </Button>
       </Grid>

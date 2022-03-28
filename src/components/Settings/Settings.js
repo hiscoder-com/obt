@@ -1,6 +1,12 @@
 import React, { useContext } from 'react';
-import { DialogUI, SelectTheme, CopyLayout, DownloadLayout, SwitchWordPopover } from '..';
-import SwitchChunks from './SwitchChunks';
+import {
+  DialogUI,
+  SelectTheme,
+  CopyLayout,
+  DownloadLayout,
+  SwitchChunks,
+  SwitchWordPopover,
+} from '..';
 import { AppContext } from '../../context';
 import {
   Checkbox,

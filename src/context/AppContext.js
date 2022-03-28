@@ -18,7 +18,6 @@ export const AppContext = React.createContext();
 const _currentLanguage = checkLSVal('i18nextLng', languages[0]);
 const _fontSize = parseInt(localStorage.getItem('fontSize'));
 const _layoutStorage = localStorage.getItem('layoutStorage');
-
 export function AppContextProvider({ children }) {
   const {
     state: { referenceSelected },

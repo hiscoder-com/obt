@@ -20,12 +20,6 @@ const obt = createTheme({
     cardHeaderBg: {
       main: '#f1f1f1',
     },
-    buttonCopy: {
-      main: '#1976d2',
-    },
-    buttonDelete: {
-      main: '#d32f2f',
-    },
   },
   overrides: {
     current: {
@@ -73,12 +67,6 @@ const textTree = createTheme({
     },
     cardHeaderBg: {
       main: '#ffb732',
-    },
-    buttonCopy: {
-      main: '#1976d2',
-    },
-    buttonDelete: {
-      main: '#d32f2f',
     },
   },
   overrides: {
