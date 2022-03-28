@@ -28,6 +28,7 @@ function USFMContent({ reference, content, type, fontSize, languageId }) {
   const resourceLink = resource?.resourceLink;
   const { contentNotFoundError, error, loading } = content.resourceStatus;
   const [chunks, setChunks] = useState([]);
+  const [bookChunks, setBookChunks] = useState([]);
 
   const {
     actions: { setReferenceBlock, goToBookChapterVerse },
@@ -41,20 +42,22 @@ function USFMContent({ reference, content, type, fontSize, languageId }) {
     if (reference && switchChunks) {
       axios
         .get(`https://api.unfoldingword.org/bible/txt/1/${reference.bookId}/chunks.json`)
-        .then((res) =>
-          setChunks(
-            res.data
-              .filter(
-                (el) => parseInt(el.chp).toString() === reference.chapter.toString()
-              )
-              .map((el) => parseInt(el.firstvs).toString())
-              .filter((el) => el !== '1')
-          )
-        )
+        .then((res) => setBookChunks(res.data))
         .catch((err) => console.log(err));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [switchChunks]);
+  }, [switchChunks, reference?.bookId]);
+
+  useEffect(() => {
+    if (bookChunks) {
+      setChunks(
+        bookChunks
+          .filter((el) => parseInt(el.chp).toString() === reference.chapter.toString())
+          .map((el) => parseInt(el.firstvs).toString())
+          .filter((el) => el !== '1')
+      );
+    }
+  }, [bookChunks, reference.chapter]);
 
   useEffect(() => {
     let isMounted = true;
