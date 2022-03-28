@@ -29,7 +29,7 @@ function DownloadLayout() {
       enqueueSnackbar(t('INVALIDFORMAT'), { variant: 'warning' });
       return false;
     }
-    if (newLayoutName === '') {
+    if (newLayoutName.trim() === '') {
       enqueueSnackbar(t('NONAMEERROR'), { variant: 'warning' });
       return false;
     }
@@ -43,7 +43,7 @@ function DownloadLayout() {
     const addLayout = JSON.parse(insertedLayout);
     addLayout.name = newLayoutName;
 
-    if (addLayout.value && addLayout.language && addLayout.source) {
+    if (addLayout.value && addLayout.language) {
       setLayoutStorage((prev) => [...prev, addLayout]);
       setNewLayoutName('');
       setInsertedLayout('');

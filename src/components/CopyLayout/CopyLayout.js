@@ -38,7 +38,7 @@ export default function CopyLayout() {
   const saveNewLayout = useCallback(() => {
     const checkingNameLayout = layoutStorage.every((item) => item.name !== nameLayout);
 
-    if (nameLayout !== '' && checkingNameLayout) {
+    if (nameLayout.trim() !== '' && checkingNameLayout) {
       setLayoutStorage((prev) => [
         ...prev,
         {
@@ -51,7 +51,7 @@ export default function CopyLayout() {
       enqueueSnackbar(t('NEWLAYOUTSAVED'), { variant: 'success' });
       setNameLayout('');
     } else {
-      enqueueSnackbar(nameLayout === '' ? t('NONAMEERROR') : t('NAMEERROR'), {
+      enqueueSnackbar(nameLayout.trim() === '' ? t('NONAMEERROR') : t('NAMEERROR'), {
         variant: 'warning',
       });
     }
