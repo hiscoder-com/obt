@@ -20,6 +20,7 @@ import { MenuItem, Menu, Button } from '@material-ui/core';
 
 import LanguageIcon from '@material-ui/icons/Language';
 import { useStyles } from './style';
+import FeedbackDialog from './FeedbackDialog';
 
 function SearchResources({ anchorEl, onClose, open }) {
   const {
@@ -36,6 +37,8 @@ function SearchResources({ anchorEl, onClose, open }) {
   const { t } = useTranslation();
   const classes = useStyles();
   const [openDialog, setOpenDialog] = useState(false);
+  const [openFeedbackDialog, setOpenFeedbackDialog] = useState('false');
+
   const prevResources = useRef([]);
   const uniqueResources = getUniqueResources(appConfig, resourcesApp);
   const { enqueueSnackbar } = useSnackbar();
@@ -62,6 +65,10 @@ function SearchResources({ anchorEl, onClose, open }) {
 
   const handleOpenDialog = () => {
     setOpenDialog(true);
+  };
+
+  const handleOpenFeedbackDialog = () => {
+    setOpenFeedbackDialog(true);
   };
 
   const findNewResources = (_prev, _result) => {
@@ -170,6 +177,9 @@ function SearchResources({ anchorEl, onClose, open }) {
   const handleCloseDialog = () => {
     setOpenDialog(false);
   };
+  const handleCloseFeedbackDialog = () => {
+    setOpenFeedbackDialog(false);
+  };
 
   return (
     <>
@@ -193,7 +203,22 @@ function SearchResources({ anchorEl, onClose, open }) {
           </Button>
         </MenuItem>
         {menuItems.length !== 0 ? menuItems : emptyMenuItems}
+        <MenuItem button={false}>
+          <Button
+            onClick={handleOpenFeedbackDialog}
+            variant="contained"
+            color="primary"
+            size="small"
+            fullWidth
+          >
+            {t('Если вашего ресурса здесь нет - свяжитесь с нами')}
+          </Button>
+        </MenuItem>
       </Menu>
+      <FeedbackDialog
+        handleCloseDialog={handleCloseFeedbackDialog}
+        openFeedbackDialog={openFeedbackDialog}
+      />
       <DialogUI
         title={t('Choose_languages_resources')}
         open={openDialog}
