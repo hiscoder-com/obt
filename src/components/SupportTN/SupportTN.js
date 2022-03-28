@@ -6,8 +6,6 @@ import { useTranslation } from 'react-i18next';
 
 import { FrontModal, ButtonGroupUI } from '../../components';
 
-import { langNames } from '../../config/materials';
-
 import { AppContext } from '../../context';
 
 export default function SupportTN({
