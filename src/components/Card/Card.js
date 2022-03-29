@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 
 import { server } from '../../config/base';
+import { Card as TranslationCard } from 'translation-helps-rcl';
 import { AppContext, ReferenceContext } from '../../context';
 import {
   Chapter,
@@ -19,9 +20,6 @@ import { langNames } from '../../config/materials';
 
 function Card({ type, onClose, classes }) {
   let CurrentCard;
-  /**TODO
-   *Move  all repeated code from Chapter,all Support* like const {*}=useContent({*}) to here
-   */
   const {
     state: { resourcesApp, fontSize },
   } = useContext(AppContext);
@@ -38,7 +36,17 @@ function Card({ type, onClose, classes }) {
   });
 
   if (!resource && resourcesApp.length > 0) {
-    return false;
+    return (
+      <TranslationCard
+        closeable
+        onClose={() => onClose(true)}
+        classes={classes}
+        id={type}
+        fontSize={fontSize}
+      >
+        <h1>Error Data</h1>
+      </TranslationCard>
+    );
   }
 
   switch (resource.subject) {

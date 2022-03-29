@@ -275,8 +275,8 @@ const resetMode = (
   setLanguageResources((prev) => {
     const new_val = cloneDeep(prev);
     defaultTpl[currentLanguage].lg.forEach((el) => {
-      if (!new_val.includes(el.i.split('__')[1].split('_')[0])) {
-        new_val.push(el.i.split('__')[1].split('_')[0]);
+      if (!new_val.includes(el.i.split('__')[1]?.split('_')[0])) {
+        new_val.push(el.i.split('__')[1]?.split('_')[0]);
       }
     });
     return new_val;
@@ -374,7 +374,7 @@ export const resetWorkspace = ({
 export const getLayoutType = (layout) => {
   let type = 'bible';
   layout.forEach((el) => {
-    if (el.i.split('__')[1].split('_')[1].split('-')[0] === 'obs') {
+    if (el.i.split('__')[1]?.split('_')[1]?.split('-')[0] === 'obs') {
       type = 'obs';
     }
   });
@@ -388,7 +388,7 @@ export const getLanguageIds = () => {
   if (allValues) {
     allValues.forEach((value) => {
       value.lg.forEach((el) => {
-        currentLangs.add(el.i.split('__')[1].split('_')[0]);
+        currentLangs.add(el.i.split('__')[1]?.split('_')[0]);
       });
     });
   }
