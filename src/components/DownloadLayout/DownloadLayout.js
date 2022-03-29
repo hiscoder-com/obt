@@ -5,7 +5,7 @@ import { useSnackbar } from 'notistack';
 import { DialogUI } from '..';
 import { AppContext } from '../../context';
 import { isJson } from '../../helper';
-import { useStyles } from './style';
+import { useStyles } from '../DownloadLayout/style';
 
 function DownloadLayout() {
   const classes = useStyles();
@@ -99,7 +99,6 @@ function DownloadLayout() {
           </Grid>
           <Grid item xs={12}>
             <TextField
-              className={classes.layout}
               multiline={true}
               rows={3}
               onChange={(event) => setInsertedLayout(event.target.value)}

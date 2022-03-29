@@ -12,7 +12,6 @@ export const useStyles = makeStyles((theme) => ({
   },
 
   copyIcon: {
-    // marginLeft: '10px',
     marginLeft: theme.spacing(2),
     '&:hover': {
       color: theme.palette.info.main,
@@ -27,10 +26,5 @@ export const useStyles = makeStyles((theme) => ({
 
   select: {
     width: '210px',
-  },
-
-  addButton: {
-    display: 'flex',
-    justifyContent: 'center',
   },
 }));
