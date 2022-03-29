@@ -2,8 +2,6 @@ import React, { useEffect, useContext, useMemo } from 'react';
 
 import { Card, CardContent, useContent, useCardState } from 'translation-helps-rcl';
 
-import { langNames } from '../../config/materials';
-
 import { AppContext } from '../../context';
 
 export default function SupportTN({
@@ -69,7 +67,7 @@ export default function SupportTN({
   return (
     <Card
       closeable
-      title={title + ' (' + langNames[resource.languageId].eng + ')'}
+      title={title}
       onClose={() => onClose(type)}
       classes={classes}
       id={type}
