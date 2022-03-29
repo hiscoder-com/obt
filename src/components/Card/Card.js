@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { server } from '../../config/base';
 import { Card as TranslationCard } from 'translation-helps-rcl';
@@ -19,6 +20,7 @@ import {
 import { langNames } from '../../config/materials';
 
 function Card({ type, onClose, classes }) {
+  const { t } = useTranslation();
   let CurrentCard;
   const {
     state: { resourcesApp, fontSize },
@@ -36,6 +38,7 @@ function Card({ type, onClose, classes }) {
   });
 
   if (!resource && resourcesApp.length > 0) {
+    // Empty Card
     return (
       <TranslationCard
         closeable
@@ -44,7 +47,7 @@ function Card({ type, onClose, classes }) {
         id={type}
         fontSize={fontSize}
       >
-        <h1>Error Data</h1>
+        <h1>{t('Problem_loading')}</h1>
       </TranslationCard>
     );
   }
