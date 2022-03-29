@@ -7,4 +7,5 @@ export const useStyles = makeStyles((theme) => ({
     padding: '5px 10px',
   },
   menu: { whiteSpace: 'break-spaces' },
+  textfield: { margin: theme.spacing(1) },
 }));

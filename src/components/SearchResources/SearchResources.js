@@ -20,7 +20,7 @@ import { MenuItem, Menu, Button } from '@material-ui/core';
 
 import LanguageIcon from '@material-ui/icons/Language';
 import { useStyles } from './style';
-import FeedbackDialog from './FeedbackDialog';
+import FeedbackDialog from '../FeedbackDialog/FeedbackDialog';
 
 function SearchResources({ anchorEl, onClose, open }) {
   const {
@@ -68,6 +68,7 @@ function SearchResources({ anchorEl, onClose, open }) {
   };
 
   const handleOpenFeedbackDialog = () => {
+    handleCloseDialog();
     setOpenFeedbackDialog(true);
   };
 
@@ -207,6 +208,7 @@ function SearchResources({ anchorEl, onClose, open }) {
       <FeedbackDialog
         handleCloseDialog={handleCloseFeedbackDialog}
         openFeedbackDialog={openFeedbackDialog}
+        title={'Если вы не нашли в списке свой язык напишите нам.'}
       />
       <DialogUI
         title={t('Choose_languages_resources')}

@@ -7,6 +7,7 @@ import {
   About,
   BookSelect,
   ChapterSelect,
+  FeedbackDialog,
   SearchResources,
   SelectLanguage,
   SelectModeBible,
@@ -28,6 +29,7 @@ function SubMenuBar() {
   const classes = useStyles();
   const modalClasses = useModalStyles();
   const [anchorMainMenu, setAnchorMainMenu] = useState(null);
+  const [openFeedbackDialog, setOpenFeedbackDialog] = useState(false);
   const [anchorAddMaterial, setAnchorAddMaterial] = useState(null);
   const [openAbout, setOpenAbout] = useState(false);
 
@@ -53,6 +55,12 @@ function SubMenuBar() {
   };
   const handleClickOpenAbout = () => {
     setOpenAbout(true);
+  };
+  const handleOpenFeedbackDialog = () => {
+    setOpenFeedbackDialog(true);
+  };
+  const handleCloseFeedbackDialog = () => {
+    setOpenFeedbackDialog(false);
   };
 
   const anchorEl = loadIntro && anchorMainMenu ? anchorMainMenu : menuRef.current;
@@ -126,6 +134,12 @@ function SubMenuBar() {
             />
 
             <Settings setAnchorMainMenu={setAnchorMainMenu} />
+            <MenuItem onClick={handleOpenFeedbackDialog}>FeedBack</MenuItem>
+            <FeedbackDialog
+              handleCloseDialog={handleCloseFeedbackDialog}
+              openFeedbackDialog={openFeedbackDialog}
+              title={'Напишите свой отзыв'}
+            />
           </Menu>
           <SearchResources
             anchorEl={anchorAddMaterial}
