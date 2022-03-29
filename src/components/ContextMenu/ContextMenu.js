@@ -40,11 +40,11 @@ function ContextMenu({ position, setPosition, PopoverClasses }) {
     return navigator.clipboard.writeText(text).then(
       () => {
         handleContextClose();
-        enqueueSnackbar(t('COPIEDSUCCESS'), { variant: 'success' });
+        enqueueSnackbar(t('Copied_success'), { variant: 'success' });
       },
       (err) => {
         handleContextClose();
-        enqueueSnackbar(t('COPIEDERROR'), { variant: 'error' });
+        enqueueSnackbar(t('Copied_error'), { variant: 'error' });
       }
     );
   };

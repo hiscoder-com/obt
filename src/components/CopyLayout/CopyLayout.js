@@ -40,7 +40,7 @@ export default function CopyLayout() {
     const checkingLayoutContent = layoutStorage.every((item) => item.value !== appConfig);
 
     if (!checkingLayoutContent) {
-      enqueueSnackbar(t('такой макет уже существует'), { variant: 'warning' });
+      enqueueSnackbar(t('Error_layout'), { variant: 'warning' });
       return false;
     }
     if (nameLayout.trim() !== '' && checkingNameLayout) {
@@ -53,12 +53,15 @@ export default function CopyLayout() {
           isOBS: isCurrentOBS,
         },
       ]);
-      enqueueSnackbar(t('NEWLAYOUTSAVED'), { variant: 'success' });
+      enqueueSnackbar(t('New_layout_saved'), { variant: 'success' });
       setNameLayout('');
     } else {
-      enqueueSnackbar(nameLayout.trim() === '' ? t('NONAMEERROR') : t('NAMEERROR'), {
-        variant: 'warning',
-      });
+      enqueueSnackbar(
+        nameLayout.trim() === '' ? t('Error_missing_name') : t('Error_name'),
+        {
+          variant: 'warning',
+        }
+      );
     }
   }, [
     appConfig,
@@ -79,9 +82,12 @@ export default function CopyLayout() {
         setLanguageResources(language);
         setAppConfig(value);
       } else {
-        enqueueSnackbar(!isCurrentOBS ? t('WARNINGGOTOOBS') : t('WARNINGGOTOBIBLE'), {
-          variant: 'warning',
-        });
+        enqueueSnackbar(
+          !isCurrentOBS ? t('Warning_go_to_OBS') : t('Warning_go_to_BIBLE'),
+          {
+            variant: 'warning',
+          }
+        );
       }
     },
     [enqueueSnackbar, isCurrentOBS, layoutStorage, setAppConfig, setLanguageResources, t]
@@ -100,10 +106,10 @@ export default function CopyLayout() {
     (text) => {
       return navigator.clipboard.writeText(text).then(
         () => {
-          enqueueSnackbar(t('COPIEDSUCCESS'), { variant: 'success' });
+          enqueueSnackbar(t('Copied_success'), { variant: 'success' });
         },
         (err) => {
-          enqueueSnackbar(t('COPIEDERROR'), { variant: 'error' });
+          enqueueSnackbar(t('Copied_error'), { variant: 'error' });
         }
       );
     },
@@ -152,20 +158,20 @@ export default function CopyLayout() {
           <FormControl variant="outlined">
             {layoutStorage.length > 0 && (
               <Box pb={2}>
-                <InputLabel shrink>{t('LAYOUTLIST')}</InputLabel>
+                <InputLabel shrink>{t('Layout_list')}</InputLabel>
                 <Select
                   className={classes.select}
                   value={currentSelected}
                   renderValue={(selected) =>
-                    layoutStorage[selected]?.name ?? 'не сохранено'
+                    layoutStorage[selected]?.name ?? t('Not_saved')
                   }
-                  label={t('LAYOUTLIST')}
+                  label={t('Layout_list')}
                   onChange={loadSavedLayout}
                 >
                   {currentSelected === -1 ? (
                     <MenuItem className={classes.menuItemLayoutList} value={-1}>
                       <div className={classes.elementNameLayoutList}>
-                        {'не сохранено'}
+                        {t('Not_saved')}
                       </div>
                     </MenuItem>
                   ) : (
@@ -180,7 +186,7 @@ export default function CopyLayout() {
         <Grid item>
           <TextField
             onChange={(event) => setNameLayout(event.target.value)}
-            label={t('LAYOUTNAME')}
+            label={t('Layout_name')}
             variant="outlined"
             value={nameLayout.slice(0, 100)}
           />
@@ -188,7 +194,7 @@ export default function CopyLayout() {
       </Grid>
       <Grid container item xs={12} sm={7}>
         <Button color="primary" variant="contained" onClick={saveNewLayout}>
-          {t('SAVELAYOUTBUTTON')}
+          {t('Save_layout_button')}
         </Button>
       </Grid>
     </Grid>

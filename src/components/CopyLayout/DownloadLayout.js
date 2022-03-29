@@ -26,11 +26,11 @@ function DownloadLayout() {
 
   const importLayout = () => {
     if (insertedLayout === '' || !isJson(insertedLayout)) {
-      enqueueSnackbar(t('INVALIDFORMAT'), { variant: 'warning' });
+      enqueueSnackbar(t('Invalid_format'), { variant: 'warning' });
       return false;
     }
     if (newLayoutName.trim() === '') {
-      enqueueSnackbar(t('NONAMEERROR'), { variant: 'warning' });
+      enqueueSnackbar(t('Error_missing_name'), { variant: 'warning' });
       return false;
     }
     const addLayout = JSON.parse(insertedLayout);
@@ -39,7 +39,7 @@ function DownloadLayout() {
     );
 
     if (layoutCoincidence) {
-      enqueueSnackbar(t('такой макет уже существует'), { variant: 'warning' });
+      enqueueSnackbar(t('Error_layout'), { variant: 'warning' });
       return false;
     }
     const nameCoincidence = layoutStorage.some(
@@ -47,7 +47,7 @@ function DownloadLayout() {
     );
 
     if (nameCoincidence) {
-      enqueueSnackbar(t('NAMEERROR'), { variant: 'warning' });
+      enqueueSnackbar(t('Error_name'), { variant: 'warning' });
       return false;
     }
 
@@ -58,9 +58,9 @@ function DownloadLayout() {
       setNewLayoutName('');
       setInsertedLayout('');
       setShowDownloadLayout(false);
-      enqueueSnackbar(t('NEWLAYOUTSAVED'), { variant: 'success' });
+      enqueueSnackbar(t('New_layout_saved'), { variant: 'success' });
     } else {
-      enqueueSnackbar(t('NOTALLRESOURCES'), { variant: 'warning' });
+      enqueueSnackbar(t('Not_all_resources'), { variant: 'warning' });
     }
   };
   const handleClose = useCallback(() => {
@@ -77,20 +77,20 @@ function DownloadLayout() {
           variant="contained"
           onClick={() => setShowDownloadLayout(true)}
         >
-          {t('ADDLAYOUT')}
+          {t('Add_layout')}
         </Button>
       </Box>
       <DialogUI
-        primary={{ text: t('SAVELAYOUTBUTTON'), onClick: importLayout }}
+        primary={{ text: t('Save_layout_button'), onClick: importLayout }}
         open={showDownloadLayout}
         onClose={handleClose}
-        title={t('ADDLAYOUT')}
+        title={t('Add_layout')}
         maxWidth="sm"
       >
         <Grid container spacing={1}>
           <Grid item>
             <TextField
-              label={t('LAYOUTNAME')}
+              label={t('Layout_name')}
               variant="outlined"
               size="small"
               value={newLayoutName.slice(0, 100)}
@@ -106,7 +106,7 @@ function DownloadLayout() {
               fullWidth={true}
               size="small"
               variant="outlined"
-              label={t('LAYOUT')}
+              label={t('Layout')}
             />
           </Grid>
         </Grid>
