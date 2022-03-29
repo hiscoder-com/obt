@@ -5,7 +5,7 @@ import { useSnackbar } from 'notistack';
 import { DialogUI } from '..';
 import { AppContext } from '../../context';
 import { isJson } from '../../helper';
-import { useStyles } from '../DownloadLayout/style';
+import { useStyles } from './style';
 
 function DownloadLayout() {
   const classes = useStyles();

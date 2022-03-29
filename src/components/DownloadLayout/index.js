@@ -1,1 +1,1 @@
-export { default as DownloadLayout } from '../DownloadLayout/DownloadLayout';
+export { default as DownloadLayout } from './DownloadLayout';
