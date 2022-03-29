@@ -1,6 +1,8 @@
 import React, { useContext } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { server } from '../../config/base';
+import { Card as TranslationCard } from 'translation-helps-rcl';
 import { AppContext, ReferenceContext } from '../../context';
 import {
   Chapter,
@@ -13,14 +15,13 @@ import {
   SupportOBSSQ,
   SupportOBSSN,
   SupportOBSTWL,
+  SupportTA,
 } from '../../components';
 import { langNames } from '../../config/materials';
 
 function Card({ type, onClose, classes }) {
+  const { t } = useTranslation();
   let CurrentCard;
-  /**TODO
-   *Move  all repeated code from Chapter,all Support* like const {*}=useContent({*}) to here
-   */
   const {
     state: { resourcesApp, fontSize },
   } = useContext(AppContext);
@@ -37,14 +38,27 @@ function Card({ type, onClose, classes }) {
   });
 
   if (!resource && resourcesApp.length > 0) {
-    return false;
+    // Empty Card
+    return (
+      <TranslationCard
+        closeable
+        onClose={() => onClose(true)}
+        classes={classes}
+        id={type}
+        fontSize={fontSize}
+      >
+        <h1>{t('Problem_loading')}</h1>
+      </TranslationCard>
+    );
   }
 
   switch (resource.subject) {
     case 'TSV Translation Notes':
       CurrentCard = SupportTN;
       break;
-
+    case 'Translation Academy':
+      CurrentCard = SupportTA;
+      break;
     case 'TSV Translation Questions':
     case 'Translation Questions':
       CurrentCard = SupportTQ;
