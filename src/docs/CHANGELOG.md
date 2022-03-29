@@ -9,9 +9,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added (for new features)
  - Support for all published resources
  - Migration for support all resources
+ - tAcademy support
+ - es-419 localization
+
+### Fixed (for any bug fixes)
+ - application crash if resource not found
+ - default layouts for languages
+
+### Deprecated (for soon-to-be removed features)
+ - list of repository owners
 
 ### Security (in case of vulnerabilities)
-- Updating dependencies
+ - Updating dependencies
 
 ## [1.5.1] - 2022-03-01
 
