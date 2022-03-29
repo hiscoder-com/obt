@@ -275,7 +275,10 @@ const resetMode = (
   setLanguageResources((prev) => {
     const new_val = cloneDeep(prev);
     defaultTpl[currentLanguage].lg.forEach((el) => {
-      if (!new_val.includes(el.i.split('__')[1]?.split('_')[0])) {
+      if (
+        !!el.i.split('__')[1]?.split('_')[0] &&
+        !new_val.includes(el.i.split('__')[1]?.split('_')[0])
+      ) {
         new_val.push(el.i.split('__')[1]?.split('_')[0]);
       }
     });
@@ -404,6 +407,7 @@ const equalNames = (langObj) => {
   }
 };
 export const packageLangs = (langObj) => {
+  if (!langObj) return false;
   const eng = equalNames(langObj);
   if (eng) {
     return `${langObj.lang} (${eng})`;
