@@ -59,8 +59,8 @@ export default function WorkSpaceWrap() {
     );
   };
 
-  const onClose = (index) => {
-    if (compareMaterials(mainResources, index)) {
+  const onClose = (index, force = false) => {
+    if (force || compareMaterials(mainResources, index)) {
       setAppConfig((prev) => {
         const next = { ...prev };
         for (let k in next) {
@@ -75,7 +75,12 @@ export default function WorkSpaceWrap() {
   };
 
   const cards = (appConfig[breakpoint.name] ?? []).map((item) => (
-    <Card key={item.i} classes={classes} onClose={() => onClose(item.i)} type={item.i} />
+    <Card
+      key={item.i}
+      classes={classes}
+      onClose={(force = false) => onClose(item.i, force)}
+      type={item.i}
+    />
   ));
 
   const availableBookList = useMemo(() => {

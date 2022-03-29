@@ -1,3 +1,5 @@
+[![Crowdin](https://badges.crowdin.net/obt/localized.svg)](https://crowdin.com/project/obt)
+
 https://develop--tt-bsa.netlify.app/
 
 [CHANGELOG]( /src/docs/CHANGELOG.md)

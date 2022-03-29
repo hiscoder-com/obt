@@ -310,7 +310,7 @@ export const bibleSubjects = [
   'Aligned Bible',
   'Hebrew Old Testament',
   'Greek New Testament',
-  //'Translation Academy',
+  'Translation Academy',
   //'Translation Notes',
   //'Translation Words',
 ];
