@@ -4,39 +4,52 @@ import React, { useState } from 'react';
 import { DialogUI } from '../../components';
 import { useTranslation } from 'react-i18next';
 import { useStyles } from './style';
+import { useSnackbar } from 'notistack';
 
 function FeedbackDialog({ handleCloseDialog, openFeedbackDialog, title }) {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [text, setText] = useState('');
+  const [sendInfo, setSendInfo] = useState(null);
   const [openFinalDialog, setOpenFinalDialog] = useState(false);
   const { t } = useTranslation();
+  const { enqueueSnackbar } = useSnackbar();
   const classes = useStyles();
-  console.log(openFeedbackDialog);
+  const resetSendInfo = () => {
+    setSendInfo(null);
+  };
   const handleSend = () => {
-    if (name)
+    if (sendInfo) {
+      if (Object.values(sendInfo).length < 3) {
+        enqueueSnackbar(t('Не все поля заполнены'), { variant: 'warning' });
+        return false;
+      }
       axios
         .get(
-          `https://api.telegram.org/bot${process.env.REACT_APP_API_TELEGRAM_TOKEN}/sendMessage?text= ${name} ${email} ${text}&chat_id=${process.env.REACT_APP_BOT_TELEGRAM}`
+          `https://api.telegram.org/bot${process.env.REACT_APP_API_TELEGRAM_TOKEN}/sendMessage?text= ${sendInfo?.name} ${sendInfo?.email} ${sendInfo?.message}&chat_id=${process.env.REACT_APP_BOT_TELEGRAM}`
         )
         .then((result) => {
           handleCloseDialog();
           setOpenFinalDialog(true);
-          setEmail('');
-          setName('');
-          setText('');
+          resetSendInfo();
         })
         .catch((error) => {
           handleCloseDialog();
           setOpenFinalDialog(true);
-          setEmail('');
-          setName('');
-          setText('');
+          resetSendInfo();
           console.log(error);
         });
+    }
   };
   const handleCloseFinalDialog = () => {
     setOpenFinalDialog(false);
+  };
+  const handleSetInfo = (e, key) => {
+    const value = e.target.value.trim();
+    if (value === '') {
+      return false;
+    }
+    setSendInfo((prev) => {
+      console.log(key);
+      return { ...prev, [key]: value };
+    });
   };
 
   // -755912039
@@ -55,25 +68,22 @@ function FeedbackDialog({ handleCloseDialog, openFeedbackDialog, title }) {
           <TextField
             placeholder={'Name'}
             className={classes.nameTextfield}
-            aria-label="minimum height"
             minRows={1}
-            onBlur={(e) => setName(e.target.value.trim())}
+            onBlur={(e) => handleSetInfo(e, 'name')}
             variant={'outlined'}
           />
           <TextField
             placeholder={'Email'}
             className={classes.emailTextfield}
-            aria-label="minimum height"
             minRows={1}
-            onBlur={(e) => setEmail(e.target.value.trim())}
+            onBlur={(e) => handleSetInfo(e, 'email')}
             variant={'outlined'}
           />
           <TextField
             placeholder={'Message'}
             className={classes.textfield}
-            aria-label="minimum height"
             minRows={6}
-            onBlur={(e) => setText(e.target.value.trim())}
+            onBlur={(e) => handleSetInfo(e, 'message')}
             multiline
             variant={'outlined'}
           />
