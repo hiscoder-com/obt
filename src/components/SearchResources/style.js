@@ -8,4 +8,5 @@ export const useStyles = makeStyles((theme) => ({
   },
   menu: { whiteSpace: 'break-spaces' },
   textfield: { margin: theme.spacing(1) },
+  link: { marginTop: '30px', cursor: 'pointer' },
 }));

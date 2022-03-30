@@ -215,12 +215,11 @@ function SearchResources({ anchorEl, onClose, open }) {
         open={openDialog}
         onClose={handleCloseDialog}
         primary={{ text: t('Ok'), onClick: handleCloseDialog }}
-        secondary={{
-          text: t('Если вашего языка здесь нет - свяжитесь с нами'),
-          onClick: handleOpenFeedbackDialog,
-        }}
       >
         <SelectResourcesLanguages />
+        <div className={classes.link} onClick={handleOpenFeedbackDialog}>
+          {t('Если вашего языка здесь нет - свяжитесь с нами')}
+        </div>
       </DialogUI>
     </>
   );

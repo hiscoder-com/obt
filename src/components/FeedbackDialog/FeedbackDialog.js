@@ -16,6 +16,10 @@ function FeedbackDialog({ handleCloseDialog, openFeedbackDialog, title }) {
     setSendInfo(null);
   };
   const handleSend = () => {
+    if (!sendInfo) {
+      enqueueSnackbar(t('Не все поля заполнены'), { variant: 'warning' });
+      return false;
+    }
     if (sendInfo) {
       if (Object.values(sendInfo).length < 3) {
         enqueueSnackbar(t('Не все поля заполнены'), { variant: 'warning' });

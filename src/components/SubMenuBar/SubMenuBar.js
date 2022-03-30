@@ -127,12 +127,13 @@ function SubMenuBar() {
             <MenuItem onClick={handleOpenUsersGuide} divider={true}>
               {t('UsersGuide')}
             </MenuItem>
+
             <About
               open={openAbout}
               setOpen={setOpenAbout}
               handleClick={handleClickOpenAbout}
             />
-
+            <MenuItem divider={true}></MenuItem>
             <Settings setAnchorMainMenu={setAnchorMainMenu} />
             <MenuItem onClick={handleOpenFeedbackDialog}>FeedBack</MenuItem>
             <FeedbackDialog
