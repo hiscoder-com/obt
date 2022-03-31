@@ -25,6 +25,7 @@ export function AppContextProvider({ children }) {
   } = useContext(ReferenceContext);
 
   const [theme, setTheme] = useState(() => checkLSVal('theme', 'obt'));
+  const [taRef, setTaRef] = useState();
 
   const [currentLanguage, setCurrentLanguage] = useState(_currentLanguage);
   const [appConfig, setAppConfig] = useState(
@@ -142,6 +143,7 @@ export function AppContextProvider({ children }) {
   }, [openStartDialog]);
   const value = {
     state: {
+      taRef,
       appConfig,
       breakpoint,
       currentLanguage,
@@ -167,6 +169,7 @@ export function AppContextProvider({ children }) {
       showDownloadLayout,
     },
     actions: {
+      setTaRef,
       setAppConfig,
       setBreakpoint,
       setCurrentLanguage,

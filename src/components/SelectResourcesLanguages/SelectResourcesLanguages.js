@@ -42,7 +42,6 @@ function SelectResourcesLanguages() {
   });
 
   const onChange = (event, newValue) => {
-    console.log({ newValue });
     const _languageResources = [
       ...fixedOptions,
       ...newValue
