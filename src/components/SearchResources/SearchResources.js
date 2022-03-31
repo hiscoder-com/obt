@@ -1,11 +1,13 @@
 import React, { useContext, useEffect, useState, useRef } from 'react';
 
+import { getXY } from 'resource-workspace-rcl';
 import { useTranslation } from 'react-i18next';
 import axios from 'axios';
 import { useSnackbar } from 'notistack';
+import { MenuItem, Menu, Button } from '@material-ui/core';
 
 import { AppContext, ReferenceContext } from '../../context';
-import { SelectResourcesLanguages, DialogUI } from '../../components';
+import { SelectResourcesLanguages, DialogUI, FeedbackDialog } from '../../components';
 import {
   subjects,
   blackListResources,
@@ -14,13 +16,10 @@ import {
   langNames,
 } from '../../config/materials';
 import { defaultCard, server, columns } from '../../config/base';
-import { getXY } from 'resource-workspace-rcl';
 import { getUniqueResources, packageLangs } from '../../helper';
-import { MenuItem, Menu, Button } from '@material-ui/core';
 
 import LanguageIcon from '@material-ui/icons/Language';
 import { useStyles } from './style';
-import FeedbackDialog from '../FeedbackDialog/FeedbackDialog';
 
 function SearchResources({ anchorEl, onClose, open }) {
   const {

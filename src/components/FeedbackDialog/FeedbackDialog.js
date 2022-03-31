@@ -15,14 +15,18 @@ function FeedbackDialog({ handleCloseDialog, openFeedbackDialog, title }) {
   const resetSendInfo = () => {
     setSendInfo(null);
   };
+  fetch('/.netlify/functions/REACT_APP_API_TELEGRAM_TOKEN').then((response) =>
+    console.log(response)
+  );
+
   const handleSend = () => {
     if (!sendInfo) {
-      enqueueSnackbar(t('Не все поля заполнены'), { variant: 'warning' });
+      enqueueSnackbar(t('Not_all_fields_filled'), { variant: 'warning' });
       return false;
     }
 
     if (Object.values(sendInfo).length < 3) {
-      enqueueSnackbar(t('Не все поля заполнены'), { variant: 'warning' });
+      enqueueSnackbar(t('Not_all_fields_filled'), { variant: 'warning' });
       return false;
     }
     axios
