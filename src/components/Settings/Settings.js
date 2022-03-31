@@ -1,4 +1,13 @@
 import React, { useContext } from 'react';
+import { useTranslation } from 'react-i18next';
+import {
+  Checkbox,
+  Divider,
+  FormControlLabel,
+  InputLabel,
+  MenuItem,
+} from '@material-ui/core';
+import { FontSizeSlider } from 'translation-helps-rcl';
 import {
   DialogUI,
   SelectTheme,
@@ -8,15 +17,6 @@ import {
   SwitchWordPopover,
 } from '..';
 import { AppContext } from '../../context';
-import {
-  Checkbox,
-  Divider,
-  FormControlLabel,
-  InputLabel,
-  MenuItem,
-} from '@material-ui/core';
-import { useTranslation } from 'react-i18next';
-import { FontSizeSlider } from 'translation-helps-rcl';
 import { useStyles } from './style';
 
 function Settings({ setAnchorMainMenu }) {

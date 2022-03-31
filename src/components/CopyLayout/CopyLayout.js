@@ -1,3 +1,6 @@
+import React, { useCallback, useContext, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useSnackbar } from 'notistack';
 import {
   Button,
   FormControl,
@@ -7,12 +10,9 @@ import {
   Select,
   TextField,
 } from '@material-ui/core';
+import { AppContext, ReferenceContext } from '../../context';
 import DeleteIcon from '@material-ui/icons/Delete';
 import FileCopyIcon from '@material-ui/icons/FileCopy';
-import { useSnackbar } from 'notistack';
-import React, { useCallback, useContext, useMemo, useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { AppContext, ReferenceContext } from '../../context';
 import { useStyles } from './style';
 
 export default function CopyLayout() {
