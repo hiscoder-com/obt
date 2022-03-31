@@ -208,7 +208,7 @@ function SearchResources({ anchorEl, onClose, open }) {
       <FeedbackDialog
         handleCloseDialog={handleCloseFeedbackDialog}
         openFeedbackDialog={openFeedbackDialog}
-        title={'Если вы не нашли в списке свой язык напишите нам.'}
+        title={t('If_no_language')}
       />
       <DialogUI
         title={t('Choose_languages_resources')}
@@ -218,7 +218,7 @@ function SearchResources({ anchorEl, onClose, open }) {
       >
         <SelectResourcesLanguages />
         <div className={classes.link} onClick={handleOpenFeedbackDialog}>
-          {t('Если вашего языка здесь нет - свяжитесь с нами')}
+          {t('If_no_language')}
         </div>
       </DialogUI>
     </>

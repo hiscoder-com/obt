@@ -11,6 +11,10 @@ const useLocalTitleStyles = makeStyles((theme) => ({
     top: theme.spacing(1),
     color: theme.palette.grey[500],
   },
+  buttons: {
+    marginBottom: theme.spacing(1),
+    marginRight: theme.spacing(1),
+  },
 }));
 
 export default useLocalTitleStyles;

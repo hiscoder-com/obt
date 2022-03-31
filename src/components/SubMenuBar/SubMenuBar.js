@@ -133,13 +133,13 @@ function SubMenuBar() {
               setOpen={setOpenAbout}
               handleClick={handleClickOpenAbout}
             />
-            <MenuItem divider={true}></MenuItem>
+
             <Settings setAnchorMainMenu={setAnchorMainMenu} />
-            <MenuItem onClick={handleOpenFeedbackDialog}>FeedBack</MenuItem>
+            <MenuItem onClick={handleOpenFeedbackDialog}>{t('Feedback')}</MenuItem>
             <FeedbackDialog
               handleCloseDialog={handleCloseFeedbackDialog}
               openFeedbackDialog={openFeedbackDialog}
-              title={'Напишите свой отзыв'}
+              title={t('Write_us')}
             />
           </Menu>
           <SearchResources

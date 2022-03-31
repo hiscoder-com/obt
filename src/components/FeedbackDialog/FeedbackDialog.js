@@ -1,10 +1,10 @@
-import { TextField } from '@material-ui/core';
-import axios from 'axios';
 import React, { useState } from 'react';
-import { DialogUI } from '../../components';
-import { useTranslation } from 'react-i18next';
-import { useStyles } from './style';
+import axios from 'axios';
 import { useSnackbar } from 'notistack';
+import { useTranslation } from 'react-i18next';
+import { FormControl, TextField } from '@material-ui/core';
+import { DialogUI } from '../../components';
+import { useStyles } from './style';
 
 function FeedbackDialog({ handleCloseDialog, openFeedbackDialog, title }) {
   const [sendInfo, setSendInfo] = useState(null);
@@ -20,27 +20,25 @@ function FeedbackDialog({ handleCloseDialog, openFeedbackDialog, title }) {
       enqueueSnackbar(t('Не все поля заполнены'), { variant: 'warning' });
       return false;
     }
-    if (sendInfo) {
-      if (Object.values(sendInfo).length < 3) {
-        enqueueSnackbar(t('Не все поля заполнены'), { variant: 'warning' });
-        return false;
-      }
-      axios
-        .get(
-          `https://api.telegram.org/bot${process.env.REACT_APP_API_TELEGRAM_TOKEN}/sendMessage?text= ${sendInfo?.name} ${sendInfo?.email} ${sendInfo?.message}&chat_id=${process.env.REACT_APP_BOT_TELEGRAM}`
-        )
-        .then((result) => {
-          handleCloseDialog();
-          setOpenFinalDialog(true);
-          resetSendInfo();
-        })
-        .catch((error) => {
-          handleCloseDialog();
-          setOpenFinalDialog(true);
-          resetSendInfo();
-          console.log(error);
-        });
+
+    if (Object.values(sendInfo).length < 3) {
+      enqueueSnackbar(t('Не все поля заполнены'), { variant: 'warning' });
+      return false;
     }
+    axios
+      .get(
+        `https://api.telegram.org/bot${process.env.REACT_APP_API_TELEGRAM_TOKEN}/sendMessage?text= Name: ${sendInfo?.name} Email: ${sendInfo?.email} Text: ${sendInfo?.message}&chat_id=${process.env.REACT_APP_GROUP_TELEGRAM}`
+      )
+      .then(handleOpenFinalDialog())
+      .catch((error) => {
+        handleOpenFinalDialog();
+        console.log(error);
+      });
+  };
+  const handleOpenFinalDialog = () => {
+    handleCloseDialog();
+    setOpenFinalDialog(true);
+    resetSendInfo();
   };
   const handleCloseFinalDialog = () => {
     setOpenFinalDialog(false);
@@ -51,15 +49,38 @@ function FeedbackDialog({ handleCloseDialog, openFeedbackDialog, title }) {
       return false;
     }
     setSendInfo((prev) => {
-      console.log(key);
       return { ...prev, [key]: value };
     });
   };
+  const textFieldValues = [
+    {
+      key: 'Name',
+    },
+    {
+      key: 'Email',
+    },
+    {
+      key: 'Message',
+      className: 'textfield',
+      minRows: 6,
+      multiline: true,
+    },
+  ];
+  const textFields = textFieldValues.map((el) => {
+    const key = el.key.toLowerCase();
+    return (
+      <TextField
+        key={key}
+        placeholder={el.key}
+        className={el.className ? classes.textfield : classes.nameTextfield}
+        minRows={el.minRows ? el.minRows : 1}
+        onBlur={(e) => handleSetInfo(e, key)}
+        variant={'outlined'}
+        multiline={el.multiline}
+      />
+    );
+  });
 
-  // -755912039
-  // <a href="https://discord.com/channels/867746700390563850/894978969613520956">
-  //   https://discord.com/channels/867746700390563850/894978969613520956
-  // </a>;
   return (
     <>
       <DialogUI
@@ -68,34 +89,11 @@ function FeedbackDialog({ handleCloseDialog, openFeedbackDialog, title }) {
         onClose={handleCloseDialog}
         open={openFeedbackDialog}
       >
-        <div className={classes.container}>
-          <TextField
-            placeholder={'Name'}
-            className={classes.nameTextfield}
-            minRows={1}
-            onBlur={(e) => handleSetInfo(e, 'name')}
-            variant={'outlined'}
-          />
-          <TextField
-            placeholder={'Email'}
-            className={classes.emailTextfield}
-            minRows={1}
-            onBlur={(e) => handleSetInfo(e, 'email')}
-            variant={'outlined'}
-          />
-          <TextField
-            placeholder={'Message'}
-            className={classes.textfield}
-            minRows={6}
-            onBlur={(e) => handleSetInfo(e, 'message')}
-            multiline
-            variant={'outlined'}
-          />
-        </div>
+        <FormControl className={classes.container}>{textFields}</FormControl>
       </DialogUI>
       <DialogUI
         primary={{ text: t('Close'), onClick: handleCloseFinalDialog }}
-        title={'Спасибо за ваше сообщение.'}
+        title={t('Thanks_report1')}
         onClose={handleCloseFinalDialog}
         open={openFinalDialog}
       ></DialogUI>

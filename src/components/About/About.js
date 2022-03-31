@@ -29,7 +29,7 @@ function About({ open, setOpen, handleClick }) {
   return (
     <>
       <MenuList>
-        <MenuItem onClick={handleClick}>
+        <MenuItem onClick={handleClick} divider={true}>
           <div>{textLabel}</div>
         </MenuItem>
       </MenuList>
