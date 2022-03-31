@@ -1,5 +1,5 @@
 {
-  "Add_layout": "Добавить макет",
+  "Import": "Импортировать",
   "Add_resources": "Выбрать ресурс",
   "Added_resources": "Добавлены ресурсы",
   "Add_resource_languages": "Добавить языки ресурсов",
@@ -20,6 +20,7 @@
   "Done": "Готово",
   "Error_layout": "Такой макет уже существует!",
   "Error_report": "Сообщить об ошибке",
+  "Import_layout": "Импорт макета",
   "Interface_lang": "Язык интерфейса",
   "Introduction": "Введение",
   "Finish": "Завершить",

@@ -1,5 +1,5 @@
 {
-  "Add_layout": "Add Layout",
+  "Import": "Import",
   "Add_resources": "Add Resources",
   "Added_resources": "Added resources",
   "Add_resource_languages": "Add resource languages",
@@ -20,6 +20,7 @@
   "Done": "Done",
   "Error_layout": "This layout already exists!",
   "Error_report": "Report an error",
+  "Import_layout": "Import layout",
   "Interface_lang": "Interface language",
   "Introduction": "Introduction",
   "Finish": "Finish",

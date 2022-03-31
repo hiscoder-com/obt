@@ -5,10 +5,8 @@ import { useSnackbar } from 'notistack';
 import { DialogUI } from '..';
 import { AppContext } from '../../context';
 import { isJson } from '../../helper';
-import { useStyles } from './style';
 
 function DownloadLayout() {
-  const classes = useStyles();
   const { t } = useTranslation();
   const {
     state: { showDownloadLayout, layoutStorage },
@@ -71,26 +69,26 @@ function DownloadLayout() {
 
   return (
     <>
-      <Box className={classes.addButton}>
+      <Box>
         <Button
           color="primary"
           variant="contained"
           onClick={() => setShowDownloadLayout(true)}
         >
-          {t('Add_layout')}
+          {t('Import')}
         </Button>
       </Box>
       <DialogUI
         primary={{ text: t('Save_layout_button'), onClick: importLayout }}
         open={showDownloadLayout}
         onClose={handleClose}
-        title={t('Add_layout')}
+        title={t('Import_layout')}
         maxWidth="sm"
       >
-        <Grid container spacing={1}>
+        <Grid container spacing={2}>
           <Grid item>
             <TextField
-              label={t('Layout_name')}
+              placeholder={t('Layout_name')}
               variant="outlined"
               size="small"
               value={newLayoutName.slice(0, 100)}
@@ -105,7 +103,7 @@ function DownloadLayout() {
               fullWidth={true}
               size="small"
               variant="outlined"
-              label={t('Layout')}
+              placeholder={t('Layout')}
             />
           </Grid>
         </Grid>

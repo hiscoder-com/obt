@@ -1,20 +1,18 @@
-import React, { useCallback, useContext, useMemo, useState } from 'react';
 import {
-  Box,
   Button,
   FormControl,
   Grid,
   IconButton,
-  InputLabel,
   MenuItem,
   Select,
   TextField,
 } from '@material-ui/core';
-import { useTranslation } from 'react-i18next';
-import { useSnackbar } from 'notistack';
-import { AppContext, ReferenceContext } from '../../context';
-import FileCopyIcon from '@material-ui/icons/FileCopy';
 import DeleteIcon from '@material-ui/icons/Delete';
+import FileCopyIcon from '@material-ui/icons/FileCopy';
+import { useSnackbar } from 'notistack';
+import React, { useCallback, useContext, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { AppContext, ReferenceContext } from '../../context';
 import { useStyles } from './style';
 
 export default function CopyLayout() {
@@ -152,47 +150,37 @@ export default function CopyLayout() {
   }, [appConfig, classes, copyToClipboard, deleteLayout, layoutStorage]);
 
   return (
-    <Grid container alignItems="flex-end" spacing={2} item xs={12}>
-      <Grid container direction="column" alignItems="center" item xs={12} sm={5}>
+    <Grid container direction="column" spacing={2}>
+      {layoutStorage.length > 0 && (
         <Grid item>
           <FormControl variant="outlined">
-            {layoutStorage.length > 0 && (
-              <Box pb={2}>
-                <InputLabel shrink>{t('Layout_list')}</InputLabel>
-                <Select
-                  className={classes.select}
-                  value={currentSelected}
-                  renderValue={(selected) =>
-                    layoutStorage[selected]?.name ?? t('Not_saved')
-                  }
-                  label={t('Layout_list')}
-                  onChange={loadSavedLayout}
-                >
-                  {currentSelected === -1 ? (
-                    <MenuItem className={classes.menuItemLayoutList} value={-1}>
-                      <div className={classes.elementNameLayoutList}>
-                        {t('Not_saved')}
-                      </div>
-                    </MenuItem>
-                  ) : (
-                    ''
-                  )}
-                  {listOfSavedLayouts}
-                </Select>
-              </Box>
-            )}
+            <Select
+              className={classes.select}
+              value={currentSelected}
+              renderValue={(selected) => layoutStorage[selected]?.name ?? t('Not_saved')}
+              onChange={loadSavedLayout}
+            >
+              {currentSelected === -1 ? (
+                <MenuItem className={classes.menuItemLayoutList} value={-1}>
+                  <div className={classes.elementNameLayoutList}>{t('Not_saved')}</div>
+                </MenuItem>
+              ) : (
+                ''
+              )}
+              {listOfSavedLayouts}
+            </Select>
           </FormControl>
         </Grid>
-        <Grid item>
-          <TextField
-            onChange={(event) => setNameLayout(event.target.value)}
-            label={t('Layout_name')}
-            variant="outlined"
-            value={nameLayout.slice(0, 100)}
-          />
-        </Grid>
+      )}
+      <Grid item>
+        <TextField
+          onChange={(event) => setNameLayout(event.target.value)}
+          placeholder={t('Layout_name')}
+          variant="outlined"
+          value={nameLayout.slice(0, 100)}
+        />
       </Grid>
-      <Grid container item xs={12} sm={7}>
+      <Grid item>
         <Button color="primary" variant="contained" onClick={saveNewLayout}>
           {t('Save_layout_button')}
         </Button>

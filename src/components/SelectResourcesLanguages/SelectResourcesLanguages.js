@@ -74,7 +74,7 @@ function SelectResourcesLanguages() {
         getOptionSelected={(option, value) => option.id === value.id}
         onChange={onChange}
         renderTags={renderTags}
-        renderInput={(params) => <TextField {...params} variant="standard" />}
+        renderInput={(params) => <TextField {...params} variant="outlined" />}
       />
     </div>
   );
