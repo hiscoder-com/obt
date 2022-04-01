@@ -2,7 +2,14 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useSnackbar } from 'notistack';
 import { useTranslation } from 'react-i18next';
-import { FormControl, Link, TextField, Typography } from '@material-ui/core';
+import {
+  Box,
+  CircularProgress,
+  FormControl,
+  Link,
+  TextField,
+  Typography,
+} from '@material-ui/core';
 import { DialogUI } from '../../components';
 import { useStyles } from './style';
 
@@ -10,6 +17,7 @@ function FeedbackDialog({ handleCloseDialog, openFeedbackDialog, title }) {
   const [sendInfo, setSendInfo] = useState(null);
   const [openFinalDialog, setOpenFinalDialog] = useState(false);
   const [status, setStatus] = useState('error');
+  const [loading, setLoading] = useState(false);
   const { t } = useTranslation();
   const { enqueueSnackbar } = useSnackbar();
   const classes = useStyles();
@@ -27,6 +35,7 @@ function FeedbackDialog({ handleCloseDialog, openFeedbackDialog, title }) {
       enqueueSnackbar(t('Not_all_fields_filled'), { variant: 'warning' });
       return false;
     }
+    setLoading(true);
     axios
       .post('/.netlify/functions/sendFeedback', JSON.stringify(sendInfo))
       .then((request) => {
@@ -92,7 +101,13 @@ function FeedbackDialog({ handleCloseDialog, openFeedbackDialog, title }) {
         onClose={handleCloseDialog}
         open={openFeedbackDialog}
       >
-        <FormControl className={classes.container}>{textFields}</FormControl>
+        {!loading ? (
+          <FormControl className={classes.container}>{textFields}</FormControl>
+        ) : (
+          <Box display="flex" justifyContent="center">
+            <CircularProgress className={classes.circular} color="primary" size={100} />
+          </Box>
+        )}
       </DialogUI>
       <DialogUI
         primary={{ text: t('Close'), onClick: handleCloseFinalDialog }}

@@ -5,4 +5,5 @@ export const useStyles = makeStyles((theme) => ({
   nameTextfield: { margin: theme.spacing(1), maxWidth: '300px' },
   container: { display: 'flex', flexDirection: 'column' },
   link: { textDecoration: 'underline' },
+  circular: { margin: '30px' },
 }));
