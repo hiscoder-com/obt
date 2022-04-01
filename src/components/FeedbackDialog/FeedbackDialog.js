@@ -2,22 +2,20 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useSnackbar } from 'notistack';
 import { useTranslation } from 'react-i18next';
-import { FormControl, TextField } from '@material-ui/core';
+import { FormControl, Link, TextField, Typography } from '@material-ui/core';
 import { DialogUI } from '../../components';
 import { useStyles } from './style';
 
 function FeedbackDialog({ handleCloseDialog, openFeedbackDialog, title }) {
   const [sendInfo, setSendInfo] = useState(null);
   const [openFinalDialog, setOpenFinalDialog] = useState(false);
+  const [status, setStatus] = useState('error');
   const { t } = useTranslation();
   const { enqueueSnackbar } = useSnackbar();
   const classes = useStyles();
   const resetSendInfo = () => {
     setSendInfo(null);
   };
-  fetch('/.netlify/functions/REACT_APP_API_TELEGRAM_TOKEN').then((response) =>
-    console.log(response)
-  );
 
   const handleSend = () => {
     if (!sendInfo) {
@@ -30,16 +28,17 @@ function FeedbackDialog({ handleCloseDialog, openFeedbackDialog, title }) {
       return false;
     }
     axios
-      .get(
-        `https://api.telegram.org/bot${process.env.REACT_APP_API_TELEGRAM_TOKEN}/sendMessage?text= Name: ${sendInfo?.name} Email: ${sendInfo?.email} Text: ${sendInfo?.message}&chat_id=${process.env.REACT_APP_GROUP_TELEGRAM}`
-      )
-      .then(handleOpenFinalDialog())
-      .catch((error) => {
-        handleOpenFinalDialog();
-        console.log(error);
+      .post('/.netlify/functions/sendFeedback', JSON.stringify(sendInfo))
+      .then((request) => {
+        handleOpenFinalDialog(request.data.status);
+      })
+      .catch((err) => {
+        console.log(err);
+        handleOpenFinalDialog('error');
       });
   };
-  const handleOpenFinalDialog = () => {
+  const handleOpenFinalDialog = (status) => {
+    setStatus(status);
     handleCloseDialog();
     setOpenFinalDialog(true);
     resetSendInfo();
@@ -97,10 +96,29 @@ function FeedbackDialog({ handleCloseDialog, openFeedbackDialog, title }) {
       </DialogUI>
       <DialogUI
         primary={{ text: t('Close'), onClick: handleCloseFinalDialog }}
-        title={t('Thanks_report1')}
+        title={' '}
         onClose={handleCloseFinalDialog}
         open={openFinalDialog}
-      ></DialogUI>
+        maxWidth="sm"
+      >
+        <Typography variant={'h6'}>
+          {status === 'error' ? (
+            <>
+              <p>{t('Message_not_send')}</p>
+              <p>{t('Write_us')}:</p>
+              <Link
+                className={classes.link}
+                target="_blank"
+                href="https://discord.gg/AmFFGVBnj6"
+              >
+                Discord
+              </Link>
+            </>
+          ) : (
+            t('Thanks_report1')
+          )}
+        </Typography>
+      </DialogUI>
     </>
   );
 }
