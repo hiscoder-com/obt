@@ -97,7 +97,7 @@ function FeedbackDialog({ handleCloseDialog, openFeedbackDialog, title }) {
   return (
     <>
       <DialogUI
-        primary={{ text: t('Send_message'), onClick: handleSend }}
+        primary={{ text: t('Send_message'), onClick: handleSend, disabled: loading }}
         title={title}
         onClose={handleCloseDialog}
         open={openFeedbackDialog}

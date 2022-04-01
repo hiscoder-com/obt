@@ -58,6 +58,7 @@ function SubMenuBar() {
   };
   const handleOpenFeedbackDialog = () => {
     setOpenFeedbackDialog(true);
+    handleCloseMainMenu();
   };
   const handleCloseFeedbackDialog = () => {
     setOpenFeedbackDialog(false);
