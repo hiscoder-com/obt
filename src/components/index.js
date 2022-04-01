@@ -10,6 +10,7 @@ export * from './ContextMenu';
 export * from './CopyLayout';
 export * from './DialogUI';
 export * from './DownloadLayout';
+export * from './FeedbackDialog';
 export * from './FrontModal';
 export * from './Intro';
 export * from './OBSVerses';

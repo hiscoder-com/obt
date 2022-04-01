@@ -30,6 +30,7 @@ function Settings({ setAnchorMainMenu }) {
   return (
     <>
       <MenuItem
+        divider={true}
         onClick={() => {
           setShowSettingsMenu(true);
           setAnchorMainMenu(null);
