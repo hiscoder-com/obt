@@ -17,7 +17,7 @@ export const AppContext = React.createContext();
 
 const _currentLanguage = checkLSVal('i18nextLng', languages[0]);
 const _fontSize = parseInt(localStorage.getItem('fontSize'));
-
+const _layoutStorage = localStorage.getItem('layoutStorage');
 export function AppContextProvider({ children }) {
   const {
     state: { referenceSelected },
@@ -25,6 +25,7 @@ export function AppContextProvider({ children }) {
   } = useContext(ReferenceContext);
 
   const [theme, setTheme] = useState(() => checkLSVal('theme', 'obt'));
+  const [taRef, setTaRef] = useState();
 
   const [currentLanguage, setCurrentLanguage] = useState(_currentLanguage);
   const [appConfig, setAppConfig] = useState(
@@ -66,9 +67,13 @@ export function AppContextProvider({ children }) {
   const [showChapterSelect, setShowChapterSelect] = useState(false);
   const [showErrorReport, setShowErrorReport] = useState(false);
   const [showSettingsMenu, setShowSettingsMenu] = useState(false);
+  const [showDownloadLayout, setShowDownloadLayout] = useState(false);
   const [errorFile, setErrorFile] = useState('');
   const [fontSize, setFontSize] = useState(_fontSize ? _fontSize : 100);
   const [loadIntro, setLoadIntro] = useState(false);
+  const [layoutStorage, setLayoutStorage] = useState(
+    _layoutStorage ? JSON.parse(_layoutStorage) : []
+  );
   const [openStartDialog, setOpenStartDialog] = useState(() => {
     return checkLSVal('startDialog', true, 'boolean');
   });
@@ -83,6 +88,10 @@ export function AppContextProvider({ children }) {
   useEffect(() => {
     localStorage.setItem('fontSize', fontSize);
   }, [fontSize]);
+
+  useEffect(() => {
+    localStorage.setItem('layoutStorage', JSON.stringify(layoutStorage));
+  }, [layoutStorage]);
 
   useEffect(() => {
     localStorage.setItem('theme', theme);
@@ -121,7 +130,6 @@ export function AppContextProvider({ children }) {
   useEffect(() => {
     localStorage.setItem('resourcesApp', JSON.stringify(resourcesApp));
   }, [resourcesApp]);
-
   useEffect(() => {
     localStorage.setItem('languageResources', JSON.stringify(languageResources));
   }, [languageResources]);
@@ -133,9 +141,9 @@ export function AppContextProvider({ children }) {
   useEffect(() => {
     localStorage.setItem('startDialog', openStartDialog);
   }, [openStartDialog]);
-
   const value = {
     state: {
+      taRef,
       appConfig,
       breakpoint,
       currentLanguage,
@@ -157,8 +165,11 @@ export function AppContextProvider({ children }) {
       switchWordPopover,
       theme,
       showSettingsMenu,
+      layoutStorage,
+      showDownloadLayout,
     },
     actions: {
+      setTaRef,
       setAppConfig,
       setBreakpoint,
       setCurrentLanguage,
@@ -179,6 +190,8 @@ export function AppContextProvider({ children }) {
       setSwitchWordPopover,
       setTheme,
       setShowSettingsMenu,
+      setLayoutStorage,
+      setShowDownloadLayout,
     },
   };
 

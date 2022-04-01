@@ -52,14 +52,17 @@ function ReportDialog({
           </Box>
         </DialogContentText>
         <TextField
+          variant="outlined"
           autoFocus
           margin="dense"
           id="comment"
-          label={t('Your_comment')}
+          placeholder={t('Your_comment')}
           type="text"
           value={valueComment}
           onChange={handleChange}
           fullWidth
+          minRows={2}
+          multiline
         />
         <DialogContentText className={classes.errorMessage}>
           {errorMessage}
