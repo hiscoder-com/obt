@@ -51,6 +51,7 @@ function FeedbackDialog({ handleCloseDialog, openFeedbackDialog, title }) {
     handleCloseDialog();
     setOpenFinalDialog(true);
     resetSendInfo();
+    setLoading(false);
   };
   const handleCloseFinalDialog = () => {
     setOpenFinalDialog(false);
@@ -120,14 +121,16 @@ function FeedbackDialog({ handleCloseDialog, openFeedbackDialog, title }) {
           {status === 'error' ? (
             <>
               <p>{t('Message_not_send')}</p>
-              <p>{t('Write_us')}:</p>
-              <Link
-                className={classes.link}
-                target="_blank"
-                href="https://discord.gg/AmFFGVBnj6"
-              >
-                Discord
-              </Link>
+              <p>
+                {t('Write_us')}:{' '}
+                <Link
+                  className={classes.link}
+                  target="_blank"
+                  href="https://discord.gg/AmFFGVBnj6"
+                >
+                  Discord
+                </Link>
+              </p>
             </>
           ) : (
             t('Thanks_report1')
