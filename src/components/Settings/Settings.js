@@ -1,7 +1,5 @@
 import React, { useContext } from 'react';
-import { DialogUI, SelectTheme } from '..';
-import SwitchChunks from './SwitchChunks';
-import { AppContext } from '../../context';
+import { useTranslation } from 'react-i18next';
 import {
   Checkbox,
   Divider,
@@ -9,10 +7,17 @@ import {
   InputLabel,
   MenuItem,
 } from '@material-ui/core';
-import { useTranslation } from 'react-i18next';
 import { FontSizeSlider } from 'translation-helps-rcl';
+import {
+  DialogUI,
+  SelectTheme,
+  CopyLayout,
+  DownloadLayout,
+  SwitchChunks,
+  SwitchWordPopover,
+} from '..';
+import { AppContext } from '../../context';
 import { useStyles } from './style';
-import SwitchWordPopover from './SwitchWordPopover';
 
 function Settings({ setAnchorMainMenu }) {
   const classes = useStyles();
@@ -44,14 +49,24 @@ function Settings({ setAnchorMainMenu }) {
         title={t('Settings')}
         maxWidth="sm"
       >
-        <SelectTheme label={t('Select_theme')} />
+        <InputLabel className={classes.inputLabel} shrink>
+          {t('ThemeLabel')}
+        </InputLabel>
+        <SelectTheme />
         <Divider className={classes.divider} light />
-        <InputLabel shrink>{t('WordPopoverLabel')}</InputLabel>
+        <InputLabel className={classes.inputLabel} shrink>
+          {t('WordPopoverLabel')}
+        </InputLabel>
         <SwitchWordPopover />
         <Divider className={classes.divider} light />
-        <InputLabel shrink>{t('ChunksLabel')}</InputLabel> <SwitchChunks />
+        <InputLabel className={classes.inputLabel} shrink>
+          {t('ChunksLabel')}
+        </InputLabel>{' '}
+        <SwitchChunks />
         <Divider className={classes.divider} light />
-        <InputLabel shrink>{t('OBSImages')}</InputLabel>
+        <InputLabel className={classes.inputLabel} shrink>
+          {t('OBSImages')}
+        </InputLabel>
         <FormControlLabel
           control={
             <Checkbox
@@ -64,7 +79,19 @@ function Settings({ setAnchorMainMenu }) {
           label={t('showObsLabel')}
         />
         <Divider className={classes.divider} light />
-        <InputLabel shrink>{t('FontLabel')}</InputLabel>
+        <InputLabel className={classes.inputLabel} shrink>
+          {t('Layout')}
+        </InputLabel>
+        <CopyLayout />
+        <Divider className={classes.divider} light />
+        <InputLabel className={classes.inputLabel} shrink>
+          {t('Import_layout')}
+        </InputLabel>
+        <DownloadLayout />
+        <Divider className={classes.divider} light />
+        <InputLabel className={classes.inputLabel} shrink>
+          {t('FontLabel')}
+        </InputLabel>
         <FontSizeSlider
           onChange={setFontSize}
           marks={false}

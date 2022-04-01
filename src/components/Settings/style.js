@@ -4,4 +4,8 @@ export const useStyles = makeStyles((theme) => ({
   divider: {
     margin: theme.spacing(2),
   },
+
+  inputLabel: {
+    marginBottom: theme.spacing(1),
+  },
 }));
