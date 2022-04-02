@@ -50,7 +50,7 @@ function DialogUI({
       )}
       <DialogContent className={classes.content}>{children}</DialogContent>
       {(primary?.onClick || secondary?.onClick) && (
-        <DialogActions>
+        <DialogActions className={classesLocalTitle.buttons}>
           {secondary?.onClick && (
             <Button
               onClick={secondary.onClick}

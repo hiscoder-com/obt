@@ -7,6 +7,7 @@ import {
   About,
   BookSelect,
   ChapterSelect,
+  FeedbackDialog,
   SearchResources,
   SelectLanguage,
   SelectModeBible,
@@ -28,6 +29,7 @@ function SubMenuBar() {
   const classes = useStyles();
   const modalClasses = useModalStyles();
   const [anchorMainMenu, setAnchorMainMenu] = useState(null);
+  const [openFeedbackDialog, setOpenFeedbackDialog] = useState(false);
   const [anchorAddMaterial, setAnchorAddMaterial] = useState(null);
   const [openAbout, setOpenAbout] = useState(false);
 
@@ -53,6 +55,13 @@ function SubMenuBar() {
   };
   const handleClickOpenAbout = () => {
     setOpenAbout(true);
+  };
+  const handleOpenFeedbackDialog = () => {
+    setOpenFeedbackDialog(true);
+    handleCloseMainMenu();
+  };
+  const handleCloseFeedbackDialog = () => {
+    setOpenFeedbackDialog(false);
   };
 
   const anchorEl = loadIntro && anchorMainMenu ? anchorMainMenu : menuRef.current;
@@ -119,6 +128,7 @@ function SubMenuBar() {
             <MenuItem onClick={handleOpenUsersGuide} divider={true}>
               {t('UsersGuide')}
             </MenuItem>
+
             <About
               open={openAbout}
               setOpen={setOpenAbout}
@@ -126,6 +136,12 @@ function SubMenuBar() {
             />
 
             <Settings setAnchorMainMenu={setAnchorMainMenu} />
+            <MenuItem onClick={handleOpenFeedbackDialog}>{t('Feedback')}</MenuItem>
+            <FeedbackDialog
+              handleCloseDialog={handleCloseFeedbackDialog}
+              openFeedbackDialog={openFeedbackDialog}
+              title={t('Write_us')}
+            />
           </Menu>
           <SearchResources
             anchorEl={anchorAddMaterial}

@@ -2,7 +2,8 @@ import React, { useContext } from 'react';
 
 import { useTranslation } from 'react-i18next';
 import { AppContext } from '../../context';
-import { FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
+import { FormControl, MenuItem, Select } from '@material-ui/core';
+import { useStyles } from './style';
 
 const options = [
   { key: 'textTree', label: 'ThemeTextTree' },
@@ -12,6 +13,7 @@ const options = [
 
 function SelectTheme() {
   const { t } = useTranslation();
+  const classes = useStyles();
 
   const {
     state: { theme },
@@ -21,16 +23,8 @@ function SelectTheme() {
   const handleChange = (e) => setTheme(e.target.value);
 
   return (
-    <FormControl>
-      <InputLabel shrink id="themeId">
-        {t('ThemeLabel')}
-      </InputLabel>
-      <Select
-        disableUnderline={true}
-        onChange={handleChange}
-        value={theme}
-        labelId="themeId"
-      >
+    <FormControl variant="outlined">
+      <Select className={classes.select} onChange={handleChange} value={theme}>
         {options.map((el) => (
           <MenuItem key={el.key} value={el.key}>
             {t(el.label).toUpperCase()}

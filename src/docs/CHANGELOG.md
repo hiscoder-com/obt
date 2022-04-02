@@ -4,31 +4,37 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.6.0] - 2022-03-30
+## [1.6.0] - 2022-04-01
 
 ### Added (for new features)
  - Support for all published resources
  - Migration for support all resources
- - tAcademy support
- - es-419 localization
-
-### Fixed (for any bug fixes)
- - application crash if resource not found
- - default layouts for languages
-
-### Deprecated (for soon-to-be removed features)
- - list of repository owners
-
-### Security (in case of vulnerabilities)
- - Updating dependencies
-
-## [1.5.1] - 2022-03-01
+ - TAcademy support
+ - Es-419 localization
+ - Copy layout
+ - The ability to share the layout
+ - Feedback Component
+ - Set up crowdin for localization
 
 ### Changed (for changes in existing functionality)
  - Edited User`s guide
+ - Using a MUI theme instead of hardcode value
+ - Bringing all form elements to the same view
 
 ### Fixed (for any bug fixes)
+ - Application crash if resource not found
+ - Default layouts for languages
+ - Removed unused styles
+ - Сhunk loading
+ - tQ display
+ - If the resource was not loaded, then an empty space was shown instead of a card
  - Minor fixes in the code
+
+### Deprecated (for soon-to-be removed features)
+ - List of repository owners
+
+### Security (in case of vulnerabilities)
+ - Updating dependencies
 
 ## [1.5.0] - 2022-02-18
 
