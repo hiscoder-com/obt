@@ -17,20 +17,19 @@
 *** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
 *** https://www.markdownguide.org/basic-syntax/#reference-style-links
 -->
-[![Contributors][contributors-shield]](https://github.com/texttree/bsa/graphs/contributors)
+[![Contributors][contributors-shield]][contributors-url]
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
 [![MIT License][license-shield]][license-url]
-[![LinkedIn][linkedin-shield]][linkedin-url]
 
 
 
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/github_username/repo_name">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
+  <a href="https://github.com/texttree/bsa">
+    <img src="public\android-chrome-384x384.png" alt="Logo" width="80" height="80">
   </a>
 
 <h3 align="center">OPEN BIBLE TEXT</h3>
@@ -41,14 +40,14 @@
     <br />
     <a href="https://develop--tt-bsa.netlify.app/">View Demo</a>
     ·
-    <a href="https://github.com/github_username/repo_name/issues">Report Bug</a>
+    <a href="https://github.com/texttree/bsa/issues">Report Bug</a>
     ·
-    <a href="https://github.com/github_username/repo_name/issues">Request Feature</a>
+    <a href="https://github.com/texttree/bsa/issues">Request Feature</a>
   </p>
 </div>
 
 
-
+***
 <!-- TABLE OF CONTENTS -->
 <details>
   <summary>Table of Contents</summary>
@@ -77,51 +76,58 @@
 
 
 
+***
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-<!-- [![Product Name Screen Shot][product-screenshot]](https://example.com) -->
-
 
 **Purpose**
-- The purpose of this project
+- Enable churches to read and study Scripture and OBS in their own language using all the resources of unfoldingWord
+
+- Give translators the opportunity
+study the Scriptures using all the resources of unfoldingWord
 
 **Problem**
-- The problem statement
+- There are many resources that are already translated, but there was no tool for easy reading and learning
+- Small nations do not always have the resources to publish their work.
 
 **Scope**
-- What's in scope and out of scope for this project?
+- Local second (Windows, Mac, Linux)
+  - Downloadable
+  - Also usable online
+  - Sideloading
+- Full book package support for browsing, viewing, listening
+- Proskomma (search, versification, etc.)
+- Text Annotator (shareable user generated notes) via Datatable editable
+- Scripture commenting/reporting system
+- Progressive Web App
+- Downloadable for language-resource combinations via Catalog Next React Toolkit
+
 
 **Background**
-- What led us to this point? How did we get here?
+- We wanted to make a website that would help share the work done and help spread the Gospel
 
-Here's a blank template to get started: To avoid retyping too much info. Do a search and replace with your text editor for the following: `github_username`, `repo_name`, `twitter_handle`, `linkedin_username`, `email`, `email_client`, `project_title`, `project_description`
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 
-
+***
 ### Built With
 
-* [Next.js](https://nextjs.org/)
 * [React.js](https://reactjs.org/)
-* [Vue.js](https://vuejs.org/)
-* [Angular](https://angular.io/)
-* [Svelte](https://svelte.dev/)
-* [Laravel](https://laravel.com)
-* [Bootstrap](https://getbootstrap.com)
-* [JQuery](https://jquery.com)
+* [Material-UI](https://v4.mui.com/)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 
 
 <!-- GETTING STARTED -->
+***
 ## Getting Started
 
 This is an example of how you may give instructions on setting up your project locally.
 To get a local copy up and running follow these simple example steps.
-
+***
 ### Prerequisites
 
 **Data**
@@ -133,69 +139,34 @@ This is an example of how to list things you need to use the software and how to
   ```sh
   npm install npm@latest -g
   ```
-
+***
 ### Installation/First Steps
 
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
+1. Clone the repo
    ```sh
-   git clone https://github.com/github_username/repo_name.git
+   git clone https://github.com/texttree/bsa.git
    ```
-3. Install NPM packages
+2. Install NPM packages
    ```sh
    npm install
    ```
-4. Enter your API in `config.js`
+3. 
    ```js
-   const API_KEY = 'ENTER YOUR API';
+   
+   ```
+4. 
+   ```js
+   
    ```
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 
-
+***
 <!-- USAGE EXAMPLES -->
 ## Usage/Integration
 
-## 0.10.0 (old)
 
-Интерфейс приложения состоит из нескольких частей: AppBar (верхняя панель приложения) и Workspace (все остальное рабочее пространство).
-
-AppBar отображает ссылку на то, что открыто сейчас в Workspace.
-Здесь можно менять книгу и главу.
-
-<p align="center"><img src="https://user-images.githubusercontent.com/74174349/125074047-73bedf00-e0c5-11eb-8134-8232abb2ea94.png">	</p>
-
-В "гамбургер" (☰) добавлено меню с несколькими функциями:
-<p align="center"><img src="https://user-images.githubusercontent.com/74174349/125184340-7fc1b280-e225-11eb-827e-c5d22fe8c03c.png">	</p>
-
- - смена языка интерфейса;
- - добавление карточек с ресурсами;
- - выбор размера шрифта в карточках;
- - комментарий о том как отправить уведомление об опечатке;
- - два шаблона с карточками.
-
-В Workspace пользователь может управлять своим рабочим пространством, пользуясь карточками: добавлять, менять размер, перемещать, удалять. Можно загружать уже готовые шаблоны.
-
-
-Перечень ресурсов (Библия, TN (Заметки), TQ (Вопросы), OBS (Открытые Библейские Истории), OBS-TN, OBS-TQ), которые поддерживает приложение, находятся в пункте меню "Добавить материал".
-
-![GIF 11 07 2021 9-19-23](https://user-images.githubusercontent.com/74174349/125184793-5dca2f00-e229-11eb-9aca-86720366ce95.gif)
-
-<!-- ![Workspace3](https://user-images.githubusercontent.com/74174349/125075733-af5aa880-e0c7-11eb-8903-ae0db24a075a.png) -->
-
-Так как Заметки и Вопросы указываются не в общем для главы, а для конкретного стиха - в приложении это работает через клик.
-После клика по стиху в карточках с Заметками или Вопросами подгружаются нужные данные. Это работает как для Библии, так и для OBS.
-
-Клик правой кнопкой мыши по стиху вызывает контекстное меню, где пользователь может отправить уведомление об опечатке.
-
-![Workspace4](https://user-images.githubusercontent.com/74174349/125075754-b386c600-e0c7-11eb-97ec-e946d25833bc.png)
-
-Для отправки такого уведомления пользователю необходимо написать свой комментарий.
-
-![SendError](https://user-images.githubusercontent.com/74174349/125076698-e67d8980-e0c8-11eb-857b-f4d0f475d657.png)
-
-После отправки ресурс, книга, глава и номер стиха вместе с текстом стиха и комментарием пользователя попадают в репозиторий.
 
 
 _For more examples, please refer to the [Documentation](https://example.com)_  Possibly JS Docs. 
@@ -205,21 +176,19 @@ _For more examples, please refer to the [Documentation](https://example.com)_  P
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 
-
+***
 <!-- ROADMAP -->
 ## Roadmap
 
-- [] Feature 1
-- [] Feature 2
-- [] Feature 3
-    - [] Nested Feature
+See the [open issues](https://github.com/texttree/bsa/issues) for a full list of proposed features (and known issues).
 
-See the [open issues](https://github.com/github_username/repo_name/issues) for a full list of proposed features (and known issues).
+This project uses Zenhub to manage the roadmap.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 
 
+***
 <!-- CONTRIBUTING -->
 ## Contributing
 
@@ -238,8 +207,7 @@ If you would like to fork the repo and create a pull request.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-
-
+***
 <!-- LICENSE -->
 ## License
 
@@ -248,24 +216,24 @@ Distributed under the MIT License. See `LICENSE` for more information.
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 
-
+***
 <!-- CONTACT -->
 ## Contact
 
-Your Name - [@twitter_handle](https://twitter.com/twitter_handle) - email@email_client.com
+Texttree - [Discord](https://discord.com/invite/AmFFGVBnj6)
 
-Project Link: [https://github.com/github_username/repo_name](https://github.com/github_username/repo_name)
+Project Link: [https://github.com/texttree/bsa](https://github.com/texttree/bsa)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 
-
-<!-- ACKNOWLEDGMENTS -->
+***
 ## Acknowledgments
 
-* []()
-* []()
-* []()
+* [unfoldingWord](https://github.com/unfoldingWord)
+* [Mark Howe](https://github.com/mvahowe)
+* [Klappy](https://github.com/klappy)
+* [Zach P](https://github.com/ancientTexts-net)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -273,16 +241,14 @@ Project Link: [https://github.com/github_username/repo_name](https://github.com/
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/github_username/repo_name.svg?style=for-the-badge
-[contributors-url]: https://github.com/github_username/repo_name/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/github_username/repo_name.svg?style=for-the-badge
-[forks-url]: https://github.com/github_username/repo_name/network/members
-[stars-shield]: https://img.shields.io/github/stars/github_username/repo_name.svg?style=for-the-badge
-[stars-url]: https://github.com/github_username/repo_name/stargazers
-[issues-shield]: https://img.shields.io/github/issues/github_username/repo_name.svg?style=for-the-badge
-[issues-url]: https://github.com/github_username/repo_name/issues
-[license-shield]: https://img.shields.io/github/license/github_username/repo_name.svg?style=for-the-badge
-[license-url]: https://github.com/github_username/repo_name/blob/master/LICENSE.txt
-[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/linkedin_username
+[contributors-shield]: https://img.shields.io/github/contributors/texttree/bsa.svg?style=for-the-badge
+[contributors-url]: https://github.com/texttree/bsa/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/texttree/bsa.svg?style=for-the-badge
+[forks-url]: https://github.com/texttree/bsa/network/members
+[stars-shield]: https://img.shields.io/github/stars/texttree/bsa.svg?style=for-the-badge
+[stars-url]: https://github.com/texttree/bsa/stargazers
+[issues-shield]: https://img.shields.io/github/issues/texttree/bsa.svg?style=for-the-badge
+[issues-url]: https://github.com/texttree/bsa/issues
+[license-shield]: https://img.shields.io/github/license/texttree/bsa.svg?style=for-the-badge
+[license-url]: https://github.com/texttree/bsa/blob/master/LICENSE
 [product-screenshot]: images/screenshot.png
