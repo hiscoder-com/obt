@@ -87,7 +87,7 @@ function FeedbackDialog({ handleCloseDialog, openFeedbackDialog, title }) {
     return (
       <TextField
         key={key}
-        placeholder={el.key}
+        placeholder={t(el.key)}
         className={el.className ? classes.textfield : classes.nameTextfield}
         minRows={el.minRows ? el.minRows : 1}
         onBlur={(e) => handleSetInfo(e, key)}
