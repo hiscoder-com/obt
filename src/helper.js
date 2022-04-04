@@ -1,10 +1,11 @@
+import { cloneDeep } from 'lodash';
+
 import {
   defaultTplBible,
   defaultTplOBS,
   defaultBibleReference,
   defaultOBSReference,
 } from './config/base';
-import { cloneDeep } from 'lodash';
 
 export const getResources = (appConfig, resourcesApp) => {
   const resources = [];

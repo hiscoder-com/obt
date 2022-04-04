@@ -1,12 +1,11 @@
 import React, { useContext, useState } from 'react';
 
 import { SendError } from '@texttree/user-notes-rcl';
+import { Backdrop, CircularProgress } from '@material-ui/core';
 
 import { AppContext, ReferenceContext } from '../../context';
-import FinishDialog from './FinishDialog';
-import ReportDialog from './ReportDialog';
+import { FinishDialog, ReportDialog } from '..';
 
-import { Backdrop, CircularProgress } from '@material-ui/core';
 import useStyles from './style';
 
 export default function TypoReport() {

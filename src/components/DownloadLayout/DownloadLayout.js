@@ -1,9 +1,12 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react';
+
+import { Box, Button, Grid, TextField } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { useSnackbar } from 'notistack';
-import { Box, Button, Grid, TextField } from '@material-ui/core';
-import { DialogUI } from '..';
+
 import { AppContext } from '../../context';
+import { DialogUI } from '../../components';
+
 import { isJson } from '../../helper';
 
 function DownloadLayout() {

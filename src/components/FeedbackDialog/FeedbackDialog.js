@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
-import { useSnackbar } from 'notistack';
-import { useTranslation } from 'react-i18next';
+
 import {
   Box,
   CircularProgress,
@@ -10,7 +8,12 @@ import {
   TextField,
   Typography,
 } from '@material-ui/core';
+import axios from 'axios';
+import { useSnackbar } from 'notistack';
+import { useTranslation } from 'react-i18next';
+
 import { DialogUI } from '../../components';
+
 import { useStyles } from './style';
 
 function FeedbackDialog({ handleCloseDialog, openFeedbackDialog, title }) {

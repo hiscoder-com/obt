@@ -1,9 +1,10 @@
 import React, { useContext } from 'react';
 
 import { Menu, MenuItem } from '@material-ui/core';
-import { AppContext, ReferenceContext } from '../../context';
 import { useTranslation } from 'react-i18next';
 import { useSnackbar } from 'notistack';
+
+import { AppContext, ReferenceContext } from '../../context';
 
 const initialPosition = {
   left: null,

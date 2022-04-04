@@ -2,9 +2,9 @@ import React, { useContext, useRef, useState, useEffect } from 'react';
 
 import { Steps } from 'intro.js-react';
 import { useTranslation } from 'react-i18next';
-import { ContextMenu } from '../../components';
 
 import { AppContext, ReferenceContext } from '../../context';
+import { ContextMenu } from '../../components';
 
 import 'intro.js/introjs.css';
 

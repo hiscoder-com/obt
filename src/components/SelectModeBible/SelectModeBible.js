@@ -1,9 +1,12 @@
 import React, { useContext, useState, useEffect } from 'react';
 
-import { useTranslation } from 'react-i18next';
-import { ReferenceContext, AppContext } from '../../context';
-import { switchModeBible } from '../../helper';
 import { FormControl, MenuItem, Select } from '@material-ui/core';
+import { useTranslation } from 'react-i18next';
+
+import { ReferenceContext, AppContext } from '../../context';
+
+import { switchModeBible } from '../../helper';
+
 import { useStyles } from './style';
 
 function SelectModeBible() {

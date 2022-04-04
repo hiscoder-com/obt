@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { useTranslation } from 'react-i18next';
+
 import {
   Checkbox,
   Divider,
@@ -8,6 +8,9 @@ import {
   MenuItem,
 } from '@material-ui/core';
 import { FontSizeSlider } from 'translation-helps-rcl';
+import { useTranslation } from 'react-i18next';
+
+import { AppContext } from '../../context';
 import {
   DialogUI,
   SelectTheme,
@@ -15,8 +18,8 @@ import {
   DownloadLayout,
   SwitchChunks,
   SwitchWordPopover,
-} from '..';
-import { AppContext } from '../../context';
+} from '../../components';
+
 import { useStyles } from './style';
 
 function Settings({ setAnchorMainMenu }) {

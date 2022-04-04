@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 
 import ReactMarkdown from 'react-markdown';
+import { MenuItem } from '@material-ui/core';
+
+import { DialogUI } from '../../components';
 
 import changeLog from '../../docs/CHANGELOG.md';
 import * as PACKAGE_JSON from '../../../package.json';
-import { DialogUI } from '../../components';
-import { MenuItem } from '@material-ui/core';
 
 function About({ open, setOpen, handleClick }) {
   const [log, setLog] = useState();

@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { Card, useContent } from 'translation-helps-rcl';
+
 import USFMContent from './USFMContent';
 
 export default function Chapter({

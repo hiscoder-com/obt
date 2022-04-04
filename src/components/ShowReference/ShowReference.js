@@ -1,11 +1,10 @@
 import React, { useContext } from 'react';
 
 import { useTranslation } from 'react-i18next';
+import { useMediaQuery } from '@material-ui/core';
 
 import { ReferenceContext, AppContext } from '../../context';
-
-import { useMediaQuery } from '@material-ui/core';
-import { ButtonGroupUI } from '../ButtonGroupUI';
+import { ButtonGroupUI } from '../../components';
 
 function ShowReference() {
   const matches = useMediaQuery('(min-width:400px)');

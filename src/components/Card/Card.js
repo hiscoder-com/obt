@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
+
+import { Card as TranslationCard } from 'translation-helps-rcl';
 import { useTranslation } from 'react-i18next';
 
-import { server } from '../../config/base';
-import { Card as TranslationCard } from 'translation-helps-rcl';
 import { AppContext, ReferenceContext } from '../../context';
 import {
   Chapter,
@@ -17,6 +17,8 @@ import {
   SupportOBSTWL,
   SupportTA,
 } from '../../components';
+
+import { server } from '../../config/base';
 import { langNames } from '../../config/materials';
 
 function Card({ type, onClose, classes }) {

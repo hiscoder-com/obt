@@ -1,10 +1,11 @@
 import React, { useContext } from 'react';
 
-import { useTranslation } from 'react-i18next';
-import { DialogUI } from '../../components';
-import { ReferenceContext } from '../../context';
-
 import { Box, DialogContentText, TextField } from '@material-ui/core';
+import { useTranslation } from 'react-i18next';
+
+import { ReferenceContext } from '../../context';
+import { DialogUI } from '../../components';
+
 import useStyles from './style';
 
 function ReportDialog({

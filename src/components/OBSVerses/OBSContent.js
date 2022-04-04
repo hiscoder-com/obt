@@ -1,9 +1,11 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { useTranslation } from 'react-i18next';
-import { ContextMenu } from '../ContextMenu';
-import { ReferenceContext, AppContext } from '../../context';
-import { useScrollToVerse } from '../../hooks';
+
 import { Box } from '@material-ui/core';
+import { useTranslation } from 'react-i18next';
+
+import { ReferenceContext, AppContext } from '../../context';
+import { ContextMenu } from '../ContextMenu';
+import { useScrollToVerse } from '../../hooks';
 
 const initialPositionContextMenu = {
   left: null,

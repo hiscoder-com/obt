@@ -1,4 +1,5 @@
 import { useEffect, useContext } from 'react';
+
 import { useSwipeable } from 'react-swipeable';
 
 import { ReferenceContext } from '../../context';

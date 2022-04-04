@@ -1,7 +1,8 @@
 import React from 'react';
 
-import { useStyles, useButtonStyles } from './style';
 import { ButtonGroup, Button } from '@material-ui/core';
+
+import { useStyles, useButtonStyles } from './style';
 
 export default function ButtonGroupUI({
   buttons = [],

@@ -1,12 +1,15 @@
 import React from 'react';
+
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { SnackbarProvider } from 'notistack';
+
+import ContextProviders from './context/ContextProviders';
 import App from './App';
 import ErrorBoundary from './ErrorBoundary';
-import './i18next';
 import { Migrate } from './Migrate';
-import ContextProviders from './context/ContextProviders';
+
+import './i18next';
 import './styles/style.css';
 
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';

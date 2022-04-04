@@ -1,9 +1,10 @@
 import React, { useContext } from 'react';
 
-import { useTranslation } from 'react-i18next';
 import { BibleBookList as BibleBookListRCL } from '@texttree/tt-reference-rcl';
+import { useTranslation } from 'react-i18next';
 
 import { AppContext, ReferenceContext } from '../../context';
+
 import { bibleList, singleChaptersBookID } from '../../config/base';
 
 import { useStyles, useBookStyles } from './style';

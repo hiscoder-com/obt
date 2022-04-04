@@ -1,12 +1,10 @@
 import React, { useState, useEffect, useContext } from 'react';
 
 import { Card, CardContent, useContent, useCardState } from 'translation-helps-rcl';
-
 import { useTranslation } from 'react-i18next';
 
-import { FrontModal, ButtonGroupUI } from '../../components';
-
 import { AppContext } from '../../context';
+import { FrontModal, ButtonGroupUI } from '../../components';
 
 export default function SupportTN({
   title,

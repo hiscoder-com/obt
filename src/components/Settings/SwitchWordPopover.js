@@ -1,7 +1,9 @@
 import React, { useContext } from 'react';
-import { useTranslation } from 'react-i18next';
-import { AppContext } from '../../context';
+
 import { Checkbox, FormControlLabel } from '@material-ui/core';
+import { useTranslation } from 'react-i18next';
+
+import { AppContext } from '../../context';
 
 function SwitchWordPopover() {
   const { t } = useTranslation();

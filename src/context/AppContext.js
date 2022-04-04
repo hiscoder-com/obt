@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useContext } from 'react';
 
 import { ResourcesContextProvider } from 'scripture-resources-rcl';
-
 import { useTranslation } from 'react-i18next';
-import { ReferenceContext } from './ReferenceContext';
+
+import { ReferenceContext } from '../context';
+
 import { getResources, getBookList, checkLSVal, getLayoutType } from '../helper';
 import {
   defaultTplBible,

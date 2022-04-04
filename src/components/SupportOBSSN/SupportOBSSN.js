@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { Card, CardContent, useContent, useCardState } from 'translation-helps-rcl';
 
 export default function SupportOBSSN({

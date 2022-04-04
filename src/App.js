@@ -1,5 +1,8 @@
 import React, { useContext } from 'react';
 
+import { CssBaseline } from '@material-ui/core';
+
+import { AppContext } from './context';
 import {
   Shortcut,
   Swipes,
@@ -8,12 +11,11 @@ import {
   SubMenuBar,
   StartDialog,
 } from './components';
-import './styles/app.css';
-import { ThemeProvider } from '@material-ui/styles';
-import { themes } from './themes';
 import WorkSpaceWrap from './WorkSpaceWrap';
-import { CssBaseline } from '@material-ui/core';
-import { AppContext } from './context';
+
+import { themes } from './themes';
+import { ThemeProvider } from '@material-ui/styles';
+import './styles/app.css';
 
 //const Intro = React.lazy(() => import('./components/Intro/Intro'));
 //const Card = React.lazy(() => import('./components/Card/Card'));

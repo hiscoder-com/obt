@@ -1,14 +1,13 @@
 import React, { useContext, useState, useEffect } from 'react';
 
 import { Card, useContent } from 'translation-helps-rcl';
-
-import OBSContent from './OBSContent';
+import { CircularProgress } from '@material-ui/core';
 
 import { AppContext, ReferenceContext } from '../../context';
+import OBSContent from './OBSContent';
 
 import { server } from '../../config/base';
 
-import { CircularProgress } from '@material-ui/core';
 import { useCircularStyles } from './style';
 
 export default function OBSVerses({ title, classes, onClose, type }) {

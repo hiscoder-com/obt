@@ -1,10 +1,11 @@
-import { useBibleReference } from 'bible-reference-rcl';
-import { useHistory, useLocation } from 'react-router-dom';
 import React, { useState, createContext, useEffect } from 'react';
 
+import { useBibleReference } from 'bible-reference-rcl';
+import { useHistory, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { checkLSVal } from '../helper';
+
 import { defaultBibleReference, defaultOBSReference, languages } from '../config/base';
+import { checkLSVal } from '../helper';
 
 export const ReferenceContext = createContext();
 

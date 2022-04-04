@@ -1,8 +1,9 @@
-import { AppBar, Button, IconButton, Menu, MenuItem, Toolbar } from '@material-ui/core';
-import AddIcon from '@material-ui/icons/Add';
-import MenuIcon from '@material-ui/icons/Menu';
 import React, { useContext, useRef, useState } from 'react';
+
+import { AppBar, Button, IconButton, Menu, MenuItem, Toolbar } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
+
+import { AppContext } from '../../context';
 import {
   About,
   BookSelect,
@@ -15,7 +16,10 @@ import {
   ShowReference,
   WorkspaceManager,
 } from '../../components';
-import { AppContext } from '../../context';
+
+import AddIcon from '@material-ui/icons/Add';
+import MenuIcon from '@material-ui/icons/Menu';
+
 import { useModalStyles, useStyles } from './style';
 
 function SubMenuBar() {

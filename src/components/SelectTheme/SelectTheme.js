@@ -1,8 +1,10 @@
 import React, { useContext } from 'react';
 
-import { useTranslation } from 'react-i18next';
-import { AppContext } from '../../context';
 import { FormControl, MenuItem, Select } from '@material-ui/core';
+import { useTranslation } from 'react-i18next';
+
+import { AppContext } from '../../context';
+
 import { useStyles } from './style';
 
 const options = [

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
 import { Card, CardContent, useContent, useCardState } from 'translation-helps-rcl';
-
 import { useTranslation } from 'react-i18next';
 
 import { ButtonGroupUI, FrontModal } from '../../components';
