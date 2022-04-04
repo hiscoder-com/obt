@@ -29,7 +29,7 @@ function About({ open, setOpen, handleClick }) {
 
   return (
     <>
-      <MenuItem onClick={handleClick} divider={true}>
+      <MenuItem onClick={handleClick}>
         <div>{textLabel}</div>
       </MenuItem>
       <DialogUI
