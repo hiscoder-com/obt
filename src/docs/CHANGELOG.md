@@ -20,6 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
  - Edited User`s guide
  - Using a MUI theme instead of hardcode value
  - Bringing all form elements to the same view
+ - Update README.md
 
 ### Fixed (for any bug fixes)
  - Application crash if resource not found
