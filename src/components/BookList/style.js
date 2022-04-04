@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 export const useStyles = makeStyles((theme) => ({
   bookList: {
     margin: theme.spacing(1),
-    columnGap: '25px',
+    columnGap: theme.spacing(3),
     [theme.breakpoints.down('xs')]: {
       columnCount: 1,
     },

@@ -7,7 +7,6 @@ export const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(1, 2),
   },
   menu: { whiteSpace: 'break-spaces' },
-  textfield: { margin: theme.spacing(1) },
   link: {
     marginTop: theme.spacing(5),
     cursor: 'pointer',

@@ -71,6 +71,7 @@ function SearchResources({ anchorEl, onClose, open }) {
   const handleOpenFeedbackDialog = () => {
     handleCloseDialog();
     setOpenFeedbackDialog(true);
+    onClose();
   };
 
   const findNewResources = (_prev, _result) => {

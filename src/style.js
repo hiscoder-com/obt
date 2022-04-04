@@ -3,13 +3,13 @@ import { makeStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles((theme) => {
   return {
     root: {
-      padding: '6px !important',
-      margin: '0 1px !important',
+      padding: theme.spacing(1, '!important'),
+      margin: theme.spacing(0, 1 / 8, '!important'),
       height: '100%',
       display: 'flex',
       flexDirection: 'column',
-      borderRadius: '8px !important',
-      borderBottomRightRadius: '0px !important',
+      borderRadius: theme.spacing(1, '!important'),
+      borderBottomRightRadius: theme.spacing(0, '!important'),
       overflow: 'hidden',
       backgroundColor: `${theme.palette.background.paper} !important`,
     },
@@ -18,15 +18,15 @@ const useStyles = makeStyles((theme) => {
     },
     header: {
       background: theme.palette.cardHeaderBg.main,
-      padding: '4px',
+      padding: theme.spacing(1 / 2),
       color: `${theme.palette.cardHeaderText.main} !important`,
     },
     children: {
-      marginTop: '6px',
+      marginTop: theme.spacing(1),
       lineHeight: '1.25',
     },
     dragIndicator: {
-      marginRight: '4px',
+      marginRight: theme.spacing(1 / 2),
       color: theme.palette.cardHeaderText.main,
     },
   };

@@ -8,7 +8,7 @@ export const useStyles = makeStyles((theme) => ({
 
   elementNameLayoutList: {
     whiteSpace: 'normal',
-    maxWidth: '420px',
+    maxWidth: theme.spacing(52),
   },
 
   copyIcon: {
@@ -25,7 +25,7 @@ export const useStyles = makeStyles((theme) => ({
   },
 
   select: {
-    width: '210px',
+    width: theme.spacing(27),
   },
   textField: {
     width: '210px',
