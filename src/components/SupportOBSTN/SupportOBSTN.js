@@ -118,7 +118,7 @@ export default function SupportOBSTN({
       <ButtonGroupUI
         buttonGroupProps={{ size: 'small', color: 'primary' }}
         style={{ marginTop: '10px' }}
-        buttons={[{ title: t('StoryTitle'), onClick: titleClick }]}
+        buttons={[{ title: t('Story_title'), onClick: titleClick }]}
       />
 
       {configFront.projectId && (
@@ -127,7 +127,7 @@ export default function SupportOBSTN({
           open={openDialog}
           config={configFront}
           field={'Note'}
-          title={t('StoryTitle')}
+          title={t('Story_title')}
           isTSV={repoType === 'tsv'}
         />
       )}

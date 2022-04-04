@@ -8,9 +8,9 @@ import { AppContext } from '../../context';
 import { useStyles } from './style';
 
 const options = [
-  { key: 'textTree', label: 'ThemeTextTree' },
-  { key: 'obt', label: 'ThemeObt' },
-  // { key: 'dark', label: 'ThemeDark' },
+  { key: 'textTree', label: 'Theme_TextTree' },
+  { key: 'obt', label: 'Theme_OBT' },
+  // { key: 'dark', label: 'Theme_Dark' },
 ];
 
 function SelectTheme() {

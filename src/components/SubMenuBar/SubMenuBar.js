@@ -28,16 +28,17 @@ function SubMenuBar() {
     actions: { setLoadIntro },
   } = useContext(AppContext);
 
+  const { t } = useTranslation();
+
   const menuRef = useRef(null);
 
-  const classes = useStyles();
-  const modalClasses = useModalStyles();
   const [anchorMainMenu, setAnchorMainMenu] = useState(null);
   const [openFeedbackDialog, setOpenFeedbackDialog] = useState(false);
   const [anchorAddMaterial, setAnchorAddMaterial] = useState(null);
   const [openAbout, setOpenAbout] = useState(false);
 
-  const { t } = useTranslation();
+  const classes = useStyles();
+  const modalClasses = useModalStyles();
 
   const handleClickAddMaterial = (event) => {
     setAnchorAddMaterial(event.currentTarget);
@@ -71,90 +72,97 @@ function SubMenuBar() {
   const anchorEl = loadIntro && anchorMainMenu ? anchorMainMenu : menuRef.current;
 
   return (
-    <>
-      <AppBar className={'intro-appBar'} position="relative">
-        <Toolbar className={classes.grow}>
-          <div className={classes.reference}>OBT</div>
-          <div className={classes.centerButtons}>
-            <SelectModeBible />
-            <ShowReference />
-            <ChapterSelect />
-            <BookSelect />
-          </div>
-          <IconButton
-            ref={menuRef}
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            onClick={handleClickMainMenu}
-          >
-            <MenuIcon />
-          </IconButton>
+    <AppBar className={'intro-appBar'} position="relative">
+      <Toolbar className={classes.grow}>
+        <div className={classes.reference}>OBT</div>
 
-          <Menu
-            elevation={0}
-            getContentAnchorEl={null}
-            anchorOrigin={{
-              vertical: 'bottom',
-              horizontal: 'center',
-            }}
-            transformOrigin={{
-              vertical: 'top',
-              horizontal: 'center',
-            }}
-            anchorEl={anchorEl}
-            keepMounted
-            open={Boolean(anchorMainMenu) || openMainMenu}
-            onClose={handleCloseMainMenu}
-            classes={modalClasses}
-            PopoverClasses={{ paper: 'intro-hamburger' }}
-          >
-            <MenuItem button={false}>
-              <Button
-                startIcon={<AddIcon size={'small'} />}
-                onClick={handleClickAddMaterial}
-                variant="contained"
-                color="secondary"
-                size="small"
-                fullWidth
-              >
-                {t('Add_resources')}
-              </Button>
-            </MenuItem>
-            <MenuItem button={false} divider={true}>
-              <p className={classes.menu}>{t('Text_under_checkbox_error')}</p>
-            </MenuItem>
-            <WorkspaceManager onClose={handleCloseMainMenu} />
-            <MenuItem button={false} divider={true}>
-              <SelectLanguage label={t('Interface_lang')} />
-            </MenuItem>
+        <div className={classes.centerButtons}>
+          <SelectModeBible />
+          <ShowReference />
+          <ChapterSelect />
+          <BookSelect />
+        </div>
 
-            <MenuItem onClick={handleOpenUsersGuide} divider={true}>
-              {t('UsersGuide')}
-            </MenuItem>
+        <IconButton
+          ref={menuRef}
+          edge="start"
+          color="inherit"
+          aria-label="menu"
+          onClick={handleClickMainMenu}
+        >
+          <MenuIcon />
+        </IconButton>
 
-            <About
-              open={openAbout}
-              setOpen={setOpenAbout}
-              handleClick={handleClickOpenAbout}
-            />
+        <Menu
+          elevation={0}
+          getContentAnchorEl={null}
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'center',
+          }}
+          transformOrigin={{
+            vertical: 'top',
+            horizontal: 'center',
+          }}
+          anchorEl={anchorEl}
+          keepMounted
+          open={Boolean(anchorMainMenu) || openMainMenu}
+          onClose={handleCloseMainMenu}
+          classes={modalClasses}
+          PopoverClasses={{ paper: 'intro-hamburger' }}
+        >
+          <MenuItem button={false} divider={true}>
+            <Button
+              startIcon={<AddIcon size={'small'} />}
+              onClick={handleClickAddMaterial}
+              variant="contained"
+              color="secondary"
+              size="small"
+              fullWidth
+            >
+              {t('Add_resources')}
+            </Button>
+          </MenuItem>
 
-            <Settings setAnchorMainMenu={setAnchorMainMenu} />
-            <MenuItem onClick={handleOpenFeedbackDialog}>{t('Feedback')}</MenuItem>
-            <FeedbackDialog
-              handleCloseDialog={handleCloseFeedbackDialog}
-              openFeedbackDialog={openFeedbackDialog}
-              title={t('Write_us')}
-            />
-          </Menu>
-          <SearchResources
-            anchorEl={anchorAddMaterial}
-            onClose={handleCloseAddMaterial}
-            open={Boolean(anchorAddMaterial)}
+          <WorkspaceManager onClose={handleCloseMainMenu} />
+
+          <MenuItem button={false} divider={true}>
+            <p className={classes.menu}>{t('Text_under_checkbox_error')}</p>
+          </MenuItem>
+
+          <MenuItem button={false} divider={true}>
+            <SelectLanguage label={t('Interface_lang')} />
+          </MenuItem>
+
+          <Settings setAnchorMainMenu={setAnchorMainMenu} />
+
+          <MenuItem onClick={handleOpenFeedbackDialog} divider={true}>
+            {t('Feedback')}
+          </MenuItem>
+
+          <FeedbackDialog
+            handleCloseDialog={handleCloseFeedbackDialog}
+            openFeedbackDialog={openFeedbackDialog}
+            title={t('Write_us')}
           />
-        </Toolbar>
-      </AppBar>
-    </>
+
+          <MenuItem onClick={handleOpenUsersGuide} divider={true}>
+            {t('User_guide')}
+          </MenuItem>
+
+          <About
+            open={openAbout}
+            setOpen={setOpenAbout}
+            handleClick={handleClickOpenAbout}
+          />
+        </Menu>
+        <SearchResources
+          anchorEl={anchorAddMaterial}
+          onClose={handleCloseAddMaterial}
+          open={Boolean(anchorAddMaterial)}
+        />
+      </Toolbar>
+    </AppBar>
   );
 }
 

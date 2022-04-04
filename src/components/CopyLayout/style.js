@@ -27,4 +27,7 @@ export const useStyles = makeStyles((theme) => ({
   select: {
     width: '210px',
   },
+  textField: {
+    width: '210px',
+  },
 }));
