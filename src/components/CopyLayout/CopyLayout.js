@@ -178,6 +178,7 @@ export default function CopyLayout() {
       )}
       <Grid item>
         <TextField
+          className={classes.textField}
           onChange={(event) => setNameLayout(event.target.value)}
           placeholder={t('Layout_name')}
           variant="outlined"

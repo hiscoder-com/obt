@@ -53,23 +53,16 @@ function Settings({ setAnchorMainMenu }) {
         maxWidth="sm"
       >
         <InputLabel className={classes.inputLabel} shrink>
-          {t('ThemeLabel')}
+          {t('Theme_label')}
         </InputLabel>
         <SelectTheme />
         <Divider className={classes.divider} light />
-        <InputLabel className={classes.inputLabel} shrink>
-          {t('WordPopoverLabel')}
-        </InputLabel>
+        <InputLabel shrink>{t('Word_popover_label')}</InputLabel>
         <SwitchWordPopover />
         <Divider className={classes.divider} light />
-        <InputLabel className={classes.inputLabel} shrink>
-          {t('ChunksLabel')}
-        </InputLabel>{' '}
-        <SwitchChunks />
+        <InputLabel shrink>{t('Chunks_label')}</InputLabel> <SwitchChunks />
         <Divider className={classes.divider} light />
-        <InputLabel className={classes.inputLabel} shrink>
-          {t('OBSImages')}
-        </InputLabel>
+        <InputLabel shrink>{t('OBS_images')}</InputLabel>
         <FormControlLabel
           control={
             <Checkbox
@@ -79,7 +72,7 @@ function Settings({ setAnchorMainMenu }) {
               }}
             />
           }
-          label={t('showObsLabel')}
+          label={t('Show_OBS_label')}
         />
         <Divider className={classes.divider} light />
         <InputLabel className={classes.inputLabel} shrink>
@@ -93,7 +86,7 @@ function Settings({ setAnchorMainMenu }) {
         <DownloadLayout />
         <Divider className={classes.divider} light />
         <InputLabel className={classes.inputLabel} shrink>
-          {t('FontLabel')}
+          {t('Font_label')}
         </InputLabel>
         <FontSizeSlider
           onChange={setFontSize}

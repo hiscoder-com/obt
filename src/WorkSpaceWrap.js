@@ -75,7 +75,7 @@ export default function WorkSpaceWrap() {
         return next;
       });
     } else {
-      enqueueSnackbar(t('closeLastResource'), { variant: 'warning' });
+      enqueueSnackbar(t('Close_last_resource'), { variant: 'warning' });
     }
   };
 
