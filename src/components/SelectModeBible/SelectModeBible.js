@@ -41,10 +41,7 @@ function SelectModeBible() {
   };
 
   return (
-    <FormControl
-      className={classes.formControl}
-      // style={{ marginRight: '10px' }}
-    >
+    <FormControl className={classes.formControl}>
       <Select
         disableUnderline={true}
         classes={{

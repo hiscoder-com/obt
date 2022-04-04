@@ -12,6 +12,9 @@ const useStyles = makeStyles((theme) => ({
     textAlign: 'right',
     fontWeight: 'bold',
   },
+  finishDialogContent: {
+    textAlign: 'center',
+  },
 }));
 
 export default useStyles;

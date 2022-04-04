@@ -8,11 +8,15 @@ import { DialogUI } from '../../components';
 
 import logo from './friends.png';
 
+import useStyles from './style';
+
 function FinishDialog({ open, onClose }) {
   const { t } = useTranslation();
   const {
     state: { errorFile },
   } = useContext(AppContext);
+
+  const classes = useStyles();
 
   return (
     <DialogUI
@@ -21,7 +25,7 @@ function FinishDialog({ open, onClose }) {
       title={t('Done')}
       open={open}
     >
-      <div style={{ textAlign: 'center' }}>
+      <div className={classes.finishDialogContent}>
         <div>
           <img alt="logo friends" src={logo} />
         </div>
