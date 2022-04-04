@@ -1,7 +1,5 @@
-import React, { useState, useContext } from 'react';
-import { DialogUI, SelectTheme } from '..';
-import SwitchChunks from './SwitchChunks';
-import { AppContext } from '../../context';
+import React, { useContext } from 'react';
+
 import {
   Checkbox,
   Divider,
@@ -9,47 +7,62 @@ import {
   InputLabel,
   MenuItem,
 } from '@material-ui/core';
-import { useTranslation } from 'react-i18next';
 import { FontSizeSlider } from 'translation-helps-rcl';
+import { useTranslation } from 'react-i18next';
+
+import { AppContext } from '../../context';
+import {
+  DialogUI,
+  SelectTheme,
+  CopyLayout,
+  DownloadLayout,
+  SwitchChunks,
+  SwitchWordPopover,
+} from '../../components';
+
 import { useStyles } from './style';
-import SwitchWordPopover from './SwitchWordPopover';
 
 function Settings({ setAnchorMainMenu }) {
   const classes = useStyles();
   const { t } = useTranslation();
-  const [open, setOpen] = useState(false);
   const {
-    state: { fontSize, showObsImage },
-    actions: { setFontSize, setShowObsImage },
+    state: { fontSize, showObsImage, showSettingsMenu },
+    actions: { setFontSize, setShowObsImage, setShowSettingsMenu },
   } = useContext(AppContext);
 
   return (
     <>
       <MenuItem
+        divider={true}
         onClick={() => {
-          setOpen(true);
+          setShowSettingsMenu(true);
           setAnchorMainMenu(null);
         }}
       >
         {t('Settings')}
       </MenuItem>
       <DialogUI
-        open={open}
+        open={showSettingsMenu}
         onClose={() => {
-          setOpen(false);
+          setShowSettingsMenu(false);
         }}
-        isClosable
-        title={' '}
+        classes={{
+          root: { paper: 'intro-settings' },
+        }}
+        title={t('Settings')}
         maxWidth="sm"
       >
-        <SelectTheme label={t('Select_theme')} />
+        <InputLabel className={classes.inputLabel} shrink>
+          {t('Theme_label')}
+        </InputLabel>
+        <SelectTheme />
         <Divider className={classes.divider} light />
-        <InputLabel shrink>{t('WordPopoverLabel')}</InputLabel>
+        <InputLabel shrink>{t('Word_popover_label')}</InputLabel>
         <SwitchWordPopover />
         <Divider className={classes.divider} light />
-        <InputLabel shrink>{t('ChunksLabel')}</InputLabel> <SwitchChunks />
+        <InputLabel shrink>{t('Chunks_label')}</InputLabel> <SwitchChunks />
         <Divider className={classes.divider} light />
-        <InputLabel shrink>{t('OBSImages')}</InputLabel>
+        <InputLabel shrink>{t('OBS_images')}</InputLabel>
         <FormControlLabel
           control={
             <Checkbox
@@ -59,10 +72,22 @@ function Settings({ setAnchorMainMenu }) {
               }}
             />
           }
-          label={t('showObsLabel')}
+          label={t('Show_OBS_label')}
         />
         <Divider className={classes.divider} light />
-        <InputLabel shrink>{t('FontLabel')}</InputLabel>
+        <InputLabel className={classes.inputLabel} shrink>
+          {t('Layout')}
+        </InputLabel>
+        <CopyLayout />
+        <Divider className={classes.divider} light />
+        <InputLabel className={classes.inputLabel} shrink>
+          {t('Import_layout')}
+        </InputLabel>
+        <DownloadLayout />
+        <Divider className={classes.divider} light />
+        <InputLabel className={classes.inputLabel} shrink>
+          {t('Font_label')}
+        </InputLabel>
         <FontSizeSlider
           onChange={setFontSize}
           marks={false}

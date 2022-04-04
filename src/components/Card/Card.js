@@ -1,6 +1,8 @@
 import React, { useContext } from 'react';
 
-import { server } from '../../config/base';
+import { Card as TranslationCard } from 'translation-helps-rcl';
+import { useTranslation } from 'react-i18next';
+
 import { AppContext, ReferenceContext } from '../../context';
 import {
   Chapter,
@@ -13,13 +15,15 @@ import {
   SupportOBSSQ,
   SupportOBSSN,
   SupportOBSTWL,
+  SupportTA,
 } from '../../components';
 
+import { server } from '../../config/base';
+import { langNames } from '../../config/materials';
+
 function Card({ type, onClose, classes }) {
+  const { t } = useTranslation();
   let CurrentCard;
-  /**TODO
-   *Move  all repeated code from Chapter,all Support* like const {*}=useContent({*}) to here
-   */
   const {
     state: { resourcesApp, fontSize },
   } = useContext(AppContext);
@@ -30,20 +34,33 @@ function Card({ type, onClose, classes }) {
 
   let resource = false;
   resourcesApp.forEach((el) => {
-    if (el.name === type) {
+    if (el.owner + '__' + el.name === type) {
       resource = el;
     }
   });
 
   if (!resource && resourcesApp.length > 0) {
-    return false;
+    // Empty Card
+    return (
+      <TranslationCard
+        closeable
+        onClose={() => onClose(true)}
+        classes={classes}
+        id={type}
+        fontSize={fontSize}
+      >
+        <h1>{t('Problem_loading')}</h1>
+      </TranslationCard>
+    );
   }
 
   switch (resource.subject) {
     case 'TSV Translation Notes':
       CurrentCard = SupportTN;
       break;
-
+    case 'Translation Academy':
+      CurrentCard = SupportTA;
+      break;
     case 'TSV Translation Questions':
     case 'Translation Questions':
       CurrentCard = SupportTQ;
@@ -95,7 +112,14 @@ function Card({ type, onClose, classes }) {
   return (
     <CurrentCard
       classes={classes}
-      title={resource.title}
+      title={
+        resource.title +
+        ' (' +
+        langNames[resource.languageId].eng +
+        '|' +
+        resource.owner +
+        ')'
+      }
       resource={resource}
       onClose={onClose}
       type={type}

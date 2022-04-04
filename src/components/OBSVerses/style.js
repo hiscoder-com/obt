@@ -1,10 +1,10 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-export const useCircularStyles = makeStyles(() => ({
+export const useCircularStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
     justifyContent: 'center',
-    marginTop: '20px',
+    marginTop: theme.spacing(3),
   },
 }));
 

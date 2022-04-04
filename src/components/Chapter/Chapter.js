@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { Card, useContent } from 'translation-helps-rcl';
+
 import USFMContent from './USFMContent';
 
 export default function Chapter({
@@ -18,14 +20,14 @@ export default function Chapter({
     projectId: bookId,
     branch: resource.branch,
     languageId: resource.languageId,
-    resourceId: type.split('_')[1],
+    resourceId: resource.name.split('_')[1],
     owner: resource.owner,
     server,
   });
   return (
     <Card
       closeable
-      onClose={() => onClose(type)}
+      onClose={() => onClose(false)}
       title={title}
       type={type}
       id={type}

@@ -1,10 +1,11 @@
 import React, { useContext } from 'react';
 
-import { useTranslation } from 'react-i18next';
-import { DialogUI } from '../../components';
-import { ReferenceContext } from '../../context';
-
 import { Box, DialogContentText, TextField } from '@material-ui/core';
+import { useTranslation } from 'react-i18next';
+
+import { ReferenceContext } from '../../context';
+import { DialogUI } from '../../components';
+
 import useStyles from './style';
 
 function ReportDialog({
@@ -52,14 +53,17 @@ function ReportDialog({
           </Box>
         </DialogContentText>
         <TextField
+          variant="outlined"
           autoFocus
           margin="dense"
           id="comment"
-          label={t('Your_comment')}
+          placeholder={t('Your_comment')}
           type="text"
           value={valueComment}
           onChange={handleChange}
           fullWidth
+          minRows={2}
+          multiline
         />
         <DialogContentText className={classes.errorMessage}>
           {errorMessage}

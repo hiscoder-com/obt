@@ -2,9 +2,9 @@ import React, { useContext, useRef, useState, useEffect } from 'react';
 
 import { Steps } from 'intro.js-react';
 import { useTranslation } from 'react-i18next';
-import { ContextMenu } from '../../components';
 
 import { AppContext, ReferenceContext } from '../../context';
+import { ContextMenu } from '../../components';
 
 import 'intro.js/introjs.css';
 
@@ -17,7 +17,6 @@ function Intro() {
   const [introContextMenuPosition, setIntroContextMenuPosition] =
     useState(initialPosition);
   const [currentVersePosition, setCurrentVersePosition] = useState(initialPosition);
-  const [, setIntroContextMenuOpen] = useState(false);
   const { t } = useTranslation();
   const stepsRef = useRef();
 
@@ -34,6 +33,7 @@ function Intro() {
       setShowErrorReport,
       setLoadIntro,
       setOpenMainMenu,
+      setShowSettingsMenu,
     },
     state: { loadIntro, showChapterSelect },
   } = useContext(AppContext);
@@ -81,10 +81,14 @@ function Intro() {
       element: '.intro-hamburger',
       intro: t('introHamburger'),
     },
+    {
+      element: '.intro-settings',
+      intro: t('introSettings'),
+    },
   ];
   useEffect(() => {
-    if (document.querySelector('.current')) {
-      const { top, left } = document.querySelector('.current').getBoundingClientRect();
+    if (document.querySelector('.verse')) {
+      const { top, left } = document.querySelector('.verse').getBoundingClientRect();
       setCurrentVersePosition({ top, left });
     }
     // eslint-disable-next-line
@@ -129,6 +133,7 @@ function Intro() {
         setShowErrorReport(false);
         document.querySelector('.intro-contextMenu').style.opacity = 1;
         stepsRef.current.updateStepElement(stepIndex);
+        setOpenMainMenu(false);
         break;
       case '9':
         setShowErrorReport(true);
@@ -143,6 +148,12 @@ function Intro() {
         setShowErrorReport(false);
         document.querySelector('.intro-hamburger').style.opacity = 1;
         stepsRef.current.updateStepElement(stepIndex);
+        setShowSettingsMenu(false);
+        break;
+      case '11':
+        setShowSettingsMenu(true);
+        document.querySelector('.intro-hamburger').style.opacity = 0;
+        stepsRef.current.updateStepElement(stepIndex);
         break;
       default:
         break;
@@ -150,11 +161,12 @@ function Intro() {
   };
   const onExit = () => {
     setLoadIntro(false);
+    setIntroContextMenuPosition(initialPosition);
     setOpenMainMenu(false);
-    setIntroContextMenuOpen(false);
     setShowErrorReport(false);
     setShowChapterSelect(false);
     setShowBookSelect(false);
+    setShowSettingsMenu(false);
   };
   const options = {
     nextLabel: t('Next'),
@@ -166,7 +178,7 @@ function Intro() {
     nextToDone: true,
     hidePrev: true,
     overlayOpacity: 0.6,
-    exitOnEsc: false,
+    exitOnEsc: true,
     exitOnOverlayClick: false,
     showBullets: false,
     disableInteraction: true,

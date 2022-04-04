@@ -1,11 +1,12 @@
 import React, { useContext } from 'react';
 
-import { AppContext } from '../../context';
-import { matchSorter } from 'match-sorter';
-import Autocomplete from '@material-ui/lab/Autocomplete';
 import { TextField, Chip } from '@material-ui/core';
-import { langNames } from '../../config/materials';
+import Autocomplete from '@material-ui/lab/Autocomplete';
+import { matchSorter } from 'match-sorter';
 
+import { AppContext } from '../../context';
+
+import { langNames } from '../../config/materials';
 import { getLanguageIds, packageLangs } from '../../helper';
 
 function SelectResourcesLanguages() {
@@ -73,7 +74,7 @@ function SelectResourcesLanguages() {
         getOptionSelected={(option, value) => option.id === value.id}
         onChange={onChange}
         renderTags={renderTags}
-        renderInput={(params) => <TextField {...params} variant="standard" />}
+        renderInput={(params) => <TextField {...params} variant="outlined" />}
       />
     </div>
   );

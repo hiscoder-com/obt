@@ -1,10 +1,11 @@
+import { cloneDeep } from 'lodash';
+
 import {
   defaultTplBible,
   defaultTplOBS,
   defaultBibleReference,
   defaultOBSReference,
 } from './config/base';
-import { cloneDeep } from 'lodash';
 
 export const getResources = (appConfig, resourcesApp) => {
   const resources = [];
@@ -19,7 +20,7 @@ export const getResources = (appConfig, resourcesApp) => {
             'Hebrew Old Testament',
             'Greek New Testament',
           ].includes(r_el.subject) &&
-          r_el.name === el.i
+          r_el.owner + '__' + r_el.name === el.i
         ) {
           resources.push(r_el.link);
         }
@@ -42,7 +43,7 @@ export const getUniqueResources = (appConfig, resourcesApp) => {
     return resourcesApp;
   }
   const opened = appConfig.lg.map((el) => el.i);
-  return resourcesApp.filter((el) => !opened.includes(el.name));
+  return resourcesApp.filter((el) => !opened.includes(el.owner + '__' + el.name));
 };
 
 // +
@@ -275,8 +276,11 @@ const resetMode = (
   setLanguageResources((prev) => {
     const new_val = cloneDeep(prev);
     defaultTpl[currentLanguage].lg.forEach((el) => {
-      if (!new_val.includes(el.i.split('_')[0])) {
-        new_val.push(el.i.split('_')[0]);
+      if (
+        !!el.i.split('__')[1]?.split('_')[0] &&
+        !new_val.includes(el.i.split('__')[1]?.split('_')[0])
+      ) {
+        new_val.push(el.i.split('__')[1]?.split('_')[0]);
       }
     });
     return new_val;
@@ -374,7 +378,7 @@ export const resetWorkspace = ({
 export const getLayoutType = (layout) => {
   let type = 'bible';
   layout.forEach((el) => {
-    if (el.i.split('_')[1].split('-')[0] === 'obs') {
+    if (el.i.split('__')[1]?.split('_')[1]?.split('-')[0] === 'obs') {
       type = 'obs';
     }
   });
@@ -388,7 +392,7 @@ export const getLanguageIds = () => {
   if (allValues) {
     allValues.forEach((value) => {
       value.lg.forEach((el) => {
-        currentLangs.add(el.i.split('_')[0]);
+        currentLangs.add(el.i.split('__')[1]?.split('_')[0]);
       });
     });
   }
@@ -404,10 +408,19 @@ const equalNames = (langObj) => {
   }
 };
 export const packageLangs = (langObj) => {
+  if (!langObj) return false;
   const eng = equalNames(langObj);
   if (eng) {
     return `${langObj.lang} (${eng})`;
   } else {
     return langObj.lang;
   }
+};
+export const isJson = (str) => {
+  try {
+    JSON.parse(str);
+  } catch (e) {
+    return false;
+  }
+  return true;
 };

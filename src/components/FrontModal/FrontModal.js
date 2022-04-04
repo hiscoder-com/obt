@@ -1,9 +1,10 @@
 import React from 'react';
 
 import { useContent } from 'translation-helps-rcl';
-import { CircularProgress } from '@material-ui/core';
-import { DialogUI } from '../../components';
 import ReactMarkdown from 'react-markdown';
+import { CircularProgress } from '@material-ui/core';
+
+import { DialogUI } from '../../components';
 
 function FrontModal({
   config,

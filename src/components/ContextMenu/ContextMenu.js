@@ -1,9 +1,10 @@
 import React, { useContext } from 'react';
 
 import { Menu, MenuItem } from '@material-ui/core';
-import { AppContext, ReferenceContext } from '../../context';
 import { useTranslation } from 'react-i18next';
 import { useSnackbar } from 'notistack';
+
+import { AppContext, ReferenceContext } from '../../context';
 
 const initialPosition = {
   left: null,
@@ -40,11 +41,11 @@ function ContextMenu({ position, setPosition, PopoverClasses }) {
     return navigator.clipboard.writeText(text).then(
       () => {
         handleContextClose();
-        enqueueSnackbar(t('copied_success'), { variant: 'success' });
+        enqueueSnackbar(t('Copied_success'), { variant: 'success' });
       },
       (err) => {
         handleContextClose();
-        enqueueSnackbar(t('copied_error'), { variant: 'error' });
+        enqueueSnackbar(t('Copied_error'), { variant: 'error' });
       }
     );
   };

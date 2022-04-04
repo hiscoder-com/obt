@@ -1,12 +1,18 @@
 import React, { useContext, useEffect, useMemo } from 'react';
+
 import { useSnackbar } from 'notistack';
 import { useTranslation } from 'react-i18next';
 import { Workspace } from 'resource-workspace-rcl';
-import { Card } from './components';
-import useStyles from './style';
-import { columns } from './config/base';
+
 import { AppContext, ReferenceContext } from './context';
+import { Card } from './components';
+
+import { columns } from './config/base';
 import { getLayoutType } from './helper';
+
+import useStyles from './style';
+
+const breakpoints = { lg: 900, md: 700, sm: 500 };
 
 export default function WorkSpaceWrap() {
   const {
@@ -24,8 +30,7 @@ export default function WorkSpaceWrap() {
 
   const classes = useStyles();
   const { enqueueSnackbar } = useSnackbar();
-  const layout = { ...appConfig };
-  const breakpoints = { lg: 900, md: 700, sm: 500 };
+  const layout = useMemo(() => ({ ...appConfig }), [appConfig]);
 
   const onLayoutChange = (newLayout, _newLayout) => {
     const oldAppConfig = JSON.parse(localStorage.getItem('appConfig'));
@@ -39,7 +44,7 @@ export default function WorkSpaceWrap() {
   };
 
   const mainResources = resourcesApp
-    .filter((e) => appConfig.lg.map((e) => e.i).includes(e.name))
+    .filter((e) => appConfig.lg.map((e) => e.i).includes(e.owner + '__' + e.name))
     .filter((e) =>
       [
         'Open Bible Stories',
@@ -52,13 +57,15 @@ export default function WorkSpaceWrap() {
 
   const compareMaterials = (resources, type) => {
     return (
-      (resources.length >= 1 && !resources.map((e) => e.name).includes(type)) ||
-      (resources.length > 1 && resources.map((e) => e.name).includes(type))
+      (resources.length >= 1 &&
+        !resources.map((e) => e.owner + '__' + e.name).includes(type)) ||
+      (resources.length > 1 &&
+        resources.map((e) => e.owner + '__' + e.name).includes(type))
     );
   };
 
-  const onClose = (index) => {
-    if (compareMaterials(mainResources, index)) {
+  const onClose = (index, force = false) => {
+    if (force || compareMaterials(mainResources, index)) {
       setAppConfig((prev) => {
         const next = { ...prev };
         for (let k in next) {
@@ -68,12 +75,17 @@ export default function WorkSpaceWrap() {
         return next;
       });
     } else {
-      enqueueSnackbar(t('closeLastResource'), { variant: 'warning' });
+      enqueueSnackbar(t('Close_last_resource'), { variant: 'warning' });
     }
   };
 
   const cards = (appConfig[breakpoint.name] ?? []).map((item) => (
-    <Card key={item.i} classes={classes} onClose={() => onClose(item.i)} type={item.i} />
+    <Card
+      key={item.i}
+      classes={classes}
+      onClose={(force = false) => onClose(item.i, force)}
+      type={item.i}
+    />
   ));
 
   const availableBookList = useMemo(() => {

@@ -4,69 +4,102 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.6.0] - 2022-04-04
+
+### Added (for new features)
+ - Support for all published resources
+ - Migration for support all resources
+ - TAcademy support
+ - Es-419 localization
+ - Copy layout
+ - The ability to share the layout
+ - Feedback Component
+ - Set up crowdin for localization
+
+### Changed (for changes in existing functionality)
+ - Edited User`s guide
+ - Using a MUI theme instead of hardcode value
+ - Bringing all form elements to the same view
+ - Update README.md
+
+### Fixed (for any bug fixes)
+ - Application crash if resource not found
+ - Default layouts for languages
+ - Removed unused styles
+ - Сhunk loading
+ - tQ display
+ - If the resource was not loaded, then an empty space was shown instead of a card
+ - Minor fixes in the code
+
+### Deprecated (for soon-to-be removed features)
+ - List of repository owners
+
+### Security (in case of vulnerabilities)
+ - Updating dependencies
+
 ## [1.5.0] - 2022-02-18
 
 ### Added (for new features)
  - Custom theme support
  - TSV format support for OBS
- - showing chunks for all resources
- - created a settings page
- - option to hide pictures in OBS (Alt + O)
+ - Showing chunks for all resources
+ - Created a settings page
+ - Option to hide pictures in OBS (Alt + O)
 
 ### Changed (for changes in existing functionality)
- - the ability to hide WordPopover
+ - The ability to hide WordPopover
 
 ### Fixed (for any bug fixes)
- - roboto font support
+ - 'Roboto' font support
 
 ## [1.4.2] - 2021-12-03
 
 ### Changed (for changes in existing functionality)
- - update title of cards( added name of languages)
- - update the selection of resource languages
+ - Update title of cards( added name of languages)
+ - Update the selection of resource languages
 
 ## [1.4.1] - 2021-11-25
 
 ### Added (for new features)
- - show adding resources when adding languages
- - show obs-tn title comment
- - show obs-sq summary comment
- - support TSV Translation Questions
+ - Show adding resources when adding languages
+ - Show obs-tn title comment
+ - Show obs-sq summary comment
+ - Support TSV Translation Questions
 
 ### Changed (for changes in existing functionality)
- - update DialogUI
- - removed StrictMode as there were errors in the console
+ - Update DialogUI
+ - Removed StrictMode as there were errors in the console
 
 ### Fixed (for any bug fixes)
- - minor fixes in the code
- - clean console errors
- - update dependencies
- - colors for PWA
+ - Minor fixes in the code
+ - Clean console errors
+ - Update dependencies
+ - Colors for PWA
 
 ## [1.4.0] - 2021-11-10
 
 ### Added (for new features)
- - choice of languages for resources
- - migration for language selection
- - component for dialogs
- - selection of resource languages to the first launch window
+ - Choice of languages for resources
+ - Migration for language selection
+ - Component for dialogs
+ - Selection of resource languages to the first launch window
  - OBS Study Questions
  - OBS Study Notes
  - Translation Words Links
  - OBS Translation Words Links
- - tool for showing introduction and general notes in Translation Notes
+ - Tool for showing introduction and general notes in Translation Notes
 
 ### Changed (for changes in existing functionality)
- - message about the inability to close the last resource
- - scrolling to a new card
- - removed StrictMode as there were errors in the console
+ - Message about the inability to close the last resource
+ - Scrolling to a new card
+ - Removed StrictMode as there were errors in the console
 
 ### Fixed (for any bug fixes)
- - minor fixes in the code
- - removed the removal of cards if they are not in the list of resources, as there was a bug with the asynchronous creation of a list of available resources
- - scrolling to verses in obs
- - line break if the resource name is too long
- - duplicate resources are hidden
+ - Minor fixes in the code
+ - Removed the removal of cards if they are not in the list of resources, as there was a bug with the asynchronous creation of a list of available resources
+ - Scrolling to verses in obs
+ - Line break if the resource name is too long
+ - Duplicate resources are hidden
 
 ## [1.3.0] - 2021-10-20
 

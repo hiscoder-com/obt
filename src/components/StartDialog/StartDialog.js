@@ -1,13 +1,14 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
-import { SelectLanguage, SelectResourcesLanguages, DialogUI } from '../../components/';
 
 import { Stepper, Step, StepLabel, StepContent } from '@material-ui/core';
+import { useTranslation } from 'react-i18next';
 
 import { AppContext, ReferenceContext } from '../../context';
+import { SelectLanguage, SelectResourcesLanguages, DialogUI } from '../../components';
+
+import { resetWorkspace } from '../../helper';
 
 import { useStyles } from './style';
-import { resetWorkspace } from '../../helper';
 
 function StartDialog() {
   const { t } = useTranslation();

@@ -1,7 +1,6 @@
 import React from 'react';
-import { Card, CardContent, useContent, useCardState } from 'translation-helps-rcl';
 
-import { langNames } from '../../config/materials';
+import { Card, CardContent, useContent, useCardState } from 'translation-helps-rcl';
 
 export default function SupportOBSSN({
   title,
@@ -44,7 +43,7 @@ export default function SupportOBSSN({
   return (
     <Card
       closeable
-      title={title + ' (' + langNames[resource.languageId].eng + ')'}
+      title={title}
       onClose={() => onClose(type)}
       classes={{ ...classes, children: 'tqcard' }}
       id={type}

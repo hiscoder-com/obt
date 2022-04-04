@@ -1,17 +1,22 @@
 import React, { useContext } from 'react';
 
+import { Link } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
 import { AppContext } from '../../context';
 import { DialogUI } from '../../components';
+
 import logo from './friends.png';
-import { Link } from '@material-ui/core';
+
+import useStyles from './style';
 
 function FinishDialog({ open, onClose }) {
   const { t } = useTranslation();
   const {
     state: { errorFile },
   } = useContext(AppContext);
+
+  const classes = useStyles();
 
   return (
     <DialogUI
@@ -20,7 +25,7 @@ function FinishDialog({ open, onClose }) {
       title={t('Done')}
       open={open}
     >
-      <div style={{ textAlign: 'center' }}>
+      <div className={classes.finishDialogContent}>
         <div>
           <img alt="logo friends" src={logo} />
         </div>

@@ -1,10 +1,14 @@
 import React, { useContext, useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
-import { AppContext } from '../../context/AppContext';
-import { languages } from '../../config/base';
+
 import { FormControl, NativeSelect, InputLabel } from '@material-ui/core';
-import { useStyles } from './style';
 import { cloneDeep } from 'lodash';
+import { useTranslation } from 'react-i18next';
+
+import { AppContext } from '../../context/AppContext';
+
+import { languages } from '../../config/base';
+
+import { useStyles } from './style';
 
 export default function SelectLanguage({ label, style }) {
   const {

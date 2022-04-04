@@ -1,25 +1,26 @@
 import React, { useContext, useEffect, useState, useRef } from 'react';
 
-import { useTranslation } from 'react-i18next';
 import axios from 'axios';
+import { MenuItem, Menu, Button } from '@material-ui/core';
+import { getXY } from 'resource-workspace-rcl';
 import { useSnackbar } from 'notistack';
+import { useTranslation } from 'react-i18next';
 
 import { AppContext, ReferenceContext } from '../../context';
-import { SelectResourcesLanguages, DialogUI } from '../../components';
+import { SelectResourcesLanguages, DialogUI, FeedbackDialog } from '../../components';
+
 import {
   subjects,
-  owners,
   blackListResources,
   bibleSubjects,
   obsSubjects,
   langNames,
 } from '../../config/materials';
 import { defaultCard, server, columns } from '../../config/base';
-import { getXY } from 'resource-workspace-rcl';
 import { getUniqueResources, packageLangs } from '../../helper';
-import { MenuItem, Menu, Button } from '@material-ui/core';
 
 import LanguageIcon from '@material-ui/icons/Language';
+
 import { useStyles } from './style';
 
 function SearchResources({ anchorEl, onClose, open }) {
@@ -37,6 +38,8 @@ function SearchResources({ anchorEl, onClose, open }) {
   const { t } = useTranslation();
   const classes = useStyles();
   const [openDialog, setOpenDialog] = useState(false);
+  const [openFeedbackDialog, setOpenFeedbackDialog] = useState(false);
+
   const prevResources = useRef([]);
   const uniqueResources = getUniqueResources(appConfig, resourcesApp);
   const { enqueueSnackbar } = useSnackbar();
@@ -49,18 +52,26 @@ function SearchResources({ anchorEl, onClose, open }) {
           ...defaultCard[k],
           x: pos.x,
           y: pos.y,
-          i: item.name,
+          i: item.owner + '__' + item.name,
         });
       }
       return next;
     });
     setTimeout(function () {
-      document.querySelector('#' + item.name + '_title').scrollIntoView();
+      document
+        .querySelector('#' + item.owner + '__' + item.name + '_title')
+        .scrollIntoView();
     }, 1000);
   };
 
   const handleOpenDialog = () => {
     setOpenDialog(true);
+  };
+
+  const handleOpenFeedbackDialog = () => {
+    handleCloseDialog();
+    setOpenFeedbackDialog(true);
+    onClose();
   };
 
   const findNewResources = (_prev, _result) => {
@@ -80,10 +91,7 @@ function SearchResources({ anchorEl, onClose, open }) {
     axios
       .get(
         server +
-          '/api/catalog/v5/search?limit=1000&sort=lang,title&owner=' +
-          owners.join(',') +
-          '&lang=' +
-          languageResources.join(',') +
+          '/api/catalog/v5/search?limit=1000&sort=lang,title' +
           '&subject=' +
           subjects.join(',')
       )
@@ -150,7 +158,7 @@ function SearchResources({ anchorEl, onClose, open }) {
           <div key={el.id}>
             <p className={classes.divider}>{packageLangs(langNames[el.languageId])}</p>
             <MenuItem className={classes.menu} onClick={() => handleAddMaterial(el)}>
-              {el.title}
+              {el.title} ({el.owner})
             </MenuItem>
           </div>
         );
@@ -161,7 +169,7 @@ function SearchResources({ anchorEl, onClose, open }) {
             key={el.id}
             onClick={() => handleAddMaterial(el)}
           >
-            {el.title}
+            {el.title} ({el.owner})
           </MenuItem>
         );
       }
@@ -171,6 +179,9 @@ function SearchResources({ anchorEl, onClose, open }) {
 
   const handleCloseDialog = () => {
     setOpenDialog(false);
+  };
+  const handleCloseFeedbackDialog = () => {
+    setOpenFeedbackDialog(false);
   };
 
   return (
@@ -196,6 +207,11 @@ function SearchResources({ anchorEl, onClose, open }) {
         </MenuItem>
         {menuItems.length !== 0 ? menuItems : emptyMenuItems}
       </Menu>
+      <FeedbackDialog
+        handleCloseDialog={handleCloseFeedbackDialog}
+        openFeedbackDialog={openFeedbackDialog}
+        title={t('If_no_language')}
+      />
       <DialogUI
         title={t('Choose_languages_resources')}
         open={openDialog}
@@ -203,6 +219,9 @@ function SearchResources({ anchorEl, onClose, open }) {
         primary={{ text: t('Ok'), onClick: handleCloseDialog }}
       >
         <SelectResourcesLanguages />
+        <div className={classes.link} onClick={handleOpenFeedbackDialog}>
+          {t('If_no_language')}
+        </div>
       </DialogUI>
     </>
   );

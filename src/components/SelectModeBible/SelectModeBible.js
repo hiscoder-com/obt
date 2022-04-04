@@ -1,9 +1,12 @@
 import React, { useContext, useState, useEffect } from 'react';
 
-import { useTranslation } from 'react-i18next';
-import { ReferenceContext, AppContext } from '../../context';
-import { switchModeBible } from '../../helper';
 import { FormControl, MenuItem, Select } from '@material-ui/core';
+import { useTranslation } from 'react-i18next';
+
+import { ReferenceContext, AppContext } from '../../context';
+
+import { switchModeBible } from '../../helper';
+
 import { useStyles } from './style';
 
 function SelectModeBible() {
@@ -38,10 +41,7 @@ function SelectModeBible() {
   };
 
   return (
-    <FormControl
-      className={classes.formControl}
-      // style={{ marginRight: '10px' }}
-    >
+    <FormControl className={classes.formControl}>
       <Select
         disableUnderline={true}
         classes={{

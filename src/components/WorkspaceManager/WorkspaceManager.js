@@ -1,11 +1,11 @@
 import React, { useContext } from 'react';
 
+import { MenuItem } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
 import { AppContext, ReferenceContext } from '../../context';
 
 import { resetWorkspace } from '../../helper';
-import { MenuItem, MenuList } from '@material-ui/core';
 
 function WorkspaceManager({ onClose }) {
   const {
@@ -36,11 +36,9 @@ function WorkspaceManager({ onClose }) {
   };
 
   return (
-    <MenuList>
-      <MenuItem divider={true} onClick={handleReset}>
-        {t('Reset_cards')}
-      </MenuItem>
-    </MenuList>
+    <MenuItem divider={true} onClick={handleReset}>
+      {t('Reset_cards')}
+    </MenuItem>
   );
 }
 

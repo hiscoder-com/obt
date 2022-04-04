@@ -1,6 +1,7 @@
 import React from 'react';
+
 import PropTypes from 'prop-types';
-import { useTranslation } from 'react-i18next';
+
 import {
   Dialog,
   DialogActions,
@@ -9,7 +10,10 @@ import {
   DialogTitle,
   IconButton,
 } from '@material-ui/core';
+import { useTranslation } from 'react-i18next';
+
 import CloseIcon from '@material-ui/icons/Close';
+
 import useLocalTitleStyles from './style';
 
 function DialogUI({
@@ -50,7 +54,7 @@ function DialogUI({
       )}
       <DialogContent className={classes.content}>{children}</DialogContent>
       {(primary?.onClick || secondary?.onClick) && (
-        <DialogActions>
+        <DialogActions className={classesLocalTitle.buttons}>
           {secondary?.onClick && (
             <Button
               onClick={secondary.onClick}
