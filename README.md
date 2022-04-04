@@ -29,13 +29,13 @@
 <br />
 <div align="center">
   <a href="https://github.com/texttree/bsa">
-    <img src="public\android-chrome-384x384.png" alt="Logo" width="80" height="80">
+    <img src="public\logo.png" alt="Logo" width="80" height="80">
   </a>
 
 <h3 align="center">OPEN BIBLE TEXT</h3>
 
   <p align="center">
-    An application for advanced Bible study using unfoldingWord materials
+An application for advanced Bible study using opensource materials from git.door43.org.
     <br />
     <br />
     <a href="https://develop--tt-bsa.netlify.app/">View Demo</a>
@@ -46,6 +46,9 @@
   </p>
 </div>
 
+<p align="center">
+    <a href="https://crowdin.com/project/obt">Help us translate - Crowdin</a>
+</p>
 
 ***
 <!-- TABLE OF CONTENTS -->
@@ -148,7 +151,7 @@ This is an example of how to list things you need to use the software and how to
    ```
 2. Install NPM packages
    ```sh
-   npm install
+   yarn install
    ```
 3. 
    ```js
@@ -221,6 +224,8 @@ Distributed under the MIT License. See `LICENSE` for more information.
 ## Contact
 
 Texttree - [Discord](https://discord.com/invite/AmFFGVBnj6)
+
+Help us translate - [Crowdin](https://crowdin.com/project/obt)
 
 Project Link: [https://github.com/texttree/bsa](https://github.com/texttree/bsa)
 
