@@ -1,14 +1,19 @@
 import React, { useContext, useEffect, useMemo } from 'react';
+
 import { useSnackbar } from 'notistack';
 import { useTranslation } from 'react-i18next';
 import { Workspace } from 'resource-workspace-rcl';
-import { Card } from './components';
-import useStyles from './style';
-import { columns } from './config/base';
+
 import { AppContext, ReferenceContext } from './context';
+import { Card } from './components';
+
+import { columns } from './config/base';
 import { getLayoutType } from './helper';
 
+import useStyles from './style';
+
 const breakpoints = { lg: 900, md: 700, sm: 500 };
+
 export default function WorkSpaceWrap() {
   const {
     state: { appConfig, resourcesApp, resources, breakpoint },
