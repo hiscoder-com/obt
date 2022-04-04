@@ -4,7 +4,7 @@ import { Card, CardContent, useContent, useCardState } from 'translation-helps-r
 
 import { AppContext } from '../../context';
 
-export default function SupportTN({
+export default function SupportTA({
   title,
   classes,
   onClose,
