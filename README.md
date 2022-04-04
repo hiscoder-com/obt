@@ -137,6 +137,12 @@ The source of the data to import into OPEN BIBLE TEXT are scripture files such a
 
 Real USFM files can be found in [Door43 Catalog](https://git.door43.org/catalog)
 
+#### Data
+
+- The source must be cloned from its repository
+- `yarn install` is used to resolve/install dependencies
+- `yarn start` is used to start the local server listening on `localhost:3000`
+
 #### Local
 
 - [React](https://reactjs.org/): please refer to their [installation guide](https://ru.reactjs.org/docs/getting-started.html).
