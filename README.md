@@ -29,7 +29,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/texttree/bsa">
-    <img src="public\logo.png" alt="Logo" width="80" height="80">
+    <img src="public\logo.png" alt="Logo" width="100" height="100">
   </a>
 
 <h3 align="center">OPEN BIBLE TEXT</h3>
@@ -135,9 +135,7 @@ To get a local copy up and running follow these simple example steps.
 
 ### Prerequisites
 
-The source of the data to import into OPEN BIBLE TEXT are scripture files such as USFM.
-
-Real USFM files can be found in [Door43 Catalog](https://git.door43.org/catalog)
+All data in OPEN BIBLE TEXT is taken from [Door43 Catalog](https://git.door43.org/catalog)
 
 <br/>
 
@@ -151,7 +149,6 @@ Real USFM files can be found in [Door43 Catalog](https://git.door43.org/catalog)
 
 #### Local
 
-- [React](https://reactjs.org/): please refer to their [installation guide](https://ru.reactjs.org/docs/getting-started.html).
 - [Yarn](https://yarnpkg.com/) 1.x: please refer to their [installation guide](https://classic.yarnpkg.com/en/docs/install).
 
 <br/>
@@ -166,28 +163,72 @@ Real USFM files can be found in [Door43 Catalog](https://git.door43.org/catalog)
    ```bash
    yarn install
    ```
-3. 
-   ```js
+3. Copy `.env.example` and rename it
    
+4. Run the project with the command
+   ```bash
+   yarn start
    ```
-4. 
-   ```js
-   
-   ```
+### Additional setting
+
+#### Configuring Error Sending
+
+1. Configuring backend for error reporting:
+https://github.com/texttree/tsv-send-backend
+
+2. Enter your URL in `.env` file in `REACT_APP_SERVER_LINK` variable 
+
+#### Configuring Feedback Sending
+
+In our environment, we use lambda functions netlify and telegram bot.
+
+You need to specify the bot token and chat ID in the `.env` file in `API_TELEGRAM_TOKEN` and `GROUP_TELEGRAM` variables
+
+#### Set up new language support
+
+You can configure resource language support in the `config` folder
+
+__In progress...__
+
+
 
 <p align="right">(<a href="#top">back to top</a>)</p>
-
 
 ***
 <!-- USAGE EXAMPLES -->
 ## Usage/Integration
 
+#### User`s guide
 
+<p align="center"><img src="./src/docs/images/interactive_guide.png">	</p>
 
+#### Select BIBLE/OBS mode
 
-_For more examples, please refer to the [Documentation](https://example.com)_  Possibly JS Docs. 
+<p align="center"><img src="./src/docs/images/obs.png">	</p>
 
-[Styleguidist link](https://example.netlify.app) 
+#### Main menu
+
+<p align="center"><img src="./src/docs/images/main_menu.png">	</p>
+
+#### Add resources
+
+<p align="center"><img src="./src/docs/images/add_resource_languages.png">	</p>
+
+#### Settings
+
+<p align="center"><img src="./src/docs/images/settings.png">	</p>
+
+#### Layout list
+
+<p align="center"><img src="./src/docs/images/layout_list.png">	</p>
+
+#### Import layout
+
+<p align="center"><img src="./src/docs/images/import_layout.png">	</p>
+
+#### Report a typo
+
+<p align="center"><img src="./src/docs/images/error_message.png">	</p>
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -249,9 +290,11 @@ Project Link: [https://github.com/texttree/bsa](https://github.com/texttree/bsa)
 ## Acknowledgments
 
 * [unfoldingWord](https://github.com/unfoldingWord)
-* [Mark Howe](https://github.com/mvahowe)
-* [Klappy](https://github.com/klappy)
 * [Zach P](https://github.com/ancientTexts-net)
+* [Klappy](https://github.com/klappy)
+* [Abel Pérez](https://github.com/abelpz)
+* [Mark Howe](https://github.com/mvahowe)
+
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
