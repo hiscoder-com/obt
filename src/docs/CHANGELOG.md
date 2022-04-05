@@ -4,10 +4,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.6.2] - 2022-04-06
+
+### Added (for new features)
+ - Show/hide expanded resource name in card title
+ - Add logo
+
+### Changed (for changes in existing functionality)
+ - Menu order
+ - Minor changes of design
+ - Corrected the README.md
+
+### Fixed (for any bug fixes)
+ - Minor changes
+
 ## [1.6.1] - 2022-04-04
 
 ### Fixed (for any bug fixes)
- - minor changes
+ - Minor changes
 
 ## [1.6.0] - 2022-04-04
 
