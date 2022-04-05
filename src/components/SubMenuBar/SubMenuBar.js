@@ -1,6 +1,14 @@
 import React, { useContext, useRef, useState } from 'react';
 
-import { AppBar, Button, IconButton, Menu, MenuItem, Toolbar } from '@material-ui/core';
+import {
+  AppBar,
+  Box,
+  Button,
+  IconButton,
+  Menu,
+  MenuItem,
+  Toolbar,
+} from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
 import { AppContext } from '../../context';
@@ -22,9 +30,12 @@ import MenuIcon from '@material-ui/icons/Menu';
 
 import { useModalStyles, useStyles } from './style';
 
+import LogoOBT from './logo_obt.png';
+import LogoTT from './logo_tt.png';
+
 function SubMenuBar() {
   const {
-    state: { loadIntro, openMainMenu },
+    state: { loadIntro, openMainMenu, theme },
     actions: { setLoadIntro },
   } = useContext(AppContext);
 
@@ -74,7 +85,14 @@ function SubMenuBar() {
   return (
     <AppBar className={'intro-appBar'} position="relative">
       <Toolbar className={classes.grow}>
-        <div className={classes.reference}>OBT</div>
+        <Box
+          component="img"
+          sx={{
+            height: 64,
+          }}
+          alt="Open Bible Text"
+          src={theme === 'obt' ? LogoOBT : LogoTT}
+        />
 
         <div className={classes.centerButtons}>
           <SelectModeBible />
