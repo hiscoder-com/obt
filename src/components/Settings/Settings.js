@@ -21,6 +21,7 @@ import {
 } from '../../components';
 
 import { useStyles } from './style';
+import SwitchExtraTitleCard from './SwitchExtraTitleCard';
 
 function Settings({ setAnchorMainMenu }) {
   const classes = useStyles();
@@ -59,6 +60,9 @@ function Settings({ setAnchorMainMenu }) {
         <Divider className={classes.divider} light />
         <InputLabel shrink>{t('Word_popover_label')}</InputLabel>
         <SwitchWordPopover />
+        <Divider className={classes.divider} light />
+        <InputLabel shrink>{t('Title_card_label')}</InputLabel>
+        <SwitchExtraTitleCard />
         <Divider className={classes.divider} light />
         <InputLabel shrink>{t('Chunks_label')}</InputLabel> <SwitchChunks />
         <Divider className={classes.divider} light />
