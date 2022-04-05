@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 
-import { MenuItem } from '@material-ui/core';
+import { Button, MenuItem } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
 import { AppContext, ReferenceContext } from '../../context';
@@ -36,8 +36,16 @@ function WorkspaceManager({ onClose }) {
   };
 
   return (
-    <MenuItem divider={true} onClick={handleReset}>
-      {t('Reset_cards')}
+    <MenuItem button={false} divider={true}>
+      <Button
+        onClick={handleReset}
+        variant="contained"
+        color="default"
+        size="small"
+        fullWidth
+      >
+        {t('Reset_cards')}
+      </Button>
     </MenuItem>
   );
 }

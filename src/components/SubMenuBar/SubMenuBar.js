@@ -127,10 +127,6 @@ function SubMenuBar() {
           <WorkspaceManager onClose={handleCloseMainMenu} />
 
           <MenuItem button={false} divider={true}>
-            <p className={classes.menu}>{t('Text_under_checkbox_error')}</p>
-          </MenuItem>
-
-          <MenuItem button={false} divider={true}>
             <SelectLanguage label={t('Interface_lang')} />
           </MenuItem>
 
@@ -148,6 +144,10 @@ function SubMenuBar() {
 
           <MenuItem onClick={handleOpenUsersGuide} divider={true}>
             {t('User_guide')}
+          </MenuItem>
+
+          <MenuItem button={false} divider={true}>
+            <p className={classes.menu}>{t('Text_under_checkbox_error')}</p>
           </MenuItem>
 
           <About
