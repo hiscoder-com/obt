@@ -15,7 +15,7 @@ const initialPosition = {
   top: null,
 };
 
-function USFMContent({ reference, content, type, fontSize, languageId }) {
+function USFMContent({ reference, content, type, fontSize }) {
   const { t } = useTranslation();
   const [verses, setVerses] = useState();
   const [chapter, setChapter] = useState();
