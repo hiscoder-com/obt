@@ -4,6 +4,7 @@ import { useBibleReference } from 'bible-reference-rcl';
 import { useHistory, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
+import useChunk from '../hooks/useChunk';
 import { defaultBibleReference, defaultOBSReference, languages } from '../config/base';
 import { checkLSVal } from '../helper';
 
@@ -68,6 +69,8 @@ export function ReferenceContextProvider({ children }) {
     addOBS,
   });
 
+  const { chunks } = useChunk(chapter, bookId);
+
   useEffect(() => {
     if (history.location.pathname !== '/' + bookId + '/' + chapter + '/' + verse) {
       history.push('/' + bookId + '/' + chapter + '/' + verse);
@@ -106,6 +109,7 @@ export function ReferenceContextProvider({ children }) {
       verseList,
       bookName,
       referenceBlock,
+      chunks,
     },
     actions: {
       goToBookChapterVerse,

@@ -2,7 +2,6 @@ import React, { useEffect, useState, useContext } from 'react';
 
 import { Verse } from 'scripture-resources-rcl';
 import { useTranslation } from 'react-i18next';
-import axios from 'axios';
 
 import { getVerseText } from '../../helper';
 import { AppContext, ReferenceContext } from '../../context';
@@ -27,36 +26,15 @@ function USFMContent({ reference, content, type, fontSize, languageId }) {
   const resource = content.resource;
   const resourceLink = resource?.resourceLink;
   const { contentNotFoundError, error, loading } = content.resourceStatus;
-  const [chunks, setChunks] = useState([]);
-  const [bookChunks, setBookChunks] = useState([]);
 
   const {
     actions: { setReferenceBlock, goToBookChapterVerse },
+    state: { chunks },
   } = useContext(ReferenceContext);
 
   const {
     state: { switchChunks, switchWordPopover },
   } = useContext(AppContext);
-
-  useEffect(() => {
-    if (reference?.bookId && switchChunks) {
-      axios
-        .get(`https://api.unfoldingword.org/bible/txt/1/${reference.bookId}/chunks.json`)
-        .then((res) => setBookChunks(res.data))
-        .catch((err) => console.log(err));
-    }
-  }, [switchChunks, reference?.bookId]);
-
-  useEffect(() => {
-    if (reference?.chapter && bookChunks) {
-      setChunks(
-        bookChunks
-          .filter((el) => parseInt(el.chp).toString() === reference.chapter.toString())
-          .map((el) => parseInt(el.firstvs).toString())
-          .filter((el) => el !== '1')
-      );
-    }
-  }, [bookChunks, reference?.chapter]);
 
   useEffect(() => {
     let isMounted = true;
