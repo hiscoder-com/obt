@@ -22,7 +22,7 @@ function SwitchChunks() {
           }}
         />
       }
-      label={t('SwitchChunks')}
+      label={t('Switch_chunks')}
     />
   );
 }

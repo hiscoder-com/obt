@@ -1,14 +1,16 @@
 import React, { useEffect, useState, useContext } from 'react';
 
 import { Verse } from 'scripture-resources-rcl';
+import { Box, CircularProgress } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
-import { getVerseText } from '../../helper';
 import { AppContext, ReferenceContext } from '../../context';
-import { useScrollToVerse } from '../../hooks/useScrollToVerse';
-import { Box, CircularProgress } from '@material-ui/core';
-import { useCircularStyles, useNoContentStyles } from './style';
 import { ContextMenu } from '../../components';
+import { useScrollToVerse } from '../../hooks/useScrollToVerse';
+
+import { getVerseText } from '../../helper';
+
+import { useCircularStyles, useNoContentStyles } from './style';
 
 const initialPosition = {
   left: null,

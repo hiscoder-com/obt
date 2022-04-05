@@ -7,7 +7,7 @@ export default function useChunk(chapter, bookId) {
   const [chunks, setChunks] = useState();
 
   useEffect(() => {
-    if (bookId) {
+    if (bookId && bookId !== 'obs') {
       axios
         .get(`https://api.unfoldingword.org/bible/txt/1/${bookId}/chunks.json`)
         .then((res) => setBookChunks(res.data))

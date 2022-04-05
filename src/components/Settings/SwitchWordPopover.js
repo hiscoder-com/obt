@@ -22,7 +22,7 @@ function SwitchWordPopover() {
           }}
         />
       }
-      label={t('SwitchWordPopover')}
+      label={t('Switch_word_popover')}
     />
   );
 }
