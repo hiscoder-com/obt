@@ -6,28 +6,28 @@ import { useTranslation } from 'react-i18next';
 import { AppContext } from '../../context';
 import { SettingsItem } from '.';
 
-function SwitchExtraTitleCard() {
+function SwitchObsImage() {
   const { t } = useTranslation();
   const {
-    state: { switchExtraTitleCard },
-    actions: { setSwitchExtraTitleCard },
+    state: { switchObsImage },
+    actions: { setSwitchObsImage },
   } = useContext(AppContext);
 
   return (
-    <SettingsItem title={t('Title_card_label')}>
+    <SettingsItem title={t('OBS_images')}>
       <FormControlLabel
         control={
           <Checkbox
-            checked={switchExtraTitleCard}
+            checked={switchObsImage}
             onChange={(e) => {
-              setSwitchExtraTitleCard((prev) => !prev);
+              setSwitchObsImage((prev) => !prev);
             }}
           />
         }
-        label={t('Switch_extra_title_card')}
+        label={t('Show_OBS_label')}
       />
     </SettingsItem>
   );
 }
 
-export default SwitchExtraTitleCard;
+export default SwitchObsImage;

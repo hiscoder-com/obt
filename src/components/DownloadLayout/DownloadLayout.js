@@ -8,6 +8,7 @@ import { AppContext } from '../../context';
 import { DialogUI } from '../../components';
 
 import { isJson } from '../../helper';
+import { SettingsItem } from '../Settings';
 
 function DownloadLayout() {
   const { t } = useTranslation();
@@ -71,7 +72,7 @@ function DownloadLayout() {
   }, [setShowDownloadLayout]);
 
   return (
-    <>
+    <SettingsItem title={t('Import_layout')}>
       <Box>
         <Button
           color="primary"
@@ -111,7 +112,7 @@ function DownloadLayout() {
           </Grid>
         </Grid>
       </DialogUI>
-    </>
+    </SettingsItem>
   );
 }
 

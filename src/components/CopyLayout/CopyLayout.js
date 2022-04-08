@@ -18,6 +18,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import FileCopyIcon from '@material-ui/icons/FileCopy';
 
 import { useStyles } from './style';
+import { SettingsItem } from '../Settings';
 
 export default function CopyLayout() {
   const {
@@ -154,42 +155,46 @@ export default function CopyLayout() {
   }, [appConfig, classes, copyToClipboard, deleteLayout, layoutStorage]);
 
   return (
-    <Grid container direction="column" spacing={2}>
-      {layoutStorage.length > 0 && (
+    <SettingsItem title={t('Layout')}>
+      <Grid container direction="column" spacing={2}>
+        {layoutStorage.length > 0 && (
+          <Grid item>
+            <FormControl variant="outlined">
+              <Select
+                className={classes.select}
+                value={currentSelected}
+                renderValue={(selected) =>
+                  layoutStorage[selected]?.name ?? t('Not_saved')
+                }
+                onChange={loadSavedLayout}
+              >
+                {currentSelected === -1 ? (
+                  <MenuItem className={classes.menuItemLayoutList} value={-1}>
+                    <div className={classes.elementNameLayoutList}>{t('Not_saved')}</div>
+                  </MenuItem>
+                ) : (
+                  ''
+                )}
+                {listOfSavedLayouts}
+              </Select>
+            </FormControl>
+          </Grid>
+        )}
         <Grid item>
-          <FormControl variant="outlined">
-            <Select
-              className={classes.select}
-              value={currentSelected}
-              renderValue={(selected) => layoutStorage[selected]?.name ?? t('Not_saved')}
-              onChange={loadSavedLayout}
-            >
-              {currentSelected === -1 ? (
-                <MenuItem className={classes.menuItemLayoutList} value={-1}>
-                  <div className={classes.elementNameLayoutList}>{t('Not_saved')}</div>
-                </MenuItem>
-              ) : (
-                ''
-              )}
-              {listOfSavedLayouts}
-            </Select>
-          </FormControl>
+          <TextField
+            className={classes.textField}
+            onChange={(event) => setNameLayout(event.target.value)}
+            placeholder={t('Layout_name')}
+            variant="outlined"
+            value={nameLayout.slice(0, 100)}
+          />
         </Grid>
-      )}
-      <Grid item>
-        <TextField
-          className={classes.textField}
-          onChange={(event) => setNameLayout(event.target.value)}
-          placeholder={t('Layout_name')}
-          variant="outlined"
-          value={nameLayout.slice(0, 100)}
-        />
+        <Grid item>
+          <Button color="primary" variant="contained" onClick={saveNewLayout}>
+            {t('Save_layout_button')}
+          </Button>
+        </Grid>
       </Grid>
-      <Grid item>
-        <Button color="primary" variant="contained" onClick={saveNewLayout}>
-          {t('Save_layout_button')}
-        </Button>
-      </Grid>
-    </Grid>
+    </SettingsItem>
   );
 }
