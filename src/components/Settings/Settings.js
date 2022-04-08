@@ -18,10 +18,10 @@ import {
   DownloadLayout,
   SwitchChunks,
   SwitchWordPopover,
+  SwitchExtraTitleCard,
 } from '../../components';
 
 import { useStyles } from './style';
-import SwitchExtraTitleCard from './SwitchExtraTitleCard';
 
 function Settings({ setAnchorMainMenu }) {
   const classes = useStyles();
