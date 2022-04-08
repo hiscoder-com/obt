@@ -16,7 +16,7 @@ function SwitchExtraTitleCard() {
     <FormControlLabel
       control={
         <Checkbox
-          checked={!switchExtraTitleCard}
+          checked={switchExtraTitleCard}
           onChange={(e) => {
             setSwitchExtraTitleCard((prev) => !prev);
           }}
