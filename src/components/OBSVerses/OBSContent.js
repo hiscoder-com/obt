@@ -22,7 +22,7 @@ function OBSContent({ markdown, verse, chapter, fontSize, type, goToBookChapterV
   } = useContext(ReferenceContext);
 
   const {
-    state: { showObsImage },
+    state: { switchObsImage },
   } = useContext(AppContext);
 
   const handleContextOpen = (event) => {
@@ -89,7 +89,7 @@ function OBSContent({ markdown, verse, chapter, fontSize, type, goToBookChapterV
               goToBookChapterVerse('obs', chapter, key);
             }}
           >
-            {urlImage && showObsImage ? (
+            {urlImage && switchObsImage ? (
               <>
                 <img src={urlImage} alt={`OBS verse #${key}`} />
                 <br />
@@ -137,7 +137,7 @@ function OBSContent({ markdown, verse, chapter, fontSize, type, goToBookChapterV
       setVerses(<>{t('No_content')}</>);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [markdown, verse, fontSize, showObsImage]);
+  }, [markdown, verse, fontSize, switchObsImage]);
 
   return (
     <>

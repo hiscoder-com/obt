@@ -1,12 +1,6 @@
 import React, { useContext } from 'react';
 
-import {
-  Checkbox,
-  Divider,
-  FormControlLabel,
-  InputLabel,
-  MenuItem,
-} from '@material-ui/core';
+import { InputLabel, MenuItem } from '@material-ui/core';
 import { FontSizeSlider } from 'translation-helps-rcl';
 import { useTranslation } from 'react-i18next';
 
@@ -18,6 +12,9 @@ import {
   DownloadLayout,
   SwitchChunks,
   SwitchWordPopover,
+  SwitchExtraTitleCard,
+  SwitchObsImage,
+  SettingsItem,
 } from '../../components';
 
 import { useStyles } from './style';
@@ -26,8 +23,8 @@ function Settings({ setAnchorMainMenu }) {
   const classes = useStyles();
   const { t } = useTranslation();
   const {
-    state: { fontSize, showObsImage, showSettingsMenu },
-    actions: { setFontSize, setShowObsImage, setShowSettingsMenu },
+    state: { fontSize, showSettingsMenu },
+    actions: { setFontSize, setShowSettingsMenu },
   } = useContext(AppContext);
 
   return (
@@ -56,46 +53,24 @@ function Settings({ setAnchorMainMenu }) {
           {t('Theme_label')}
         </InputLabel>
         <SelectTheme />
-        <Divider className={classes.divider} light />
-        <InputLabel shrink>{t('Word_popover_label')}</InputLabel>
+
         <SwitchWordPopover />
-        <Divider className={classes.divider} light />
-        <InputLabel shrink>{t('Chunks_label')}</InputLabel> <SwitchChunks />
-        <Divider className={classes.divider} light />
-        <InputLabel shrink>{t('OBS_images')}</InputLabel>
-        <FormControlLabel
-          control={
-            <Checkbox
-              checked={showObsImage}
-              onChange={(e) => {
-                setShowObsImage((prev) => !prev);
-              }}
-            />
-          }
-          label={t('Show_OBS_label')}
-        />
-        <Divider className={classes.divider} light />
-        <InputLabel className={classes.inputLabel} shrink>
-          {t('Layout')}
-        </InputLabel>
+        <SwitchExtraTitleCard />
+        <SwitchChunks />
+        <SwitchObsImage />
         <CopyLayout />
-        <Divider className={classes.divider} light />
-        <InputLabel className={classes.inputLabel} shrink>
-          {t('Import_layout')}
-        </InputLabel>
         <DownloadLayout />
-        <Divider className={classes.divider} light />
-        <InputLabel className={classes.inputLabel} shrink>
-          {t('Font_label')}
-        </InputLabel>
-        <FontSizeSlider
-          onChange={setFontSize}
-          marks={false}
-          max={150}
-          min={50}
-          step={10}
-          value={fontSize}
-        />
+
+        <SettingsItem title={t('Font_label')}>
+          <FontSizeSlider
+            onChange={setFontSize}
+            marks={false}
+            max={150}
+            min={50}
+            step={10}
+            value={fontSize}
+          />
+        </SettingsItem>
       </DialogUI>
     </>
   );

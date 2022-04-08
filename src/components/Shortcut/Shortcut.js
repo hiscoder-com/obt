@@ -17,7 +17,7 @@ export default function Shortcut() {
     },
   } = useContext(ReferenceContext);
   const {
-    actions: { setShowObsImage },
+    actions: { setSwitchObsImage },
   } = useContext(AppContext);
 
   useHotkeys(
@@ -101,7 +101,7 @@ export default function Shortcut() {
   useHotkeys(
     'alt+o',
     (e) => {
-      setShowObsImage((prev) => !prev);
+      setSwitchObsImage((prev) => !prev);
       e.cancelBubble = true;
       e.preventDefault();
       e.stopImmediatePropagation();

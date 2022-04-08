@@ -6,28 +6,28 @@ import { useTranslation } from 'react-i18next';
 import { AppContext } from '../../context';
 import { SettingsItem } from '.';
 
-function SwitchWordPopover() {
+function SwitchObsImage() {
   const { t } = useTranslation();
   const {
-    state: { switchWordPopover },
-    actions: { setSwitchWordPopover },
+    state: { switchObsImage },
+    actions: { setSwitchObsImage },
   } = useContext(AppContext);
 
   return (
-    <SettingsItem title={t('Word_popover_label')}>
+    <SettingsItem title={t('OBS_images')}>
       <FormControlLabel
         control={
           <Checkbox
-            checked={!switchWordPopover}
+            checked={switchObsImage}
             onChange={(e) => {
-              setSwitchWordPopover((prev) => !prev);
+              setSwitchObsImage((prev) => !prev);
             }}
           />
         }
-        label={t('Switch_word_popover')}
+        label={t('Show_OBS_label')}
       />
     </SettingsItem>
   );
 }
 
-export default SwitchWordPopover;
+export default SwitchObsImage;
