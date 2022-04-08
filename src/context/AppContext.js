@@ -46,6 +46,9 @@ export function AppContextProvider({ children }) {
   const [switchChunks, setSwitchChunks] = useState(() => {
     return checkLSVal('switchChunks', false, 'boolean');
   });
+  const [switchExtraTitleCard, setSwitchExtraTitleCard] = useState(() => {
+    return checkLSVal('switchExtraTitleCard', true, 'boolean');
+  });
   const [showObsImage, setShowObsImage] = useState(() => {
     return checkLSVal('showObsImage', true, 'boolean');
   });
@@ -107,6 +110,10 @@ export function AppContextProvider({ children }) {
   }, [switchChunks]);
 
   useEffect(() => {
+    localStorage.setItem('switchExtraTitleCard', switchExtraTitleCard);
+  }, [switchExtraTitleCard]);
+
+  useEffect(() => {
     localStorage.setItem('switchWordPopover', switchWordPopover);
   }, [switchWordPopover]);
 
@@ -163,6 +170,7 @@ export function AppContextProvider({ children }) {
       showErrorReport,
       showObsImage,
       switchChunks,
+      switchExtraTitleCard,
       switchWordPopover,
       theme,
       showSettingsMenu,
@@ -188,6 +196,7 @@ export function AppContextProvider({ children }) {
       setShowErrorReport,
       setShowObsImage,
       setSwitchChunks,
+      setSwitchExtraTitleCard,
       setSwitchWordPopover,
       setTheme,
       setShowSettingsMenu,

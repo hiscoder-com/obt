@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useMemo } from 'react';
 
 import { Card as TranslationCard } from 'translation-helps-rcl';
 import { useTranslation } from 'react-i18next';
@@ -25,7 +25,7 @@ function Card({ type, onClose, classes }) {
   const { t } = useTranslation();
   let CurrentCard;
   const {
-    state: { resourcesApp, fontSize },
+    state: { resourcesApp, fontSize, switchExtraTitleCard },
   } = useContext(AppContext);
 
   const {
@@ -38,6 +38,14 @@ function Card({ type, onClose, classes }) {
       resource = el;
     }
   });
+
+  const extraTitle = useMemo(
+    () =>
+      switchExtraTitleCard
+        ? ' (' + langNames[resource.languageId]?.eng + '|' + resource.owner + ')'
+        : '',
+    [resource.languageId, resource.owner, switchExtraTitleCard]
+  );
 
   if (!resource && resourcesApp.length > 0) {
     // Empty Card
@@ -112,14 +120,7 @@ function Card({ type, onClose, classes }) {
   return (
     <CurrentCard
       classes={classes}
-      title={
-        resource.title +
-        ' (' +
-        langNames[resource.languageId].eng +
-        '|' +
-        resource.owner +
-        ')'
-      }
+      title={resource.title + extraTitle}
       resource={resource}
       onClose={onClose}
       type={type}

@@ -7,8 +7,6 @@
 *** Thanks again! Now go create something AMAZING! :D
 -->
 
-
-
 <!-- PROJECT SHIELDS -->
 <!--
 *** I'm using markdown "reference style" links for readability.
@@ -23,22 +21,22 @@
 [![Issues][issues-shield]][issues-url]
 [![MIT License][license-shield]][license-url]
 
-
-
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
   <a href="https://github.com/texttree/bsa">
-    <img src="public\logo.png" alt="Logo" width="100" height="100">
+    <img src="./src/docs/images/logo_obt.png" alt="Logo" width="128" height="128">
   </a>
 
-<h3 align="center">OPEN BIBLE TEXT</h3>
+  <h3 align="center">OPEN BIBLE TEXT</h3>
 
   <p align="center">
-An application for advanced Bible study using opensource materials from git.door43.org.
+    An application for advanced Bible study using opensource materials from git.door43.org.
     <br />
     <br />
-    <a href="https://develop--tt-bsa.netlify.app/">View Demo</a>
+    <a href="https://openbibletext.com/">View Production</a>
+    ·
+    <a href="https://develop--tt-bsa.netlify.app/">View Develop</a>
     ·
     <a href="https://github.com/texttree/bsa/issues">Report Bug</a>
     ·
@@ -47,7 +45,7 @@ An application for advanced Bible study using opensource materials from git.door
 </div>
 
 <p align="center">
-    <a href="https://crowdin.com/project/obt">Help us translate - Crowdin</a>
+  <a href="https://crowdin.com/project/obt">Help us translate - Crowdin</a>
 </p>
 
 ***
@@ -77,22 +75,18 @@ An application for advanced Bible study using opensource materials from git.door
   </ol>
 </details>
 
-
-
 ***
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-
 **Purpose**
-- Enable churches to read and study Scripture and OBS in their own language using all the resources of unfoldingWord
+- Enable churches to read and study Scripture and OBS in their own language using all the opensource materials from git.door43.org
 
-- Give translators the opportunity
-study the Scriptures using all the resources of unfoldingWord
+- Give translators the opportunity study the Scriptures using all the opensource materials from git.door43.org
 
 **Problem**
 - There are many resources that are already translated, but there was no tool for easy reading and learning
-- Small nations do not always have the resources to publish their work.
+- Small nations do not always have the resources to publish their work
 
 **Scope**
 - Local second (Windows, Mac, Linux)
@@ -106,13 +100,10 @@ study the Scriptures using all the resources of unfoldingWord
 - Progressive Web App
 - Downloadable for language-resource combinations via Catalog Next React Toolkit
 
-
 **Background**
 - We wanted to make a website that would help share the work done and help spread the Gospel
 
-
 <p align="right">(<a href="#top">back to top</a>)</p>
-
 
 ***
 ### Built With
@@ -121,8 +112,6 @@ study the Scriptures using all the resources of unfoldingWord
 * [Material-UI](https://v4.mui.com/)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
-
-
 
 <!-- GETTING STARTED -->
 ***
@@ -164,7 +153,7 @@ All data in OPEN BIBLE TEXT is taken from [Door43 Catalog](https://git.door43.or
    yarn install
    ```
 3. Copy `.env.example` and rename it
-   
+
 4. Run the project with the command
    ```bash
    yarn start
@@ -176,7 +165,7 @@ All data in OPEN BIBLE TEXT is taken from [Door43 Catalog](https://git.door43.or
 1. Configuring backend for error reporting:
 https://github.com/texttree/tsv-send-backend
 
-2. Enter your URL in `.env` file in `REACT_APP_SERVER_LINK` variable 
+2. Enter your URL in `.env` file in `REACT_APP_SERVER_LINK` variable
 
 #### Configuring Feedback Sending
 
@@ -189,8 +178,6 @@ You need to specify the bot token and chat ID in the `.env` file in `API_TELEGRA
 You can configure resource language support in the `config` folder
 
 __In progress...__
-
-
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -232,7 +219,6 @@ __In progress...__
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-
 ***
 <!-- ROADMAP -->
 ## Roadmap
@@ -243,8 +229,6 @@ This project uses Zenhub to manage the roadmap.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-
-
 ***
 <!-- CONTRIBUTING -->
 ## Contributing
@@ -254,7 +238,7 @@ Contributions are what make the open source community such an amazing place to l
 You can also simply open an issue with the tag "enhancement".
 Don't forget to give the project a star! Thanks again!
 
-If you would like to fork the repo and create a pull request. 
+If you would like to fork the repo and create a pull request.
 
 1. Fork the Project
 2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
@@ -272,19 +256,17 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-
 ***
 <!-- CONTACT -->
 ## Contact
 
-Texttree - [Discord](https://discord.com/invite/AmFFGVBnj6)
+Texttree - [Discord](https://discord.com/channels/867746700390563850/894978969613520956)
 
 Help us translate - [Crowdin](https://crowdin.com/project/obt)
 
 Project Link: [https://github.com/texttree/bsa](https://github.com/texttree/bsa)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
-
 
 ***
 ## Acknowledgments
@@ -295,10 +277,7 @@ Project Link: [https://github.com/texttree/bsa](https://github.com/texttree/bsa)
 * [Abel Pérez](https://github.com/abelpz)
 * [Mark Howe](https://github.com/mvahowe)
 
-
 <p align="right">(<a href="#top">back to top</a>)</p>
-
-
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
@@ -312,4 +291,3 @@ Project Link: [https://github.com/texttree/bsa](https://github.com/texttree/bsa)
 [issues-url]: https://github.com/texttree/bsa/issues
 [license-shield]: https://img.shields.io/github/license/texttree/bsa.svg?style=for-the-badge
 [license-url]: https://github.com/texttree/bsa/blob/master/LICENSE
-[product-screenshot]: images/screenshot.png
