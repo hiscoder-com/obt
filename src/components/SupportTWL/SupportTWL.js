@@ -1,11 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 
 import { Card, CardContent, useContent, useCardState } from 'translation-helps-rcl';
+import { AppContext } from '../../context';
 
 export default function SupportTWL(props) {
+  const {
+    state: { switchUniqueWords },
+  } = useContext(AppContext);
   const { title, classes, onClose, type, server, fontSize, reference, resource } = props;
   const { bookId, chapter, verse } = reference;
   const [selectedQuote, setQuote] = useState({});
+  const [uniqueWordsItems, setUniqueWordsItems] = useState();
   const {
     markdown,
     items,
@@ -22,11 +27,25 @@ export default function SupportTWL(props) {
     server,
   });
 
+  useEffect(() => {
+    if (items && switchUniqueWords) {
+      const uniqueWordsItems = [];
+      const checkItems = [];
+      items.forEach((item) => {
+        if (!checkItems.includes(item.TWLink)) {
+          uniqueWordsItems.push(item);
+          checkItems.push(item.TWLink);
+        }
+      });
+      setUniqueWordsItems(uniqueWordsItems);
+    }
+  }, [items, switchUniqueWords]);
+
   const {
     state: { item, headers, filters, itemIndex, markdownView },
     actions: { setFilters, setItemIndex, setMarkdownView },
   } = useCardState({
-    items,
+    items: switchUniqueWords ? uniqueWordsItems : items,
     setQuote,
     selectedQuote,
     verse,
@@ -45,7 +64,7 @@ export default function SupportTWL(props) {
       onClose={() => onClose(type)}
       classes={classes}
       id={type}
-      items={items}
+      items={switchUniqueWords ? uniqueWordsItems : items}
       headers={headers}
       filters={filters}
       fontSize={fontSize}

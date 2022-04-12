@@ -17,7 +17,7 @@ export default function Shortcut() {
     },
   } = useContext(ReferenceContext);
   const {
-    actions: { setSwitchObsImage },
+    actions: { setSwitchObsImage, setSwitchUniqueWords },
   } = useContext(AppContext);
 
   useHotkeys(
@@ -102,6 +102,17 @@ export default function Shortcut() {
     'alt+o',
     (e) => {
       setSwitchObsImage((prev) => !prev);
+      e.cancelBubble = true;
+      e.preventDefault();
+      e.stopImmediatePropagation();
+    },
+    {},
+    []
+  );
+  useHotkeys(
+    'alt+w',
+    (e) => {
+      setSwitchUniqueWords((prev) => !prev);
       e.cancelBubble = true;
       e.preventDefault();
       e.stopImmediatePropagation();
