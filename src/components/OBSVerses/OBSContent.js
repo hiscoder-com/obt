@@ -39,7 +39,7 @@ function OBSContent({ markdown, verse, chapter, fontSize, type, goToBookChapterV
   const [verseRef] = useScrollToVerse('center');
 
   const mdToVerses = (md) => {
-    let _markdown = md.split(/\n\n\S[\s]*/);
+    let _markdown = md.replaceAll('\u200B', '').split(/\n{2,}[\s]*/);
     const headerMd = _markdown.shift().trim().slice(1);
     let linkMd = _markdown.pop().trim().slice(1, -1);
     if (linkMd === '') {
