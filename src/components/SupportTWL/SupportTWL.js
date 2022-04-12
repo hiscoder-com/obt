@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 
 import { Card, CardContent, useContent, useCardState } from 'translation-helps-rcl';
 import { AppContext } from '../../context';
+import ListWords from './ListWords';
 
 export default function SupportTWL(props) {
   const {
@@ -14,11 +15,10 @@ export default function SupportTWL(props) {
   const {
     markdown,
     items,
+    tsvs,
     resourceStatus: { loading },
     props: { languageId },
   } = useContent({
-    verse: verse,
-    chapter: chapter,
     projectId: bookId,
     ref: resource.branch ?? 'master',
     languageId: resource.languageId ?? 'ru',
@@ -26,7 +26,7 @@ export default function SupportTWL(props) {
     owner: resource.owner ?? 'door43-catalog',
     server,
   });
-
+  console.log(tsvs, items);
   useEffect(() => {
     if (items && switchUniqueWords) {
       const uniqueWordsItems = [];
@@ -79,6 +79,7 @@ export default function SupportTWL(props) {
         });
       }}
     >
+      <ListWords />
       <CardContent
         item={item}
         viewMode={'markdown'}
