@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import ListAltRoundedIcon from '@material-ui/icons/ListAltRounded';
 import { Box, Popover } from '@material-ui/core';
 
@@ -31,31 +31,40 @@ function ListWords({ items, itemIndex, tsvs }) {
     setListWords(list);
     console.log(list);
   }, [tsvs]);
+  const listIcon = useMemo(
+    () =>
+      items &&
+      items[itemIndex] &&
+      listWords &&
+      listWords[items[itemIndex].TWLink] &&
+      listWords[items[itemIndex].TWLink].length > 1 && (
+        <ListAltRoundedIcon
+          onClick={(event) => setAnchorEl(event.currentTarget)}
+          color="primary"
+        />
+      ),
+    [itemIndex, items, listWords]
+  );
+  const listReference = useMemo(
+    () =>
+      items &&
+      listWords[items[itemIndex].TWLink].map((el) => {
+        return (
+          <p style={{ paddingLeft: '15px', paddingRight: '15px' }} key={el}>
+            {el}
+          </p>
+        );
+      }),
+    [itemIndex, items, listWords]
+  );
 
   return (
     <>
       <Box display={'flex'} justifyContent={'center'}>
-        {items &&
-          items[itemIndex] &&
-          listWords &&
-          listWords[items[itemIndex].TWLink] &&
-          listWords[items[itemIndex].TWLink].length > 1 && (
-            <ListAltRoundedIcon
-              onClick={(event) => setAnchorEl(event.currentTarget)}
-              color="primary"
-            />
-          )}
+        {listIcon}
       </Box>
       <Popover anchorEl={anchorEl} onClose={handleClose} open={Boolean(anchorEl)}>
-        {items &&
-          itemIndex &&
-          listWords[items[itemIndex].TWLink].map((el, key) => {
-            return (
-              <p style={{ paddingLeft: '15px', paddingRight: '15px' }} key={key}>
-                {el}
-              </p>
-            );
-          })}
+        {listReference}
       </Popover>
     </>
   );
