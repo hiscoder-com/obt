@@ -19,6 +19,8 @@ export default function SupportTWL(props) {
     resourceStatus: { loading },
     props: { languageId },
   } = useContent({
+    verse,
+    chapter,
     projectId: bookId,
     ref: resource.branch ?? 'master',
     languageId: resource.languageId ?? 'ru',
@@ -26,7 +28,7 @@ export default function SupportTWL(props) {
     owner: resource.owner ?? 'door43-catalog',
     server,
   });
-  console.log(tsvs, items);
+
   useEffect(() => {
     if (items && switchUniqueWords) {
       const uniqueWordsItems = [];
@@ -52,11 +54,12 @@ export default function SupportTWL(props) {
     chapter,
     projectId: bookId,
   });
+
   useEffect(() => {
     setItemIndex(0);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [reference]);
-
+  // console.log(items);
   return (
     <Card
       closeable
@@ -79,7 +82,7 @@ export default function SupportTWL(props) {
         });
       }}
     >
-      <ListWords />
+      <ListWords items={items} itemIndex={itemIndex} tsvs={tsvs} />
       <CardContent
         item={item}
         viewMode={'markdown'}
