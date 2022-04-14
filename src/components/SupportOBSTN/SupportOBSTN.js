@@ -97,7 +97,7 @@ export default function SupportOBSTN({
     <Card
       closeable
       title={title}
-      onClose={() => onClose(type)}
+      onClose={() => onClose(true)}
       classes={{ ...classes, children: 'tqcard' }}
       id={type}
       items={items}

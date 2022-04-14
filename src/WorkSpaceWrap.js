@@ -83,7 +83,7 @@ export default function WorkSpaceWrap() {
     <Card
       key={item.i}
       classes={classes}
-      onClose={(force = false) => onClose(item.i, force)}
+      onClose={(event, force = false) => onClose(item.i, force)}
       type={item.i}
     />
   ));

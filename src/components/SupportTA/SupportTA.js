@@ -68,7 +68,7 @@ export default function SupportTA({
     <Card
       closeable
       title={title}
-      onClose={() => onClose(type)}
+      onClose={() => onClose(true)}
       classes={classes}
       id={type}
       items={items}
