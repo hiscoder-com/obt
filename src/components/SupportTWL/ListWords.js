@@ -48,6 +48,8 @@ function ListWords({ items, itemIndex, tsvs }) {
   const listReference = useMemo(
     () =>
       items &&
+      items[itemIndex] &&
+      listWords[items[itemIndex].TWLink] &&
       listWords[items[itemIndex].TWLink].map((el) => {
         return (
           <p style={{ paddingLeft: '15px', paddingRight: '15px' }} key={el}>
