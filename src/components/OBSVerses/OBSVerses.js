@@ -51,7 +51,7 @@ export default function OBSVerses({ title, classes, onClose, type }) {
       <Card
         closeable
         title={title}
-        onClose={() => onClose(type)}
+        onClose={onClose}
         classes={{ ...classes, children: 'obs', root: classes.root + ' intro-card' }}
         id={type}
         fontSize={fontSize}

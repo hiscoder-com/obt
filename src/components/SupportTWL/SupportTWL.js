@@ -42,7 +42,7 @@ export default function SupportTWL(props) {
     <Card
       closeable
       title={title}
-      onClose={() => onClose(type)}
+      onClose={() => onClose(true)}
       classes={classes}
       id={type}
       items={items}
