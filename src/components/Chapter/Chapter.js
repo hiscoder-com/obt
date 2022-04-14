@@ -27,7 +27,7 @@ export default function Chapter({
   return (
     <Card
       closeable
-      onClose={() => onClose(false)}
+      onClose={onClose}
       title={title}
       type={type}
       id={type}
