@@ -3,7 +3,7 @@ import ListAltRoundedIcon from '@material-ui/icons/ListAltRounded';
 import { Box, Popover } from '@material-ui/core';
 import { ReferenceContext } from '../../context';
 
-function ListWords({ items, itemIndex, listWords }) {
+function ListWords({ items, itemIndex, listWords, bookId }) {
   const {
     actions: { setReferenceBlock, goToBookChapterVerse },
   } = useContext(ReferenceContext);
@@ -13,7 +13,11 @@ function ListWords({ items, itemIndex, listWords }) {
   const handleClose = () => {
     setAnchorEl(null);
   };
-
+  const handleClick = (el) => {
+    const reference = el.split(':');
+    console.log(reference);
+    goToBookChapterVerse(bookId, reference[0], reference[1]);
+  };
   const listIcon = useMemo(
     () =>
       items &&
@@ -35,7 +39,11 @@ function ListWords({ items, itemIndex, listWords }) {
       listWords[items[itemIndex].TWLink] &&
       listWords[items[itemIndex].TWLink].map((el) => {
         return (
-          <p style={{ paddingLeft: '15px', paddingRight: '15px' }} key={el}>
+          <p
+            onClick={() => handleClick(el)}
+            style={{ paddingLeft: '15px', paddingRight: '15px' }}
+            key={el}
+          >
             {el}
           </p>
         );

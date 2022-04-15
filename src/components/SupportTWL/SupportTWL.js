@@ -3,6 +3,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { Card, CardContent, useContent, useCardState } from 'translation-helps-rcl';
 import { AppContext } from '../../context';
 import ListWords from './ListWords';
+import useListWordsBook from './useListWordsBook';
 
 export default function SupportTWL(props) {
   const {
@@ -11,7 +12,7 @@ export default function SupportTWL(props) {
   const { title, classes, onClose, type, server, fontSize, reference, resource } = props;
   const { bookId, chapter, verse } = reference;
   const [selectedQuote, setQuote] = useState({});
-  const [listWords, setListWords] = useState();
+
   const [uniqueWordsItems, setUniqueWordsItems] = useState();
   const {
     markdown,
@@ -29,28 +30,8 @@ export default function SupportTWL(props) {
     owner: resource.owner ?? 'door43-catalog',
     server,
   });
-  useEffect(() => {
-    const list = {};
-    if (tsvs) {
-      Object.entries(tsvs).forEach(([key, chapters]) => {
-        Object.entries(chapters).forEach(([key, verses]) => {
-          verses.forEach((verse) => {
-            if (Object.keys(list).includes(verse.TWLink)) {
-              if (list[verse.TWLink].includes(verse.Reference)) {
-                return;
-              } else {
-                list[verse.TWLink] = [...list[verse.TWLink], verse.Reference];
-              }
-            } else {
-              list[verse.TWLink] = [verse.Reference];
-            }
-          });
-        });
-      });
-    }
-    setListWords(list);
-    console.log(list);
-  }, [bookId, tsvs]);
+  const { listWords } = useListWordsBook(tsvs, bookId);
+
   useEffect(() => {
     if (items && switchUniqueWords) {
       const uniqueWordsItems = [];
@@ -104,7 +85,12 @@ export default function SupportTWL(props) {
         });
       }}
     >
-      <ListWords items={items} itemIndex={itemIndex} listWords={listWords} />
+      <ListWords
+        items={items}
+        itemIndex={itemIndex}
+        listWords={listWords}
+        bookId={reference.bookId}
+      />
       <CardContent
         item={item}
         viewMode={'markdown'}
