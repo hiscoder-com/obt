@@ -30,21 +30,46 @@ export default function SupportTWL(props) {
     owner: resource.owner ?? 'door43-catalog',
     server,
   });
-  const { listWords } = useListWordsBook(tsvs, bookId);
+  const { listWordsBook, listWordsChapter } = useListWordsBook(tsvs, bookId);
+  const switchUniqueChapter = true;
+  const equalVerse = (items) => {
+    const uniqueWordsItems = [];
+    const checkItems = [];
+    items.forEach((item) => {
+      if (!checkItems.includes(item.TWLink)) {
+        uniqueWordsItems.push(item);
+        checkItems.push(item.TWLink);
+      }
+    });
+    return uniqueWordsItems;
+  };
+  const equalChapter = (items) => {
+    const uniqueWordsItems = [];
+
+    items.forEach((item) => {
+      if (listWordsChapter[chapter][item.TWLink][0] === chapter + ':' + verse) {
+        uniqueWordsItems.push(item);
+      }
+    });
+    return uniqueWordsItems;
+  };
 
   useEffect(() => {
     if (items && switchUniqueWords) {
-      const uniqueWordsItems = [];
-      const checkItems = [];
-      items.forEach((item) => {
-        if (!checkItems.includes(item.TWLink)) {
-          uniqueWordsItems.push(item);
-          checkItems.push(item.TWLink);
-        }
-      });
-      setUniqueWordsItems(uniqueWordsItems);
+      setUniqueWordsItems(equalVerse(items));
+      setItemIndex(0);
     }
-  }, [items, switchUniqueWords]);
+    if (items && switchUniqueChapter) {
+      const verses = equalVerse(items);
+
+      setUniqueWordsItems(equalChapter(verses));
+      setItemIndex(0);
+      console.log(uniqueWordsItems);
+      // console.log(listWordsChapter[chapter]);
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [items, switchUniqueWords, switchUniqueChapter, listWordsChapter]);
 
   const {
     state: { item, headers, filters, itemIndex, markdownView },
@@ -70,7 +95,7 @@ export default function SupportTWL(props) {
       onClose={() => onClose(type)}
       classes={classes}
       id={type}
-      items={switchUniqueWords ? uniqueWordsItems : items}
+      items={switchUniqueWords || switchUniqueChapter ? uniqueWordsItems : items}
       headers={headers}
       filters={filters}
       fontSize={fontSize}
@@ -88,7 +113,7 @@ export default function SupportTWL(props) {
       <ListWords
         items={items}
         itemIndex={itemIndex}
-        listWords={listWords}
+        listWordsBook={listWordsBook}
         bookId={reference.bookId}
       />
       <CardContent

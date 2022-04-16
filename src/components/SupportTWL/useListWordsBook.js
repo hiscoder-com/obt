@@ -1,31 +1,58 @@
 import { useEffect, useState } from 'react';
+import useDeepCompareEffect from 'use-deep-compare-effect';
 
 function useListWordsBook(tsvs, bookId) {
-  const [listWords, setListWords] = useState();
+  const [listWordsBook, setListWordsBook] = useState();
+  const [newTsvs, setNewTsvs] = useState({});
+  const [listWordsChapter, setListWordChapter] = useState();
+
   useEffect(() => {
-    const list = {};
     if (tsvs) {
-      Object.entries(tsvs).forEach(([key, chapters]) => {
+      setNewTsvs(tsvs);
+    }
+  }, [tsvs]);
+
+  useDeepCompareEffect(() => {
+    const listBook = {};
+
+    if (newTsvs) {
+      const listChapter = {};
+      Object.entries(newTsvs).forEach(([key, chapters]) => {
+        const chaptersWords = {};
         Object.entries(chapters).forEach(([key, verses]) => {
           verses.forEach((verse) => {
-            if (Object.keys(list).includes(verse.TWLink)) {
-              if (list[verse.TWLink].includes(verse.Reference)) {
+            if (Object.keys(listBook).includes(verse.TWLink)) {
+              if (listBook[verse.TWLink].includes(verse.Reference)) {
                 return;
               } else {
-                list[verse.TWLink] = [...list[verse.TWLink], verse.Reference];
+                listBook[verse.TWLink] = [...listBook[verse.TWLink], verse.Reference];
               }
             } else {
-              list[verse.TWLink] = [verse.Reference];
+              listBook[verse.TWLink] = [verse.Reference];
             }
+            if (Object.keys(chaptersWords).includes(verse.TWLink)) {
+              if (chaptersWords[verse.TWLink].includes(verse.Reference)) {
+                return;
+              } else {
+                chaptersWords[verse.TWLink] = [
+                  ...chaptersWords[verse.TWLink],
+                  verse.Reference,
+                ];
+              }
+            } else {
+              chaptersWords[verse.TWLink] = [verse.Reference];
+            }
+            // console.log(chaptersWords);
           });
         });
+        listChapter[key] = chaptersWords;
       });
+      setListWordChapter(listChapter);
     }
-    setListWords(list);
-    console.log(list);
-  }, [bookId, tsvs]);
+    setListWordsBook(listBook);
+  }, [bookId, newTsvs]);
 
-  return { listWords };
+  return { listWordsBook, listWordsChapter };
 }
 
 export default useListWordsBook;
