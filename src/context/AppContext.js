@@ -46,8 +46,8 @@ export function AppContextProvider({ children }) {
   const [switchChunks, setSwitchChunks] = useState(() => {
     return checkLSVal('switchChunks', false, 'boolean');
   });
-  const [switchUniqueWords, setSwitchUniqueWords] = useState(() => {
-    return checkLSVal('switchUniqueWords', false, 'boolean');
+  const [switchTypeUniqueWords, setSwitchTypeUniqueWords] = useState(() => {
+    return checkLSVal('switchTypeUniqueWords', 'disabled', 'string');
   });
   const [switchExtraTitleCard, setSwitchExtraTitleCard] = useState(() => {
     return checkLSVal('switchExtraTitleCard', true, 'boolean');
@@ -117,8 +117,8 @@ export function AppContextProvider({ children }) {
   }, [switchExtraTitleCard]);
 
   useEffect(() => {
-    localStorage.setItem('switchUniqueWords', switchUniqueWords);
-  }, [switchUniqueWords]);
+    localStorage.setItem('switchTypeUniqueWords', switchTypeUniqueWords);
+  }, [switchTypeUniqueWords]);
 
   useEffect(() => {
     localStorage.setItem('switchWordPopover', switchWordPopover);
@@ -179,7 +179,7 @@ export function AppContextProvider({ children }) {
       switchChunks,
       switchExtraTitleCard,
       switchWordPopover,
-      switchUniqueWords,
+      switchTypeUniqueWords,
       theme,
       showSettingsMenu,
       layoutStorage,
@@ -206,7 +206,7 @@ export function AppContextProvider({ children }) {
       setSwitchChunks,
       setSwitchExtraTitleCard,
       setSwitchWordPopover,
-      setSwitchUniqueWords,
+      setSwitchTypeUniqueWords,
       setTheme,
       setShowSettingsMenu,
       setLayoutStorage,

@@ -55,6 +55,7 @@ function Settings({ setAnchorMainMenu }) {
         </InputLabel>
         <SelectTheme />
         <SwitchUniqueWords />
+
         <SwitchWordPopover />
         <SwitchExtraTitleCard />
         <SwitchChunks />

@@ -50,6 +50,8 @@ function useListWordsBook(tsvs, bookId) {
       setListWordChapter(listChapter);
     }
     setListWordsBook(listBook);
+    console.log({ listWordsBook });
+    // console.log(listBook);
   }, [bookId, newTsvs]);
 
   return { listWordsBook, listWordsChapter };

@@ -1,30 +1,37 @@
 import React, { useContext } from 'react';
-
-import { Checkbox, FormControlLabel } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
-import { AppContext } from '../../context';
+import { FormControl, FormControlLabel, Radio, RadioGroup } from '@material-ui/core';
 import { SettingsItem } from '.';
+import { AppContext } from '../../context';
 
 function SwitchUniqueWords() {
-  const { t } = useTranslation();
   const {
-    state: { switchUniqueWords },
-    actions: { setSwitchUniqueWords },
+    state: { switchTypeUniqueWords },
+    actions: { setSwitchTypeUniqueWords },
   } = useContext(AppContext);
+  const { t } = useTranslation();
+
+  const handleChange = (event) => {
+    setSwitchTypeUniqueWords(event.target.value);
+  };
   return (
     <SettingsItem title={t('Unique_words_label')}>
-      <FormControlLabel
-        control={
-          <Checkbox
-            checked={switchUniqueWords}
-            onChange={(e) => {
-              setSwitchUniqueWords((prev) => !prev);
-            }}
-          />
-        }
-        label={t('Switch_unique_words')}
-      />
+      <FormControl component="fieldset">
+        {/* <FormLabel component="legend">Gender</FormLabel> */}
+        <RadioGroup
+          aria-label="gender"
+          name="gender1"
+          value={switchTypeUniqueWords}
+          onChange={handleChange}
+          style={{ display: 'flex', flexDirection: 'row' }}
+        >
+          <FormControlLabel value="verse" control={<Radio />} label="Verse" />
+          <FormControlLabel value="chapter" control={<Radio />} label="Chapter" />
+          <FormControlLabel value="book" control={<Radio />} label="Book" />
+          <FormControlLabel value="disabled" control={<Radio />} label="Disabled" />
+        </RadioGroup>
+      </FormControl>
     </SettingsItem>
   );
 }

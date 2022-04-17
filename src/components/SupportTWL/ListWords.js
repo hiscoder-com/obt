@@ -39,6 +39,7 @@ function ListWords({ items, itemIndex, listWordsBook, bookId }) {
       ),
     [itemIndex, items, listWordsBook]
   );
+  console.log(listWordsBook[items[itemIndex].TWLink]);
   const listReference = useMemo(
     () =>
       items &&
@@ -67,7 +68,7 @@ function ListWords({ items, itemIndex, listWordsBook, bookId }) {
           </div>
         );
       }),
-    [itemIndex, items, listWordsBook]
+    [currentReference, handleClick, itemIndex, items, listWordsBook]
   );
 
   return (
