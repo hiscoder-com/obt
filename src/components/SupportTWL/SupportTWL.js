@@ -11,7 +11,6 @@ export default function SupportTWL(props) {
   } = useContext(AppContext);
   const { title, classes, onClose, type, server, fontSize, reference, resource } = props;
   const { bookId, chapter, verse } = reference;
-  const [selectedQuote, setQuote] = useState({});
 
   const [uniqueWordsItems, setUniqueWordsItems] = useState();
   const {
@@ -30,15 +29,9 @@ export default function SupportTWL(props) {
     owner: resource.owner ?? 'door43-catalog',
     server,
   });
-  // const { tsvs } = useContent({
-  //   projectId: bookId,
-  //   ref: resource.branch ?? 'master',
-  //   languageId: resource.languageId ?? 'ru',
-  //   resourceId: 'twl',
-  //   owner: resource.owner ?? 'door43-catalog',
-  //   server,
-  // });
+
   const { listWordsBook, listWordsChapter } = useListWordsBook(tsvs, bookId);
+
   const equalVerse = (items) => {
     const uniqueWordsItems = [];
     const checkItems = [];
@@ -55,11 +48,7 @@ export default function SupportTWL(props) {
     const uniqueWordsItems = [];
 
     items.forEach((item) => {
-      if (
-        listWordsChapter[chapter] &&
-        listWordsChapter[chapter][item.TWLink] &&
-        listWordsChapter[chapter][item.TWLink][0] === chapter + ':' + verse
-      ) {
+      if (listWordsChapter?.chapter?.item?.TWLink[0] === chapter + ':' + verse) {
         uniqueWordsItems.push(item);
       }
     });
@@ -67,13 +56,8 @@ export default function SupportTWL(props) {
   };
   const equalBook = (items) => {
     const uniqueWordsItems = [];
-
     items.forEach((item) => {
-      if (
-        listWordsBook &&
-        listWordsBook[item.TWLink] &&
-        listWordsBook[item.TWLink][0] === chapter + ':' + verse
-      ) {
+      if (listWordsBook?.item?.TWLink[0] === chapter + ':' + verse) {
         uniqueWordsItems.push(item);
       }
     });
@@ -92,7 +76,7 @@ export default function SupportTWL(props) {
           setItemIndex(0);
           break;
         case 'book':
-          const words = equalBook(items);
+          const words = equalBook(equalVerse(items));
           setUniqueWordsItems(words);
           setItemIndex(0);
           break;
@@ -101,7 +85,6 @@ export default function SupportTWL(props) {
           break;
       }
     }
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [items, switchTypeUniqueWords, listWordsChapter]);
 
@@ -110,8 +93,7 @@ export default function SupportTWL(props) {
     actions: { setFilters, setItemIndex, setMarkdownView },
   } = useCardState({
     items: switchTypeUniqueWords !== 'disabled' ? uniqueWordsItems : items,
-    setQuote,
-    selectedQuote,
+
     verse,
     chapter,
     projectId: bookId,
@@ -121,7 +103,7 @@ export default function SupportTWL(props) {
     setItemIndex(0);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [reference]);
-  // console.log(items);
+
   return (
     <Card
       closeable
@@ -159,8 +141,6 @@ export default function SupportTWL(props) {
         isLoading={Boolean(loading)}
         languageId={languageId}
         markdownView={markdownView}
-        selectedQuote={selectedQuote}
-        setQuote={setQuote}
       />
     </Card>
   );
