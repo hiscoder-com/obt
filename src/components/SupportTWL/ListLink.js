@@ -1,15 +1,18 @@
-import { Link } from '@material-ui/core';
-import React, { useMemo } from 'react';
+import React, { useContext, useMemo } from 'react';
 
-function ListLink({
-  items,
-  itemIndex,
-  listWordsBook,
-  bookId,
-  goToBookChapterVerse,
-  setAnchorEl,
-  referenceSelected,
-}) {
+import { Link } from '@material-ui/core';
+
+import { ReferenceContext } from '../../context';
+
+import useStyles from './style';
+
+function ListLink({ items, itemIndex, listWordsBook, bookId, setAnchorEl }) {
+  const classes = useStyles();
+  const {
+    state: { referenceSelected },
+    actions: { goToBookChapterVerse },
+  } = useContext(ReferenceContext);
+
   const currentReference = (reference) => {
     if (
       reference[0].toString() === referenceSelected.chapter.toString() &&
@@ -29,15 +32,7 @@ function ListLink({
       listWordsBook[items[itemIndex]?.TWLink].map((el, index) => {
         const reference = el.split(':');
         return (
-          <div
-            key={index}
-            style={{
-              paddingTop: '5px',
-              paddingBottom: '5px',
-              paddingLeft: '15px',
-              paddingRight: '15px',
-            }}
-          >
+          <div key={index} className={classes.linkContainer}>
             <Link
               onClick={() => handleClick(reference)}
               color={currentReference(reference) ? 'textSecondary' : 'primary'}

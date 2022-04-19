@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useContext } from 'react';
 
 import { Card, CardContent, useContent, useCardState } from 'translation-helps-rcl';
+
 import { AppContext } from '../../context';
+
 import ListWords from './ListWords';
 import useListWordsBook from './useListWordsBook';
 
@@ -93,7 +95,6 @@ export default function SupportTWL(props) {
     actions: { setFilters, setItemIndex, setMarkdownView },
   } = useCardState({
     items: switchTypeUniqueWords !== 'disabled' ? uniqueWordsItems : items,
-
     verse,
     chapter,
     projectId: bookId,

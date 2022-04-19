@@ -1,16 +1,11 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 
 import { Box, Popover } from '@material-ui/core';
-import { ReferenceContext } from '../../context';
+
 import ListLink from './ListLink';
 import ListIcon from './ListIcon';
 
 function ListWords({ items, itemIndex, listWordsBook, bookId }) {
-  const {
-    state: { referenceSelected },
-    actions: { goToBookChapterVerse },
-  } = useContext(ReferenceContext);
-
   const [anchorEl, setAnchorEl] = useState(null);
 
   const handleClose = () => {
@@ -33,9 +28,7 @@ function ListWords({ items, itemIndex, listWordsBook, bookId }) {
           itemIndex={itemIndex}
           listWordsBook={listWordsBook}
           bookId={bookId}
-          goToBookChapterVerse={goToBookChapterVerse}
           setAnchorEl={setAnchorEl}
-          referenceSelected={referenceSelected}
         />
       </Popover>
     </>

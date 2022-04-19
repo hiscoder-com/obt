@@ -6,6 +6,7 @@ function ListIcon({ items, itemIndex, listWordsBook, setAnchorEl }) {
       items &&
       items[itemIndex] &&
       listWordsBook &&
+      listWordsBook[items[itemIndex]?.TWLink] &&
       listWordsBook[items[itemIndex]?.TWLink].length > 1 && (
         <ListAltRoundedIcon
           onClick={(event) => setAnchorEl(event.currentTarget)}
