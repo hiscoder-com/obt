@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 
 import { Box, Popover } from '@material-ui/core';
 
-import ListLink from './ListLink';
-import ListIcon from './ListIcon';
+import { ListIcon, ListLink } from '.';
 
 function ListWords({ items, itemIndex, listWordsBook, bookId }) {
   const [anchorEl, setAnchorEl] = useState(null);

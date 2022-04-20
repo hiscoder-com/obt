@@ -4,7 +4,7 @@ import { Card, CardContent, useContent, useCardState } from 'translation-helps-r
 
 import { AppContext } from '../../context';
 
-import ListWords from './ListWords';
+import { ListWords } from '.';
 import useListWordsBook from './useListWordsBook';
 
 export default function SupportTWL(props) {

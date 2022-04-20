@@ -1,5 +1,7 @@
 import React, { useMemo } from 'react';
+
 import ListAltRoundedIcon from '@material-ui/icons/ListAltRounded';
+
 function ListIcon({ items, itemIndex, listWordsBook, setAnchorEl }) {
   const listIcon = useMemo(
     () =>

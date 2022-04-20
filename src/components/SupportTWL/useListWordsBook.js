@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 
 import useDeepCompareEffect from 'use-deep-compare-effect';
 
-function useListWordsBook(tsvs, bookId) {
+function useListWordsBook(tsvs, bookId, switchTypeUniqueWords) {
   const [listWordsBook, setListWordsBook] = useState();
   const [newTsvs, setNewTsvs] = useState({});
   const [listWordsChapter, setListWordChapter] = useState();
@@ -43,7 +43,6 @@ function useListWordsBook(tsvs, bookId) {
             } else {
               chaptersWords[verse.TWLink] = [verse.Reference];
             }
-            // console.log(chaptersWords);
           });
         });
         listChapter[key] = chaptersWords;
@@ -53,7 +52,7 @@ function useListWordsBook(tsvs, bookId) {
 
     setListWordsBook(listBook);
     // console.log(listBook);
-  }, [bookId, newTsvs]);
+  }, [bookId, newTsvs, switchTypeUniqueWords]);
 
   return { listWordsBook, listWordsChapter };
 }
