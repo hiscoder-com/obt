@@ -7,6 +7,8 @@ import { ReferenceContext, AppContext } from '../../context';
 import { ContextMenu } from '../ContextMenu';
 import { useScrollToVerse } from '../../hooks';
 
+import useStyles from './style';
+
 const initialPositionContextMenu = {
   left: null,
   top: null,
@@ -35,7 +37,7 @@ function OBSContent({ markdown, verse, chapter, fontSize, type, goToBookChapterV
 
   const { t } = useTranslation();
   const [verses, setVerses] = useState();
-
+  const classes = useStyles();
   const [verseRef] = useScrollToVerse('center');
 
   const mdToVerses = (md) => {
@@ -98,7 +100,7 @@ function OBSContent({ markdown, verse, chapter, fontSize, type, goToBookChapterV
               ''
             )}
             <p>
-              <sup style={{ marginRight: '3px' }}>{key.toString()}</sup>
+              <sup className={classes.sup}>{key.toString()}</sup>
               {text &&
                 text.split('\n').map((el, index) => (
                   <span
