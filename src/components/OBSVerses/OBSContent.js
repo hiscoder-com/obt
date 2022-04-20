@@ -39,7 +39,7 @@ function OBSContent({ markdown, verse, chapter, fontSize, type, goToBookChapterV
   const [verseRef] = useScrollToVerse('center');
 
   const mdToVerses = (md) => {
-    let _markdown = md.replaceAll('\u200B', '').split(/\n{2,}[\s]*/);
+    let _markdown = md.replaceAll('\u200B', '').split(/\n\s*\n\s*/);
     const headerMd = _markdown.shift().trim().slice(1);
     let linkMd = _markdown.pop().trim().slice(1, -1);
     if (linkMd === '') {
@@ -97,23 +97,26 @@ function OBSContent({ markdown, verse, chapter, fontSize, type, goToBookChapterV
             ) : (
               ''
             )}
-            {text &&
-              text.split('\n\n').map((el, index) => (
-                <p
-                  key={index}
-                  onContextMenu={(e) => {
-                    setReferenceBlock({
-                      ...referenceSelected,
-                      resource: type,
-                      verse: key,
-                      text: el,
-                    });
-                    handleContextOpen(e);
-                  }}
-                >
-                  <sup>{key.toString()}</sup> {el}
-                </p>
-              ))}
+            <p>
+              <sup style={{ marginRight: '3px' }}>{key.toString()}</sup>
+              {text &&
+                text.split('\n').map((el, index) => (
+                  <span
+                    key={index}
+                    onContextMenu={(e) => {
+                      setReferenceBlock({
+                        ...referenceSelected,
+                        resource: type,
+                        verse: key,
+                        text: el,
+                      });
+                      handleContextOpen(e);
+                    }}
+                  >
+                    {el}
+                  </span>
+                ))}
+            </p>
           </Box>
         );
       });
