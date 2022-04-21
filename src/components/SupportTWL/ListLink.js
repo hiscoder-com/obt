@@ -6,7 +6,7 @@ import { ReferenceContext } from '../../context';
 
 import useStyles from './style';
 
-function ListLink({ items, itemIndex, listWordsBook, bookId, setAnchorEl }) {
+function ListLink({ links, setAnchorEl }) {
   const classes = useStyles();
   const {
     state: { referenceSelected },
@@ -14,22 +14,18 @@ function ListLink({ items, itemIndex, listWordsBook, bookId, setAnchorEl }) {
   } = useContext(ReferenceContext);
 
   const currentReference = (reference) => {
-    if (
-      reference[0].toString() === referenceSelected.chapter.toString() &&
-      reference[1].toString() === referenceSelected.verse.toString()
-    ) {
-      return true;
-    } else return false;
+    return (
+      reference[0] + ':' + reference[1] ===
+      referenceSelected.chapter + ':' + referenceSelected.verse
+    );
   };
   const handleClick = (reference) => {
-    goToBookChapterVerse(bookId, reference[0], reference[1]);
+    goToBookChapterVerse(referenceSelected.bookId, reference[0], reference[1]);
     setAnchorEl(null);
   };
   const listReference = useMemo(
     () =>
-      items &&
-      items[itemIndex] &&
-      listWordsBook[items[itemIndex]?.TWLink].map((el, index) => {
+      links.map((el, index) => {
         const reference = el.split(':');
         return (
           <div key={index} className={classes.linkContainer}>
@@ -37,7 +33,6 @@ function ListLink({ items, itemIndex, listWordsBook, bookId, setAnchorEl }) {
               onClick={() => handleClick(reference)}
               color={currentReference(reference) ? 'textSecondary' : 'primary'}
               disabled={currentReference(reference)}
-              key={el}
             >
               {el}
             </Link>
@@ -45,9 +40,9 @@ function ListLink({ items, itemIndex, listWordsBook, bookId, setAnchorEl }) {
         );
       }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [itemIndex, items, listWordsBook]
+    [links]
   );
-  return <div>{listReference}</div>;
+  return <>{listReference}</>;
 }
 
 export default ListLink;

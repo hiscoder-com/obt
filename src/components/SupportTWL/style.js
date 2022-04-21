@@ -2,7 +2,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
   linkContainer: {
-    padding: '5px 15px',
+    padding: theme.spacing(1 / 2, 2),
   },
 }));
 export default useStyles;

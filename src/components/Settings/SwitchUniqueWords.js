@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { FormControl, FormControlLabel, Radio, RadioGroup } from '@material-ui/core';
 import { SettingsItem } from '.';
 import { AppContext } from '../../context';
+import { useStyles } from '../Settings/style';
 
 function SwitchUniqueWords() {
   const {
@@ -11,24 +12,21 @@ function SwitchUniqueWords() {
     actions: { setSwitchTypeUniqueWords },
   } = useContext(AppContext);
   const { t } = useTranslation();
-
+  const classes = useStyles();
   const handleChange = (event) => {
     setSwitchTypeUniqueWords(event.target.value);
   };
   return (
-    <SettingsItem title={t('Unique_words_label')}>
+    <SettingsItem title={t('Filter_unique_words_TWL')}>
       <FormControl component="fieldset">
-        {/* <FormLabel component="legend">Gender</FormLabel> */}
         <RadioGroup
-          aria-label="gender"
-          name="gender1"
+          className={classes.radioGroup}
           value={switchTypeUniqueWords}
           onChange={handleChange}
-          style={{ display: 'flex', flexDirection: 'row' }}
         >
-          <FormControlLabel value="verse" control={<Radio />} label="Verse" />
-          <FormControlLabel value="chapter" control={<Radio />} label="Chapter" />
-          <FormControlLabel value="book" control={<Radio />} label="Book" />
+          <FormControlLabel value="verse" control={<Radio />} label={t('By_verse')} />
+          <FormControlLabel value="chapter" control={<Radio />} label={t('By_chapter')} />
+          <FormControlLabel value="book" control={<Radio />} label={t('By_book')} />
           <FormControlLabel value="disabled" control={<Radio />} label="Disabled" />
         </RadioGroup>
       </FormControl>

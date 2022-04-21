@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 
 import { Box, Popover } from '@material-ui/core';
+import ListAltRoundedIcon from '@material-ui/icons/ListAltRounded';
 
-import { ListIcon, ListLink } from '.';
+import { ListLink } from '.';
 
-function ListWords({ items, itemIndex, listWordsBook, bookId }) {
+function ListWords({ links }) {
   const [anchorEl, setAnchorEl] = useState(null);
 
   const handleClose = () => {
@@ -13,22 +14,14 @@ function ListWords({ items, itemIndex, listWordsBook, bookId }) {
 
   return (
     <>
-      <Box display={'flex'} justifyContent={'center'}>
-        <ListIcon
-          items={items}
-          itemIndex={itemIndex}
-          listWordsBook={listWordsBook}
-          setAnchorEl={setAnchorEl}
+      <Box textAlign={'center'}>
+        <ListAltRoundedIcon
+          onClick={(event) => setAnchorEl(event.currentTarget)}
+          color="primary"
         />
       </Box>
       <Popover anchorEl={anchorEl} onClose={handleClose} open={Boolean(anchorEl)}>
-        <ListLink
-          items={items}
-          itemIndex={itemIndex}
-          listWordsBook={listWordsBook}
-          bookId={bookId}
-          setAnchorEl={setAnchorEl}
-        />
+        <ListLink links={links} setAnchorEl={setAnchorEl} />
       </Popover>
     </>
   );
