@@ -12,7 +12,7 @@ module.exports = {
             },
             'vendor-react': {
               name: 'vendor-sr-rcl',
-              test: /[\\/]node_modules[\\/]scripture-resources-rcl[\\/]/,
+              test: /[\\/]node_modules[\\/]@texttree\/scripture-resources-rcl[\\/]/,
               chunks: 'initial',
               priority: 3,
             },

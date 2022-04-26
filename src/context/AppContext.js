@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 
-import { ResourcesContextProvider } from 'scripture-resources-rcl';
+import { ResourcesContextProvider } from '@texttree/scripture-resources-rcl';
 import { useTranslation } from 'react-i18next';
 
 import { ReferenceContext } from '../context';
