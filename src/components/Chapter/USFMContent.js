@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react';
 
-import { Verse } from 'scripture-resources-rcl';
+import { Verse } from '@texttree/scripture-resources-rcl';
 import { Box, CircularProgress } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
