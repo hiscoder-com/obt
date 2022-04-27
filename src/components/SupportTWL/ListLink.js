@@ -25,6 +25,8 @@ function ListLink({ links, onClose }) {
   };
   const listReference = useMemo(
     () =>
+      links &&
+      links.length > 0 &&
       links.map((el, index) => {
         const reference = el.split(':');
         return (

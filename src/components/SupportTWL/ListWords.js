@@ -7,7 +7,6 @@ import { ListLink } from '.';
 
 function ListWords({ links }) {
   const [anchorEl, setAnchorEl] = useState(null);
-
   const handleClose = () => {
     setAnchorEl(null);
   };
