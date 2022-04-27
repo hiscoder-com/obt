@@ -15,7 +15,7 @@ export default function SupportTWL(props) {
   const { title, classes, onClose, type, server, fontSize, reference, resource } = props;
   const { bookId, chapter, verse } = reference;
 
-  const [uniqueWordsItems, setUniqueWordsItems] = useState({});
+  const [uniqueWordsItems, setUniqueWordsItems] = useState([]);
   const {
     markdown,
     items,
@@ -63,13 +63,16 @@ export default function SupportTWL(props) {
           listWordsChapter &&
           listWordsChapter[chapter][item?.TWLink] === verse) ||
         (switchTypeUniqueWords === 'book' &&
+          listWordsReference &&
+          item?.TWLink &&
+          listWordsReference[item?.TWLink] &&
           listWordsReference[item?.TWLink][0] === chapter + ':' + verse)
       ) {
         otherWordsItems.push(item);
       }
     });
     setUniqueWordsItems(otherWordsItems);
-  }, [switchTypeUniqueWords, { items }]);
+  }, [switchTypeUniqueWords, { items }, listWordsReference]);
 
   const {
     state: { item, headers, filters, itemIndex, markdownView },
@@ -112,10 +115,13 @@ export default function SupportTWL(props) {
         <ListWords
           items={uniqueWordsItems}
           links={
-            items && listWordsReference && listWordsReference[items[itemIndex]?.TWLink]
+            uniqueWordsItems &&
+            listWordsReference &&
+            listWordsReference[uniqueWordsItems[itemIndex]?.TWLink]
           }
         />
       )}
+      {/* <div style={{ color: '#9C9C9C' }}> */}
       <CardContent
         item={item}
         viewMode={'markdown'}
@@ -126,6 +132,7 @@ export default function SupportTWL(props) {
         languageId={languageId}
         markdownView={markdownView}
       />
+      {/* </div> */}
     </Card>
   );
 }

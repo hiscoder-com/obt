@@ -6,7 +6,7 @@ import { ReferenceContext } from '../../context';
 
 import useStyles from './style';
 
-function ListLink({ links, setAnchorEl }) {
+function ListLink({ links, items, setAnchorEl }) {
   const classes = useStyles();
   const {
     state: { referenceSelected },
@@ -40,7 +40,7 @@ function ListLink({ links, setAnchorEl }) {
         );
       }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [links]
+    [links, items]
   );
   return <>{listReference}</>;
 }
