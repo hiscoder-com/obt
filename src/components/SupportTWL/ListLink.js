@@ -6,7 +6,7 @@ import { ReferenceContext } from '../../context';
 
 import useStyles from './style';
 
-function ListLink({ links, items, setAnchorEl }) {
+function ListLink({ links, onClose }) {
   const classes = useStyles();
   const {
     state: { referenceSelected },
@@ -21,7 +21,7 @@ function ListLink({ links, items, setAnchorEl }) {
   };
   const handleClick = (reference) => {
     goToBookChapterVerse(referenceSelected.bookId, reference[0], reference[1]);
-    setAnchorEl(null);
+    onClose();
   };
   const listReference = useMemo(
     () =>
@@ -30,7 +30,7 @@ function ListLink({ links, items, setAnchorEl }) {
         return (
           <div key={index} className={classes.linkContainer}>
             <Link
-              onClick={() => handleClick(reference)}
+              onClick={() => reference && handleClick(reference)}
               color={currentReference(reference) ? 'textSecondary' : 'primary'}
               disabled={currentReference(reference)}
             >
@@ -40,7 +40,7 @@ function ListLink({ links, items, setAnchorEl }) {
         );
       }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [links, items]
+    [links]
   );
   return <>{listReference}</>;
 }

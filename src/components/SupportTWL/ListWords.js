@@ -5,7 +5,7 @@ import ListAltRoundedIcon from '@material-ui/icons/ListAltRounded';
 
 import { ListLink } from '.';
 
-function ListWords({ links, items }) {
+function ListWords({ links }) {
   const [anchorEl, setAnchorEl] = useState(null);
 
   const handleClose = () => {
@@ -21,7 +21,7 @@ function ListWords({ links, items }) {
         />
       </Box>
       <Popover anchorEl={anchorEl} onClose={handleClose} open={Boolean(anchorEl)}>
-        <ListLink links={links} items={items} setAnchorEl={setAnchorEl} />
+        <ListLink links={links} onClose={handleClose} />
       </Popover>
     </>
   );

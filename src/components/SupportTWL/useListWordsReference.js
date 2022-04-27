@@ -8,9 +8,6 @@ function useListWordsReference(tsvs, bookId) {
 
   useDeepCompareEffect(() => {
     const listBook = {};
-    if (!tsvs) {
-      return;
-    }
     if (tsvs) {
       const listChapter = {};
       Object.entries(tsvs).forEach(([key, chapters]) => {

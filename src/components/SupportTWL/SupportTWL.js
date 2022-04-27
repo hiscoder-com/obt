@@ -113,7 +113,6 @@ export default function SupportTWL(props) {
     >
       {uniqueWordsItems.length > 0 && (
         <ListWords
-          items={uniqueWordsItems}
           links={
             uniqueWordsItems &&
             listWordsReference &&
@@ -121,7 +120,7 @@ export default function SupportTWL(props) {
           }
         />
       )}
-      {/* <div style={{ color: '#9C9C9C' }}> */}
+
       <CardContent
         item={item}
         viewMode={'markdown'}
@@ -132,7 +131,6 @@ export default function SupportTWL(props) {
         languageId={languageId}
         markdownView={markdownView}
       />
-      {/* </div> */}
     </Card>
   );
 }
