@@ -97,7 +97,7 @@ export default function SupportTWL(props) {
   useEffect(() => {
     setItemIndex(0);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [reference]);
+  }, [reference, switchHideRepeatedWords, switchTypeUniqueWords]);
 
   useEffect(() => {
     const _changeColor =
