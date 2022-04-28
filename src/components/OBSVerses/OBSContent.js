@@ -111,7 +111,12 @@ function OBSContent({ markdown, verse, chapter, fontSize, type, goToBookChapterV
               }}
             >
               <sup className={classes.sup}>{key.toString()}</sup>
-              {text && text.split('\n').map((el, index) => <div key={index}>{el}</div>)}
+              {text &&
+                text.split('\n').map((el, index) => (
+                  <div style={{ display: index ? 'block' : 'inline' }} key={index}>
+                    {el}
+                  </div>
+                ))}
             </p>
           </Box>
         );
