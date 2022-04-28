@@ -1,6 +1,6 @@
 import React, { useContext, useMemo } from 'react';
 
-import { Link } from '@material-ui/core';
+import { Box, Link } from '@material-ui/core';
 
 import { ReferenceContext } from '../../context';
 
@@ -30,15 +30,16 @@ function ListLink({ links, onClose }) {
       links.map((el, index) => {
         const reference = el.split(':');
         return (
-          <div key={index} className={classes.linkContainer}>
+          <Box key={index} className={classes.linkContainer}>
             <Link
+              href="#"
               onClick={() => reference && handleClick(reference)}
               color={currentReference(reference) ? 'textSecondary' : 'primary'}
               disabled={currentReference(reference)}
             >
               {el}
             </Link>
-          </div>
+          </Box>
         );
       }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
