@@ -99,25 +99,19 @@ function OBSContent({ markdown, verse, chapter, fontSize, type, goToBookChapterV
             ) : (
               ''
             )}
-            <p>
+            <p
+              onContextMenu={(e) => {
+                setReferenceBlock({
+                  ...referenceSelected,
+                  resource: type,
+                  verse: key,
+                  text,
+                });
+                handleContextOpen(e);
+              }}
+            >
               <sup className={classes.sup}>{key.toString()}</sup>
-              {text &&
-                text.split('\n').map((el, index) => (
-                  <span
-                    key={index}
-                    onContextMenu={(e) => {
-                      setReferenceBlock({
-                        ...referenceSelected,
-                        resource: type,
-                        verse: key,
-                        text: el,
-                      });
-                      handleContextOpen(e);
-                    }}
-                  >
-                    {el}
-                  </span>
-                ))}
+              {text && text.split('\n').map((el, index) => <div key={index}>{el}</div>)}
             </p>
           </Box>
         );

@@ -57,7 +57,7 @@ export default function OBSVerses({ title, classes, onClose, type }) {
         fontSize={fontSize}
       >
         {isLoading ? (
-          <div className={classesCircular.root}>
+          <div className={classesCircular.circular}>
             <CircularProgress color="primary" size={100} />
           </div>
         ) : (
