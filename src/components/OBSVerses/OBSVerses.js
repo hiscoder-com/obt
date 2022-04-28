@@ -8,10 +8,10 @@ import OBSContent from './OBSContent';
 
 import { server } from '../../config/base';
 
-import { useCircularStyles } from './style';
+import { useStyles } from './style';
 
 export default function OBSVerses({ title, classes, onClose, type }) {
-  const classesCircular = useCircularStyles();
+  const classesCircular = useStyles();
   const [isLoading, setIsLoading] = useState(false);
 
   const {
@@ -57,7 +57,7 @@ export default function OBSVerses({ title, classes, onClose, type }) {
         fontSize={fontSize}
       >
         {isLoading ? (
-          <div className={classesCircular.root}>
+          <div className={classesCircular.circular}>
             <CircularProgress color="primary" size={100} />
           </div>
         ) : (

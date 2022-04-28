@@ -7,6 +7,8 @@ import { ReferenceContext, AppContext } from '../../context';
 import { ContextMenu } from '../ContextMenu';
 import { useScrollToVerse } from '../../hooks';
 
+import useStyles from './style';
+
 const initialPositionContextMenu = {
   left: null,
   top: null,
@@ -35,11 +37,11 @@ function OBSContent({ markdown, verse, chapter, fontSize, type, goToBookChapterV
 
   const { t } = useTranslation();
   const [verses, setVerses] = useState();
-
+  const classes = useStyles();
   const [verseRef] = useScrollToVerse('center');
 
   const mdToVerses = (md) => {
-    let _markdown = md.split(/\n[\s]*/);
+    let _markdown = md.replaceAll('\u200B', '').split(/\n\s*\n\s*/);
     const headerMd = _markdown.shift().trim().slice(1);
     let linkMd = _markdown.pop().trim().slice(1, -1);
     if (linkMd === '') {
@@ -97,22 +99,25 @@ function OBSContent({ markdown, verse, chapter, fontSize, type, goToBookChapterV
             ) : (
               ''
             )}
-            {text.split('\n').map((el, index) => (
-              <p
-                key={index}
-                onContextMenu={(e) => {
-                  setReferenceBlock({
-                    ...referenceSelected,
-                    resource: type,
-                    verse: key,
-                    text: el,
-                  });
-                  handleContextOpen(e);
-                }}
-              >
-                <sup>{key.toString()}</sup> {el}
-              </p>
-            ))}
+            <p
+              onContextMenu={(e) => {
+                setReferenceBlock({
+                  ...referenceSelected,
+                  resource: type,
+                  verse: key,
+                  text,
+                });
+                handleContextOpen(e);
+              }}
+            >
+              <sup className={classes.sup}>{key.toString()}</sup>
+              {text &&
+                text.split('\n').map((el, index) => (
+                  <div style={{ display: index ? 'block' : 'inline' }} key={index}>
+                    {el}
+                  </div>
+                ))}
+            </p>
           </Box>
         );
       });
