@@ -15,6 +15,7 @@ import {
   SwitchExtraTitleCard,
   SwitchObsImage,
   SettingsItem,
+  SwitchUniqueWords,
 } from '../../components';
 
 import { useStyles } from './style';
@@ -53,6 +54,7 @@ function Settings({ setAnchorMainMenu }) {
           {t('Theme_label')}
         </InputLabel>
         <SelectTheme />
+        <SwitchUniqueWords />
 
         <SwitchWordPopover />
         <SwitchExtraTitleCard />

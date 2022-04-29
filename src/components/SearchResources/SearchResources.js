@@ -100,7 +100,7 @@ function SearchResources({ anchorEl, onClose, open }) {
           .map((el) => {
             return {
               id: el.id,
-              languageId: el.language,
+              languageId: el.language.toLowerCase(),
               name: el.name,
               subject: el.subject,
               title: el.title,
