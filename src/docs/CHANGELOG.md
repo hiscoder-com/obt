@@ -4,6 +4,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.7.0] - 2022-04-29
+
+### Added (for new features)
+ - Filter unique words in TWL 
+ - List references of words in TWL
+ - New resource languages
+ 
+### Changed (for changes in existing functionality)
+ - Select lanquages view
+
+### Fixed (for any bug fixes)
+ - Fix OBS Parser
+ 
+### Remove 
+ - List of languages and owners
+
 ## [1.6.3] - 2022-04-26
 
 ### Changed (for changes in existing functionality)

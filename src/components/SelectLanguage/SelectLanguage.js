@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 
-import { FormControl, NativeSelect, InputLabel } from '@material-ui/core';
+import { FormControl, Select, InputLabel, MenuItem } from '@material-ui/core';
 import { cloneDeep } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
@@ -36,10 +36,9 @@ export default function SelectLanguage({ label, style }) {
   return (
     <FormControl className={classes.formControl} style={style}>
       {label && <InputLabel id="lang-select-label">{label}</InputLabel>}
-      <NativeSelect
+      <Select
         labelid="lang-select-label"
         disableUnderline={true}
-        variant="outlined"
         classes={{
           root: classes.root,
           icon: classes.icon,
@@ -48,11 +47,11 @@ export default function SelectLanguage({ label, style }) {
         value={currentLanguage}
       >
         {languages.map((el) => (
-          <option key={el} className={classes.option} value={el}>
+          <MenuItem key={el} className={classes.option} value={el}>
             {t(el)}
-          </option>
+          </MenuItem>
         ))}
-      </NativeSelect>
+      </Select>
     </FormControl>
   );
 }
