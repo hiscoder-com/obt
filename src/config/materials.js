@@ -1,61 +1,3 @@
-export const langs = [
-  'am',
-  'apd',
-  'as',
-  'bn',
-  'ceb',
-  'el-x-koine',
-  'en',
-  'es',
-  'es-419',
-  'fa',
-  'fr',
-  'gof',
-  'gu',
-  'guq',
-  'ha',
-  'hbo',
-  'hi',
-  'hmr',
-  'hr',
-  'id',
-  'ilo',
-  'kn',
-  'lo',
-  'lpx',
-  'lus',
-  'ml',
-  'mr',
-  'nag',
-  'ne',
-  'or',
-  'pa',
-  'pt-br',
-  'rml',
-  'rmn',
-  'rmn-ua',
-  'rmy-x-bsa',
-  'rmy-x-vc',
-  'rmy-x-vg',
-  'rmy-x-vwa',
-  'rmy-ua',
-  'ru',
-  'sgj',
-  'shu',
-  'sr-Latn',
-  'sw',
-  'ta',
-  'tdj',
-  'te',
-  'tg',
-  'tl',
-  'tpi',
-  'tr',
-  'ur',
-  'ur-deva',
-  'vi',
-];
-
 export const langNames = {
   am: {
     eng: 'Amharic',
@@ -179,23 +121,99 @@ export const langNames = {
   },
   pa: {
     eng: 'Punjabi, Eastern',
-    lang: 'ਪੰਜਾਬੀ, پنجابی‎',
+    lang: 'ਪੰਜਾਬੀ, پنجابی',
+  },
+  pl: {
+    eng: 'Polish',
+    lang: 'język polski, polszczyzna',
   },
   'pt-br': {
     eng: 'Brazilian Portuguese',
     lang: 'Português',
   },
+  rmc: {
+    eng: 'Romani, Carpathian',
+    lang: 'Carpathian Romani',
+  },
+  rme: {
+    eng: 'Angloromani',
+    lang: 'Angloromani',
+  },
+  rmf: {
+    eng: 'Romani, Kalo Finnish',
+    lang: 'Kalo Finnish Romani',
+  },
   rml: {
     eng: 'Romani, Baltic',
     lang: 'Baltic Romani',
   },
-  // rmn: {
-  //   eng: 'Romani, Balkan',
-  //   lang: 'Balkan Romani',
-  // },
+  rmn: {
+    eng: 'Romani, Balkan',
+    lang: 'Balkan Romani',
+  },
   'rmn-ua': {
     eng: 'Romani, Balkan',
     lang: 'Romani Balkan',
+  },
+  'rmn-x-nbalkanrom': {
+    eng: 'Northern Balkan Romani',
+    lang: 'Northern Balkan Romani',
+  },
+  'rmn-x-sbalkanrom': {
+    eng: 'Southern Balkan Romani',
+    lang: 'Southern Balkan Romani',
+  },
+  'rmn-x-yerliroman': {
+    eng: 'Yerli Romani',
+    lang: 'Yerli Romani',
+  },
+  rmo: {
+    eng: 'Romani, Sinte',
+    lang: 'Sinte Romani',
+  },
+  rmq: {
+    eng: 'Caló',
+    lang: 'Caló',
+  },
+  'rmr-x-bha': {
+    eng: 'Hungarian Ardilean Bayash',
+    lang: 'Hungarian Ardilean Bayash',
+  },
+  'rmr-x-bhm': {
+    eng: 'Hungarian Muntean Bayash',
+    lang: 'Hungarian Muntean Bayash',
+  },
+  'rmr-x-bsa': {
+    eng: 'South Slavic Ardilean Bayash',
+    lang: 'South Slavic Ardilean Bayash',
+  },
+  'rmr-x-bsl': {
+    eng: 'Slavic Ludari Bayash',
+    lang: 'Slavic Ludari Bayash',
+  },
+  rmu: {
+    eng: 'Romani, Tavringer',
+    lang: 'Tavringer Romani',
+  },
+  rmw: {
+    eng: 'Romani, Welsh',
+    lang: 'Welsh Romani',
+  },
+  rmy: {
+    eng: 'Romani, Vlax Vlax Romani',
+    lang: 'Romani, Vlax Vlax Romani',
+  },
+  'rmy-ru-vlahi': {
+    eng: 'Vlahi',
+    lang: 'Vlahi',
+  },
+  'rmy-ua': {
+    eng: 'Romani Vlax',
+    lang: 'Romani Vlax',
+  },
+  'rmy-ua-lovari': {
+    eng: 'Lovari',
+    lang: 'Lovari',
   },
   'rmy-x-bsa': {
     eng: 'South Slavic Ardilean Bayash',
@@ -213,13 +231,13 @@ export const langNames = {
     eng: 'Vlach Western Arli',
     lang: 'Vlach Western Arli',
   },
-  'rmy-ua': {
-    eng: 'Romani Vlax',
-    lang: 'Romani Vlax',
-  },
   ru: {
     eng: 'Russian',
     lang: 'Русский',
+  },
+  rue: {
+    eng: 'Rusyn',
+    lang: 'Rusyn',
   },
   sgj: {
     eng: 'Surgujia',
@@ -251,7 +269,7 @@ export const langNames = {
   },
   tg: {
     eng: 'Tajik',
-    lang: 'Тоҷикӣ, toçikī, تاجیکی‎',
+    lang: 'Тоҷикӣ, toçikī, تاجیکی',
   },
   tl: {
     eng: 'Tagalog',
@@ -264,6 +282,10 @@ export const langNames = {
   tr: {
     eng: 'Turkish',
     lang: 'Türkçe',
+  },
+  uk: {
+    eng: 'Ukrainian',
+    lang: 'українська мова',
   },
   ur: {
     eng: 'Urdu',
@@ -278,16 +300,6 @@ export const langNames = {
     lang: 'Tiếng Việt',
   },
 };
-
-export const owners = [
-  'door43-catalog',
-  'bsa',
-  'unfoldingword',
-  'ru_gl',
-  'gra',
-  'DevleskoDrom',
-  'es-419_obt',
-];
 
 //resource, that have not manifest or others reason
 export const blackListResources = [
