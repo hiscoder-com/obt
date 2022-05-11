@@ -1,6 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
-
-import useDeepCompareEffect from 'use-deep-compare-effect';
+import React, { useEffect, useContext } from 'react';
 
 import { Box } from '@material-ui/core';
 
@@ -8,9 +6,13 @@ import { Card, CardContent, useContent, useCardState } from 'translation-helps-r
 
 import { AppContext } from '../../context';
 
-import { ListWords } from '.';
+import { ListWords } from '../../components';
 
-import useListWordsReference from './useListWordsReference';
+import {
+  useListWordsReference,
+  useSelectTypeUniqueWords,
+  useChahgeColorTWL,
+} from '../../hooks';
 
 import useStyles from './style';
 
@@ -21,8 +23,7 @@ export default function SupportTWL(props) {
   const { title, classes, onClose, type, server, fontSize, reference, resource } = props;
   const { bookId, chapter, verse } = reference;
   const classesLocal = useStyles();
-  const [uniqueWordsItems, setUniqueWordsItems] = useState([]);
-  const [changeColor, setChangeColor] = useState();
+
   const {
     markdown,
     items,
@@ -41,48 +42,14 @@ export default function SupportTWL(props) {
   });
 
   const { listWordsReference, listWordsChapter } = useListWordsReference(tsvs, bookId);
-
-  useDeepCompareEffect(() => {
-    if (!items || items.length === 0) {
-      return;
-    }
-
-    if (switchTypeUniqueWords === 'disabled') {
-      setUniqueWordsItems(items);
-      return;
-    }
-
-    const wordsItems = [];
-    const checkItemsVerse = [];
-    items.forEach((item) => {
-      if (!checkItemsVerse.includes(item.TWLink)) {
-        wordsItems.push(item);
-        checkItemsVerse.push(item.TWLink);
-      }
-    });
-    if (switchTypeUniqueWords === 'verse') {
-      setUniqueWordsItems(wordsItems);
-      return;
-    }
-    const otherWordsItems = [];
-    wordsItems.forEach((item) => {
-      if (
-        (switchTypeUniqueWords === 'chapter' &&
-          listWordsChapter &&
-          item?.TWLink &&
-          listWordsChapter[chapter] &&
-          listWordsChapter[chapter][item?.TWLink] === verse) ||
-        (switchTypeUniqueWords === 'book' &&
-          listWordsReference &&
-          item?.TWLink &&
-          listWordsReference[item?.TWLink] &&
-          listWordsReference[item?.TWLink][0] === chapter + ':' + verse)
-      ) {
-        otherWordsItems.push(item);
-      }
-    });
-    setUniqueWordsItems(otherWordsItems);
-  }, [switchTypeUniqueWords, { items }, listWordsReference]);
+  const { uniqueWordsItems } = useSelectTypeUniqueWords(
+    items,
+    switchTypeUniqueWords,
+    listWordsReference,
+    chapter,
+    verse,
+    listWordsChapter
+  );
 
   const {
     state: { item, headers, filters, itemIndex, markdownView },
@@ -99,16 +66,12 @@ export default function SupportTWL(props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [reference, switchHideRepeatedWords, switchTypeUniqueWords]);
 
-  useEffect(() => {
-    const _changeColor =
-      !switchHideRepeatedWords &&
-      uniqueWordsItems &&
-      items &&
-      items.length > 0 &&
-      (itemIndex !== undefined || null) &&
-      !uniqueWordsItems.includes(items[itemIndex]);
-    setChangeColor(_changeColor);
-  }, [itemIndex, items, uniqueWordsItems, switchHideRepeatedWords]);
+  const { changeColor } = useChahgeColorTWL(
+    items,
+    switchHideRepeatedWords,
+    uniqueWordsItems,
+    itemIndex
+  );
 
   return (
     <Card

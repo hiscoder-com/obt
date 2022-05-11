@@ -1,6 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
+
+import { Box } from '@material-ui/core';
 
 import { Card, CardContent, useContent, useCardState } from 'translation-helps-rcl';
+
+import { AppContext } from '../../context';
+
+import { ListWords } from '../../components';
+
+import {
+  useListWordsReference,
+  useSelectTypeUniqueWords,
+  useChahgeColorTWL,
+} from '../../hooks';
+
+import useStyles from './style';
 
 export default function SupportOBSTWL({
   title,
@@ -12,15 +26,20 @@ export default function SupportOBSTWL({
   reference: { bookId, chapter, verse },
   resource,
 }) {
-  const [selectedQuote, setQuote] = useState(null);
+  const {
+    state: { switchTypeUniqueWords, switchHideRepeatedWords },
+  } = useContext(AppContext);
+  const classesLocal = useStyles();
+
   const {
     markdown,
     items,
+    tsvs,
     resourceStatus: { loading },
     props: { languageId },
   } = useContent({
-    verse: verse,
-    chapter: chapter,
+    verse,
+    chapter,
     projectId: bookId,
     ref: resource.branch ?? 'master',
     languageId: resource.languageId ?? 'ru',
@@ -29,18 +48,33 @@ export default function SupportOBSTWL({
     server,
   });
 
+  const { listWordsReference, listWordsChapter } = useListWordsReference(tsvs, bookId);
+  const { uniqueWordsItems } = useSelectTypeUniqueWords(
+    items,
+    switchTypeUniqueWords,
+    listWordsReference,
+    chapter,
+    verse,
+    listWordsChapter
+  );
+
   const {
     state: { item, headers, filters, itemIndex, markdownView },
     actions: { setFilters, setItemIndex, setMarkdownView },
   } = useCardState({
-    items,
-    setQuote,
-    selectedQuote,
+    items: !switchHideRepeatedWords ? items : uniqueWordsItems,
   });
   useEffect(() => {
     setItemIndex(0);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [bookId, chapter, verse]);
+  }, [bookId, chapter, verse, switchHideRepeatedWords, switchTypeUniqueWords]);
+
+  const { changeColor } = useChahgeColorTWL(
+    items,
+    switchHideRepeatedWords,
+    uniqueWordsItems,
+    itemIndex
+  );
 
   return (
     <Card
@@ -49,7 +83,7 @@ export default function SupportOBSTWL({
       onClose={() => onClose(true)}
       classes={classes}
       id={type}
-      items={items}
+      items={!switchHideRepeatedWords ? items : uniqueWordsItems}
       headers={headers}
       filters={filters}
       fontSize={fontSize}
@@ -64,18 +98,33 @@ export default function SupportOBSTWL({
         });
       }}
     >
-      <CardContent
-        item={item}
-        viewMode={'markdown'}
-        filters={filters}
-        fontSize={fontSize}
-        markdown={markdown}
-        isLoading={Boolean(loading)}
-        languageId={languageId}
-        markdownView={markdownView}
-        selectedQuote={selectedQuote}
-        setQuote={setQuote}
-      />
+      {(!switchHideRepeatedWords || uniqueWordsItems.length > 0) && (
+        <ListWords
+          links={
+            !switchHideRepeatedWords
+              ? items &&
+                items.length > 0 &&
+                listWordsReference &&
+                listWordsReference[items[itemIndex]?.TWLink]
+              : uniqueWordsItems &&
+                uniqueWordsItems.length > 0 &&
+                listWordsReference &&
+                listWordsReference[uniqueWordsItems[itemIndex]?.TWLink]
+          }
+        />
+      )}
+      <Box className={changeColor ? classesLocal.twl : ''}>
+        <CardContent
+          item={item}
+          viewMode={'markdown'}
+          filters={filters}
+          fontSize={fontSize}
+          markdown={markdown}
+          isLoading={Boolean(loading)}
+          languageId={languageId}
+          markdownView={markdownView}
+        />
+      </Box>
     </Card>
   );
 }

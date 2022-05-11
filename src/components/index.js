@@ -13,6 +13,7 @@ export * from './DownloadLayout';
 export * from './FeedbackDialog';
 export * from './FrontModal';
 export * from './Intro';
+export * from './ListWords';
 export * from './OBSVerses';
 export * from './SearchResources';
 export * from './SelectLanguage';
