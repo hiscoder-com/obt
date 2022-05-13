@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Box, Popover } from '@material-ui/core';
 import ListAltRoundedIcon from '@material-ui/icons/ListAltRounded';
 
-import { ListLink } from '.';
+import { ListLinks } from '.';
 
 function ListWords({ links }) {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -20,7 +20,7 @@ function ListWords({ links }) {
         />
       </Box>
       <Popover anchorEl={anchorEl} onClose={handleClose} open={Boolean(anchorEl)}>
-        <ListLink links={links} onClose={handleClose} />
+        <ListLinks links={links} onClose={handleClose} />
       </Popover>
     </>
   );
