@@ -16,7 +16,7 @@ function ListWords({ links }) {
       <Box textAlign={'center'}>
         <ListAltRoundedIcon
           onClick={(event) => setAnchorEl(event.currentTarget)}
-          color="primary"
+          color="inherit"
         />
       </Box>
       <Popover anchorEl={anchorEl} onClose={handleClose} open={Boolean(anchorEl)}>

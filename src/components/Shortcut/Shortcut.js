@@ -19,7 +19,6 @@ export default function Shortcut() {
   const {
     actions: { setSwitchObsImage },
   } = useContext(AppContext);
-
   useHotkeys(
     'ctrl+right',
     (e) => {

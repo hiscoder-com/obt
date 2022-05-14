@@ -4,7 +4,7 @@ import useDeepCompareEffect from 'use-deep-compare-effect';
 
 import { Box } from '@material-ui/core';
 
-import { Card, CardContent, useContent, useCardState } from 'translation-helps-rcl';
+import { Card, useContent, useCardState } from 'translation-helps-rcl';
 
 import { AppContext } from '../../context';
 
@@ -14,17 +14,19 @@ import useListWordsReference from './useListWordsReference';
 
 import useStyles from './style';
 
+import { MarkdownViewer } from '../MarkdownViewer';
+
 export default function SupportTWL(props) {
   const {
     state: { switchTypeUniqueWords, switchHideRepeatedWords },
   } = useContext(AppContext);
+
   const { title, classes, onClose, type, server, fontSize, reference, resource } = props;
   const { bookId, chapter, verse } = reference;
   const classesLocal = useStyles();
   const [uniqueWordsItems, setUniqueWordsItems] = useState([]);
   const [changeColor, setChangeColor] = useState();
   const {
-    markdown,
     items,
     tsvs,
     resourceStatus: { loading },
@@ -39,7 +41,6 @@ export default function SupportTWL(props) {
     owner: resource.owner ?? 'door43-catalog',
     server,
   });
-
   const { listWordsReference, listWordsChapter } = useListWordsReference(tsvs, bookId);
 
   useDeepCompareEffect(() => {
@@ -148,16 +149,16 @@ export default function SupportTWL(props) {
         />
       )}
       <Box className={changeColor ? classesLocal.twl : ''}>
-        <CardContent
-          item={item}
-          viewMode={'markdown'}
-          filters={filters}
-          fontSize={fontSize}
-          markdown={markdown}
-          isLoading={Boolean(loading)}
-          languageId={languageId}
-          markdownView={markdownView}
-        />
+        <MarkdownViewer
+          config={{
+            server: server,
+            owner: resource.owner ?? 'door43-catalog',
+            ref: resource.branch ?? 'master',
+            languageId: resource.languageId ?? 'ru',
+          }}
+        >
+          {items && items.length > 0 ? items[itemIndex].markdown : '# No content'}
+        </MarkdownViewer>
       </Box>
     </Card>
   );

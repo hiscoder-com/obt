@@ -22,9 +22,12 @@ export const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const useBookStyles = makeStyles(() => ({
+export const useBookStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
     minWidth: 'inherit',
+  },
+  textPrimary: {
+    color: 'inherit',
   },
 }));

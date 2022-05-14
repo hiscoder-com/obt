@@ -10,7 +10,7 @@ import { useStyles } from './style';
 const options = [
   { key: 'textTree', label: 'Theme_TextTree' },
   { key: 'obt', label: 'Theme_OBT' },
-  // { key: 'dark', label: 'Theme_Dark' },
+  { key: 'dark', label: 'Theme_Dark' },
 ];
 
 function SelectTheme() {

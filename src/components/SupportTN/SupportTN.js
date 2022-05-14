@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useContext } from 'react';
 
-import { Card, CardContent, useContent, useCardState } from 'translation-helps-rcl';
+import { Card, useContent, useCardState } from 'translation-helps-rcl';
 import { useTranslation } from 'react-i18next';
-
 import { AppContext } from '../../context';
 import { FrontModal, ButtonGroupUI } from '../../components';
+import { MarkdownViewer } from '../MarkdownViewer';
 
 export default function SupportTN({
   title,
@@ -17,7 +17,7 @@ export default function SupportTN({
   resource,
 }) {
   const [openDialog, setOpenDialog] = useState(false);
-  const [selectedQuote, setQuote] = useState({});
+
   const [configFront, setConfigFront] = useState({});
   const { t } = useTranslation();
 
@@ -38,10 +38,8 @@ export default function SupportTN({
   };
 
   const {
-    markdown,
     items,
     resourceStatus: { loading },
-    props: { languageId },
   } = useContent({
     ...config,
   });
@@ -90,8 +88,14 @@ export default function SupportTN({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [bookId, chapter, verse]);
 
-  const filterArray = ['OrigQuote', 'GLQuote', 'OccurrenceNote', 'SupportReference'];
-
+  const links = items && items[itemIndex]?.OccurrenceNote.match(/\[{2}.+\]{2}/g);
+  console.log({ item });
+  const content =
+    items &&
+    items[itemIndex]?.OccurrenceNote.replace(
+      '[[',
+      `[${links && links[0].replace(/\[{2}|\]{2}/g, '')}](`
+    ).replace(']]', ')');
   return (
     <Card
       closeable
@@ -102,7 +106,6 @@ export default function SupportTN({
       items={items}
       fontSize={fontSize}
       headers={headers}
-      filters={filterArray}
       itemIndex={itemIndex}
       setItemIndex={setItemIndex}
       markdownView={markdownView}
@@ -115,7 +118,7 @@ export default function SupportTN({
     >
       {items && (
         <ButtonGroupUI
-          buttonGroupProps={{ size: 'small', color: 'primary' }}
+          buttonGroupProps={{ size: 'small', color: 'inherit' }}
           style={{ marginTop: '10px' }}
           buttons={[
             { title: t('Introduction'), onClick: onIntroClick },
@@ -133,18 +136,22 @@ export default function SupportTN({
         />
       )}
 
-      <CardContent
-        item={item}
-        viewMode="table"
-        filters={filterArray}
-        fontSize={fontSize}
-        isLoading={Boolean(loading)}
-        languageId={languageId}
-        markdown={markdown}
-        markdownView={markdownView}
-        selectedQuote={selectedQuote}
-        setQuote={setQuote}
-      />
+      {items && items.length > 0 && (
+        <>
+          <MarkdownViewer config={{}}>{`# ${items[itemIndex]?.GLQuote}`}</MarkdownViewer>
+
+          <MarkdownViewer
+            config={{
+              server: server,
+              owner: resource.owner ?? 'door43-catalog',
+              ref: resource.branch ?? 'master',
+              languageId: resource.languageId ?? 'ru',
+            }}
+          >
+            {content}
+          </MarkdownViewer>
+        </>
+      )}
     </Card>
   );
 }
