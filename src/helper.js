@@ -424,3 +424,12 @@ export const isJson = (str) => {
   }
   return true;
 };
+export const fixUrl = (content) => {
+  const links = content.match(/\[{2}\S+\]{2}/g);
+  // console.log(content);
+  console.log(links);
+  const contentWithUrl = content
+    .replace('[[', `[${links && links[0].replace(/\[{2}|\]{2}/g, '')}](`)
+    .replace(']]', ')');
+  return contentWithUrl;
+};

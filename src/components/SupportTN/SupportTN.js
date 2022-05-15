@@ -4,7 +4,8 @@ import { Card, useContent, useCardState } from 'translation-helps-rcl';
 import { useTranslation } from 'react-i18next';
 import { AppContext } from '../../context';
 import { FrontModal, ButtonGroupUI } from '../../components';
-import { MarkdownViewer } from '../MarkdownViewer';
+
+import { SupportContent } from '../SupportContent';
 
 export default function SupportTN({
   title,
@@ -17,7 +18,6 @@ export default function SupportTN({
   resource,
 }) {
   const [openDialog, setOpenDialog] = useState(false);
-
   const [configFront, setConfigFront] = useState({});
   const { t } = useTranslation();
 
@@ -37,13 +37,10 @@ export default function SupportTN({
     httpConfig: { noCache: true },
   };
 
-  const {
-    items,
-    resourceStatus: { loading },
-  } = useContent({
+  const { items, resourceStatus } = useContent({
     ...config,
   });
-
+  // console.log({ resourceStatus });
   const onIntroClick = () => {
     setConfigFront({ ...config, verse: 'intro', chapter: 'front' });
     setOpenDialog(true);
@@ -88,14 +85,6 @@ export default function SupportTN({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [bookId, chapter, verse]);
 
-  const links = items && items[itemIndex]?.OccurrenceNote.match(/\[{2}.+\]{2}/g);
-  console.log({ item });
-  const content =
-    items &&
-    items[itemIndex]?.OccurrenceNote.replace(
-      '[[',
-      `[${links && links[0].replace(/\[{2}|\]{2}/g, '')}](`
-    ).replace(']]', ')');
   return (
     <Card
       closeable
@@ -136,22 +125,7 @@ export default function SupportTN({
         />
       )}
 
-      {items && items.length > 0 && (
-        <>
-          <MarkdownViewer config={{}}>{`# ${items[itemIndex]?.GLQuote}`}</MarkdownViewer>
-
-          <MarkdownViewer
-            config={{
-              server: server,
-              owner: resource.owner ?? 'door43-catalog',
-              ref: resource.branch ?? 'master',
-              languageId: resource.languageId ?? 'ru',
-            }}
-          >
-            {content}
-          </MarkdownViewer>
-        </>
-      )}
+      <SupportContent config={config} item={item} resourceStatus={resourceStatus} />
     </Card>
   );
 }

@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
-import axios from 'axios';
 
+import axios from 'axios';
 import { useHistory, useLocation } from 'react-router-dom';
+
 import { ReferenceContext } from '../../context';
-import { DialogUI } from '../DialogUI';
-import { MarkdownViewer } from '../MarkdownViewer';
+import { DialogUI, MarkdownViewer } from '../../components';
 
 function LinkDialog() {
   const [content, setContent] = useState('');
@@ -21,8 +21,21 @@ function LinkDialog() {
     setContent(null);
     history.push(location.pathname);
   };
+  const fetchUrl = (url) => axios.get(url);
   useEffect(() => {
     if (!dialogLink) {
+      return;
+    }
+    if (dialogLink.includes('#titul')) {
+      const urls = dialogLink.split('#titul=').map(fetchUrl);
+      Promise.all(urls)
+        .then((result) => {
+          setContent('# ' + result[1].data + '\n' + result[0].data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+
       return;
     }
     axios
@@ -46,7 +59,7 @@ function LinkDialog() {
 
   return (
     <div>
-      <DialogUI open={Boolean(dialogLink)} onClose={onClose}>
+      <DialogUI open={Boolean(dialogLink)} onClose={onClose} title={' '}>
         <MarkdownViewer config={config}>{content && content}</MarkdownViewer>
       </DialogUI>
     </div>

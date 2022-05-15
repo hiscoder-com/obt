@@ -14,7 +14,7 @@ import useListWordsReference from './useListWordsReference';
 
 import useStyles from './style';
 
-import { MarkdownViewer } from '../MarkdownViewer';
+import { SupportContent } from '../SupportContent';
 
 export default function SupportTWL(props) {
   const {
@@ -26,12 +26,7 @@ export default function SupportTWL(props) {
   const classesLocal = useStyles();
   const [uniqueWordsItems, setUniqueWordsItems] = useState([]);
   const [changeColor, setChangeColor] = useState();
-  const {
-    items,
-    tsvs,
-    resourceStatus: { loading },
-    props: { languageId },
-  } = useContent({
+  const config = {
     verse,
     chapter,
     projectId: bookId,
@@ -40,7 +35,12 @@ export default function SupportTWL(props) {
     resourceId: 'twl',
     owner: resource.owner ?? 'door43-catalog',
     server,
+    httpConfig: { noCache: true },
+  };
+  const { items, tsvs, resourceStatus } = useContent({
+    ...config,
   });
+
   const { listWordsReference, listWordsChapter } = useListWordsReference(tsvs, bookId);
 
   useDeepCompareEffect(() => {
@@ -149,16 +149,7 @@ export default function SupportTWL(props) {
         />
       )}
       <Box className={changeColor ? classesLocal.twl : ''}>
-        <MarkdownViewer
-          config={{
-            server: server,
-            owner: resource.owner ?? 'door43-catalog',
-            ref: resource.branch ?? 'master',
-            languageId: resource.languageId ?? 'ru',
-          }}
-        >
-          {items && items.length > 0 ? items[itemIndex].markdown : '# No content'}
-        </MarkdownViewer>
+        <SupportContent config={config} item={item} resourceStatus={resourceStatus} />
       </Box>
     </Card>
   );

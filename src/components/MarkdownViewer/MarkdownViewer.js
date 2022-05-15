@@ -1,6 +1,8 @@
-import { Link } from '@material-ui/core';
 import React, { useContext } from 'react';
+
 import ReactMarkdown from 'react-markdown';
+import { Link } from '@material-ui/core';
+
 import { ReferenceContext } from '../../context';
 
 function MarkdownViewer({ children, config }) {
@@ -8,7 +10,7 @@ function MarkdownViewer({ children, config }) {
   const {
     actions: { goToBookChapterVerse },
   } = useContext(ReferenceContext);
-  const transformLinkUri = (uri, children, title) => {
+  const transformLinkUri = (uri) => {
     return changeUri({
       uri,
       server,
@@ -44,11 +46,11 @@ function MarkdownViewer({ children, config }) {
 
       // https://git.door43.org/ru_gl/ru_ta/raw/branch/master/translate/translate-names/01.md
 
-      titleUrl = `#tit=${server}/${owner}/${languageId}_${resourceId}/raw/branch/${ref}/${filePath}/title.md`;
+      titleUrl = `#titul=${server}/${owner}/${languageId}_${resourceId}/raw/branch/${ref}/${filePath}/title.md`;
 
       // https://git.door43.org/ru_gl/ru_ta/raw/branch/master/translate/translate-names/title.md
 
-      return url;
+      return url + titleUrl;
     }
     if (_link.includes('/help/')) {
       url = `/${reference[3]}/${String(parseInt(reference[4]))}/${String(
@@ -61,7 +63,6 @@ function MarkdownViewer({ children, config }) {
     <ReactMarkdown
       components={{
         a: (props) => {
-          console.log({ props });
           if (!props?.href) {
             return <span>{props.children[0]}</span>;
           }
