@@ -4,6 +4,7 @@ const useLocalTitleStyles = makeStyles((theme) => ({
   root: {
     margin: 0,
     padding: theme.spacing(2),
+    dragIndicator: 'draggable-dialog-title',
   },
   closeButton: {
     position: 'absolute',
@@ -14,6 +15,12 @@ const useLocalTitleStyles = makeStyles((theme) => ({
   buttons: {
     marginBottom: theme.spacing(1),
     marginRight: theme.spacing(1),
+  },
+  draggable: {
+    cursor: 'move',
+  },
+  undraggable: {
+    cursor: 'default',
   },
 }));
 
