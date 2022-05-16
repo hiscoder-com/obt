@@ -16,7 +16,6 @@ export default function SupportTA({
   resource,
 }) {
   const {
-    actions: { setTaRef },
     state: { taRef },
   } = useContext(AppContext);
 
