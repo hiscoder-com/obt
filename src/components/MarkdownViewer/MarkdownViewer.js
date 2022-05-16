@@ -4,9 +4,11 @@ import ReactMarkdown from 'react-markdown';
 import { Box, Link } from '@material-ui/core';
 
 import { ReferenceContext } from '../../context';
+import useStyles from './style';
 
 function MarkdownViewer({ children, config, fontSize }) {
   const { server, owner, ref, languageId } = config;
+  const classes = useStyles();
   const {
     actions: { goToBookChapterVerse },
   } = useContext(ReferenceContext);
@@ -23,6 +25,7 @@ function MarkdownViewer({ children, config, fontSize }) {
     if (!uri) {
       return;
     }
+
     const _link = uri.replace('rc://*/', '').replace('rc://', '');
     const tw = ['/other/', '/kt/', '/names/'];
     let titleUrl = '';
@@ -30,9 +33,21 @@ function MarkdownViewer({ children, config, fontSize }) {
     const reference = _link.split('/');
     if (tw.find((item) => _link.includes(item)) && reference) {
       const resourceId = 'tw';
-      const filePath = `${reference[1]}/${reference[2]}`;
-      url = `#page=${server}/${owner}/${languageId}_${resourceId}/raw/branch/${ref}/bible/${filePath}`;
-      // https://git.door43.org/Door43-Catalog/ru_tw/raw/branch/master/bible/other/elder.md
+      let filePath = '';
+      switch (reference.length) {
+        case 3:
+          filePath = `${reference[1]}/${reference[2]}`;
+          url = `#page=${server}/${owner}/${languageId}_${resourceId}/raw/branch/${ref}/bible/${filePath}`;
+          // https://git.door43.org/Door43-Catalog/ru_tw/raw/branch/master/bible/other/elder.md
+          break;
+        case 6:
+          filePath = `${reference[4]}/${reference[5]}`;
+          url = `#page=${server}/${owner}/${languageId}_${resourceId}/raw/branch/${ref}/bible/${filePath}.md`;
+          // https://git.door43.org/Door43-Catalog/ru_tw/raw/branch/master/bible/other/elder.md
+          break;
+        default:
+          break;
+      }
       return url;
     }
     if (_link.includes('/ta/man/')) {
@@ -69,7 +84,7 @@ function MarkdownViewer({ children, config, fontSize }) {
             }
             return props.href.startsWith('/') ? (
               <div
-                color={'primary'}
+                className={classes.link}
                 onClick={() => {
                   const reference = props.href.split('/');
 
