@@ -27,7 +27,4 @@ export const useBookStyles = makeStyles((theme) => ({
     display: 'flex',
     minWidth: 'inherit',
   },
-  textPrimary: {
-    color: 'inherit',
-  },
 }));

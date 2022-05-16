@@ -27,8 +27,8 @@ function LinkDialog() {
     if (!dialogLink) {
       return;
     }
-    if (dialogLink.includes('#titul')) {
-      const urls = dialogLink.split('#titul=').map(fetchUrl);
+    if (dialogLink.includes('ta')) {
+      const urls = [dialogLink, dialogLink.replace('01', 'title')].map(fetchUrl);
       Promise.all(urls)
         .then((result) => {
           setContent('# ' + result[1].data + '\n' + result[0].data);

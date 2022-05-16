@@ -1,15 +1,16 @@
-import { CircularProgress } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
+
+import { CircularProgress } from '@material-ui/core';
+
 import { useTranslation } from 'react-i18next';
-import { fixUrl } from '../../helper';
-import MarkdownViewer from '../MarkdownViewer/MarkdownViewer';
+
+import { MarkdownViewer } from '../../components';
 import { useCircularStyles, useNoContentStyles } from './style';
 
 function SupportContent({
   item,
   config,
   fontSize,
-  config: { resourceId },
   resourceStatus: { loading, contentNotFoundError, error },
   markdown,
 }) {
@@ -17,6 +18,7 @@ function SupportContent({
   const classesCircular = useCircularStyles();
   const classesNoContent = useNoContentStyles();
   const { t } = useTranslation();
+  const { resourceId } = config;
 
   useEffect(() => {
     if (markdown) {
@@ -48,7 +50,7 @@ function SupportContent({
     if (!content) {
       return;
     }
-    setContent(fixUrl(content));
+    setContent(content);
   }, [content]);
 
   return (
