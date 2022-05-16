@@ -22,13 +22,14 @@ function MarkdownViewer({ children, config, fontSize }) {
       languageId,
     });
   };
+
   const content = typeof children === 'string' ? fixUrl(children) : '';
   const changeUri = ({ uri, server, owner, ref, languageId }) => {
     if (!uri) {
       return;
     }
 
-    const _link = uri.replace('rc://*/', '').replace('rc://', '');
+    const _link = uri.replace('*/', languageId).replace('rc://', '');
     const tw = ['/other/', '/kt/', '/names/'];
     let url = '';
     const reference = _link.split('/');

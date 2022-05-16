@@ -34,9 +34,23 @@ function SupportContent({
         item?.GLQuote && setContent((prev) => prev && '# ' + item?.GLQuote + '\n' + prev);
 
         break;
+      case 'obs-sn':
+      case 'obs-tn':
+        item?.Note && setContent(item?.Note);
+        item?.Quote && setContent((prev) => prev && '# ' + item?.Quote + '\n' + prev);
+
+        break;
+      case 'obs-tq':
+        item?.Response && setContent(item?.Response);
+        item?.Question &&
+          setContent((prev) => prev && '# ' + item?.Question + '\n' + prev);
+
+        break;
       case 'twl':
+      case 'obs-twl':
         item?.markdown && setContent(item?.markdown);
         break;
+
       case 'tq':
         item?.Response && setContent(item?.Response);
         item?.Question &&

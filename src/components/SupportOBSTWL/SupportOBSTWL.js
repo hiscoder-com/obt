@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
-import { Card, CardContent, useContent, useCardState } from 'translation-helps-rcl';
+import { Card, useContent, useCardState } from 'translation-helps-rcl';
+import { SupportContent } from '../SupportContent';
 
 export default function SupportOBSTWL({
   title,
@@ -13,12 +14,7 @@ export default function SupportOBSTWL({
   resource,
 }) {
   const [selectedQuote, setQuote] = useState(null);
-  const {
-    markdown,
-    items,
-    resourceStatus: { loading },
-    props: { languageId },
-  } = useContent({
+  const config = {
     verse: verse,
     chapter: chapter,
     projectId: bookId,
@@ -27,7 +23,8 @@ export default function SupportOBSTWL({
     resourceId: 'obs-twl',
     owner: resource.owner ?? 'door43-catalog',
     server,
-  });
+  };
+  const { markdown, items, resourceStatus } = useContent(config);
 
   const {
     state: { item, headers, filters, itemIndex, markdownView },
@@ -41,7 +38,6 @@ export default function SupportOBSTWL({
     setItemIndex(0);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [bookId, chapter, verse]);
-
   return (
     <Card
       closeable
@@ -64,17 +60,12 @@ export default function SupportOBSTWL({
         });
       }}
     >
-      <CardContent
+      <SupportContent
+        config={config}
         item={item}
-        viewMode={'markdown'}
-        filters={filters}
+        resourceStatus={resourceStatus}
         fontSize={fontSize}
         markdown={markdown}
-        isLoading={Boolean(loading)}
-        languageId={languageId}
-        markdownView={markdownView}
-        selectedQuote={selectedQuote}
-        setQuote={setQuote}
       />
     </Card>
   );

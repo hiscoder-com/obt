@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react';
 
 import { ReferenceUtils } from 'bible-reference-rcl';
-import { Card, CardContent, useContent, useCardState } from 'translation-helps-rcl';
+import { Card, useContent, useCardState } from 'translation-helps-rcl';
 import { useTranslation } from 'react-i18next';
 
 import { ButtonGroupUI, FrontModal } from '../../components';
+import { SupportContent } from '../SupportContent';
 
 export default function SupportOBSSQ({
   title,
@@ -19,7 +20,6 @@ export default function SupportOBSSQ({
   const [openDialog, setOpenDialog] = React.useState(false);
   const [configFront, setConfigFront] = React.useState({});
   const { t } = useTranslation();
-
   const config = {
     projectId: bookId,
     ref: resource.branch ?? 'master',
@@ -31,11 +31,7 @@ export default function SupportOBSSQ({
     server,
   };
 
-  const {
-    items,
-    resourceStatus,
-    props: { languageId },
-  } = useContent(config);
+  const { markdown, items, resourceStatus } = useContent(config);
 
   const {
     state: { item, headers, filters, itemIndex },
@@ -43,6 +39,7 @@ export default function SupportOBSSQ({
   } = useCardState({
     items,
   });
+
   const onSummaryClick = () => {
     const lastVerse = ReferenceUtils.getVerseList('obs', chapter).pop().key;
     setConfigFront({ ...config, verse: '1-' + lastVerse, chapter });
@@ -92,14 +89,12 @@ export default function SupportOBSSQ({
           title={t('Summary')}
         />
       )}
-
-      <CardContent
+      <SupportContent
+        config={config}
         item={item}
-        filters={filters}
+        resourceStatus={resourceStatus}
         fontSize={fontSize}
-        viewMode="question"
-        isLoading={Boolean(resourceStatus.loading)}
-        languageId={languageId}
+        markdown={markdown}
       />
     </Card>
   );
