@@ -11,12 +11,18 @@ function SupportContent({
   fontSize,
   config: { resourceId },
   resourceStatus: { loading, contentNotFoundError, error },
+  markdown,
 }) {
   const [content, setContent] = useState(null);
   const classesCircular = useCircularStyles();
   const classesNoContent = useNoContentStyles();
   const { t } = useTranslation();
+
   useEffect(() => {
+    if (markdown) {
+      setContent(markdown);
+      return;
+    }
     if (!item) {
       return;
     }
@@ -29,18 +35,22 @@ function SupportContent({
       case 'twl':
         item?.markdown && setContent(item?.markdown);
         break;
-
+      case 'tq':
+        item?.Response && setContent(item?.Response);
+        item?.Question &&
+          setContent((prev) => prev && '# ' + item?.Question + '\n' + prev);
+        break;
       default:
         break;
     }
-  }, [item, resourceId]);
-
+  }, [item, markdown, resourceId]);
   useEffect(() => {
     if (!content) {
       return;
     }
     setContent(fixUrl(content));
   }, [content]);
+
   return (
     <>
       {loading ? (
@@ -48,7 +58,9 @@ function SupportContent({
           <CircularProgress color="primary" size={100} />
         </div>
       ) : (!contentNotFoundError || !error) && content ? (
-        <MarkdownViewer config={config}>{content}</MarkdownViewer>
+        <MarkdownViewer fontSize={fontSize} config={config}>
+          {content}
+        </MarkdownViewer>
       ) : (
         <div className={classesNoContent.root}>{t('No_content')}</div>
       )}

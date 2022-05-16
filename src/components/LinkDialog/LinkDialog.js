@@ -5,6 +5,7 @@ import { useHistory, useLocation } from 'react-router-dom';
 
 import { ReferenceContext } from '../../context';
 import { DialogUI, MarkdownViewer } from '../../components';
+import { CircularProgress } from '@material-ui/core';
 
 function LinkDialog() {
   const [content, setContent] = useState('');
@@ -60,7 +61,15 @@ function LinkDialog() {
   return (
     <div>
       <DialogUI open={Boolean(dialogLink)} onClose={onClose} title={' '}>
-        <MarkdownViewer config={config}>{content && content}</MarkdownViewer>
+        <MarkdownViewer config={config}>
+          {!content ? (
+            <div>
+              <CircularProgress color="primary" size={50} />
+            </div>
+          ) : (
+            content
+          )}
+        </MarkdownViewer>
       </DialogUI>
     </div>
   );

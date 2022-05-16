@@ -40,7 +40,6 @@ export default function SupportTN({
   const { items, resourceStatus } = useContent({
     ...config,
   });
-  // console.log({ resourceStatus });
   const onIntroClick = () => {
     setConfigFront({ ...config, verse: 'intro', chapter: 'front' });
     setOpenDialog(true);
@@ -125,7 +124,12 @@ export default function SupportTN({
         />
       )}
 
-      <SupportContent config={config} item={item} resourceStatus={resourceStatus} />
+      <SupportContent
+        config={config}
+        item={item}
+        resourceStatus={resourceStatus}
+        fontSize={fontSize}
+      />
     </Card>
   );
 }

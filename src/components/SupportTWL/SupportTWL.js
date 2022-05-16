@@ -149,7 +149,12 @@ export default function SupportTWL(props) {
         />
       )}
       <Box className={changeColor ? classesLocal.twl : ''}>
-        <SupportContent config={config} item={item} resourceStatus={resourceStatus} />
+        <SupportContent
+          config={config}
+          item={item}
+          resourceStatus={resourceStatus}
+          fontSize={fontSize}
+        />
       </Box>
     </Card>
   );
