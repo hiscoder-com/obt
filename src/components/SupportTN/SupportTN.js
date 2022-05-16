@@ -2,10 +2,9 @@ import React, { useState, useEffect, useContext } from 'react';
 
 import { Card, useContent, useCardState } from 'translation-helps-rcl';
 import { useTranslation } from 'react-i18next';
-import { AppContext } from '../../context';
-import { FrontModal, ButtonGroupUI } from '../../components';
 
-import { SupportContent } from '../SupportContent';
+import { AppContext } from '../../context';
+import { FrontModal, ButtonGroupUI, SupportContent } from '../../components';
 
 export default function SupportTN({
   title,

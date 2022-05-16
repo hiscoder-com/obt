@@ -3,7 +3,7 @@ import React, { useEffect, useContext, useMemo } from 'react';
 import { Card, useContent, useCardState } from 'translation-helps-rcl';
 
 import { AppContext } from '../../context';
-import { SupportContent } from '../SupportContent';
+import { SupportContent } from '../../components';
 
 export default function SupportTA({
   title,

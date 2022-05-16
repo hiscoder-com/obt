@@ -14,7 +14,7 @@ import useListWordsReference from './useListWordsReference';
 
 import useStyles from './style';
 
-import { SupportContent } from '../SupportContent';
+import { SupportContent } from '../../components';
 
 export default function SupportTWL(props) {
   const {
@@ -95,10 +95,10 @@ export default function SupportTWL(props) {
     projectId: bookId,
   });
 
-  useEffect(() => {
+  useDeepCompareEffect(() => {
     setItemIndex(0);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [reference, switchHideRepeatedWords, switchTypeUniqueWords]);
+  }, [{ reference }, switchHideRepeatedWords, switchTypeUniqueWords]);
 
   useEffect(() => {
     const _changeColor =
