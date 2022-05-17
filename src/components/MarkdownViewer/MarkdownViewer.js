@@ -24,7 +24,7 @@ function MarkdownViewer({ children, config, fontSize }) {
   };
 
   const content = typeof children === 'string' ? fixUrl(children) : '';
-  const changeUri = ({ uri, server, owner, ref, languageId }) => {
+  const changeUri = ({ uri, server, owner, languageId }) => {
     if (!uri) {
       return;
     }
@@ -39,11 +39,11 @@ function MarkdownViewer({ children, config, fontSize }) {
       switch (reference.length) {
         case 3:
           filePath = `${reference[1]}/${reference[2]}`;
-          url = `#page=${server}/${owner}/${languageId}_${resourceId}/raw/branch/${ref}/bible/${filePath}`;
+          url = `#page=${server}/${owner}/${languageId}_${resourceId}/raw/branch/master/bible/${filePath}`;
           break;
         case 6:
           filePath = `${reference[4]}/${reference[5]}`;
-          url = `#page=${server}/${owner}/${languageId}_${resourceId}/raw/branch/${ref}/bible/${filePath}.md`;
+          url = `#page=${server}/${owner}/${languageId}_${resourceId}/raw/branch/master/bible/${filePath}.md`;
           break;
         default:
           break;
@@ -55,7 +55,7 @@ function MarkdownViewer({ children, config, fontSize }) {
       const filePath = `${reference[3]}/${reference[4]}`;
       url = `#page=${server}/${
         owner === 'bsa' ? 'door43-catalog' : owner
-      }/${languageId}_${resourceId}/raw/branch/${ref}/${filePath}/01.md`;
+      }/${languageId}_${resourceId}/raw/branch/master/${filePath}/01.md`;
       return url;
     }
     if (_link.includes('/help/')) {

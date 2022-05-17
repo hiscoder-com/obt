@@ -16,7 +16,7 @@ export default function SupportOBSTQ({
   const [repoType, setRepoType] = useState('tsv');
   const mdConfig = {
     projectId: bookId,
-    ref: resource.branch ?? 'master',
+    ref: resource.ref ?? 'master',
     languageId: resource.languageId ?? 'ru',
     resourceId: 'obs-tq',
     filePath:
@@ -28,7 +28,7 @@ export default function SupportOBSTQ({
     verse: String(verse),
     chapter: String(chapter),
     projectId: bookId,
-    ref: resource.branch ?? 'master',
+    ref: resource.ref ?? 'master',
     languageId: resource.languageId ?? 'ru',
     resourceId: 'obs-tq',
     owner: resource.owner ?? 'door43-catalog',

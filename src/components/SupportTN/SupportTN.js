@@ -28,7 +28,7 @@ export default function SupportTN({
     verse: String(verse),
     chapter: String(chapter),
     projectId: bookId,
-    ref: resource.branch ?? 'master',
+    ref: resource.ref ?? 'master',
     languageId: resource.languageId ?? 'ru',
     resourceId: 'tn',
     owner: resource.owner ?? 'door43-catalog',

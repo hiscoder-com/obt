@@ -22,7 +22,7 @@ export default function SupportOBSSQ({
   const { t } = useTranslation();
   const config = {
     projectId: bookId,
-    ref: resource.branch ?? 'master',
+    ref: resource.ref ?? 'master',
     languageId: resource.languageId ?? 'en',
     resourceId: 'obs-sq',
     verse,

@@ -30,7 +30,7 @@ export default function SupportTWL(props) {
     verse,
     chapter,
     projectId: bookId,
-    ref: resource.branch ?? 'master',
+    ref: resource.ref ?? 'master',
     languageId: resource.languageId ?? 'ru',
     resourceId: 'twl',
     owner: resource.owner ?? 'door43-catalog',
