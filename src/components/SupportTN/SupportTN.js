@@ -103,7 +103,7 @@ export default function SupportTN({
         });
       }}
     >
-      {items && (
+      {items && verse === '1' && (
         <ButtonGroupUI
           buttonGroupProps={{ size: 'small', color: 'inherit' }}
           style={{ marginTop: '10px' }}
