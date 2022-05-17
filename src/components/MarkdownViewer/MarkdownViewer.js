@@ -53,9 +53,7 @@ function MarkdownViewer({ children, config, fontSize }) {
     if (_link.includes('/ta/man/')) {
       const resourceId = 'ta';
       const filePath = `${reference[3]}/${reference[4]}`;
-      url = `#page=${server}/${
-        owner === 'bsa' ? 'door43-catalog' : owner
-      }/${languageId}_${resourceId}/raw/branch/master/${filePath}/01.md`;
+      url = `#page=${server}/${owner}/${languageId}_${resourceId}/raw/branch/master/${filePath}/01.md`;
       return url;
     }
     if (_link.includes('/help/')) {
