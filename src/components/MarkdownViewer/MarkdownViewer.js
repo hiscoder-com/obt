@@ -8,7 +8,7 @@ import useStyles from './style';
 import { fixUrl } from '../../helper';
 
 function MarkdownViewer({ children, config, fontSize }) {
-  const { server, owner, ref, languageId } = config;
+  const { server, owner, ref, languageId, projectId } = config;
   const classes = useStyles();
   const {
     actions: { goToBookChapterVerse },
@@ -29,7 +29,7 @@ function MarkdownViewer({ children, config, fontSize }) {
       return;
     }
 
-    const _link = uri.replace('*/', languageId).replace('rc://', '');
+    const _link = uri.replace('rc://*', languageId).replace('rc://', '');
     const tw = ['/other/', '/kt/', '/names/'];
     let url = '';
     const reference = _link.split('/');
@@ -40,12 +40,10 @@ function MarkdownViewer({ children, config, fontSize }) {
         case 3:
           filePath = `${reference[1]}/${reference[2]}`;
           url = `#page=${server}/${owner}/${languageId}_${resourceId}/raw/branch/${ref}/bible/${filePath}`;
-
           break;
         case 6:
           filePath = `${reference[4]}/${reference[5]}`;
           url = `#page=${server}/${owner}/${languageId}_${resourceId}/raw/branch/${ref}/bible/${filePath}.md`;
-
           break;
         default:
           break;
@@ -54,10 +52,10 @@ function MarkdownViewer({ children, config, fontSize }) {
     }
     if (_link.includes('/ta/man/')) {
       const resourceId = 'ta';
-
       const filePath = `${reference[3]}/${reference[4]}`;
-      url = `#page=${server}/${owner}/${languageId}_${resourceId}/raw/branch/${ref}/${filePath}/01.md`;
-
+      url = `#page=${server}/${
+        owner === 'bsa' ? 'door43-catalog' : owner
+      }/${languageId}_${resourceId}/raw/branch/${ref}/${filePath}/01.md`;
       return url;
     }
     if (_link.includes('/help/')) {
@@ -76,6 +74,27 @@ function MarkdownViewer({ children, config, fontSize }) {
         components={{
           a: (props) => {
             if (!props?.href) {
+              if (
+                props?.node?.properties?.href &&
+                props?.node?.properties?.href.match(/[0-9]{1,2}\/[0-9]{1,2}/gm)
+              ) {
+                return (
+                  <div
+                    className={classes.link}
+                    onClick={() => {
+                      const reference = props.node.properties.href.split('/');
+
+                      goToBookChapterVerse(
+                        projectId,
+                        String(parseInt(reference[0])),
+                        String(parseInt(reference[1]))
+                      );
+                    }}
+                  >
+                    {props.children[0]}
+                  </div>
+                );
+              }
               return <span>{props.children[0]}</span>;
             }
             return props.href.startsWith('/') ? (

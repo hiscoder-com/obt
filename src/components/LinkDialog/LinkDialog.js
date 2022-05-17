@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 
 import axios from 'axios';
 import { useHistory, useLocation } from 'react-router-dom';
+import useDeepCompareEffect from 'use-deep-compare-effect';
 
 import { ReferenceContext } from '../../context';
 import { DialogUI, MarkdownViewer } from '../../components';
@@ -14,7 +15,7 @@ function LinkDialog() {
   const [config, setConfig] = useState();
 
   const {
-    state: { dialogLink },
+    state: { dialogLink, referenceSelected },
     actions: { setDialogLink },
   } = useContext(ReferenceContext);
   const onClose = () => {
@@ -23,11 +24,15 @@ function LinkDialog() {
     history.push(location.pathname);
   };
   const fetchUrl = (url) => axios.get(url);
+  useDeepCompareEffect(() => {
+    onClose();
+  }, [{ referenceSelected }]);
+
   useEffect(() => {
     if (!dialogLink) {
       return;
     }
-    if (dialogLink.includes('ta')) {
+    if (dialogLink.includes('_ta')) {
       const urls = [dialogLink, dialogLink.replace('01', 'title')].map(fetchUrl);
       Promise.all(urls)
         .then((result) => {
@@ -62,7 +67,7 @@ function LinkDialog() {
     <div>
       <DialogUI open={Boolean(dialogLink)} onClose={onClose} title={' '}>
         <MarkdownViewer config={config}>
-          {!content ? (
+          {content === '' ? (
             <div>
               <CircularProgress color="primary" size={50} />
             </div>
