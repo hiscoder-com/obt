@@ -23,6 +23,7 @@ import {
   Settings,
   ShowReference,
   WorkspaceManager,
+  ProjectorAdd,
 } from '../../components';
 
 import AddIcon from '@material-ui/icons/Add';
@@ -149,6 +150,7 @@ function SubMenuBar() {
           </MenuItem>
 
           <Settings setAnchorMainMenu={setAnchorMainMenu} />
+          <ProjectorAdd handleCloseMainMenu={handleCloseMainMenu} />
 
           <MenuItem onClick={handleOpenFeedbackDialog} divider={true}>
             {t('Feedback')}

@@ -3,6 +3,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import { Verse } from '@texttree/scripture-resources-rcl';
 import { Box, CircularProgress } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
+import { useProjector } from '@texttree/projector-mode-rcl';
 
 import { AppContext, ReferenceContext } from '../../context';
 import { ContextMenu } from '../../components';
@@ -19,6 +20,7 @@ const initialPosition = {
 
 function USFMContent({ reference, content, type, fontSize }) {
   const { t } = useTranslation();
+  const { setData, getAllData } = useProjector();
   const [verses, setVerses] = useState();
   const [chapter, setChapter] = useState();
   const [positionContextMenu, setPositionContextMenu] = useState(initialPosition);
@@ -60,6 +62,14 @@ function USFMContent({ reference, content, type, fontSize }) {
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [resourceLink, reference.chapter]);
+
+  useEffect(() => {
+    if (reference.verse && chapter) {
+      setData(type, getVerseText(chapter?.[reference.verse]?.verseObjects));
+      localStorage.setItem('index', type + '_' + reference.verse);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [chapter, reference.verse, type]);
 
   useEffect(() => {
     const handleContextMenu = (e, key, verseObjects) => {

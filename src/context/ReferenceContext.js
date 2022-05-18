@@ -40,7 +40,7 @@ export function ReferenceContextProvider({ children }) {
 
   const [referenceBlock, setReferenceBlock] = useState({
     ...locationReference,
-    resource: 'ult',
+    resource: 'unfoldingword__ult',
     text: t('Default_verse'),
   });
 
