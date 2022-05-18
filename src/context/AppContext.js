@@ -88,6 +88,7 @@ export function AppContextProvider({ children }) {
     return checkLSVal('startDialog', true, 'boolean');
   });
   const [openMainMenu, setOpenMainMenu] = useState(false);
+  const [selectVerses, setSelectVerses] = useState(false);
   const [languageResources, setLanguageResources] = useState(() => {
     return checkLSVal('languageResources', ['en'], 'object');
   });
@@ -179,6 +180,7 @@ export function AppContextProvider({ children }) {
       resourcesApp,
       resources,
       _resourceLinks,
+      selectVerses,
       showBookSelect,
       showChapterSelect,
       showErrorReport,
@@ -207,6 +209,7 @@ export function AppContextProvider({ children }) {
       setResourceLinks,
       setResourcesApp,
       setResources,
+      setSelectVerses,
       setShowBookSelect,
       setShowChapterSelect,
       setShowErrorReport,

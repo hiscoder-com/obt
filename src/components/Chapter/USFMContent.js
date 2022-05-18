@@ -21,6 +21,7 @@ function USFMContent({ reference, content, type, fontSize }) {
   const { t } = useTranslation();
   const [verses, setVerses] = useState();
   const [chapter, setChapter] = useState();
+  const [selectedVerses, setSelectedVerses] = useState([reference.verse]);
   const [positionContextMenu, setPositionContextMenu] = useState(initialPosition);
   const [verseRef] = useScrollToVerse('center');
   const classesCircular = useCircularStyles();
@@ -35,9 +36,14 @@ function USFMContent({ reference, content, type, fontSize }) {
   } = useContext(ReferenceContext);
 
   const {
-    state: { switchChunks, switchWordPopover },
+    state: { switchChunks, switchWordPopover, selectVerses },
   } = useContext(AppContext);
-
+  useEffect(() => {
+    if (!selectVerses) {
+      setSelectedVerses([reference.verse]);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectVerses]);
   useEffect(() => {
     let isMounted = true;
     if (resource?.project && Object.keys(resource.project).length !== 0) {
@@ -62,14 +68,22 @@ function USFMContent({ reference, content, type, fontSize }) {
   }, [resourceLink, reference.chapter]);
 
   useEffect(() => {
-    const handleContextMenu = (e, key, verseObjects) => {
+    const handleContextMenu = (e, key) => {
       e.preventDefault();
-      setReferenceBlock({
-        ...reference,
-        resource: type,
-        verse: key,
-        text: getVerseText(verseObjects),
+      selectedVerses.sort(function (a, b) {
+        return a - b;
       });
+      setReferenceBlock(
+        selectedVerses.map((el) => {
+          const { verseObjects } = chapter[el];
+          return {
+            ...reference,
+            resource: type,
+            verse: el,
+            text: getVerseText(verseObjects),
+          };
+        })
+      );
       setPositionContextMenu({
         left: e.clientX - 2,
         top: e.clientY - 4,
@@ -91,6 +105,31 @@ function USFMContent({ reference, content, type, fontSize }) {
           goToBookChapterVerse(reference.bookId, reference.chapter, key);
         }
       };
+      const handleSelectClick = (key) => {
+        setSelectedVerses((prev) => {
+          console.log(prev);
+          if (!prev.includes(key)) {
+            return [...prev, key];
+          } else {
+            return prev.filter((el) => el !== key);
+          }
+        });
+      };
+
+      const toggle = (key) => {
+        if (!selectVerses) {
+          console.log('!');
+          if (key.toString() === reference.verse.toString()) {
+            return 'primary.select';
+          } else {
+            return '';
+          }
+        } else {
+          if (selectedVerses.includes(key)) {
+            return 'primary.select';
+          }
+        }
+      };
 
       const verse = (
         <Box
@@ -99,10 +138,10 @@ function USFMContent({ reference, content, type, fontSize }) {
           }}
           style={verseStyle}
           className={'verse'}
-          bgcolor={key.toString() === reference.verse.toString() ? 'primary.select' : ''}
+          bgcolor={toggle(key)}
           key={key}
           onContextMenu={(e) => handleContextMenu(e, key, verseObjects)}
-          onClick={handleClick}
+          onClick={!selectVerses ? handleClick : () => handleSelectClick(key)}
         >
           {switchChunks && chunks.includes(key.toString()) && <p />}
           <Verse
@@ -121,7 +160,17 @@ function USFMContent({ reference, content, type, fontSize }) {
     }
     setVerses(_verses);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [chapter, reference, type, fontSize, switchChunks, chunks, switchWordPopover]);
+  }, [
+    chapter,
+    reference,
+    type,
+    fontSize,
+    switchChunks,
+    chunks,
+    switchWordPopover,
+    selectedVerses,
+    selectVerses,
+  ]);
 
   const loadingContent = (
     <div className={classesCircular.root}>

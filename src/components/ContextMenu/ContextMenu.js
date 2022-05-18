@@ -14,7 +14,8 @@ const initialPosition = {
 function ContextMenu({ position, setPosition, PopoverClasses }) {
   const { t } = useTranslation();
   const {
-    actions: { setShowErrorReport },
+    state: { selectVerses },
+    actions: { setShowErrorReport, setSelectVerses },
   } = useContext(AppContext);
 
   const {
@@ -51,17 +52,26 @@ function ContextMenu({ position, setPosition, PopoverClasses }) {
   };
 
   const handleReferenceToClipboard = () => {
-    copyToClipboard(
-      `${t(referenceBlock.bookId)} ${referenceBlock.chapter}:${referenceBlock.verse}`
-    );
+    let text1 = `${t(referenceBlock[0].bookId)} ${referenceBlock[0].chapter}:`;
+    referenceBlock.forEach((el) => {
+      text1 += el.verse + ',';
+    });
+    copyToClipboard(text1);
   };
 
   const handleVerseToClipboard = () => {
-    copyToClipboard(
-      `${referenceBlock.text} (${t(referenceBlock.bookId)} ${referenceBlock.chapter}:${
-        referenceBlock.verse
-      })`
-    );
+    let text = '';
+    let text2 = `${t(referenceBlock[0].bookId)} ${referenceBlock[0].chapter}\n`;
+    referenceBlock.forEach((el) => {
+      text += `${el.text} (${t(el.bookId)} ${el.chapter}:${el.verse})\n`;
+      text2 += `${el.verse} ${el.text} \n`;
+    });
+    copyToClipboard(text2);
+  };
+
+  const handleSelectVerses = () => {
+    setSelectVerses((prev) => !prev);
+    handleContextClose();
   };
 
   return (
@@ -77,6 +87,9 @@ function ContextMenu({ position, setPosition, PopoverClasses }) {
       <MenuItem onClick={handleVerseToClipboard}>{t('Copy_verse_to_clipboard')}</MenuItem>
       <MenuItem onClick={handleReferenceToClipboard}>
         {t('Copy_reference_to_clipboard')}
+      </MenuItem>
+      <MenuItem selected={selectVerses} onClick={handleSelectVerses}>
+        {t('Select_verses')}
       </MenuItem>
     </Menu>
   );
