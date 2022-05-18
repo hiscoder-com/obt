@@ -74,7 +74,7 @@ function MarkdownViewer({ children, config, fontSize }) {
             if (!props?.href) {
               if (
                 props?.node?.properties?.href &&
-                props?.node?.properties?.href.match(/[0-9]{1,2}\/[0-9]{1,2}/gm)
+                props?.node?.properties?.href.match(/^[0-9]{1,2}\/[0-9]{1,2}$/gm)
               ) {
                 return (
                   <div
