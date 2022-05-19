@@ -6,7 +6,7 @@ import { ReferenceContext } from '../../context';
 
 import useStyles from './style';
 
-function ListLink({ links, onClose }) {
+function ListLinks({ links, onClose }) {
   const classes = useStyles();
   const {
     state: { referenceSelected },
@@ -47,4 +47,4 @@ function ListLink({ links, onClose }) {
   return <>{listReference}</>;
 }
 
-export default ListLink;
+export default ListLinks;
