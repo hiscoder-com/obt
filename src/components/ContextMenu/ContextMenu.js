@@ -55,37 +55,49 @@ function ContextMenu({ position, setPosition, PopoverClasses }) {
     if (array.length === 0) {
       return;
     }
-    console.log(array);
+
     const newArray = [];
     let startRange = 0;
     let finishRange = 0;
     let text = '';
-    for (let i = 0; i < array.length - 1; i++) {
-      if (
-        parseInt(array[i].verse) !== parseInt(array[i + 1].verse) - 1 &&
-        startRange === 0
-      ) {
-        newArray.push(array[i]);
+    for (let i = 0; i < array.length - 1; ++i) {
+      if (parseInt(array[i].verse) !== parseInt(array[i + 1].verse) - 1) {
+        if (startRange === 0) {
+          newArray.push(array[i]);
+        } else {
+          finishRange = parseInt(array[i].verse);
+          newArray.push({
+            bookId: array[i].bookId,
+            chapter: array[i].chapter,
+            verse: `${startRange}-${finishRange}`,
+            text: text,
+            resource: array[i].resource,
+          });
+          startRange = 0;
+          finishRange = 0;
+        }
       } else {
-        finishRange = parseInt(array[i].verse);
+        if (startRange === 0) {
+          startRange = parseInt(array[i].verse);
+          text = array[i].text;
+        } else {
+          text += array[i + 1].text + ' ';
+        }
+
+        if (finishRange !== 0) {
+          newArray.push({
+            bookId: array[i].bookId,
+            chapter: array[i].chapter,
+            verse: `${startRange}-${finishRange}`,
+            text: text,
+            resource: array[i].resource,
+          });
+          startRange = 0;
+          finishRange = 0;
+        }
       }
 
-      if (startRange === 0) {
-        startRange = parseInt(array[i].verse);
-        text = array[i].text;
-      } else {
-        text += array[i + 1].text + ' ';
-      }
-
-      if (finishRange !== 0) {
-        newArray.push({
-          bookId: array[i].bookId,
-          chapter: array[i].chapter,
-          verse: `${startRange}-${finishRange}`,
-          text: text,
-          resource: array[i].resource,
-        });
-      }
+      // finishRange = parseInt(array[i].verse);
     }
 
     return newArray;
