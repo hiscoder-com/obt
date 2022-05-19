@@ -4,8 +4,7 @@ import { ReferenceUtils } from 'bible-reference-rcl';
 import { Card, useContent, useCardState } from 'translation-helps-rcl';
 import { useTranslation } from 'react-i18next';
 
-import { ButtonGroupUI, FrontModal } from '../../components';
-import { SupportContent } from '../SupportContent';
+import { ButtonGroupUI, FrontModal, SupportContent } from '../../components';
 
 export default function SupportOBSSQ({
   title,

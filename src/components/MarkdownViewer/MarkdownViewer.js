@@ -8,7 +8,7 @@ import useStyles from './style';
 import { fixUrl } from '../../helper';
 
 function MarkdownViewer({ children, config, fontSize }) {
-  const { server, owner, ref, languageId, projectId } = config;
+  const { server, owner, languageId, projectId } = config;
   const classes = useStyles();
   const {
     actions: { goToBookChapterVerse },
@@ -18,7 +18,6 @@ function MarkdownViewer({ children, config, fontSize }) {
       uri,
       server,
       owner,
-      ref,
       languageId,
     });
   };
@@ -63,18 +62,18 @@ function MarkdownViewer({ children, config, fontSize }) {
       return url;
     }
   };
-  const verseStyle = {
+  const fontSizeProvider = {
     fontSize: fontSize + '%',
   };
   return (
-    <Box style={verseStyle}>
+    <Box style={fontSizeProvider}>
       <ReactMarkdown
         components={{
           a: (props) => {
             if (!props?.href) {
               if (
                 props?.node?.properties?.href &&
-                props?.node?.properties?.href.match(/^[0-9]{1,2}\/[0-9]{1,2}$/gm)
+                props?.node?.properties?.href.match(/^\d\d?\/\d\d?$/gm)
               ) {
                 return (
                   <div

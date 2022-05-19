@@ -4,8 +4,8 @@ import { useContent } from 'translation-helps-rcl';
 
 import { CircularProgress } from '@material-ui/core';
 
-import { DialogUI } from '../../components';
-import { MarkdownViewer } from '../MarkdownViewer';
+import { DialogUI, MarkdownViewer } from '../../components';
+
 import { fixUrl } from '../../helper';
 
 function FrontModal({

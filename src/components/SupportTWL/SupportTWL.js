@@ -1,20 +1,16 @@
 import React, { useState, useEffect, useContext } from 'react';
 
 import useDeepCompareEffect from 'use-deep-compare-effect';
-
 import { Box } from '@material-ui/core';
-
 import { Card, useContent, useCardState } from 'translation-helps-rcl';
 
 import { AppContext } from '../../context';
-
+import { SupportContent } from '../../components';
 import { ListWords } from '.';
 
 import useListWordsReference from './useListWordsReference';
 
 import useStyles from './style';
-
-import { SupportContent } from '../../components';
 
 export default function SupportTWL(props) {
   const {
@@ -95,10 +91,10 @@ export default function SupportTWL(props) {
     projectId: bookId,
   });
 
-  useDeepCompareEffect(() => {
+  useEffect(() => {
     setItemIndex(0);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [{ reference }, switchHideRepeatedWords, switchTypeUniqueWords]);
+  }, [bookId, chapter, verse, switchHideRepeatedWords, switchTypeUniqueWords]);
 
   useEffect(() => {
     const _changeColor =
