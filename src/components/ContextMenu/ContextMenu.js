@@ -50,7 +50,49 @@ function ContextMenu({ position, setPosition, PopoverClasses }) {
       }
     );
   };
+  console.log(referenceBlock && { referenceBlock });
+  const groupReference = (array) => {
+    if (array.length === 0) {
+      return;
+    }
+    console.log(array);
+    const newArray = [];
+    let startRange = 0;
+    let finishRange = 0;
+    let text = '';
+    for (let i = 0; i < array.length - 1; i++) {
+      if (
+        parseInt(array[i].verse) !== parseInt(array[i + 1].verse) - 1 &&
+        startRange === 0
+      ) {
+        newArray.push(array[i]);
+      } else {
+        finishRange = parseInt(array[i].verse);
+      }
 
+      if (startRange === 0) {
+        startRange = parseInt(array[i].verse);
+        text = array[i].text;
+      } else {
+        text += array[i + 1].text + ' ';
+      }
+
+      if (finishRange !== 0) {
+        newArray.push({
+          bookId: array[i].bookId,
+          chapter: array[i].chapter,
+          verse: `${startRange}-${finishRange}`,
+          text: text,
+          resource: array[i].resource,
+        });
+      }
+    }
+
+    return newArray;
+  };
+
+  const newBlock = groupReference(referenceBlock);
+  console.log({ newBlock });
   const handleReferenceToClipboard = () => {
     let text1 = `${t(referenceBlock[0].bookId)} ${referenceBlock[0].chapter}:`;
     referenceBlock.forEach((el) => {
@@ -61,8 +103,8 @@ function ContextMenu({ position, setPosition, PopoverClasses }) {
 
   const handleVerseToClipboard = () => {
     let text = '';
-    let text2 = `${t(referenceBlock[0].bookId)} ${referenceBlock[0].chapter}\n`;
-    referenceBlock.forEach((el) => {
+    let text2 = `${t(newBlock[0].bookId)} ${newBlock[0].chapter}\n`;
+    newBlock.forEach((el) => {
       text += `${el.text} (${t(el.bookId)} ${el.chapter}:${el.verse})\n`;
       text2 += `${el.verse} ${el.text} \n`;
     });
@@ -88,8 +130,8 @@ function ContextMenu({ position, setPosition, PopoverClasses }) {
       <MenuItem onClick={handleReferenceToClipboard}>
         {t('Copy_reference_to_clipboard')}
       </MenuItem>
-      <MenuItem selected={selectVerses} onClick={handleSelectVerses}>
-        {t('Select_verses')}
+      <MenuItem onClick={handleSelectVerses}>
+        {selectVerses ? t('Unselect_verses') : t('Select_verses')}
       </MenuItem>
     </Menu>
   );

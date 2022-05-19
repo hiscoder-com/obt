@@ -73,6 +73,7 @@ function USFMContent({ reference, content, type, fontSize }) {
       selectedVerses.sort(function (a, b) {
         return a - b;
       });
+
       setReferenceBlock(
         selectedVerses.map((el) => {
           const { verseObjects } = chapter[el];
@@ -84,6 +85,7 @@ function USFMContent({ reference, content, type, fontSize }) {
           };
         })
       );
+
       setPositionContextMenu({
         left: e.clientX - 2,
         top: e.clientY - 4,
@@ -107,7 +109,6 @@ function USFMContent({ reference, content, type, fontSize }) {
       };
       const handleSelectClick = (key) => {
         setSelectedVerses((prev) => {
-          console.log(prev);
           if (!prev.includes(key)) {
             return [...prev, key];
           } else {
@@ -118,7 +119,6 @@ function USFMContent({ reference, content, type, fontSize }) {
 
       const toggle = (key) => {
         if (!selectVerses) {
-          console.log('!');
           if (key.toString() === reference.verse.toString()) {
             return 'primary.select';
           } else {
