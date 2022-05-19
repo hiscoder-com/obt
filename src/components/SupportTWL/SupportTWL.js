@@ -23,6 +23,7 @@ export default function SupportTWL(props) {
   const { title, classes, onClose, type, server, fontSize, reference, resource } = props;
   const { bookId, chapter, verse } = reference;
   const classesLocal = useStyles();
+
   const {
     markdown,
     items,
