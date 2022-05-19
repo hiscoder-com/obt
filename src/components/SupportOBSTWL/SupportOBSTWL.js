@@ -1,29 +1,10 @@
 import React, { useEffect, useContext } from 'react';
 
 import { Box } from '@material-ui/core';
-
-
-import { Box } from '@material-ui/core';
-
 import { Card, useContent, useCardState } from 'translation-helps-rcl';
 
-import { SupportContent } from '../SupportContent';
-
 import { AppContext } from '../../context';
-
-import { ListWords } from '../../components';
-
-import {
-  useListWordsReference,
-  useSelectTypeUniqueWords,
-  useChahgeColorTWL,
-} from '../../hooks';
-
-import useStyles from './style';
-
-import { AppContext } from '../../context';
-
-import { ListWords } from '../../components';
+import { ListWords, SupportContent } from '../../components';
 
 import {
   useListWordsReference,
@@ -47,10 +28,7 @@ export default function SupportOBSTWL({
     state: { switchTypeUniqueWords, switchHideRepeatedWords },
   } = useContext(AppContext);
   const classesLocal = useStyles();
-  const {
-    state: { switchTypeUniqueWords, switchHideRepeatedWords },
-  } = useContext(AppContext);
-  const classesLocal = useStyles();
+
   const config = {
     verse,
     chapter,
@@ -61,17 +39,7 @@ export default function SupportOBSTWL({
     owner: resource.owner ?? 'door43-catalog',
     server,
   };
-  const { markdown, items, resourceStatus } = useContent(config);
-
-  const { listWordsReference, listWordsChapter } = useListWordsReference(tsvs, bookId);
-  const { uniqueWordsItems } = useSelectTypeUniqueWords(
-    items,
-    switchTypeUniqueWords,
-    listWordsReference,
-    chapter,
-    verse,
-    listWordsChapter
-  );
+  const { markdown, items, resourceStatus, tsvs } = useContent(config);
 
   const { listWordsReference, listWordsChapter } = useListWordsReference(tsvs, bookId);
   const { uniqueWordsItems } = useSelectTypeUniqueWords(

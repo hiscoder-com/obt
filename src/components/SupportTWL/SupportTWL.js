@@ -5,7 +5,7 @@ import { Card, useContent, useCardState } from 'translation-helps-rcl';
 
 import { AppContext } from '../../context';
 
-import { SupportContent,ListWords } from '../../components';
+import { SupportContent, ListWords } from '../../components';
 
 import {
   useListWordsReference,
@@ -24,13 +24,7 @@ export default function SupportTWL(props) {
   const { bookId, chapter, verse } = reference;
   const classesLocal = useStyles();
 
-  const {
-    markdown,
-    items,
-    tsvs,
-    resourceStatus: { loading },
-    props: { languageId },
-  } = useContent({
+  const config = {
     verse,
     chapter,
     projectId: bookId,
@@ -41,6 +35,7 @@ export default function SupportTWL(props) {
     server,
     httpConfig: { noCache: true },
   };
+
   const { items, tsvs, resourceStatus } = useContent({
     ...config,
   });
