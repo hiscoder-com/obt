@@ -1,12 +1,10 @@
 import React, { useEffect, useContext } from 'react';
 
 import { Box } from '@material-ui/core';
-
-import { Card, CardContent, useContent, useCardState } from 'translation-helps-rcl';
+import { Card, useContent, useCardState } from 'translation-helps-rcl';
 
 import { AppContext } from '../../context';
-
-import { ListWords } from '../../components';
+import { ListWords, SupportContent } from '../../components';
 
 import {
   useListWordsReference,
@@ -31,22 +29,17 @@ export default function SupportOBSTWL({
   } = useContext(AppContext);
   const classesLocal = useStyles();
 
-  const {
-    markdown,
-    items,
-    tsvs,
-    resourceStatus: { loading },
-    props: { languageId },
-  } = useContent({
+  const config = {
     verse,
     chapter,
     projectId: bookId,
-    ref: resource.branch ?? 'master',
+    ref: resource.ref ?? 'master',
     languageId: resource.languageId ?? 'ru',
     resourceId: 'obs-twl',
     owner: resource.owner ?? 'door43-catalog',
     server,
-  });
+  };
+  const { markdown, items, resourceStatus, tsvs } = useContent(config);
 
   const { listWordsReference, listWordsChapter } = useListWordsReference(tsvs, bookId);
   const { uniqueWordsItems } = useSelectTypeUniqueWords(
@@ -114,15 +107,12 @@ export default function SupportOBSTWL({
         />
       )}
       <Box className={changeColor ? classesLocal.twl : ''}>
-        <CardContent
+        <SupportContent
+          config={config}
           item={item}
-          viewMode={'markdown'}
-          filters={filters}
+          resourceStatus={resourceStatus}
           fontSize={fontSize}
           markdown={markdown}
-          isLoading={Boolean(loading)}
-          languageId={languageId}
-          markdownView={markdownView}
         />
       </Box>
     </Card>

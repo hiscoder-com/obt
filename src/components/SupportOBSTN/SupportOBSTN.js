@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 
-import { Card, CardContent, useContent, useCardState } from 'translation-helps-rcl';
+import { Card, useContent, useCardState } from 'translation-helps-rcl';
 import { useTranslation } from 'react-i18next';
 
-import { ButtonGroupUI, FrontModal } from '../../components';
+import { ButtonGroupUI, FrontModal, SupportContent } from '../../components';
 
 export default function SupportOBSTN({
   title,
@@ -20,9 +20,9 @@ export default function SupportOBSTN({
   const { t } = useTranslation();
   const [repoType, setRepoType] = useState('md');
 
-  const mdContent = {
+  const mdConfig = {
     projectId: bookId,
-    ref: resource.branch ?? 'master',
+    ref: resource.ref ?? 'master',
     languageId: resource.languageId ?? 'ru',
     resourceId: 'obs-tn',
     filePath:
@@ -32,11 +32,11 @@ export default function SupportOBSTN({
     httpConfig: { noCache: true },
   };
 
-  const tsvContent = {
+  const tsvConfig = {
     verse: String(verse),
     chapter: String(chapter),
     projectId: bookId,
-    ref: resource.branch ?? 'master',
+    ref: resource.ref ?? 'master',
     languageId: resource.languageId ?? 'ru',
     resourceId: 'obs-tn',
     owner: resource.owner ?? 'door43-catalog',
@@ -44,14 +44,13 @@ export default function SupportOBSTN({
     httpConfig: { noCache: true },
   };
 
-  const config = repoType === 'tsv' ? { ...tsvContent } : { ...mdContent };
+  const config = repoType === 'tsv' ? { ...tsvConfig } : { ...mdConfig };
 
   const {
     markdown,
     items,
     resource: { ...resourceData },
-    resourceStatus: { loading },
-    props: { languageId },
+    resourceStatus,
   } = useContent(config);
   useEffect(() => {
     if (resourceData?.project?.path) {
@@ -92,7 +91,6 @@ export default function SupportOBSTN({
     setItemIndex(0);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [bookId, chapter, verse]);
-
   return (
     <Card
       closeable
@@ -131,14 +129,12 @@ export default function SupportOBSTN({
           isTSV={repoType === 'tsv'}
         />
       )}
-      <CardContent
+      <SupportContent
+        config={config}
         item={item}
-        filters={filters}
+        resourceStatus={resourceStatus}
         fontSize={fontSize}
         markdown={markdown}
-        isLoading={Boolean(loading)}
-        languageId={languageId}
-        markdownView={markdownView}
       />
     </Card>
   );

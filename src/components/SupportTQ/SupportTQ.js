@@ -1,6 +1,8 @@
 import React from 'react';
 
-import { Card, CardContent, useContent, useCardState } from 'translation-helps-rcl';
+import { Card, useContent, useCardState } from 'translation-helps-rcl';
+
+import { SupportContent } from '../SupportContent';
 
 export default function SupportTQ({
   title,
@@ -12,9 +14,9 @@ export default function SupportTQ({
   reference: { bookId, chapter, verse },
   resource,
 }) {
-  const mdContent = {
+  const mdConfig = {
     projectId: bookId,
-    ref: resource.branch ?? 'master',
+    ref: resource.ref ?? 'master',
     languageId: resource.languageId ?? 'ru',
     resourceId: 'tq',
     filePath:
@@ -22,33 +24,26 @@ export default function SupportTQ({
     owner: resource.owner ?? 'door43-catalog',
     server,
   };
-  const tsvContent = {
+  const tsvConfig = {
     verse: String(verse),
     chapter: String(chapter),
     projectId: bookId,
-    ref: resource.branch ?? 'master',
+    ref: resource.ref ?? 'master',
     languageId: resource.languageId ?? 'ru',
     resourceId: 'tq',
     owner: resource.owner ?? 'door43-catalog',
     server,
   };
-  const {
-    markdown,
-    items,
-    resourceStatus: { loading },
-    props: { languageId },
-  } = useContent(
-    resource.subject === 'TSV Translation Questions'
-      ? { ...tsvContent }
-      : { ...mdContent }
+  const { markdown, items, resourceStatus } = useContent(
+    resource.subject === 'TSV Translation Questions' ? { ...tsvConfig } : { ...mdConfig }
   );
-
   const {
     state: { item, headers, filters, itemIndex, markdownView },
     actions: { setFilters, setItemIndex, setMarkdownView },
   } = useCardState({
     items,
   });
+
   return (
     <Card
       closeable
@@ -71,15 +66,12 @@ export default function SupportTQ({
         });
       }}
     >
-      <CardContent
+      <SupportContent
+        config={tsvConfig}
         item={item}
-        filters={filters}
-        fontSize={fontSize}
         markdown={markdown}
-        viewMode="question"
-        isLoading={Boolean(loading)}
-        languageId={languageId}
-        markdownView={markdownView}
+        resourceStatus={resourceStatus}
+        fontSize={fontSize}
       />
     </Card>
   );

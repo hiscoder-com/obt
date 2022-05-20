@@ -1,10 +1,12 @@
 import React from 'react';
 
 import { useContent } from 'translation-helps-rcl';
-import ReactMarkdown from 'react-markdown';
+
 import { CircularProgress } from '@material-ui/core';
 
-import { DialogUI } from '../../components';
+import { DialogUI, MarkdownViewer } from '../../components';
+
+import { fixUrl } from '../../helper';
 
 function FrontModal({
   config,
@@ -34,18 +36,18 @@ function FrontModal({
         ? 'No content available'
         : markdown.replace(/(<\/?br( ?\/)?>)/g, '\n');
   }
-  const loadingContent = (
-    <div>
-      <CircularProgress color="primary" size={50} />
-    </div>
-  );
+
   return (
     <div>
       <DialogUI title={title} open={open} onClose={onCloseDialog}>
         {resourceStatus.loading ? (
-          loadingContent
+          <div>
+            <CircularProgress color="primary" size={50} />
+          </div>
         ) : (
-          <ReactMarkdown className={'md'}>{content}</ReactMarkdown>
+          <MarkdownViewer config={config} className={'md'}>
+            {fixUrl(content)}
+          </MarkdownViewer>
         )}
       </DialogUI>
     </div>

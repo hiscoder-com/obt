@@ -1,12 +1,11 @@
 import React, { useEffect, useContext } from 'react';
 
 import { Box } from '@material-ui/core';
-
-import { Card, CardContent, useContent, useCardState } from 'translation-helps-rcl';
+import { Card, useContent, useCardState } from 'translation-helps-rcl';
 
 import { AppContext } from '../../context';
 
-import { ListWords } from '../../components';
+import { SupportContent, ListWords } from '../../components';
 
 import {
   useListWordsReference,
@@ -20,25 +19,25 @@ export default function SupportTWL(props) {
   const {
     state: { switchTypeUniqueWords, switchHideRepeatedWords },
   } = useContext(AppContext);
+
   const { title, classes, onClose, type, server, fontSize, reference, resource } = props;
   const { bookId, chapter, verse } = reference;
   const classesLocal = useStyles();
 
-  const {
-    markdown,
-    items,
-    tsvs,
-    resourceStatus: { loading },
-    props: { languageId },
-  } = useContent({
+  const config = {
     verse,
     chapter,
     projectId: bookId,
-    ref: resource.branch ?? 'master',
+    ref: resource.ref ?? 'master',
     languageId: resource.languageId ?? 'ru',
     resourceId: 'twl',
     owner: resource.owner ?? 'door43-catalog',
     server,
+    httpConfig: { noCache: true },
+  };
+
+  const { items, tsvs, resourceStatus } = useContent({
+    ...config,
   });
 
   const { listWordsReference, listWordsChapter } = useListWordsReference(tsvs, bookId);
@@ -64,7 +63,7 @@ export default function SupportTWL(props) {
   useEffect(() => {
     setItemIndex(0);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [reference, switchHideRepeatedWords, switchTypeUniqueWords]);
+  }, [bookId, chapter, verse, switchHideRepeatedWords, switchTypeUniqueWords]);
 
   const { changeColor } = useChahgeColorTWL(
     items,
@@ -111,15 +110,11 @@ export default function SupportTWL(props) {
         />
       )}
       <Box className={changeColor ? classesLocal.twl : ''}>
-        <CardContent
+        <SupportContent
+          config={config}
           item={item}
-          viewMode={'markdown'}
-          filters={filters}
+          resourceStatus={resourceStatus}
           fontSize={fontSize}
-          markdown={markdown}
-          isLoading={Boolean(loading)}
-          languageId={languageId}
-          markdownView={markdownView}
         />
       </Box>
     </Card>
