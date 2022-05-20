@@ -30,7 +30,8 @@ function CardSettings({ classes }) {
   } = useContext(ReferenceContext);
 
   useEffect(() => {
-    setData('bible', referenceSelected);
+    setData('isObs', referenceSelected.bookId === 'obs');
+    setData(referenceSelected.bookId === 'obs' ? 'obs' : 'bible', referenceSelected);
   }, [referenceSelected, setData]);
 
   const currentCards = useMemo(() => appConfig.lg.map((el) => el.i), [appConfig.lg]);

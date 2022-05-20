@@ -47,10 +47,7 @@ function USFMContent({ reference, content, type, fontSize }) {
         .parseUsfm()
         .then((result) => {
           if (isMounted) {
-            if (
-              Object.keys(result?.json?.chapters).length > 0 &&
-              result?.json?.chapters?.[reference.chapter]
-            ) {
+            if (Object.keys(result?.json?.chapters).length > 0) {
               setChapter(result.json.chapters[reference.chapter]);
             }
           }
