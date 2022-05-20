@@ -5,7 +5,7 @@ import { Card, FontSizeSlider } from 'translation-helps-rcl';
 import { useTranslation } from 'react-i18next';
 import { useProjector, usePreview } from '@texttree/projector-mode-rcl';
 
-import { AppContext } from '../../context';
+import { AppContext, ReferenceContext } from '../../context';
 
 import { langNames } from '../../config/materials';
 
@@ -25,6 +25,13 @@ function CardSettings({ classes }) {
     state: { fontSize, resourcesApp, appConfig, switchExtraTitleCard },
     actions: { setAppConfig },
   } = useContext(AppContext);
+  const {
+    state: { referenceSelected },
+  } = useContext(ReferenceContext);
+
+  useEffect(() => {
+    setData('bible', referenceSelected);
+  }, [referenceSelected, setData]);
 
   const currentCards = useMemo(() => appConfig.lg.map((el) => el.i), [appConfig.lg]);
 

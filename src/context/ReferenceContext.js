@@ -103,7 +103,7 @@ export function ReferenceContextProvider({ children }) {
 
   const value = {
     state: {
-      referenceSelected: { bookId: bookId, chapter: chapter, verse: verse },
+      referenceSelected: { bookId, chapter, verse },
       bookList,
       chapterList,
       verseList,

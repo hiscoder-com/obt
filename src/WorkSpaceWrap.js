@@ -3,6 +3,7 @@ import React, { useContext, useEffect, useMemo } from 'react';
 import { useSnackbar } from 'notistack';
 import { useTranslation } from 'react-i18next';
 import { Workspace } from 'resource-workspace-rcl';
+import { useProjector } from '@texttree/projector-mode-rcl';
 
 import { AppContext, ReferenceContext } from './context';
 import { Card, CardSettings } from './components';
@@ -19,6 +20,7 @@ export default function WorkSpaceWrap() {
     state: { appConfig, resourcesApp, resources, breakpoint },
     actions: { setAppConfig, setBreakpoint },
   } = useContext(AppContext);
+  const { setData } = useProjector();
 
   const { t } = useTranslation();
   const {
@@ -94,6 +96,7 @@ export default function WorkSpaceWrap() {
 
   const availableBookList = useMemo(() => {
     const newBookList = [];
+    setData('isObs', bookId === 'obs');
     if (bookId === 'obs') {
       newBookList.push('obs');
     } else {

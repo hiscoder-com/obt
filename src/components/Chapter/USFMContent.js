@@ -20,7 +20,7 @@ const initialPosition = {
 
 function USFMContent({ reference, content, type, fontSize }) {
   const { t } = useTranslation();
-  const { setData, getAllData } = useProjector();
+  const { setData } = useProjector();
   const [verses, setVerses] = useState();
   const [chapter, setChapter] = useState();
   const [positionContextMenu, setPositionContextMenu] = useState(initialPosition);
@@ -33,7 +33,7 @@ function USFMContent({ reference, content, type, fontSize }) {
 
   const {
     actions: { setReferenceBlock, goToBookChapterVerse },
-    state: { chunks },
+    state: { chunks, referenceSelected },
   } = useContext(ReferenceContext);
 
   const {
@@ -47,7 +47,10 @@ function USFMContent({ reference, content, type, fontSize }) {
         .parseUsfm()
         .then((result) => {
           if (isMounted) {
-            if (Object.keys(result.json.chapters).length > 0) {
+            if (
+              Object.keys(result?.json?.chapters).length > 0 &&
+              result?.json?.chapters?.[reference.chapter]
+            ) {
               setChapter(result.json.chapters[reference.chapter]);
             }
           }
@@ -66,10 +69,15 @@ function USFMContent({ reference, content, type, fontSize }) {
   useEffect(() => {
     if (reference.verse && chapter) {
       setData(type, getVerseText(chapter?.[reference.verse]?.verseObjects));
-      localStorage.setItem('index', type + '_' + reference.verse);
+      setData('reference', referenceSelected);
+    } else {
+      if (!loading && !chapter && contentNotFoundError) {
+        setData(type, t('No_content'));
+        setData('reference', referenceSelected);
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [chapter, reference.verse, type]);
+  }, [chapter, reference.verse, type, contentNotFoundError, error, loading]);
 
   useEffect(() => {
     const handleContextMenu = (e, key, verseObjects) => {
