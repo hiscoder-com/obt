@@ -15,7 +15,7 @@ export default function TypoReport() {
   } = useContext(AppContext);
 
   const {
-    state: { rangeReferenceBlock, referenceBlock },
+    state: { referenceBlock },
   } = useContext(ReferenceContext);
 
   const [valueComment, setValueComment] = useState('');
@@ -26,8 +26,8 @@ export default function TypoReport() {
   const handleChange = (e) => {
     setValueComment(e.target.value);
   };
-  // console.log(rangeReferenceBlock);
-  const { bookId, chapter, resource, verse, text } = referenceBlock;
+
+  const { bookId, chapter, verse, resource, text } = referenceBlock;
 
   const handleCloseFinishDialog = () => {
     setOpenFinishDialog(false);
@@ -36,14 +36,8 @@ export default function TypoReport() {
   const handleSend = () => {
     setOpenBackdrop(true);
     setShowErrorReport(false);
-    let reference = rangeReferenceBlock[0].chapter;
-    let text = '';
-    rangeReferenceBlock.forEach((el) => {
-      reference += el.verse;
-      text += el.text;
-    });
     SendError({
-      reference: reference,
+      reference: chapter + ':' + verse,
       bookId: bookId,
       resource: resource,
       serverLink: process.env.REACT_APP_SERVER_LINK,

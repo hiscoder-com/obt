@@ -17,22 +17,17 @@ function ReportDialog({
   errorMessage,
 }) {
   const {
-    state: { referenceBlock, rangeReferenceBlock },
+    state: { referenceBlock },
   } = useContext(ReferenceContext);
 
   const { t } = useTranslation();
   const classes = useStyles();
 
-  const { bookId, chapter, resource } = referenceBlock;
-  let showReference = `${resource}/${bookId}/${chapter}/`;
-  rangeReferenceBlock.forEach((el) => {
-    showReference += `${el.verse},`;
-  });
+  const { bookId, chapter, verse, resource, text } = referenceBlock;
 
-  let showReferenceText = '';
-  rangeReferenceBlock.forEach((el) => {
-    showReferenceText += `${el.text},`;
-  });
+  const showReference = `${resource}/${bookId}/${chapter}/${verse}`;
+
+  const showReferenceText = text;
 
   return (
     <>
