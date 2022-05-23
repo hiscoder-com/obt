@@ -43,6 +43,7 @@ export function ReferenceContextProvider({ children }) {
     resource: 'ult',
     text: t('Default_verse'),
   });
+  const [rangeReferenceBlock, setRangeReferenceBlock] = useState([referenceBlock]);
 
   const {
     state: { chapter, verse, bookList, chapterList, verseList, bookName, bookId },
@@ -108,6 +109,7 @@ export function ReferenceContextProvider({ children }) {
       chapterList,
       verseList,
       bookName,
+      rangeReferenceBlock,
       referenceBlock,
       chunks,
     },
@@ -123,6 +125,7 @@ export function ReferenceContextProvider({ children }) {
       onChangeChapter,
       onChangeVerse,
       applyBooksFilter,
+      setRangeReferenceBlock,
       setReferenceBlock,
       setNewBookList,
       getFilteredBookList,

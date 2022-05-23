@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 
 import { Menu, MenuItem } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
@@ -19,7 +19,8 @@ function ContextMenu({ position, setPosition, PopoverClasses }) {
   } = useContext(AppContext);
 
   const {
-    state: { referenceBlock },
+    actions: { setRangeReferenceBlock },
+    state: { referenceBlock, rangeReferenceBlock },
   } = useContext(ReferenceContext);
 
   const { enqueueSnackbar } = useSnackbar();
@@ -34,6 +35,10 @@ function ContextMenu({ position, setPosition, PopoverClasses }) {
       : undefined;
 
   const handleOpenError = () => {
+    if (!rangeReferenceBlock || rangeReferenceBlock.length < 1) {
+      enqueueSnackbar(t('Copied_error'), { variant: 'error' });
+      return;
+    }
     setShowErrorReport(true);
     setPosition(initialPosition);
   };
@@ -116,8 +121,10 @@ function ContextMenu({ position, setPosition, PopoverClasses }) {
     }
     return newArray;
   };
-
-  const rangeReferenceBlock = groupReferenceToRange(referenceBlock);
+  useEffect(() => {
+    setRangeReferenceBlock(groupReferenceToRange(referenceBlock));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [referenceBlock]);
 
   const handleReferenceToClipboard = () => {
     if (!rangeReferenceBlock || rangeReferenceBlock.length < 1) {
