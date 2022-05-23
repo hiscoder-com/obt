@@ -8,7 +8,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added (for new features)
  - Filter unique words in OBSTWL 
- - List references of words in OBSTWL 
+ - List references of words in OBSTWL
+### Fixed (for any bug fixes)
+ - Fix links in support materials 
 
 ## [1.7.0] - 2022-04-29
 
