@@ -21,7 +21,7 @@ function USFMContent({ reference, content, type, fontSize }) {
   const { t } = useTranslation();
   const [verses, setVerses] = useState();
   const [chapter, setChapter] = useState();
-  const [selectedVerses, setSelectedVerses] = useState([reference.verse]);
+
   const [positionContextMenu, setPositionContextMenu] = useState(initialPosition);
   const [verseRef] = useScrollToVerse('center');
   const classesCircular = useCircularStyles();
@@ -32,18 +32,18 @@ function USFMContent({ reference, content, type, fontSize }) {
 
   const {
     actions: { setReferenceBlock, goToBookChapterVerse },
-    state: { chunks },
+    state: { chunks, referenceSelected },
   } = useContext(ReferenceContext);
-
+  const [selectedVerses, setSelectedVerses] = useState([referenceSelected.verse]);
   const {
     state: { switchChunks, switchWordPopover, selectVerses },
   } = useContext(AppContext);
   useEffect(() => {
     if (!selectVerses) {
-      setSelectedVerses([reference.verse]);
+      setSelectedVerses([referenceSelected.verse]);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectVerses]);
+  }, [selectVerses, referenceSelected.verse]);
   useEffect(() => {
     let isMounted = true;
     if (resource?.project && Object.keys(resource.project).length !== 0) {

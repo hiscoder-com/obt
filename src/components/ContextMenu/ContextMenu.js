@@ -50,22 +50,25 @@ function ContextMenu({ position, setPosition, PopoverClasses }) {
       }
     );
   };
-  console.log(referenceBlock && { referenceBlock });
-  const groupReference = (array) => {
-    if (array.length === 0) {
+
+  const groupReferenceToRange = (array) => {
+    if (array.length < 1) {
       return;
     }
-
+    if (array.length === 1) {
+      return array;
+    }
     const newArray = [];
     let startRange = 0;
     let finishRange = 0;
     let text = '';
-    for (let i = 0; i < array.length - 1; ++i) {
+    for (let i = 0; i < array.length - 1; i++) {
       if (parseInt(array[i].verse) !== parseInt(array[i + 1].verse) - 1) {
         if (startRange === 0) {
           newArray.push(array[i]);
         } else {
           finishRange = parseInt(array[i].verse);
+          text += array[i].text.trim();
           newArray.push({
             bookId: array[i].bookId,
             chapter: array[i].chapter,
@@ -75,13 +78,14 @@ function ContextMenu({ position, setPosition, PopoverClasses }) {
           });
           startRange = 0;
           finishRange = 0;
+          text = '';
         }
       } else {
         if (startRange === 0) {
           startRange = parseInt(array[i].verse);
-          text = array[i].text;
+          text = array[i].text.trim();
         } else {
-          text += array[i + 1].text + ' ';
+          text += array[i].text.trim() + ' ';
         }
 
         if (finishRange !== 0) {
@@ -96,31 +100,48 @@ function ContextMenu({ position, setPosition, PopoverClasses }) {
           finishRange = 0;
         }
       }
-
-      // finishRange = parseInt(array[i].verse);
     }
-
+    if (startRange === 0) {
+      newArray.push(array[array.length - 1]);
+    } else {
+      finishRange = parseInt(array[array.length - 1].verse);
+      text += array[array.length - 1].text.trim();
+      newArray.push({
+        bookId: array[array.length - 1].bookId,
+        chapter: array[array.length - 1].chapter,
+        verse: `${startRange}-${finishRange}`,
+        text: text,
+        resource: [array.length - 1].resource,
+      });
+    }
     return newArray;
   };
 
-  const newBlock = groupReference(referenceBlock);
-  console.log({ newBlock });
+  const rangeReferenceBlock = groupReferenceToRange(referenceBlock);
+
   const handleReferenceToClipboard = () => {
-    let text1 = `${t(referenceBlock[0].bookId)} ${referenceBlock[0].chapter}:`;
-    referenceBlock.forEach((el) => {
-      text1 += el.verse + ',';
+    if (!rangeReferenceBlock || rangeReferenceBlock.length < 1) {
+      enqueueSnackbar(t('Copied_error'), { variant: 'error' });
+      return;
+    }
+    let text = `${t(rangeReferenceBlock[0].bookId)} ${rangeReferenceBlock[0].chapter}:`;
+    rangeReferenceBlock.forEach((el) => {
+      text += el.verse + ',';
     });
-    copyToClipboard(text1);
+    copyToClipboard(text.slice(0, -1));
   };
 
   const handleVerseToClipboard = () => {
+    if (!rangeReferenceBlock || rangeReferenceBlock.length < 1) {
+      enqueueSnackbar(t('Copied_error'), { variant: 'error' });
+      return;
+    }
     let text = '';
-    let text2 = `${t(newBlock[0].bookId)} ${newBlock[0].chapter}\n`;
-    newBlock.forEach((el) => {
-      text += `${el.text} (${t(el.bookId)} ${el.chapter}:${el.verse})\n`;
-      text2 += `${el.verse} ${el.text} \n`;
+    let head = `${t(rangeReferenceBlock[0].bookId)} ${rangeReferenceBlock[0].chapter}\n`;
+    rangeReferenceBlock.forEach((el) => {
+      text += `${el.verse} ${el.text.trim()} \n`;
     });
-    copyToClipboard(text2);
+    copyToClipboard(text + '\n' + head);
   };
 
   const handleSelectVerses = () => {
