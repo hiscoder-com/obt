@@ -23,7 +23,7 @@ function ReportDialog({
   const { t } = useTranslation();
   const classes = useStyles();
 
-  const { bookId, chapter, verse, resource, text } = referenceBlock;
+  const { bookId, chapter, verse, resource, text } = referenceBlock[0];
 
   const showReference = `${resource}/${bookId}/${chapter}/${verse}`;
 

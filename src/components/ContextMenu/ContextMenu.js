@@ -164,7 +164,7 @@ function ContextMenu({ position, setPosition, PopoverClasses }) {
         {t('Copy_reference_to_clipboard')}
       </MenuItem>
       <MenuItem onClick={handleSelectVerses}>
-        {selectVerses ? t('Unselect_verses') : t('Select_verses')}
+        {selectVerses ? t('Deselect') : t('Select_verses')}
       </MenuItem>
     </Menu>
   );

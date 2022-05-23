@@ -26,8 +26,11 @@ export default function TypoReport() {
   const handleChange = (e) => {
     setValueComment(e.target.value);
   };
-
-  const { bookId, chapter, verse, resource, text } = referenceBlock;
+  const classes = useStyles();
+  if (referenceBlock.length < 1) {
+    return '';
+  }
+  const { bookId, chapter, verse, resource, text } = referenceBlock[0];
 
   const handleCloseFinishDialog = () => {
     setOpenFinishDialog(false);
@@ -68,7 +71,6 @@ export default function TypoReport() {
   const handleCancel = () => {
     setShowErrorReport(false);
   };
-  const classes = useStyles();
 
   return (
     <>
