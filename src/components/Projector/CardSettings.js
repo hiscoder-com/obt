@@ -122,8 +122,6 @@ function CardSettings({ classes }) {
             value={fontSizeValue}
           />
         </Box>
-        <Typography>4. Pre-default theme</Typography>
-        <Typography>In progress... (background/text color)</Typography>
         <Typography>Preview</Typography>
         <Box
           style={{
