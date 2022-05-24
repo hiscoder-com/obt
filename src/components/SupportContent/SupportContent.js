@@ -23,7 +23,6 @@ function SupportContent({
   const { resourceId } = config;
 
   useEffect(() => {
-    console.log(config);
     if (content) {
       setData(config.owner + '__' + config.languageId + '_' + config.resourceId, content);
     }

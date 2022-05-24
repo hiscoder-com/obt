@@ -24,7 +24,7 @@ function ProjectorScreen(props) {
   const { fontSize, resource, bible, obs, isObs } = props;
   const { t } = useTranslation();
 
-  const { bookId, chapter, verse } = isObs === 'true' ? obs : bible;
+  const { bookId, chapter, verse } = isObs ? obs : bible;
 
   return (
     <Box fontSize={fontSize * 2 + '%'}>

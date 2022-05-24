@@ -2,6 +2,7 @@ import React, { useEffect, useState, useContext } from 'react';
 
 import { Box } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
+import { useProjector } from '@texttree/projector-mode-rcl';
 
 import { ReferenceContext, AppContext } from '../../context';
 import { ContextMenu } from '../ContextMenu';
@@ -39,6 +40,7 @@ function OBSContent({ markdown, verse, chapter, fontSize, type, goToBookChapterV
   const [verses, setVerses] = useState();
   const classes = useStyles();
   const [verseRef] = useScrollToVerse('center');
+  const { setData } = useProjector();
 
   const mdToVerses = (md) => {
     let _markdown = md.replaceAll('\u200B', '').split(/\n\s*\n\s*/);
@@ -75,6 +77,26 @@ function OBSContent({ markdown, verse, chapter, fontSize, type, goToBookChapterV
       const { versesObject, headerMd, linkMd } = mdToVerses(markdown);
       const contentMd = versesObject.map((item) => {
         const { key, urlImage, text } = item;
+        if (key.toString() === verse.toString()) {
+          let verse =
+            urlImage && switchObsImage ? (
+              <>
+                <img src={urlImage} alt={`OBS verse #${key}`} />
+                <br />
+              </>
+            ) : (
+              ''
+            );
+          verse +=
+            text &&
+            text.split('\n').map((el, index) => (
+              <div style={{ display: index ? 'block' : 'inline' }} key={index}>
+                {el}
+              </div>
+            ));
+          setData(type, verse);
+          setData('obs', referenceSelected);
+        }
 
         return (
           <Box
@@ -139,6 +161,8 @@ function OBSContent({ markdown, verse, chapter, fontSize, type, goToBookChapterV
       );
       setVerses(versesOBS);
     } else {
+      setData(type, t('No_content'));
+      setData('obs', referenceSelected);
       setVerses(<>{t('No_content')}</>);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

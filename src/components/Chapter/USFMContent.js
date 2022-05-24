@@ -66,11 +66,11 @@ function USFMContent({ reference, content, type, fontSize }) {
   useEffect(() => {
     if (reference.verse && chapter) {
       setData(type, getVerseText(chapter?.[reference.verse]?.verseObjects));
-      setData('reference', referenceSelected);
+      setData('bible', referenceSelected);
     } else {
       if (!loading && !chapter && contentNotFoundError) {
         setData(type, t('No_content'));
-        setData('reference', referenceSelected);
+        setData('bible', referenceSelected);
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
