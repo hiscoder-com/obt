@@ -43,6 +43,7 @@ export function ReferenceContextProvider({ children }) {
     resource: 'ult',
     text: t('Default_verse'),
   });
+  const [dialogLink, setDialogLink] = useState(null);
 
   const {
     state: { chapter, verse, bookList, chapterList, verseList, bookName, bookId },
@@ -85,6 +86,12 @@ export function ReferenceContextProvider({ children }) {
   }, [bookId, chapter, verse]);
 
   useEffect(() => {
+    if (history?.location?.hash.includes('page')) {
+      setDialogLink(history?.location?.hash.replace('#page=', ''));
+    }
+  }, [history.location]);
+
+  useEffect(() => {
     if (history.location.pathname !== '/' + bookId + '/' + chapter + '/' + verse) {
       const oldReference = JSON.parse(localStorage.getItem('reference'));
       const newReference = {
@@ -110,6 +117,7 @@ export function ReferenceContextProvider({ children }) {
       bookName,
       referenceBlock,
       chunks,
+      dialogLink,
     },
     actions: {
       goToBookChapterVerse,
@@ -123,6 +131,7 @@ export function ReferenceContextProvider({ children }) {
       onChangeChapter,
       onChangeVerse,
       applyBooksFilter,
+      setDialogLink,
       setReferenceBlock,
       setNewBookList,
       getFilteredBookList,

@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useContext } from 'react';
 
-import { Card, CardContent, useContent, useCardState } from 'translation-helps-rcl';
+import { Card, useContent, useCardState } from 'translation-helps-rcl';
 import { useTranslation } from 'react-i18next';
 
 import { AppContext } from '../../context';
-import { FrontModal, ButtonGroupUI } from '../../components';
+import { FrontModal, ButtonGroupUI, SupportContent } from '../../components';
 
 export default function SupportTN({
   title,
@@ -17,7 +17,6 @@ export default function SupportTN({
   resource,
 }) {
   const [openDialog, setOpenDialog] = useState(false);
-  const [selectedQuote, setQuote] = useState({});
   const [configFront, setConfigFront] = useState({});
   const { t } = useTranslation();
 
@@ -29,7 +28,7 @@ export default function SupportTN({
     verse: String(verse),
     chapter: String(chapter),
     projectId: bookId,
-    ref: resource.branch ?? 'master',
+    ref: resource.ref ?? 'master',
     languageId: resource.languageId ?? 'ru',
     resourceId: 'tn',
     owner: resource.owner ?? 'door43-catalog',
@@ -37,15 +36,9 @@ export default function SupportTN({
     httpConfig: { noCache: true },
   };
 
-  const {
-    markdown,
-    items,
-    resourceStatus: { loading },
-    props: { languageId },
-  } = useContent({
+  const { items, resourceStatus } = useContent({
     ...config,
   });
-
   const onIntroClick = () => {
     setConfigFront({ ...config, verse: 'intro', chapter: 'front' });
     setOpenDialog(true);
@@ -90,8 +83,6 @@ export default function SupportTN({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [bookId, chapter, verse]);
 
-  const filterArray = ['OrigQuote', 'GLQuote', 'OccurrenceNote', 'SupportReference'];
-
   return (
     <Card
       closeable
@@ -102,7 +93,6 @@ export default function SupportTN({
       items={items}
       fontSize={fontSize}
       headers={headers}
-      filters={filterArray}
       itemIndex={itemIndex}
       setItemIndex={setItemIndex}
       markdownView={markdownView}
@@ -113,9 +103,9 @@ export default function SupportTN({
         });
       }}
     >
-      {items && (
+      {items && verse === '1' && (
         <ButtonGroupUI
-          buttonGroupProps={{ size: 'small', color: 'primary' }}
+          buttonGroupProps={{ size: 'small', color: 'inherit' }}
           style={{ marginTop: '10px' }}
           buttons={[
             { title: t('Introduction'), onClick: onIntroClick },
@@ -133,17 +123,11 @@ export default function SupportTN({
         />
       )}
 
-      <CardContent
+      <SupportContent
+        config={config}
         item={item}
-        viewMode="table"
-        filters={filterArray}
+        resourceStatus={resourceStatus}
         fontSize={fontSize}
-        isLoading={Boolean(loading)}
-        languageId={languageId}
-        markdown={markdown}
-        markdownView={markdownView}
-        selectedQuote={selectedQuote}
-        setQuote={setQuote}
       />
     </Card>
   );

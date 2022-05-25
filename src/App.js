@@ -16,6 +16,7 @@ import WorkSpaceWrap from './WorkSpaceWrap';
 import { themes } from './themes';
 import { ThemeProvider } from '@material-ui/styles';
 import './styles/app.css';
+import { LinkDialog } from './components';
 
 //const Intro = React.lazy(() => import('./components/Intro/Intro'));
 //const Card = React.lazy(() => import('./components/Card/Card'));
@@ -26,6 +27,7 @@ export default function App() {
   const {
     state: { theme },
   } = useContext(AppContext);
+
   Shortcut();
   Swipes();
   return (
@@ -36,6 +38,7 @@ export default function App() {
       <SubMenuBar />
       <TypoReport />
       <WorkSpaceWrap />
+      <LinkDialog />
     </ThemeProvider>
   );
 }

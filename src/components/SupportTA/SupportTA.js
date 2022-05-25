@@ -1,8 +1,9 @@
 import React, { useEffect, useContext, useMemo } from 'react';
 
-import { Card, CardContent, useContent, useCardState } from 'translation-helps-rcl';
+import { Card, useContent, useCardState } from 'translation-helps-rcl';
 
 import { AppContext } from '../../context';
+import { SupportContent } from '../../components';
 
 export default function SupportTA({
   title,
@@ -15,7 +16,6 @@ export default function SupportTA({
   resource,
 }) {
   const {
-    actions: { setTaRef },
     state: { taRef },
   } = useContext(AppContext);
 
@@ -31,7 +31,7 @@ export default function SupportTA({
     verse: String(verse),
     chapter: String(chapter),
     projectId: 'translate',
-    ref: resource.branch ?? 'master',
+    ref: resource.ref ?? 'master',
     languageId: resource.languageId ?? 'ru',
     resourceId: 'ta',
     filePath: path,
@@ -40,12 +40,7 @@ export default function SupportTA({
     httpConfig: { noCache: true },
   };
 
-  const {
-    markdown,
-    items,
-    resourceStatus: { loading },
-    props: { languageId },
-  } = useContent({
+  const { markdown, items, resourceStatus } = useContent({
     ...config,
   });
 
@@ -63,7 +58,6 @@ export default function SupportTA({
     setItemIndex(0);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [bookId, chapter, verse]);
-
   return (
     <Card
       closeable
@@ -86,17 +80,12 @@ export default function SupportTA({
         });
       }}
     >
-      <CardContent
-        item={item}
-        viewMode={'markdown'}
-        filters={filters}
-        fontSize={fontSize}
-        isLoading={Boolean(loading)}
-        languageId={languageId}
+      <SupportContent
         markdown={markdown}
-        markdownView={markdownView}
-        selectedQuote={taRef}
-        setQuote={setTaRef}
+        config={config}
+        item={item}
+        fontSize={fontSize}
+        resourceStatus={resourceStatus}
       />
     </Card>
   );
