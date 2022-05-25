@@ -85,17 +85,10 @@ function CardSettings({ classes }) {
       id={'projector'}
       fontSize={fontSize}
     >
-      <Box>
-        <Button
-          variant="contained"
-          color={isOpen ? 'secondary' : 'primary'}
-          onClick={handleProjectorToggle}
-        >
-          {isOpen ? 'Close' : 'Open'} New Window
-        </Button>
-        <Typography>Choose resource from opened cards</Typography>
+      <Box display={'flex'} flexDirection={'column'} alignItems={'center'}>
+        <Typography variant="subtitle2">{t('Choose_resource')}</Typography>
         <Select
-          style={{ maxWidth: '100%' }}
+          style={{ maxWidth: '100%', marginBottom: '16px' }}
           value={selectedResource.id}
           onChange={handleChange}
         >
@@ -108,22 +101,9 @@ function CardSettings({ classes }) {
             </MenuItem>
           ))}
         </Select>
-        <Typography>Font Size</Typography>
-        <Box mx={2}>
-          <FontSizeSlider
-            onChange={(e) => {
-              setFontSizeValue(e);
-              setData('fontSize', e);
-            }}
-            marks={false}
-            max={500}
-            min={50}
-            step={10}
-            value={fontSizeValue}
-          />
-        </Box>
-        <Typography>Preview</Typography>
+        <Typography variant="subtitle2">{t('Preview')}</Typography>
         <Box
+          mb={2}
           style={{
             width: '320px',
             height: '180px',
@@ -162,6 +142,27 @@ function CardSettings({ classes }) {
             </div>
           </div>
         </Box>
+        <Typography variant="subtitle2">{t('Font_size')}</Typography>
+        <Box mt={1} width={'300px'} mb={2}>
+          <FontSizeSlider
+            onChange={(e) => {
+              setFontSizeValue(e);
+              setData('fontSize', e);
+            }}
+            marks={false}
+            max={500}
+            min={50}
+            step={10}
+            value={fontSizeValue}
+          />
+        </Box>
+        <Button
+          variant="contained"
+          color={isOpen ? 'secondary' : 'primary'}
+          onClick={handleProjectorToggle}
+        >
+          {isOpen ? t('Close') : t('Open')} {t('New_window')}
+        </Button>
       </Box>
     </Card>
   );

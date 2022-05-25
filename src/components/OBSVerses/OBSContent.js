@@ -78,11 +78,11 @@ function OBSContent({ markdown, verse, chapter, fontSize, type, goToBookChapterV
       const contentMd = versesObject.map((item) => {
         const { key, urlImage, text } = item;
         if (key.toString() === verse.toString()) {
-          let verse =
-            urlImage && switchObsImage
-              ? `![OBS verse #${key}](${urlImage} "OBS verse #${key}")\n\n`
-              : '';
-          verse += text;
+          // let verse =
+          //   urlImage && switchObsImage
+          //     ? `![OBS verse #${key}](${urlImage} "OBS verse #${key}")\n\n`
+          //     : '';
+          const verse = text;
           setData(type, verse);
           setData('obs', referenceSelected);
         }
