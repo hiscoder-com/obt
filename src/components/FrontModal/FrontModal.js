@@ -18,13 +18,14 @@ function FrontModal({
 }) {
   const data = useContent(config);
   const { items, resourceStatus, markdown } = data;
-  let content = 'No content available';
+  let content;
   if (isTSV) {
     content =
-      resourceStatus.contentNotFoundError ||
-      resourceStatus.error ||
+      resourceStatus?.contentNotFoundError ||
+      resourceStatus?.error ||
       items === null ||
-      items.length === 0
+      items?.length === 0 ||
+      !items[0]?.[field]
         ? 'No content available'
         : items[0][field].replace(/(<\/?br( ?\/)?>)/g, '\n');
   } else {

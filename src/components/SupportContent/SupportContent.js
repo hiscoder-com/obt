@@ -69,12 +69,6 @@ function SupportContent({
         break;
     }
   }, [item, markdown, resourceId]);
-  useEffect(() => {
-    if (!content) {
-      return;
-    }
-    setContent(content);
-  }, [content]);
 
   return (
     <>
