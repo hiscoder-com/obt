@@ -25,7 +25,6 @@ function ProjectorScreen(props) {
   const classes = useStyles();
   const { fontSize, resource, bible, obs, isObs } = props;
   const { t } = useTranslation();
-  console.log({ resource });
 
   const { bookId, chapter, verse } = isObs ? obs : bible;
 
@@ -38,13 +37,13 @@ function ProjectorScreen(props) {
           'Aligned Bible',
           'Hebrew Old Testament',
           'Greek New Testament',
+          'Open Bible Stories',
         ].includes(resource?.subject)
           ? 'bold'
           : 'inherit'
       }
-      fontSize={fontSize * 2 + '%'}
     >
-      <Box className={classes.content}>
+      <Box fontSize={fontSize * 2 + '%'} className={classes.content}>
         <ReactMarkdown
           components={{
             a: ({ children }) => <span>{children}</span>,

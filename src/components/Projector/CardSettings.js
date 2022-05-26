@@ -32,7 +32,8 @@ function CardSettings({ classes }) {
   useEffect(() => {
     setData('isObs', referenceSelected.bookId === 'obs');
     setData(referenceSelected.bookId === 'obs' ? 'obs' : 'bible', referenceSelected);
-  }, [referenceSelected, setData]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [referenceSelected]);
 
   const currentCards = useMemo(() => appConfig.lg.map((el) => el.i), [appConfig.lg]);
 

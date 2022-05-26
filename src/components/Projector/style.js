@@ -32,13 +32,14 @@ export const useStyles = makeStyles(() => ({
     },
   },
   bottomLine: {
+    fontSize: '50px',
     marginBottom: '40px',
     background: '#ffb732',
     width: '100%',
     fontWeight: 'bold',
   },
   resource: {
-    fontSize: '.4em',
+    fontSize: '20px',
     color: '#fdf5ea',
   },
 }));
