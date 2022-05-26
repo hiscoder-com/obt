@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import useDeepCompareEffect from 'use-deep-compare-effect';
 
-function useListWordsReference(tsvs, bookId) {
+export const useListWordsReference = (tsvs, bookId) => {
   const [listWordsReference, setListWordsReference] = useState({});
   const [listWordsChapter, setListWordChapter] = useState({});
 
@@ -38,6 +38,4 @@ function useListWordsReference(tsvs, bookId) {
   }, [bookId, { tsvs }]);
 
   return { listWordsReference, listWordsChapter };
-}
-
-export default useListWordsReference;
+};

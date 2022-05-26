@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 
 import { AppContext, ReferenceContext } from '../../context';
 import { ContextMenu } from '../../components';
-import { useScrollToVerse } from '../../hooks/useScrollToVerse';
+import { useScrollToVerse } from '../../hooks';
 
 import { getVerseText } from '../../helper';
 

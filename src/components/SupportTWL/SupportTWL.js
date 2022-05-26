@@ -1,16 +1,17 @@
-import React, { useState, useEffect, useContext } from 'react';
-
-import useDeepCompareEffect from 'use-deep-compare-effect';
+import React, { useEffect, useContext } from 'react';
 
 import { Box } from '@material-ui/core';
-
-import { Card, CardContent, useContent, useCardState } from 'translation-helps-rcl';
+import { Card, useContent, useCardState } from 'translation-helps-rcl';
 
 import { AppContext } from '../../context';
 
-import { ListWords } from '.';
+import { SupportContent, ListWords } from '../../components';
 
-import useListWordsReference from './useListWordsReference';
+import {
+  useListWordsReference,
+  useSelectTypeUniqueWords,
+  useChahgeColorTWL,
+} from '../../hooks';
 
 import useStyles from './style';
 
@@ -18,71 +19,36 @@ export default function SupportTWL(props) {
   const {
     state: { switchTypeUniqueWords, switchHideRepeatedWords },
   } = useContext(AppContext);
+
   const { title, classes, onClose, type, server, fontSize, reference, resource } = props;
   const { bookId, chapter, verse } = reference;
   const classesLocal = useStyles();
-  const [uniqueWordsItems, setUniqueWordsItems] = useState([]);
-  const [changeColor, setChangeColor] = useState();
-  const {
-    markdown,
-    items,
-    tsvs,
-    resourceStatus: { loading },
-    props: { languageId },
-  } = useContent({
+
+  const config = {
     verse,
     chapter,
     projectId: bookId,
-    ref: resource.branch ?? 'master',
+    ref: resource.ref ?? 'master',
     languageId: resource.languageId ?? 'ru',
     resourceId: 'twl',
     owner: resource.owner ?? 'door43-catalog',
     server,
+    httpConfig: { noCache: true },
+  };
+
+  const { items, tsvs, resourceStatus } = useContent({
+    ...config,
   });
 
   const { listWordsReference, listWordsChapter } = useListWordsReference(tsvs, bookId);
-
-  useDeepCompareEffect(() => {
-    if (!items || items.length === 0) {
-      return;
-    }
-
-    if (switchTypeUniqueWords === 'disabled') {
-      setUniqueWordsItems(items);
-      return;
-    }
-
-    const wordsItems = [];
-    const checkItemsVerse = [];
-    items.forEach((item) => {
-      if (!checkItemsVerse.includes(item.TWLink)) {
-        wordsItems.push(item);
-        checkItemsVerse.push(item.TWLink);
-      }
-    });
-    if (switchTypeUniqueWords === 'verse') {
-      setUniqueWordsItems(wordsItems);
-      return;
-    }
-    const otherWordsItems = [];
-    wordsItems.forEach((item) => {
-      if (
-        (switchTypeUniqueWords === 'chapter' &&
-          listWordsChapter &&
-          item?.TWLink &&
-          listWordsChapter[chapter] &&
-          listWordsChapter[chapter][item?.TWLink] === verse) ||
-        (switchTypeUniqueWords === 'book' &&
-          listWordsReference &&
-          item?.TWLink &&
-          listWordsReference[item?.TWLink] &&
-          listWordsReference[item?.TWLink][0] === chapter + ':' + verse)
-      ) {
-        otherWordsItems.push(item);
-      }
-    });
-    setUniqueWordsItems(otherWordsItems);
-  }, [switchTypeUniqueWords, { items }, listWordsReference]);
+  const { uniqueWordsItems } = useSelectTypeUniqueWords(
+    items,
+    switchTypeUniqueWords,
+    listWordsReference,
+    chapter,
+    verse,
+    listWordsChapter
+  );
 
   const {
     state: { item, headers, filters, itemIndex, markdownView },
@@ -97,18 +63,14 @@ export default function SupportTWL(props) {
   useEffect(() => {
     setItemIndex(0);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [reference, switchHideRepeatedWords, switchTypeUniqueWords]);
+  }, [bookId, chapter, verse, switchHideRepeatedWords, switchTypeUniqueWords]);
 
-  useEffect(() => {
-    const _changeColor =
-      !switchHideRepeatedWords &&
-      uniqueWordsItems &&
-      items &&
-      items.length > 0 &&
-      (itemIndex !== undefined || null) &&
-      !uniqueWordsItems.includes(items[itemIndex]);
-    setChangeColor(_changeColor);
-  }, [itemIndex, items, uniqueWordsItems, switchHideRepeatedWords]);
+  const { changeColor } = useChahgeColorTWL(
+    items,
+    switchHideRepeatedWords,
+    uniqueWordsItems,
+    itemIndex
+  );
 
   return (
     <Card
@@ -148,15 +110,11 @@ export default function SupportTWL(props) {
         />
       )}
       <Box className={changeColor ? classesLocal.twl : ''}>
-        <CardContent
+        <SupportContent
+          config={config}
           item={item}
-          viewMode={'markdown'}
-          filters={filters}
+          resourceStatus={resourceStatus}
           fontSize={fontSize}
-          markdown={markdown}
-          isLoading={Boolean(loading)}
-          languageId={languageId}
-          markdownView={markdownView}
         />
       </Box>
     </Card>

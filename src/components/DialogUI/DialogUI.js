@@ -2,6 +2,8 @@ import React from 'react';
 
 import PropTypes from 'prop-types';
 
+import Draggable from 'react-draggable';
+
 import {
   Dialog,
   DialogActions,
@@ -15,6 +17,18 @@ import { useTranslation } from 'react-i18next';
 import CloseIcon from '@material-ui/icons/Close';
 
 import useLocalTitleStyles from './style';
+import { Paper } from 'translation-helps-rcl/dist/components';
+
+function PaperComponent(props) {
+  return (
+    <Draggable
+      handle="#draggable-dialog-title"
+      cancel={'[class*="MuiDialogContent-root"]'}
+    >
+      <Paper {...props} />
+    </Draggable>
+  );
+}
 
 function DialogUI({
   primary = { text: false, onClick: false, disabled: false },
@@ -26,6 +40,7 @@ function DialogUI({
   open,
   onClose,
   isClosable = true,
+  draggable = false,
 }) {
   const classesLocalTitle = useLocalTitleStyles();
   const { t } = useTranslation();
@@ -37,9 +52,16 @@ function DialogUI({
       fullWidth={true}
       maxWidth={maxWidth}
       onClose={onClose}
+      PaperComponent={PaperComponent}
+      aria-labelledby="draggable-dialog-title"
     >
       {title && (
-        <DialogTitle>
+        <DialogTitle
+          className={
+            draggable ? classesLocalTitle.draggable : classesLocalTitle.undraggable
+          }
+          id={draggable ? 'draggable-dialog-title' : ''}
+        >
           {title}
           {isClosable && (
             <IconButton

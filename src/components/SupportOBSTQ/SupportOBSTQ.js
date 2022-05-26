@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 
-import { Card, CardContent, useContent, useCardState } from 'translation-helps-rcl';
+import { Card, useContent, useCardState } from 'translation-helps-rcl';
+
+import { SupportContent } from '../SupportContent';
 
 export default function SupportOBSTQ({
   title,
@@ -13,9 +15,9 @@ export default function SupportOBSTQ({
   resource,
 }) {
   const [repoType, setRepoType] = useState('tsv');
-  const mdContent = {
+  const mdConfig = {
     projectId: bookId,
-    ref: resource.branch ?? 'master',
+    ref: resource.ref ?? 'master',
     languageId: resource.languageId ?? 'ru',
     resourceId: 'obs-tq',
     filePath:
@@ -23,11 +25,11 @@ export default function SupportOBSTQ({
     owner: resource.owner ?? 'door43-catalog',
     server,
   };
-  const tsvContent = {
+  const tsvConfig = {
     verse: String(verse),
     chapter: String(chapter),
     projectId: bookId,
-    ref: resource.branch ?? 'master',
+    ref: resource.ref ?? 'master',
     languageId: resource.languageId ?? 'ru',
     resourceId: 'obs-tq',
     owner: resource.owner ?? 'door43-catalog',
@@ -37,9 +39,8 @@ export default function SupportOBSTQ({
     markdown,
     items,
     resource: { ...resourceData },
-    resourceStatus: { loading },
-    props: { languageId },
-  } = useContent(repoType === 'tsv' ? { ...tsvContent } : { ...mdContent });
+    resourceStatus,
+  } = useContent(repoType === 'tsv' ? { ...tsvConfig } : { ...mdConfig });
   useEffect(() => {
     if (resourceData?.project?.path) {
       const path = resourceData.project.path;
@@ -56,7 +57,6 @@ export default function SupportOBSTQ({
   } = useCardState({
     items,
   });
-
   return (
     <Card
       closeable
@@ -79,15 +79,12 @@ export default function SupportOBSTQ({
         });
       }}
     >
-      <CardContent
+      <SupportContent
+        config={tsvConfig}
         item={item}
-        filters={filters}
+        resourceStatus={resourceStatus}
         fontSize={fontSize}
         markdown={markdown}
-        viewMode="question"
-        isLoading={Boolean(loading)}
-        languageId={languageId}
-        markdownView={markdownView}
       />
     </Card>
   );

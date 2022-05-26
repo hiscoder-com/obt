@@ -18,7 +18,7 @@ export default function Chapter({
   const content = useContent({
     chapter: chapter,
     projectId: bookId,
-    branch: resource.branch,
+    ref: resource.ref,
     languageId: resource.languageId,
     resourceId: resource.name.split('_')[1],
     owner: resource.owner,
