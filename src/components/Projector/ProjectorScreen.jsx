@@ -52,9 +52,12 @@ function ProjectorScreen(props) {
           {props?.[resource?.owner + '__' + resource?.name]}
         </ReactMarkdown>
       </Box>
-      <div className={classes.bottomLine}>
-        <div>{`${t(bookId)} ${chapter}:${verse}`}</div>
-        <div className={classes.resource}>{resource?.title}</div>
+      <div className={classes.topLine}></div>
+      <div className={classes.bottomBlock}>
+        <div className={classes.bottomLine}>
+          <div className={classes.reference}>{`${t(bookId)} ${chapter}:${verse}`}</div>
+          <div className={classes.resource}>{resource?.title}</div>
+        </div>
       </div>
     </Box>
   );
