@@ -21,7 +21,6 @@ export const useStyles = makeStyles(() => ({
   },
   content: {
     padding: '40px',
-    overflowY: 'auto',
     display: 'flex',
     flex: '1',
     flexDirection: 'column',
@@ -54,6 +53,26 @@ export const useStyles = makeStyles(() => ({
     fontSize: '50px',
     fontWeight: 'bold',
     background: '#ffb732',
+  },
+  topArrow: {
+    position: 'fixed',
+    top: '40px',
+    right: '30px',
+    opacity: 0.3,
+  },
+  bottomArrow: {
+    position: 'fixed',
+    bottom: '180px',
+    right: '30px',
+    opacity: 0.3,
+  },
+  bottom: {
+    position: 'relative',
+    bottom: '-120px',
+  },
+  top: {
+    position: 'relative',
+    top: '30px',
   },
   reference: {
     fontSize: '50px',
