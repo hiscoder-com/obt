@@ -18,8 +18,8 @@
   will-change: width, height;
 }
 
-.react-grid-item.react-draggable-dragging {
-  transition: none;
+.react-draggable-dragging {
+  transition: none !important;
   z-index: 3;
   will-change: transform;
 }

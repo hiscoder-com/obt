@@ -40,7 +40,7 @@ function DialogUI({
   open,
   onClose,
   isClosable = true,
-  draggable = false,
+  draggable = true,
 }) {
   const classesLocalTitle = useLocalTitleStyles();
   const { t } = useTranslation();
