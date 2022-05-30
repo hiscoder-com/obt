@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { CircularProgress } from '@material-ui/core';
 
 import { useTranslation } from 'react-i18next';
+import { useProjector } from '@texttree/projector-mode-rcl';
 
 import { MarkdownViewer } from '../../components';
 import { useCircularStyles, useNoContentStyles } from './style';
@@ -18,7 +19,15 @@ function SupportContent({
   const classesCircular = useCircularStyles();
   const classesNoContent = useNoContentStyles();
   const { t } = useTranslation();
+  const { setData } = useProjector();
   const { resourceId } = config;
+
+  useEffect(() => {
+    if (content) {
+      setData(config.owner + '__' + config.languageId + '_' + config.resourceId, content);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [content]);
 
   useEffect(() => {
     if (markdown) {

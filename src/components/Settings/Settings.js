@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 
-import { InputLabel, MenuItem } from '@material-ui/core';
+import { InputLabel, ListItemIcon, MenuItem } from '@material-ui/core';
 import { FontSizeSlider } from 'translation-helps-rcl';
 import { useTranslation } from 'react-i18next';
 
@@ -17,6 +17,8 @@ import {
   SettingsItem,
   SwitchUniqueWords,
 } from '../../components';
+
+import SettingsRoundedIcon from '@material-ui/icons/SettingsRounded';
 
 import { useStyles } from './style';
 
@@ -37,6 +39,9 @@ function Settings({ setAnchorMainMenu }) {
           setAnchorMainMenu(null);
         }}
       >
+        <ListItemIcon>
+          <SettingsRoundedIcon fontSize="small" />
+        </ListItemIcon>
         {t('Settings')}
       </MenuItem>
       <DialogUI

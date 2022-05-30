@@ -17,6 +17,7 @@ export * from './LinkDialog';
 export * from './MarkdownViewer';
 export * from './ListWords';
 export * from './OBSVerses';
+export * from './Projector';
 export * from './SearchResources';
 export * from './SelectLanguage';
 export * from './SelectModeBible';

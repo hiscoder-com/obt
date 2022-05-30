@@ -24,6 +24,7 @@ function PaperComponent(props) {
     <Draggable
       handle="#draggable-dialog-title"
       cancel={'[class*="MuiDialogContent-root"]'}
+      bounds="parent"
     >
       <Paper {...props} />
     </Draggable>
@@ -40,7 +41,7 @@ function DialogUI({
   open,
   onClose,
   isClosable = true,
-  draggable = false,
+  draggable = true,
 }) {
   const classesLocalTitle = useLocalTitleStyles();
   const { t } = useTranslation();

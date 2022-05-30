@@ -8,6 +8,8 @@ import { AppContext } from '../../context/AppContext';
 
 import { languages } from '../../config/base';
 
+import LanguageRoundedIcon from '@material-ui/icons/LanguageRounded';
+
 import { useStyles } from './style';
 
 export default function SelectLanguage({ label, style }) {
@@ -35,7 +37,11 @@ export default function SelectLanguage({ label, style }) {
   }, [currentLanguage]);
   return (
     <FormControl className={classes.formControl} style={style}>
-      {label && <InputLabel id="lang-select-label">{label}</InputLabel>}
+      {label && (
+        <InputLabel id="lang-select-label">
+          <LanguageRoundedIcon fontSize="small" /> {label}
+        </InputLabel>
+      )}
       <Select
         labelid="lang-select-label"
         disableUnderline={true}

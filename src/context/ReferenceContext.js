@@ -40,7 +40,7 @@ export function ReferenceContextProvider({ children }) {
 
   const [referenceBlock, setReferenceBlock] = useState({
     ...locationReference,
-    resource: 'ult',
+    resource: 'unfoldingword__ult',
     text: t('Default_verse'),
   });
   const [dialogLink, setDialogLink] = useState(null);
@@ -110,7 +110,7 @@ export function ReferenceContextProvider({ children }) {
 
   const value = {
     state: {
-      referenceSelected: { bookId: bookId, chapter: chapter, verse: verse },
+      referenceSelected: { bookId, chapter, verse },
       bookList,
       chapterList,
       verseList,
