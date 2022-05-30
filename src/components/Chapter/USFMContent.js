@@ -64,13 +64,18 @@ function USFMContent({ reference, content, type, fontSize }) {
   }, [resourceLink, reference.chapter]);
 
   useEffect(() => {
-    if (reference.verse && chapter) {
+    if (loading) {
+      return;
+    }
+    if (chapter) {
       setData(type, getVerseText(chapter?.[reference.verse]?.verseObjects));
       setData('bible', referenceSelected);
+      setData('isObs', false);
     } else {
-      if (!loading && !chapter && contentNotFoundError) {
+      if (contentNotFoundError) {
         setData(type, t('No_content'));
         setData('bible', referenceSelected);
+        setData('isObs', false);
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

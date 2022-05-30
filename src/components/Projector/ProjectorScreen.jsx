@@ -1,9 +1,12 @@
 import React, { useRef } from 'react';
+
 import ReactMarkdown from 'react-markdown';
 import { Box } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
+
+import { useOnScreen } from '../../hooks';
+
 import { useStyles } from './style';
-import useOnScreen from '../../hooks/useOnScreen';
 
 function ProjectorScreen(props) {
   const classes = useStyles();

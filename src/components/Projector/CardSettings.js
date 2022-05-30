@@ -5,14 +5,17 @@ import { Card, FontSizeSlider } from 'translation-helps-rcl';
 import { useTranslation } from 'react-i18next';
 import { useProjector, usePreview } from '@texttree/projector-mode-rcl';
 
-import { AppContext, ReferenceContext } from '../../context';
+import { AppContext } from '../../context';
 
 import { langNames } from '../../config/materials';
+
+import { useStyles } from './cardStyle';
 
 const projectorLink = '/projector';
 
 function CardSettings({ classes }) {
   const { t } = useTranslation();
+  const cardClasses = useStyles();
   const { setData, getData } = useProjector();
   const { handleProjectorToggle, isOpen, projectorWindowSize, previewRef, scale } =
     usePreview({
@@ -25,29 +28,20 @@ function CardSettings({ classes }) {
     state: { fontSize, resourcesApp, appConfig, switchExtraTitleCard },
     actions: { setAppConfig },
   } = useContext(AppContext);
-  const {
-    state: { referenceSelected },
-  } = useContext(ReferenceContext);
 
-  useEffect(() => {
-    setData('isObs', referenceSelected.bookId === 'obs');
-    setData(referenceSelected.bookId === 'obs' ? 'obs' : 'bible', referenceSelected);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [referenceSelected]);
+  const openedCards = useMemo(() => appConfig.lg.map((el) => el.i), [appConfig.lg]);
 
-  const currentCards = useMemo(() => appConfig.lg.map((el) => el.i), [appConfig.lg]);
-
-  const listItems = useMemo(
+  const listOfOpenedResources = useMemo(
     () =>
       resourcesApp.filter((el) => {
-        return currentCards?.includes(el.owner + '__' + el.name);
+        return openedCards?.includes(el.owner + '__' + el.name);
       }),
-    [currentCards, resourcesApp]
+    [openedCards, resourcesApp]
   );
 
   const [selectedResource, setSelectedResource] = useState(() => {
-    setData(listItems[0]);
-    return listItems[0];
+    setData('resource', listOfOpenedResources[0]);
+    return listOfOpenedResources[0];
   });
 
   useEffect(() => {
@@ -55,7 +49,7 @@ function CardSettings({ classes }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedResource]);
 
-  const onClose = () => {
+  const onCloseSettingsCard = () => {
     setAppConfig((prev) => {
       const next = { ...prev };
       for (let k in next) {
@@ -66,63 +60,50 @@ function CardSettings({ classes }) {
     });
   };
 
-  const handleChange = (e) => {
-    const currentValue = listItems.find((el) => el.id === e.target.value);
+  const handleChangeSelect = (e) => {
+    const currentValue = listOfOpenedResources.find((el) => el.id === e.target.value);
     if (currentValue) {
       setSelectedResource(currentValue);
     }
   };
 
-  const [fontSizeValue, setFontSizeValue] = useState(() =>
+  const [fontSizeProjector, setFontSizeProjector] = useState(() =>
     parseInt(getData('fontSize') ?? 0)
   );
+
+  const handleFontSizeChange = (e) => {
+    setFontSizeProjector(e);
+    setData('fontSize', e);
+  };
 
   return (
     <Card
       closeable
-      onClose={onClose}
+      onClose={onCloseSettingsCard}
       title={t('Projector_settings')}
       classes={classes}
       id={'projector'}
       fontSize={fontSize}
     >
-      <Box display={'flex'} flexDirection={'column'} alignItems={'center'}>
+      <Box className={cardClasses.settingsWrap}>
         <Typography variant="subtitle2">{t('Choose_resource')}</Typography>
         <Select
-          style={{ maxWidth: '100%', marginBottom: '16px' }}
+          className={cardClasses.select}
           value={selectedResource.id}
-          onChange={handleChange}
+          onChange={handleChangeSelect}
         >
-          {listItems.map((el) => (
+          {listOfOpenedResources.map((el) => (
             <MenuItem key={el.id} value={el.id}>
               {el.title}
               {switchExtraTitleCard
-                ? ' (' + langNames[el.languageId].eng + '|' + el.owner + ')'
+                ? ' (' + langNames?.[el.languageId]?.eng + '|' + el.owner + ')'
                 : ''}
             </MenuItem>
           ))}
         </Select>
         <Typography variant="subtitle2">{t('Preview')}</Typography>
-        <Box
-          mb={2}
-          style={{
-            width: '320px',
-            height: '180px',
-            background: '#eee',
-            border: '1px solid #ccc',
-          }}
-        >
-          <div
-            style={{
-              width: '100%',
-              height: '100%',
-              display: 'flex',
-              position: 'relative',
-              justifyContent: 'center',
-              alignItems: 'center',
-              overflow: 'hidden',
-            }}
-          >
+        <Box className={cardClasses.boxWrap}>
+          <div className={cardClasses.iframeWrap}>
             <div
               style={{
                 position: 'absolute',
@@ -132,11 +113,10 @@ function CardSettings({ classes }) {
               <iframe
                 ref={previewRef}
                 title="Projector"
+                className={cardClasses.iframe}
                 style={{
-                  border: 'none',
                   width: projectorWindowSize.width + 'px',
                   height: projectorWindowSize.height + 'px',
-                  background: 'white',
                 }}
                 src={projectorLink}
               ></iframe>
@@ -144,17 +124,14 @@ function CardSettings({ classes }) {
           </div>
         </Box>
         <Typography variant="subtitle2">{t('Font_size')}</Typography>
-        <Box mt={1} width={'300px'} mb={2}>
+        <Box className={cardClasses.fontWrap}>
           <FontSizeSlider
-            onChange={(e) => {
-              setFontSizeValue(e);
-              setData('fontSize', e);
-            }}
+            onChange={handleFontSizeChange}
             marks={false}
             max={500}
             min={50}
             step={10}
-            value={fontSizeValue}
+            value={fontSizeProjector}
           />
         </Box>
         <Button

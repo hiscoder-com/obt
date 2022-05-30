@@ -42,7 +42,7 @@ function Card({ type, onClose, classes }) {
   const extraTitle = useMemo(
     () =>
       switchExtraTitleCard
-        ? ' (' + langNames[resource.languageId]?.eng + '|' + resource.owner + ')'
+        ? ' (' + langNames?.[resource.languageId]?.eng + '|' + resource.owner + ')'
         : '',
     [resource.languageId, resource.owner, switchExtraTitleCard]
   );
