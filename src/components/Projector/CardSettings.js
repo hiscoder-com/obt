@@ -39,6 +39,13 @@ function CardSettings({ classes }) {
     [openedCards, resourcesApp]
   );
 
+  useEffect(() => {
+    if (!listOfOpenedResources.find((el) => el.id === selectedResource?.id)) {
+      setSelectedResource(listOfOpenedResources[0]);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [openedCards]);
+
   const [selectedResource, setSelectedResource] = useState(() => {
     setData('resource', listOfOpenedResources[0]);
     return listOfOpenedResources[0];
