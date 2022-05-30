@@ -5,6 +5,7 @@ import {
   Box,
   Button,
   IconButton,
+  ListItemIcon,
   Menu,
   MenuItem,
   Toolbar,
@@ -28,6 +29,8 @@ import {
 
 import AddIcon from '@material-ui/icons/Add';
 import MenuIcon from '@material-ui/icons/Menu';
+import MailRoundedIcon from '@material-ui/icons/MailRounded';
+import HelpRoundedIcon from '@material-ui/icons/HelpRounded';
 
 import { useModalStyles, useStyles } from './style';
 
@@ -153,6 +156,9 @@ function SubMenuBar() {
           <ProjectorAdd handleCloseMainMenu={handleCloseMainMenu} />
 
           <MenuItem onClick={handleOpenFeedbackDialog} divider={true}>
+            <ListItemIcon>
+              <MailRoundedIcon fontSize="small" />
+            </ListItemIcon>
             {t('Feedback')}
           </MenuItem>
 
@@ -163,6 +169,9 @@ function SubMenuBar() {
           />
 
           <MenuItem onClick={handleOpenUsersGuide} divider={true}>
+            <ListItemIcon>
+              <HelpRoundedIcon fontSize="small" />
+            </ListItemIcon>
             {t('User_guide')}
           </MenuItem>
 

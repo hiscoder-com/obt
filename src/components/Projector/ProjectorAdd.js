@@ -1,12 +1,14 @@
 import React, { useContext } from 'react';
 
-import { MenuItem } from '@material-ui/core';
+import { ListItemIcon, MenuItem } from '@material-ui/core';
 import { getXY } from 'resource-workspace-rcl';
 import { useTranslation } from 'react-i18next';
 
 import { AppContext } from '../../context';
 
 import { defaultCard, columns } from '../../config/base';
+
+import CastConnectedIcon from '@material-ui/icons/CastConnected';
 
 function ProjectorAdd({ handleCloseMainMenu }) {
   const { t } = useTranslation();
@@ -36,6 +38,9 @@ function ProjectorAdd({ handleCloseMainMenu }) {
   };
   return (
     <MenuItem onClick={handleAddCard} divider={true}>
+      <ListItemIcon>
+        <CastConnectedIcon fontSize="small" />
+      </ListItemIcon>
       {t('Projector_add')}
     </MenuItem>
   );
