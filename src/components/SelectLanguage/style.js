@@ -7,4 +7,7 @@ export const useStyles = makeStyles((theme) => ({
   formControl: {
     width: '100%',
   },
+  select: {
+    marginTop: theme.spacing(3) + 'px !important',
+  },
 }));

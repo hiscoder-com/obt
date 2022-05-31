@@ -36,6 +36,11 @@ const obt = createTheme({
         color: 'inherit',
       },
     },
+    MuiListItemIcon: {
+      root: {
+        minWidth: '36px',
+      },
+    },
   },
   props: {
     MuiAppBar: {
@@ -79,6 +84,11 @@ const textTree = createTheme({
     MuiInputBase: {
       root: {
         color: 'inherit',
+      },
+    },
+    MuiListItemIcon: {
+      root: {
+        minWidth: '36px',
       },
     },
   },
@@ -130,6 +140,11 @@ const dark = createTheme({
     MuiInputBase: {
       root: {
         color: 'inherit',
+      },
+    },
+    MuiListItemIcon: {
+      root: {
+        minWidth: '36px',
       },
     },
   },
