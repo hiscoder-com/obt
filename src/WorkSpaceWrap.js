@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { Workspace } from 'resource-workspace-rcl';
 
 import { AppContext, ReferenceContext } from './context';
-import { Card } from './components';
+import { Card, CardSettings } from './components';
 
 import { columns } from './config/base';
 import { getLayoutType } from './helper';
@@ -79,14 +79,18 @@ export default function WorkSpaceWrap() {
     }
   };
 
-  const cards = (appConfig[breakpoint.name] ?? []).map((item) => (
-    <Card
-      key={item.i}
-      classes={classes}
-      onClose={(event, force = false) => onClose(item.i, force)}
-      type={item.i}
-    />
-  ));
+  const cards = (appConfig[breakpoint.name] ?? []).map((item) =>
+    item.i === 'projector' ? (
+      <CardSettings key={item.i} classes={classes} />
+    ) : (
+      <Card
+        key={item.i}
+        classes={classes}
+        onClose={(event, force = false) => onClose(item.i, force)}
+        type={item.i}
+      />
+    )
+  );
 
   const availableBookList = useMemo(() => {
     const newBookList = [];

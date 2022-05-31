@@ -4,32 +4,47 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.9.0] - 2022-05-30
+
+### Added (for new features)
+ - projector-mode-rcl (show content on second screen)
+ - icons in main menu
+ - all modals support drag and drop
+ - new hook that checks when an element becomes visible on the screen
+
+### Changed (for changes in existing functionality)
+ - favicons
+
+### Fixed (for any bug fixes)
+ - removed abbreviation OBT
+ - scrollbar in webkit
+
 ## [1.8.0] - 2022-05-26
 
 ### Added (for new features)
- - Filter unique words in OBSTWL 
+ - Filter unique words in OBSTWL
  - List references of words in OBSTWL
 
 ### Changed (for changes in existing functionality)
  - View content in TN and OBSTN
 
 ### Fixed (for any bug fixes)
- - Opening links in support materials 
+ - Opening links in support materials
 
 ## [1.7.0] - 2022-04-29
 
 ### Added (for new features)
- - Filter unique words in TWL 
+ - Filter unique words in TWL
  - List references of words in TWL
  - New resource languages
- 
+
 ### Changed (for changes in existing functionality)
  - Select lanquages view
 
 ### Fixed (for any bug fixes)
  - Fix OBS Parser
- 
-### Remove 
+
+### Remove
  - List of languages and owners
 
 ## [1.6.3] - 2022-04-26

@@ -3,6 +3,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import { Verse } from '@texttree/scripture-resources-rcl';
 import { Box, CircularProgress } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
+import { useProjector } from '@texttree/projector-mode-rcl';
 
 import { AppContext, ReferenceContext } from '../../context';
 import { ContextMenu } from '../../components';
@@ -19,6 +20,7 @@ const initialPosition = {
 
 function USFMContent({ reference, content, type, fontSize }) {
   const { t } = useTranslation();
+  const { setData } = useProjector();
   const [verses, setVerses] = useState();
   const [chapter, setChapter] = useState();
   const [positionContextMenu, setPositionContextMenu] = useState(initialPosition);
@@ -31,7 +33,7 @@ function USFMContent({ reference, content, type, fontSize }) {
 
   const {
     actions: { setReferenceBlock, goToBookChapterVerse },
-    state: { chunks },
+    state: { chunks, referenceSelected },
   } = useContext(ReferenceContext);
 
   const {
@@ -45,7 +47,7 @@ function USFMContent({ reference, content, type, fontSize }) {
         .parseUsfm()
         .then((result) => {
           if (isMounted) {
-            if (Object.keys(result.json.chapters).length > 0) {
+            if (Object.keys(result?.json?.chapters).length > 0) {
               setChapter(result.json.chapters[reference.chapter]);
             }
           }
@@ -60,6 +62,24 @@ function USFMContent({ reference, content, type, fontSize }) {
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [resourceLink, reference.chapter]);
+
+  useEffect(() => {
+    if (loading) {
+      return;
+    }
+    if (chapter) {
+      setData(type, getVerseText(chapter?.[reference.verse]?.verseObjects));
+      setData('bible', referenceSelected);
+      setData('isObs', false);
+    } else {
+      if (contentNotFoundError) {
+        setData(type, t('No_content'));
+        setData('bible', referenceSelected);
+        setData('isObs', false);
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [chapter, reference.verse, type, contentNotFoundError, error, loading]);
 
   useEffect(() => {
     const handleContextMenu = (e, key, verseObjects) => {

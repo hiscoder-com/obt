@@ -3,9 +3,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { SnackbarProvider } from 'notistack';
+import { Projector } from '@texttree/projector-mode-rcl';
 
 import ContextProviders from './context/ContextProviders';
 import App from './App';
+import ProjectorScreen from './components/Projector/ProjectorScreen';
 import ErrorBoundary from './ErrorBoundary';
 import { Migrate } from './Migrate';
 
@@ -21,6 +23,9 @@ ReactDOM.render(
   <ErrorBoundary>
     <BrowserRouter>
       <Switch>
+        <Route exact strict path={'/projector'}>
+          <Projector Layout={ProjectorScreen} />
+        </Route>
         <ContextProviders>
           <Route>
             <SnackbarProvider maxSnack={3}>
