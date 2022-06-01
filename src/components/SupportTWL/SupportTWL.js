@@ -3,15 +3,16 @@ import React, { useEffect, useContext } from 'react';
 import { Box } from '@material-ui/core';
 import { Card, useContent, useCardState } from 'translation-helps-rcl';
 
-import { AppContext } from '../../context';
+import { AppContext, ReferenceContext } from '../../context';
 
 import { SupportContent, ListWords } from '../../components';
 
 import {
   useListWordsReference,
   useSelectTypeUniqueWords,
-  useChahgeColorTWL,
-} from '../../hooks';
+  useIsRepeated,
+  ListReference,
+} from '@texttree/filter-translation-words-rcl';
 
 import useStyles from './style';
 
@@ -19,6 +20,10 @@ export default function SupportTWL(props) {
   const {
     state: { switchTypeUniqueWords, switchHideRepeatedWords },
   } = useContext(AppContext);
+  const {
+    state: { referenceSelected },
+    actions: { goToBookChapterVerse },
+  } = useContext(ReferenceContext);
 
   const { title, classes, onClose, type, server, fontSize, reference, resource } = props;
   const { bookId, chapter, verse } = reference;
@@ -41,14 +46,14 @@ export default function SupportTWL(props) {
   });
 
   const { listWordsReference, listWordsChapter } = useListWordsReference(tsvs, bookId);
-  const { uniqueWordsItems } = useSelectTypeUniqueWords(
+  const { uniqueWordsItems } = useSelectTypeUniqueWords({
     items,
-    switchTypeUniqueWords,
+    typeUniqueWords: switchTypeUniqueWords,
     listWordsReference,
     chapter,
     verse,
-    listWordsChapter
-  );
+    listWordsChapter,
+  });
 
   const {
     state: { item, headers, filters, itemIndex, markdownView },
@@ -65,13 +70,15 @@ export default function SupportTWL(props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [bookId, chapter, verse, switchHideRepeatedWords, switchTypeUniqueWords]);
 
-  const { changeColor } = useChahgeColorTWL(
+  const isRepeated = useIsRepeated({
     items,
-    switchHideRepeatedWords,
+    hideRepeatedWords: switchHideRepeatedWords,
     uniqueWordsItems,
-    itemIndex
-  );
-
+    itemIndex,
+  });
+  const onClickLink = (reference) => {
+    goToBookChapterVerse(referenceSelected.bookId, reference[0], reference[1]);
+  };
   return (
     <Card
       closeable
@@ -95,21 +102,19 @@ export default function SupportTWL(props) {
       }}
     >
       {(!switchHideRepeatedWords || uniqueWordsItems.length > 0) && (
-        <ListWords
-          links={
-            !switchHideRepeatedWords
-              ? items &&
-                items.length > 0 &&
-                listWordsReference &&
-                listWordsReference[items[itemIndex]?.TWLink]
-              : uniqueWordsItems &&
-                uniqueWordsItems.length > 0 &&
-                listWordsReference &&
-                listWordsReference[uniqueWordsItems[itemIndex]?.TWLink]
-          }
-        />
+        <>
+          <ListWords
+            links={item && listWordsReference && listWordsReference[item?.TWLink]}
+          />
+          <ListReference
+            links={item && listWordsReference && listWordsReference[item.TWLink]}
+            onClickLink={onClickLink}
+            currentChapter={chapter}
+            currentVerse={verse}
+          />
+        </>
       )}
-      <Box className={changeColor ? classesLocal.twl : ''}>
+      <Box className={isRepeated ? classesLocal.twl : ''}>
         <SupportContent
           config={config}
           item={item}

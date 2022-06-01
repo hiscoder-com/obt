@@ -9,8 +9,8 @@ import { ListWords, SupportContent } from '../../components';
 import {
   useListWordsReference,
   useSelectTypeUniqueWords,
-  useChahgeColorTWL,
-} from '../../hooks';
+  useIsRepeated,
+} from '@texttree/filter-translation-words-rcl';
 
 import useStyles from './style';
 
@@ -42,14 +42,14 @@ export default function SupportOBSTWL({
   const { markdown, items, resourceStatus, tsvs } = useContent(config);
 
   const { listWordsReference, listWordsChapter } = useListWordsReference(tsvs, bookId);
-  const { uniqueWordsItems } = useSelectTypeUniqueWords(
+  const { uniqueWordsItems } = useSelectTypeUniqueWords({
     items,
-    switchTypeUniqueWords,
+    typeUniqueWords: switchTypeUniqueWords,
     listWordsReference,
     chapter,
     verse,
-    listWordsChapter
-  );
+    listWordsChapter,
+  });
 
   const {
     state: { item, headers, filters, itemIndex, markdownView },
@@ -62,12 +62,12 @@ export default function SupportOBSTWL({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [bookId, chapter, verse, switchHideRepeatedWords, switchTypeUniqueWords]);
 
-  const { changeColor } = useChahgeColorTWL(
+  const isRepeated = useIsRepeated({
     items,
-    switchHideRepeatedWords,
+    hideRepeatedWords: switchHideRepeatedWords,
     uniqueWordsItems,
-    itemIndex
-  );
+    itemIndex,
+  });
 
   return (
     <Card
@@ -106,7 +106,7 @@ export default function SupportOBSTWL({
           }
         />
       )}
-      <Box className={changeColor ? classesLocal.twl : ''}>
+      <Box className={isRepeated ? classesLocal.twl : ''}>
         <SupportContent
           config={config}
           item={item}
