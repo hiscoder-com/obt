@@ -1,11 +1,11 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect, useContext, useState } from 'react';
 
 import { Box } from '@material-ui/core';
 import { Card, useContent, useCardState } from 'translation-helps-rcl';
 
 import { AppContext, ReferenceContext } from '../../context';
 
-import { SupportContent, ListWords } from '../../components';
+import { SupportContent } from '../../components';
 
 import {
   useListWordsReference,
@@ -28,7 +28,7 @@ export default function SupportTWL(props) {
   const { title, classes, onClose, type, server, fontSize, reference, resource } = props;
   const { bookId, chapter, verse } = reference;
   const classesLocal = useStyles();
-
+  const [closed, setClosed] = useState(false);
   const config = {
     verse,
     chapter,
@@ -78,6 +78,7 @@ export default function SupportTWL(props) {
   });
   const onClickLink = (reference) => {
     goToBookChapterVerse(referenceSelected.bookId, reference[0], reference[1]);
+    setClosed(true);
   };
   return (
     <Card
@@ -103,14 +104,13 @@ export default function SupportTWL(props) {
     >
       {(!switchHideRepeatedWords || uniqueWordsItems.length > 0) && (
         <>
-          <ListWords
-            links={item && listWordsReference && listWordsReference[item?.TWLink]}
-          />
           <ListReference
             links={item && listWordsReference && listWordsReference[item.TWLink]}
             onClickLink={onClickLink}
             currentChapter={chapter}
             currentVerse={verse}
+            closed={closed}
+            setClosed={setClosed}
           />
         </>
       )}

@@ -1,15 +1,16 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect, useContext, useState } from 'react';
 
 import { Box } from '@material-ui/core';
 import { Card, useContent, useCardState } from 'translation-helps-rcl';
 
-import { AppContext } from '../../context';
-import { ListWords, SupportContent } from '../../components';
+import { AppContext, ReferenceContext } from '../../context';
+import { SupportContent } from '../../components';
 
 import {
   useListWordsReference,
   useSelectTypeUniqueWords,
   useIsRepeated,
+  ListReference,
 } from '@texttree/filter-translation-words-rcl';
 
 import useStyles from './style';
@@ -27,7 +28,12 @@ export default function SupportOBSTWL({
   const {
     state: { switchTypeUniqueWords, switchHideRepeatedWords },
   } = useContext(AppContext);
+  const {
+    state: { referenceSelected },
+    actions: { goToBookChapterVerse },
+  } = useContext(ReferenceContext);
   const classesLocal = useStyles();
+  const [closed, setClosed] = useState(false);
 
   const config = {
     verse,
@@ -68,7 +74,10 @@ export default function SupportOBSTWL({
     uniqueWordsItems,
     itemIndex,
   });
-
+  const onClickLink = (reference) => {
+    goToBookChapterVerse(referenceSelected.bookId, reference[0], reference[1]);
+    setClosed(true);
+  };
   return (
     <Card
       closeable
@@ -92,18 +101,13 @@ export default function SupportOBSTWL({
       }}
     >
       {(!switchHideRepeatedWords || uniqueWordsItems.length > 0) && (
-        <ListWords
-          links={
-            !switchHideRepeatedWords
-              ? items &&
-                items.length > 0 &&
-                listWordsReference &&
-                listWordsReference[items[itemIndex]?.TWLink]
-              : uniqueWordsItems &&
-                uniqueWordsItems.length > 0 &&
-                listWordsReference &&
-                listWordsReference[uniqueWordsItems[itemIndex]?.TWLink]
-          }
+        <ListReference
+          links={item && listWordsReference && listWordsReference[item.TWLink]}
+          onClickLink={onClickLink}
+          currentChapter={chapter}
+          currentVerse={verse}
+          closed={closed}
+          setClosed={setClosed}
         />
       )}
       <Box className={isRepeated ? classesLocal.twl : ''}>
