@@ -2,12 +2,12 @@ import React, { useContext } from 'react';
 
 import ReactMarkdown from 'react-markdown';
 import { Box, Link } from '@material-ui/core';
-
+import { BlockEditable } from 'markdown-translatable';
 import { ReferenceContext } from '../../context';
 import useStyles from './style';
 import { fixUrl } from '../../helper';
 
-function MarkdownViewer({ children, config, fontSize }) {
+function MarkdownViewer({ setIsCloseable, children, config, fontSize, setContent }) {
   const { server, owner, languageId, projectId } = config;
   const classes = useStyles();
   const {
@@ -65,9 +65,16 @@ function MarkdownViewer({ children, config, fontSize }) {
   const fontSizeProvider = {
     fontSize: fontSize + '%',
   };
+  function updateTempContent(c) {
+    console.log(c);
+    setIsCloseable(false);
+    setContent(c);
+
+    // setSavedChanges(cardResourceId, false)
+  }
   return (
     <Box style={fontSizeProvider}>
-      <ReactMarkdown
+      {/* <ReactMarkdown
         components={{
           a: (props) => {
             if (!props?.href) {
@@ -111,9 +118,14 @@ function MarkdownViewer({ children, config, fontSize }) {
           },
         }}
         transformLinkUri={transformLinkUri}
-      >
-        {content}
-      </ReactMarkdown>
+      > */}
+      <BlockEditable
+        onEdit={updateTempContent}
+        editable={true}
+        markdown={content}
+        style={{ padding: '0px' }}
+      />
+      {/* </ReactMarkdown> */}
     </Box>
   );
 }

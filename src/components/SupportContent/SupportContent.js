@@ -9,11 +9,13 @@ import { MarkdownViewer } from '../../components';
 import { useCircularStyles, useNoContentStyles } from './style';
 
 function SupportContent({
+  setIsCloseable,
   item,
   config,
   fontSize,
   resourceStatus: { loading, contentNotFoundError, error },
   markdown,
+  setContentFromCard,
 }) {
   const [content, setContent] = useState(null);
   const classesCircular = useCircularStyles();
@@ -77,7 +79,12 @@ function SupportContent({
           <CircularProgress color="primary" size={100} />
         </div>
       ) : (!contentNotFoundError || !error) && content ? (
-        <MarkdownViewer fontSize={fontSize} config={config}>
+        <MarkdownViewer
+          setIsCloseable={setIsCloseable}
+          fontSize={fontSize}
+          config={config}
+          setContent={setContentFromCard}
+        >
           {content}
         </MarkdownViewer>
       ) : (

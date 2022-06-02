@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 
 import { CssBaseline } from '@material-ui/core';
-
+import { AuthenticationContext } from 'gitea-react-toolkit';
 import { AppContext } from './context';
 import {
   Shortcut,
@@ -27,10 +27,13 @@ export default function App() {
   const {
     state: { theme },
   } = useContext(AppContext);
+  const { state: authentication, actions, component } = useContext(AuthenticationContext);
 
   Shortcut();
   Swipes();
-  return (
+  return !authentication ? (
+    component
+  ) : (
     <ThemeProvider theme={themes[theme]}>
       <CssBaseline />
       <StartDialog />
