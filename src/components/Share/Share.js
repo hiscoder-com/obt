@@ -50,6 +50,7 @@ export default function Share() {
       localStorage.setItem('languageResources', JSON.stringify([...new Set(langs)]));
       localStorage.setItem('startDialog', false);
       localStorage.setItem('switchWordPopover', true);
+      localStorage.setItem('theme', 'textTree');
     } else {
       localStorage.setItem(
         'languageResources',
@@ -64,21 +65,24 @@ export default function Share() {
       obs: defaultTplOBS['en'],
       bible: defaultTplBible['en'],
     };
-
+    const lgHeight = Math.ceil(12 / Math.ceil(resources.length / 3));
+    console.log({ lgHeight });
     const lg = resources.map((el, index) => ({
       w: 4,
-      h: 12,
+      h: lgHeight,
       x: (index * 4) % 12,
-      y: Math.floor(index / 3) * 12,
+      y: Math.floor(index / 3) * lgHeight,
       i: el.split('/').join('__'),
       minW: 1,
       minH: 3,
     }));
+    const mdHeight = Math.ceil(12 / Math.ceil(resources.length / 2));
+    console.log({ mdHeight });
     const md = resources.map((el, index) => ({
       w: 3,
-      h: 6,
+      h: mdHeight,
       x: (index * 3) % 6,
-      y: Math.floor(index / 2) * 6,
+      y: Math.floor(index / 2) * mdHeight,
       i: el.split('/').join('__'),
       minW: 1,
       minH: 3,
@@ -98,7 +102,7 @@ export default function Share() {
       md,
       sm,
     };
-
+    console.log({ newLayout });
     // get App Config
     const currentAppConfig = JSON.parse(localStorage.getItem('appConfig'));
     if (currentAppConfig === null) {
@@ -120,7 +124,7 @@ export default function Share() {
     // save to layoutStorage
     let newLayoutName = t('Autosave');
     const currentLayoutStorage = JSON.parse(localStorage.getItem('layoutStorage'));
-    if (currentLayoutStorage === null || currentLayoutStorage.lenght === 0) {
+    if (currentLayoutStorage === null || currentLayoutStorage.length === 0) {
       localStorage.setItem(
         'layoutStorage',
         JSON.stringify([
@@ -173,8 +177,13 @@ export default function Share() {
   }, [bookId, chapter, resources.length, verse]);
 
   useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const bookId = params.get('b');
+    const chapter = params.get('c');
+    const verse = params.get('v');
+
     const timer = window.setTimeout(() => {
-      window.location.href = '/';
+      window.location.href = `/${bookId}/${chapter}/${verse}`;
     }, 3000);
     return () => {
       window.clearTimeout(timer);
