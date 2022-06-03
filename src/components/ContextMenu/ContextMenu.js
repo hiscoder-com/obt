@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useMemo } from 'react';
 
 import { Menu, MenuItem } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
@@ -116,8 +116,10 @@ function ContextMenu({ position, setPosition, PopoverClasses }) {
     }
     return newArray;
   };
-
-  const rangeReferenceBlock = groupReferenceToRange(referenceBlock);
+  const rangeReferenceBlock = useMemo(
+    () => groupReferenceToRange(referenceBlock),
+    [referenceBlock]
+  );
 
   const handleReferenceToClipboard = () => {
     if (!rangeReferenceBlock || rangeReferenceBlock.length < 1) {

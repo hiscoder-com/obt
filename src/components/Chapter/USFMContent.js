@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState, useContext, useCallback } from 'react';
 
 import { Verse } from '@texttree/scripture-resources-rcl';
 import { Box, CircularProgress } from '@material-ui/core';
@@ -66,6 +66,24 @@ function USFMContent({ reference, content, type, fontSize }) {
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [resourceLink, reference.chapter]);
+  const toggle = useCallback(
+    (key) => {
+      if (!selectVerses) {
+        if (key.toString() === reference.verse.toString()) {
+          return 'primary.select';
+        } else {
+          return '';
+        }
+      } else {
+        if (selectedVerses.includes(key)) {
+          return 'primary.select';
+        }
+      }
+    },
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [selectedVerses]
+  );
 
   useEffect(() => {
     const handleContextMenu = (e, key) => {
@@ -103,11 +121,12 @@ function USFMContent({ reference, content, type, fontSize }) {
         fontSize: fontSize + '%',
       };
       const handleClick = () => {
-        if (reference.verse !== key) {
-          goToBookChapterVerse(reference.bookId, reference.chapter, key);
+        if (!selectVerses) {
+          if (reference.verse !== key) {
+            goToBookChapterVerse(reference.bookId, reference.chapter, key);
+          }
+          return;
         }
-      };
-      const handleSelectClick = (key) => {
         setSelectedVerses((prev) => {
           if (!prev.includes(key)) {
             return [...prev, key];
@@ -115,20 +134,6 @@ function USFMContent({ reference, content, type, fontSize }) {
             return prev.filter((el) => el !== key);
           }
         });
-      };
-
-      const toggle = (key) => {
-        if (!selectVerses) {
-          if (key.toString() === reference.verse.toString()) {
-            return 'primary.select';
-          } else {
-            return '';
-          }
-        } else {
-          if (selectedVerses.includes(key)) {
-            return 'primary.select';
-          }
-        }
       };
 
       const verse = (
@@ -141,7 +146,7 @@ function USFMContent({ reference, content, type, fontSize }) {
           bgcolor={toggle(key)}
           key={key}
           onContextMenu={(e) => handleContextMenu(e, key, verseObjects)}
-          onClick={!selectVerses ? handleClick : () => handleSelectClick(key)}
+          onClick={handleClick}
         >
           {switchChunks && chunks.includes(key.toString()) && <p />}
           <Verse
