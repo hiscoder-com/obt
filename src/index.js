@@ -8,7 +8,7 @@ import { Projector } from '@texttree/projector-mode-rcl';
 import ContextProviders from './context/ContextProviders';
 import App from './App';
 import ProjectorScreen from './components/Projector/ProjectorScreen';
-import Share from './components/Share/Share';
+import { Share } from './components';
 import ErrorBoundary from './ErrorBoundary';
 import { Migrate } from './Migrate';
 
