@@ -1,10 +1,20 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 
 import { Card, useContent, useCardState } from 'translation-helps-rcl';
 
 import { SupportContent } from '../SupportContent';
 import useSaveEdit from './useSaveEdit';
 import { AuthenticationContext, createContent, readContent } from 'gitea-react-toolkit';
+import axios from 'axios';
+import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  Button,
+  TextField,
+  Typography,
+} from '@material-ui/core';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 export default function SupportTQ({
   title,
@@ -67,7 +77,7 @@ export default function SupportTQ({
     server: 'https://git.door43.org',
     httpConfig: { noCache: true },
   });
-  console.log({ items });
+
   const {
     state: { item, headers, filters, itemIndex, markdownView },
     actions: { setFilters, setFontSize, setItemIndex, setMarkdownView },
@@ -79,7 +89,11 @@ export default function SupportTQ({
   const [isCloseable, setIsCloseable] = useState(true);
   const username = authentication?.user?.username;
   const [contentFromCard, setContentFromCard] = useState('');
+  console.log({ contentFromCard });
   const handleSaveEdit = useSaveEdit({
+    bookId,
+    chapter,
+    verse,
     item,
     fetchResponse,
     cardResourceId,
@@ -90,20 +104,21 @@ export default function SupportTQ({
   });
   const [newComment, setNewComment] = useState('');
   const [comments, setComments] = useState('');
+
   const hanldeSendComment = () => {
     if (!newComment) {
       return;
     }
-    console.log(authentication);
+
     createContent({
       config: {
         server: 'https://git.door43.org',
         tokenid: 'PlaygroundTesting',
       },
       owner: 'bsa',
-      repo: `${languageId}_${cardResourceId}`,
+      repo: `ru_tq`,
       branch: 'test',
-      filepath: '1co/2/2/' + Date.now() + '.json',
+      filepath: `comments/${bookId}/${chapter}/${verse}/` + Date.now() + '.json',
       content: JSON.stringify({ newComment, username }),
       message: 'newComment to commit',
       author: {
@@ -113,7 +128,9 @@ export default function SupportTQ({
     })
       .then((result) => console.log({ result }))
       .catch((error) => console.log({ error }));
+    setNewComment('');
   };
+  const fetchUrl = (url) => axios.get(url);
   const handleShowComments = () => {
     readContent({
       config: {
@@ -123,9 +140,19 @@ export default function SupportTQ({
       owner: 'bsa',
       repo: `${languageId}_${cardResourceId}`,
       ref: 'test',
-      filepath: '1co',
+      filepath: `comments/${bookId}/${chapter}/${verse}/`,
     })
-      .then((result) => console.log({ result }))
+      .then((result) => {
+        console.log(result);
+        const urls = result.map((el) => el.download_url).map(fetchUrl);
+        Promise.all(urls)
+          .then((result) => {
+            setComments(result.map((el) => el.data));
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      })
       .catch((error) => console.log({ error }));
   };
   return (
@@ -155,10 +182,6 @@ export default function SupportTQ({
         });
       }}
     >
-      <div>comments:</div>
-      <button onClick={handleShowComments}>Show comments</button>
-      <input onChange={(e) => setNewComment(e.target.value)} />
-      <button onClick={hanldeSendComment}>Send Comment</button>
       <SupportContent
         setIsCloseable={setIsCloseable}
         config={tsvConfig}
@@ -168,6 +191,48 @@ export default function SupportTQ({
         fontSize={fontSize}
         setContentFromCard={setContentFromCard}
       />
+
+      <CommentsBlock
+        newComment={newComment}
+        setNewComment={setNewComment}
+        hanldeSendComment={hanldeSendComment}
+        handleShowComments={handleShowComments}
+        comments={comments}
+      />
     </Card>
+  );
+}
+
+function CommentsBlock({
+  newComment,
+  setNewComment,
+  hanldeSendComment,
+  handleShowComments,
+  comments,
+  verse,
+  chapter,
+  book,
+}) {
+  return (
+    <Accordion>
+      <AccordionSummary
+        expandIcon={<ExpandMoreIcon />}
+        aria-controls="panel1a-content"
+        id="panel1a-header"
+      >
+        <Typography>Comments</Typography>
+      </AccordionSummary>
+      <AccordionDetails style={{ display: 'block' }}>
+        <TextField value={newComment} onChange={(e) => setNewComment(e.target.value)} />
+        <Button onClick={hanldeSendComment}>Send Comment</Button>
+        <Button onClick={handleShowComments}>Show comments</Button>
+        {comments &&
+          comments.map((el, index) => (
+            <div key={index}>
+              {el.username} : {el.newComment}
+            </div>
+          ))}
+      </AccordionDetails>
+    </Accordion>
   );
 }

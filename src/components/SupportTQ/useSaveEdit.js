@@ -1,5 +1,8 @@
 import { useEdit } from 'gitea-react-toolkit';
 function useSaveEdit({
+  bookId,
+  chapter,
+  verse,
   item,
   fetchResponse,
   cardResourceId,
@@ -13,6 +16,7 @@ function useSaveEdit({
     fetchResponse,
     cardResourceId,
   });
+  console.log({ content });
   const { isEditing, onSaveEdit } = useEdit({
     sha,
     owner,
@@ -26,7 +30,10 @@ function useSaveEdit({
     author: 'Valyukhov',
     token: authentication?.token,
     branch: 'test',
-    filepath: '1co/02/02.md',
+    filepath: `${bookId}/${String(chapter).padStart(2, '0')}/${String(verse).padStart(
+      2,
+      '0'
+    )}.md`,
     repo: `${languageId}_${cardResourceId}`,
   });
 
