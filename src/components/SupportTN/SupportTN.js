@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 
 import { AppContext } from '../../context';
 import { FrontModal, ButtonGroupUI, SupportContent } from '../../components';
+import useFetchBranches from '../../hooks/useFetchBranches';
 
 export default function SupportTN({
   title,
@@ -39,6 +40,8 @@ export default function SupportTN({
   const { items, resourceStatus } = useContent({
     ...config,
   });
+  const branches = useFetchBranches(config);
+  console.log(branches);
   const onIntroClick = () => {
     setConfigFront({ ...config, verse: 'intro', chapter: 'front' });
     setOpenDialog(true);
