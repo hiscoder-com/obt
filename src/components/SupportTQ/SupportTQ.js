@@ -56,6 +56,7 @@ export default function SupportTQ({
   //   items,
   // });
   const { state: authentication } = useContext(AuthenticationContext);
+  const username = authentication?.user?.username;
   const {
     markdown,
     items,
@@ -67,13 +68,13 @@ export default function SupportTQ({
     verse,
     chapter,
     projectId: bookId,
-    ref: 'master',
-    listRef: 'master',
+    ref: 'test',
+    listRef: 'test',
     languageId: 'ru',
     resourceId: 'tq',
     filePath:
       String(chapter).padStart(2, '0') + '/' + String(verse).padStart(2, '0') + '.md',
-    owner: 'Valyukhov',
+    owner: 'bsa',
     server: 'https://git.door43.org',
     httpConfig: { noCache: true },
   });
@@ -87,7 +88,7 @@ export default function SupportTQ({
   const cardResourceId = 'tq';
 
   const [isCloseable, setIsCloseable] = useState(true);
-  const username = authentication?.user?.username;
+
   const [contentFromCard, setContentFromCard] = useState('');
   console.log({ contentFromCard });
   const handleSaveEdit = useSaveEdit({
@@ -98,7 +99,7 @@ export default function SupportTQ({
     fetchResponse,
     cardResourceId,
     owner: 'bsa',
-    contentFromCard,
+    content: contentFromCard,
     authentication,
     languageId,
   });
