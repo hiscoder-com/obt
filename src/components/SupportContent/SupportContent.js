@@ -28,7 +28,7 @@ function SupportContent({
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [content]);
-
+  console.log({ markdown });
   useEffect(() => {
     if (markdown) {
       setContent(markdown);
@@ -37,22 +37,19 @@ function SupportContent({
     if (!item) {
       return;
     }
+    console.log({ content, resourceId });
     switch (resourceId) {
       case 'tn':
-        item?.OccurrenceNote && setContent(item?.OccurrenceNote);
-        item?.GLQuote && setContent((prev) => prev && '# ' + item?.GLQuote + '\n' + prev);
+        setContent(`## ${item?.GLQuote ?? ''} \n ${item?.OccurrenceNote ?? ''}`);
 
         break;
       case 'obs-sn':
       case 'obs-tn':
-        item?.Note && setContent(item?.Note);
-        item?.Quote && setContent((prev) => prev && '# ' + item?.Quote + '\n' + prev);
+        setContent(`## ${item?.Quote ?? ''} \n ${item?.Note ?? ''}`);
 
         break;
       case 'obs-tq':
-        item?.Response && setContent(item?.Response);
-        item?.Question &&
-          setContent((prev) => prev && '# ' + item?.Question + '\n' + prev);
+        setContent(`## ${item?.Question ?? ''} \n ${item?.Response ?? ''}`);
 
         break;
       case 'twl':
@@ -61,9 +58,7 @@ function SupportContent({
         break;
 
       case 'tq':
-        item?.Response && setContent(item?.Response);
-        item?.Question &&
-          setContent((prev) => prev && '# ' + item?.Question + '\n' + prev);
+        setContent(`## ${item?.Question ?? ''} \n ${item?.Response ?? ''}`);
         break;
       default:
         break;
