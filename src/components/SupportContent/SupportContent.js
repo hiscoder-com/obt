@@ -63,6 +63,7 @@ function SupportContent({
       default:
         break;
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [item, markdown, resourceId]);
 
   return (
