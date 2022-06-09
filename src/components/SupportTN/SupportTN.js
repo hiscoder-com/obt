@@ -52,12 +52,11 @@ export default function SupportTN({
   };
 
   const {
-    state: { item, headers, filters, itemIndex, markdownView },
+    state: { item, headers, itemIndex, markdownView },
     actions: { setItemIndex, setMarkdownView },
   } = useCardState({
     items,
   });
-  console.log({ filters });
 
   useEffect(() => {
     if (item && setTaRef) {
@@ -78,7 +77,7 @@ export default function SupportTN({
       );
     }
   }, [item, setTaRef]);
-  console.log({ item });
+
   useEffect(() => {
     setItemIndex(0);
     // eslint-disable-next-line react-hooks/exhaustive-deps

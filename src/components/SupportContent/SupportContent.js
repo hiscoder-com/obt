@@ -28,7 +28,6 @@ function SupportContent({
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [content]);
-  console.log({ markdown });
   useEffect(() => {
     if (markdown) {
       setContent(markdown);
@@ -37,7 +36,7 @@ function SupportContent({
     if (!item) {
       return;
     }
-    console.log({ content, resourceId });
+
     switch (resourceId) {
       case 'tn':
         setContent(`## ${item?.GLQuote ?? ''} \n ${item?.OccurrenceNote ?? ''}`);
