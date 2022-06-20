@@ -19,6 +19,10 @@ export const langNames = {
     eng: 'Cebuano',
     lang: 'Cebuano',
   },
+  cs: {
+    eng: 'Czech',
+    lang: 'český jazyk',
+  },
   'el-x-koine': {
     eng: 'Koine Greek',
     lang: 'Koine Greek',
@@ -63,10 +67,15 @@ export const langNames = {
     eng: 'Ancient Hebrew',
     lang: 'Ancient Hebrew',
   },
+  he: {
+    eng: 'Hebrew (modern)',
+    lang: 'עברית',
+  },
   hi: {
     eng: 'Hindi',
     lang: 'हिन्दी, हिंदी',
   },
+
   hmr: {
     eng: 'Hmar',
     lang: 'Hmar',
@@ -74,6 +83,10 @@ export const langNames = {
   hr: {
     eng: 'Croatian',
     lang: 'Hrvatski jezik',
+  },
+  hu: {
+    eng: 'Hungarian',
+    lang: 'magyar',
   },
   id: {
     eng: 'Indonesian',
