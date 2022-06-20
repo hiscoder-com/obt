@@ -31,6 +31,7 @@ import AddIcon from '@material-ui/icons/Add';
 import MenuIcon from '@material-ui/icons/Menu';
 import MailRoundedIcon from '@material-ui/icons/MailRounded';
 import HelpRoundedIcon from '@material-ui/icons/HelpRounded';
+import ShareRoundedIcon from '@material-ui/icons/ShareRounded';
 
 import { useModalStyles, useStyles } from './style';
 
@@ -205,6 +206,9 @@ function SubMenuBar() {
             <p className={classes.menu}>{t('Text_under_checkbox_error')}</p>
           </MenuItem>
           <MenuItem divider={true} onClick={handleGetResourcesLink}>
+            <ListItemIcon>
+              <ShareRoundedIcon fontSize="small" />
+            </ListItemIcon>
             {t('Get_shared_links')}
           </MenuItem>
 

@@ -1,11 +1,52 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 import { useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 import { defaultTplBible, defaultTplOBS } from '../../config/base';
 
+import { useStyles } from './style';
+import {
+  Box,
+  Button,
+  Card,
+  CardContent,
+  InputLabel,
+  MenuItem,
+  TextField,
+  Typography,
+} from '@material-ui/core';
+
+const currentAppConfig = JSON.parse(localStorage.getItem('appConfig'));
+
+/*
+
+1. Если юзер впервые открывает этот сайт - то просто редирект через 3 секунды
+Еще бы включить loadIntro
+2. Если юзер раньше уже заходил на сайт то сделать следующее
+2.1. Показать экран на котором сделать текст, радиобаттоны, инпут и кнопки
+2.2. Текст примерно такой "Вы собираетесь открыть экран с новыми материалами и расположением карточек, но раньше вы уже использовали сайт и настроили расположение материалов.
+
+Вы можете сохранить старый лейаут и отобразить новый, или же сохранить новый лейаут и оставить отображение старого.
+
+Список сохраненных лейаутов вы можете найти в меню (☰) -> Настройки"
+2.3. Радиобаттоны "сохранить старый лейаут и отобразить новый" и "сохранить новый лейаут и оставить отображение старого"
+2.4. Инпут "Введите имя для сохраняемого лейаута"
+2.5. Кнопка "Готово"
+
+*/
+
 export default function Share() {
+  const classes = useStyles();
+
+  const { t } = useTranslation();
+
+  const { search } = useLocation();
+
+  const [saveOption, setSaveOption] = useState('new');
+  const [newName, setNewName] = useState('autosave');
+  const [reload, setReload] = useState(() => currentAppConfig === null);
+
   const getDataFromURI = useCallback((search) => {
     const params = new URLSearchParams(search);
     const resources = params.getAll('r');
@@ -14,10 +55,6 @@ export default function Share() {
     const verse = parseInt(params.get('v'));
     return { resources, bookId, chapter, verse };
   }, []);
-
-  const { t } = useTranslation();
-
-  const { search } = useLocation();
 
   const { resources, bookId, chapter, verse } = getDataFromURI(search);
 
@@ -59,14 +96,10 @@ export default function Share() {
     }
   };
 
-  const setResources = (resources, isOBS) => {
+  const getNewLayout = (resources) => {
     // create new layout
-    const defaultAppConfig = {
-      obs: defaultTplOBS['en'],
-      bible: defaultTplBible['en'],
-    };
     const lgHeight = Math.ceil(12 / Math.ceil(resources.length / 3));
-    console.log({ lgHeight });
+
     const lg = resources.map((el, index) => ({
       w: 4,
       h: lgHeight,
@@ -77,7 +110,7 @@ export default function Share() {
       minH: 3,
     }));
     const mdHeight = Math.ceil(12 / Math.ceil(resources.length / 2));
-    console.log({ mdHeight });
+
     const md = resources.map((el, index) => ({
       w: 3,
       h: mdHeight,
@@ -97,14 +130,22 @@ export default function Share() {
       minW: 1,
     }));
 
-    const newLayout = {
+    return {
       lg,
       md,
       sm,
     };
-    console.log({ newLayout });
+  };
+
+  const setResources = (resources, isOBS) => {
     // get App Config
-    const currentAppConfig = JSON.parse(localStorage.getItem('appConfig'));
+    const defaultAppConfig = {
+      obs: defaultTplOBS['en'],
+      bible: defaultTplBible['en'],
+    };
+
+    const newLayout = getNewLayout(resources);
+
     if (currentAppConfig === null) {
       localStorage.setItem(
         'appConfig',
@@ -122,7 +163,7 @@ export default function Share() {
     );
 
     // save to layoutStorage
-    let newLayoutName = t('Autosave');
+    let newLayoutName = newName;
     const currentLayoutStorage = JSON.parse(localStorage.getItem('layoutStorage'));
     if (currentLayoutStorage === null || currentLayoutStorage.length === 0) {
       localStorage.setItem(
@@ -141,7 +182,7 @@ export default function Share() {
     const layoutNames = currentLayoutStorage.map((item) => item.name);
     let index = 0;
     while (layoutNames.includes(newLayoutName)) {
-      newLayoutName = t('Autosave') + ' ' + ++index;
+      newLayoutName = newName + ' ' + ++index;
     }
 
     const isLayoutSaved = currentLayoutStorage.every((item) => {
@@ -167,28 +208,154 @@ export default function Share() {
     }
   };
 
+  const saveNewResources = (resources, isOBS) => {
+    const newLayout = getNewLayout(resources);
+
+    const langs = newLayout['lg'].map((el) => el.i.split('__')[1].split('_')[0]);
+
+    // save to layoutStorage
+    let newLayoutName = newName;
+    const currentLayoutStorage = JSON.parse(localStorage.getItem('layoutStorage'));
+    if (currentLayoutStorage === null || currentLayoutStorage.length === 0) {
+      localStorage.setItem(
+        'layoutStorage',
+        JSON.stringify([
+          {
+            name: newLayoutName,
+            value: newLayout,
+            language: [...new Set(langs)],
+            isOBS,
+          },
+        ])
+      );
+      return;
+    }
+    const layoutNames = currentLayoutStorage.map((item) => item.name);
+    let index = 0;
+    while (layoutNames.includes(newLayoutName)) {
+      newLayoutName = newName + ' ' + ++index;
+    }
+
+    const isLayoutSaved = currentLayoutStorage.every((item) => {
+      return JSON.stringify(item.value) !== JSON.stringify(newLayout);
+    });
+
+    if (isLayoutSaved) {
+      localStorage.setItem(
+        'layoutStorage',
+        JSON.stringify([
+          ...currentLayoutStorage,
+          {
+            name: newLayoutName,
+            value: newLayout,
+            language: [...new Set(langs)],
+            isOBS,
+          },
+        ])
+      );
+    }
+  };
+
   useEffect(() => {
-    if (bookId && chapter && resources && verse) {
-      setReference({ bookId, chapter, verse });
-      setLanguages(resources);
-      setResources(resources, bookId === 'obs');
+    if (reload || currentAppConfig === null) {
+      if (bookId && chapter && resources && verse) {
+        if (saveOption === 'old') {
+          setReference({ bookId, chapter, verse });
+          setLanguages(resources);
+          setResources(resources, bookId === 'obs');
+        } else {
+          saveNewResources(resources, bookId === 'obs');
+        }
+      }
+      const params = new URLSearchParams(window.location.search);
+      const _bookId = params.get('b');
+      const _chapter = params.get('c');
+      const _verse = params.get('v');
+
+      const timer = window.setTimeout(() => {
+        window.location.href = `/${_bookId}/${_chapter}/${_verse}`;
+      }, 3000000);
+
+      return () => {
+        window.clearTimeout(timer);
+      };
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [bookId, chapter, resources.length, verse]);
+  }, [reload, currentAppConfig]);
 
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const bookId = params.get('b');
-    const chapter = params.get('c');
-    const verse = params.get('v');
+  const handleChange = (e) => {
+    setSaveOption(e.target.value);
+  };
 
-    const timer = window.setTimeout(() => {
-      window.location.href = `/${bookId}/${chapter}/${verse}`;
-    }, 3000);
-    return () => {
-      window.clearTimeout(timer);
-    };
-  }, []);
+  const handleNewName = (e) => {
+    setNewName(e.target.value);
+  };
 
-  return <div>{t('Page_reload_after_3_sec')}</div>;
+  const handleSave = () => {
+    setReload(true);
+  };
+
+  return (
+    <div className={classes.background}>
+      {currentAppConfig !== null ? (
+        <Card className={classes.root}>
+          <CardContent>
+            <Typography gutterBottom paragraph variant="h4">
+              Предупреждение
+            </Typography>
+            <Typography gutterBottom paragraph>
+              Вы собираетесь открыть экран с новым лейаутом (новыми материалами и
+              расположением карточек), но раньше вы уже использовали сайт и настроили
+              расположение материалов.
+            </Typography>
+            <Typography gutterBottom paragraph>
+              Вы можете сохранить старый лейаут и отобразить новый, или же сохранить новый
+              лейаут и оставить отображение старого.
+            </Typography>
+            <Typography gutterBottom paragraph>
+              Список сохраненных лейаутов вы можете найти в
+              Меню&nbsp;(☰)&nbsp;-&gt;&nbsp;Настройки
+            </Typography>
+            <Box mb={3}>
+              <TextField
+                select
+                className={classes.select}
+                value={saveOption}
+                onChange={handleChange}
+              >
+                <MenuItem value={'old'}>отобразить новый лейаут</MenuItem>
+                <MenuItem value={'new'}>оставить отображение старого лейаута</MenuItem>
+              </TextField>
+            </Box>
+            <Box mb={3}>
+              <InputLabel>Имя для сохраняемого лейаута</InputLabel>
+              <TextField
+                className={classes.select}
+                value={newName}
+                onChange={handleNewName}
+              />
+            </Box>
+            <Box textAlign={'right'}>
+              <Button
+                variant="contained"
+                disabled={newName.length === 0}
+                onClick={handleSave}
+              >
+                Готово
+              </Button>
+              {reload && (
+                <Typography variant="subtitle2" color="textSecondary">
+                  {t('Page_reload_after_3_sec')}
+                </Typography>
+              )}
+            </Box>
+          </CardContent>
+        </Card>
+      ) : (
+        <Typography variant="subtitle2" color="textSecondary">
+          {t('Page_reload_after_3_sec')}
+        </Typography>
+      )}
+    </div>
+  );
 }
