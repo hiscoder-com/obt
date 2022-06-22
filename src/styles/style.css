@@ -35,6 +35,8 @@ input {
 }
 .verse h4 {
   margin: 0;
+  text-align: center;
+  font-size: 1.6em;
 }
 
 .tqcard h1{

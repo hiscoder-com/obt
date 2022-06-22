@@ -16,7 +16,7 @@
     "@material-ui/lab": "^4.0.0-alpha.60",
     "@material-ui/styles": "^4.11.4",
     "@texttree/projector-mode-rcl": "^0.5.3",
-    "@texttree/scripture-resources-rcl": "5.3.0",
+    "@texttree/scripture-resources-rcl": "^5.3.2",
     "@texttree/tt-reference-rcl": "^1.2.1",
     "@texttree/user-notes-rcl": "^0.5.4",
     "axios": "^0.26.1",
