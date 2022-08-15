@@ -1,11 +1,11 @@
 {
   "version": "1.9.0",
-  "date":"2022-06-22",
-  "logo":"https://raw.githubusercontent.com/texttree/bsa/main/src/docs/images/logo_obt.png",
-  "dependencies":[ "@texttree/projector-mode-rcl",
+  "date": "2022-06-22",
+  "logo": "https://raw.githubusercontent.com/texttree/bsa/main/src/docs/images/logo_obt.png",
+  "dependencies": ["@texttree/projector-mode-rcl",
   "@texttree/scripture-resources-rcl",
   "@texttree/tt-reference-rcl",
   "@texttree/user-notes-rcl",
-  "bible-reference-rcl","resource-workspace-rcl",
-  "scripture-resources-rcl","translation-helps-rcl"]
-  }
+  "bible-reference-rcl", "resource-workspace-rcl",
+  "scripture-resources-rcl", "translation-helps-rcl"]
+}
