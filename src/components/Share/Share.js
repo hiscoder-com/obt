@@ -19,23 +19,6 @@ import {
 
 const currentAppConfig = JSON.parse(localStorage.getItem('appConfig'));
 
-/*
-
-1. Если юзер впервые открывает этот сайт - то просто редирект через 3 секунды
-Еще бы включить loadIntro
-2. Если юзер раньше уже заходил на сайт то сделать следующее
-2.1. Показать экран на котором сделать текст, радиобаттоны, инпут и кнопки
-2.2. Текст примерно такой "Вы собираетесь открыть экран с новыми материалами и расположением карточек, но раньше вы уже использовали сайт и настроили расположение материалов.
-
-Вы можете сохранить старый лейаут и отобразить новый, или же сохранить новый лейаут и оставить отображение старого.
-
-Список сохраненных лейаутов вы можете найти в меню (☰) -> Настройки"
-2.3. Радиобаттоны "сохранить старый лейаут и отобразить новый" и "сохранить новый лейаут и оставить отображение старого"
-2.4. Инпут "Введите имя для сохраняемого лейаута"
-2.5. Кнопка "Готово"
-
-*/
-
 export default function Share() {
   const classes = useStyles();
 
@@ -44,7 +27,7 @@ export default function Share() {
   const { search } = useLocation();
 
   const [saveOption, setSaveOption] = useState('old');
-  const [newName, setNewName] = useState('autosave');
+  const [newName, setNewName] = useState(t('Autosave'));
   const [reload, setReload] = useState(() => currentAppConfig === null);
 
   const getDataFromURI = useCallback((search) => {
@@ -299,20 +282,16 @@ export default function Share() {
         <Card className={classes.root}>
           <CardContent>
             <Typography gutterBottom paragraph variant="h4">
-              Предупреждение
+              {t('Warning')}
             </Typography>
             <Typography gutterBottom paragraph>
-              Вы собираетесь открыть экран с новым лейаутом (новыми материалами и
-              расположением карточек), но раньше вы уже использовали сайт и настроили
-              расположение материалов.
+              {t('Share1')}
             </Typography>
             <Typography gutterBottom paragraph>
-              Вы можете сохранить старый лейаут и отобразить новый, или же сохранить новый
-              лейаут и оставить отображение старого.
+              {t('Share2')}
             </Typography>
             <Typography gutterBottom paragraph>
-              Список сохраненных лейаутов вы можете найти в
-              Меню&nbsp;(☰)&nbsp;-&gt;&nbsp;Настройки
+              {t('Share3')}
             </Typography>
             <Box mb={3}>
               <TextField
@@ -321,12 +300,12 @@ export default function Share() {
                 value={saveOption}
                 onChange={handleChange}
               >
-                <MenuItem value={'old'}>отобразить новый лейаут</MenuItem>
-                <MenuItem value={'new'}>оставить отображение старого лейаута</MenuItem>
+                <MenuItem value={'old'}>{t('Share_show_new')}</MenuItem>
+                <MenuItem value={'new'}>{t('Share_show_old')}</MenuItem>
               </TextField>
             </Box>
             <Box mb={3}>
-              <InputLabel>Имя для сохраняемого лейаута</InputLabel>
+              <InputLabel>{t('Share_new_name')}</InputLabel>
               <TextField
                 className={classes.select}
                 value={newName}
@@ -339,7 +318,7 @@ export default function Share() {
                 disabled={newName.length === 0}
                 onClick={handleSave}
               >
-                Готово
+                {t('Done')}
               </Button>
               {reload && (
                 <Typography variant="subtitle2" color="textSecondary">
