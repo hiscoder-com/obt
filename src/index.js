@@ -8,6 +8,7 @@ import { Projector } from '@texttree/projector-mode-rcl';
 import ContextProviders from './context/ContextProviders';
 import App from './App';
 import ProjectorScreen from './components/Projector/ProjectorScreen';
+import { Share } from './components';
 import ErrorBoundary from './ErrorBoundary';
 import { Migrate } from './Migrate';
 
@@ -25,6 +26,9 @@ ReactDOM.render(
       <Switch>
         <Route exact strict path={'/projector'}>
           <Projector Layout={ProjectorScreen} />
+        </Route>
+        <Route exact strict path={'/share'}>
+          <Share />
         </Route>
         <ContextProviders>
           <Route>
