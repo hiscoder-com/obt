@@ -43,7 +43,7 @@ export default function Share() {
 
   const { search } = useLocation();
 
-  const [saveOption, setSaveOption] = useState('new');
+  const [saveOption, setSaveOption] = useState('old');
   const [newName, setNewName] = useState('autosave');
   const [reload, setReload] = useState(() => currentAppConfig === null);
 
@@ -101,7 +101,7 @@ export default function Share() {
     const lgHeight = Math.ceil(12 / Math.ceil(resources.length / 3));
 
     const lg = resources.map((el, index) => ({
-      w: 4,
+      w: resources.length === 1 ? 8 : 4,
       h: lgHeight,
       x: (index * 4) % 12,
       y: Math.floor(index / 3) * lgHeight,
@@ -145,7 +145,6 @@ export default function Share() {
     };
 
     const newLayout = getNewLayout(resources);
-
     if (currentAppConfig === null) {
       localStorage.setItem(
         'appConfig',
@@ -161,7 +160,6 @@ export default function Share() {
     const langs = currentAppConfig[isOBS ? 'obs' : 'bible']['lg'].map(
       (el) => el.i.split('__')[1].split('_')[0]
     );
-
     // save to layoutStorage
     let newLayoutName = newName;
     const currentLayoutStorage = JSON.parse(localStorage.getItem('layoutStorage'));
@@ -274,7 +272,7 @@ export default function Share() {
 
       const timer = window.setTimeout(() => {
         window.location.href = `/${_bookId}/${_chapter}/${_verse}`;
-      }, 3000000);
+      }, 3000);
 
       return () => {
         window.clearTimeout(timer);
