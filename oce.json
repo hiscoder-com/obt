@@ -2,10 +2,9 @@
   "version": "1.9.0",
   "date": "2022-06-22",
   "logo": "https://raw.githubusercontent.com/texttree/bsa/main/src/docs/images/logo_obt.png",
-  "dependencies": ["@texttree/projector-mode-rcl",
-  "@texttree/scripture-resources-rcl",
-  "@texttree/tt-reference-rcl",
-  "@texttree/user-notes-rcl",
-  "bible-reference-rcl", "resource-workspace-rcl",
-  "scripture-resources-rcl", "translation-helps-rcl"]
+  "dependencies": ["npm/@texttree/projector-mode-rcl", "npm/@texttree/scripture-resources-rcl",
+    "npm/@texttree/tt-reference-rcl", "npm/@texttree/user-notes-rcl", "npm/bible-reference-rcl",
+    "npm/react-markdown", "npm/resource-workspace-rcl", "npm/scripture-resources-rcl",
+    "npm/tc-ui-toolkit", "npm/translation-helps-rcl", "npm/word-aligner"
+  ]
 }
