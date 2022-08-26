@@ -105,7 +105,7 @@ export default function Share() {
     }));
     const sm = resources.map((el, index) => ({
       w: 1,
-      h: 4,
+      h: resources.length === 1 ? 8 : 4,
       x: 0,
       y: index * 4,
       i: el.split('/').join('__'),
