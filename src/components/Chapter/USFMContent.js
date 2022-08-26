@@ -121,7 +121,11 @@ function USFMContent({ reference, content, type, fontSize }) {
           className={'verse'}
           bgcolor={key.toString() === reference.verse.toString() ? 'primary.select' : ''}
           key={key}
-          onContextMenu={(e) => handleContextMenu(e, key, verseObjects)}
+          onContextMenu={(e) => {
+            e.preventDefault();
+            handleContextMenu(e, key, verseObjects);
+            return false;
+          }}
           onClick={handleClick}
         >
           {switchChunks && chunks.includes(key.toString()) && <p />}
