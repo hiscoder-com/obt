@@ -94,6 +94,16 @@ function OBSContent({ markdown, verse, chapter, fontSize, type, goToBookChapterV
             className={'verse'}
             bgcolor={key.toString() === verse.toString() ? 'primary.select' : ''}
             key={key}
+            onContextMenu={(e) => {
+              e.preventDefault();
+              setReferenceBlock({
+                ...referenceSelected,
+                resource: type,
+                verse: key,
+                text,
+              });
+              handleContextOpen(e);
+            }}
             onClick={() => {
               goToBookChapterVerse('obs', chapter, key);
             }}
@@ -106,17 +116,7 @@ function OBSContent({ markdown, verse, chapter, fontSize, type, goToBookChapterV
             ) : (
               ''
             )}
-            <p
-              onContextMenu={(e) => {
-                setReferenceBlock({
-                  ...referenceSelected,
-                  resource: type,
-                  verse: key,
-                  text,
-                });
-                handleContextOpen(e);
-              }}
-            >
+            <p>
               <sup className={classes.sup}>{key.toString()}</sup>
               {text &&
                 text.split('\n').map((el, index) => (
