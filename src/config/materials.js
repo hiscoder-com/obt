@@ -244,6 +244,10 @@ export const langNames = {
     eng: 'Vlach Western Arli',
     lang: 'Vlach Western Arli',
   },
+  rsl: {
+    eng: 'Russian Sign Language',
+    lang: 'Русский Жестовый Язык',
+  },
   ru: {
     eng: 'Russian',
     lang: 'Русский',
