@@ -52,18 +52,25 @@ function DialogUI({
       open={open}
       fullWidth={true}
       maxWidth={maxWidth}
-      onClose={onClose}
+      onClose={(e) => {
+        e.stopPropagation();
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        onClose(e);
+      }}
       PaperComponent={PaperComponent}
       aria-labelledby="draggable-dialog-title"
     >
       {title && (
-        <DialogTitle
-          className={
-            draggable ? classesLocalTitle.draggable : classesLocalTitle.undraggable
-          }
-          id={draggable ? 'draggable-dialog-title' : ''}
-        >
-          {title}
+        <>
+          <DialogTitle
+            className={
+              draggable ? classesLocalTitle.draggable : classesLocalTitle.undraggable
+            }
+            id={draggable ? 'draggable-dialog-title' : ''}
+          >
+            {title}
+          </DialogTitle>
           {isClosable && (
             <IconButton
               aria-label="close"
@@ -73,7 +80,7 @@ function DialogUI({
               <CloseIcon />
             </IconButton>
           )}
-        </DialogTitle>
+        </>
       )}
       <DialogContent className={classes.content}>{children}</DialogContent>
       {(primary?.onClick || secondary?.onClick) && (
