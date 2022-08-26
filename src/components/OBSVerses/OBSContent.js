@@ -96,6 +96,7 @@ function OBSContent({ markdown, verse, chapter, fontSize, type, goToBookChapterV
             key={key}
             onContextMenu={(e) => {
               e.preventDefault();
+              e.stopImmediatePropagation();
               setReferenceBlock({
                 ...referenceSelected,
                 resource: type,

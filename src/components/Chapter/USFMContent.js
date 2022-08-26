@@ -124,6 +124,7 @@ function USFMContent({ reference, content, type, fontSize }) {
           onContextMenu={(e) => {
             e.preventDefault();
             handleContextMenu(e, key, verseObjects);
+            return false;
           }}
           onClick={handleClick}
         >
