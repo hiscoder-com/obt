@@ -1,5 +1,5 @@
 {
-  "Add_resources": "Выбрать ресурс",
+  "Add_resources": "Выбрать карточки",
   "Added_resources": "Добавлены ресурсы",
   "Add_resource_languages": "Добавить языки ресурсов",
   "Apply": "Применить",
@@ -36,7 +36,7 @@
   "Font_label": "Шрифт",
   "Font_size": "Размер шрифта",
   "General_notes": "Общие замечания",
-  "Get_shared_links": "Получить ссылку",
+  "Get_shared_links": "Поделиться ссылкой",
   "Hide_repeated_words": "Скрыть повторяющиеся слова",
   "If_no_language": "Если вы не нашли в списке свой язык - напишите нам",
   "Import": "Импортировать",
