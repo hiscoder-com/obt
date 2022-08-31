@@ -59,7 +59,7 @@ export function AppContextProvider({ children }) {
     return checkLSVal('switchObsImage', true, 'boolean');
   });
   const [switchWordPopover, setSwitchWordPopover] = useState(() => {
-    return checkLSVal('switchWordPopover', false, 'boolean');
+    return checkLSVal('switchWordPopover', true, 'boolean');
   });
   /** TODO Create ResourceContext
    * 1. Get information about resources ( like available bookId) from /Chapter  - content.resources.project.

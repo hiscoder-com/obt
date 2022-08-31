@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState } from 'react';
+import React, { useCallback, useContext, useRef, useState } from 'react';
 
 import {
   AppBar,
@@ -12,7 +12,7 @@ import {
 } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
-import { AppContext } from '../../context';
+import { AppContext, ReferenceContext } from '../../context';
 import {
   About,
   BookSelect,
@@ -31,19 +31,27 @@ import AddIcon from '@material-ui/icons/Add';
 import MenuIcon from '@material-ui/icons/Menu';
 import MailRoundedIcon from '@material-ui/icons/MailRounded';
 import HelpRoundedIcon from '@material-ui/icons/HelpRounded';
+import ShareRoundedIcon from '@material-ui/icons/ShareRounded';
 
 import { useModalStyles, useStyles } from './style';
 
 import LogoOBT from './logo_obt.png';
 import LogoTT from './logo_tt.png';
+import { useSnackbar } from 'notistack';
 
 function SubMenuBar() {
   const {
-    state: { loadIntro, openMainMenu, theme },
+    state: { loadIntro, openMainMenu, theme, appConfig },
     actions: { setLoadIntro },
   } = useContext(AppContext);
+  const {
+    state: {
+      referenceSelected: { bookId, chapter, verse },
+    },
+  } = useContext(ReferenceContext);
 
   const { t } = useTranslation();
+  const { enqueueSnackbar } = useSnackbar();
 
   const menuRef = useRef(null);
 
@@ -82,6 +90,25 @@ function SubMenuBar() {
   };
   const handleCloseFeedbackDialog = () => {
     setOpenFeedbackDialog(false);
+  };
+
+  const copyToClipboard = useCallback((text) => {
+    return navigator.clipboard.writeText(text).then(
+      () => {
+        enqueueSnackbar(t('Copied_success'), { variant: 'success' });
+      },
+      (err) => {
+        enqueueSnackbar(t('Copied_error'), { variant: 'error' });
+      }
+    );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const handleGetResourcesLink = () => {
+    const r = appConfig['lg'].map((el) => 'r=' + el.i.split('__').join('/')).join('&');
+    copyToClipboard(
+      `${window.location.origin}/share?${r}&b=${bookId}&c=${chapter}&v=${verse}`
+    );
   };
 
   const anchorEl = loadIntro && anchorMainMenu ? anchorMainMenu : menuRef.current;
@@ -177,6 +204,12 @@ function SubMenuBar() {
 
           <MenuItem button={false} divider={true}>
             <p className={classes.menu}>{t('Text_under_checkbox_error')}</p>
+          </MenuItem>
+          <MenuItem divider={true} onClick={handleGetResourcesLink}>
+            <ListItemIcon>
+              <ShareRoundedIcon fontSize="small" />
+            </ListItemIcon>
+            {t('Get_shared_links')}
           </MenuItem>
 
           <About
