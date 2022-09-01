@@ -108,7 +108,7 @@ const getWord = (verseObject) => {
 
 export const getVerseText = (verseObjects, showUnsupported = false) => {
   return verseObjects
-    .map((verseObject) => getObject(verseObject, showUnsupported))
+    ?.map((verseObject) => getObject(verseObject, showUnsupported))
     .join('');
 };
 
