@@ -5,6 +5,7 @@ export const useStyles = makeStyles((theme) => ({
     cursor: 'pointer',
     color: theme.palette.primary.main,
     display: 'inline-block',
+    '&:hover': { textDecoration: 'underline' },
   },
 }));
 

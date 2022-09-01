@@ -35,6 +35,7 @@ function SupportContent({
       return;
     }
     if (!item) {
+      setContent(null);
       return;
     }
     switch (resourceId) {
