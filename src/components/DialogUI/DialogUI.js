@@ -55,7 +55,6 @@ function DialogUI({
       onClose={(e) => {
         e.stopPropagation();
         e.preventDefault();
-        e.stopImmediatePropagation();
         onClose(e);
       }}
       PaperComponent={PaperComponent}
