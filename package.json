@@ -18,7 +18,7 @@
     "@texttree/projector-mode-rcl": "^0.5.3",
     "@texttree/scripture-resources-rcl": "^5.3.2",
     "@texttree/tt-reference-rcl": "^1.2.1",
-    "@texttree/user-notes-rcl": "^0.5.4",
+    "@texttree/user-notes-rcl": "^0.5.5",
     "axios": "^0.27.2",
     "axios-cache-adapter": "^2.7.3",
     "bible-reference-rcl": "^1.1.0",
