@@ -37,7 +37,10 @@ export default function TypoReport() {
     setOpenBackdrop(true);
     setShowErrorReport(false);
     SendError({
-      reference: chapter + ':' + verse,
+      reference:
+        String(chapter).padStart(2, '0') +
+        ':' +
+        String(verse).padStart(bookId === 'psa' ? 3 : 2, '0'),
       bookId: bookId,
       resource: resource,
       serverLink: process.env.REACT_APP_SERVER_LINK,
