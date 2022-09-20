@@ -38,7 +38,7 @@ export default function TypoReport() {
     setShowErrorReport(false);
     SendError({
       reference:
-        String(chapter).padStart(2, '0') +
+        String(chapter).padStart(bookId === 'psa' ? 3 : 2, '0') +
         ':' +
         String(verse).padStart(bookId === 'psa' ? 3 : 2, '0'),
       bookId: bookId,
