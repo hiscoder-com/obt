@@ -43,7 +43,7 @@
     "scripture-resources-rcl": "5.2.0",
     "semver": "^7.3.7",
     "tc-ui-toolkit": "^6.2.4",
-    "translation-helps-rcl": "^3.1.7",
+    "translation-helps-rcl": "3.1.7",
     "use-deep-compare-effect": "^1.8.1",
     "web-vitals": "^2.1.4",
     "word-aligner": "^1.0.0",
