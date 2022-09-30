@@ -76,12 +76,17 @@ export const defaultTplBible = {
       { w: 1, h: 6, x: 0, y: 36, i: 'es-419_gl__es-419_tq', minH: 3, minW: 1 },
     ],
   },
+  uk: {
+    lg: [{ w: 8, h: 12, x: 0, y: 0, i: 'devleskodrom__uk_onpu', minH: 3, minW: 1 }],
+    md: [{ w: 3, h: 12, x: 0, y: 0, i: 'devleskodrom__uk_onpu', minH: 3, minW: 1 }],
+    sm: [{ w: 1, h: 8, x: 0, y: 0, i: 'devleskodrom__uk_onpu', minH: 3, minW: 1 }],
+  },
 };
 
 export const defaultTplOBS = {
   tg: {
     lg: [
-      { w: 4, h: 12, x: 0, y: 0, i: 'ru_gl__tg_obs', minH: 3, minW: 1 },
+      { w: 4, h: 12, x: 0, y: 0, i: 'tg_ol__tg_obs', minH: 3, minW: 1 },
       { w: 4, h: 12, x: 4, y: 0, i: 'ru_gl__ru_obs', minH: 3, minW: 1 },
     ],
     md: [
@@ -120,6 +125,11 @@ export const defaultTplOBS = {
       { w: 1, h: 3, x: 0, y: 9, i: 'bsa__es-419_obs-tq', minH: 3, minW: 1 },
     ],
   },
+  uk: {
+    lg: [{ w: 8, h: 12, x: 0, y: 0, i: 'uk_gt__uk_obs', minH: 3, minW: 1 }],
+    md: [{ w: 3, h: 12, x: 0, y: 0, i: 'uk_gt__uk_obs', minH: 3, minW: 1 }],
+    sm: [{ w: 1, h: 8, x: 0, y: 0, i: 'uk_gt__uk_obs', minH: 3, minW: 1 }],
+  },
 };
 
 export const defaultBibleReference = {
@@ -139,6 +149,11 @@ export const defaultBibleReference = {
     verse: 1,
   },
   'es-419': {
+    bookId: 'tit',
+    chapter: 1,
+    verse: 1,
+  },
+  uk: {
     bookId: 'tit',
     chapter: 1,
     verse: 1,
@@ -166,9 +181,14 @@ export const defaultOBSReference = {
     chapter: 1,
     verse: 1,
   },
+  uk: {
+    bookId: 'obs',
+    chapter: 1,
+    verse: 1,
+  },
 };
 
-export const languages = ['en', 'ru', 'tg', 'es-419' /**,'uk', 'pl'*/];
+export const languages = ['en', 'ru', 'tg', 'es-419', 'uk' /**, 'pl'*/];
 
 /* CORE */
 
