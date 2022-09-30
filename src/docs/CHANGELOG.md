@@ -4,6 +4,27 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.10.0] - 2022-09-01
+
+### Added (for new features)
+ - new languages (Czech, Hebrew, Hungarian)
+ - component Share 
+
+### Changed (for changes in existing functionality)
+ - update dependencies
+ - default theme
+ - style card, made big area of right-bottom corner
+ - update default resources in 'es-419' language
+ - update localization with new words
+
+### Fixed (for any bug fixes)
+ - cursor in cards
+ - links in twl
+ - fix unsupported usfm verses
+ - show Introduction & General Notes in TN without content from TN
+ - closure of the draggable dialog
+ - context menu for OBS and Bible
+
 ## [1.9.0] - 2022-05-30
 
 ### Added (for new features)

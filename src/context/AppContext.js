@@ -25,7 +25,7 @@ export function AppContextProvider({ children }) {
     actions: { setNewBookList },
   } = useContext(ReferenceContext);
 
-  const [theme, setTheme] = useState(() => checkLSVal('theme', 'obt'));
+  const [theme, setTheme] = useState(() => checkLSVal('theme', 'textTree'));
   const [taRef, setTaRef] = useState();
 
   const [currentLanguage, setCurrentLanguage] = useState(_currentLanguage);
@@ -59,7 +59,7 @@ export function AppContextProvider({ children }) {
     return checkLSVal('switchObsImage', true, 'boolean');
   });
   const [switchWordPopover, setSwitchWordPopover] = useState(() => {
-    return checkLSVal('switchWordPopover', true, 'boolean');
+    return checkLSVal('switchWordPopover', false, 'boolean');
   });
   /** TODO Create ResourceContext
    * 1. Get information about resources ( like available bookId) from /Chapter  - content.resources.project.
