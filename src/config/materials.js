@@ -96,6 +96,10 @@ export const langNames = {
     eng: 'Ilocano',
     lang: 'Iloko',
   },
+  kk: {
+    eng: 'Kazakh',
+    lang: 'қазақ тілі',
+  },
   kn: {
     eng: 'Kannada',
     lang: 'ಕನ್ನಡ',
@@ -311,6 +315,10 @@ export const langNames = {
   'ur-deva': {
     eng: 'Urdu Devanagari script',
     lang: 'देवनागरी',
+  },
+  uz: {
+    eng: 'Uzbek',
+    lang: 'Oʻzbek, Ўзбек, أۇزبېك‎',
   },
   vi: {
     eng: 'Vietnamese',
