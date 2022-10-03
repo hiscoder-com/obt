@@ -11,6 +11,10 @@ export const langNames = {
     eng: 'Assamese',
     lang: 'অসমীয়া',
   },
+  az: {
+    eng: 'Azerbaijani',
+    lang: 'azərbaycan dili',
+  },
   bn: {
     eng: 'Bengali, Bangla',
     lang: 'বাংলা',
@@ -95,6 +99,10 @@ export const langNames = {
   ilo: {
     eng: 'Ilocano',
     lang: 'Iloko',
+  },
+  kk: {
+    eng: 'Kazakh',
+    lang: 'қазақ тілі',
   },
   kn: {
     eng: 'Kannada',
@@ -311,6 +319,10 @@ export const langNames = {
   'ur-deva': {
     eng: 'Urdu Devanagari script',
     lang: 'देवनागरी',
+  },
+  uz: {
+    eng: 'Uzbek',
+    lang: 'Oʻzbek, Ўзбек, أۇزبېك‎',
   },
   vi: {
     eng: 'Vietnamese',
