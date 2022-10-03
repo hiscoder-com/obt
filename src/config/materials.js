@@ -11,6 +11,10 @@ export const langNames = {
     eng: 'Assamese',
     lang: 'অসমীয়া',
   },
+  az: {
+    eng: 'Azerbaijani',
+    lang: 'azərbaycan dili',
+  },
   bn: {
     eng: 'Bengali, Bangla',
     lang: 'বাংলা',
