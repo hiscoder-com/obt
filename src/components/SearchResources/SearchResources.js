@@ -91,7 +91,7 @@ function SearchResources({ anchorEl, onClose, open }) {
     axios
       .get(
         server +
-          '/api/catalog/v5/search?limit=1000&sort=lang,title' +
+          '/api/v1/catalog/search?limit=1000&sort=lang,title' +
           '&subject=' +
           subjects.join(',')
       )
