@@ -100,6 +100,10 @@ export const langNames = {
     eng: 'Ilocano',
     lang: 'Iloko',
   },
+  kat: {
+    eng: 'Ingilo',
+    lang: 'ინგილო',
+  },
   kk: {
     eng: 'Kazakh',
     lang: 'қазақ тілі',
@@ -263,6 +267,10 @@ export const langNames = {
   rue: {
     eng: 'Rusyn',
     lang: 'Rusyn',
+  },
+  sgh: {
+    eng: 'Shughni',
+    lang: 'Xuǧnoni',
   },
   sgj: {
     eng: 'Surgujia',
