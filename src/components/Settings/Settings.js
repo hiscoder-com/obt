@@ -72,7 +72,7 @@ function Settings({ setAnchorMainMenu }) {
           <FontSizeSlider
             onChange={setFontSize}
             marks={false}
-            max={150}
+            max={250}
             min={50}
             step={10}
             value={fontSize}
