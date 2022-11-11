@@ -1,6 +1,6 @@
 {
-  "version": "1.9.0",
-  "date": "2022-06-22",
+  "version": "1.10.4",
+  "date": "2022-11-11",
   "logo": "https://raw.githubusercontent.com/texttree/bsa/main/src/docs/images/logo_obt.png",
   "dependencies": ["npm/@texttree/projector-mode-rcl", "npm/@texttree/scripture-resources-rcl",
     "npm/@texttree/tt-reference-rcl", "npm/@texttree/user-notes-rcl", "npm/bible-reference-rcl",
