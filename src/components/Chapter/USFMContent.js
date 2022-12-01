@@ -168,7 +168,7 @@ function USFMContent({ reference, content, type, fontSize }) {
           getLicense();
         }}
       >
-        License
+        {t('License')}
       </Button>
     );
     setVerses(_verses);

@@ -175,7 +175,7 @@ function OBSContent({
               getLicense();
             }}
           >
-            License
+            {t('License')}
           </Button>
         </>
       );
