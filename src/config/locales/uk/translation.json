@@ -48,6 +48,7 @@
   "Message_not_send": "На жаль, ваше повідомлення не було доставлено.",
   "Layout": "Макет",
   "Layout_name": "Назва макета",
+  "License": "License",
   "Name": "Назва",
   "New_layout_saved": "Новий макет збережено",
   "New_window": "Нове вікно",
@@ -311,7 +312,7 @@
   "tl": "Wikang Tagalog",
   "tpi": "Tok Pisin",
   "tr": "Türkçe",
-  "uk": "Українська",
+  "uk": "Український",
   "ur": "اردو",
   "ur-deva": "Urdu Devanagari script",
   "vi": "Tiếng Việt"
