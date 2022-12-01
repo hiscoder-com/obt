@@ -48,6 +48,7 @@
   "Message_not_send": "Unfortunately, your message has not been delivered.",
   "Layout": "Сыртқы түрі",
   "Layout_name": "Layout Name",
+  "License": "License",
   "Name": "Name",
   "New_layout_saved": "New layout saved",
   "New_window": "New Window",
@@ -311,7 +312,7 @@
   "tl": "Wikang Tagalog",
   "tpi": "Tok Pisin",
   "tr": "Türkçe",
-  "uk": "Українська",
+  "uk": "Український",
   "ur": "اردو",
   "ur-deva": "Urdu Devanagari script",
   "vi": "Tiếng Việt"
