@@ -1,8 +1,12 @@
-import { Button } from '@material-ui/core';
-import axios from 'axios';
-import { t } from 'i18next';
 import React, { useState } from 'react';
+import axios from 'axios';
+
+import { t } from 'i18next';
+
 import ReactMarkdown from 'react-markdown';
+
+import { Button } from '@material-ui/core';
+
 import { DialogUI } from '../DialogUI';
 
 function LicenseViewer({ config }) {
@@ -35,7 +39,7 @@ function LicenseViewer({ config }) {
         open={openModal}
         maxWidth={'sm'}
         onClose={() => setOpenModal(false)}
-        title={`License`}
+        title={t('License')}
       >
         <ReactMarkdown className={'md'}>{license}</ReactMarkdown>
       </DialogUI>
