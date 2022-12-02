@@ -5,7 +5,7 @@ import { CircularProgress } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { useProjector } from '@texttree/projector-mode-rcl';
 
-import { MarkdownViewer } from '../../components';
+import { MarkdownViewer, LicenseViewer } from '../../components';
 import { useCircularStyles, useNoContentStyles } from './style';
 
 function SupportContent({
@@ -70,7 +70,6 @@ function SupportContent({
         break;
     }
   }, [item, markdown, resourceId]);
-
   return (
     <>
       {loading ? (
@@ -78,9 +77,19 @@ function SupportContent({
           <CircularProgress color="primary" size={100} />
         </div>
       ) : (!contentNotFoundError || !error) && content ? (
-        <MarkdownViewer fontSize={fontSize} config={config}>
-          {content}
-        </MarkdownViewer>
+        <>
+          <MarkdownViewer fontSize={fontSize} config={config}>
+            {content}
+          </MarkdownViewer>
+          <LicenseViewer
+            config={{
+              server: config?.server,
+              repository: `${config?.languageId}_${resourceId}`,
+              owner: config?.owner,
+              branch: 'master',
+            }}
+          />
+        </>
       ) : (
         <div className={classesNoContent.root}>{t('No_content')}</div>
       )}

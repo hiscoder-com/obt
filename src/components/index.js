@@ -15,6 +15,7 @@ export * from './FrontModal';
 export * from './Intro';
 export * from './LinkDialog';
 export * from './MarkdownViewer';
+export * from './LicenseViewer';
 export * from './ListWords';
 export * from './OBSVerses';
 export * from './Projector';

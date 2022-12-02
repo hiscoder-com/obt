@@ -1,15 +1,12 @@
 import React, { useEffect, useState, useContext } from 'react';
 
-import axios from 'axios';
-import ReactMarkdown from 'react-markdown';
-
 import { Verse } from '@texttree/scripture-resources-rcl';
-import { Box, CircularProgress, Button } from '@material-ui/core';
+import { Box, CircularProgress } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { useProjector } from '@texttree/projector-mode-rcl';
 
 import { AppContext, ReferenceContext } from '../../context';
-import { ContextMenu, DialogUI } from '../../components';
+import { ContextMenu, LicenseViewer } from '../../components';
 import { useScrollToVerse } from '../../hooks';
 
 import { getVerseText } from '../../helper';
@@ -26,8 +23,7 @@ function USFMContent({ reference, content, type, fontSize }) {
   const { setData } = useProjector();
   const [verses, setVerses] = useState();
   const [chapter, setChapter] = useState();
-  const [license, setLicense] = useState('');
-  const [openModal, setOpenModal] = useState(false);
+
   const [positionContextMenu, setPositionContextMenu] = useState(initialPosition);
   const [verseRef] = useScrollToVerse('center');
   const classesCircular = useCircularStyles();
@@ -44,19 +40,7 @@ function USFMContent({ reference, content, type, fontSize }) {
   const {
     state: { switchChunks, switchWordPopover },
   } = useContext(AppContext);
-  const getLicense = () => {
-    const {
-      resource: { username, repository, config, tag },
-    } = content;
-    try {
-      axios
-        .get(`${config?.server}/${username}/${repository}/raw/branch/${tag}/LICENSE.md`)
-        .then((res) => setLicense(res.data))
-        .catch((err) => console.log(err));
-    } catch (error) {
-      console.log(error);
-    }
-  };
+
   useEffect(() => {
     let isMounted = true;
     if (resource?.project && Object.keys(resource.project).length !== 0) {
@@ -161,16 +145,6 @@ function USFMContent({ reference, content, type, fontSize }) {
       _verses.push(verse);
     }
 
-    _verses.push(
-      <Button
-        onClick={() => {
-          setOpenModal(true);
-          getLicense();
-        }}
-      >
-        {t('License')}
-      </Button>
-    );
     setVerses(_verses);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [chapter, reference, type, fontSize, switchChunks, chunks, switchWordPopover]);
@@ -181,24 +155,26 @@ function USFMContent({ reference, content, type, fontSize }) {
     </div>
   );
   const noContent = <div className={classesNoContent.root}>{t('No_content')}</div>;
-
   const usfmContent = loading
     ? loadingContent
     : !contentNotFoundError || !error
     ? verses
     : noContent;
-
   return (
     <>
       {usfmContent}
-      <DialogUI
-        open={openModal}
-        maxWidth={'sm'}
-        onClose={() => setOpenModal(false)}
-        title={`License`}
-      >
-        <ReactMarkdown className={'md'}>{license}</ReactMarkdown>
-      </DialogUI>
+      {verses?.length ? (
+        <LicenseViewer
+          config={{
+            server: resource?.config?.server,
+            repository: resource?.repository,
+            owner: resource?.username,
+            branch: resource?.tag,
+          }}
+        />
+      ) : (
+        []
+      )}
       <ContextMenu position={positionContextMenu} setPosition={setPositionContextMenu} />
     </>
   );
