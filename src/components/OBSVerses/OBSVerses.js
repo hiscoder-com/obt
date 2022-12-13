@@ -9,10 +9,15 @@ import OBSContent from './OBSContent';
 import { server } from '../../config/base';
 
 import { useStyles } from './style';
+import ReactMarkdown from 'react-markdown';
+import { DialogUI } from '../DialogUI';
+import axios from 'axios';
 
 export default function OBSVerses({ title, classes, onClose, type }) {
   const classesCircular = useStyles();
   const [isLoading, setIsLoading] = useState(false);
+  const [license, setLicense] = useState('');
+  const [openModal, setOpenModal] = useState(false);
   const {
     state: { fontSize, resourcesApp },
   } = useContext(AppContext);
@@ -45,11 +50,26 @@ export default function OBSVerses({ title, classes, onClose, type }) {
     setIsLoading(!(resourceStatus.initialized && !resourceStatus.loading));
   }, [resourceStatus]);
 
+  const getLicense = () => {
+    const { owner, name } = resource;
+    try {
+      axios
+        .get(`${server}/${owner}/${name}/raw/branch/master/LICENSE.md`)
+        .then((res) => setLicense(res.data))
+        .catch((err) => console.log(err));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <>
       <Card
         closeable
-        onLicense
+        onLicense={() => {
+          setOpenModal(true);
+          getLicense();
+        }}
         disableSettingsButton
         title={title}
         onClose={onClose}
@@ -74,6 +94,14 @@ export default function OBSVerses({ title, classes, onClose, type }) {
           />
         )}
       </Card>
+      <DialogUI
+        open={openModal}
+        maxWidth={'sm'}
+        onClose={() => setOpenModal(false)}
+        title={`License`}
+      >
+        <ReactMarkdown className={'md'}>{license}</ReactMarkdown>
+      </DialogUI>
     </>
   );
 }

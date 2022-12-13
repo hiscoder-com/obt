@@ -1,39 +1,24 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 
-import { Box, Button } from '@material-ui/core';
-import { useTranslation } from 'react-i18next';
+import { Box } from '@material-ui/core';
 import { useProjector } from '@texttree/projector-mode-rcl';
+import { useTranslation } from 'react-i18next';
 
-import { ReferenceContext, AppContext } from '../../context';
-import { ContextMenu } from '../ContextMenu';
+import { AppContext, ReferenceContext } from '../../context';
 import { useScrollToVerse } from '../../hooks';
-
-import axios from 'axios';
-import ReactMarkdown from 'react-markdown';
+import { ContextMenu } from '../ContextMenu';
 
 import useStyles from './style';
-import { DialogUI } from '../DialogUI';
 
 const initialPositionContextMenu = {
   left: null,
   top: null,
 };
 
-function OBSContent({
-  markdown,
-  verse,
-  chapter,
-  fontSize,
-  type,
-  goToBookChapterVerse,
-  resource,
-  server,
-}) {
+function OBSContent({ markdown, verse, chapter, fontSize, type, goToBookChapterVerse }) {
   const [positionContextMenu, setPositionContextMenu] = useState(
     initialPositionContextMenu
   );
-  const [license, setLicense] = useState('');
-  const [openModal, setOpenModal] = useState(false);
   const {
     state: { referenceSelected },
     actions: { setReferenceBlock },
@@ -57,17 +42,6 @@ function OBSContent({
   const [verseRef] = useScrollToVerse('center');
   const { setData } = useProjector();
 
-  const getLicense = () => {
-    const { owner, name } = resource;
-    try {
-      axios
-        .get(`${server}/${owner}/${name}/raw/branch/master/LICENSE.md`)
-        .then((res) => setLicense(res.data))
-        .catch((err) => console.log(err));
-    } catch (error) {
-      console.log(error);
-    }
-  };
   const mdToVerses = (md) => {
     let _markdown = md.replaceAll('\u200B', '').split(/\n\s*\n\s*/);
     const headerMd = _markdown.shift().trim().slice(1);
@@ -168,15 +142,6 @@ function OBSContent({
           {contentMd}
           <br />
           <i>{linkMd}</i>
-          <br />
-          <Button
-            onClick={() => {
-              setOpenModal(true);
-              getLicense();
-            }}
-          >
-            {t('License')}
-          </Button>
         </>
       );
 
@@ -192,14 +157,6 @@ function OBSContent({
   return (
     <>
       {verses}
-      <DialogUI
-        open={openModal}
-        maxWidth={'sm'}
-        onClose={() => setOpenModal(false)}
-        title={`License`}
-      >
-        <ReactMarkdown className={'md'}>{license}</ReactMarkdown>
-      </DialogUI>
       <ContextMenu position={positionContextMenu} setPosition={setPositionContextMenu} />
     </>
   );
