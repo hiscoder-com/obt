@@ -94,6 +94,7 @@ export default function SupportOBSTN({
   return (
     <Card
       closeable
+      disableSettingsButton
       title={title}
       onClose={() => onClose(true)}
       classes={{ ...classes, children: 'tqcard' }}

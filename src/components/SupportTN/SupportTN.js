@@ -86,6 +86,7 @@ export default function SupportTN({
   return (
     <Card
       closeable
+      disableSettingsButton
       title={title}
       onClose={() => onClose(true)}
       classes={classes}

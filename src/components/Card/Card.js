@@ -1,27 +1,27 @@
 import React, { useContext, useMemo } from 'react';
 
-import { Card as TranslationCard } from 'translation-helps-rcl';
 import { useTranslation } from 'react-i18next';
+import { Card as TranslationCard } from 'translation-helps-rcl';
 
-import { AppContext, ReferenceContext } from '../../context';
 import {
   Chapter,
-  SupportTQ,
-  SupportTN,
-  SupportTWL,
   OBSVerses,
+  SupportOBSSN,
+  SupportOBSSQ,
   SupportOBSTN,
   SupportOBSTQ,
-  SupportOBSSQ,
-  SupportOBSSN,
   SupportOBSTWL,
   SupportTA,
+  SupportTN,
+  SupportTQ,
+  SupportTWL,
 } from '../../components';
+import { AppContext, ReferenceContext } from '../../context';
 
 import { server } from '../../config/base';
 import { langNames } from '../../config/materials';
 
-function Card({ type, onClose, classes }) {
+function Card({ type, onClose, classes, onLicense, disableSettingsButton }) {
   const { t } = useTranslation();
   let CurrentCard;
   const {
@@ -52,6 +52,7 @@ function Card({ type, onClose, classes }) {
     return (
       <TranslationCard
         closeable
+        disableSettingsButton={disableSettingsButton}
         onClose={() => onClose(true)}
         classes={classes}
         id={type}
@@ -118,16 +119,20 @@ function Card({ type, onClose, classes }) {
   }
 
   return (
-    <CurrentCard
-      classes={classes}
-      title={resource.title + extraTitle}
-      resource={resource}
-      onClose={onClose}
-      type={type}
-      reference={referenceSelected}
-      fontSize={fontSize}
-      server={server}
-    />
+    <>
+      <CurrentCard
+        disableSettingsButton={disableSettingsButton}
+        classes={classes}
+        title={resource.title + extraTitle}
+        resource={resource}
+        onClose={onClose}
+        onLicense={onLicense}
+        type={type}
+        reference={referenceSelected}
+        fontSize={fontSize}
+        server={server}
+      />
+    </>
   );
 }
 

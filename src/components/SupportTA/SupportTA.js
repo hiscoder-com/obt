@@ -61,6 +61,7 @@ export default function SupportTA({
   return (
     <Card
       closeable
+      disableSettingsButton
       title={title}
       onClose={() => onClose(true)}
       classes={classes}

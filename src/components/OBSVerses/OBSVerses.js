@@ -49,6 +49,8 @@ export default function OBSVerses({ title, classes, onClose, type }) {
     <>
       <Card
         closeable
+        onLicense
+        disableSettingsButton
         title={title}
         onClose={onClose}
         classes={{ ...classes, children: 'obs', root: classes.root + ' intro-card' }}

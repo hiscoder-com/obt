@@ -75,6 +75,7 @@ export default function SupportTWL(props) {
   return (
     <Card
       closeable
+      disableSettingsButton
       title={title}
       onClose={() => onClose(true)}
       classes={classes}

@@ -72,6 +72,7 @@ export default function SupportOBSTWL({
   return (
     <Card
       closeable
+      disableSettingsButton
       title={title}
       onClose={() => onClose(true)}
       classes={classes}

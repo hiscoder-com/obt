@@ -47,6 +47,7 @@ export default function SupportTQ({
   return (
     <Card
       closeable
+      disableSettingsButton
       title={title}
       onClose={() => onClose(true)}
       classes={{ ...classes, children: 'tqcard' }}
