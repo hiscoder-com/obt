@@ -11,6 +11,7 @@ import ProjectorScreen from './components/Projector/ProjectorScreen';
 import { Share } from './components';
 import ErrorBoundary from './ErrorBoundary';
 import { Migrate } from './Migrate';
+import GoogleAnalytics from './components/GoogleAnalytics';
 
 import './i18next';
 import './styles/style.css';
@@ -26,15 +27,18 @@ ReactDOM.render(
       <Switch>
         <Route exact strict path={'/projector'}>
           <Projector Layout={ProjectorScreen} />
+          <GoogleAnalytics />
         </Route>
         <Route exact strict path={'/share'}>
           <Share />
+          <GoogleAnalytics />
         </Route>
         <ContextProviders>
           <Route>
             <SnackbarProvider maxSnack={3}>
               <App />
             </SnackbarProvider>
+            <GoogleAnalytics />
           </Route>
         </ContextProviders>
       </Switch>
