@@ -38,10 +38,19 @@ function SupportContent({
       setContent(null);
       return;
     }
+
     switch (resourceId) {
       case 'tn':
-        item?.OccurrenceNote && setContent(item?.OccurrenceNote);
-        item?.GLQuote && setContent((prev) => prev && '# ' + item?.GLQuote + '\n' + prev);
+        if (item?.OccurrenceNote) {
+          setContent(item?.OccurrenceNote);
+        } else {
+          setContent(item?.Note);
+        }
+        if (item?.GLQuote) {
+          setContent((prev) => prev && '# ' + item?.GLQuote + '\n' + prev);
+        } else {
+          setContent((prev) => prev && '# ' + item?.Quote + '\n' + prev);
+        }
 
         break;
       case 'obs-sn':

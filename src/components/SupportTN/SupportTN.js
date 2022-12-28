@@ -60,9 +60,9 @@ export default function SupportTN({
 
   useEffect(() => {
     if (item && setTaRef) {
-      const { OrigQuote, SupportReference, Occurrence, ID } = item;
+      const { OrigQuote, Quote, SupportReference, Occurrence, ID } = item;
       const quote = {
-        OrigQuote,
+        OrigQuote: OrigQuote ?? Quote,
         SupportReference,
         Occurrence,
         ID,
