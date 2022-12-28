@@ -76,7 +76,7 @@ function MarkdownViewer({ children, config, fontSize }) {
                 props?.node?.properties?.href.match(/^\d\d?\/\d\d?$/gm)
               ) {
                 return (
-                  <div
+                  <span
                     className={classes.link}
                     onClick={() => {
                       const reference = props.node.properties.href.split('/');
@@ -89,13 +89,13 @@ function MarkdownViewer({ children, config, fontSize }) {
                     }}
                   >
                     {props.children[0]}
-                  </div>
+                  </span>
                 );
               }
               return <span>{props.children[0]}</span>;
             }
             return props.href.startsWith('/') ? (
-              <div
+              <span
                 className={classes.link}
                 onClick={() => {
                   const reference = props.href.split('/');
@@ -104,7 +104,7 @@ function MarkdownViewer({ children, config, fontSize }) {
                 }}
               >
                 {props.children}
-              </div>
+              </span>
             ) : (
               <Link href={props.href}>{props.children}</Link>
             );
