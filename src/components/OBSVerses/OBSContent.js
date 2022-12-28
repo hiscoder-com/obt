@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react';
 
-import { Box } from '@material-ui/core';
+import { Box, Button } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { useProjector } from '@texttree/projector-mode-rcl';
 
@@ -8,17 +8,32 @@ import { ReferenceContext, AppContext } from '../../context';
 import { ContextMenu } from '../ContextMenu';
 import { useScrollToVerse } from '../../hooks';
 
+import axios from 'axios';
+import ReactMarkdown from 'react-markdown';
+
 import useStyles from './style';
+import { DialogUI } from '../DialogUI';
 
 const initialPositionContextMenu = {
   left: null,
   top: null,
 };
 
-function OBSContent({ markdown, verse, chapter, fontSize, type, goToBookChapterVerse }) {
+function OBSContent({
+  markdown,
+  verse,
+  chapter,
+  fontSize,
+  type,
+  goToBookChapterVerse,
+  resource,
+  server,
+}) {
   const [positionContextMenu, setPositionContextMenu] = useState(
     initialPositionContextMenu
   );
+  const [license, setLicense] = useState('');
+  const [openModal, setOpenModal] = useState(false);
   const {
     state: { referenceSelected },
     actions: { setReferenceBlock },
@@ -42,6 +57,17 @@ function OBSContent({ markdown, verse, chapter, fontSize, type, goToBookChapterV
   const [verseRef] = useScrollToVerse('center');
   const { setData } = useProjector();
 
+  const getLicense = () => {
+    const { owner, name } = resource;
+    try {
+      axios
+        .get(`${server}/${owner}/${name}/raw/branch/master/LICENSE.md`)
+        .then((res) => setLicense(res.data))
+        .catch((err) => console.log(err));
+    } catch (error) {
+      console.log(error);
+    }
+  };
   const mdToVerses = (md) => {
     let _markdown = md.replaceAll('\u200B', '').split(/\n\s*\n\s*/);
     const headerMd = _markdown.shift().trim().slice(1);
@@ -94,6 +120,17 @@ function OBSContent({ markdown, verse, chapter, fontSize, type, goToBookChapterV
             className={'verse'}
             bgcolor={key.toString() === verse.toString() ? 'primary.select' : ''}
             key={key}
+            onContextMenu={(e) => {
+              e.preventDefault();
+              setReferenceBlock({
+                ...referenceSelected,
+                resource: type,
+                verse: key,
+                text,
+              });
+              handleContextOpen(e);
+              return false;
+            }}
             onClick={() => {
               goToBookChapterVerse('obs', chapter, key);
             }}
@@ -106,17 +143,7 @@ function OBSContent({ markdown, verse, chapter, fontSize, type, goToBookChapterV
             ) : (
               ''
             )}
-            <p
-              onContextMenu={(e) => {
-                setReferenceBlock({
-                  ...referenceSelected,
-                  resource: type,
-                  verse: key,
-                  text,
-                });
-                handleContextOpen(e);
-              }}
-            >
+            <p>
               <sup className={classes.sup}>{key.toString()}</sup>
               {text &&
                 text.split('\n').map((el, index) => (
@@ -142,8 +169,17 @@ function OBSContent({ markdown, verse, chapter, fontSize, type, goToBookChapterV
           <br />
           <i>{linkMd}</i>
           <br />
+          <Button
+            onClick={() => {
+              setOpenModal(true);
+              getLicense();
+            }}
+          >
+            {t('License')}
+          </Button>
         </>
       );
+
       setVerses(versesOBS);
     } else {
       setData(type, t('No_content'));
@@ -156,6 +192,14 @@ function OBSContent({ markdown, verse, chapter, fontSize, type, goToBookChapterV
   return (
     <>
       {verses}
+      <DialogUI
+        open={openModal}
+        maxWidth={'sm'}
+        onClose={() => setOpenModal(false)}
+        title={`License`}
+      >
+        <ReactMarkdown className={'md'}>{license}</ReactMarkdown>
+      </DialogUI>
       <ContextMenu position={positionContextMenu} setPosition={setPositionContextMenu} />
     </>
   );

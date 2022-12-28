@@ -45,10 +45,7 @@ export default function SelectLanguage({ label, style }) {
       <Select
         labelid="lang-select-label"
         disableUnderline={true}
-        classes={{
-          root: classes.root,
-          icon: classes.icon,
-        }}
+        className={label && classes.select}
         onChange={handleChange}
         value={currentLanguage}
       >

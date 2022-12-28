@@ -57,7 +57,7 @@ import React from 'react';
 
 import { AppBar, Toolbar, Typography, InputBase } from '@material-ui/core';
 
-import { SelectLanguage } from './components';
+import { SelectLanguages } from './components';
 
 import SearchIcon from '@material-ui/icons/Search';
 

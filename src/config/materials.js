@@ -11,6 +11,10 @@ export const langNames = {
     eng: 'Assamese',
     lang: 'অসমীয়া',
   },
+  az: {
+    eng: 'Azerbaijani',
+    lang: 'azərbaycan dili',
+  },
   bn: {
     eng: 'Bengali, Bangla',
     lang: 'বাংলা',
@@ -18,6 +22,10 @@ export const langNames = {
   ceb: {
     eng: 'Cebuano',
     lang: 'Cebuano',
+  },
+  cs: {
+    eng: 'Czech',
+    lang: 'český jazyk',
   },
   'el-x-koine': {
     eng: 'Koine Greek',
@@ -63,10 +71,15 @@ export const langNames = {
     eng: 'Ancient Hebrew',
     lang: 'Ancient Hebrew',
   },
+  he: {
+    eng: 'Hebrew (modern)',
+    lang: 'עברית',
+  },
   hi: {
     eng: 'Hindi',
     lang: 'हिन्दी, हिंदी',
   },
+
   hmr: {
     eng: 'Hmar',
     lang: 'Hmar',
@@ -75,6 +88,10 @@ export const langNames = {
     eng: 'Croatian',
     lang: 'Hrvatski jezik',
   },
+  hu: {
+    eng: 'Hungarian',
+    lang: 'magyar',
+  },
   id: {
     eng: 'Indonesian',
     lang: 'Bahasa Indonesia',
@@ -82,6 +99,14 @@ export const langNames = {
   ilo: {
     eng: 'Ilocano',
     lang: 'Iloko',
+  },
+  kat: {
+    eng: 'Ingilo',
+    lang: 'ინგილო',
+  },
+  kk: {
+    eng: 'Kazakh',
+    lang: 'қазақ тілі',
   },
   kn: {
     eng: 'Kannada',
@@ -231,6 +256,10 @@ export const langNames = {
     eng: 'Vlach Western Arli',
     lang: 'Vlach Western Arli',
   },
+  rsl: {
+    eng: 'Russian Sign Language',
+    lang: 'Русский Жестовый Язык',
+  },
   ru: {
     eng: 'Russian',
     lang: 'Русский',
@@ -238,6 +267,10 @@ export const langNames = {
   rue: {
     eng: 'Rusyn',
     lang: 'Rusyn',
+  },
+  sgh: {
+    eng: 'Shughni',
+    lang: 'Xuǧnoni',
   },
   sgj: {
     eng: 'Surgujia',
@@ -294,6 +327,10 @@ export const langNames = {
   'ur-deva': {
     eng: 'Urdu Devanagari script',
     lang: 'देवनागरी',
+  },
+  uz: {
+    eng: 'Uzbek',
+    lang: 'Oʻzbek, Ўзбек, أۇزبېك‎',
   },
   vi: {
     eng: 'Vietnamese',

@@ -25,7 +25,7 @@ export function AppContextProvider({ children }) {
     actions: { setNewBookList },
   } = useContext(ReferenceContext);
 
-  const [theme, setTheme] = useState(() => checkLSVal('theme', 'obt'));
+  const [theme, setTheme] = useState(() => checkLSVal('theme', 'textTree'));
   const [taRef, setTaRef] = useState();
 
   const [currentLanguage, setCurrentLanguage] = useState(_currentLanguage);

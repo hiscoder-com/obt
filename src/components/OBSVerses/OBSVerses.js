@@ -13,7 +13,6 @@ import { useStyles } from './style';
 export default function OBSVerses({ title, classes, onClose, type }) {
   const classesCircular = useStyles();
   const [isLoading, setIsLoading] = useState(false);
-
   const {
     state: { fontSize, resourcesApp },
   } = useContext(AppContext);
@@ -62,6 +61,8 @@ export default function OBSVerses({ title, classes, onClose, type }) {
           </div>
         ) : (
           <OBSContent
+            server={server}
+            resource={resource}
             markdown={markdown}
             fontSize={fontSize}
             verse={verse}

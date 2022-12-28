@@ -54,7 +54,7 @@ registerRoute(
 registerRoute(
   // Add in any other file extensions or routing criteria as needed.
   ({ url }) => url.origin === self.location.origin && url.pathname.endsWith('.png'), // Customize this strategy as needed, e.g., by changing to CacheFirst.
-  new StaleWhileRevalidate({
+  new CacheFirst({
     cacheName: 'images',
     plugins: [
       // Ensure that once this runtime cache reaches a maximum size the
@@ -76,7 +76,7 @@ self.addEventListener('message', (event) => {
 
 registerRoute(
   ({ url }) => url.origin === 'https://qa.door43.org',
-  new CacheFirst({
+  new StaleWhileRevalidate({
     cacheName: 'uw-qa-cache',
     plugins: [
       new CacheableResponsePlugin({
@@ -88,7 +88,7 @@ registerRoute(
 
 registerRoute(
   ({ url }) => url.origin === 'https://git.door43.org',
-  new CacheFirst({
+  new StaleWhileRevalidate({
     cacheName: 'uw-git-cache',
     plugins: [
       new CacheableResponsePlugin({

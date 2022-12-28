@@ -49,42 +49,44 @@ export const defaultTplBible = {
   },
   'es-419': {
     lg: [
-      { w: 3, h: 3, x: 0, y: 0, i: 'unfoldingword__en_ult', minH: 3, minW: 1 },
-      { w: 3, h: 3, x: 0, y: 3, i: 'unfoldingword__en_ust', minH: 3, minW: 1 },
-      { w: 3, h: 6, x: 3, y: 0, i: 'es-419_obt__es-419_gst', minH: 3, minW: 1 },
-      { w: 3, h: 6, x: 6, y: 0, i: 'es-419_obt__es-419_glt', minH: 3, minW: 1 },
-      { w: 3, h: 6, x: 9, y: 0, i: 'unfoldingword__el-x-koine_ugnt', minH: 3, minW: 1 },
-      { w: 4, h: 6, x: 0, y: 6, i: 'es-419_obt__es-419_tn', minH: 3, minW: 1 },
-      { w: 4, h: 6, x: 4, y: 6, i: 'es-419_obt__es-419_ta', minH: 3, minW: 1 },
-      { w: 4, h: 6, x: 8, y: 6, i: 'es-419_obt__es-419_twl', minH: 3, minW: 1 },
+      { w: 3, h: 8, x: 0, y: 0, i: 'unfoldingword__el-x-koine_ugnt', minH: 3, minW: 1 },
+      { w: 3, h: 8, x: 3, y: 0, i: 'es-419_gl__es-419_glt', minH: 3, minW: 1 },
+      { w: 3, h: 8, x: 6, y: 0, i: 'es-419_gl__es-419_tn', minH: 3, minW: 1 },
+      { w: 3, h: 8, x: 9, y: 0, i: 'es-419_gl__es-419_gst', minH: 3, minW: 1 },
+      { w: 3, h: 8, x: 0, y: 8, i: 'es-419_gl__es-419_tq', minH: 3, minW: 1 },
+      { w: 3, h: 8, x: 3, y: 8, i: 'es-419_gl__es-419_twl', minH: 3, minW: 1 },
+      { w: 3, h: 8, x: 6, y: 8, i: 'es-419_gl__es-419_ta', minH: 3, minW: 1 },
     ],
     md: [
       { w: 3, h: 6, x: 0, y: 0, i: 'unfoldingword__el-x-koine_ugnt', minH: 3, minW: 1 },
-      { w: 3, h: 6, x: 3, y: 0, i: 'es-419_obt__es-419_glt', minH: 3, minW: 1 },
-      { w: 3, h: 6, x: 0, y: 6, i: 'es-419_obt__es-419_gst', minH: 3, minW: 1 },
-      { w: 3, h: 6, x: 3, y: 6, i: 'es-419_obt__es-419_tn', minH: 3, minW: 1 },
-      { w: 3, h: 6, x: 0, y: 12, i: 'es-419_obt__es-419_ta', minH: 3, minW: 1 },
-      { w: 3, h: 6, x: 3, y: 12, i: 'es-419_obt__es-419_twl', minH: 3, minW: 1 },
-      { w: 3, h: 6, x: 0, y: 18, i: 'unfoldingword__en_ult', minH: 3, minW: 1 },
-      { w: 3, h: 6, x: 3, y: 18, i: 'unfoldingword__en_ust', minH: 3, minW: 1 },
+      { w: 3, h: 6, x: 3, y: 0, i: 'es-419_gl__es-419_glt', minH: 3, minW: 1 },
+      { w: 3, h: 6, x: 0, y: 6, i: 'es-419_gl__es-419_gst', minH: 3, minW: 1 },
+      { w: 3, h: 6, x: 3, y: 6, i: 'es-419_gl__es-419_tn', minH: 3, minW: 1 },
+      { w: 3, h: 6, x: 0, y: 12, i: 'es-419_gl__es-419_ta', minH: 3, minW: 1 },
+      { w: 3, h: 6, x: 3, y: 12, i: 'es-419_gl__es-419_twl', minH: 3, minW: 1 },
+      { w: 3, h: 6, x: 0, y: 18, i: 'es-419_gl__es-419_tq', minH: 3, minW: 1 },
     ],
     sm: [
-      { w: 1, h: 4, x: 0, y: 0, i: 'es-419_obt__es-419_glt', minH: 3, minW: 1 },
-      { w: 1, h: 4, x: 0, y: 4, i: 'unfoldingword__el-x-koine_ugnt', minH: 3, minW: 1 },
-      { w: 1, h: 4, x: 0, y: 8, i: 'es-419_obt__es-419_gst', minH: 3, minW: 1 },
-      { w: 1, h: 4, x: 0, y: 12, i: 'es-419_obt__es-419_tn', minH: 3, minW: 1 },
-      { w: 1, h: 4, x: 0, y: 16, i: 'es-419_obt__es-419_ta', minH: 3, minW: 1 },
-      { w: 1, h: 4, x: 0, y: 20, i: 'es-419_obt__es-419_twl', minH: 3, minW: 1 },
-      { w: 1, h: 4, x: 0, y: 24, i: 'unfoldingword__en_ult', minH: 3, minW: 1 },
-      { w: 1, h: 4, x: 0, y: 28, i: 'unfoldingword__en_ust', minH: 3, minW: 1 },
+      { w: 1, h: 6, x: 0, y: 0, i: 'unfoldingword__el-x-koine_ugnt', minH: 3, minW: 1 },
+      { w: 1, h: 6, x: 0, y: 6, i: 'es-419_gl__es-419_glt', minH: 3, minW: 1 },
+      { w: 1, h: 6, x: 0, y: 12, i: 'es-419_gl__es-419_gst', minH: 3, minW: 1 },
+      { w: 1, h: 6, x: 0, y: 18, i: 'es-419_gl__es-419_tn', minH: 3, minW: 1 },
+      { w: 1, h: 6, x: 0, y: 24, i: 'es-419_gl__es-419_ta', minH: 3, minW: 1 },
+      { w: 1, h: 6, x: 0, y: 30, i: 'es-419_gl__es-419_twl', minH: 3, minW: 1 },
+      { w: 1, h: 6, x: 0, y: 36, i: 'es-419_gl__es-419_tq', minH: 3, minW: 1 },
     ],
+  },
+  uk: {
+    lg: [{ w: 8, h: 12, x: 0, y: 0, i: 'devleskodrom__uk_onpu', minH: 3, minW: 1 }],
+    md: [{ w: 3, h: 12, x: 0, y: 0, i: 'devleskodrom__uk_onpu', minH: 3, minW: 1 }],
+    sm: [{ w: 1, h: 8, x: 0, y: 0, i: 'devleskodrom__uk_onpu', minH: 3, minW: 1 }],
   },
 };
 
 export const defaultTplOBS = {
   tg: {
     lg: [
-      { w: 4, h: 12, x: 0, y: 0, i: 'ru_gl__tg_obs', minH: 3, minW: 1 },
+      { w: 4, h: 12, x: 0, y: 0, i: 'tg_ol__tg_obs', minH: 3, minW: 1 },
       { w: 4, h: 12, x: 4, y: 0, i: 'ru_gl__ru_obs', minH: 3, minW: 1 },
     ],
     md: [
@@ -123,6 +125,11 @@ export const defaultTplOBS = {
       { w: 1, h: 3, x: 0, y: 9, i: 'bsa__es-419_obs-tq', minH: 3, minW: 1 },
     ],
   },
+  uk: {
+    lg: [{ w: 8, h: 12, x: 0, y: 0, i: 'uk_gt__uk_obs', minH: 3, minW: 1 }],
+    md: [{ w: 3, h: 12, x: 0, y: 0, i: 'uk_gt__uk_obs', minH: 3, minW: 1 }],
+    sm: [{ w: 1, h: 8, x: 0, y: 0, i: 'uk_gt__uk_obs', minH: 3, minW: 1 }],
+  },
 };
 
 export const defaultBibleReference = {
@@ -142,6 +149,11 @@ export const defaultBibleReference = {
     verse: 1,
   },
   'es-419': {
+    bookId: 'tit',
+    chapter: 1,
+    verse: 1,
+  },
+  uk: {
     bookId: 'tit',
     chapter: 1,
     verse: 1,
@@ -169,9 +181,14 @@ export const defaultOBSReference = {
     chapter: 1,
     verse: 1,
   },
+  uk: {
+    bookId: 'obs',
+    chapter: 1,
+    verse: 1,
+  },
 };
 
-export const languages = ['en', 'ru', 'tg', 'es-419' /**,'uk', 'pl'*/];
+export const languages = ['en', 'ru', 'tg', 'es-419', 'uk' /**, 'pl'*/];
 
 /* CORE */
 

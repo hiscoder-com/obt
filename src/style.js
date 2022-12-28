@@ -12,6 +12,7 @@ const useStyles = makeStyles((theme) => {
       borderBottomRightRadius: theme.spacing(0, '!important'),
       overflow: 'hidden',
       backgroundColor: `${theme.palette.background.paper} !important`,
+      cursor: 'auto',
     },
     title: {
       color: `${theme.palette.cardHeaderText.main} !important`,

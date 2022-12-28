@@ -12,7 +12,7 @@ html {
 }
 
 ::-webkit-scrollbar {
-  width: 4px;
+  width: 8px;
 }
 ::-webkit-scrollbar-track {
   background: transparent;
@@ -35,8 +35,14 @@ input {
 }
 .verse h4 {
   margin: 0;
+  text-align: center;
+  font-size: 1.6em;
 }
-
+@media only screen and (max-width: 768px) {
+  .verse {
+    user-select: none;
+  }
+}
 .tqcard h1{
   font-size: inherit;
 }

@@ -1,6 +1,26 @@
 import { createTheme } from '@material-ui/core/styles';
 
-const preDefault = {
+const obt = createTheme({
+  palette: {
+    type: 'light',
+    primary: {
+      main: '#3f51b5',
+      select: '#e3f6ff',
+    },
+    secondary: {
+      main: '#023047',
+    },
+    background: {
+      default: '#ebecf0',
+      paper: '#ffffff',
+    },
+    cardHeaderText: {
+      main: '#555555',
+    },
+    cardHeaderBg: {
+      main: '#f1f1f1',
+    },
+  },
   overrides: {
     current: {
       color: '#ff0000',
@@ -31,30 +51,6 @@ const preDefault = {
     borderRadius: 8,
   },
   spacing: 8,
-};
-
-const obt = createTheme({
-  palette: {
-    type: 'light',
-    primary: {
-      main: '#3f51b5',
-      select: '#e3f6ff',
-    },
-    secondary: {
-      main: '#023047',
-    },
-    background: {
-      default: '#ebecf0',
-      paper: '#ffffff',
-    },
-    cardHeaderText: {
-      main: '#555555',
-    },
-    cardHeaderBg: {
-      main: '#f1f1f1',
-    },
-  },
-  ...preDefault,
 });
 
 const textTree = createTheme({
@@ -78,7 +74,33 @@ const textTree = createTheme({
       main: '#ffb732',
     },
   },
-  ...preDefault,
+  overrides: {
+    MuiAppBar: {
+      colorInherit: {
+        backgroundColor: '#023047',
+        color: '#ffb732',
+      },
+    },
+    MuiInputBase: {
+      root: {
+        color: 'inherit',
+      },
+    },
+    MuiListItemIcon: {
+      root: {
+        minWidth: '36px',
+      },
+    },
+  },
+  props: {
+    MuiAppBar: {
+      color: 'inherit',
+    },
+  },
+  shape: {
+    borderRadius: 8,
+  },
+  spacing: 8,
 });
 
 const dark = createTheme({
@@ -108,7 +130,33 @@ const dark = createTheme({
       main: '#8dc9e5',
     },
   },
-  ...preDefault,
+  overrides: {
+    MuiAppBar: {
+      colorInherit: {
+        backgroundColor: '#023047',
+        color: '#8dc9e5',
+      },
+    },
+    MuiInputBase: {
+      root: {
+        color: 'inherit',
+      },
+    },
+    MuiListItemIcon: {
+      root: {
+        minWidth: '36px',
+      },
+    },
+  },
+  props: {
+    MuiAppBar: {
+      color: 'inherit',
+    },
+  },
+  shape: {
+    borderRadius: 8,
+  },
+  spacing: 8,
 });
 
 export const themes = { obt, dark, textTree };
