@@ -1,7 +1,7 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 
-import { Card, useContent } from 'translation-helps-rcl';
 import { CircularProgress } from '@material-ui/core';
+import { Card, useContent } from 'translation-helps-rcl';
 
 import { AppContext, ReferenceContext } from '../../context';
 import OBSContent from './OBSContent';
@@ -9,15 +9,10 @@ import OBSContent from './OBSContent';
 import { server } from '../../config/base';
 
 import { useStyles } from './style';
-import ReactMarkdown from 'react-markdown';
-import { DialogUI } from '../DialogUI';
-import axios from 'axios';
 
-export default function OBSVerses({ title, classes, onClose, type }) {
+export default function OBSVerses({ title, classes, onClose, type, onLicense }) {
   const classesCircular = useStyles();
   const [isLoading, setIsLoading] = useState(false);
-  const [license, setLicense] = useState('');
-  const [openModal, setOpenModal] = useState(false);
   const {
     state: { fontSize, resourcesApp },
   } = useContext(AppContext);
@@ -37,12 +32,12 @@ export default function OBSVerses({ title, classes, onClose, type }) {
     }
   });
   const { markdown, resourceStatus } = useContent({
-    projectId: 'obs',
-    ref: resource.ref ?? 'master',
-    languageId: resource.languageId ?? 'ru',
-    resourceId: resource.resourceId ?? 'obs',
     filePath: String(chapter).padStart(2, '0') + '.md',
+    resourceId: resource.resourceId ?? 'obs',
+    languageId: resource.languageId ?? 'ru',
     owner: resource.owner ?? 'bsa',
+    ref: resource.ref ?? 'master',
+    projectId: 'obs',
     server,
   });
 
@@ -50,32 +45,17 @@ export default function OBSVerses({ title, classes, onClose, type }) {
     setIsLoading(!(resourceStatus.initialized && !resourceStatus.loading));
   }, [resourceStatus]);
 
-  const getLicense = () => {
-    const { owner, name } = resource;
-    try {
-      axios
-        .get(`${server}/${owner}/${name}/raw/branch/master/LICENSE.md`)
-        .then((res) => setLicense(res.data))
-        .catch((err) => console.log(err));
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   return (
     <>
       <Card
-        closeable
-        onLicense={() => {
-          setOpenModal(true);
-          getLicense();
-        }}
-        disableSettingsButton
-        title={title}
-        onClose={onClose}
         classes={{ ...classes, children: 'obs', root: classes.root + ' intro-card' }}
-        id={type}
+        disableSettingsButton
+        onLicense={onLicense}
         fontSize={fontSize}
+        onClose={onClose}
+        title={title}
+        id={type}
+        closeable
       >
         {isLoading ? (
           <div className={classesCircular.circular}>
@@ -83,25 +63,17 @@ export default function OBSVerses({ title, classes, onClose, type }) {
           </div>
         ) : (
           <OBSContent
-            server={server}
+            goToBookChapterVerse={goToBookChapterVerse}
             resource={resource}
             markdown={markdown}
             fontSize={fontSize}
-            verse={verse}
             chapter={chapter}
-            goToBookChapterVerse={goToBookChapterVerse}
+            server={server}
+            verse={verse}
             type={type}
           />
         )}
       </Card>
-      <DialogUI
-        open={openModal}
-        maxWidth={'sm'}
-        onClose={() => setOpenModal(false)}
-        title={`License`}
-      >
-        <ReactMarkdown className={'md'}>{license}</ReactMarkdown>
-      </DialogUI>
     </>
   );
 }

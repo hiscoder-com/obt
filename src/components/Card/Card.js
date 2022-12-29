@@ -1,28 +1,33 @@
-import React, { useContext, useMemo } from 'react';
+import React, { useContext, useMemo, useState } from 'react';
 
 import { useTranslation } from 'react-i18next';
-import { Card as TranslationCard } from 'translation-helps-rcl';
+import { Card as TranslationCard, useContent } from 'translation-helps-rcl';
+import axios from 'axios';
+import ReactMarkdown from 'react-markdown';
+
+import { DialogUI } from '../DialogUI';
 
 import {
-  Chapter,
-  OBSVerses,
+  SupportOBSTWL,
   SupportOBSSN,
   SupportOBSSQ,
   SupportOBSTN,
   SupportOBSTQ,
-  SupportOBSTWL,
+  SupportTWL,
+  OBSVerses,
   SupportTA,
   SupportTN,
   SupportTQ,
-  SupportTWL,
+  Chapter,
 } from '../../components';
 import { AppContext, ReferenceContext } from '../../context';
 
 import { server } from '../../config/base';
 import { langNames } from '../../config/materials';
 
-function Card({ type, onClose, classes, onLicense, disableSettingsButton }) {
+function Card({ type, onClose, classes, disableSettingsButton }) {
   const { t } = useTranslation();
+
   let CurrentCard;
   const {
     state: { resourcesApp, fontSize, switchExtraTitleCard },
@@ -39,6 +44,21 @@ function Card({ type, onClose, classes, onLicense, disableSettingsButton }) {
     }
   });
 
+  const [license, setLicense] = useState('');
+  const [openModal, setOpenModal] = useState(false);
+
+  const { bookId, chapter } = referenceSelected;
+
+  const content = useContent({
+    resourceId: resource.name.split('_')[1],
+    languageId: resource.languageId,
+    owner: resource.owner,
+    projectId: bookId,
+    ref: resource.ref,
+    chapter: chapter,
+    server,
+  });
+
   const extraTitle = useMemo(
     () =>
       switchExtraTitleCard
@@ -51,17 +71,31 @@ function Card({ type, onClose, classes, onLicense, disableSettingsButton }) {
     // Empty Card
     return (
       <TranslationCard
-        closeable
         disableSettingsButton={disableSettingsButton}
         onClose={() => onClose(true)}
+        fontSize={fontSize}
         classes={classes}
         id={type}
-        fontSize={fontSize}
+        closeable
       >
         <h1>{t('Problem_loading')}</h1>
       </TranslationCard>
     );
   }
+
+  const getLicense = () => {
+    const {
+      resource: { username, repository, config, tag },
+    } = content;
+    try {
+      axios
+        .get(`${config?.server}/${username}/${repository}/raw/branch/${tag}/LICENSE.md`)
+        .then((res) => setLicense(res.data))
+        .catch((err) => console.log(err));
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   switch (resource.subject) {
     case 'TSV Translation Notes':
@@ -122,16 +156,27 @@ function Card({ type, onClose, classes, onLicense, disableSettingsButton }) {
     <>
       <CurrentCard
         disableSettingsButton={disableSettingsButton}
-        classes={classes}
         title={resource.title + extraTitle}
-        resource={resource}
-        onClose={onClose}
-        onLicense={onLicense}
-        type={type}
         reference={referenceSelected}
+        resource={resource}
         fontSize={fontSize}
+        classes={classes}
+        onClose={onClose}
         server={server}
+        type={type}
+        onLicense={() => {
+          setOpenModal(true);
+          getLicense();
+        }}
       />
+      <DialogUI
+        onClose={() => setOpenModal(false)}
+        title={`License`}
+        open={openModal}
+        maxWidth={'sm'}
+      >
+        <ReactMarkdown className={'md'}>{license}</ReactMarkdown>
+      </DialogUI>
     </>
   );
 }
