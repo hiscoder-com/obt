@@ -1,10 +1,18 @@
 {
-  "version": "1.10.5",
-  "date": "2022-11-03",
-  "logo": "https://raw.githubusercontent.com/texttree/bsa/main/src/docs/images/logo_obt.png",
-  "dependencies": ["npm/@texttree/projector-mode-rcl", "npm/@texttree/scripture-resources-rcl",
-    "npm/@texttree/tt-reference-rcl", "npm/@texttree/user-notes-rcl", "npm/bible-reference-rcl",
-    "npm/react-markdown", "npm/resource-workspace-rcl", "npm/scripture-resources-rcl",
-    "npm/tc-ui-toolkit", "npm/translation-helps-rcl", "npm/word-aligner"
+  "version": "1.10.6",
+  "date": "2022-12-28",
+  "logo": "https://raw.githubusercontent.com/texttree/obt/main/src/docs/images/logo_obt.png",
+  "dependencies": [
+    "npm/@texttree/projector-mode-rcl",
+    "npm/@texttree/scripture-resources-rcl",
+    "npm/@texttree/tt-reference-rcl",
+    "npm/@texttree/user-notes-rcl",
+    "npm/bible-reference-rcl",
+    "npm/react-markdown",
+    "npm/resource-workspace-rcl",
+    "npm/scripture-resources-rcl",
+    "npm/tc-ui-toolkit",
+    "npm/translation-helps-rcl",
+    "npm/word-aligner"
   ]
 }
