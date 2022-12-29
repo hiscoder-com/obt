@@ -1,9 +1,9 @@
 import React, { useContext, useMemo, useState } from 'react';
 
 import { useTranslation } from 'react-i18next';
-import { Card as TranslationCard, useContent } from 'translation-helps-rcl';
-import axios from 'axios';
 import ReactMarkdown from 'react-markdown';
+import axios from 'axios';
+import { Card as TranslationCard, useContent } from 'translation-helps-rcl';
 
 import { DialogUI } from '../DialogUI';
 
