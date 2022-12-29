@@ -124,7 +124,6 @@ export default function SupportOBSTN({
           onCloseDialog={onCloseDialog}
           open={openDialog}
           config={configFront}
-          field={'Note'}
           title={t('Story_title')}
           isTSV={repoType === 'tsv'}
         />

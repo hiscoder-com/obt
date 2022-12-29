@@ -12,7 +12,7 @@ function FrontModal({
   config,
   open,
   onCloseDialog,
-  field = 'OccurrenceNote',
+  field = 'Note',
   title = false,
   isTSV = true,
 }) {
@@ -20,14 +20,27 @@ function FrontModal({
   const { items, resourceStatus, markdown } = data;
   let content;
   if (isTSV) {
-    content =
+    if (
       resourceStatus?.contentNotFoundError ||
       resourceStatus?.error ||
       items === null ||
       items?.length === 0 ||
-      !items[0]?.[field]
-        ? 'No content available'
-        : items[0][field].replace(/(<\/?br( ?\/)?>)/g, '\n');
+      !config?.resourceId
+    ) {
+      content = 'No content available';
+    } else {
+      if (config.resourceId === 'tn') {
+        content = items[0]?.[field]
+          ? items[0][field].replace(/(<\/?br( ?\/)?>|\\n)/g, '\n')
+          : items[0]?.['OccurrenceNote']
+          ? items[0]['OccurrenceNote'].replace(/(<\/?br( ?\/)?>|\\n)/g, '\n')
+          : 'No content available';
+      } else {
+        content = items[0]?.[field]
+          ? items[0][field].replace(/(<\/?br( ?\/)?>|\\n)/g, '\n')
+          : 'No content available';
+      }
+    }
   } else {
     content =
       resourceStatus.contentNotFoundError ||
@@ -35,7 +48,7 @@ function FrontModal({
       markdown === null ||
       markdown.length === 0
         ? 'No content available'
-        : markdown.replace(/(<\/?br( ?\/)?>)/g, '\n');
+        : markdown.replace(/(<\/?br( ?\/)?>|\\n)/g, '\n');
   }
 
   return (

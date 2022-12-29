@@ -4,48 +4,53 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.10.6] - 2022-12-01
+
+### Fixed
+ - Support TSV7 for TN
+
 ## [1.10.5] - 2022-12-01
 
-### Added (for new features)
+### Added
  - license viewer
 
 ## [1.10.4] - 2022-11-11
 
-### Changed (for changes in existing functionality)
+### Changed
  - limit size of font for content
 
 ## [1.10.3] - 2022-11-01
 
-### Added (for new features)
+### Added
  - new resource languages (Ingilo, Shughni)
 
- ### Fixed (for any bug fixes)
+ ### Fixed
  - Updated resource path
 
 ## [1.10.2] - 2022-10-03
 
-### Added (for new features)
+### Added
  - new resource languages (Uzbek, Kazakh, Azerbaijani)
 
 ## [1.10.1] - 2022-09-30
 
-### Added (for new features)
+### Added
  - new Interface language (Ukrainian)
 
 ## [1.10.0] - 2022-09-01
 
-### Added (for new features)
+### Added
  - new languages (Czech, Hebrew, Hungarian)
- - component Share 
+ - component Share
 
-### Changed (for changes in existing functionality)
+### Changed
  - update dependencies
  - default theme
  - style card, made big area of right-bottom corner
  - update default resources in 'es-419' language
  - update localization with new words
 
-### Fixed (for any bug fixes)
+### Fixed
  - cursor in cards
  - links in twl
  - fix unsupported usfm verses
@@ -55,42 +60,42 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.9.0] - 2022-05-30
 
-### Added (for new features)
+### Added
  - projector-mode-rcl (show content on second screen)
  - icons in main menu
  - all modals support drag and drop
  - new hook that checks when an element becomes visible on the screen
 
-### Changed (for changes in existing functionality)
+### Changed
  - favicons
 
-### Fixed (for any bug fixes)
+### Fixed
  - removed abbreviation OBT
  - scrollbar in webkit
 
 ## [1.8.0] - 2022-05-26
 
-### Added (for new features)
+### Added
  - Filter unique words in OBSTWL
  - List references of words in OBSTWL
 
-### Changed (for changes in existing functionality)
+### Changed
  - View content in TN and OBSTN
 
-### Fixed (for any bug fixes)
+### Fixed
  - Opening links in support materials
 
 ## [1.7.0] - 2022-04-29
 
-### Added (for new features)
+### Added
  - Filter unique words in TWL
  - List references of words in TWL
  - New resource languages
 
-### Changed (for changes in existing functionality)
+### Changed
  - Select lanquages view
 
-### Fixed (for any bug fixes)
+### Fixed
  - Fix OBS Parser
 
 ### Remove
@@ -98,31 +103,31 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.6.3] - 2022-04-26
 
-### Changed (for changes in existing functionality)
+### Changed
  - Add support to show the glossary
 
 ## [1.6.2] - 2022-04-06
 
-### Added (for new features)
+### Added
  - Show/hide expanded resource name in card title
  - Add logo
 
-### Changed (for changes in existing functionality)
+### Changed
  - Menu order
  - Minor changes of design
  - Corrected the README.md
 
-### Fixed (for any bug fixes)
+### Fixed
  - Minor changes
 
 ## [1.6.1] - 2022-04-04
 
-### Fixed (for any bug fixes)
+### Fixed
  - Minor changes
 
 ## [1.6.0] - 2022-04-04
 
-### Added (for new features)
+### Added
  - Support for all published resources
  - Migration for support all resources
  - TAcademy support
@@ -132,13 +137,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
  - Feedback Component
  - Set up crowdin for localization
 
-### Changed (for changes in existing functionality)
+### Changed
  - Edited User`s guide
  - Using a MUI theme instead of hardcode value
  - Bringing all form elements to the same view
  - Update README.md
 
-### Fixed (for any bug fixes)
+### Fixed
  - Application crash if resource not found
  - Default layouts for languages
  - Removed unused styles
@@ -147,46 +152,46 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
  - If the resource was not loaded, then an empty space was shown instead of a card
  - Minor fixes in the code
 
-### Deprecated (for soon-to-be removed features)
+### Deprecated
  - List of repository owners
 
-### Security (in case of vulnerabilities)
+### Security
  - Updating dependencies
 
 ## [1.5.0] - 2022-02-18
 
-### Added (for new features)
+### Added
  - Custom theme support
  - TSV format support for OBS
  - Showing chunks for all resources
  - Created a settings page
  - Option to hide pictures in OBS (Alt + O)
 
-### Changed (for changes in existing functionality)
+### Changed
  - The ability to hide WordPopover
 
-### Fixed (for any bug fixes)
+### Fixed
  - 'Roboto' font support
 
 ## [1.4.2] - 2021-12-03
 
-### Changed (for changes in existing functionality)
+### Changed
  - Update title of cards( added name of languages)
  - Update the selection of resource languages
 
 ## [1.4.1] - 2021-11-25
 
-### Added (for new features)
+### Added
  - Show adding resources when adding languages
  - Show obs-tn title comment
  - Show obs-sq summary comment
  - Support TSV Translation Questions
 
-### Changed (for changes in existing functionality)
+### Changed
  - Update DialogUI
  - Removed StrictMode as there were errors in the console
 
-### Fixed (for any bug fixes)
+### Fixed
  - Minor fixes in the code
  - Clean console errors
  - Update dependencies
@@ -194,7 +199,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.4.0] - 2021-11-10
 
-### Added (for new features)
+### Added
  - Choice of languages for resources
  - Migration for language selection
  - Component for dialogs
@@ -205,12 +210,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
  - OBS Translation Words Links
  - Tool for showing introduction and general notes in Translation Notes
 
-### Changed (for changes in existing functionality)
+### Changed
  - Message about the inability to close the last resource
  - Scrolling to a new card
  - Removed StrictMode as there were errors in the console
 
-### Fixed (for any bug fixes)
+### Fixed
  - Minor fixes in the code
  - Removed the removal of cards if they are not in the list of resources, as there was a bug with the asynchronous creation of a list of available resources
  - Scrolling to verses in obs
@@ -219,7 +224,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.3.0] - 2021-10-20
 
-### Added (for new features)
+### Added
 - Language selection on first boot
 - Scrolldown when new card added
 - Catch error with reset config
@@ -229,7 +234,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Tajik localisation
 - More language support
 
-### Changed (for changes in existing functionality)
+### Changed
 - User guide extended for OBS
 - User guide update about synchronization cards
 - When switched the Bible or OBS mode, after pressing the back button, the reference switched, but the resources did not
@@ -241,7 +246,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Don't render all current cards when another one is loaded or deleted [#211](https://github.com/texttree/bsa/issues/211)
 - Color of theme in manifest
 
-### Fixed (for any bug fixes)
+### Fixed
 - Highlight the first verse at the first launch
 - Remove localization in pl and ukr, cause it breaks the app
 - Remove the UEB, replace it with ULT
@@ -252,45 +257,45 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.2.0] - 2021-10-05
 
-### Added (for new features)
+### Added
 - OBS material in Tajik
 - Added new interface translations
 - Viewer the app version
 
-### Fixed (for any bug fixes)
+### Fixed
 - Fixed a bug when the OBS-TQ was not shown
 
-### Security (in case of vulnerabilities)
+### Security
 - Updating dependencies
 
 ## [1.1.1] - 2021-09-29
 
-### Added (for new features)
+### Added
 - PR template
 
-### Changed (for changes in existing functionality)
+### Changed
 - Style for "add resources" button
 - Add new url for cache
 - Highlighting the current verse
 
-### Fixed (for any bug fixes)
+### Fixed
 - Font family for card headers
 - The default action when using shortcuts
 - Highlighting a verse when switching to OBS
 - Fix sending errors from OBS
 
-### Security (in case of vulnerabilities)
+### Security
 - Updating dependencies
 
 ## [1.1.0] - 2021-09-22
 
-### Added (for new features)
+### Added
 - Swipes (left-right) to switch chapter on the phone
 - Current reference(book,chapter,verse) of Bible/OBS in app bar: clickable and adaptive for screen size
 - Select Bible/OBS mode in app bar
 - Service Worker for caching requests
 
-### Changed (for changes in existing functionality)
+### Changed
 - In main menu removed options for change Bible/OBS mode
 - UI version of buttons in app bar
 - Font style in title of cards
@@ -298,17 +303,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Bundle optimization
 - Lazy loading
 
-### Fixed (for any bug fixes)
+### Fixed
 - Can't perform a React state update on an unmounted component
 - Switch OBS to Bible when open user guide
 - If the content did not fit on the screen, then when scrolling to a verse, the main screen scrolled
 
-### Security (in case of vulnerabilities)
+### Security
 - Updating dependencies
 
-### Deprecated (for soon-to-be removed features)
+### Deprecated
 
-### Removed (for now removed features)
+### Removed
 
 ## [1.0.0] - 2021-09-02
 
