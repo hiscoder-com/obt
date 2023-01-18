@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { SnackbarProvider } from 'notistack';
 import { Projector } from '@texttree/projector-mode-rcl';
+import ReactGA from 'react-ga4';
 
 import ContextProviders from './context/ContextProviders';
 import App from './App';
@@ -11,7 +12,6 @@ import ProjectorScreen from './components/Projector/ProjectorScreen';
 import { Share } from './components';
 import ErrorBoundary from './ErrorBoundary';
 import { Migrate } from './Migrate';
-import GoogleAnalytics from './components/GoogleAnalytics';
 
 import './i18next';
 import './styles/style.css';
@@ -21,24 +21,24 @@ import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 // const App = React.lazy(() => import('./App.js'));
 
 Migrate();
+ReactGA.initialize('G-381M7FJ40V', {
+  testMode: !process.env.NODE_ENV || process.env.NODE_ENV === 'development',
+});
 ReactDOM.render(
   <ErrorBoundary>
     <BrowserRouter>
       <Switch>
         <Route exact strict path={'/projector'}>
           <Projector Layout={ProjectorScreen} />
-          <GoogleAnalytics />
         </Route>
         <Route exact strict path={'/share'}>
           <Share />
-          <GoogleAnalytics />
         </Route>
         <ContextProviders>
           <Route>
             <SnackbarProvider maxSnack={3}>
               <App />
             </SnackbarProvider>
-            <GoogleAnalytics />
           </Route>
         </ContextProviders>
       </Switch>
