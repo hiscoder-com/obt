@@ -14,7 +14,7 @@ function SwitchMasterOnly() {
   } = useContext(AppContext);
 
   return (
-    <SettingsItem title={t('master_only')}>
+    <SettingsItem title={t('Master_only')}>
       <FormControlLabel
         control={
           <Checkbox
