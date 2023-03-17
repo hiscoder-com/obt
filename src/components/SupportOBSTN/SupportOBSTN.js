@@ -22,7 +22,7 @@ export default function SupportOBSTN({
 
   const mdConfig = {
     projectId: bookId,
-    ref: resource.ref ?? 'master',
+    listRef: resource.ref ?? 'master',
     languageId: resource.languageId ?? 'ru',
     resourceId: 'obs-tn',
     filePath:
@@ -36,7 +36,7 @@ export default function SupportOBSTN({
     verse: String(verse),
     chapter: String(chapter),
     projectId: bookId,
-    ref: resource.ref ?? 'master',
+    listRef: resource.ref ?? 'master',
     languageId: resource.languageId ?? 'ru',
     resourceId: 'obs-tn',
     owner: resource.owner ?? 'door43-catalog',

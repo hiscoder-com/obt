@@ -16,7 +16,7 @@ export default function SupportOBSSN({
 }) {
   const config = {
     projectId: bookId,
-    ref: resource.ref ?? 'master',
+    listRef: resource.ref ?? 'master',
     languageId: resource.languageId ?? 'ru',
     resourceId: 'obs-sn',
     verse,
