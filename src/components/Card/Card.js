@@ -25,7 +25,7 @@ function Card({ type, onClose, classes }) {
   const { t } = useTranslation();
   let CurrentCard;
   const {
-    state: { resourcesApp, fontSize, switchExtraTitleCard },
+    state: { resourcesApp, fontSize, switchExtraTitleCard, switchMasterOnly },
   } = useContext(AppContext);
 
   const {
@@ -36,6 +36,7 @@ function Card({ type, onClose, classes }) {
   resourcesApp.forEach((el) => {
     if (el.owner + '__' + el.name === type) {
       resource = el;
+      resource.ref = switchMasterOnly ? 'master' : resource.ref;
     }
   });
 

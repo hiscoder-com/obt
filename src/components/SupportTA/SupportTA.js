@@ -31,7 +31,7 @@ export default function SupportTA({
     verse: String(verse),
     chapter: String(chapter),
     projectId: 'translate',
-    ref: resource.ref ?? 'master',
+    listRef: resource.ref ?? 'master',
     languageId: resource.languageId ?? 'ru',
     resourceId: 'ta',
     filePath: path,
