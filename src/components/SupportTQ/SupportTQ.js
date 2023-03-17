@@ -16,7 +16,7 @@ export default function SupportTQ({
 }) {
   const mdConfig = {
     projectId: bookId,
-    ref: resource.ref ?? 'master',
+    listRef: resource.ref ?? 'master',
     languageId: resource.languageId ?? 'ru',
     resourceId: 'tq',
     filePath:
@@ -28,7 +28,7 @@ export default function SupportTQ({
     verse: String(verse),
     chapter: String(chapter),
     projectId: bookId,
-    ref: resource.ref ?? 'master',
+    listRef: resource.ref ?? 'master',
     languageId: resource.languageId ?? 'ru',
     resourceId: 'tq',
     owner: resource.owner ?? 'door43-catalog',
