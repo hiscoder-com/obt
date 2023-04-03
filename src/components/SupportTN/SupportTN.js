@@ -28,7 +28,7 @@ export default function SupportTN({
     verse: String(verse),
     chapter: String(chapter),
     projectId: bookId,
-    ref: resource.ref ?? 'master',
+    listRef: resource.ref ?? 'master',
     languageId: resource.languageId ?? 'ru',
     resourceId: 'tn',
     owner: resource.owner ?? 'door43-catalog',
@@ -60,9 +60,9 @@ export default function SupportTN({
 
   useEffect(() => {
     if (item && setTaRef) {
-      const { OrigQuote, SupportReference, Occurrence, ID } = item;
+      const { OrigQuote, Quote, SupportReference, Occurrence, ID } = item;
       const quote = {
-        OrigQuote,
+        OrigQuote: OrigQuote ?? Quote,
         SupportReference,
         Occurrence,
         ID,

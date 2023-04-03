@@ -147,9 +147,9 @@ function OBSContent({
               <sup className={classes.sup}>{key.toString()}</sup>
               {text &&
                 text.split('\n').map((el, index) => (
-                  <div style={{ display: index ? 'block' : 'inline' }} key={index}>
+                  <span style={{ display: index ? 'block' : 'inline' }} key={index}>
                     {el}
-                  </div>
+                  </span>
                 ))}
             </p>
           </Box>

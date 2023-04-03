@@ -39,7 +39,7 @@ export default function SupportOBSTWL({
     verse,
     chapter,
     projectId: bookId,
-    ref: resource.ref ?? 'master',
+    listRef: resource.ref ?? 'master',
     languageId: resource.languageId ?? 'ru',
     resourceId: 'obs-twl',
     owner: resource.owner ?? 'door43-catalog',

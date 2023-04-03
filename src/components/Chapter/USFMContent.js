@@ -163,6 +163,7 @@ function USFMContent({ reference, content, type, fontSize }) {
 
     _verses.push(
       <Button
+        key={'license'}
         onClick={() => {
           setOpenModal(true);
           getLicense();

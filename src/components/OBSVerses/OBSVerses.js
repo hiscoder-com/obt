@@ -33,7 +33,7 @@ export default function OBSVerses({ title, classes, onClose, type }) {
   });
   const { markdown, resourceStatus } = useContent({
     projectId: 'obs',
-    ref: resource.ref ?? 'master',
+    listRef: resource.ref ?? 'master',
     languageId: resource.languageId ?? 'ru',
     resourceId: resource.resourceId ?? 'obs',
     filePath: String(chapter).padStart(2, '0') + '.md',

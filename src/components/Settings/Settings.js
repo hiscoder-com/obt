@@ -14,6 +14,7 @@ import {
   SwitchWordPopover,
   SwitchExtraTitleCard,
   SwitchObsImage,
+  SwitchMasterOnly,
   SettingsItem,
   SwitchUniqueWords,
 } from '../../components';
@@ -65,6 +66,7 @@ function Settings({ setAnchorMainMenu }) {
         <SwitchExtraTitleCard />
         <SwitchChunks />
         <SwitchObsImage />
+        <SwitchMasterOnly />
         <CopyLayout />
         <DownloadLayout />
 

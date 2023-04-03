@@ -21,7 +21,7 @@ export default function SupportOBSSQ({
   const { t } = useTranslation();
   const config = {
     projectId: bookId,
-    ref: resource.ref ?? 'master',
+    listRef: resource.ref ?? 'master',
     languageId: resource.languageId ?? 'en',
     resourceId: 'obs-sq',
     verse,
@@ -71,13 +71,13 @@ export default function SupportOBSSQ({
         });
       }}
     >
-      {items && (
+      {
         <ButtonGroupUI
           buttonGroupProps={{ size: 'small', color: 'primary' }}
           style={{ marginTop: '10px' }}
           buttons={[{ title: t('Summary'), onClick: onSummaryClick }]}
         />
-      )}
+      }
 
       {configFront.projectId && (
         <FrontModal
