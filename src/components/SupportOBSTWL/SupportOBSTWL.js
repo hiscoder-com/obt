@@ -1,4 +1,4 @@
-import React, { useEffect, useContext, useState } from 'react';
+import React, { useEffect, useContext, useState, useMemo } from 'react';
 
 import { Box } from '@material-ui/core';
 import { Card, useContent, useCardState } from 'translation-helps-rcl';
@@ -8,8 +8,7 @@ import { SupportContent } from '../../components';
 
 import {
   useListWordsReference,
-  useSelectTypeUniqueWords,
-  useIsRepeated,
+  useMarkRepeatedWords,
   ListReference,
 } from '@texttree/filter-translation-words-rcl';
 
@@ -26,7 +25,7 @@ export default function SupportOBSTWL({
   resource,
 }) {
   const {
-    state: { switchTypeUniqueWords, switchHideRepeatedWords },
+    state: { typeFilter, switchHideRepeatedWords },
   } = useContext(AppContext);
   const {
     state: { referenceSelected },
@@ -47,33 +46,26 @@ export default function SupportOBSTWL({
   };
   const { markdown, items, resourceStatus, tsvs } = useContent(config);
 
-  const { listWordsReference, listWordsChapter } = useListWordsReference(tsvs, bookId);
-  const { uniqueWordsItems } = useSelectTypeUniqueWords({
-    items,
-    typeUniqueWords: switchTypeUniqueWords,
-    listWordsReference,
-    chapter,
-    verse,
-    listWordsChapter,
-  });
+  const { listWordsReference } = useListWordsReference(tsvs, bookId);
+
+  const { markedWords } = useMarkRepeatedWords({ items, tsvs, type: 'all' });
+
+  const filteredWords = useMemo(
+    () => markedWords?.filter((word) => !word?.[typeFilter] && typeFilter !== 'disabled'),
+    [markedWords, typeFilter]
+  );
 
   const {
     state: { item, headers, filters, itemIndex, markdownView },
     actions: { setFilters, setItemIndex, setMarkdownView },
   } = useCardState({
-    items: !switchHideRepeatedWords ? items : uniqueWordsItems,
+    items: !switchHideRepeatedWords ? markedWords : filteredWords,
   });
   useEffect(() => {
     setItemIndex(0);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [bookId, chapter, verse, switchHideRepeatedWords, switchTypeUniqueWords]);
+  }, [bookId, chapter, verse, switchHideRepeatedWords, typeFilter]);
 
-  const isRepeated = useIsRepeated({
-    items,
-    hideRepeatedWords: switchHideRepeatedWords,
-    uniqueWordsItems,
-    itemIndex,
-  });
   const onClickLink = (reference) => {
     goToBookChapterVerse(referenceSelected.bookId, reference[0], reference[1]);
     setClosed(true);
@@ -85,7 +77,7 @@ export default function SupportOBSTWL({
       onClose={() => onClose(true)}
       classes={classes}
       id={type}
-      items={!switchHideRepeatedWords ? items : uniqueWordsItems}
+      items={!switchHideRepeatedWords ? markedWords : filteredWords}
       headers={headers}
       filters={filters}
       fontSize={fontSize}
@@ -100,9 +92,9 @@ export default function SupportOBSTWL({
         });
       }}
     >
-      {(!switchHideRepeatedWords || uniqueWordsItems.length > 0) && (
+      {(!switchHideRepeatedWords || filteredWords?.length > 0) && (
         <ListReference
-          links={item && listWordsReference && listWordsReference[item.TWLink]}
+          links={item && listWordsReference?.[item.TWLink]}
           onClickLink={onClickLink}
           currentChapter={chapter}
           currentVerse={verse}
@@ -110,7 +102,7 @@ export default function SupportOBSTWL({
           setClosed={setClosed}
         />
       )}
-      <Box className={isRepeated ? classesLocal.twl : ''}>
+      <Box className={item?.[typeFilter] ? classesLocal.twl : ''}>
         <SupportContent
           config={config}
           item={item}

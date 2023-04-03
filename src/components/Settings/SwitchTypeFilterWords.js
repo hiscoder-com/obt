@@ -10,29 +10,41 @@ import {
 } from '@material-ui/core';
 import { SettingsItem } from '.';
 import { AppContext } from '../../context';
-import { useStyles } from '../Settings/style';
+import { useStyles } from './style';
 
-function SwitchUniqueWords() {
+function SwitchTypeFilterWords() {
   const {
-    state: { switchTypeUniqueWords, switchHideRepeatedWords },
-    actions: { setSwitchTypeUniqueWords, setSwitchHideRepeatedWords },
+    state: { typeFilter, switchHideRepeatedWords },
+    actions: { setTypeFilter, setSwitchHideRepeatedWords },
   } = useContext(AppContext);
   const { t } = useTranslation();
   const classes = useStyles();
   const handleChange = (event) => {
-    setSwitchTypeUniqueWords(event.target.value);
+    setTypeFilter(event.target.value);
   };
   return (
     <SettingsItem title={t('Filter_unique_words_TWL')}>
       <FormControl component="fieldset">
         <RadioGroup
           className={classes.radioGroup}
-          value={switchTypeUniqueWords}
+          value={typeFilter}
           onChange={handleChange}
         >
-          <FormControlLabel value="verse" control={<Radio />} label={t('By_verse')} />
-          <FormControlLabel value="chapter" control={<Radio />} label={t('By_chapter')} />
-          <FormControlLabel value="book" control={<Radio />} label={t('By_book')} />
+          <FormControlLabel
+            value="isRepeatedInVerse"
+            control={<Radio />}
+            label={t('By_verse')}
+          />
+          <FormControlLabel
+            value="isRepeatedInChapter"
+            control={<Radio />}
+            label={t('By_chapter')}
+          />
+          <FormControlLabel
+            value="isRepeatedInBook"
+            control={<Radio />}
+            label={t('By_book')}
+          />
           <FormControlLabel value="disabled" control={<Radio />} label={t('Disabled')} />
         </RadioGroup>
         <FormControlLabel
@@ -42,7 +54,7 @@ function SwitchUniqueWords() {
               onChange={(e) => {
                 setSwitchHideRepeatedWords((prev) => !prev);
               }}
-              disabled={switchTypeUniqueWords === 'disabled'}
+              disabled={typeFilter === 'disabled'}
             />
           }
           label={t('Hide_repeated_words')}
@@ -52,4 +64,4 @@ function SwitchUniqueWords() {
   );
 }
 
-export default SwitchUniqueWords;
+export default SwitchTypeFilterWords;

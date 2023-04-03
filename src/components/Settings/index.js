@@ -5,4 +5,4 @@ export { default as SwitchExtraTitleCard } from './SwitchExtraTitleCard';
 export { default as SettingsItem } from './SettingsItem';
 export { default as SwitchObsImage } from './SwitchObsImage';
 export { default as SwitchMasterOnly } from './SwitchMasterOnly';
-export { default as SwitchUniqueWords } from './SwitchUniqueWords';
+export { default as SwitchTypeFilterWords } from './SwitchTypeFilterWords';

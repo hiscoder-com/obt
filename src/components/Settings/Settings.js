@@ -16,7 +16,7 @@ import {
   SwitchObsImage,
   SwitchMasterOnly,
   SettingsItem,
-  SwitchUniqueWords,
+  SwitchTypeFilterWords,
 } from '../../components';
 
 import SettingsRoundedIcon from '@material-ui/icons/SettingsRounded';
@@ -60,7 +60,7 @@ function Settings({ setAnchorMainMenu }) {
           {t('Theme_label')}
         </InputLabel>
         <SelectTheme />
-        <SwitchUniqueWords />
+        <SwitchTypeFilterWords />
 
         <SwitchWordPopover />
         <SwitchExtraTitleCard />
