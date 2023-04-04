@@ -46,7 +46,7 @@ export default function SupportOBSTWL({
   };
   const { markdown, items, resourceStatus, tsvs } = useContent(config);
 
-  const { listWordsReference } = useListWordsReference(tsvs, bookId);
+  const { listWordsInBook } = useListWordsReference({ tsvs });
 
   const { markedWords } = useMarkRepeatedWords({ items, tsvs, type: 'all' });
 
@@ -94,7 +94,7 @@ export default function SupportOBSTWL({
     >
       {(!switchHideRepeatedWords || filteredWords?.length > 0) && (
         <ListReference
-          links={item && listWordsReference?.[item.TWLink]}
+          links={item && listWordsInBook?.[item.TWLink]}
           onClickLink={onClickLink}
           currentChapter={chapter}
           currentVerse={verse}

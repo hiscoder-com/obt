@@ -44,10 +44,8 @@ export default function SupportTWL(props) {
     ...config,
   });
 
-  const { listWordsReference } = useListWordsReference(tsvs, bookId);
-
+  const { listWordsInBook } = useListWordsReference({ tsvs });
   const { markedWords } = useMarkRepeatedWords({ items, tsvs, type: 'all' });
-
   const filteredWords = useMemo(
     () => markedWords?.filter((word) => !word?.[typeFilter] && typeFilter !== 'disabled'),
     [markedWords, typeFilter]
@@ -98,7 +96,7 @@ export default function SupportTWL(props) {
       {(!switchHideRepeatedWords || filteredWords?.length > 0) && (
         <>
           <ListReference
-            links={item && listWordsReference?.[item.TWLink]}
+            links={item && listWordsInBook?.[item.TWLink]}
             onClickLink={onClickLink}
             currentChapter={chapter}
             currentVerse={verse}
