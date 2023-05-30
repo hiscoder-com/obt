@@ -1,6 +1,9 @@
 import React, { useState, useEffect, useContext } from 'react';
 
-import { ResourcesContextProvider } from '@texttree/scripture-resources-rcl';
+import {
+  ResourcesContextProvider,
+  SelectionsContextProvider,
+} from '@texttree/scripture-resources-rcl';
 import { useTranslation } from 'react-i18next';
 
 import { ReferenceContext } from '../context';
@@ -170,6 +173,9 @@ export function AppContextProvider({ children }) {
   useEffect(() => {
     localStorage.setItem('startDialog', openStartDialog);
   }, [openStartDialog]);
+  const [quote, setQuote] = useState('');
+  const [occurrence, setOccurrence] = useState(0);
+  const [selections, setSelections] = useState([{}]);
   const value = {
     state: {
       taRef,
@@ -200,6 +206,9 @@ export function AppContextProvider({ children }) {
       showSettingsMenu,
       layoutStorage,
       showDownloadLayout,
+      quote,
+      selections,
+      occurrence,
     },
     actions: {
       setTaRef,
@@ -229,6 +238,9 @@ export function AppContextProvider({ children }) {
       setShowSettingsMenu,
       setLayoutStorage,
       setShowDownloadLayout,
+      setSelections,
+      setQuote,
+      setOccurrence,
     },
   };
 
@@ -246,7 +258,14 @@ export function AppContextProvider({ children }) {
         onResources={setResources}
         config={config}
       >
-        {children}
+        <SelectionsContextProvider
+          quote={quote}
+          occurrence={occurrence}
+          selections={selections}
+          onSelections={setSelections}
+        >
+          {children}
+        </SelectionsContextProvider>
       </ResourcesContextProvider>
     </AppContext.Provider>
   );

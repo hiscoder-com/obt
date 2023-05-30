@@ -27,9 +27,6 @@ input {
   outline: none;
   border: none;
 }
-.verse {
-  cursor: context-menu;
-}
 .verse br {
   display: none;
 }
