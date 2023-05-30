@@ -11,22 +11,33 @@ import { columns } from './config/base';
 import { getLayoutType } from './helper';
 
 import useStyles from './style';
+import { useOccurrence } from '@texttree/tn-quote';
 
 const breakpoints = { lg: 900, md: 700, sm: 500 };
 
 export default function WorkSpaceWrap() {
   const {
-    state: { appConfig, resourcesApp, resources, breakpoint },
-    actions: { setAppConfig, setBreakpoint },
+    state: { appConfig, resourcesApp, resources, breakpoint, quote, occurrence },
+    actions: { setAppConfig, setBreakpoint, setSelections },
   } = useContext(AppContext);
-
   const { t } = useTranslation();
   const {
     state: {
-      referenceSelected: { bookId },
+      referenceSelected: { bookId, chapter, verse },
     },
     actions: { applyBooksFilter },
   } = useContext(ReferenceContext);
+
+  const _selections = useOccurrence({
+    book: bookId,
+    chapter,
+    verses: [verse],
+    quotes: [{ quote, occurrence: parseInt(occurrence) }],
+  });
+  useEffect(() => {
+    setSelections(_selections);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [JSON.stringify(_selections)]);
 
   const classes = useStyles();
   const { enqueueSnackbar } = useSnackbar();

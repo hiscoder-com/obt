@@ -21,7 +21,7 @@ export default function SupportTN({
   const { t } = useTranslation();
 
   const {
-    actions: { setTaRef },
+    actions: { setTaRef, setQuote, setOccurrence },
   } = useContext(AppContext);
 
   const config = {
@@ -57,7 +57,12 @@ export default function SupportTN({
   } = useCardState({
     items,
   });
-
+  useEffect(() => {
+    if (item?.Quote && item?.Occurrence) {
+      setQuote(item.Quote);
+      setOccurrence(parseInt(item.Occurrence));
+    }
+  }, [item?.Quote, item?.Occurrence, setQuote, setOccurrence]);
   useEffect(() => {
     if (item && setTaRef) {
       const { OrigQuote, Quote, SupportReference, Occurrence, ID } = item;
