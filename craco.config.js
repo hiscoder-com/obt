@@ -23,7 +23,7 @@ module.exports = {
               priority: 1,
             },
           },
-          maxSize: 200000,
+          maxSize: 7000000,
         },
         runtimeChunk: {
           name: 'manifest',
