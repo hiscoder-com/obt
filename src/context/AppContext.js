@@ -79,6 +79,7 @@ export function AppContextProvider({ children }) {
   const _resourceLinks = getResources(appConfig, resourcesApp);
   const [resourceLinks, setResourceLinks] = useState(_resourceLinks);
   const [resources, setResources] = useState([]);
+  const [showBibleVerse, setShowBibleVerse] = useState(false);
   const [showBookSelect, setShowBookSelect] = useState(false);
   const [showChapterSelect, setShowChapterSelect] = useState(false);
   const [showErrorReport, setShowErrorReport] = useState(false);
@@ -193,6 +194,7 @@ export function AppContextProvider({ children }) {
       resources,
       _resourceLinks,
       showBookSelect,
+      showBibleVerse,
       showChapterSelect,
       showErrorReport,
       switchObsImage,
@@ -224,6 +226,7 @@ export function AppContextProvider({ children }) {
       setResourceLinks,
       setResourcesApp,
       setResources,
+      setShowBibleVerse,
       setShowBookSelect,
       setShowChapterSelect,
       setShowErrorReport,
