@@ -10,6 +10,7 @@ import {
   TypoReport,
   SubMenuBar,
   StartDialog,
+  BibleVerseDisplay,
 } from './components';
 import WorkSpaceWrap from './WorkSpaceWrap';
 
@@ -39,6 +40,7 @@ export default function App() {
       <TypoReport />
       <WorkSpaceWrap />
       <LinkDialog />
+      <BibleVerseDisplay />
     </ThemeProvider>
   );
 }
