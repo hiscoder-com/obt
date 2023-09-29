@@ -16,6 +16,7 @@
     "@material-ui/icons": "^4.11.3",
     "@material-ui/lab": "^4.0.0-alpha.61",
     "@material-ui/styles": "^4.11.5",
+    "@texttree/bible-verse-image": "file:.yalc/@texttree/bible-verse-image",
     "@texttree/projector-mode-rcl": "^0.5.3",
     "@texttree/scripture-resources-rcl": "^5.4.1",
     "@texttree/tn-quote": "^0.1.2",
