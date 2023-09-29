@@ -15,6 +15,7 @@ function ContextMenu({ position, setPosition, PopoverClasses }) {
   const { t } = useTranslation();
   const {
     actions: { setShowErrorReport },
+    actions: { setShowBibleVerse },
   } = useContext(AppContext);
 
   const {
@@ -34,6 +35,11 @@ function ContextMenu({ position, setPosition, PopoverClasses }) {
 
   const handleOpenError = () => {
     setShowErrorReport(true);
+    setPosition(initialPosition);
+  };
+
+  const handleOpenBibleVerse = () => {
+    setShowBibleVerse(true);
     setPosition(initialPosition);
   };
 
@@ -74,6 +80,7 @@ function ContextMenu({ position, setPosition, PopoverClasses }) {
       anchorReference="anchorPosition"
     >
       <MenuItem onClick={handleOpenError}>{t('Error_report')}</MenuItem>
+      <MenuItem onClick={handleOpenBibleVerse}>{t('Create a picture')}</MenuItem>
       <MenuItem onClick={handleVerseToClipboard}>{t('Copy_verse_to_clipboard')}</MenuItem>
       <MenuItem onClick={handleReferenceToClipboard}>
         {t('Copy_reference_to_clipboard')}
