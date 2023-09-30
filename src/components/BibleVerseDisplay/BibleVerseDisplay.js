@@ -13,6 +13,8 @@ const BibleVerseDisplayWithOptions = () => {
   const [lineHeight, setLineHeight] = useState(1);
   const [textX, setTextX] = useState(180);
   const [textY, setTextY] = useState(200);
+  const [selectedTemplate, setSelectedTemplate] = useState('template1');
+  const [canvasKey, setCanvasKey] = useState(0);
 
   const {
     state: { referenceBlock },
@@ -160,17 +162,55 @@ const BibleVerseDisplayWithOptions = () => {
       },
     },
   ];
+  const template2 = [
+    {
+      id: 1,
+      type: 'background',
+      url: 'https://images.unsplash.com/photo-1490735891913-40897cdaafd1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80',
+      props: {
+        zoom: 1,
+        offsetX: -320,
+        offsetY: 0,
+        filter: 'contrast(104%) brightness(104%) opacity(.96)',
+      },
+    },
+  ];
+
+  const selectedTemplateData = selectedTemplate === 'template1' ? template1 : template2;
 
   const canvasStyle = {
     height: '500px',
     width: '500px',
   };
 
+  const updateCanvasKey = () => {
+    setCanvasKey((prevKey) => prevKey + 1);
+  };
+
   return (
     <div>
       <div style={{ display: 'flex' }}>
-        <Canvas style={canvasStyle} infocanvas={infocanvas} elements={template1} />
+        <Canvas
+          key={canvasKey}
+          style={canvasStyle}
+          infocanvas={infocanvas}
+          elements={selectedTemplateData}
+        />
         <div style={{ flex: 1, paddingLeft: '10px' }}>
+          <div>
+            <label htmlFor="templateSelect">Выберите шаблон:</label>
+            <select
+              id="templateSelect"
+              value={selectedTemplate}
+              onChange={(e) => {
+                setSelectedTemplate(e.target.value);
+                updateCanvasKey();
+              }}
+            >
+              <option value="template1">Шаблон 1</option>
+              <option value="template2">Шаблон 2</option>
+            </select>
+          </div>
           <div>
             <label htmlFor="fontSize">Размер шрифта:</label>
             <input
