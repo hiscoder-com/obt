@@ -2,6 +2,16 @@ import React, { useState, useContext } from 'react';
 import { Canvas } from '@texttree/bible-verse-image';
 import DialogUI from '../DialogUI/DialogUI';
 import { AppContext, ReferenceContext } from '../../context';
+import {
+  FormControl,
+  Select,
+  MenuItem,
+  InputLabel,
+  TextField,
+  Grid,
+  Container,
+  Typography,
+} from '@material-ui/core';
 
 const BibleVerseDisplayWithOptions = () => {
   const [fontSize, setFontSize] = useState(50);
@@ -188,18 +198,21 @@ const BibleVerseDisplayWithOptions = () => {
   };
 
   return (
-    <div>
-      <div style={{ display: 'flex' }}>
-        <Canvas
-          key={canvasKey}
-          style={canvasStyle}
-          infocanvas={infocanvas}
-          elements={selectedTemplateData}
-        />
-        <div style={{ flex: 1, paddingLeft: '10px' }}>
-          <div>
-            <label htmlFor="templateSelect">Выберите шаблон:</label>
-            <select
+    <Container>
+      <Grid container spacing={3}>
+        <Grid item xs={6}>
+          <Canvas
+            key={canvasKey}
+            style={canvasStyle}
+            infocanvas={infocanvas}
+            elements={selectedTemplateData}
+          />
+        </Grid>
+        <Grid item xs={6}>
+          <Typography variant="h6">Настройки:</Typography>
+          <FormControl>
+            <InputLabel htmlFor="templateSelect">Выберите шаблон:</InputLabel>
+            <Select
               id="templateSelect"
               value={selectedTemplate}
               onChange={(e) => {
@@ -207,95 +220,81 @@ const BibleVerseDisplayWithOptions = () => {
                 updateCanvasKey();
               }}
             >
-              <option value="template1">Шаблон 1</option>
-              <option value="template2">Шаблон 2</option>
-            </select>
-          </div>
-          <div>
-            <label htmlFor="fontSize">Размер шрифта:</label>
-            <input
-              type="number"
-              id="fontSize"
-              value={fontSize}
-              onChange={handleFontSizeChange}
-            />
-          </div>
-          <div>
-            <label htmlFor="fontStyle">Стиль шрифта:</label>
-            <select id="fontStyle" value={fontStyle} onChange={handleFontStyleChange}>
-              <option value="800">Обычный</option>
-              <option value="italic">Курсив</option>
-            </select>
-          </div>
-          <div>
-            <label htmlFor="fillStyle">Цвет текста:</label>
-            <input
-              type="color"
-              id="fillStyle"
-              value={fillStyle}
-              onChange={handleFillStyleChange}
-            />
-          </div>
-          <div>
-            <label htmlFor="blockWidth">Ширина блока:</label>
-            <input
-              type="number"
-              id="blockWidth"
-              value={blockWidth}
-              onChange={handleBlockWidthChange}
-            />
-          </div>
-          <div>
-            <label htmlFor="alignment">Выравнивание:</label>
-            <select id="alignment" value={alignment} onChange={handleAlignmentChange}>
-              <option value="left">Слева</option>
-              <option value="center">По центру</option>
-              <option value="right">Справа</option>
-            </select>
-          </div>
-          <div>
-            <label htmlFor="letterSpacing">Межбуквенное расстояние:</label>
-            <input
-              type="number"
-              step="0.1"
-              id="letterSpacing"
-              value={letterSpacing}
-              onChange={handleLetterSpacingChange}
-            />
-          </div>
-          <div>
-            <label htmlFor="lineHeight">Межстрочный интервал:</label>
-            <input
-              type="number"
-              step="0.1"
-              id="lineHeight"
-              value={lineHeight}
-              onChange={handleLineHeightChange}
-            />
-            <div>
-              <label htmlFor="textX">X координата текста:</label>
-              <input
-                type="number"
-                step="1"
-                id="textX"
-                value={textX}
-                onChange={handleTextXChange}
-              />
-            </div>
-            <div>
-              <label htmlFor="textY">Y координата текста:</label>
-              <input
-                type="number"
-                step="1"
-                id="textY"
-                value={textY}
-                onChange={handleTextYChange}
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+              <MenuItem value="template1">Шаблон 1</MenuItem>
+              <MenuItem value="template2">Шаблон 2</MenuItem>
+            </Select>
+          </FormControl>
+          <TextField
+            type="number"
+            id="fontSize"
+            label="Размер шрифта"
+            value={fontSize}
+            onChange={handleFontSizeChange}
+          />
+          <FormControl>
+            <InputLabel htmlFor="fontStyle">Стиль шрифта:</InputLabel>
+            <Select id="fontStyle" value={fontStyle} onChange={handleFontStyleChange}>
+              <MenuItem value="800">Обычный</MenuItem>
+              <MenuItem value="italic">Курсив</MenuItem>
+            </Select>
+          </FormControl>
+          <TextField
+            type="color"
+            id="fillStyle"
+            label="Цвет текста"
+            value={fillStyle}
+            onChange={handleFillStyleChange}
+          />
+          <TextField
+            type="number"
+            id="blockWidth"
+            label="Ширина блока"
+            value={blockWidth}
+            onChange={handleBlockWidthChange}
+          />
+          <FormControl>
+            <InputLabel htmlFor="alignment">Выравнивание:</InputLabel>
+            <Select id="alignment" value={alignment} onChange={handleAlignmentChange}>
+              <MenuItem value="left">Слева</MenuItem>
+              <MenuItem value="center">По центру</MenuItem>
+              <MenuItem value="right">Справа</MenuItem>
+            </Select>
+          </FormControl>
+          <TextField
+            type="number"
+            step="0.1"
+            id="letterSpacing"
+            label="Межбуквенное расстояние"
+            value={letterSpacing}
+            onChange={handleLetterSpacingChange}
+          />
+          <TextField
+            type="number"
+            step="0.1"
+            id="lineHeight"
+            label="Межстрочный интервал"
+            value={lineHeight}
+            onChange={handleLineHeightChange}
+          />
+          <TextField
+            type="number"
+            step="1"
+            id="textX"
+            label="X координата текста"
+            value={textX}
+            onChange={handleTextXChange}
+          />
+          <TextField
+            type="number"
+            step="1"
+            id="textY"
+            label="Y координата текста"
+            value={textY}
+            onChange={handleTextYChange}
+          />
+        </Grid>
+      </Grid>
+    </Container>
   );
 };
 
