@@ -1,5 +1,5 @@
 export * from './About';
-export * from './BibleVerseDisplay';
+export * from './BibleVerseDisplayDialog';
 export * from './BookList';
 export * from './BookSelect';
 export * from './ButtonGroupUI';

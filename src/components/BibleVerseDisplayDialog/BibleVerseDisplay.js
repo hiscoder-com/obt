@@ -1,7 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { Canvas } from '@texttree/bible-verse-image';
-import DialogUI from '../DialogUI/DialogUI';
-import { AppContext, ReferenceContext } from '../../context';
+import { ReferenceContext } from '../../context';
 import {
   FormControl,
   Select,
@@ -13,7 +12,7 @@ import {
   Typography,
 } from '@material-ui/core';
 
-const BibleVerseDisplayWithOptions = () => {
+const BibleVerseDisplay = () => {
   const [fontSize, setFontSize] = useState(50);
   const [fontStyle, setFontStyle] = useState('800');
   const [fillStyle, setFillStyle] = useState('white');
@@ -184,6 +183,92 @@ const BibleVerseDisplayWithOptions = () => {
         filter: 'contrast(104%) brightness(104%) opacity(.96)',
       },
     },
+    {
+      id: 2,
+      type: 'line',
+      x1: 40,
+      y1: 40,
+      x2: 40,
+      y2: 1240,
+      props: {
+        lineColor: '#fff4',
+        lineWidth: 15,
+      },
+    },
+
+    {
+      id: 3,
+      type: 'line',
+      x1: 1240,
+      y1: 40,
+      x2: 1240,
+      y2: 1240,
+      props: {
+        lineColor: '#fff4',
+        lineWidth: 15,
+      },
+    },
+
+    {
+      id: 4,
+      type: 'line',
+      x1: 40,
+      y1: 40,
+      x2: 1240,
+      y2: 40,
+      props: {
+        lineColor: '#fff4',
+        lineWidth: 15,
+      },
+    },
+    {
+      id: 5,
+      type: 'line',
+      x1: 40,
+      y1: 1240,
+      x2: 1240,
+      y2: 1240,
+      props: {
+        lineColor: '#fff4',
+        lineWidth: 15,
+      },
+    },
+
+    {
+      id: 6,
+      type: 'text',
+      x: textX,
+      y: textY,
+      text: text,
+      props: {
+        fillStyle,
+        fontStyle,
+        fontSize,
+        font: 'Alumni Sans',
+        alignment,
+        blockWidth,
+        lineHeight,
+        letterSpacing,
+      },
+    },
+
+    {
+      id: 7,
+      type: 'text',
+      x: 420,
+      y: 800,
+      text: `${bookId} ${chapter}:${verse}`,
+      props: {
+        fillStyle,
+        fontStyle,
+        fontSize,
+        font: 'Alumni Sans',
+        alignment,
+        blockWidth,
+        lineHeight,
+        letterSpacing,
+      },
+    },
   ];
 
   const selectedTemplateData = selectedTemplate === 'template1' ? template1 : template2;
@@ -298,30 +383,4 @@ const BibleVerseDisplayWithOptions = () => {
   );
 };
 
-const BibleVerseDisplayDialog = ({ onClose }) => {
-  const {
-    state: { showBibleVerse },
-    actions: { setShowBibleVerse },
-  } = useContext(AppContext);
-
-  const handleCancel = () => {
-    setShowBibleVerse(false);
-  };
-
-  return (
-    <DialogUI
-      primary={{
-        text: 'Закрыть',
-        onClick: onClose,
-      }}
-      maxWidth="lg"
-      open={showBibleVerse}
-      onClose={handleCancel}
-      title="Отображение стиха с настройками"
-    >
-      <BibleVerseDisplayWithOptions />
-    </DialogUI>
-  );
-};
-
-export default BibleVerseDisplayDialog;
+export default BibleVerseDisplay;
