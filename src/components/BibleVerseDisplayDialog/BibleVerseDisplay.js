@@ -9,19 +9,24 @@ import {
   TextField,
   Grid,
   Container,
-  Typography,
 } from '@material-ui/core';
 
 const BibleVerseDisplay = () => {
-  const [fontSize, setFontSize] = useState(50);
+  const [fontSize, setFontSize] = useState(60);
   const [fontStyle, setFontStyle] = useState('800');
+  const [fontTheme, setFontTheme] = useState('Alumni Sans');
+
   const [fillStyle, setFillStyle] = useState('white');
-  const [blockWidth, setBlockWidth] = useState(480);
+  const [blockWidth, setBlockWidth] = useState(700);
   const [alignment, setAlignment] = useState('center');
+
   const [letterSpacing, setLetterSpacing] = useState(1);
   const [lineHeight, setLineHeight] = useState(1);
-  const [textX, setTextX] = useState(180);
+
+  const [textX, setTextX] = useState(370);
   const [textY, setTextY] = useState(200);
+  const [textRefY, setTextRefY] = useState(700);
+
   const [selectedTemplate, setSelectedTemplate] = useState('template1');
   const [canvasKey, setCanvasKey] = useState(0);
 
@@ -30,6 +35,10 @@ const BibleVerseDisplay = () => {
   } = useContext(ReferenceContext);
 
   const { bookId, chapter, verse, text } = referenceBlock;
+
+  const handleFontChange = (e) => {
+    setFontTheme(e.target.value);
+  };
 
   const handleFontSizeChange = (e) => {
     setFontSize(Number(e.target.value));
@@ -65,6 +74,10 @@ const BibleVerseDisplay = () => {
 
   const handleTextYChange = (e) => {
     setTextY(Number(e.target.value));
+  };
+
+  const handleTextRefYChange = (e) => {
+    setTextRefY(Number(e.target.value));
   };
 
   const infocanvas = {
@@ -145,7 +158,7 @@ const BibleVerseDisplay = () => {
         fillStyle,
         fontStyle,
         fontSize,
-        font: 'Alumni Sans',
+        font: fontTheme,
         alignment,
         blockWidth,
         lineHeight,
@@ -156,14 +169,14 @@ const BibleVerseDisplay = () => {
     {
       id: 7,
       type: 'text',
-      x: 420,
-      y: 800,
+      x: textX,
+      y: textRefY,
       text: `${bookId} ${chapter}:${verse}`,
       props: {
         fillStyle,
         fontStyle,
         fontSize,
-        font: 'Alumni Sans',
+        font: fontTheme,
         alignment,
         blockWidth,
         lineHeight,
@@ -278,13 +291,17 @@ const BibleVerseDisplay = () => {
     width: '500px',
   };
 
+  const groopsStyle = {
+    width: '200px',
+    paddingBottom: '10px',
+  };
   const updateCanvasKey = () => {
     setCanvasKey((prevKey) => prevKey + 1);
   };
 
   return (
     <Container>
-      <Grid container spacing={3}>
+      <Grid container spacing={2}>
         <Grid item xs={6}>
           <Canvas
             key={canvasKey}
@@ -293,9 +310,9 @@ const BibleVerseDisplay = () => {
             elements={selectedTemplateData}
           />
         </Grid>
+
         <Grid item xs={6}>
-          <Typography variant="h6">Настройки:</Typography>
-          <FormControl>
+          <FormControl style={groopsStyle}>
             <InputLabel htmlFor="templateSelect">Выберите шаблон:</InputLabel>
             <Select
               id="templateSelect"
@@ -309,6 +326,7 @@ const BibleVerseDisplay = () => {
               <MenuItem value="template2">Шаблон 2</MenuItem>
             </Select>
           </FormControl>
+          <br />
           <TextField
             type="number"
             id="fontSize"
@@ -316,20 +334,31 @@ const BibleVerseDisplay = () => {
             value={fontSize}
             onChange={handleFontSizeChange}
           />
-          <FormControl>
+          <FormControl style={groopsStyle}>
             <InputLabel htmlFor="fontStyle">Стиль шрифта:</InputLabel>
             <Select id="fontStyle" value={fontStyle} onChange={handleFontStyleChange}>
               <MenuItem value="800">Обычный</MenuItem>
               <MenuItem value="italic">Курсив</MenuItem>
             </Select>
           </FormControl>
+          <br />
+          <FormControl style={groopsStyle}>
+            <InputLabel htmlFor="fontSelect">Выберите шрифт:</InputLabel>
+            <Select id="fontSelect" value={fontTheme} onChange={handleFontChange}>
+              <MenuItem value="Alumni Sans">Alumni Sans</MenuItem>
+              <MenuItem value="Calibri">Calibri</MenuItem>
+              <MenuItem value="Times New Roman">Times New Roman</MenuItem>
+            </Select>
+          </FormControl>
           <TextField
+            style={{ width: '100px', paddingBottom: '10px' }}
             type="color"
             id="fillStyle"
             label="Цвет текста"
             value={fillStyle}
             onChange={handleFillStyleChange}
           />
+          <br />
           <TextField
             type="number"
             id="blockWidth"
@@ -337,7 +366,7 @@ const BibleVerseDisplay = () => {
             value={blockWidth}
             onChange={handleBlockWidthChange}
           />
-          <FormControl>
+          <FormControl style={groopsStyle}>
             <InputLabel htmlFor="alignment">Выравнивание:</InputLabel>
             <Select id="alignment" value={alignment} onChange={handleAlignmentChange}>
               <MenuItem value="left">Слева</MenuItem>
@@ -345,6 +374,7 @@ const BibleVerseDisplay = () => {
               <MenuItem value="right">Справа</MenuItem>
             </Select>
           </FormControl>
+          <br />
           <TextField
             type="number"
             step="0.1"
@@ -361,22 +391,37 @@ const BibleVerseDisplay = () => {
             value={lineHeight}
             onChange={handleLineHeightChange}
           />
-          <TextField
-            type="number"
-            step="1"
-            id="textX"
-            label="X координата текста"
-            value={textX}
-            onChange={handleTextXChange}
-          />
-          <TextField
-            type="number"
-            step="1"
-            id="textY"
-            label="Y координата текста"
-            value={textY}
-            onChange={handleTextYChange}
-          />
+          <Grid
+            container
+            spacing={3}
+            style={{ paddingTop: '20px', paddingLeft: '10px', paddingBottom: '20px' }}
+          >
+            <TextField
+              type="number"
+              step="1"
+              id="textX"
+              label="X координата текста"
+              value={textX}
+              onChange={handleTextXChange}
+            />
+            <TextField
+              style={{ paddingBottom: '10px' }}
+              type="number"
+              step="1"
+              id="textY"
+              label="Y координата текста"
+              value={textY}
+              onChange={handleTextYChange}
+            />
+            <TextField
+              type="number"
+              step="1"
+              id="textRefY"
+              label="Y координата cсылки"
+              value={textRefY}
+              onChange={handleTextRefYChange}
+            />
+          </Grid>
         </Grid>
       </Grid>
     </Container>
