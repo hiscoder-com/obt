@@ -20,6 +20,8 @@ const BibleVerseDisplay = () => {
   const [blockWidth, setBlockWidth] = useState(700);
   const [alignment, setAlignment] = useState('center');
 
+  const [fillStyleOval, setFillStyleOval] = useState('pink');
+
   const [letterSpacing, setLetterSpacing] = useState(1);
   const [lineHeight, setLineHeight] = useState(1);
 
@@ -50,6 +52,10 @@ const BibleVerseDisplay = () => {
 
   const handleFillStyleChange = (e) => {
     setFillStyle(e.target.value);
+  };
+
+  const handleFillStyleOvalChange = (e) => {
+    setFillStyleOval(e.target.value);
   };
 
   const handleBlockWidthChange = (e) => {
@@ -204,7 +210,7 @@ const BibleVerseDisplay = () => {
       radiusX: 525,
       radiusY: 525,
       props: {
-        fillColor: 'pink',
+        fillColor: fillStyleOval,
         filter: 'opacity(.50)',
       },
     },
@@ -381,6 +387,14 @@ const BibleVerseDisplay = () => {
               label="Y координата cсылки"
               value={textRefY}
               onChange={handleTextRefYChange}
+            />
+            <TextField
+              style={{ width: '100px', paddingBottom: '10px' }}
+              type="color"
+              id="fillStyle"
+              label="Цвет круга"
+              value={fillStyleOval}
+              onChange={handleFillStyleOvalChange}
             />
           </Grid>
         </Grid>
