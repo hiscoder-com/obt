@@ -188,7 +188,7 @@ const BibleVerseDisplay = () => {
     {
       id: 1,
       type: 'background',
-      url: 'https://images.unsplash.com/photo-1490735891913-40897cdaafd1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80',
+      url: 'https://images.unsplash.com/photo-1469474968028-56623f02e42e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8bmF0dXJlfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60',
       props: {
         zoom: 1,
         offsetX: -320,
@@ -211,14 +211,14 @@ const BibleVerseDisplay = () => {
     {
       id: 6,
       type: 'text',
-      x: textX,
-      y: textY,
+      x: textX, //200
+      y: textY, //350
       text: text,
       props: {
         fillStyle,
         fontStyle,
         fontSize,
-        font: 'Alumni Sans',
+        font: fontTheme,
         alignment,
         blockWidth,
         lineHeight,
@@ -229,16 +229,16 @@ const BibleVerseDisplay = () => {
     {
       id: 7,
       type: 'text',
-      x: 420,
-      y: 800,
+      x: textX, //200
+      y: textRefY, //755
       text: `${bookId} ${chapter}:${verse}`,
       props: {
         fillStyle,
         fontStyle,
         fontSize,
-        font: 'Alumni Sans',
+        font: fontTheme,
         alignment,
-        blockWidth,
+        blockWidth, //892
         lineHeight,
         letterSpacing,
       },
