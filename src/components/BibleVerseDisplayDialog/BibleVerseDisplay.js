@@ -198,55 +198,16 @@ const BibleVerseDisplay = () => {
     },
     {
       id: 2,
-      type: 'line',
-      x1: 40,
-      y1: 40,
-      x2: 40,
-      y2: 1240,
+      type: 'oval',
+      x: 630,
+      y: 630,
+      radiusX: 525,
+      radiusY: 525,
       props: {
-        lineColor: '#fff4',
-        lineWidth: 15,
+        fillColor: 'pink',
+        filter: 'opacity(.50)',
       },
     },
-
-    {
-      id: 3,
-      type: 'line',
-      x1: 1240,
-      y1: 40,
-      x2: 1240,
-      y2: 1240,
-      props: {
-        lineColor: '#fff4',
-        lineWidth: 15,
-      },
-    },
-
-    {
-      id: 4,
-      type: 'line',
-      x1: 40,
-      y1: 40,
-      x2: 1240,
-      y2: 40,
-      props: {
-        lineColor: '#fff4',
-        lineWidth: 15,
-      },
-    },
-    {
-      id: 5,
-      type: 'line',
-      x1: 40,
-      y1: 1240,
-      x2: 1240,
-      y2: 1240,
-      props: {
-        lineColor: '#fff4',
-        lineWidth: 15,
-      },
-    },
-
     {
       id: 6,
       type: 'text',
