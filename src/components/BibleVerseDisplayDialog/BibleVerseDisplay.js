@@ -12,12 +12,12 @@ import {
 } from '@material-ui/core';
 
 const BibleVerseDisplay = () => {
-  const [fontSize, setFontSize] = useState(60);
+  const [fontSize, setFontSize] = useState(65);
   const [fontStyle, setFontStyle] = useState('800');
   const [fontTheme, setFontTheme] = useState('Alumni Sans');
 
   const [fillStyle, setFillStyle] = useState('white');
-  const [blockWidth, setBlockWidth] = useState(700);
+  const [blockWidth, setBlockWidth] = useState(900);
   const [alignment, setAlignment] = useState('center');
 
   const [fillStyleOval, setFillStyleOval] = useState('pink');
@@ -25,11 +25,11 @@ const BibleVerseDisplay = () => {
   const [letterSpacing, setLetterSpacing] = useState(1);
   const [lineHeight, setLineHeight] = useState(1);
 
-  const [textX, setTextX] = useState(370);
-  const [textY, setTextY] = useState(200);
-  const [textRefY, setTextRefY] = useState(700);
+  const [textX, setTextX] = useState(200);
+  const [textY, setTextY] = useState(260);
+  const [textRefY, setTextRefY] = useState(1100);
 
-  const [selectedTemplate, setSelectedTemplate] = useState('template1');
+  const [selectedTemplate, setSelectedTemplate] = useState('template3');
   const [canvasKey, setCanvasKey] = useState(0);
 
   const {
@@ -100,7 +100,7 @@ const BibleVerseDisplay = () => {
         zoom: 1,
         offsetX: -320,
         offsetY: 0,
-        filter: 'contrast(104%) brightness(104%) opacity(.96)',
+        filter: 'contrast(104%) brightness(104%)',
       },
     },
     {
@@ -157,8 +157,8 @@ const BibleVerseDisplay = () => {
     {
       id: 6,
       type: 'text',
-      x: textX,
-      y: textY,
+      x: 200,
+      y: 260,
       text: text,
       props: {
         fillStyle,
@@ -175,8 +175,8 @@ const BibleVerseDisplay = () => {
     {
       id: 7,
       type: 'text',
-      x: textX,
-      y: textRefY,
+      x: 200,
+      y: 1100,
       text: `${bookId} ${chapter}:${verse}`,
       props: {
         fillStyle,
@@ -251,7 +251,527 @@ const BibleVerseDisplay = () => {
     },
   ];
 
-  const selectedTemplateData = selectedTemplate === 'template1' ? template1 : template2;
+  const template3 = [
+    {
+      id: 1,
+      type: 'background',
+      url: 'https://images.unsplash.com/photo-1696376732843-99bdf0035629?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80  ',
+      props: {
+        zoom: 1,
+        offsetX: -320,
+        offsetY: 0,
+        filter: 'contrast(104%) brightness(104%)',
+      },
+    },
+    {
+      type: 'rectangle',
+      x: 150,
+      y: 150,
+      width: 1000,
+      height: 1000,
+      props: {
+        fillColor: 'blue',
+        strokeColor: 'black',
+        strokeWidth: 1,
+        filter: 'opacity(.2)',
+      },
+    },
+    {
+      id: 6,
+      type: 'text',
+      x: 200,
+      y: 260,
+      text: text,
+      props: {
+        fillStyle,
+        fontStyle,
+        fontSize,
+        font: fontTheme,
+        alignment,
+        blockWidth,
+        lineHeight,
+        letterSpacing,
+      },
+    },
+
+    {
+      id: 7,
+      type: 'text',
+      x: 200,
+      y: 1100,
+      text: `${bookId} ${chapter}:${verse}`,
+      props: {
+        fillStyle,
+        fontStyle,
+        fontSize,
+        font: fontTheme,
+        alignment,
+        blockWidth,
+        lineHeight,
+        letterSpacing,
+      },
+    },
+  ];
+  const template4 = [
+    {
+      id: 1,
+      type: 'background',
+      url: 'https://images.unsplash.com/photo-1469474968028-56623f02e42e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8bmF0dXJlfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60',
+      props: {
+        zoom: 1,
+        offsetX: -320,
+        offsetY: 0,
+        filter: 'contrast(104%) brightness(104%) opacity(.96)',
+      },
+    },
+    {
+      type: 'rectangle',
+      x: 0,
+      y: 250,
+      width: 1280,
+      height: 800,
+      props: {
+        fillColor: 'green',
+        strokeColor: 'black',
+        strokeWidth: 1,
+        filter: 'opacity(.2)',
+      },
+    },
+
+    {
+      id: 6,
+      type: 'text',
+      x: 200, //200
+      y: 350, //350
+      text: text,
+      props: {
+        fillStyle,
+        fontStyle,
+        fontSize,
+        font: fontTheme,
+        alignment,
+        blockWidth,
+        lineHeight,
+        letterSpacing,
+      },
+    },
+
+    {
+      id: 7,
+      type: 'text',
+      x: textX, //200
+      y: textRefY, //755
+      text: `${bookId} ${chapter}:${verse}`,
+      props: {
+        fillStyle,
+        fontStyle,
+        fontSize,
+        font: fontTheme,
+        alignment,
+        blockWidth, //892
+        lineHeight,
+        letterSpacing,
+      },
+    },
+  ];
+
+  const template5 = [
+    {
+      id: 1,
+      type: 'background',
+      url: 'https://images.unsplash.com/photo-1696325905035-74fdaebbb68d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1972&q=80',
+      props: {
+        zoom: 1,
+        offsetX: 0,
+        offsetY: 0,
+      },
+    },
+    {
+      type: 'rectangle',
+      x: 200,
+      y: 350,
+      width: 900,
+      height: 400,
+      props: {
+        fillColor: 'green',
+        strokeColor: 'black',
+        strokeWidth: 1,
+        filter: 'opacity(.2)',
+      },
+    },
+    {
+      type: 'triangle',
+      vertex1: { x: 230, y: 300 },
+      vertex2: { x: 230, y: 540 },
+      vertex3: { x: 200, y: 540 },
+      props: {
+        fillColor: 'green',
+        strokeColor: 'black',
+        strokeWidth: 1,
+        filter: 'opacity(.2)',
+      },
+    },
+    {
+      id: 6,
+      type: 'text',
+      x: 200,
+      y: 380,
+      text: text,
+      props: {
+        fillStyle,
+        fontStyle,
+        fontSize,
+        font: fontTheme,
+        alignment,
+        blockWidth,
+        lineHeight,
+        letterSpacing,
+      },
+    },
+
+    {
+      id: 7,
+      type: 'text',
+      x: 200,
+      y: 1100,
+      text: `${bookId} ${chapter}:${verse}`,
+      props: {
+        fillStyle,
+        fontStyle,
+        fontSize,
+        font: fontTheme,
+        alignment,
+        blockWidth,
+        lineHeight,
+        letterSpacing,
+      },
+    },
+  ];
+  const template6 = [
+    {
+      id: 1,
+      type: 'background',
+      url: 'https://images.unsplash.com/photo-1469474968028-56623f02e42e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8bmF0dXJlfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60',
+      props: {
+        zoom: 1,
+        offsetX: -320,
+        offsetY: 0,
+        filter: 'contrast(104%) brightness(104%) opacity(.96)',
+      },
+    },
+    {
+      id: 2,
+      type: 'oval',
+      x: 630,
+      y: 630,
+      radiusX: 525,
+      radiusY: 525,
+      props: {
+        fillColor: fillStyleOval,
+        filter: 'opacity(.50)',
+      },
+    },
+    {
+      id: 6,
+      type: 'text',
+      x: textX, //200
+      y: textY, //350
+      text: text,
+      props: {
+        fillStyle,
+        fontStyle,
+        fontSize,
+        font: fontTheme,
+        alignment,
+        blockWidth,
+        lineHeight,
+        letterSpacing,
+      },
+    },
+
+    {
+      id: 7,
+      type: 'text',
+      x: textX, //200
+      y: textRefY, //755
+      text: `${bookId} ${chapter}:${verse}`,
+      props: {
+        fillStyle,
+        fontStyle,
+        fontSize,
+        font: fontTheme,
+        alignment,
+        blockWidth, //892
+        lineHeight,
+        letterSpacing,
+      },
+    },
+  ];
+
+  const template7 = [
+    {
+      id: 1,
+      type: 'background',
+      url: 'https://images.unsplash.com/photo-1469474968028-56623f02e42e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8bmF0dXJlfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60',
+      props: {
+        zoom: 1,
+        offsetX: -320,
+        offsetY: 0,
+        filter: 'contrast(104%) brightness(104%) opacity(.96)',
+      },
+    },
+    {
+      id: 2,
+      type: 'oval',
+      x: 630,
+      y: 630,
+      radiusX: 525,
+      radiusY: 525,
+      props: {
+        fillColor: fillStyleOval,
+        filter: 'opacity(.50)',
+      },
+    },
+    {
+      id: 6,
+      type: 'text',
+      x: textX, //200
+      y: textY, //350
+      text: text,
+      props: {
+        fillStyle,
+        fontStyle,
+        fontSize,
+        font: fontTheme,
+        alignment,
+        blockWidth,
+        lineHeight,
+        letterSpacing,
+      },
+    },
+
+    {
+      id: 7,
+      type: 'text',
+      x: textX, //200
+      y: textRefY, //755
+      text: `${bookId} ${chapter}:${verse}`,
+      props: {
+        fillStyle,
+        fontStyle,
+        fontSize,
+        font: fontTheme,
+        alignment,
+        blockWidth, //892
+        lineHeight,
+        letterSpacing,
+      },
+    },
+  ];
+
+  const template8 = [
+    {
+      id: 1,
+      type: 'background',
+      url: 'https://images.unsplash.com/photo-1469474968028-56623f02e42e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8bmF0dXJlfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60',
+      props: {
+        zoom: 1,
+        offsetX: -320,
+        offsetY: 0,
+        filter: 'contrast(104%) brightness(104%) opacity(.96)',
+      },
+    },
+    {
+      id: 2,
+      type: 'oval',
+      x: 630,
+      y: 630,
+      radiusX: 525,
+      radiusY: 525,
+      props: {
+        fillColor: fillStyleOval,
+        filter: 'opacity(.50)',
+      },
+    },
+    {
+      id: 6,
+      type: 'text',
+      x: textX, //200
+      y: textY, //350
+      text: text,
+      props: {
+        fillStyle,
+        fontStyle,
+        fontSize,
+        font: fontTheme,
+        alignment,
+        blockWidth,
+        lineHeight,
+        letterSpacing,
+      },
+    },
+
+    {
+      id: 7,
+      type: 'text',
+      x: textX, //200
+      y: textRefY, //755
+      text: `${bookId} ${chapter}:${verse}`,
+      props: {
+        fillStyle,
+        fontStyle,
+        fontSize,
+        font: fontTheme,
+        alignment,
+        blockWidth, //892
+        lineHeight,
+        letterSpacing,
+      },
+    },
+  ];
+
+  const template9 = [
+    {
+      id: 1,
+      type: 'background',
+      url: 'https://images.unsplash.com/photo-1469474968028-56623f02e42e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8bmF0dXJlfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60',
+      props: {
+        zoom: 1,
+        offsetX: -320,
+        offsetY: 0,
+        filter: 'contrast(104%) brightness(104%) opacity(.96)',
+      },
+    },
+    {
+      id: 2,
+      type: 'oval',
+      x: 630,
+      y: 630,
+      radiusX: 525,
+      radiusY: 525,
+      props: {
+        fillColor: fillStyleOval,
+        filter: 'opacity(.50)',
+      },
+    },
+    {
+      id: 6,
+      type: 'text',
+      x: textX, //200
+      y: textY, //350
+      text: text,
+      props: {
+        fillStyle,
+        fontStyle,
+        fontSize,
+        font: fontTheme,
+        alignment,
+        blockWidth,
+        lineHeight,
+        letterSpacing,
+      },
+    },
+
+    {
+      id: 7,
+      type: 'text',
+      x: textX, //200
+      y: textRefY, //755
+      text: `${bookId} ${chapter}:${verse}`,
+      props: {
+        fillStyle,
+        fontStyle,
+        fontSize,
+        font: fontTheme,
+        alignment,
+        blockWidth, //892
+        lineHeight,
+        letterSpacing,
+      },
+    },
+  ];
+
+  const template10 = [
+    {
+      id: 1,
+      type: 'background',
+      url: 'https://images.unsplash.com/photo-1469474968028-56623f02e42e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8bmF0dXJlfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60',
+      props: {
+        zoom: 1,
+        offsetX: -320,
+        offsetY: 0,
+        filter: 'contrast(104%) brightness(104%) opacity(.96)',
+      },
+    },
+    {
+      id: 2,
+      type: 'oval',
+      x: 630,
+      y: 630,
+      radiusX: 525,
+      radiusY: 525,
+      props: {
+        fillColor: fillStyleOval,
+        filter: 'opacity(.50)',
+      },
+    },
+    {
+      id: 6,
+      type: 'text',
+      x: textX, //200
+      y: textY, //350
+      text: text,
+      props: {
+        fillStyle,
+        fontStyle,
+        fontSize,
+        font: fontTheme,
+        alignment,
+        blockWidth,
+        lineHeight,
+        letterSpacing,
+      },
+    },
+
+    {
+      id: 7,
+      type: 'text',
+      x: textX, //200
+      y: textRefY, //755
+      text: `${bookId} ${chapter}:${verse}`,
+      props: {
+        fillStyle,
+        fontStyle,
+        fontSize,
+        font: fontTheme,
+        alignment,
+        blockWidth, //892
+        lineHeight,
+        letterSpacing,
+      },
+    },
+  ];
+
+  const selectedTemplateData =
+    selectedTemplate === 'template1'
+      ? template1
+      : selectedTemplate === 'template2'
+      ? template2
+      : selectedTemplate === 'template3'
+      ? template3
+      : selectedTemplate === 'template4'
+      ? template4
+      : selectedTemplate === 'template5'
+      ? template5
+      : selectedTemplate === 'template6'
+      ? template6
+      : selectedTemplate === 'template7'
+      ? template7
+      : selectedTemplate === 'template8'
+      ? template8
+      : selectedTemplate === 'template9'
+      ? template9
+      : template10;
 
   const canvasStyle = {
     height: '500px',
@@ -291,6 +811,14 @@ const BibleVerseDisplay = () => {
             >
               <MenuItem value="template1">Шаблон 1</MenuItem>
               <MenuItem value="template2">Шаблон 2</MenuItem>
+              <MenuItem value="template3">Шаблон 3</MenuItem>
+              <MenuItem value="template4">Шаблон 4</MenuItem>
+              <MenuItem value="template5">Шаблон 5</MenuItem>
+              <MenuItem value="template6">Шаблон 6</MenuItem>
+              <MenuItem value="template7">Шаблон 7</MenuItem>
+              <MenuItem value="template8">Шаблон 8</MenuItem>
+              <MenuItem value="template9">Шаблон 9</MenuItem>
+              <MenuItem value="template10">Шаблон 10</MenuItem>
             </Select>
           </FormControl>
           <br />
