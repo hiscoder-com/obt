@@ -344,19 +344,19 @@ const BibleVerseDisplay = () => {
           <br />
           <TextField
             type="number"
-            step="0.1"
             id="letterSpacing"
             label="Межбуквенное расстояние"
             value={letterSpacing}
             onChange={handleLetterSpacingChange}
+            inputProps={{ step: 0.1 }}
           />
           <TextField
             type="number"
-            step="0.1"
             id="lineHeight"
             label="Межстрочный интервал"
             value={lineHeight}
             onChange={handleLineHeightChange}
+            inputProps={{ step: 0.1 }}
           />
           <Grid
             container
