@@ -12,7 +12,7 @@ import {
 } from '@material-ui/core';
 
 const BibleVerseDisplay = () => {
-  const [fontSize, setFontSize] = useState(65);
+  const [fontSize, setFontSize] = useState(80);
   const [fontStyle, setFontStyle] = useState('800');
   const [fontTheme, setFontTheme] = useState('Alumni Sans');
 
@@ -20,16 +20,10 @@ const BibleVerseDisplay = () => {
   const [blockWidth, setBlockWidth] = useState(900);
   const [alignment, setAlignment] = useState('center');
 
-  const [fillStyleOval, setFillStyleOval] = useState('pink');
-
   const [letterSpacing, setLetterSpacing] = useState(1);
   const [lineHeight, setLineHeight] = useState(1);
 
-  const [textX, setTextX] = useState(200);
-  const [textY, setTextY] = useState(260);
-  const [textRefY, setTextRefY] = useState(1100);
-
-  const [selectedTemplate, setSelectedTemplate] = useState('template3');
+  const [selectedTemplate, setSelectedTemplate] = useState('template1');
   const [canvasKey, setCanvasKey] = useState(0);
 
   const {
@@ -54,10 +48,6 @@ const BibleVerseDisplay = () => {
     setFillStyle(e.target.value);
   };
 
-  const handleFillStyleOvalChange = (e) => {
-    setFillStyleOval(e.target.value);
-  };
-
   const handleBlockWidthChange = (e) => {
     setBlockWidth(Number(e.target.value));
   };
@@ -74,18 +64,6 @@ const BibleVerseDisplay = () => {
     setLineHeight(Number(e.target.value));
   };
 
-  const handleTextXChange = (e) => {
-    setTextX(Number(e.target.value));
-  };
-
-  const handleTextYChange = (e) => {
-    setTextY(Number(e.target.value));
-  };
-
-  const handleTextRefYChange = (e) => {
-    setTextRefY(Number(e.target.value));
-  };
-
   const infocanvas = {
     height: 1280,
     width: 1280,
@@ -95,12 +73,12 @@ const BibleVerseDisplay = () => {
     {
       id: 1,
       type: 'background',
-      url: 'https://images.unsplash.com/photo-1517685704588-0935ac847be7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
+      url: 'https://images.unsplash.com/photo-1641912076456-c23ac41bdd58?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80',
       props: {
         zoom: 1,
-        offsetX: -320,
+        offsetX: 0,
         offsetY: 0,
-        filter: 'contrast(104%) brightness(104%)',
+        filter: 'contrast(84%) brightness(114%)',
       },
     },
     {
@@ -176,7 +154,7 @@ const BibleVerseDisplay = () => {
       id: 7,
       type: 'text',
       x: 200,
-      y: 1100,
+      y: 1130,
       text: `${bookId} ${chapter}:${verse}`,
       props: {
         fillStyle,
@@ -210,15 +188,16 @@ const BibleVerseDisplay = () => {
       radiusX: 525,
       radiusY: 525,
       props: {
-        fillColor: fillStyleOval,
-        filter: 'opacity(.50)',
+        fillColor: 'green',
+        strokeColor: 'green',
+        filter: 'opacity(.30)',
       },
     },
     {
       id: 6,
       type: 'text',
-      x: textX, //200
-      y: textY, //350
+      x: 200,
+      y: 350,
       text: text,
       props: {
         fillStyle,
@@ -235,8 +214,8 @@ const BibleVerseDisplay = () => {
     {
       id: 7,
       type: 'text',
-      x: textX, //200
-      y: textRefY, //755
+      x: 200,
+      y: 950,
       text: `${bookId} ${chapter}:${verse}`,
       props: {
         fillStyle,
@@ -244,7 +223,7 @@ const BibleVerseDisplay = () => {
         fontSize,
         font: fontTheme,
         alignment,
-        blockWidth, //892
+        blockWidth,
         lineHeight,
         letterSpacing,
       },
@@ -298,7 +277,7 @@ const BibleVerseDisplay = () => {
       id: 7,
       type: 'text',
       x: 200,
-      y: 1100,
+      y: 1160,
       text: `${bookId} ${chapter}:${verse}`,
       props: {
         fillStyle,
@@ -332,7 +311,7 @@ const BibleVerseDisplay = () => {
       height: 800,
       props: {
         fillColor: 'green',
-        strokeColor: 'black',
+        strokeColor: 'green',
         strokeWidth: 1,
         filter: 'opacity(.2)',
       },
@@ -359,8 +338,8 @@ const BibleVerseDisplay = () => {
     {
       id: 7,
       type: 'text',
-      x: textX, //200
-      y: textRefY, //755
+      x: 200, //200
+      y: 755, //755
       text: `${bookId} ${chapter}:${verse}`,
       props: {
         fillStyle,
@@ -388,25 +367,13 @@ const BibleVerseDisplay = () => {
     },
     {
       type: 'rectangle',
-      x: 200,
-      y: 350,
-      width: 900,
-      height: 400,
+      x: 100,
+      y: 300,
+      width: 1080,
+      height: 680,
       props: {
-        fillColor: 'green',
-        strokeColor: 'black',
-        strokeWidth: 1,
-        filter: 'opacity(.2)',
-      },
-    },
-    {
-      type: 'triangle',
-      vertex1: { x: 230, y: 300 },
-      vertex2: { x: 230, y: 540 },
-      vertex3: { x: 200, y: 540 },
-      props: {
-        fillColor: 'green',
-        strokeColor: 'black',
+        fillColor: 'white',
+        strokeColor: 'white',
         strokeWidth: 1,
         filter: 'opacity(.2)',
       },
@@ -415,7 +382,7 @@ const BibleVerseDisplay = () => {
       id: 6,
       type: 'text',
       x: 200,
-      y: 380,
+      y: 480,
       text: text,
       props: {
         fillStyle,
@@ -467,15 +434,15 @@ const BibleVerseDisplay = () => {
       radiusX: 525,
       radiusY: 525,
       props: {
-        fillColor: fillStyleOval,
+        fillColor: 'red',
         filter: 'opacity(.50)',
       },
     },
     {
       id: 6,
       type: 'text',
-      x: textX, //200
-      y: textY, //350
+      x: 200, //200
+      y: 350, //350
       text: text,
       props: {
         fillStyle,
@@ -492,8 +459,8 @@ const BibleVerseDisplay = () => {
     {
       id: 7,
       type: 'text',
-      x: textX, //200
-      y: textRefY, //755
+      x: 200, //200
+      y: 755, //755
       text: `${bookId} ${chapter}:${verse}`,
       props: {
         fillStyle,
@@ -528,15 +495,15 @@ const BibleVerseDisplay = () => {
       radiusX: 525,
       radiusY: 525,
       props: {
-        fillColor: fillStyleOval,
+        fillColor: 'black',
         filter: 'opacity(.50)',
       },
     },
     {
       id: 6,
       type: 'text',
-      x: textX, //200
-      y: textY, //350
+      x: 200, //200
+      y: 350, //350
       text: text,
       props: {
         fillStyle,
@@ -553,8 +520,8 @@ const BibleVerseDisplay = () => {
     {
       id: 7,
       type: 'text',
-      x: textX, //200
-      y: textRefY, //755
+      x: 200, //200
+      y: 755, //755
       text: `${bookId} ${chapter}:${verse}`,
       props: {
         fillStyle,
@@ -589,15 +556,15 @@ const BibleVerseDisplay = () => {
       radiusX: 525,
       radiusY: 525,
       props: {
-        fillColor: fillStyleOval,
+        fillColor: 'blue',
         filter: 'opacity(.50)',
       },
     },
     {
       id: 6,
       type: 'text',
-      x: textX, //200
-      y: textY, //350
+      x: 200, //200
+      y: 350, //350
       text: text,
       props: {
         fillStyle,
@@ -614,8 +581,8 @@ const BibleVerseDisplay = () => {
     {
       id: 7,
       type: 'text',
-      x: textX, //200
-      y: textRefY, //755
+      x: 200, //200
+      y: 755, //755
       text: `${bookId} ${chapter}:${verse}`,
       props: {
         fillStyle,
@@ -650,15 +617,15 @@ const BibleVerseDisplay = () => {
       radiusX: 525,
       radiusY: 525,
       props: {
-        fillColor: fillStyleOval,
+        fillColor: 'white',
         filter: 'opacity(.50)',
       },
     },
     {
       id: 6,
       type: 'text',
-      x: textX, //200
-      y: textY, //350
+      x: 200, //200
+      y: 350, //350
       text: text,
       props: {
         fillStyle,
@@ -675,8 +642,8 @@ const BibleVerseDisplay = () => {
     {
       id: 7,
       type: 'text',
-      x: textX, //200
-      y: textRefY, //755
+      x: 200, //200
+      y: 755, //755
       text: `${bookId} ${chapter}:${verse}`,
       props: {
         fillStyle,
@@ -711,15 +678,15 @@ const BibleVerseDisplay = () => {
       radiusX: 525,
       radiusY: 525,
       props: {
-        fillColor: fillStyleOval,
+        fillColor: 'pink',
         filter: 'opacity(.50)',
       },
     },
     {
       id: 6,
       type: 'text',
-      x: textX, //200
-      y: textY, //350
+      x: 200, //200
+      y: 350, //350
       text: text,
       props: {
         fillStyle,
@@ -736,8 +703,8 @@ const BibleVerseDisplay = () => {
     {
       id: 7,
       type: 'text',
-      x: textX, //200
-      y: textRefY, //755
+      x: 200, //200
+      y: 755, //755
       text: `${bookId} ${chapter}:${verse}`,
       props: {
         fillStyle,
@@ -886,45 +853,6 @@ const BibleVerseDisplay = () => {
             onChange={handleLineHeightChange}
             inputProps={{ step: 0.1 }}
           />
-          <Grid
-            container
-            spacing={3}
-            style={{ paddingTop: '20px', paddingLeft: '10px', paddingBottom: '20px' }}
-          >
-            <TextField
-              type="number"
-              step="1"
-              id="textX"
-              label="X координата текста"
-              value={textX}
-              onChange={handleTextXChange}
-            />
-            <TextField
-              style={{ paddingBottom: '10px' }}
-              type="number"
-              step="1"
-              id="textY"
-              label="Y координата текста"
-              value={textY}
-              onChange={handleTextYChange}
-            />
-            <TextField
-              type="number"
-              step="1"
-              id="textRefY"
-              label="Y координата cсылки"
-              value={textRefY}
-              onChange={handleTextRefYChange}
-            />
-            <TextField
-              style={{ width: '100px', paddingBottom: '10px' }}
-              type="color"
-              id="fillStyle"
-              label="Цвет круга"
-              value={fillStyleOval}
-              onChange={handleFillStyleOvalChange}
-            />
-          </Grid>
         </Grid>
       </Grid>
     </Container>
