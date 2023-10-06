@@ -71,7 +71,6 @@ const BibleVerseDisplay = () => {
 
   const template1 = [
     {
-      id: 1,
       type: 'background',
       url: 'https://images.unsplash.com/photo-1641912076456-c23ac41bdd58?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80',
       props: {
@@ -82,7 +81,6 @@ const BibleVerseDisplay = () => {
       },
     },
     {
-      id: 2,
       type: 'line',
       x1: 40,
       y1: 40,
@@ -95,7 +93,6 @@ const BibleVerseDisplay = () => {
     },
 
     {
-      id: 3,
       type: 'line',
       x1: 1240,
       y1: 40,
@@ -108,7 +105,6 @@ const BibleVerseDisplay = () => {
     },
 
     {
-      id: 4,
       type: 'line',
       x1: 40,
       y1: 40,
@@ -120,7 +116,6 @@ const BibleVerseDisplay = () => {
       },
     },
     {
-      id: 5,
       type: 'line',
       x1: 40,
       y1: 1240,
@@ -133,7 +128,6 @@ const BibleVerseDisplay = () => {
     },
 
     {
-      id: 6,
       type: 'text',
       x: 200,
       y: 260,
@@ -151,7 +145,6 @@ const BibleVerseDisplay = () => {
     },
 
     {
-      id: 7,
       type: 'text',
       x: 200,
       y: 1130,
@@ -170,7 +163,6 @@ const BibleVerseDisplay = () => {
   ];
   const template2 = [
     {
-      id: 1,
       type: 'background',
       url: 'https://images.unsplash.com/photo-1469474968028-56623f02e42e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8bmF0dXJlfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60',
       props: {
@@ -181,7 +173,6 @@ const BibleVerseDisplay = () => {
       },
     },
     {
-      id: 2,
       type: 'oval',
       x: 630,
       y: 630,
@@ -194,7 +185,6 @@ const BibleVerseDisplay = () => {
       },
     },
     {
-      id: 6,
       type: 'text',
       x: 200,
       y: 350,
@@ -212,7 +202,6 @@ const BibleVerseDisplay = () => {
     },
 
     {
-      id: 7,
       type: 'text',
       x: 200,
       y: 950,
@@ -232,7 +221,6 @@ const BibleVerseDisplay = () => {
 
   const template3 = [
     {
-      id: 1,
       type: 'background',
       url: 'https://images.unsplash.com/photo-1696376732843-99bdf0035629?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80  ',
       props: {
@@ -256,7 +244,6 @@ const BibleVerseDisplay = () => {
       },
     },
     {
-      id: 6,
       type: 'text',
       x: 200,
       y: 260,
@@ -274,7 +261,6 @@ const BibleVerseDisplay = () => {
     },
 
     {
-      id: 7,
       type: 'text',
       x: 200,
       y: 1160,
@@ -293,7 +279,6 @@ const BibleVerseDisplay = () => {
   ];
   const template4 = [
     {
-      id: 1,
       type: 'background',
       url: 'https://images.unsplash.com/photo-1469474968028-56623f02e42e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8bmF0dXJlfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60',
       props: {
@@ -318,7 +303,6 @@ const BibleVerseDisplay = () => {
     },
 
     {
-      id: 6,
       type: 'text',
       x: 200, //200
       y: 350, //350
@@ -336,7 +320,6 @@ const BibleVerseDisplay = () => {
     },
 
     {
-      id: 7,
       type: 'text',
       x: 200, //200
       y: 755, //755
@@ -356,7 +339,6 @@ const BibleVerseDisplay = () => {
 
   const template5 = [
     {
-      id: 1,
       type: 'background',
       url: 'https://images.unsplash.com/photo-1696325905035-74fdaebbb68d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1972&q=80',
       props: {
@@ -379,7 +361,6 @@ const BibleVerseDisplay = () => {
       },
     },
     {
-      id: 6,
       type: 'text',
       x: 200,
       y: 480,
@@ -397,7 +378,6 @@ const BibleVerseDisplay = () => {
     },
 
     {
-      id: 7,
       type: 'text',
       x: 200,
       y: 1100,
@@ -416,7 +396,6 @@ const BibleVerseDisplay = () => {
   ];
   const template6 = [
     {
-      id: 1,
       type: 'background',
       url: 'https://plus.unsplash.com/premium_photo-1681774171279-7fbfa8760c26?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1935&q=80',
       props: {
@@ -427,98 +406,101 @@ const BibleVerseDisplay = () => {
       },
     },
     {
-      id: 2,
       type: 'image',
       url: 'https://img.icons8.com/?size=48&id=95776&format=png',
       props: {
         zoom: 3,
         offsetX: 950,
         offsetY: 150,
-        filter: 'opacity(.50)',
+        filter: 'invert(100%)',
       },
     },
     {
-      id: 2,
       type: 'image',
       url: 'https://img.icons8.com/?size=48&id=95776&format=png',
       props: {
         zoom: 3,
         offsetX: 850,
         offsetY: 150,
-        filter: 'opacity(.50)',
+        filter: 'invert(100%)',
       },
     },
     {
-      id: 2,
       type: 'image',
       url: 'https://img.icons8.com/?size=48&id=95776&format=png',
       props: {
         zoom: 3,
         offsetX: 750,
         offsetY: 150,
-        filter: 'opacity(.50)',
+        filter: 'invert(100%)',
       },
     },
 
     {
-      id: 2,
       type: 'image',
       url: 'https://img.icons8.com/?size=48&id=95776&format=png',
       props: {
         zoom: 3,
         offsetX: 650,
         offsetY: 150,
-        filter: 'opacity(.50)',
+        filter: 'invert(100%)',
       },
     },
     {
-      id: 2,
       type: 'image',
-      url: 'https://img.icons8.com/?size=50&id=9438&format=png',
+      url: 'https://img.icons8.com/?size=48&id=101226&format=png',
       props: {
         zoom: 3,
         offsetX: 150,
         offsetY: 950,
-        filter: 'opacity(.50)',
+        filter: 'invert(100%)',
       },
     },
     {
-      id: 2,
       type: 'image',
-      url: 'https://img.icons8.com/?size=50&id=9438&format=png',
-      props: {
-        zoom: 3,
-        offsetX: 200,
-        offsetY: 950,
-        filter: 'opacity(.50)',
-      },
-    },
-    {
-      id: 2,
-      type: 'image',
-      url: 'https://img.icons8.com/?size=50&id=9438&format=png',
+      url: 'https://img.icons8.com/?size=48&id=101226&format=png',
       props: {
         zoom: 3,
         offsetX: 250,
         offsetY: 950,
-        filter: 'opacity(.50)',
+        filter: 'invert(100%)',
       },
     },
     {
-      id: 2,
       type: 'image',
-      url: 'https://img.icons8.com/?size=50&id=9438&format=png',
+      url: 'https://img.icons8.com/?size=48&id=101226&format=png',
       props: {
         zoom: 3,
-        offsetX: 300,
+        offsetX: 350,
         offsetY: 950,
-        filter: 'opacity(.50)',
+        filter: 'invert(100%)',
       },
     },
     {
-      id: 6,
+      type: 'image',
+      url: 'https://img.icons8.com/?size=48&id=101226&format=png',
+      props: {
+        zoom: 3,
+        offsetX: 450,
+        offsetY: 950,
+        filter: 'invert(100%)',
+      },
+    },
+    {
+      type: 'line',
+      x1: 265,
+      y1: 810,
+      x2: 675,
+      y2: 810,
+      props: {
+        lineColor: 'white',
+        lineWidth: 12,
+      },
+    },
+
+    {
       type: 'text',
-      x: 200, //200
+      x: 250, //200
       y: 350, //350
       text: text,
       props: {
@@ -526,7 +508,7 @@ const BibleVerseDisplay = () => {
         fontStyle,
         fontSize,
         font: fontTheme,
-        alignment,
+        alignment: 'left',
         blockWidth,
         lineHeight,
         letterSpacing,
@@ -534,9 +516,8 @@ const BibleVerseDisplay = () => {
     },
 
     {
-      id: 7,
       type: 'text',
-      x: 200, //200
+      x: 730, //200
       y: 755, //755
       text: `${bookId} ${chapter}:${verse}`,
       props: {
@@ -544,7 +525,7 @@ const BibleVerseDisplay = () => {
         fontStyle,
         fontSize,
         font: fontTheme,
-        alignment,
+        alignment: 'left',
         blockWidth, //892
         lineHeight,
         letterSpacing,
@@ -554,36 +535,107 @@ const BibleVerseDisplay = () => {
 
   const template7 = [
     {
-      id: 1,
       type: 'background',
-      url: 'https://images.unsplash.com/photo-1469474968028-56623f02e42e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8bmF0dXJlfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60',
+      url: 'https://images.unsplash.com/photo-1657804942950-ba961408feb8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NDF8fGZvbiUyMGdyZXl8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60',
       props: {
         zoom: 1,
-        offsetX: -320,
+        offsetX: 0,
         offsetY: 0,
-        filter: 'contrast(104%) brightness(104%) opacity(.96)',
       },
     },
     {
-      id: 2,
-      type: 'oval',
-      x: 630,
-      y: 630,
-      radiusX: 525,
-      radiusY: 525,
+      type: 'line',
+      x1: 165,
+      y1: 310,
+      x2: 165,
+      y2: 500,
       props: {
-        fillColor: 'black',
-        filter: 'opacity(.50)',
+        lineColor: 'black',
+        lineWidth: 15,
       },
     },
     {
-      id: 6,
+      type: 'line',
+      x1: 158,
+      y1: 310,
+      x2: 1122,
+      y2: 310,
+      props: {
+        lineColor: 'black',
+        lineWidth: 15,
+      },
+    },
+    {
+      type: 'line',
+      x1: 1115,
+      y1: 310,
+      x2: 1115,
+      y2: 500,
+      props: {
+        lineColor: 'black',
+        lineWidth: 15,
+      },
+    },
+    {
+      type: 'line',
+      x1: 158,
+      y1: 815,
+      x2: 1122,
+      y2: 815,
+      props: {
+        lineColor: 'black',
+        lineWidth: 15,
+      },
+    },
+    {
+      type: 'line',
+      x1: 165,
+      y1: 640,
+      x2: 165,
+      y2: 822,
+      props: {
+        lineColor: 'black',
+        lineWidth: 15,
+      },
+    },
+    {
+      type: 'line',
+      x1: 1115,
+      y1: 640,
+      x2: 1115,
+      y2: 822,
+      props: {
+        lineColor: 'black',
+        lineWidth: 15,
+      },
+    },
+    {
+      type: 'image',
+      url: 'https://img.icons8.com/?size=80&id=yDqe48ajIYmU&format=png',
+      props: {
+        zoom: 1,
+        offsetX: 1085,
+        offsetY: 530,
+        // filter: 'contrast(0%)',
+      },
+    },
+    {
+      type: 'image',
+      url: 'https://img.icons8.com/?size=80&id=3WbxGrgDDLw0&format=png',
+      props: {
+        zoom: 1,
+        offsetX: 130,
+        offsetY: 530,
+        // filter: 'contrast(100%)',
+      },
+    },
+    {
       type: 'text',
       x: 200, //200
       y: 350, //350
       text: text,
       props: {
-        fillStyle,
+        fillStyle: 'black',
         fontStyle,
         fontSize,
         font: fontTheme,
@@ -595,13 +647,12 @@ const BibleVerseDisplay = () => {
     },
 
     {
-      id: 7,
       type: 'text',
       x: 200, //200
-      y: 755, //755
+      y: 685, //755
       text: `${bookId} ${chapter}:${verse}`,
       props: {
-        fillStyle,
+        fillStyle: 'black',
         fontStyle,
         fontSize,
         font: fontTheme,
@@ -615,7 +666,6 @@ const BibleVerseDisplay = () => {
 
   const template8 = [
     {
-      id: 1,
       type: 'background',
       url: 'https://images.unsplash.com/photo-1469474968028-56623f02e42e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8bmF0dXJlfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60',
       props: {
@@ -626,7 +676,6 @@ const BibleVerseDisplay = () => {
       },
     },
     {
-      id: 2,
       type: 'oval',
       x: 630,
       y: 630,
@@ -638,7 +687,6 @@ const BibleVerseDisplay = () => {
       },
     },
     {
-      id: 6,
       type: 'text',
       x: 200, //200
       y: 350, //350
@@ -656,7 +704,6 @@ const BibleVerseDisplay = () => {
     },
 
     {
-      id: 7,
       type: 'text',
       x: 200, //200
       y: 755, //755
@@ -676,7 +723,6 @@ const BibleVerseDisplay = () => {
 
   const template9 = [
     {
-      id: 1,
       type: 'background',
       url: 'https://images.unsplash.com/photo-1469474968028-56623f02e42e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8bmF0dXJlfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60',
       props: {
@@ -687,7 +733,6 @@ const BibleVerseDisplay = () => {
       },
     },
     {
-      id: 2,
       type: 'oval',
       x: 630,
       y: 630,
@@ -699,7 +744,6 @@ const BibleVerseDisplay = () => {
       },
     },
     {
-      id: 6,
       type: 'text',
       x: 200, //200
       y: 350, //350
@@ -717,7 +761,6 @@ const BibleVerseDisplay = () => {
     },
 
     {
-      id: 7,
       type: 'text',
       x: 200, //200
       y: 755, //755
@@ -737,7 +780,6 @@ const BibleVerseDisplay = () => {
 
   const template10 = [
     {
-      id: 1,
       type: 'background',
       url: 'https://images.unsplash.com/photo-1469474968028-56623f02e42e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8bmF0dXJlfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60',
       props: {
@@ -748,7 +790,6 @@ const BibleVerseDisplay = () => {
       },
     },
     {
-      id: 2,
       type: 'oval',
       x: 630,
       y: 630,
@@ -760,7 +801,6 @@ const BibleVerseDisplay = () => {
       },
     },
     {
-      id: 6,
       type: 'text',
       x: 200, //200
       y: 350, //350
@@ -778,7 +818,6 @@ const BibleVerseDisplay = () => {
     },
 
     {
-      id: 7,
       type: 'text',
       x: 200, //200
       y: 755, //755
