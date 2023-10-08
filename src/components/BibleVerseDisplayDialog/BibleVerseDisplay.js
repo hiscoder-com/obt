@@ -649,7 +649,7 @@ const BibleVerseDisplay = () => {
     {
       type: 'text',
       x: 200, //200
-      y: 685, //755
+      y: 855, //755
       text: `${bookId} ${chapter}:${verse}`,
       props: {
         fillStyle: 'black',
@@ -667,23 +667,71 @@ const BibleVerseDisplay = () => {
   const template8 = [
     {
       type: 'background',
-      url: 'https://images.unsplash.com/photo-1469474968028-56623f02e42e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8bmF0dXJlfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60',
+      url: 'https://images.unsplash.com/photo-1592856908193-b9934576cf3d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8ZmllbGR8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60',
       props: {
         zoom: 1,
-        offsetX: -320,
+        offsetX: 0,
         offsetY: 0,
-        filter: 'contrast(104%) brightness(104%) opacity(.96)',
+        filter: 'contrast(84%) brightness(104%) opacity(.96)',
       },
     },
     {
-      type: 'oval',
-      x: 630,
-      y: 630,
-      radiusX: 525,
-      radiusY: 525,
+      type: 'rectangle',
+      x: 150,
+      y: 150,
+      width: 1000,
+      height: 1000,
       props: {
-        fillColor: 'blue',
-        filter: 'opacity(.50)',
+        fillColor: '#FFDAB9',
+        strokeColor: '#FFDAB9',
+        strokeWidth: 1,
+        filter: 'opacity(.7)',
+      },
+    },
+    {
+      type: 'line',
+      x1: 120,
+      y1: 120,
+      x2: 120,
+      y2: 1180,
+      props: {
+        lineColor: '#fff4',
+        lineWidth: 15,
+      },
+    },
+
+    {
+      type: 'line',
+      x1: 1180,
+      y1: 120,
+      x2: 1180,
+      y2: 1180,
+      props: {
+        lineColor: '#fff4',
+        lineWidth: 15,
+      },
+    },
+
+    {
+      type: 'line',
+      x1: 120,
+      y1: 120,
+      x2: 1180,
+      y2: 120,
+      props: {
+        lineColor: '#fff4',
+        lineWidth: 15,
+      },
+    },
+    {
+      type: 'line',
+      x1: 120,
+      y1: 1180,
+      x2: 1180,
+      y2: 1180,
+      props: {
+        lineColor: '#fff4',
+        lineWidth: 15,
       },
     },
     {
@@ -692,7 +740,7 @@ const BibleVerseDisplay = () => {
       y: 350, //350
       text: text,
       props: {
-        fillStyle,
+        fillStyle: '#75340D',
         fontStyle,
         fontSize,
         font: fontTheme,
@@ -709,7 +757,7 @@ const BibleVerseDisplay = () => {
       y: 755, //755
       text: `${bookId} ${chapter}:${verse}`,
       props: {
-        fillStyle,
+        fillStyle: '#75340D',
         fontStyle,
         fontSize,
         font: fontTheme,
@@ -724,29 +772,28 @@ const BibleVerseDisplay = () => {
   const template9 = [
     {
       type: 'background',
-      url: 'https://images.unsplash.com/photo-1469474968028-56623f02e42e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8bmF0dXJlfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60',
+      url: 'https://images.unsplash.com/photo-1487088678257-3a541e6e3922?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8dGhlJTIwYmFja2dyb3VuZCUyMGlzJTIwbW9ub3Rvbm91c3xlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60',
       props: {
         zoom: 1,
-        offsetX: -320,
+        offsetX: 0,
         offsetY: 0,
         filter: 'contrast(104%) brightness(104%) opacity(.96)',
       },
     },
     {
-      type: 'oval',
-      x: 630,
-      y: 630,
-      radiusX: 525,
-      radiusY: 525,
+      type: 'image',
+      url: 'https://bogatyr.club/uploads/posts/2023-03/thumbs/1678094738_bogatyr-club-p-mazok-kisti-foni-vkontakte-78.png',
       props: {
-        fillColor: 'white',
-        filter: 'opacity(.50)',
+        zoom: 1,
+        offsetX: 150,
+        offsetY: 600,
+        filter: 'invert(85%) opacity(.80)',
       },
     },
     {
       type: 'text',
       x: 200, //200
-      y: 350, //350
+      y: 150, //350
       text: text,
       props: {
         fillStyle,
@@ -766,7 +813,7 @@ const BibleVerseDisplay = () => {
       y: 755, //755
       text: `${bookId} ${chapter}:${verse}`,
       props: {
-        fillStyle,
+        fillStyle: 'black',
         fontStyle,
         fontSize,
         font: fontTheme,
