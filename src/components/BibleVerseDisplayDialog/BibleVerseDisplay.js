@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Canvas } from '@texttree/bible-verse-image';
 import { ReferenceContext } from '../../context';
 import {
@@ -45,22 +45,23 @@ const BibleVerseDisplay = () => {
     state: { referenceBlock },
   } = useContext(ReferenceContext);
 
-  const { bookId, chapter, verse, text } = referenceBlock;
+  const { text } = referenceBlock;
+
+  useEffect(() => {
+    updateTemplateData(selectedTemplate);
+  }, [selectedTemplate]);
 
   const updateFontColor = (newFontColor) => {
-    // Copy the template data array
     const updatedTemplateData = [...selectedTemplateData];
 
-    // Find the object responsible for font color (assuming it has a parameter 'fillStyle')
     const fontColorIndex = updatedTemplateData.findIndex(
-      (element) => element.param === 'verse' // Replace 'verse' with the parameter responsible for font color in your case
+      (element) => element.param === 'verse'
     );
 
     if (fontColorIndex !== -1) {
-      // Update the font color value
-      updatedTemplateData[fontColorIndex].props.fillStyle = newFontColor;
+      console.log(fontColorIndex, 62);
 
-      // Update selectedTemplateData within the function
+      updatedTemplateData[fontColorIndex].props.fillStyle = newFontColor;
       setSelectedTemplateData(updatedTemplateData);
     }
   };
@@ -68,7 +69,6 @@ const BibleVerseDisplay = () => {
   const handleFontChange = (e) => {
     setFontTheme(e.target.value);
   };
-
   const handleFontSizeChange = (e) => {
     setFontSize(Number(e.target.value));
   };
@@ -122,19 +122,38 @@ const BibleVerseDisplay = () => {
           temp[verseObjectIndex].text = text;
         }
         setSelectedTemplateData(temp);
-        console.log(temp, 125);
         break;
       case 'template3':
-        setSelectedTemplateData(template3);
+        temp = template3;
+        verseObjectIndex = temp.findIndex((element) => element.param === 'verse');
+        if (verseObjectIndex !== -1) {
+          temp[verseObjectIndex].text = text;
+        }
+        setSelectedTemplateData(temp);
         break;
       case 'template4':
-        setSelectedTemplateData(template4);
+        temp = template4;
+        verseObjectIndex = temp.findIndex((element) => element.param === 'verse');
+        if (verseObjectIndex !== -1) {
+          temp[verseObjectIndex].text = text;
+        }
+        setSelectedTemplateData(temp);
         break;
       case 'template5':
-        setSelectedTemplateData(template5);
+        temp = template5;
+        verseObjectIndex = temp.findIndex((element) => element.param === 'verse');
+        if (verseObjectIndex !== -1) {
+          temp[verseObjectIndex].text = text;
+        }
+        setSelectedTemplateData(temp);
         break;
       case 'template6':
-        setSelectedTemplateData(template6);
+        temp = template6;
+        verseObjectIndex = temp.findIndex((element) => element.param === 'verse');
+        if (verseObjectIndex !== -1) {
+          temp[verseObjectIndex].text = text;
+        }
+        setSelectedTemplateData(temp);
         break;
       case 'template7':
         setSelectedTemplateData(template7);

@@ -6,7 +6,7 @@ export const template1 = [
       zoom: 1,
       offsetX: 0,
       offsetY: 0,
-      filter: 'contrast(84%) brightness(114%)',
+      filter: 'contrast(84%) brightness(114%)  opacity(.16)',
     },
   },
   {
@@ -63,7 +63,7 @@ export const template1 = [
     y: 260,
     // text: text,
     props: {
-      fillStyle: 'white',
+      fillStyle: 'black',
       fontStyle: '800',
       fontSize: 95,
       font: 'Alumni Sans',
