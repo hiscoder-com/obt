@@ -10,6 +10,7 @@ import {
   Grid,
   Container,
 } from '@material-ui/core';
+import { useTranslation } from 'react-i18next';
 
 const BibleVerseDisplay = () => {
   const [fontSize, setFontSize] = useState(80);
@@ -25,6 +26,8 @@ const BibleVerseDisplay = () => {
 
   const [selectedTemplate, setSelectedTemplate] = useState('template1');
   const [canvasKey, setCanvasKey] = useState(0);
+
+  const { t } = useTranslation();
 
   const {
     state: { referenceBlock },
@@ -971,8 +974,14 @@ const BibleVerseDisplay = () => {
           <FormControl style={groopsStyle}>
             <InputLabel htmlFor="fontSelect">Выберите шрифт:</InputLabel>
             <Select id="fontSelect" value={fontTheme} onChange={handleFontChange}>
-              <MenuItem value="Alumni Sans">Alumni Sans</MenuItem>
+              <MenuItem value="Acme">Acme</MenuItem>
               <MenuItem value="Calibri">Calibri</MenuItem>
+              <MenuItem value="Crafty Girls">Crafty Girls</MenuItem>
+              <MenuItem value="Lekton">Lekton</MenuItem>
+              <MenuItem value="Loved by the King">Loved by the King</MenuItem>
+              <MenuItem value="Luckiest Guy">Luckiest Guy</MenuItem>
+              <MenuItem value="Pattaya">Pattaya</MenuItem>
+              <MenuItem value="Roboto">Roboto</MenuItem>
               <MenuItem value="Times New Roman">Times New Roman</MenuItem>
             </Select>
           </FormControl>
