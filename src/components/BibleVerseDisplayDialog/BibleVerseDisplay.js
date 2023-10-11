@@ -15,7 +15,7 @@ import { useTranslation } from 'react-i18next';
 const BibleVerseDisplay = () => {
   const [fontSize, setFontSize] = useState(80);
   const [fontStyle, setFontStyle] = useState('800');
-  const [fontTheme, setFontTheme] = useState('Alumni Sans');
+  const [fontTheme, setFontTheme] = useState('Calibri');
 
   const [fillStyle, setFillStyle] = useState('white');
   const [blockWidth, setBlockWidth] = useState(900);
@@ -71,6 +71,10 @@ const BibleVerseDisplay = () => {
     height: 1280,
     width: 1280,
   };
+
+  function getBook(bookId) {
+    return t(`${bookId}_abbr`);
+  }
 
   const template1 = [
     {
@@ -151,7 +155,7 @@ const BibleVerseDisplay = () => {
       type: 'text',
       x: 200,
       y: 1130,
-      text: `${bookId} ${chapter}:${verse}`,
+      text: `${getBook(bookId)} ${chapter}:${verse}`,
       props: {
         fillStyle,
         fontStyle,
@@ -208,7 +212,7 @@ const BibleVerseDisplay = () => {
       type: 'text',
       x: 200,
       y: 950,
-      text: `${bookId} ${chapter}:${verse}`,
+      text: `${getBook(bookId)} ${chapter}:${verse}`,
       props: {
         fillStyle,
         fontStyle,
@@ -267,7 +271,7 @@ const BibleVerseDisplay = () => {
       type: 'text',
       x: 200,
       y: 1160,
-      text: `${bookId} ${chapter}:${verse}`,
+      text: `${getBook(bookId)} ${chapter}:${verse}`,
       props: {
         fillStyle,
         fontStyle,
@@ -326,7 +330,7 @@ const BibleVerseDisplay = () => {
       type: 'text',
       x: 200, //200
       y: 755, //755
-      text: `${bookId} ${chapter}:${verse}`,
+      text: `${getBook(bookId)} ${chapter}:${verse}`,
       props: {
         fillStyle,
         fontStyle,
@@ -384,7 +388,7 @@ const BibleVerseDisplay = () => {
       type: 'text',
       x: 200,
       y: 1100,
-      text: `${bookId} ${chapter}:${verse}`,
+      text: `${getBook(bookId)} ${chapter}:${verse}`,
       props: {
         fillStyle,
         fontStyle,
@@ -522,7 +526,7 @@ const BibleVerseDisplay = () => {
       type: 'text',
       x: 730, //200
       y: 755, //755
-      text: `${bookId} ${chapter}:${verse}`,
+      text: `${getBook(bookId)} ${chapter}:${verse}`,
       props: {
         fillStyle,
         fontStyle,
@@ -619,7 +623,6 @@ const BibleVerseDisplay = () => {
         zoom: 1,
         offsetX: 1085,
         offsetY: 530,
-        // filter: 'contrast(0%)',
       },
     },
     {
@@ -629,7 +632,6 @@ const BibleVerseDisplay = () => {
         zoom: 1,
         offsetX: 130,
         offsetY: 530,
-        // filter: 'contrast(100%)',
       },
     },
     {
@@ -653,7 +655,7 @@ const BibleVerseDisplay = () => {
       type: 'text',
       x: 200, //200
       y: 855, //755
-      text: `${bookId} ${chapter}:${verse}`,
+      text: `${getBook(bookId)} ${chapter}:${verse}`,
       props: {
         fillStyle: 'black',
         fontStyle,
@@ -758,7 +760,7 @@ const BibleVerseDisplay = () => {
       type: 'text',
       x: 200, //200
       y: 755, //755
-      text: `${bookId} ${chapter}:${verse}`,
+      text: `${getBook(bookId)} ${chapter}:${verse}`,
       props: {
         fillStyle: '#75340D',
         fontStyle,
@@ -814,7 +816,7 @@ const BibleVerseDisplay = () => {
       type: 'text',
       x: 200, //200
       y: 755, //755
-      text: `${bookId} ${chapter}:${verse}`,
+      text: `${getBook(bookId)} ${chapter}:${verse}`,
       props: {
         fillStyle: 'black',
         fontStyle,
@@ -872,7 +874,7 @@ const BibleVerseDisplay = () => {
       type: 'text',
       x: 200, //200
       y: 755, //755
-      text: `${bookId} ${chapter}:${verse}`,
+      text: `${getBook(bookId)} ${chapter}:${verse}`,
       props: {
         fillStyle,
         fontStyle,
