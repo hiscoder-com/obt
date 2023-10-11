@@ -311,8 +311,8 @@ const BibleVerseDisplay = () => {
 
     {
       type: 'text',
-      x: 200, //200
-      y: 350, //350
+      x: 200,
+      y: 350,
       text: text,
       props: {
         fillStyle,
@@ -328,8 +328,8 @@ const BibleVerseDisplay = () => {
 
     {
       type: 'text',
-      x: 200, //200
-      y: 755, //755
+      x: 200,
+      y: 755,
       text: `${getBook(bookId)} ${chapter}:${verse}`,
       props: {
         fillStyle,
@@ -507,8 +507,8 @@ const BibleVerseDisplay = () => {
 
     {
       type: 'text',
-      x: 250, //200
-      y: 350, //350
+      x: 250,
+      y: 350,
       text: text,
       props: {
         fillStyle,
@@ -524,8 +524,8 @@ const BibleVerseDisplay = () => {
 
     {
       type: 'text',
-      x: 730, //200
-      y: 755, //755
+      x: 730,
+      y: 755,
       text: `${getBook(bookId)} ${chapter}:${verse}`,
       props: {
         fillStyle,
@@ -533,7 +533,7 @@ const BibleVerseDisplay = () => {
         fontSize,
         font: fontTheme,
         alignment: 'left',
-        blockWidth, //892
+        blockWidth,
         lineHeight,
         letterSpacing,
       },
@@ -636,8 +636,8 @@ const BibleVerseDisplay = () => {
     },
     {
       type: 'text',
-      x: 200, //200
-      y: 350, //350
+      x: 200,
+      y: 350,
       text: text,
       props: {
         fillStyle: 'black',
@@ -653,8 +653,8 @@ const BibleVerseDisplay = () => {
 
     {
       type: 'text',
-      x: 200, //200
-      y: 855, //755
+      x: 200,
+      y: 855,
       text: `${getBook(bookId)} ${chapter}:${verse}`,
       props: {
         fillStyle: 'black',
@@ -662,7 +662,7 @@ const BibleVerseDisplay = () => {
         fontSize,
         font: fontTheme,
         alignment,
-        blockWidth, //892
+        blockWidth,
         lineHeight,
         letterSpacing,
       },
@@ -741,8 +741,8 @@ const BibleVerseDisplay = () => {
     },
     {
       type: 'text',
-      x: 200, //200
-      y: 350, //350
+      x: 200,
+      y: 350,
       text: text,
       props: {
         fillStyle: '#75340D',
@@ -758,8 +758,8 @@ const BibleVerseDisplay = () => {
 
     {
       type: 'text',
-      x: 200, //200
-      y: 755, //755
+      x: 200,
+      y: 755,
       text: `${getBook(bookId)} ${chapter}:${verse}`,
       props: {
         fillStyle: '#75340D',
@@ -767,7 +767,7 @@ const BibleVerseDisplay = () => {
         fontSize,
         font: fontTheme,
         alignment,
-        blockWidth, //892
+        blockWidth,
         lineHeight,
         letterSpacing,
       },
@@ -797,8 +797,8 @@ const BibleVerseDisplay = () => {
     },
     {
       type: 'text',
-      x: 200, //200
-      y: 150, //350
+      x: 200,
+      y: 150,
       text: text,
       props: {
         fillStyle,
@@ -814,8 +814,8 @@ const BibleVerseDisplay = () => {
 
     {
       type: 'text',
-      x: 200, //200
-      y: 755, //755
+      x: 200,
+      y: 755,
       text: `${getBook(bookId)} ${chapter}:${verse}`,
       props: {
         fillStyle: 'black',
@@ -823,7 +823,7 @@ const BibleVerseDisplay = () => {
         fontSize,
         font: fontTheme,
         alignment,
-        blockWidth, //892
+        blockWidth,
         lineHeight,
         letterSpacing,
       },
@@ -855,8 +855,8 @@ const BibleVerseDisplay = () => {
     },
     {
       type: 'text',
-      x: 200, //200
-      y: 350, //350
+      x: 200,
+      y: 350,
       text: text,
       props: {
         fillStyle,
@@ -872,8 +872,8 @@ const BibleVerseDisplay = () => {
 
     {
       type: 'text',
-      x: 200, //200
-      y: 755, //755
+      x: 200,
+      y: 755,
       text: `${getBook(bookId)} ${chapter}:${verse}`,
       props: {
         fillStyle,
@@ -881,7 +881,7 @@ const BibleVerseDisplay = () => {
         fontSize,
         font: fontTheme,
         alignment,
-        blockWidth, //892
+        blockWidth,
         lineHeight,
         letterSpacing,
       },
