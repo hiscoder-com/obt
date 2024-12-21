@@ -5,6 +5,7 @@ import {
   Box,
   Button,
   IconButton,
+  Link,
   ListItemIcon,
   Menu,
   MenuItem,
@@ -37,6 +38,8 @@ import { useModalStyles, useStyles } from './style';
 
 import LogoOBT from './logo_obt.png';
 import LogoTT from './logo_tt.png';
+import Level from './level.svg';
+import Hiscoder from './hiscoder.svg';
 import { useSnackbar } from 'notistack';
 
 function SubMenuBar() {
@@ -211,12 +214,45 @@ function SubMenuBar() {
             </ListItemIcon>
             {t('Get_shared_links')}
           </MenuItem>
-
           <About
             open={openAbout}
             setOpen={setOpenAbout}
             handleClick={handleClickOpenAbout}
           />
+          <MenuItem
+            divider={true}
+            component={Link}
+            href={'https://level.bible'}
+            target="_blank"
+          >
+            <ListItemIcon>
+              <Box
+                component="img"
+                sx={{
+                  height: 16,
+                }}
+                alt="Level"
+                src={Level}
+              />
+            </ListItemIcon>
+            LEVEL.bible
+          </MenuItem>
+          <MenuItem component={Link} href={'https://hiscoder.com'} target="_blank">
+            <ListItemIcon>
+              <Box
+                component="img"
+                sx={{
+                  height: 12,
+                }}
+                alt="Hiscoder"
+                src={Hiscoder}
+              />
+            </ListItemIcon>
+            <div>
+              <span>Powered by </span>
+              <span style={{ color: '#358d62' }}>HisCoder.com</span>
+            </div>
+          </MenuItem>
         </Menu>
         <SearchResources
           anchorEl={anchorAddMaterial}
