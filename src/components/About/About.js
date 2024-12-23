@@ -31,7 +31,7 @@ function About({ open, setOpen, handleClick }) {
 
   return (
     <>
-      <MenuItem onClick={handleClick}>
+      <MenuItem onClick={handleClick} divider={true}>
         <ListItemIcon>
           <InfoRoundedIcon fontSize="small" />
         </ListItemIcon>
