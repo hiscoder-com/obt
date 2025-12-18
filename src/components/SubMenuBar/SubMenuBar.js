@@ -39,7 +39,7 @@ import { useModalStyles, useStyles } from './style';
 import LogoOBT from './logo_obt.png';
 import LogoTT from './logo_tt.png';
 import Level from './level.svg';
-import Hiscoder from './hiscoder.svg';
+import Gecraft from './gecraft.svg';
 import { useSnackbar } from 'notistack';
 
 function SubMenuBar() {
@@ -237,20 +237,20 @@ function SubMenuBar() {
             </ListItemIcon>
             LEVEL.bible
           </MenuItem>
-          <MenuItem component={Link} href={'https://hiscoder.com'} target="_blank">
+          <MenuItem component={Link} href={'https://gecraft.com'} target="_blank">
             <ListItemIcon>
               <Box
                 component="img"
                 sx={{
-                  height: 12,
+                  height: 18,
                 }}
-                alt="Hiscoder"
-                src={Hiscoder}
+                alt="Gecraft"
+                src={Gecraft}
               />
             </ListItemIcon>
             <div>
               <span>Powered by </span>
-              <span style={{ color: '#358d62' }}>HisCoder.com</span>
+              <span style={{ color: '#358d62' }}>Gecraft</span>
             </div>
           </MenuItem>
         </Menu>
